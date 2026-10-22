@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tab5 × Tang Primer 20K キャリア基板 企画・設計仕様</title>
+<meta name="description" content="M5Stack Tab5 の M5-Bus に直挿しし Tang Primer 20K Core を載せるキャリア基板の企画と設計仕様（ドラフト）">
+<style>
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --ink:#1b1f24; --muted:#5b6672; --line:#d9dee4;
+  --accent:#1f6feb; --ok:#1a7f37; --okbg:#e3f5e8; --warn:#9a6700; --warnbg:#fff4d1;
+  --bad:#cf222e; --badbg:#fde4e6; --info:#0a6aa1; --infobg:#e1f1fb;
+  --pcb:#1f7a4d; --pcb2:#2f9e68; --tab5:#c9ced6; --code:#eef1f5;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1318; --panel:#171c23; --ink:#e6eaef; --muted:#9aa5b1; --line:#2b333d;
+    --accent:#58a6ff; --ok:#56d364; --okbg:#10301a; --warn:#e3b341; --warnbg:#3a2d0b;
+    --bad:#ff7b72; --badbg:#3c1418; --info:#79c0ff; --infobg:#0d2c44;
+    --pcb:#1d6b45; --pcb2:#2b8a5c; --tab5:#3a424d; --code:#222a33;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1318; --panel:#171c23; --ink:#e6eaef; --muted:#9aa5b1; --line:#2b333d;
+  --accent:#58a6ff; --ok:#56d364; --okbg:#10301a; --warn:#e3b341; --warnbg:#3a2d0b;
+  --bad:#ff7b72; --badbg:#3c1418; --info:#79c0ff; --infobg:#0d2c44;
+  --pcb:#1d6b45; --pcb2:#2b8a5c; --tab5:#3a424d; --code:#222a33;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 "Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif}
+a{color:var(--accent)}
+header.top{background:var(--panel);border-bottom:1px solid var(--line);padding:28px 16px 20px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header.top .wrap{padding:0}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 6px}
+.sub{color:var(--muted);margin:0}
+.badge{display:inline-block;font-size:.78rem;padding:2px 10px;border-radius:999px;background:var(--warnbg);color:var(--warn);border:1px solid var(--warn);margin-right:6px;vertical-align:middle}
+nav.toc{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+nav.toc .wrap{display:flex;gap:4px;padding-top:6px;padding-bottom:6px}
+nav.toc a{padding:4px 12px;border-radius:6px;text-decoration:none;color:var(--ink);font-size:.9rem}
+nav.toc a:hover{background:var(--code)}
+section{padding:36px 0 8px}
+h2{font-size:1.35rem;margin:0 0 14px;padding-left:12px;border-left:5px solid var(--accent)}
+h3{font-size:1.08rem;margin:26px 0 8px}
+p{margin:.6em 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.callout{border-left:5px solid var(--info);background:var(--infobg);padding:10px 14px;border-radius:6px;margin:14px 0}
+.callout.warn{border-color:var(--warn);background:var(--warnbg)}
+.callout.bad{border-color:var(--bad);background:var(--badbg)}
+.callout.ok{border-color:var(--ok);background:var(--okbg)}
+.callout b.t{display:block;margin-bottom:2px}
+figure{margin:16px 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{color:var(--muted);font-size:.88rem;padding:6px 6px 2px}
+.tw{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:560px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--code);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.c,th.c{text-align:center}
+.t-ok{background:var(--okbg);color:var(--ok);font-weight:600}
+.t-warn{background:var(--warnbg);color:var(--warn);font-weight:600}
+.t-bad{background:var(--badbg);color:var(--bad);font-weight:600}
+.t-info{background:var(--infobg);color:var(--info);font-weight:600}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font-family:ui-monospace,Consolas,monospace;font-size:.88em}
+ul{padding-left:1.3em;margin:.5em 0}
+li{margin:.2em 0}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:14px 0}
+.kpi div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi b{display:block;font-size:1.25rem}
+.kpi span{color:var(--muted);font-size:.85rem}
+footer{color:var(--muted);font-size:.85rem;padding:32px 0 48px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.85rem;color:var(--muted);margin:6px 2px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+svg text{font-family:inherit;fill:var(--ink)}
+svg .mut{fill:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="top">
+ <div class="wrap">
+  <p><span class="badge">ドラフト v0.2</span><span class="badge">設計前・未検証事項あり</span></p>
+  <h1>Tab5 × Tang Primer 20K キャリア基板<br>企画・設計仕様</h1>
+  <p class="sub">M5Stack Tab5（ESP32-P4）の M5-Bus に直挿しし、Tang Primer 20K Core（GW2A-18＋128MB DDR3）を載せる専用基板。更新：2026-10-22</p>
+ </div>
+</header>
+
+<nav class="toc"><div class="wrap">
+ <a href="#overview">概要</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="overview">
+ <h2>1. 概要</h2>
+ <div class="kpi">
+  <div><b>8bit → 16bit</b><span>初期はPARLIO 8bit並列。回路は16bit拡張を想定</span></div>
+  <div><b>外部 12〜24V</b><span>Tab5 HVINへ供給。FPGAは別系統5V</span></div>
+  <div><b>HDMI 入出力</b><span>出力はTLVDS直駆動、入力は直結実験から</span></div>
+  <div><b>JLCPCB PCBA</b><span>基本部品中心。拡張部品が多ければTHT手組</span></div>
+ </div>
+
+ <figure>
+ <svg viewBox="0 0 760 330" role="img" aria-label="積層構成の側面図">
+  <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--muted)"/></marker></defs>
+  <!-- Tab5 -->
+  <rect x="40" y="250" width="680" height="34" rx="6" fill="var(--tab5)" stroke="var(--line)"/>
+  <text x="380" y="272" text-anchor="middle" font-size="15" font-weight="600">M5Stack Tab5（背面を上にした側面）</text>
+  <!-- M5 bus socket -->
+  <rect x="80" y="226" width="110" height="24" fill="#555" opacity=".85"/>
+  <text x="135" y="243" text-anchor="middle" font-size="12" fill="#fff" style="fill:#fff">M5-Bus ソケット 2×15</text>
+  <!-- header pins -->
+  <g fill="#c8a415"><rect x="92" y="196" width="4" height="40"/><rect x="108" y="196" width="4" height="40"/><rect x="124" y="196" width="4" height="40"/><rect x="140" y="196" width="4" height="40"/><rect x="156" y="196" width="4" height="40"/><rect x="172" y="196" width="4" height="40"/></g>
+  <rect x="82" y="174" width="108" height="22" fill="#222"/>
+  <text x="136" y="190" text-anchor="middle" font-size="12" style="fill:#fff">ピンヘッダ（Tab5面）</text>
+  <!-- carrier -->
+  <rect x="60" y="150" width="640" height="24" rx="3" fill="var(--pcb)"/>
+  <text x="380" y="167" text-anchor="middle" font-size="14" font-weight="600" style="fill:#fff">キャリア基板（4層・1.6mm）　M3ネジ穴×4＋中央×2でTab5背面へスタック</text>
+  <!-- sodimm socket + core -->
+  <rect x="215" y="134" width="40" height="16" fill="#444"/>
+  <text x="235" y="128" text-anchor="middle" font-size="12">SODIMMソケット</text>
+  <rect x="225" y="112" width="250" height="22" rx="3" fill="var(--pcb2)"/>
+  <text x="350" y="128" text-anchor="middle" font-size="13" font-weight="600" style="fill:#fff">Tang Primer 20K Core（67.6×30mm）</text>
+  <rect x="320" y="98" width="40" height="14" fill="#222"/>
+  <text x="340" y="92" text-anchor="middle" font-size="12">FPGA</text>
+  <!-- hdmi -->
+  <rect x="600" y="120" width="76" height="30" rx="3" fill="#777"/>
+  <text x="638" y="112" text-anchor="middle" font-size="12">HDMI コネクタ</text>
+  <rect x="500" y="132" width="50" height="18" rx="3" fill="#777"/>
+  <text x="525" y="126" text-anchor="middle" font-size="12">DC入力</text>
+  <!-- dims -->
+  <line x1="28" y1="150" x2="28" y2="250" stroke="var(--muted)" marker-end="url(#ar)" marker-start="url(#ar)"/>
+  <text x="22" y="205" text-anchor="end" font-size="12" class="mut">スタック間隔</text>
+  <text x="22" y="220" text-anchor="end" font-size="12" class="mut">（ヘッダ長で決定）</text>
+  <text x="380" y="318" text-anchor="middle" font-size="13" class="mut">表面（Tab5側）＝ピンヘッダのみ ／ 背面（外側）＝Core・HDMI・電源・周辺コネクタ</text>
+ </svg>
+ <figcaption>図1　積層構成。Tab5側の面にM5-Bus用ピンヘッダ、外側の面にCoreソケットとコネクタ類を集約。</figcaption>
+ </figure>
+
+ <div class="callout info"><b class="t">この文書の位置づけ</b>
+  Tab5・Core・ESP32-P4の一次資料（回路図・データシート）を取得して照合した結果と、それに基づく設計方針をまとめたものです。回路図・PCBは未作成です。確認済み事項と、まだ確認できていない事項を区別して記載しています。</div>
+</section>
+
+<section id="mech">
+ <h2>2. 機構・外形</h2>
+ <p>方針：Tab5の背面にある<b>M3ネジ穴</b>に合わせて基板にも穴を開け、<b>ネジ止めでスタック</b>できるようにします。Tab5側の面にはM5-Bus用ピンヘッダのみを出し、反対面にCoreソケットとHDMI等を載せます。</p>
+
+ <figure>
+ <svg viewBox="0 0 800 520" role="img" aria-label="Tab5背面とキャリア基板の配置（背面から見た図、1mm=6px）">
+  <g transform="translate(16,20)">
+   <!-- Tab5 body -->
+   <rect x="0" y="0" width="768" height="480" rx="24" fill="var(--tab5)" stroke="var(--muted)" stroke-width="2"/>
+   <!-- battery bay -->
+   <rect x="30" y="48" width="276" height="384" rx="6" fill="none" stroke="var(--muted)" stroke-dasharray="6 4"/>
+   <text x="168" y="236" text-anchor="middle" font-size="15" class="mut">NP-F550</text>
+   <text x="168" y="258" text-anchor="middle" font-size="15" class="mut">バッテリーベイ（2S）</text>
+   <!-- carrier outline x49..127 y2..78 -->
+   <rect x="294" y="12" width="468" height="456" rx="10" fill="var(--pcb)" opacity=".28" stroke="var(--pcb)" stroke-width="3"/>
+   <text x="300" y="6" font-size="13" class="mut" style="fill:var(--pcb)">キャリア基板 約78×76mm（案）</text>
+   <!-- M5-Bus strip x53..58 y21..59.1 -->
+   <rect x="318" y="126" width="30" height="229" fill="none" stroke="#c8a415" stroke-width="2.5" stroke-dasharray="5 3"/>
+   <text x="333" y="118" text-anchor="middle" font-size="12">M5-Bus</text>
+   <text x="333" y="372" text-anchor="middle" font-size="12" class="mut">（反対面ヘッダ）</text>
+   <!-- Core vertical x63..93 y6..73.6 -->
+   <rect x="378" y="36" width="180" height="406" rx="4" fill="var(--pcb2)" opacity=".75" stroke="var(--pcb)" stroke-width="2"/>
+   <text x="468" y="230" text-anchor="middle" font-size="15" font-weight="600" style="fill:#fff">Tang Primer 20K</text>
+   <text x="468" y="252" text-anchor="middle" font-size="15" font-weight="600" style="fill:#fff">Core 67.6×30mm</text>
+   <rect x="354" y="36" width="24" height="406" fill="#444"/>
+   <text x="366" y="240" text-anchor="middle" font-size="11" style="fill:#fff" transform="rotate(-90 366 240)">SODIMMソケット</text>
+   <!-- HDMI -->
+   <rect x="660" y="60" width="90" height="72" rx="4" fill="#777"/>
+   <text x="705" y="102" text-anchor="middle" font-size="13" style="fill:#fff">HDMI OUT</text>
+   <rect x="660" y="148" width="90" height="72" rx="4" fill="#777"/>
+   <text x="705" y="190" text-anchor="middle" font-size="13" style="fill:#fff">HDMI IN</text>
+   <!-- DC in -->
+   <rect x="640" y="360" width="110" height="96" rx="4" fill="#777"/>
+   <text x="695" y="400" text-anchor="middle" font-size="13" style="fill:#fff">DC入力</text>
+   <text x="695" y="418" text-anchor="middle" font-size="12" style="fill:#fff">12〜24V</text>
+   <!-- PMOD -->
+   <rect x="590" y="250" width="40" height="92" fill="#444"/>
+   <text x="610" y="296" text-anchor="middle" font-size="11" style="fill:#fff" transform="rotate(-90 610 296)">PMOD 2×6</text>
+   <!-- DCDC -->
+   <rect x="574" y="360" width="56" height="96" rx="4" fill="#5a4a8a" opacity=".85"/>
+   <text x="602" y="412" text-anchor="middle" font-size="11" style="fill:#fff" transform="rotate(-90 602 412)">降圧DC-DC</text>
+   <!-- holes -->
+   <g fill="var(--bg)" stroke="var(--ink)" stroke-width="2">
+    <circle cx="24" cy="24" r="9"/><circle cx="24" cy="456" r="9"/>
+    <circle cx="322" cy="24" r="9"/><circle cx="322" cy="456" r="9"/>
+    <circle cx="744" cy="24" r="9"/><circle cx="744" cy="456" r="9"/>
+    <circle cx="588" cy="108" r="9"/><circle cx="588" cy="372" r="9"/>
+   </g>
+   <g fill="none" stroke="var(--ink)" stroke-width="1.5"><circle cx="312" cy="108" r="6"/><circle cx="312" cy="372" r="6"/></g>
+   <!-- hole labels -->
+   <text x="744" y="52" text-anchor="middle" font-size="11">(124,4)</text>
+   <text x="322" y="52" text-anchor="middle" font-size="11">(51,4)</text>
+   <text x="744" y="446" text-anchor="middle" font-size="11" dy="-14">(124,76)</text>
+   <text x="322" y="446" text-anchor="middle" font-size="11" dy="-14">(51,76)</text>
+   <text x="588" y="90" text-anchor="middle" font-size="11">(96,18)</text>
+   <text x="588" y="396" text-anchor="middle" font-size="11">(96,62)</text>
+  </g>
+  <!-- scale -->
+  <line x1="16" y1="510" x2="76" y2="510" stroke="var(--ink)"/><text x="86" y="514" font-size="12">10mm</text>
+ </svg>
+ <figcaption>図2　Tab5を背面から見た図（縮尺1mm＝6px）。丸＝M3ネジ穴の位置（Tab5左上を原点とした座標mm）。二重丸＝小穴。M5-Bus位置・基板外形・部品配置は図面から読み取った<b>概念案</b>で、実寸はSTL・実機で確認します。</figcaption>
+ </figure>
+
+ <h3>Tab5背面のネジ穴（公式寸法図より）</h3>
+ <div class="tw"><table>
+  <thead><tr><th>穴</th><th>座標 (x,y) mm</th><th>用途・備考</th></tr></thead>
+  <tbody>
+   <tr><td>四隅の主穴</td><td>(51,4) (51,76) (124,4) (124,76)</td><td>M3×10。<b>キャリアのスタック用（73×72mmの矩形）</b></td></tr>
+   <tr><td>中央ボス</td><td>(96,18) (96,62)</td><td>M3ボス（44mm間隔）。キャリアにも穴を開け、補強用に使用</td></tr>
+   <tr><td>左側（バッテリーベイ側）</td><td>(4,4) (4,76) ほか</td><td>バッテリーベイ周辺。キャリアは使用しない</td></tr>
+  </tbody></table></div>
+ <div class="callout warn"><b class="t">要確認</b>
+  上記座標は寸法図の画像から読み取りました。Tab5背面は筐体形状が複雑で、M5-Busの位置（図では背面左寄りの縦長コネクタ、約39mm）も図面からの推定です。製作前に <code>reference/tab5/Tab5.stl</code> を使ったCAD重ね合わせ確認が必要です。</div>
+
+ <h3>Core（Tang Primer 20K）の寸法</h3>
+ <ul>
+  <li>外形 <b>67.6 × 30.0mm</b>、DDR3 SODIMM 204ピン形状（ピン1〜71／73〜204、キー切欠きあり）。</li>
+  <li>Core上のJST-SH 8ピン（JTAG＋UART）デバッガコネクタに<b>手が届く</b>配置にします。</li>
+  <li>ソケットは<b>横置き（Coreが基板と平行）</b>のSODIMMソケットを想定し、HDMI・DC入力は反対側の縁に配置。</li>
+ </ul>
+
+ <h3>キーボード（A164）との機械干渉</h3>
+ <p>Tab5用キーボード（128×59.4×13.1mm）は下部のExt.Port1に装着します。キャリアは背面のM5-Bus側にあるため配線上の競合はありませんが、<b>厚みと外形の干渉</b>はCADで確認します。</p>
+</section>
+
+<section id="power">
+ <h2>3. 電源</h2>
+
+ <div class="callout bad"><b class="t">前提の訂正（回路図で確認）</b>
+  NP-F550 は<b>2S（直列2セル）7.4V公称、満充電8.4V、放電終止約6V</b>で、4.2Vではありません（Tab5回路図に <code>SYS_BAT_2S</code>、ピンマップに「BAT 2S」）。<br>
+  また <b>M5-Busのピン30「BAT」はバッテリー直結ではありません</b>。回路図では <code>VBAT_OUT</code> が内部5Vからの降圧（SY8089、帰還抵抗100k/22kで約3.3V）出力です。M5-Busからバッテリー電圧を取り出すことはできません。</div>
+
+ <h3>Tab5側の電源構造（回路図4頁より）</h3>
+ <figure>
+ <svg viewBox="0 0 780 380" role="img" aria-label="Tab5内部の電源構造">
+  <defs><marker id="a2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--ink)"/></marker></defs>
+  <g font-size="13">
+   <rect x="20" y="30" width="120" height="44" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="80" y="50" text-anchor="middle">M5-Bus HPWR</text><text x="80" y="66" text-anchor="middle" class="mut">ピン25/27/29</text>
+   <rect x="170" y="30" width="130" height="44" rx="6" fill="var(--warnbg)" stroke="var(--warn)"/><text x="235" y="50" text-anchor="middle">D7＋PTC 1A/30V</text><text x="235" y="66" text-anchor="middle" class="mut">逆流防止＋電流制限</text>
+   <rect x="330" y="30" width="120" height="44" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="390" y="50" text-anchor="middle">MP4560</text><text x="390" y="66" text-anchor="middle" class="mut">降圧 6〜24V入力</text>
+   <rect x="480" y="30" width="110" height="44" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="535" y="57" text-anchor="middle">PRE_5V</text>
+   <rect x="20" y="180" width="130" height="50" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="85" y="202" text-anchor="middle">NP-F550</text><text x="85" y="220" text-anchor="middle" class="mut">2S 6.0〜8.4V</text>
+   <rect x="180" y="180" width="130" height="50" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="245" y="202" text-anchor="middle">SYS_BAT_2S</text><text x="245" y="220" text-anchor="middle" class="mut">INA226で電流監視</text>
+   <rect x="340" y="180" width="120" height="50" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="400" y="202" text-anchor="middle">SY8113</text><text x="400" y="220" text-anchor="middle" class="mut">昇降圧(5V系)</text>
+   <rect x="490" y="180" width="100" height="50" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="540" y="210" text-anchor="middle">SYS_INT5V</text>
+   <rect x="640" y="130" width="120" height="44" rx="6" fill="var(--infobg)" stroke="var(--info)"/><text x="700" y="150" text-anchor="middle">M5-Bus ピン28</text><text x="700" y="166" text-anchor="middle" class="mut">EXT5V（出力）</text>
+   <rect x="640" y="240" width="120" height="44" rx="6" fill="var(--infobg)" stroke="var(--info)"/><text x="700" y="260" text-anchor="middle">M5-Bus ピン30</text><text x="700" y="276" text-anchor="middle" class="mut">VBAT_OUT≒3.3V</text>
+   <rect x="400" y="310" width="150" height="44" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="475" y="337" text-anchor="middle">IP2326 充電IC</text>
+  </g>
+  <g stroke="var(--ink)" stroke-width="1.5" fill="none" marker-end="url(#a2)">
+   <path d="M140,52 H170"/><path d="M300,52 H330"/><path d="M450,52 H480"/>
+   <path d="M150,205 H180"/><path d="M310,205 H340"/><path d="M460,205 H490"/>
+   <path d="M590,205 C615,205 615,152 640,152"/><path d="M590,215 C615,215 615,262 640,262"/>
+   <path d="M535,74 V180"/><path d="M510,230 C500,290 500,300 470,310"/>
+  </g>
+  <text x="640" y="116" font-size="12" class="mut">EXT5V_EN（IOエキスパンダ）で出力制御</text>
+ </svg>
+ <figcaption>図3　Tab5内部の電源経路。HVINは<b>1A PTC</b>を通るため、Tab5が使える電力が制限される。バッテリー電圧はM5-Busに出ない。</figcaption>
+ </figure>
+
+ <h3>FPGA（Core）用5Vの供給方式 比較</h3>
+ <p>Coreは <code>+5V</code>（SODIMMピン4・6）入力で、Core内で3.3V・1.5V・1.0Vを生成します。以下の4方式を比較しました。</p>
+ <div class="tw"><table>
+  <thead><tr><th>方式</th><th>電源の取り方</th><th class="c">電力余裕</th><th class="c">実現性</th><th>主な課題</th></tr></thead>
+  <tbody>
+   <tr><td><b>A. バッテリー→キャリアDC-DC→5V</b><br>（ご要望の優先案）</td><td>NP-F550の2S電圧（6.0〜8.4V）をタップし、降圧DC-DC（5.5V入力以上のIC）で5V化</td><td class="c t-ok">大</td><td class="c t-warn">要機構検討</td><td>M5-Busにバッテリー線が出ない。取り出しは (a)バッテリーとTab5の間に挟むタップ基板、(b)Tab5内部J12(4pin)からの配線、のいずれか。低電圧(6V付近)での降圧限界と過放電保護が必要</td></tr>
+   <tr><td><b>B. Tab5のEXT5V（M5-Busピン28）</b></td><td>Tab5内部5V系をIOエキスパンダ制御のロードスイッチ(LPW5209)経由で取り出す</td><td class="c t-warn">小〜中</td><td class="c t-ok">配線のみ</td><td>Tab5の5V系と電力を共有。ロードスイッチの電流上限・Tab5降圧器の余力が未確認。Tab5がオフだとFPGAも落ちる</td></tr>
+   <tr><td><b>C. 外部12〜24V→キャリアDC-DC→5V</b></td><td>入力ジャックから別系統の降圧(TPS5430等)</td><td class="c t-ok">大</td><td class="c t-ok">容易</td><td>外部電源が必要（バッテリー単体運用には使えない）</td></tr>
+   <tr><td><b>D. 併用（ダイオードOR）</b></td><td>A（またはB）とCをOR接続し、1つの降圧ICに入力</td><td class="c t-ok">大</td><td class="c t-warn">A次第</td><td>広入力(5.5〜36V)のICなら1個で済む。バッテリーを優先するには理想ダイオード/PMOS優先回路が必要</td></tr>
+  </tbody></table></div>
+
+ <div class="callout ok"><b class="t">推奨</b>
+  <b>広入力降圧IC 1個（候補：TPS5430、入力5.5〜36V・3A）</b>を使い、入力を「バッテリータップ（A）」と「外部12〜24V（C）」のOR接続にします。これならバッテリー単独でも外部電源単独でも動作します。バッテリータップが機構的に困難な場合は、Bを暫定の試験用に<b>ジャンパ選択</b>で実装します。Tab5のHVINへは外部電源のみを供給し、バッテリー系統とは分離します。</div>
+
+ <h3>バッテリー駆動時の降圧限界</h3>
+ <ul>
+  <li>2Sの放電終止付近（約6〜6.4V）から5Vを作るため、降圧ICの<b>最小入力電圧と最大デューティ</b>の余裕が必要です（TPS5430は最小入力5.5V、ただし5V出力時のドロップアウトはデータシートで要確認）。</li>
+  <li>Core＋HDMI分の<b>消費電流は2A以下</b>を目標として、3A級のICで余裕を確保。実測が必要です。</li>
+  <li>バッテリー保護（過放電）はTab5の電源管理に依存。FPGAを併用してバッテリーを空にしないよう、<b>低電圧ロックアウト</b>（入力分圧でEN制御）を設けます。</li>
+ </ul>
+
+ <h3>外部12〜24V入力の保護</h3>
+ <ul>
+  <li>逆接続保護（PMOS）、TVS、ヒューズまたはPTC。</li>
+  <li>Tab5 HVINは「6〜24V」表記ですが、内部に<b>1A PTC</b>があり、MP4560の絶対最大定格は未確認です。24V運用時のTVSのクランプ電圧は定格確認後に決定。</li>
+  <li><b>Tab5の5V（ピン28）とキャリアの5Vは、直結しない</b>のが原則です（Bを使う場合のみジャンパで限定接続）。</li>
+ </ul>
+</section>
+
+<section id="gpio">
+ <h2>4. GPIO競合検証</h2>
+ <p>Tab5回路図の全頁で各GPIOのネットを検索し、M5-Bus以外の接続先を確認しました。ESP32-P4データシートのストラッピング・JTAG仕様とも照合しています。</p>
+
+ <div class="legend"><span><i style="background:var(--okbg);border:1px solid var(--ok)"></i>競合なし</span><span><i style="background:var(--warnbg);border:1px solid var(--warn)"></i>条件付き</span><span><i style="background:var(--badbg);border:1px solid var(--bad)"></i>使用不可／要隔離</span><span><i style="background:var(--infobg);border:1px solid var(--info)"></i>電源・制御</span></div>
+
+ <figure>
+ <svg viewBox="0 0 760 520" role="img" aria-label="M5-Bus30ピンの割当と判定">
+  <style>
+   .p rect{stroke-width:1.5}
+   .pn{font-size:12px;fill:var(--muted)}
+   .pt{font-size:13px;font-weight:600}
+   .ok rect{fill:var(--okbg);stroke:var(--ok)} .wn rect{fill:var(--warnbg);stroke:var(--warn)} .bd rect{fill:var(--badbg);stroke:var(--bad)} .in rect{fill:var(--infobg);stroke:var(--info)}
+  </style>
+  <text x="190" y="22" text-anchor="middle" font-size="14" font-weight="600">奇数ピン</text>
+  <text x="570" y="22" text-anchor="middle" font-size="14" font-weight="600">偶数ピン</text>
+  <g class="p">
+<g class="in"><rect x="20" y="34" width="340" height="26" rx="5"/><text class="pn" x="30" y="51">1</text><text class="pt" x="64" y="52">GND</text></g>
+<g class="in"><rect x="20" y="65" width="340" height="26" rx="5"/><text class="pn" x="30" y="82">3</text><text class="pt" x="64" y="83">GND</text></g>
+<g class="in"><rect x="20" y="96" width="340" height="26" rx="5"/><text class="pn" x="30" y="113">5</text><text class="pt" x="64" y="114">GND</text></g>
+<g class="ok"><rect x="20" y="127" width="340" height="26" rx="5"/><text class="pn" x="30" y="144">7</text><text class="pt" x="64" y="145">G18 (MOSI) D0</text></g>
+<g class="ok"><rect x="20" y="158" width="340" height="26" rx="5"/><text class="pn" x="30" y="175">9</text><text class="pt" x="64" y="176">G19 (MISO) D1</text></g>
+<g class="ok"><rect x="20" y="189" width="340" height="26" rx="5"/><text class="pn" x="30" y="206">11</text><text class="pt" x="64" y="207">G5 (SCK) D2</text></g>
+<g class="bd"><rect x="20" y="220" width="340" height="26" rx="5"/><text class="pn" x="30" y="237">13</text><text class="pt" x="64" y="238">G38 (U0RXD)</text></g>
+<g class="wn"><rect x="20" y="251" width="340" height="26" rx="5"/><text class="pn" x="30" y="268">15</text><text class="pt" x="64" y="269">G7（補助）</text></g>
+<g class="wn"><rect x="20" y="282" width="340" height="26" rx="5"/><text class="pn" x="30" y="299">17</text><text class="pt" x="64" y="300">G31 SYS_SDA</text></g>
+<g class="ok"><rect x="20" y="313" width="340" height="26" rx="5"/><text class="pn" x="30" y="330">19</text><text class="pt" x="64" y="331">G3 D3</text></g>
+<g class="ok"><rect x="20" y="344" width="340" height="26" rx="5"/><text class="pn" x="30" y="361">21</text><text class="pt" x="64" y="362">G2 D5</text></g>
+<g class="ok"><rect x="20" y="375" width="340" height="26" rx="5"/><text class="pn" x="30" y="392">23</text><text class="pt" x="64" y="393">G47 D7</text></g>
+<g class="in"><rect x="20" y="406" width="340" height="26" rx="5"/><text class="pn" x="30" y="423">25</text><text class="pt" x="64" y="424">HPWR</text></g>
+<g class="in"><rect x="20" y="437" width="340" height="26" rx="5"/><text class="pn" x="30" y="454">27</text><text class="pt" x="64" y="455">HPWR</text></g>
+<g class="in"><rect x="20" y="468" width="340" height="26" rx="5"/><text class="pn" x="30" y="485">29</text><text class="pt" x="64" y="486">HPWR</text></g>
+<g class="ok"><rect x="400" y="34" width="340" height="26" rx="5"/><text class="pn" x="410" y="51">2</text><text class="pt" x="444" y="52">G16 CLK</text></g>
+<g class="ok"><rect x="400" y="65" width="340" height="26" rx="5"/><text class="pn" x="410" y="82">4</text><text class="pt" x="444" y="83">G17（補助）</text></g>
+<g class="in"><rect x="400" y="96" width="340" height="26" rx="5"/><text class="pn" x="410" y="113">6</text><text class="pt" x="444" y="114">SOC_RST</text></g>
+<g class="ok"><rect x="400" y="127" width="340" height="26" rx="5"/><text class="pn" x="410" y="144">8</text><text class="pt" x="444" y="145">G45 READY</text></g>
+<g class="ok"><rect x="400" y="158" width="340" height="26" rx="5"/><text class="pn" x="410" y="175">10</text><text class="pt" x="444" y="176">G52（補助）</text></g>
+<g class="in"><rect x="400" y="189" width="340" height="26" rx="5"/><text class="pn" x="410" y="206">12</text><text class="pt" x="444" y="207">3V3（出力）</text></g>
+<g class="bd"><rect x="400" y="220" width="340" height="26" rx="5"/><text class="pn" x="410" y="237">14</text><text class="pt" x="444" y="238">G37 (U0TXD)</text></g>
+<g class="wn"><rect x="400" y="251" width="340" height="26" rx="5"/><text class="pn" x="410" y="268">16</text><text class="pt" x="444" y="269">G6（補助）</text></g>
+<g class="wn"><rect x="400" y="282" width="340" height="26" rx="5"/><text class="pn" x="410" y="299">18</text><text class="pt" x="444" y="300">G32 SYS_SCL</text></g>
+<g class="ok"><rect x="400" y="313" width="340" height="26" rx="5"/><text class="pn" x="410" y="330">20</text><text class="pt" x="444" y="331">G4 D4</text></g>
+<g class="ok"><rect x="400" y="344" width="340" height="26" rx="5"/><text class="pn" x="410" y="361">22</text><text class="pt" x="444" y="362">G48 D6</text></g>
+<g class="bd"><rect x="400" y="375" width="340" height="26" rx="5"/><text class="pn" x="410" y="392">24</text><text class="pt" x="444" y="393">G35 BOOT</text></g>
+<g class="ok"><rect x="400" y="406" width="340" height="26" rx="5"/><text class="pn" x="410" y="423">26</text><text class="pt" x="444" y="424">G51 DIR</text></g>
+<g class="in"><rect x="400" y="437" width="340" height="26" rx="5"/><text class="pn" x="410" y="454">28</text><text class="pt" x="444" y="455">5V EXT5V（出力）</text></g>
+<g class="in"><rect x="400" y="468" width="340" height="26" rx="5"/><text class="pn" x="410" y="485">30</text><text class="pt" x="444" y="486">BAT(≒3.3V出力)</text></g>
+</g>
+ </svg>
+ <figcaption>図4　M5-Bus 30ピン（Tab5回路図3頁で確定）。D0〜D7＝8bitデータ、「補助」＝予備線。</figcaption>
+ </figure>
+
+ <div class="tw"><table>
+  <thead><tr><th>GPIO</th><th>M5-Bus</th><th>Tab5内部の接続先</th><th class="c">判定</th></tr></thead>
+  <tbody>
+   <tr><td>G16, G17, G45, G47, G48, G51, G52</td><td>2,4,8,23,22,26,10</td><td>M5-Bus以外に<b>接続なし</b></td><td class="c t-ok">◎</td></tr>
+   <tr><td>G2, G3, G4, G5</td><td>21,19,20,11</td><td>JTAG兼用だが、既定のJTAG信号源は<b>USB-Serial-JTAG</b>（eFuse未焼損）なので競合なし。<b>eFuseでPAD_JTAGを有効化しないこと</b></td><td class="c t-ok">◎</td></tr>
+   <tr><td>G18, G19, G5</td><td>7,9,11</td><td>上記に加えCOM.X(STAMP)モジュール用パッドに接続</td><td class="c t-warn">○ COM.X非装着が条件</td></tr>
+   <tr><td>G6, G7</td><td>16,15</td><td>COM.X用UART</td><td class="c t-warn">○ COM.X非装着が条件</td></tr>
+   <tr><td>G31, G32</td><td>17,18</td><td>Tab5内部I2C（カメラ・音声・IMU・RTC・タッチ・電力計・IOエキスパンダ）と共有。2.2kΩプルアップ済み</td><td class="c t-warn">△ アドレス衝突確認が必須</td></tr>
+   <tr><td>G35</td><td>24</td><td><b>BOOTストラップ</b>（10kΩプルアップ＋BOOTボタン）</td><td class="c t-bad">× データ線に不可</td></tr>
+   <tr><td>G37, G38</td><td>14,13</td><td>UART0。<b>ストラッピング対象</b></td><td class="c t-bad">× 8bit案では不使用</td></tr>
+   <tr><td>G0, G1, G50（G49）</td><td>なし</td><td>Ext.Port1。<b>キーボード</b>＝G0 SDA, G1 SCL, G50 INT（I2C 0x6D）</td><td class="c t-info">キャリアは使わない</td></tr>
+  </tbody></table></div>
+
+ <div class="callout ok"><b class="t">結論：8bit割当は競合なし／キーボード併用可</b>
+  D0〜D7＝G18,G19,G5,G3,G4,G2,G48,G47、CLK＝G16、READY＝G45、DIR＝G51 はそのまま採用できます。キーボードはM5-Busに無いG0/G1/G50を使うため、<b>8bit動作中も併用できます</b>（SYS I2Cとは別バス）。</div>
+</section>
+
+<section id="bus16">
+ <h2>5. 8bit と 16bit</h2>
+
+ <div class="grid2">
+  <div class="card"><h3 style="margin-top:0">8bit（初期）</h3>
+   <ul><li>データ：8本（G18,G19,G5,G3,G4,G2,G48,G47）</li><li>制御：CLK＝G16、READY＝G45、DIR＝G51</li><li>補助：G17,G52,G6,G7（UART／リセット／構成）</li><li>理論帯域：8bit×40MHz＝<b>40MB/s</b></li></ul></div>
+  <div class="card"><h3 style="margin-top:0">16bit（将来）</h3>
+   <ul><li>データ：16本、CLK1本 → <b>17本</b></li><li>M5-BusのI2C以外のGPIOは<b>18本</b>、うちG35/G37/G38はストラップ</li><li>→ <b>M5-Busだけでは「16bit＋CLK＋READY＋DIR」は成立しない</b></li><li>理論帯域：16bit×40MHz＝<b>80MB/s</b></li></ul></div>
+ </div>
+
+ <figure>
+ <svg viewBox="0 0 760 140" role="img" aria-label="M5-Bus GPIO18本の使い分け">
+  <text x="10" y="18" font-size="13" font-weight="600">M5-Bus GPIO（I2C除く）18本の使い道</text>
+  <g font-size="12" text-anchor="middle">
+   <rect x="10" y="30" width="320" height="34" fill="var(--okbg)" stroke="var(--ok)"/><text x="170" y="52">8bit データ D0–D7（8本）</text>
+   <rect x="334" y="30" width="120" height="34" fill="var(--okbg)" stroke="var(--ok)"/><text x="394" y="52">CLK・READY・DIR</text>
+   <rect x="458" y="30" width="160" height="34" fill="var(--okbg)" stroke="var(--ok)"/><text x="538" y="52">補助 G17,G52,G6,G7</text>
+   <rect x="622" y="30" width="128" height="34" fill="var(--badbg)" stroke="var(--bad)"/><text x="686" y="52">G35,G37,G38（ストラップ）</text>
+  </g>
+  <text x="10" y="96" font-size="13" font-weight="600">16bitにするには</text>
+  <text x="10" y="118" font-size="12" class="mut">補助4本＋DIR＋READY＋ストラップ3本をデータ線に転用すれば16本に届くが、制御線がほぼ消える</text>
+ </svg>
+ <figcaption>図5　8bit運用時の使い道と、16bit化で不足する本数。</figcaption>
+ </figure>
+
+ <h3>16bit化の選択肢 比較</h3>
+ <div class="tw"><table>
+  <thead><tr><th>案</th><th>内容</th><th class="c">帯域</th><th class="c">リスク</th><th>備考</th></tr></thead>
+  <tbody>
+   <tr><td><b>1. DIR廃止＋ストラップ線転用（推奨）</b></td><td>DIRとREADYをサイドバンド（I2C／補助線）へ。G35/G37/G38もデータ線に使い、起動時はバススイッチ／0Ωジャンパで隔離</td><td class="c t-ok">80MB/s</td><td class="c t-warn">中</td><td>起動時にFPGA出力がHi-Zであることの<b>実機検証が必須</b>。8bit運用時は拡張線を切り離す</td></tr>
+   <tr><td><b>2. 8bit DDR（両エッジ）</b></td><td>8本のまま両エッジでサンプルし実効16bit相当</td><td class="c t-ok">≒80MB/s</td><td class="c t-warn">中</td><td>PARLIOがDDRに対応するか未確認</td></tr>
+   <tr><td><b>3. Ext.Port1／Port.Aから追加引出し</b></td><td>G0/G1/G49/G50/G53/G54をケーブルで追加</td><td class="c t-warn">本数不足</td><td class="c t-bad">高</td><td>キーボード（G0/G1/G50）と競合する</td></tr>
+   <tr><td><b>4. 8bitのまま</b></td><td>クロックを上げて対応</td><td class="c t-bad">40MB/s</td><td class="c t-ok">低</td><td>初期ソフト開発はこれで十分</td></tr>
+  </tbody></table></div>
+ <p>基板は案1に備え、拡張用のG37/G38/G35を<b>0Ωジャンパ（既定は未実装）</b>でFPGA側に接続できるようにします。</p>
+</section>
+
+<section id="video">
+ <h2>6. HDMI 入出力</h2>
+ <div class="tw"><table>
+  <thead><tr><th></th><th>HDMI 出力</th><th>HDMI 入力</th></tr></thead>
+  <tbody>
+   <tr><th>方式</th><td>GW2A-18のTLVDS出力でTMDS（DVI互換）を直接駆動</td><td>TMDSを交流結合＋バイアス＋100Ω終端でFPGAのLVDS入力へ<b>直結（実験構成）</b></td></tr>
+   <tr><th>バンク電圧</th><td>Bank0/1は既定3.3V（Core上R5で変更可）→ TMDSに適合</td><td>同上</td></tr>
+   <tr><th>追加部品</th><td>直列抵抗、ESD保護、5V給電（ヒューズ／ダイオード）、DDC用MOSFETレベルシフタ（2N7002）</td><td>AC結合コンデンサ、バイアス抵抗。専用レシーバICは<b>高価・拡張部品のため初版は見送り</b></td></tr>
+   <tr><th>難度</th><td class="t-ok">低〜中</td><td class="t-bad">高（動作しない場合は受信ICフットプリントを検討）</td></tr>
+   <tr><th>想定解像度</th><td>720p60〜（測定）</td><td>720p60程度まで（測定）</td></tr>
+   <tr><th>基板要件</th><td colspan="2">4層、差動ペアは<b>100Ω差動インピーダンス管理</b>（JLCPCB 4層の積層指定）、ペア内スキュー管理、FPGA側は<b>Bank0/1のTLVDSペア</b>（例：IOT38/36/18/14系）を使用</td></tr>
+  </tbody></table></div>
+ <div class="callout warn"><b class="t">要確認</b>HDMI入力をAC結合で直結できるかは、GW2A-18のLVDS入力仕様（同相入力範囲・終端）をデータシートで確認する必要があります（Sipeed Datasheet V1.0は認証コード入力が必要なため未取得）。</div>
+</section>
+
+<section id="periph">
+ <h2>7. 搭載周辺（優先度）</h2>
+ <div class="tw"><table>
+  <thead><tr><th class="c">優先</th><th>周辺</th><th>実装方針</th></tr></thead>
+  <tbody>
+   <tr><td class="c t-ok">高</td><td>FPGA書込み・デバッグ（JTAG＋UART）</td><td>Core上の公式JST-SH 8pinデバッガに手が届く配置＋2.54mm引出し</td></tr>
+   <tr><td class="c t-ok">高</td><td>PMODコネクタ×2〜3（2×6、3.3V）</td><td>THTピンヘッダ。FPGA空きIO、GND、3V3</td></tr>
+   <tr><td class="c t-ok">高</td><td>LED・ボタン</td><td>基本部品のLED・タクトスイッチ</td></tr>
+   <tr><td class="c t-warn">中</td><td>UART（FPGA↔Tab5 G6/G7）</td><td>ジャンパ選択</td></tr>
+   <tr><td class="c t-warn">中</td><td>DVPカメラ24P FPC／RGB LCD 40P FPC</td><td>Dock回路図を参考に必要時に追加（FPCは拡張部品になりやすい）</td></tr>
+   <tr><td class="c t-warn">中</td><td>I2Cサイドバンド（G31/G32）</td><td>Tab5内部アドレス（0x10 ES8388, 0x40 ES7210, 0x43/0x44 IOエキスパンダ, 0x68 BMI270, 0x32 RTC等）と衝突しない値を使用</td></tr>
+   <tr><td class="c t-info">低</td><td>入力電圧監視、ファンヘッダ</td><td>抵抗分圧／保護付き出力</td></tr>
+   <tr><td class="c">見送り</td><td>Ethernet、USB等</td><td>拡張部品・面積増。PMOD拡張で対応</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="jlc">
+ <h2>8. JLCPCB PCBA 方針</h2>
+ <div class="grid2">
+  <div class="card"><h3 style="margin-top:0">基本部品で構成する</h3>
+   <ul><li>抵抗・コンデンサ・LED・ダイオード（SS34/SS54/1N4148W）</li><li>MOSFET（2N7002, AO3401A）</li><li>降圧IC（TPS5430DDAR／XL1509-5.0E1）</li><li>LDO（AMS1117-3.3）、フェライト、タクトスイッチ</li></ul>
+   <p class="mut" style="color:var(--muted);font-size:.88rem">※基本/拡張の区分は在庫で変動。BOM確定時にJLCPCB部品ライブラリで再確認します。</p></div>
+  <div class="card"><h3 style="margin-top:0">拡張部品・THT手組の扱い</h3>
+   <ul><li>避けられない拡張部品：<b>DDR3 SODIMMソケット（204P）</b>のみ許容</li><li>拡張が増える場合はTHT化して手付け：HDMIコネクタ、DCジャック、PMODピンヘッダ、M5-Bus用ピンヘッダ</li><li>M5-Bus用ヘッダは2×15・2.54mm。<b>ピン長（スタック間隔）と勘合を実機寸法で確認</b></li></ul></div>
+ </div>
+ <div class="tw"><table>
+  <thead><tr><th>部品</th><th>候補</th><th>JLC区分（検索データ）</th><th>備考</th></tr></thead>
+  <tbody>
+   <tr><td>5V降圧（広入力）</td><td>TPS5430DDAR</td><td class="t-ok">基本</td><td>入力5.5〜36V・3A。第一候補</td></tr>
+   <tr><td>5V降圧（簡易）</td><td>XL1509-5.0E1</td><td class="t-ok">基本</td><td>入力4.5〜40V・2A。バッテリー低電圧側は余裕小</td></tr>
+   <tr><td>3.3V LDO</td><td>AMS1117-3.3</td><td class="t-ok">基本</td><td>周辺用</td></tr>
+   <tr><td>ショットキー</td><td>SS34／SS54</td><td class="t-ok">基本</td><td>降圧用・OR接続用</td></tr>
+   <tr><td>DDC用MOSFET</td><td>2N7002</td><td class="t-ok">基本</td><td>I2Cレベルシフタ</td></tr>
+   <tr><td>RS485（予備）</td><td>SP3485EN</td><td class="t-ok">基本</td><td>必要時</td></tr>
+   <tr><td>SODIMMソケット</td><td>（未選定）</td><td class="t-warn">拡張見込み</td><td>横置きタイプを選定。KiCadフットプリントはSipeed配布物を参照</td></tr>
+   <tr><td>HDMIコネクタ</td><td>（未選定）</td><td class="t-warn">拡張見込み</td><td>THT手組も可</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="todo">
+ <h2>9. 未解決事項</h2>
+ <div class="tw"><table>
+  <thead><tr><th class="c">#</th><th>項目</th><th>決めること／確認方法</th></tr></thead>
+  <tbody>
+   <tr><td class="c">1</td><td><b>バッテリー電源のタップ方法</b></td><td>タップ基板（バッテリー⇔Tab5間）か、Tab5内部J12配線か。NP-F550端子の機構寸法の確認。無理ならB（EXT5V）を暫定採用</td></tr>
+   <tr><td class="c">2</td><td>16bit方式</td><td>案1〜3のどれにするか。G35/G37/G38の起動時動作の実機検証</td></tr>
+   <tr><td class="c">3</td><td>M5-Bus位置・基板外形</td><td>Tab5.stlでCAD確認。ピン1の向き、ヘッダ高さ、キーボードとの干渉</td></tr>
+   <tr><td class="c">4</td><td>HVIN許容（24V入力）</td><td>MP4560絶対最大定格とPTC 1A、TVSクランプ電圧</td></tr>
+   <tr><td class="c">5</td><td>SODIMMピンマップ確定表</td><td>現在は機械抽出の暫定CSVのみ。Dock回路図・ibomで確定</td></tr>
+   <tr><td class="c">6</td><td>HDMI入力方式</td><td>LVDS入力仕様の確認（Datasheet V1.0を手動取得）→直結／受信IC</td></tr>
+   <tr><td class="c">7</td><td>Coreの消費電流</td><td>実測で降圧ICの余裕を確定</td></tr>
+   <tr><td class="c">8</td><td>PARLIO速度上限・DDR対応</td><td>低速→10→20→40MHzの段階測定</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="refs">
+ <h2>10. 参考資料</h2>
+ <ul>
+  <li>Tab5：<a href="https://docs.m5stack.com/en/core/Tab5">M5Stack Tab5 ドキュメント</a>（回路図PDF・ピンマップ・寸法図・STL）</li>
+  <li>Tab5キーボード：<a href="https://docs.m5stack.com/en/tab5/Tab5_Keyboard">Tab5 Keyboard</a></li>
+  <li>Tang Primer 20K：<a href="https://wiki.sipeed.com/hardware/en/tang/tang-primer-20k/primer-20k.html">Sipeed Wiki</a>／<a href="https://dl.sipeed.com/shareURL/TANG/Primer_20K">ダウンロードサイト</a></li>
+  <li>リポジトリ内：<code>docs/reference/</code>（取得済み一次資料と索引）、<code>docs/キャリア基板_企画書.md</code>、<code>docs/ESP32P4_FPGA_共通ハード仕様.md</code></li>
+ </ul>
+ <div class="callout"><b class="t">データの確からしさ</b>
+  確定：M5-Busのピン↔GPIO対応、各GPIOの接続先、Tab5電源構造、ストラッピング／JTAG仕様。<br>
+  推定・暫定：背面M5-Bus位置、基板外形・部品配置、JLC区分、SODIMMピン対応（機械抽出）。</div>
+</section>
+
+</main>
+
+<footer><div class="wrap">Tab5 × Tang Primer 20K Carrier — design notes. 数値・配置は設計前のドラフトです。</div></footer>
+</body>
+</html>
