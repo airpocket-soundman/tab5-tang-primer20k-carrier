@@ -149,6 +149,8 @@ class Builder:
             ol.Append(mm(x), mm(y))
         z.SetMinThickness(mm(0.2))
         z.SetPadConnection(pcbnew.ZONE_CONNECTION_THERMAL)
+        z.SetThermalReliefSpokeWidth(mm(0.3))
+        z.SetThermalReliefGap(mm(0.2))
         z.SetLocalClearance(mm(0.25))
         self.board.Add(z)
         return z
@@ -164,11 +166,11 @@ class Builder:
 def write_pro():
     path = os.path.join(PRJ, design.PROJECT + ".kicad_pro")
     pro = {"meta": {"filename": design.PROJECT + ".kicad_pro", "version": 3},
-           "board": {"design_settings": {"rules": {"min_clearance": 0.15, "min_track_width": 0.15,
+           "board": {"design_settings": {"rules": {"min_clearance": 0.127, "min_track_width": 0.127,
                                                    "min_via_diameter": 0.5, "min_through_hole_diameter": 0.3,
                                                    "min_via_annular_width": 0.1, "min_copper_edge_clearance": 0.3,
                                                    "min_hole_to_hole": 0.25, "min_hole_clearance": 0.25}}},
-           "net_settings": {"classes": [{"name": "Default", "clearance": 0.15, "track_width": 0.15,
+           "net_settings": {"classes": [{"name": "Default", "clearance": 0.127, "track_width": 0.127,
                                          "via_diameter": 0.6, "via_drill": 0.3, "diff_pair_width": 0.2,
                                          "diff_pair_gap": 0.2, "diff_pair_via_gap": 0.25, "wire_width": 6,
                                          "bus_width": 12, "line_style": 0, "microvia_diameter": 0.3,
@@ -195,6 +197,8 @@ def main(route=True):
         z = b.zone("GND", layer)
         if layer != "In1.Cu":
             z.SetIslandRemovalMode(pcbnew.ISLAND_REMOVAL_MODE_ALWAYS)
+        if layer in ("F.Cu", "B.Cu"):
+            z.SetPadConnection(pcbnew.ZONE_CONNECTION_FULL)
     b.fill()
     b.save(out)
     write_pro()

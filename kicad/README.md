@@ -19,7 +19,9 @@ python -X utf8 kicad/gen/make_sch.py
 
 ## Status
 * Schematic: ERC opens; netlist matches the data model (0 mismatches).
-* PCB: 94 / 103 nets auto-routed, GND via planes + pours. **Not manufacturing-ready**:
-  9 nets and 8 GND pads still need manual routing; HDMI TMDS pairs are not impedance/length matched;
-  5 starved-thermal items; M5-Bus pin-1 orientation, board outline and mounting-hole pattern must be checked against the real Tab5.
+* PCB: **103 / 103 nets auto-routed** (3 routing layers + rip-up & reroute), GND via In1/In2 planes, F/B pours and 84 stitching vias.
+  DRC: 0 errors; warnings only (silkscreen overlap, 3 hole-to-hole). One GND island (pad R33.2) is still reported unconnected.
+* **Not manufacturing-ready**: HDMI TMDS pairs are not impedance/length matched; M5-Bus pin-1 orientation, board outline and
+  mounting-hole pattern must be checked against the real Tab5; SODIMM 3D model and LCSC part selection are open (see `bom.csv`).
+* Pipeline: `make_sch.py` -> `make_pcb.py` (place + route) -> `finish_pcb.py R33.2` (touch-ups, zone refill).
 * No Ethernet / MIPI / USB-host (see site spec).
