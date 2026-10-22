@@ -90,7 +90,7 @@ svg .mut{fill:var(--muted)}
 </header>
 
 <nav class="toc"><div class="wrap">
- <a href="#overview">概要</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
+ <a href="#overview">概要</a><a href="#spec">初期仕様</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
 </div></nav>
 
 <main class="wrap">
@@ -143,6 +143,45 @@ svg .mut{fill:var(--muted)}
 
  <div class="callout info"><b class="t">この文書の位置づけ</b>
   Tab5・Core・ESP32-P4の一次資料（回路図・データシート）を取得して照合した結果と、それに基づく設計方針をまとめたものです。回路図・PCBは未作成です。確認済み事項と、まだ確認できていない事項を区別して記載しています。</div>
+</section>
+
+<section id="spec">
+ <h2>★ 初期仕様まとめ（v1.0 案）</h2>
+ <p>ここまでの検討で決めた初版の仕様です。詳細と根拠は各章を参照してください。</p>
+ <div class="tw"><table>
+  <thead><tr><th>項目</th><th>初期仕様</th><th class="c">状態</th></tr></thead>
+  <tbody>
+   <tr><td><b>構造</b></td><td>M5-Bus直挿し。Tab5側の面＝ピンヘッダのみ、反対面＝Core・コネクタ類。Tab5背面のM3穴（四隅＋中央2か所）でスタック。約78×76mm、4層1.6mm</td><td class="c t-warn">位置は要CAD確認</td></tr>
+   <tr><td><b>FPGA</b></td><td>Tang Primer 20K Core（SODIMM 204P・横置きソケット、縦置き配置）。JTAG/UARTはCore上のJST-SHデバッガに手が届く配置</td><td class="c t-ok">確定</td></tr>
+   <tr><td><b>電源入力</b></td><td>① DCバレルジャック 12〜24V　② USB-C PD（電源専用6ピン、PDトリガIC CH224K、20V要求／15Vに切替可）　①②はダイオードOR</td><td class="c t-warn">24V運用は定格確認後</td></tr>
+   <tr><td><b>電源分配</b></td><td>Tab5へ：M5-Bus HPWR（25/27/29）直結（内部PTC 1Aに制限）／FPGAへ：TPS5430で5V（目標2A以下）。Tab5の5V（ピン28）とは接続せずGNDのみ共通</td><td class="c t-ok">確定</td></tr>
+   <tr><td><b>入力保護</b></td><td>逆接続（SS54）・TVS・PTC約3A</td><td class="c t-warn">TVS要選定</td></tr>
+   <tr><td><b>通信（8bit）</b></td><td>D0〜D7＝G18,G19,G5,G3,G4,G2,G48,G47／CLK＝G16／READY＝G45／DIR＝G51／補助＝G17,G52,G6,G7。信号は33Ω直列抵抗</td><td class="c t-ok">競合なし確認済み</td></tr>
+   <tr><td><b>16bit拡張</b></td><td>G37/G38/G35を0Ωジャンパで拡張線に出せる設計（既定は未実装）</td><td class="c t-warn">実機検証が必要</td></tr>
+   <tr><td><b>キーボード</b></td><td>Ext.Port1（G0/G1/G50）を使うため8bit動作中も併用可</td><td class="c t-warn">機械干渉は要確認</td></tr>
+   <tr><td><b>HDMI</b></td><td><b>OUTのみ</b>（FPGAのTLVDS直駆動）。INは搭載せず、差動ペアをパッドに引き出す</td><td class="c t-ok">確定</td></tr>
+   <tr><td><b>Ethernet</b></td><td>100Mbps（RMII）のPHY＋RJ45のフットプリントを用意。<b>実装は任意</b></td><td class="c t-info">任意実装</td></tr>
+   <tr><td><b>拡張用パッド</b></td><td>PMOD（2×6、3.3V）×2〜3。Bank0/1の差動ペアをMIPI/DVP実験用に引出し。USB D+/D-もPMODにパッドのみ</td><td class="c t-ok">確定</td></tr>
+   <tr><td><b>その他</b></td><td>LED・ボタン、UART（G6/G7、ジャンパ選択）</td><td class="c t-ok">確定</td></tr>
+  </tbody></table></div>
+
+ <h3>初版で搭載しないもの</h3>
+ <div class="tw"><table>
+  <thead><tr><th>項目</th><th>理由</th></tr></thead>
+  <tbody>
+   <tr><td>バッテリー駆動</td><td>M5-Busにバッテリー線が出ない（保留）</td></tr>
+   <tr><td>HDMI入力</td><td>帯域（720p60≒160MB/s）が8bit並列の40MB/sを超える。受信ICは高価</td></tr>
+   <tr><td>USBホスト</td><td>Tab5にUSB-Aホストがあり、FPGAはフルスピードまで。ソフト実装が重い</td></tr>
+   <tr><td>MIPI CSI</td><td>GW2A-18にD-PHYなし。CSIはM5-Busに出ていない。DVPで代替可能</td></tr>
+   <tr><td>Gigabit Ethernet</td><td>Tab5側の40MB/sで頭打ち</td></tr>
+  </tbody></table></div>
+
+ <h3>拡張部品とTHT手組の見込み</h3>
+ <ul>
+  <li><b>拡張部品（避けられないもの）：</b>DDR3 SODIMMソケット。</li>
+  <li><b>拡張部品（採用により増えるもの）：</b>CH224K（PD）、Ethernet実装時のPHYとRJ45。</li>
+  <li><b>THT手組候補：</b>DCバレルジャック、HDMIコネクタ、PMODヘッダ、M5-Busヘッダ、RJ45、USB-C電源専用6ピン。</li>
+ </ul>
 </section>
 
 <section id="mech">
@@ -265,7 +304,7 @@ svg .mut{fill:var(--muted)}
  <figcaption>図3　Tab5内部の電源経路。HVINは<b>1A PTC</b>を通るため、Tab5が使える電力が制限される。バッテリー電圧はM5-Busに出ない。</figcaption>
  </figure>
 
- <h3>決定：外部12〜24VをDCバレルジャックで受け、Tab5とFPGAの両方へ供給</h3>
+ <h3>決定：外部12〜24VをDCバレルジャック／USB-C PDで受け、Tab5とFPGAの両方へ供給</h3>
  <div class="callout ok"><b class="t">方針変更（バッテリー駆動は保留）</b>
   バッテリー駆動は<b>いったん中止</b>します（M5-Busにバッテリー線が出ないため）。キャリア基板に<b>DCバレルジャック</b>を設け、外部12〜24Vを1系統で受けて、<b>Tab5（HVIN）とFPGA（Core 5V）の両方に供給</b>します。バッテリーはTab5単体用として従来どおり残ります（Tab5内部でHVIN電源と自動切替）。</div>
 
@@ -294,6 +333,7 @@ svg .mut{fill:var(--muted)}
   <thead><tr><th>ブロック</th><th>仕様案</th><th>備考</th></tr></thead>
   <tbody>
    <tr><td>入力コネクタ</td><td>DCバレルジャック（THT、5.5×2.1mm 想定）＋予備の2pinネジ端子パッド</td><td>極性は<b>センタープラス</b>で統一。手組THTでコスト削減</td></tr>
+   <tr><td>USB-C PD入力</td><td>電源専用6ピンコネクタ＋PDトリガIC（CH224K）。20V要求（設定で15Vに切替）。バレルジャックとダイオードORで1つの電源ノードへ</td><td>45W以上の充電器が目安。起動直後の5V→20V遷移中はDC-DCのUVLOで待機させる。充電器が20Vに対応するか要確認</td></tr>
    <tr><td>入力電圧</td><td>12〜24V</td><td>Tab5 HVINは「6〜24V」表記。24V運用はMP4560の絶対最大定格の確認が前提</td></tr>
    <tr><td>逆接続保護</td><td>直列ショットキー（SS54：40V・5A、基本部品）</td><td>損失は電流×約0.5V。PMOS方式はAO3401Aが30Vのため24V＋サージで余裕が小さく、第一案はダイオード</td></tr>
    <tr><td>サージ・過電流</td><td>TVS（24V級）＋PTCヒューズ（合計の定格に合わせる）</td><td>Tab5側は内部に1A PTCがあるため、<b>入力PTCは約3Aホールド</b>程度（Tab5最大1A＋FPGA側）</td></tr>
@@ -420,7 +460,8 @@ svg .mut{fill:var(--muted)}
 </section>
 
 <section id="video">
- <h2>6. HDMI 入出力</h2>
+ <h2>6. HDMI（初版はOUTのみ）</h2>
+ <div class="callout ok"><b class="t">決定</b>初版は<b>HDMI OUTのみ</b>を搭載します。INは用途が限られ（720p60は約160MB/sで、Tab5への8bit並列40MB/sを超える）、受信ICも高価なため見送り、差動ペアをパッドに引き出すだけにします。以下の比較表は検討の記録です。</div>
  <div class="tw"><table>
   <thead><tr><th></th><th>HDMI 出力</th><th>HDMI 入力</th></tr></thead>
   <tbody>
@@ -446,7 +487,9 @@ svg .mut{fill:var(--muted)}
    <tr><td class="c t-warn">中</td><td>DVPカメラ24P FPC／RGB LCD 40P FPC</td><td>Dock回路図を参考に必要時に追加（FPCは拡張部品になりやすい）</td></tr>
    <tr><td class="c t-warn">中</td><td>I2Cサイドバンド（G31/G32）</td><td>Tab5内部アドレス（0x10 ES8388, 0x40 ES7210, 0x43/0x44 IOエキスパンダ, 0x68 BMI270, 0x32 RTC等）と衝突しない値を使用</td></tr>
    <tr><td class="c t-info">低</td><td>入力電圧監視、ファンヘッダ</td><td>抵抗分圧／保護付き出力</td></tr>
-   <tr><td class="c">見送り</td><td>Ethernet、USB等</td><td>拡張部品・面積増。PMOD拡張で対応</td></tr>
+   <tr><td class="c t-info">任意</td><td>Ethernet（100Mbps RMII）</td><td>PHYとRJ45のフットプリントを用意し、実装は任意。Tab5に有線LANを足したい場合に有効</td></tr>
+   <tr><td class="c t-ok">採用</td><td>USB-C PD給電（20V要求）</td><td>電源専用6ピン＋CH224K。バレルジャックとOR接続</td></tr>
+   <tr><td class="c">見送り</td><td>USBホスト、MIPI CSI、HDMI入力</td><td>PMODと差動ペアのパッドに引き出すのみ</td></tr>
   </tbody></table></div>
 </section>
 
