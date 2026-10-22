@@ -90,7 +90,7 @@ svg .mut{fill:var(--muted)}
 </header>
 
 <nav class="toc"><div class="wrap">
- <a href="#overview">概要</a><a href="#spec">初期仕様</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
+ <a href="#overview">概要</a><a href="#spec">初期仕様</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#kicad">KiCad設計</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
 </div></nav>
 
 <main class="wrap">
@@ -516,8 +516,36 @@ svg .mut{fill:var(--muted)}
   </tbody></table></div>
 </section>
 
+<section id="kicad">
+ <h2>9. KiCad設計データ（v0.1 ドラフト）</h2>
+ <p>回路図とPCBを同じデータ定義から生成しました（<code>kicad/</code>）。Core（SODIMM）のピン割当はSipeed回路図と目視照合済みで、回路図とPCBのネット一致は自動検証しています。</p>
+
+ <figure>
+  <img src="img/render_top.png" alt="KiCad 3Dレンダリング（表面）" style="width:100%;height:auto;display:block;border-radius:6px">
+  <figcaption>図7　KiCad 3Dレンダリング（表面、Tab5背面から見た向き）。SODIMMソケットは3Dモデルが無いためパッドのみ表示。M5-Busヘッダは反対面（Tab5側）。</figcaption>
+ </figure>
+
+ <div class="tw"><table>
+  <thead><tr><th>項目</th><th>結果</th><th class="c">状態</th></tr></thead>
+  <tbody>
+   <tr><td>外形・層構成</td><td>約81×78mm、4層（F.Cu／In1=GND／In2=信号＋GND／B.Cu）、M3穴4か所（Tab5四隅）</td><td class="c t-ok">生成済み</td></tr>
+   <tr><td>回路図</td><td>A0・1枚。ERCは読み込み可、データ定義とネットリスト一致（不一致0）</td><td class="c t-ok">生成済み</td></tr>
+   <tr><td>配線</td><td>103ネット中<b>94ネットを自動配線</b>。GNDは内層ベタ＋表裏ベタ＋スティッチビア</td><td class="c t-warn">一部未配線</td></tr>
+   <tr><td>DRC</td><td>クリアランス違反0、サーマル不足5、未配線18（9ネット＋GNDパッド8）、シルク警告約120</td><td class="c t-warn">要手作業</td></tr>
+   <tr><td>HDMI差動ペア</td><td>自作ルーターは差動インピーダンス・長さ整合を考慮していない</td><td class="c t-bad">手動で再配線</td></tr>
+  </tbody></table></div>
+
+ <div class="callout warn"><b class="t">製造前に必要な作業</b>
+  <ol style="margin:.3em 0 0 1.2em;padding:0">
+   <li>未配線の9ネット（HDMI_5V、F_HSDA、PD_VDD、HDMI_D0P、F_D2、F_EXT37、CC1、P1_1、P1_5）とGNDパッド8か所をKiCadで手配線。</li>
+   <li>HDMI TMDS差動ペアを100Ω差動インピーダンス・等長で配線し直す。</li>
+   <li>M5-Busヘッダのピン1の向き・位置、基板外形、取付穴を実機またはSTLと照合。</li>
+   <li>SODIMMソケットの3Dモデルと、部品のLCSC番号・基本/拡張区分を確定（BOM作成）。</li>
+  </ol></div>
+</section>
+
 <section id="todo">
- <h2>9. 未解決事項</h2>
+ <h2>10. 未解決事項</h2>
  <div class="tw"><table>
   <thead><tr><th class="c">#</th><th>項目</th><th>決めること／確認方法</th></tr></thead>
   <tbody>
@@ -533,7 +561,7 @@ svg .mut{fill:var(--muted)}
 </section>
 
 <section id="refs">
- <h2>10. 参考資料</h2>
+ <h2>11. 参考資料</h2>
  <ul>
   <li>Tab5：<a href="https://docs.m5stack.com/en/core/Tab5">M5Stack Tab5 ドキュメント</a>（回路図PDF・ピンマップ・寸法図・STL）</li>
   <li>Tab5キーボード：<a href="https://docs.m5stack.com/en/tab5/Tab5_Keyboard">Tab5 Keyboard</a></li>
