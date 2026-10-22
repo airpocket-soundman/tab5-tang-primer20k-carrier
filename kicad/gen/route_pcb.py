@@ -12,10 +12,11 @@ import pcbnew
 import design
 
 GRID = 0.1
-CLR = 0.15
-TW = 0.15
+CLR = 0.127
+TW = 0.127
 VIA_D, VIA_DRILL = 0.6, 0.3
 VIA_COST = 12.0
+SOFT_PEN = 18.0
 NL = 3
 LAYER_NAMES = ["F.Cu", "In2.Cu", "B.Cu"]
 SKIP = {"GND"}
@@ -44,6 +45,11 @@ class Router:
         self.names = {}
         self.pads = {}           # net name -> list of (x, y, layers, ref)
         self.max_exp = 150000
+        self.base = None
+        self.trk = None
+        self.sm = []
+        self._culprits = set()
+        self.soft = False
         self.tracks = []         # (net, layer, [(x,y),...], width)
         self.vias = []           # (net, x, y)
 
@@ -73,7 +79,7 @@ class Router:
         sub[free] = n
         sub[bad] = -1
 
-    def stamp_disc(self, layer, x, y, n, rad):
+    def stamp_disc(self, layer, x, y, n, rad, dyn=False):
         cx, cy = self.cell(x, y)
         r = int(math.ceil(rad / GRID))
         ys, xs = np.ogrid[-r:r + 1, -r:r + 1]
@@ -86,14 +92,22 @@ class Router:
         bad = (sub != 0) & (sub != n) & m
         sub[free] = n
         sub[bad] = -1
+        if dyn and self.trk is not None:
+            rem = m.copy()
+            for k in range(3):
+                t = self.trk[layer][k][y0:y1, x0:x1]
+                rem &= ~((t == n) & rem)
+                put = (t == 0) & rem
+                t[put] = n
+                rem &= ~put
 
-    def stamp_path(self, layer, pts, n, w):
+    def stamp_path(self, layer, pts, n, w, dyn=False):
         rad = CLR + w / 2 + TW / 2
         for (xa, ya), (xb, yb) in zip(pts[:-1], pts[1:]):
             steps = max(int(max(abs(xb - xa), abs(yb - ya)) / GRID), 1)
             for i in range(steps + 1):
                 t = i / steps
-                self.stamp_disc(layer, xa + (xb - xa) * t, ya + (yb - ya) * t, n, rad)
+                self.stamp_disc(layer, xa + (xb - xa) * t, ya + (yb - ya) * t, n, rad, dyn)
 
     # ------------------------------------------------------------ load board
     def load(self, outline):
@@ -157,23 +171,53 @@ class Router:
                 if cy1 < cy0:
                     cy0 = cy1 = int(round(((ry0 + ry1) / 2 - self.y0) / GRID))
                 self.occ[l][max(cy0, 0):cy1 + 1, max(cx0, 0):cx1 + 1] = n
+        self.base = [o.copy() for o in self.occ]
+        self.trk = [[np.zeros((self.H, self.W), dtype=np.int16) for _ in range(3)] for _ in range(NL)]
+
+    def rebuild(self):
+        self.occ = [b.copy() for b in self.base]
+        self.trk = [[np.zeros((self.H, self.W), dtype=np.int16) for _ in range(3)] for _ in range(NL)]
+        for it in self.sm:
+            n = self.nid(it[1])
+            if it[0] == "v":
+                for k in range(NL):
+                    self.stamp_disc(k, it[2], it[3], n, VIA_D / 2 + CLR + TW / 2, True)
+            else:
+                self.stamp_path(it[2], it[3], n, it[4], True)
+
+    def rip_net(self, name):
+        self.tracks = [t for t in self.tracks if t[0] != name]
+        self.vias = [v for v in self.vias if v[0] != name]
+        self.sm = [m for m in self.sm if m[1] != name]
 
     # ------------------------------------------------------------ A*
     def prepare(self, n, w):
-        foreign = [(self.occ[l] != 0) & (self.occ[l] != n) for l in range(NL)]
+        src = self.base if self.soft else self.occ
+        foreign = [(src[l] != 0) & (src[l] != n) for l in range(NL)]
         r = int(round((VIA_D / 2 + CLR + TW / 2) / GRID))
         self._viafree = ~dilate(np.any(foreign, axis=0), r)
-        extra = max(0, int(round((w - TW) / 2 / GRID)))
+        extra = max(0, int(math.ceil((w - TW) / 2 / GRID - 1e-9)))
         self._widefree = [~dilate(f, extra) for f in foreign] if extra else None
+        self._neckfree = [~dilate(f, 1) for f in foreign] if extra else None
+        self._padzone = None
+        if extra and getattr(self, '_cur_pads', None):
+            m = np.zeros((self.H, self.W), dtype=bool)
+            for (px, py) in self._cur_pads:
+                cx, cy = self.cell(px, py)
+                if 0 <= cx < self.W and 0 <= cy < self.H:
+                    m[cy, cx] = True
+            self._padzone = dilate(m, 12)
 
     def via_ok(self, cx, cy, n):
         return bool(self._viafree[cy, cx])
 
-    def astar(self, n, starts, targets, w, bbox, via_cost):
+    def astar(self, n, starts, targets, w, bbox, via_cost, hint=None):
         """starts: list of (layer,cx,cy); targets: list of boolean masks per layer (full size)."""
         bx0, by0, bx1, by1 = bbox
-        extra = max(0, int(round((w - TW) / 2 / GRID)))
-        occ = self.occ
+        extra = max(0, int(math.ceil((w - TW) / 2 / GRID - 1e-9)))
+        occ = self.base if self.soft else self.occ
+        trk = self.trk
+        soft = self.soft
         tg = targets
         # target bbox heuristic
         ty, tx = np.nonzero(np.any(tg, axis=0))
@@ -182,6 +226,10 @@ class Router:
         tx0, tx1, ty0, ty1 = tx.min(), tx.max(), ty.min(), ty.max()
 
         def h(cx, cy):
+            if hint is not None:
+                dx = abs(hint[0] - cx)
+                dy = abs(hint[1] - cy)
+                return (max(dx, dy) + 0.414 * min(dx, dy))
             dx = max(tx0 - cx, 0, cx - tx1)
             dy = max(ty0 - cy, 0, cy - ty1)
             return (max(dx, dy) + 0.414 * min(dx, dy))
@@ -219,7 +267,8 @@ class Router:
                 if v != 0 and v != n:
                     continue
                 if self._widefree is not None and not self._widefree[l][ny, nx]:
-                    continue
+                    if not (self._padzone is not None and self._padzone[ny, nx] and self._neckfree[l][ny, nx]):
+                        continue
                 if dx and dy:
                     # avoid cutting corners
                     a = occ[l][cy, nx]
@@ -228,6 +277,11 @@ class Router:
                         continue
                 ns = (l, nx, ny)
                 ng = gs + c
+                if soft:
+                    for k in range(3):
+                        tv = trk[l][k][ny, nx]
+                        if tv != 0 and tv != n:
+                            ng += SOFT_PEN
                 if ng < g.get(ns, 1e18):
                     g[ns] = ng
                     came[ns] = s
@@ -248,6 +302,12 @@ class Router:
                         continue
                     ns = (o, cx, cy)
                     ng = gs + via_cost
+                    if soft:
+                        for k in range(NL):
+                            for j in range(3):
+                                tv = trk[k][j][cy, cx]
+                                if tv != 0 and tv != n:
+                                    ng += SOFT_PEN
                     if ng < g.get(ns, 1e18):
                         g[ns] = ng
                         came[ns] = s
@@ -267,6 +327,7 @@ class Router:
         if len(lst) < 2:
             return True
         n = self.nid(name)
+        self._cur_pads = [(x, y) for (x, y, _l, _r) in lst]
         self.prepare(n, w)
         pts = [(x, y, layers) for (x, y, layers, _) in lst]
         # MST-like order: start with pad 0
@@ -289,8 +350,8 @@ class Router:
                 for i in connected:
                     d = math.hypot(pts[j][0] - pts[i][0], pts[j][1] - pts[i][1])
                     if best is None or d < best[0]:
-                        best = (d, j)
-            _, j = best
+                        best = (d, j, i)
+            _, j, i_near = best
             x, y, layers = pts[j]
             cx, cy = self.cell(x, y)
             starts = [(l, cx, cy) for l in layers]
@@ -301,13 +362,30 @@ class Router:
                 bx1 = min(max(tx.max(), cx) + int(margin / GRID), self.W - 1)
                 by0 = max(min(ty.min(), cy) - int(margin / GRID), 0)
                 by1 = min(max(ty.max(), cy) + int(margin / GRID), self.H - 1)
-                path = self.astar(n, starts, tree, w, (bx0, by0, bx1, by1), via_cost)
+                path = self.astar(n, starts, tree, w, (bx0, by0, bx1, by1), via_cost,
+                                  self.cell(pts[i_near][0], pts[i_near][1]))
                 if path:
                     break
             if not path:
                 ok = False
                 remaining.remove(j)
                 continue
+            if self.soft:
+                for (l_, px_, py_) in path:
+                    for k_ in range(3):
+                        tv = int(self.trk[l_][k_][py_, px_])
+                        if tv != 0 and tv != n and tv in self.names:
+                            self._culprits.add(self.names[tv])
+                rv = int(round((VIA_D / 2 + CLR + TW / 2) / GRID))
+                for a_, b_ in zip(path[:-1], path[1:]):
+                    if a_[1:] == b_[1:] and a_[0] != b_[0]:      # via: whole disc on every layer
+                        for lo in range(NL):
+                            for k_ in range(3):
+                                win = self.trk[lo][k_][max(a_[2] - rv, 0):a_[2] + rv + 1, max(a_[1] - rv, 0):a_[1] + rv + 1]
+                                for tv in np.unique(win):
+                                    tv = int(tv)
+                                    if tv != 0 and tv != n and tv in self.names:
+                                        self._culprits.add(self.names[tv])
             self.commit(name, n, path, w, (x, y))
             self.prepare(n, w)
             for (l, px, py) in path:
@@ -325,9 +403,11 @@ class Router:
         prev = path[0]
         for s in path[1:]:
             if s[0] != prev[0]:
-                self.vias.append((name, *self.xy(prev[1], prev[2])))
+                vx_, vy_ = self.xy(prev[1], prev[2])
+                self.vias.append((name, vx_, vy_))
+                self.sm.append(("v", name, vx_, vy_))
                 for k in range(NL):
-                    self.stamp_disc(k, *self.xy(prev[1], prev[2]), n, VIA_D / 2 + CLR + TW / 2)
+                    self.stamp_disc(k, vx_, vy_, n, VIA_D / 2 + CLR + TW / 2, True)
                 seg.append((cur_l, cur))
                 cur_l = s[0]
                 cur = [self.xy(s[1], s[2])]
@@ -340,7 +420,17 @@ class Router:
             if len(pts) >= 2:
                 for sub_pts, sub_w in taper(pts, w):
                     self.tracks.append((name, l, sub_pts, sub_w))
-                self.stamp_path(l, pts, n, w)
+                self.sm.append(("t", name, l, pts, w))
+                self.stamp_path(l, pts, n, w, True)
+
+    def _stamp_base(self, fn):
+        """Run a stamping function against the permanent `base` map (GND stitching is never ripped up)."""
+        keep = self.occ
+        self.occ = self.base
+        try:
+            fn()
+        finally:
+            self.occ = keep
 
     def gnd_pads(self):
         out = []
@@ -355,11 +445,15 @@ class Router:
                 out.append((pcbnew.ToMM(p.x), pcbnew.ToMM(p.y), layer, fp.GetReference() + "." + pad.GetNumber()))
         return out
 
-    def stitch_gnd(self):
+    def stitch_gnd(self, select=None):
         n = self.nid("GND")
+        if not hasattr(self, '_gnd_done'):
+            self._gnd_done = set()
         self.prepare(n, TW)
         done = fail = 0
         for (x, y, layer, ref) in self.gnd_pads():
+            if ref in self._gnd_done or (select is not None and not select(ref)):
+                continue
             cx, cy = self.cell(x, y)
             heap = [(0.0, 0, (layer, cx, cy))]
             g = {(layer, cx, cy): 0.0}
@@ -369,7 +463,7 @@ class Router:
             while heap:
                 c0, _, s_ = heapq.heappop(heap)
                 l, px, py = s_
-                if c0 > 45:
+                if c0 > 90:
                     break
                 if self._viafree[py, px] and all(self.occ[k][py, px] in (0, n) for k in range(NL)):
                     found = s_
@@ -398,52 +492,55 @@ class Router:
             if len(pts) >= 2:
                 self.tracks.append(("GND", layer, pts, TW))
                 self.stamp_path(layer, pts, n, TW)
+                self._stamp_base(lambda: self.stamp_path(layer, pts, n, TW))
             vx, vy = self.xy(found[1], found[2])
             self.vias.append(("GND", vx, vy))
             for k in range(NL):
                 self.stamp_disc(k, vx, vy, n, VIA_D / 2 + CLR + TW / 2)
+            self._stamp_base(lambda: [self.stamp_disc(k, vx, vy, n, VIA_D / 2 + CLR + TW / 2) for k in range(NL)])
             self.prepare(n, TW)
+            self._gnd_done.add(ref)
             done += 1
         print("GND stitch: %d done, %d failed" % (done, fail), flush=True)
 
 
 def taper(pts, w, neck=0.25, length=1.2):
-    """Narrow the first/last `length` mm of a wide track so it can enter fine-pitch pads."""
+    """Neck down the first/last `length` mm (path length) of a wide track so it can enter fine-pitch pads."""
     if w <= neck + 1e-6 or len(pts) < 2:
         return [(pts, w)]
-    segs = []
-    pts = list(pts)
+    cum = [0.0]
+    for a, b in zip(pts[:-1], pts[1:]):
+        cum.append(cum[-1] + math.hypot(b[0] - a[0], b[1] - a[1]))
+    total = cum[-1]
+    if total <= 2 * length:
+        return [(pts, neck)]
 
-    def cut(a, b, d):
-        L = math.hypot(b[0] - a[0], b[1] - a[1])
-        t = min(d / L, 1.0) if L > 0 else 1.0
-        return (a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t), L
+    def at(d):
+        for i in range(len(pts) - 1):
+            if cum[i] <= d <= cum[i + 1] + 1e-9:
+                seg = cum[i + 1] - cum[i]
+                t = 0 if seg == 0 else (d - cum[i]) / seg
+                return i, (pts[i][0] + (pts[i + 1][0] - pts[i][0]) * t, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * t)
+        return len(pts) - 2, pts[-1]
 
-    # head
-    c, L = cut(pts[0], pts[1], length)
-    head = [pts[0], c]
-    if L > length + 0.05:
-        pts[0] = c
-    else:
-        pts = pts[1:]
-        if len(pts) < 2:
-            return [(head, neck)]
-    # tail
-    c2, L2 = cut(pts[-1], pts[-2], length)
-    tail = [c2, pts[-1]]
-    if L2 > length + 0.05:
-        pts[-1] = c2
-    else:
-        pts = pts[:-1]
-        if len(pts) < 1:
-            return [(head, neck), (tail, neck)]
-    out = [(head, neck)]
-    if len(pts) >= 2:
-        out.append((pts, w))
-    elif len(pts) == 1 and (abs(pts[0][0] - head[-1][0]) > 1e-6 or abs(pts[0][1] - head[-1][1]) > 1e-6):
-        out.append(([head[-1], pts[0]], w))
-    out.append((tail, neck))
-    return out
+    i1, p1 = at(length)
+    i2, p2 = at(total - length)
+    head = [pts[0]] + [pts[k] for k in range(1, i1 + 1)] + [p1]
+    mid = [p1] + [pts[k] for k in range(i1 + 1, i2 + 1)] + [p2]
+    tail = [p2] + [pts[k] for k in range(i2 + 1, len(pts))]
+
+    def clean(l):
+        out = [l[0]]
+        for q in l[1:]:
+            if abs(q[0] - out[-1][0]) > 1e-9 or abs(q[1] - out[-1][1]) > 1e-9:
+                out.append(q)
+        return out
+    res = []
+    for seg, ww in ((head, neck), (mid, w), (tail, neck)):
+        seg = clean(seg)
+        if len(seg) >= 2:
+            res.append((seg, ww))
+    return res
 
 
 def simplify(pts):
@@ -463,7 +560,7 @@ ORDER_W = {"VIN": 0.8, "DC_RAW": 0.8, "DC_IN": 0.8, "VBUS_PD": 0.4, "+5V": 0.6, 
            "+3V3": 0.3}
 
 
-PRIORITY = ["HDMI_CKP", "HDMI_5V", "F_D0", "F_D1", "P1_0", "P1_2", "M_AUX0", "F_HSDA", "PD_VDD", "PD_VBUS_S"]
+PRIORITY = ["HDMI_CKP", "HDMI_5V", "+3V3"]
 
 
 def run(b, comps):
@@ -482,24 +579,55 @@ def run(b, comps):
             return (2, 0)
         xs = [p[0] for p in r.pads[n]]
         ys = [p[1] for p in r.pads[n]]
-        return (3, (max(xs) - min(xs)) + (max(ys) - min(ys)))
+        return (3, -((max(xs) - min(xs)) + (max(ys) - min(ys))))
     nets.sort(key=key)
     failed = []
+    stitched = False
     for idx, n in enumerate(nets):
+        if not stitched and n not in ORDER_W:
+            r.stitch_gnd(lambda ref: ref.startswith('J4.') or ref.startswith('J2.'))
+            stitched = True
         w = ORDER_W.get(n, TW)
         print("[%d/%d] %s (%d pads) t=%.0fs" % (idx + 1, len(nets), n, len(r.pads[n]), time.time() - t0), flush=True)
         vc = 40.0 if n.startswith("HDMI_D") or n.startswith("HDMI_CK") else VIA_COST
         if not r.route_net(n, w, vc):
             failed.append(n)
     if failed:
-        r.max_exp = 500000
-        again = []
-        for n in failed:
-            print("retry", n, flush=True)
-            w = ORDER_W.get(n, TW)
-            if not r.route_net(n, w, 8.0):
-                again.append(n)
-        failed = again
+        r.max_exp = 300000
+        queue = list(failed)
+        attempts = {}
+        final = []
+        it = 0
+        while queue and it < 150:
+            it += 1
+            name = queue.pop(0)
+            attempts[name] = attempts.get(name, 0) + 1
+            if attempts[name] > 6:
+                final.append(name)
+                continue
+            print("ripup[%d] %s (attempt %d), queue=%d" % (it, name, attempts[name], len(queue)), flush=True)
+            w = ORDER_W.get(name, TW)
+            r.rip_net(name)
+            r.rebuild()
+            r.soft = True
+            r._culprits = set()
+            ok = r.route_net(name, w, 8.0)
+            r.soft = False
+            culprits = [c for c in r._culprits if c != name and c != "GND"]
+            if not ok:
+                r.rip_net(name)
+                r.rebuild()
+                final.append(name)
+                continue
+            for c in culprits:
+                r.rip_net(c)
+            r.rebuild()
+            print("   culprits:", culprits, flush=True)
+            for c in culprits:
+                if not r.route_net(c, ORDER_W.get(c, TW), 8.0):
+                    queue.append(c)
+        failed = sorted(set(final + queue))
+        # drop partial routes of the final failures so that no half-routed nets remain inconsistent
     print("routed %d nets, failed %d: %s (%.1fs)" % (len(nets) - len(failed), len(failed), failed, time.time() - t0))
     r.stitch_gnd()
     seen = set()

@@ -530,14 +530,15 @@ svg .mut{fill:var(--muted)}
   <tbody>
    <tr><td>外形・層構成</td><td>約81×78mm、4層（F.Cu／In1=GND／In2=信号＋GND／B.Cu）、M3穴4か所（Tab5四隅）</td><td class="c t-ok">生成済み</td></tr>
    <tr><td>回路図</td><td>A0・1枚。ERCは読み込み可、データ定義とネットリスト一致（不一致0）</td><td class="c t-ok">生成済み</td></tr>
-   <tr><td>配線</td><td>103ネット中<b>94ネットを自動配線</b>。GNDは内層ベタ＋表裏ベタ＋スティッチビア</td><td class="c t-warn">一部未配線</td></tr>
-   <tr><td>DRC</td><td>クリアランス違反0、サーマル不足5、未配線18（9ネット＋GNDパッド8）、シルク警告約120</td><td class="c t-warn">要手作業</td></tr>
-   <tr><td>HDMI差動ペア</td><td>自作ルーターは差動インピーダンス・長さ整合を考慮していない</td><td class="c t-bad">手動で再配線</td></tr>
+   <tr><td>配線</td><td><b>103ネット全て自動配線</b>（3配線層＋リップアップ）。GNDは内層ベタ＋表裏ベタ＋スティッチビア（84か所）</td><td class="c t-ok">完了</td></tr>
+   <tr><td>DRC</td><td><b>エラー0件</b>。残りはシルク重なり警告約120件（製造に影響なし）と穴間警告3件、GND島1か所（R33のGNDパッド）の未接続表示</td><td class="c t-ok">ほぼクリーン</td></tr>
+   <tr><td>配線幅・間隔</td><td>信号 0.127mm / 0.127mm（JLCPCB 4層の標準仕様）、ビア 0.6/0.3mm、電源 0.4〜0.8mm（パッド近傍は0.25mmに絞る）</td><td class="c t-ok">確定</td></tr>
+   <tr><td>HDMI差動ペア</td><td>自作ルーターは100Ω差動インピーダンス・長さ整合を考慮していない</td><td class="c t-bad">手動で再配線</td></tr>
   </tbody></table></div>
 
  <div class="callout warn"><b class="t">製造前に必要な作業</b>
   <ol style="margin:.3em 0 0 1.2em;padding:0">
-   <li>未配線の9ネット（HDMI_5V、F_HSDA、PD_VDD、HDMI_D0P、F_D2、F_EXT37、CC1、P1_1、P1_5）とGNDパッド8か所をKiCadで手配線。</li>
+   <li>R33（HPD分圧の20kΩ）のGNDパッドが周囲の配線に囲まれて未接続。R33を移動するか、GNDビアを追加する。</li>
    <li>HDMI TMDS差動ペアを100Ω差動インピーダンス・等長で配線し直す。</li>
    <li>M5-Busヘッダのピン1の向き・位置、基板外形、取付穴を実機またはSTLと照合。</li>
    <li>SODIMMソケットの3Dモデルと、部品のLCSC番号・基本/拡張区分を確定（BOM作成）。</li>

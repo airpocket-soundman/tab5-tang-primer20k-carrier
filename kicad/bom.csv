@@ -1,0 +1,39 @@
+Refs,Value,Footprint,Qty,DNP,LCSC,JLC class,Note
+J1,DC 12-24V,Connector_BarrelJack:BarrelJack_Horizontal,1,,,THT/hand-solder or extended (select part),"DC barrel jack, centre positive (THT, hand assembly)"
+F1,PTC 3A hold,Fuse:Fuse_1812_4532Metric,1,,,check,
+"D1,D2,D4",SS54,Diode_SMD:D_SMA,3,,C22452,basic,reverse-polarity + OR (DC jack)
+D3,SMBJ24A (to be selected),Diode_SMD:D_SMB,1,,,check,24V-class TVS; clamp vs MP4560/TPS5430 abs-max TBD
+C1,100u/35V,Capacitor_SMD:CP_Elec_6.3x7.7,1,,,check,
+J2,USB-C PD in,Connector_USB:USB_C_Receptacle_GCT_USB4125-xx-x-0190_6P_TopMnt_Horizontal,1,,,THT/hand-solder or extended (select part),power-only USB-C 6P receptacle
+U1,CH224K,Package_SO:SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm,1,,,check,"PD sink, 20V request: CFG1=0 CFG2=1(internal PU) CFG3=0"
+"R1,R28,R29,R32,R6",10k,Resistor_SMD:R_0603_1608Metric,5,,C25804,basic,
+C2,1u/50V,Capacitor_SMD:C_0603_1608Metric,1,,C15849,basic,
+"R2,R34,R35,R36,R37",1k,Resistor_SMD:R_0603_1608Metric,5,,C21190,basic,
+"R3,R4",0R,Resistor_SMD:R_0603_1608Metric,2,,C21189,basic,CFG1 low (fit)
+"R25,R26,R27,R5",0R,Resistor_SMD:R_0603_1608Metric,4,DNP,C21189,basic,CFG2 low (DNP): fit with CFG3 open -> 12V
+U2,TPS5430DDAR,Package_SO:TI_SO-PowerPAD-8_ThermalVias,1,,,basic per jlcsearch (ID to confirm),
+C3,10n,Capacitor_SMD:C_0603_1608Metric,1,,C57112,basic,
+L1,15u/4A,Inductor_SMD:L_Bourns_SRR1260,1,,,check,
+R7,3.3k,Resistor_SMD:R_0603_1608Metric,1,,C22978,basic,Vout = 1.221*(1+10k/3.3k) = 4.92V
+R8,100k,Resistor_SMD:R_0603_1608Metric,1,,C25803,basic,
+R9,15k,Resistor_SMD:R_0603_1608Metric,1,,C22809,basic,UVLO ~9.6V (holds off until PD reaches 20V)
+"C4,C5",10u/50V,Capacitor_SMD:C_1206_3216Metric,2,,C13585,basic,
+C6,100n/50V,Capacitor_SMD:C_0603_1608Metric,1,,C14663,basic,
+"C7,C8",47u/10V,Capacitor_SMD:C_1206_3216Metric,2,,C96123,basic,
+U3,AMS1117-3.3,Package_TO_SOT_SMD:SOT-223-3_TabPin2,1,,C6186,basic,
+C9,10u/16V,Capacitor_SMD:C_1206_3216Metric,1,,C13585,basic,
+C10,22u/10V,Capacitor_SMD:C_1206_3216Metric,1,,C12891,basic,
+J3,M5-BUS (to Tab5),Connector_PinHeader_2.54mm:PinHeader_2x15_P2.54mm_Vertical,1,,,THT/hand-solder or extended (select part),male header on Tab5-facing side; pin-1 orientation to be confirmed on the real Tab5
+"R10,R11,R12,R13,R14,R15,R16,R17,R18,R19,R20,R21,R22,R23,R24",33R,Resistor_SMD:R_0603_1608Metric,15,,C23140,basic,
+J4,Tang Primer 20K Core,carrier:DDR3-SMD_0705F0BE40F,1,,,check,Sipeed footprint (LCSC C367004)
+J5,HDMI OUT,Connector_Video:HDMI_A_Molex_208658-1001_Horizontal,1,,,THT/hand-solder or extended (select part),TMDS driven directly by FPGA true-LVDS outputs (3.3V bank)
+F2,PTC 500mA,Fuse:Fuse_1206_3216Metric,1,,,check,
+"Q1,Q2",2N7002,Package_TO_SOT_SMD:SOT-23,2,,C8545,basic,DDC level shifter (pin1=G pin2=S pin3=D)
+"R30,R31",2.2k,Resistor_SMD:R_0603_1608Metric,2,,C4190,basic,
+R33,20k,Resistor_SMD:R_0603_1608Metric,1,,C4184,basic,
+J6,PMOD1,Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical,1,,,THT/hand-solder or extended (select part),"2x6 PMOD-style, 3.3V"
+J7,PMOD2,Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical,1,,,THT/hand-solder or extended (select part),"2x6 PMOD-style, 3.3V"
+J8,FPGA JTAG,Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical,1,,,THT/hand-solder or extended (select part),
+"D5,D6,D7,D8",LED,LED_SMD:LED_0603_1608Metric,4,,C2286,basic (0603 red),
+"SW1,SW2",SW,Button_Switch_SMD:SW_SPST_EVQP0,2,,,THT/hand-solder or extended (select part),
+"H1,H2,H3,H4",M3,MountingHole:MountingHole_3.2mm_M3,4,,,THT/hand-solder or extended (select part),

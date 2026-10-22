@@ -187,14 +187,14 @@ def build():
     ys = [y + shift for y in ys]
     for (n, s, ext), y in zip(names, ys):
         if ext:
-            two("R", "Device:R", R0603, "0R", "M_" + s, "F_" + s, "series", pos=(60.2, round(y, 2)), rot=0,
+            two("R", "Device:R", R0603, "0R", "M_" + s, "F_" + s, "series", pos=(62.0, round(y, 2)), rot=0,
                 dnp=True, comment="16-bit extension (DNP): connects G%s to FPGA" % s[3:])
         else:
-            two("R", "Device:R", R0603, "33R", "M_" + s, "F_" + s, "series", pos=(60.2, round(y, 2)), rot=0)
+            two("R", "Device:R", R0603, "33R", "M_" + s, "F_" + s, "series", pos=(62.0, round(y, 2)), rot=0)
 
     # ------------------------------------------------------------ Core socket
     core = add("J", "carrier:CORE_SODIMM_204", "carrier:DDR3-SMD_0705F0BE40F", "Tang Primer 20K Core",
-               {}, "core", pos=(67.5, 39.8), rot=270,
+               {}, "core", pos=(71.5, 39.8), rot=270,
                comment="Sipeed footprint (LCSC C367004)", lcsc="C367004")
     for n in CORE_5V:
         core.pins[str(n)] = "+5V"
