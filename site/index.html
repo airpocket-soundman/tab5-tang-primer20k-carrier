@@ -99,7 +99,7 @@ svg .mut{fill:var(--muted)}
  <h2>1. 概要</h2>
  <div class="kpi">
   <div><b>8bit → 16bit</b><span>初期はPARLIO 8bit並列。回路は16bit拡張を想定</span></div>
-  <div><b>外部 12〜24V</b><span>Tab5 HVINへ供給。FPGAは別系統5V</span></div>
+  <div><b>外部 12〜24V</b><span>DCバレルジャック1つでTab5(HVIN)とFPGA(別系統5V)へ</span></div>
   <div><b>HDMI 入出力</b><span>出力はTLVDS直駆動、入力は直結実験から</span></div>
   <div><b>JLCPCB PCBA</b><span>基本部品中心。拡張部品が多ければTHT手組</span></div>
  </div>
@@ -248,7 +248,7 @@ svg .mut{fill:var(--muted)}
    <rect x="480" y="30" width="110" height="44" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="535" y="57" text-anchor="middle">PRE_5V</text>
    <rect x="20" y="180" width="130" height="50" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="85" y="202" text-anchor="middle">NP-F550</text><text x="85" y="220" text-anchor="middle" class="mut">2S 6.0〜8.4V</text>
    <rect x="180" y="180" width="130" height="50" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="245" y="202" text-anchor="middle">SYS_BAT_2S</text><text x="245" y="220" text-anchor="middle" class="mut">INA226で電流監視</text>
-   <rect x="340" y="180" width="120" height="50" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="400" y="202" text-anchor="middle">SY8113</text><text x="400" y="220" text-anchor="middle" class="mut">昇降圧(5V系)</text>
+   <rect x="340" y="180" width="120" height="50" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="400" y="202" text-anchor="middle">SY8113</text><text x="400" y="220" text-anchor="middle" class="mut">降圧(5V系)</text>
    <rect x="490" y="180" width="100" height="50" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="540" y="210" text-anchor="middle">SYS_INT5V</text>
    <rect x="640" y="130" width="120" height="44" rx="6" fill="var(--infobg)" stroke="var(--info)"/><text x="700" y="150" text-anchor="middle">M5-Bus ピン28</text><text x="700" y="166" text-anchor="middle" class="mut">EXT5V（出力）</text>
    <rect x="640" y="240" width="120" height="44" rx="6" fill="var(--infobg)" stroke="var(--info)"/><text x="700" y="260" text-anchor="middle">M5-Bus ピン30</text><text x="700" y="276" text-anchor="middle" class="mut">VBAT_OUT≒3.3V</text>
@@ -265,32 +265,51 @@ svg .mut{fill:var(--muted)}
  <figcaption>図3　Tab5内部の電源経路。HVINは<b>1A PTC</b>を通るため、Tab5が使える電力が制限される。バッテリー電圧はM5-Busに出ない。</figcaption>
  </figure>
 
- <h3>FPGA（Core）用5Vの供給方式 比較</h3>
- <p>Coreは <code>+5V</code>（SODIMMピン4・6）入力で、Core内で3.3V・1.5V・1.0Vを生成します。以下の4方式を比較しました。</p>
+ <h3>決定：外部12〜24VをDCバレルジャックで受け、Tab5とFPGAの両方へ供給</h3>
+ <div class="callout ok"><b class="t">方針変更（バッテリー駆動は保留）</b>
+  バッテリー駆動は<b>いったん中止</b>します（M5-Busにバッテリー線が出ないため）。キャリア基板に<b>DCバレルジャック</b>を設け、外部12〜24Vを1系統で受けて、<b>Tab5（HVIN）とFPGA（Core 5V）の両方に供給</b>します。バッテリーはTab5単体用として従来どおり残ります（Tab5内部でHVIN電源と自動切替）。</div>
+
+ <figure>
+ <svg viewBox="0 0 780 300" role="img" aria-label="キャリア基板の電源構成">
+  <defs><marker id="a3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--ink)"/></marker></defs>
+  <g font-size="13" text-anchor="middle">
+   <rect x="10" y="110" width="110" height="60" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="65" y="136">DCバレル</text><text x="65" y="154">ジャック</text>
+   <rect x="150" y="110" width="150" height="60" rx="6" fill="var(--warnbg)" stroke="var(--warn)"/><text x="225" y="134">保護</text><text x="225" y="152" class="mut">逆接防止・TVS・PTC</text>
+   <rect x="340" y="30" width="170" height="60" rx="6" fill="var(--infobg)" stroke="var(--info)"/><text x="425" y="54">Tab5へ（HPWR）</text><text x="425" y="72" class="mut">M5-Bus 25/27/29</text>
+   <rect x="340" y="190" width="170" height="60" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="425" y="214">降圧DC-DC</text><text x="425" y="232" class="mut">TPS5430 等 → 5V</text>
+   <rect x="560" y="30" width="200" height="60" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="660" y="54">Tab5内部</text><text x="660" y="72" class="mut">D7→PTC1A→MP4560→PRE_5V</text>
+   <rect x="560" y="190" width="200" height="60" rx="6" fill="var(--panel)" stroke="var(--ink)"/><text x="660" y="214">Core +5V</text><text x="660" y="232" class="mut">SODIMM ピン4・6</text>
+  </g>
+  <g stroke="var(--ink)" stroke-width="1.6" fill="none" marker-end="url(#a3)">
+   <path d="M120,140 H150"/><path d="M300,140 C320,140 320,60 340,60"/><path d="M300,140 C320,140 320,220 340,220"/>
+   <path d="M510,60 H560"/><path d="M510,220 H560"/>
+  </g>
+  <text x="390" y="284" text-anchor="middle" font-size="12" class="mut">Tab5の5V（M5-Bus ピン28）とFPGA用5Vは接続しない。GNDのみ共通。</text>
+ </svg>
+ <figcaption>図4　キャリアの電源構成。1つの外部電源から2系統に分岐し、それぞれ独立して降圧される。</figcaption>
+ </figure>
+
+ <h3>各部の仕様案</h3>
  <div class="tw"><table>
-  <thead><tr><th>方式</th><th>電源の取り方</th><th class="c">電力余裕</th><th class="c">実現性</th><th>主な課題</th></tr></thead>
+  <thead><tr><th>ブロック</th><th>仕様案</th><th>備考</th></tr></thead>
   <tbody>
-   <tr><td><b>A. バッテリー→キャリアDC-DC→5V</b><br>（ご要望の優先案）</td><td>NP-F550の2S電圧（6.0〜8.4V）をタップし、降圧DC-DC（5.5V入力以上のIC）で5V化</td><td class="c t-ok">大</td><td class="c t-warn">要機構検討</td><td>M5-Busにバッテリー線が出ない。取り出しは (a)バッテリーとTab5の間に挟むタップ基板、(b)Tab5内部J12(4pin)からの配線、のいずれか。低電圧(6V付近)での降圧限界と過放電保護が必要</td></tr>
-   <tr><td><b>B. Tab5のEXT5V（M5-Busピン28）</b></td><td>Tab5内部5V系をIOエキスパンダ制御のロードスイッチ(LPW5209)経由で取り出す</td><td class="c t-warn">小〜中</td><td class="c t-ok">配線のみ</td><td>Tab5の5V系と電力を共有。ロードスイッチの電流上限・Tab5降圧器の余力が未確認。Tab5がオフだとFPGAも落ちる</td></tr>
-   <tr><td><b>C. 外部12〜24V→キャリアDC-DC→5V</b></td><td>入力ジャックから別系統の降圧(TPS5430等)</td><td class="c t-ok">大</td><td class="c t-ok">容易</td><td>外部電源が必要（バッテリー単体運用には使えない）</td></tr>
-   <tr><td><b>D. 併用（ダイオードOR）</b></td><td>A（またはB）とCをOR接続し、1つの降圧ICに入力</td><td class="c t-ok">大</td><td class="c t-warn">A次第</td><td>広入力(5.5〜36V)のICなら1個で済む。バッテリーを優先するには理想ダイオード/PMOS優先回路が必要</td></tr>
+   <tr><td>入力コネクタ</td><td>DCバレルジャック（THT、5.5×2.1mm 想定）＋予備の2pinネジ端子パッド</td><td>極性は<b>センタープラス</b>で統一。手組THTでコスト削減</td></tr>
+   <tr><td>入力電圧</td><td>12〜24V</td><td>Tab5 HVINは「6〜24V」表記。24V運用はMP4560の絶対最大定格の確認が前提</td></tr>
+   <tr><td>逆接続保護</td><td>直列ショットキー（SS54：40V・5A、基本部品）</td><td>損失は電流×約0.5V。PMOS方式はAO3401Aが30Vのため24V＋サージで余裕が小さく、第一案はダイオード</td></tr>
+   <tr><td>サージ・過電流</td><td>TVS（24V級）＋PTCヒューズ（合計の定格に合わせる）</td><td>Tab5側は内部に1A PTCがあるため、<b>入力PTCは約3Aホールド</b>程度（Tab5最大1A＋FPGA側）</td></tr>
+   <tr><td>Tab5側分岐</td><td>M5-Bus 25/27/29（HPWR）へ接続。キャリア側に追加の降圧はなし</td><td>Tab5の消費は内部PTCで<b>最大約1A</b>。12V入力で約12W</td></tr>
+   <tr><td>FPGA側分岐</td><td>降圧DC-DC（TPS5430DDAR、入力5.5〜36V・3A）→ 5V → Core</td><td>Core＋HDMI＋周辺で<b>2A以下</b>を目標。インダクタ・ダイオード(SS34)は基本部品</td></tr>
+   <tr><td>電源投入順</td><td>ソフトスタートのみ。Tab5とFPGAは同時起動</td><td>信号は33Ω直列抵抗、G35/G37/G38は隔離（第5章）</td></tr>
+   <tr><td>5Vの分離</td><td>Tab5のEXT5V（ピン28）は<b>未接続</b></td><td>GNDのみ共通</td></tr>
   </tbody></table></div>
 
- <div class="callout ok"><b class="t">推奨</b>
-  <b>広入力降圧IC 1個（候補：TPS5430、入力5.5〜36V・3A）</b>を使い、入力を「バッテリータップ（A）」と「外部12〜24V（C）」のOR接続にします。これならバッテリー単独でも外部電源単独でも動作します。バッテリータップが機構的に困難な場合は、Bを暫定の試験用に<b>ジャンパ選択</b>で実装します。Tab5のHVINへは外部電源のみを供給し、バッテリー系統とは分離します。</div>
+ <div class="callout warn"><b class="t">24V入力の注意</b>
+  TVSのクランプ電圧は、24V級で約39V（SMBJ24A）です。Tab5のMP4560と、キャリアのTPS5430（絶対最大定格は約40V付近、データシートで要確認）に対して<b>余裕が小さい</b>ため、24V運用を本当に使うかを先に決めます。確実に収めるなら入力を<b>12〜19V程度に制限</b>するか、24V級より低いスタンドオフのTVSと組み合わせて、Tab5側の絶対最大定格を確認してから選定します。</div>
 
- <h3>バッテリー駆動時の降圧限界</h3>
+ <h3>保留項目</h3>
  <ul>
-  <li>2Sの放電終止付近（約6〜6.4V）から5Vを作るため、降圧ICの<b>最小入力電圧と最大デューティ</b>の余裕が必要です（TPS5430は最小入力5.5V、ただし5V出力時のドロップアウトはデータシートで要確認）。</li>
-  <li>Core＋HDMI分の<b>消費電流は2A以下</b>を目標として、3A級のICで余裕を確保。実測が必要です。</li>
-  <li>バッテリー保護（過放電）はTab5の電源管理に依存。FPGAを併用してバッテリーを空にしないよう、<b>低電圧ロックアウト</b>（入力分圧でEN制御）を設けます。</li>
- </ul>
-
- <h3>外部12〜24V入力の保護</h3>
- <ul>
-  <li>逆接続保護（PMOS）、TVS、ヒューズまたはPTC。</li>
-  <li>Tab5 HVINは「6〜24V」表記ですが、内部に<b>1A PTC</b>があり、MP4560の絶対最大定格は未確認です。24V運用時のTVSのクランプ電圧は定格確認後に決定。</li>
-  <li><b>Tab5の5V（ピン28）とキャリアの5Vは、直結しない</b>のが原則です（Bを使う場合のみジャンパで限定接続）。</li>
+  <li><b>バッテリーからのFPGA給電</b>：中止（旧案Aのタップ基板・J12配線）。将来必要になれば再検討。</li>
+  <li><b>Tab5 EXT5V（ピン28）からの給電</b>：不採用。Tab5の5V系とFPGAの電力を共有してしまうため。</li>
  </ul>
 </section>
 
@@ -343,7 +362,7 @@ svg .mut{fill:var(--muted)}
 <g class="in"><rect x="400" y="468" width="340" height="26" rx="5"/><text class="pn" x="410" y="485">30</text><text class="pt" x="444" y="486">BAT(≒3.3V出力)</text></g>
 </g>
  </svg>
- <figcaption>図4　M5-Bus 30ピン（Tab5回路図3頁で確定）。D0〜D7＝8bitデータ、「補助」＝予備線。</figcaption>
+ <figcaption>図5　M5-Bus 30ピン（Tab5回路図3頁で確定）。D0〜D7＝8bitデータ、「補助」＝予備線。</figcaption>
  </figure>
 
  <div class="tw"><table>
@@ -385,7 +404,7 @@ svg .mut{fill:var(--muted)}
   <text x="10" y="96" font-size="13" font-weight="600">16bitにするには</text>
   <text x="10" y="118" font-size="12" class="mut">補助4本＋DIR＋READY＋ストラップ3本をデータ線に転用すれば16本に届くが、制御線がほぼ消える</text>
  </svg>
- <figcaption>図5　8bit運用時の使い道と、16bit化で不足する本数。</figcaption>
+ <figcaption>図6　8bit運用時の使い道と、16bit化で不足する本数。</figcaption>
  </figure>
 
  <h3>16bit化の選択肢 比較</h3>
@@ -459,10 +478,10 @@ svg .mut{fill:var(--muted)}
  <div class="tw"><table>
   <thead><tr><th class="c">#</th><th>項目</th><th>決めること／確認方法</th></tr></thead>
   <tbody>
-   <tr><td class="c">1</td><td><b>バッテリー電源のタップ方法</b></td><td>タップ基板（バッテリー⇔Tab5間）か、Tab5内部J12配線か。NP-F550端子の機構寸法の確認。無理ならB（EXT5V）を暫定採用</td></tr>
+   <tr><td class="c">1</td><td><b>入力保護と24V運用の可否</b></td><td>MP4560／TPS5430の絶対最大定格を確認し、TVSと入力電圧範囲（12〜24Vか12〜19Vか）を決める</td></tr>
    <tr><td class="c">2</td><td>16bit方式</td><td>案1〜3のどれにするか。G35/G37/G38の起動時動作の実機検証</td></tr>
    <tr><td class="c">3</td><td>M5-Bus位置・基板外形</td><td>Tab5.stlでCAD確認。ピン1の向き、ヘッダ高さ、キーボードとの干渉</td></tr>
-   <tr><td class="c">4</td><td>HVIN許容（24V入力）</td><td>MP4560絶対最大定格とPTC 1A、TVSクランプ電圧</td></tr>
+   <tr><td class="c">4</td><td>DCバレルジャックの機種</td><td>THT品の寸法・センタープラス極性・基板配置（背面の縁）</td></tr>
    <tr><td class="c">5</td><td>SODIMMピンマップ確定表</td><td>現在は機械抽出の暫定CSVのみ。Dock回路図・ibomで確定</td></tr>
    <tr><td class="c">6</td><td>HDMI入力方式</td><td>LVDS入力仕様の確認（Datasheet V1.0を手動取得）→直結／受信IC</td></tr>
    <tr><td class="c">7</td><td>Coreの消費電流</td><td>実測で降圧ICの余裕を確定</td></tr>
