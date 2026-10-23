@@ -1,0 +1,277 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1"><title>シミュレーション再監査・開発引き継ぎ</title>
+        <meta name="description" content="6450c42時点のHDMIシミュレーション監査。数値の再現性、モデルの限界、PoC試作条件と開発引き継ぎ。">
+        <style>
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --ink:#1b1f24; --muted:#5b6672; --line:#d9dee4;
+  --accent:#1f6feb; --ok:#1a7f37; --okbg:#e3f5e8; --warn:#9a6700; --warnbg:#fff4d1;
+  --bad:#cf222e; --badbg:#fde4e6; --info:#0a6aa1; --infobg:#e1f1fb;
+  --pcb:#1f7a4d; --pcb2:#2f9e68; --tab5:#c9ced6; --code:#eef1f5;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1318; --panel:#171c23; --ink:#e6eaef; --muted:#9aa5b1; --line:#2b333d;
+    --accent:#58a6ff; --ok:#56d364; --okbg:#10301a; --warn:#e3b341; --warnbg:#3a2d0b;
+    --bad:#ff7b72; --badbg:#3c1418; --info:#79c0ff; --infobg:#0d2c44;
+    --pcb:#1d6b45; --pcb2:#2b8a5c; --tab5:#3a424d; --code:#222a33;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1318; --panel:#171c23; --ink:#e6eaef; --muted:#9aa5b1; --line:#2b333d;
+  --accent:#58a6ff; --ok:#56d364; --okbg:#10301a; --warn:#e3b341; --warnbg:#3a2d0b;
+  --bad:#ff7b72; --badbg:#3c1418; --info:#79c0ff; --infobg:#0d2c44;
+  --pcb:#1d6b45; --pcb2:#2b8a5c; --tab5:#3a424d; --code:#222a33;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 "Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif}
+a{color:var(--accent)}
+header.top{background:var(--panel);border-bottom:1px solid var(--line);padding:28px 16px 20px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header.top .wrap{padding:0}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 6px}
+.sub{color:var(--muted);margin:0}
+.badge{display:inline-block;font-size:.78rem;padding:2px 10px;border-radius:999px;background:var(--warnbg);color:var(--warn);border:1px solid var(--warn);margin-right:6px;vertical-align:middle}
+nav.toc{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+nav.toc .wrap{display:flex;gap:4px;padding-top:6px;padding-bottom:6px}
+nav.toc a{padding:4px 12px;border-radius:6px;text-decoration:none;color:var(--ink);font-size:.9rem}
+nav.toc a:hover{background:var(--code)}
+section{padding:36px 0 8px}
+h2{font-size:1.35rem;margin:0 0 14px;padding-left:12px;border-left:5px solid var(--accent)}
+h3{font-size:1.08rem;margin:26px 0 8px}
+p{margin:.6em 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.callout{border-left:5px solid var(--info);background:var(--infobg);padding:10px 14px;border-radius:6px;margin:14px 0}
+.callout.warn{border-color:var(--warn);background:var(--warnbg)}
+.callout.bad{border-color:var(--bad);background:var(--badbg)}
+.callout.ok{border-color:var(--ok);background:var(--okbg)}
+.callout b.t{display:block;margin-bottom:2px}
+figure{margin:16px 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{color:var(--muted);font-size:.88rem;padding:6px 6px 2px}
+.tw{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:560px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--code);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.c,th.c{text-align:center}
+.t-ok{background:var(--okbg);color:var(--ok);font-weight:600}
+.t-warn{background:var(--warnbg);color:var(--warn);font-weight:600}
+.t-bad{background:var(--badbg);color:var(--bad);font-weight:600}
+.t-info{background:var(--infobg);color:var(--info);font-weight:600}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font-family:ui-monospace,Consolas,monospace;font-size:.88em}
+ul{padding-left:1.3em;margin:.5em 0}
+li{margin:.2em 0}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:14px 0}
+.kpi div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi b{display:block;font-size:1.25rem}
+.kpi span{color:var(--muted);font-size:.85rem}
+footer{color:var(--muted);font-size:.85rem;padding:32px 0 48px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.85rem;color:var(--muted);margin:6px 2px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+svg text{font-family:inherit;fill:var(--ink)}
+svg .mut{fill:var(--muted)}
+</style><style>
+    article{padding:24px 0}article h2{margin-top:38px}article h3{margin-top:26px}
+    article p,article li,td{overflow-wrap:anywhere}pre{overflow:auto;background:var(--code);padding:16px;border-radius:8px}
+    pre code{padding:0}blockquote{border-left:4px solid var(--line);padding:4px 16px;margin:16px 0}
+    .audit-toc{display:flex;gap:8px 18px;flex-wrap:wrap}.audit-toc a{font-size:.9rem}
+    @media(max-width:600px){h1{font-size:1.4rem}.wrap{padding:0 12px}}
+    </style></head><body>
+        <header class="top"><div class="wrap"><p><span class="badge">2026-10-24 監査記録</span><span class="badge">6450c42時点・修正版の判定ではありません</span></p>
+        <h1>シミュレーション再監査・開発引き継ぎ</h1><p class="sub">数値の再現性と製作判断を分けて記録しています。</p></div></header>
+        <nav class="toc"><div class="wrap"><a href="index.html">企画・設計仕様</a><a href="hdmi-simulation.html">シミュレーションレポート</a><a href="hdmi-audit.html">再監査</a><a href="hdmi-audit-initial.html">初回レビュー</a></div></nav>
+        <main class="wrap"><div class="callout"><b class="t">修正の進捗（ユーザー報告）</b>
+        TMDS線の連続配線、ESDの短いシャント接続、499Ω抵抗の信号線近傍への配置へ修正中です。この方針は妥当です。
+        ESDの接続枝とGND経路を短くし、抵抗はAC結合コンデンサのHDMI側に接続、P/Nを対称にします。
+        以下は修正前コミットへの監査記録です。修正版の実配線・再計算を確認するまで、是正済みとは判定しません。</div>
+        <div class="card audit-toc"><a href="#audit-section-1">開発セッションへ渡す結論</a><a href="#audit-section-2">1. 監査対象と分離方法</a><a href="#audit-section-3">2. 最新結果の再現確認</a><a href="#audit-section-4">3. 前回指摘への対応状況</a><a href="#audit-section-5">4. 残る指摘と完了条件</a><a href="#audit-section-6">5. 開発セッションでの推奨作業順</a><a href="#audit-section-7">6. 再現用ファイル</a></div><div class="card"><b>監査の根拠</b><ul>
+            <li><a href="audit-data/audit_6450c42_2026-10-24.json">コミット済み入力からの数値再現・169条件の検証結果（JSON）</a></li>
+            <li><a href="audit-data/audit_drc_6450c42_2026-10-24.json">DRC結果（JSON）</a></li>
+            <li><a href="https://github.com/airpocket-soundman/tab5-tang-primer20k-carrier/blob/main/kicad/sim/audit_committed_simulation.py">監査の再実行スクリプト</a></li>
+            </ul></div><article><p>監査日：2026-10-24。対象：<code>6450c421bee1b5b8a0f6b04c9ee91143e0416f34</code>（<code>claude/kicad-v4-hdmi</code>）。</p>
+<h2 id="audit-section-1">開発セッションへ渡す結論</h2>
+<p><strong>最新コミットの数値結果は再現できた。前回の指摘を認めて「製作前に是正」とした判断も適切。ただし回路・PCBは未修正であり、現状のまま発注する判断は引き続き保留する。</strong></p>
+<p>今回のコミットは「シミュレーション・説明の更新」であり、「不具合を修正した基板での再シミュレーション」ではない。ESD信号の連続性と499Ω抵抗枝を直した後、同じ解析手順をそのまま実行するだけでは不十分で、クロックN側の枝の記録漏れと経路抽出も是正する。</p>
+<p>PoCの条件は継続する。<strong>720p60を主目標、低速表示を立ち上げ用</strong>とし、Coreの完全な3D解析・HDMI認証・TDR・アイ測定を発注前の必須条件にはしない。公式Coreの近似と不確かさを明記し、短いケーブル・限定モニタでの実機動作確認を最終的な成功条件とする。</p>
+<h2 id="audit-section-2">1. 監査対象と分離方法</h2>
+<ul>
+<li>作業場所：リポジトリ内 <code>.claude/worktrees/project-review-ff0f9d</code>。ルートmainのHEAD <code>0ff1502</code> とは別。</li>
+<li><code>git show &lt;対象SHA&gt;:&lt;path&gt;</code> で<strong>コミット済みの解析コード・入力・保存結果だけ</strong>を一時ディレクトリへ取り出して再計算した。既存の未コミットの監査スクリプト・結果・資料は、最新結果の再現計算へ混入させていない。</li>
+<li><code>7a0a3c5</code>→<code>6450c42</code> の差分では、PCB、<code>gen/design.py</code>、<code>stub_tracks.json</code> に変更なし。</li>
+<li>対象PCBの作業ファイルSHA-256（CRLF）：<code>215ebb23a614ddec622eb1510c80ad71e83b1917391ae9b3f3940339dafae6d4</code>。コミット内blobのSHA-256（LF）：<code>bb57fd70db5565b33cced5265f9b72c962ecb0bf6a2da47c9a610c9823b3b887</code>。改行を正規化すると完全一致し、PCBに内容差分はない。監査JSONはコミットblobのハッシュを記録する。</li>
+<li>参照した解析入力・コードのSHA-256は <code>kicad/sim/audit_6450c42_2026-10-24.json</code> に保存。</li>
+<li>両ベースプロジェクトはローカルHEADを再確認。Linux：<code>c1cd5e47f9f07a164bc070b8defe36bb05682c6b</code>、GPU：<code>3b1ace3d91c6305ec0e32378f8819fce208c2aa7</code>。README・開発目的・Project B等の要求を照合。前回から版変更なし。基本要求はDDR3利用と双方向通信、GPU基本表示先はTab5内蔵LCDで、外部HDMIの1080p60を必達にする必要はない。</li>
+</ul>
+<h2 id="audit-section-3">2. 最新結果の再現確認</h2>
+<p><code>tmds_sparam.py</code> と <code>make_report_figs.py</code> のチャネル計算をそれぞれ実行し、コミットに保存されたJSONへ照合した。これは<strong>同じモデルの再現性確認</strong>であり、モデルの物理精度の独立検証や実機合格ではない。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>対象</th>
+<th>再計算結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tmds_sparam.json</code></td>
+<td>最大絶対差 約3.6×10^-15 dB。一致</td>
+</tr>
+<tr>
+<td><code>report_sparam.json</code></td>
+<td>最大絶対差0 dB。一致</td>
+</tr>
+<tr>
+<td><code>report_sensitivity.json</code> の反射</td>
+<td>13×13＝169条件を全再計算。最大絶対差 約1.5×10^-13 dB。一致</td>
+</tr>
+<tr>
+<td>同・挿入損失</td>
+<td>最大絶対差 約2.6×10^-14 dB。一致</td>
+</tr>
+<tr>
+<td>PCB DRC</td>
+<td>今回再実行：error・all-track-errorsで違反0、未配線0。部品内部の導通・SIを保証しない</td>
+</tr>
+</tbody>
+</table></div>
+<p>最新のモデルが与える数値：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ペア</th>
+<th style="text-align:right">SDD11 @1.65GHz</th>
+<th style="text-align:right">SDD21 @1.65GHz</th>
+<th style="text-align:right">SDD11最悪（～1.65GHz）</th>
+<th style="text-align:right">SDD21 @370MHz（720p Nyquist近傍）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D0</td>
+<td style="text-align:right">−17.97dB</td>
+<td style="text-align:right">−0.741dB</td>
+<td style="text-align:right">−17.97dB</td>
+<td style="text-align:right">−0.195dB</td>
+</tr>
+<tr>
+<td>D1</td>
+<td style="text-align:right">−31.80dB</td>
+<td style="text-align:right">−0.556dB</td>
+<td style="text-align:right">−20.08dB</td>
+<td style="text-align:right">−0.165dB</td>
+</tr>
+<tr>
+<td>D2</td>
+<td style="text-align:right">−31.54dB</td>
+<td style="text-align:right">−0.556dB</td>
+<td style="text-align:right">−20.04dB</td>
+<td style="text-align:right">−0.166dB</td>
+</tr>
+<tr>
+<td>CK</td>
+<td style="text-align:right">−14.45dB</td>
+<td style="text-align:right">−0.857dB</td>
+<td style="text-align:right">−14.45dB</td>
+<td style="text-align:right">−0.208dB</td>
+</tr>
+</tbody>
+</table></div>
+<p>これらはESDを素通しとし、長い抵抗枝を適切にモデル化していない<strong>是正前モデル</strong>の値。小さい損失や良い反射を理由に、実信号が流れる・表示できるとは判断しない。</p>
+<p>感度解析では、仮定した差動L=0～3nH、C=0～1.5pFの169条件のうち、SDD11≤−10dB（～1.65GHz）は<strong>84条件</strong>。中央条件（L=1.5nH、C=0.75pF）は−10.20dB、領域内の最悪は−4.49dB。任意に振ったパラメータの格子なので、<strong>84/169を製造歩留まり・動作確率と解釈しない</strong>。実ソケットがこの範囲内にあるという保証もない。</p>
+<h2 id="audit-section-4">3. 前回指摘への対応状況</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>判定</th>
+<th>根拠・残作業</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.13mm間隔を直接計算する</td>
+<td>対応済み</td>
+<td><code>tmds_channel.py</code> のグリッドに0.13を追加。約107Ωの代用から約103～104Ωへ訂正</td>
+</tr>
+<tr>
+<td>区間を格納順の逆順にしない</td>
+<td>部分対応</td>
+<td><code>order_segments()</code>追加。大部分で連続するが、CKN_Cは下記のとおり未解決</td>
+</tr>
+<tr>
+<td>720p60を主目標にする</td>
+<td>対応済み</td>
+<td>監査記録§1/§9、サイト、KiCad READMEに反映</td>
+</tr>
+<tr>
+<td>従来結果を「合格」としない</td>
+<td>主な箇所は対応済み</td>
+<td>監査記録§5.2とサイト是正事項で保留を明記。残る矛盾は後述</td>
+</tr>
+<tr>
+<td>Core近似の限界・ESD容量・スキュー</td>
+<td>説明は改善</td>
+<td>監査記録§9に反映。ただしESD容量の新しい感度範囲は現行チャネル実装に未反映</td>
+</tr>
+<tr>
+<td>ESDの端子導通</td>
+<td><strong>未是正・発注前必須</strong></td>
+<td>回路/PCB/部品定義は前版のまま。文書が欠陥を認めただけで物理接続は変わっていない</td>
+</tr>
+<tr>
+<td>499Ω枝の短縮・モデル化</td>
+<td><strong>未是正・発注前必須</strong></td>
+<td>回路/PCB/枝メタデータに変更なし。現行チャネルに998Ω負荷も終端付き枝線路も入っていない</td>
+</tr>
+<tr>
+<td>3D解析の較正</td>
+<td>未解決・PoCの発注条件にしない</td>
+<td>旧較正結果とテストコードを収録。新しい検証済み実基板3D結果は確認できない</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="audit-section-5">4. 残る指摘と完了条件</h2>
+<h3>A1【高・発注前】ESDの信号経路をPCB銅配線で連続させる</h3>
+<p><code>gen/design.py</code> はU4/U5の1→10、2→9、4→7、5→6を内部通過させる接続のまま。C293965/DOWO資料は反対側端子をNCとしており、文書上の訂正では解消しない。</p>
+<p><strong>完了条件：</strong> 選定メーカー・型番・端子表・フットプリントを一致させ、各TMDS線を銅で連続配線＋ESDシャント接続にするか、導通保証された別部品へ変更。部品内部の素通しを仮定せず、入力からHDMI端子まで8線の接続を確認し、DRC/ERCとネットリストも再確認する。</p>
+<h3>A2【高・発注前】抵抗枝の短縮とCKN枝の抽出漏れを修正する</h3>
+<p>今回、<strong>コミット済み入力だけ</strong>から <code>order_segments(tc.segs(...))</code> を検査したところ、<code>HDMI_CKN_C</code> は38区間・平面合計61.357mmで、隣接区間の<strong>26か所が0.06mm超の不連続</strong>だった。他の23ネットではこの検査の不連続は0だった。</p>
+<p><strong>ここでいう不連続は、解析用に並べた区間リスト上の座標の飛びを指す。PCBの回路が26か所切断されているという意味ではない。</strong> 本来別に扱う抵抗枝が混在し、一本の主経路として正しく抽出できていないというモデル化の不備である。PCB DRCは未配線0。ESDのNC端子による導通懸念（A1）は、これと別の問題として扱う。</p>
+<p>原因は、CKNの抵抗枝が <code>stub_tracks.json</code> に未収録のままで、枝を含む区間集合を並べ替えていること。<code>order_segments()</code> は到達できなかった区間を末尾へ無条件追加するため、検出・停止しない。さらに <code>profile()</code> はP線をサンプリングし、N線の近傍距離を参照するだけなので、CKNの余分な枝全体の電気的影響を表現できない。</p>
+<p><strong>完了条件：</strong> 抵抗を分岐点近傍、目安1～2mm・少なくとも数mm程度へ寄せ、P/N対称にする。主経路と抵抗までの枝をPCB接続から別々に抽出し、8本すべての枝長を記録する。枝を除外する主経路の判定と、枝の負荷を回路モデルへ入れることは別作業。未到達区間はエラーにし、無条件追加で隠さない。</p>
+<p>今回の「他23ネットで不連続0」は、この入力・この距離検査に限る。最小x始点と近接だけで接続する方式が、層替えや将来の再配線でも常に正しいという認定ではない。対象パッドと層接続を端点にして確認する。</p>
+<h3>A3【中・発注判断資料】長さ・スキューを一つの定義へ統一する</h3>
+<p><code>tmds_summary.json</code> のD0長53.245mmに対し、<code>tmds_sparam.json</code> の区間合計は58.245mmで<strong>5.000mmの差</strong>がある。他のペアでも同様。前者はルータ出力の <code>pair_lengths.json</code> で合計を上書きし、後者は抽出した銅区間を積算するためである。現行レポートはこれらを併記し、スキュー0.00mmも固定記述している。</p>
+<p><strong>完了条件：</strong> パッド中心/パッド端、部品内部、ビア垂直長、Coreを含む/含まない、枝除外を明記し、実PCBからP/N各経路を計算する。ルータの設計値と実配線確認値を分ける。約0.135mmという前回のCK差だけを理由に再蛇行する必要はないが、「実配線4組とも厳密0.00mm」を確認済みとはしない。</p>
+<h3>A4【中・再現性】説明と依存資料をコミット単体で追跡可能にする</h3>
+<ul>
+<li>監査記録冒頭/§6.3とサイト冒頭には「最終判断はTDR・アイ」、§9/サイト末尾には「PoCでは必須でない」が残る。<strong>最新方針を720pの機能確認へ統一</strong>し、旧記載は過去の判断と明示する。</li>
+<li>監査記録§6.4には「いずれも合否判断は変わらない」が残る。§9の製作保留と矛盾しないよう、「線幅/間隔の計算訂正だけでは製作可にしない」等へ直す。</li>
+<li>レポート図の比較値・スキューは固定値、<code>0.825GHz</code>列の実サンプル点は<strong>0.820GHz</strong>。小さな差であり発注阻害ではないが、再計算に追随する集計へ統一し、必要なら補間する。</li>
+<li>§9で採用したCore85～115Ωの試算・DOWOメーカー資料・独立レビューの元文書は、対象コミットには未収録。<code>6450c42</code>だけではこれらすべてを再現できない。本作業ツリーには前回取得資料があるので、参照URL・版・ハッシュ、採用した試算スクリプト/結果を選んで保存する。</li>
+<li>サイト是正事項の「SDD11が約−26dB悪化」は誤解を招く。<strong>孤立した998Ω負荷のSDD11が約−26.4dB</strong>という意味であり、既存チャネルへの悪化量が26dBなのではない。カスケード後の反射は位相によって増減する。</li>
+</ul>
+<p>これらは数値の捏造を示すものではなく、モデルの範囲と監査可能性を改善する指摘である。</p>
+<h2 id="audit-section-6">5. 開発セッションでの推奨作業順</h2>
+<ol>
+<li><strong>回路・配線を修正</strong>：A1の導通、A2の抵抗配置を先に解決。較正途中の3D解析を先に完成させる必要はない。</li>
+<li><strong>実PCBから再抽出</strong>：全8線の端点、主経路、枝、ビア/層を確認。不連続・未到達区間があれば止める。長さをルータ値で上書きしない。</li>
+<li><strong>簡易チャネルを再計算</strong>：499Ωの有限負荷、短い終端枝、採用ESD容量の妥当な仮定を入れる。Core100Ω・38.4mmは基準ケースとし、85/115Ω等は保証範囲ではない感度ケースとして扱う。720pの実速度と観察周波数を分ける。</li>
+<li><strong>記録を一体化</strong>：PCB・部品定義・解析入力・結果・レポートを同じ変更版へ揃え、検証した仮定、残すリスク、低速フォールバックを記載。</li>
+<li>電源・逆給電・機構・コネクタ向き等の基本確認後、<strong>少数試作へ進む</strong>。実機は低速テストパターン→720p60、短いケーブル・指定モニタで30分程度。PARLIOは別に低速ID/CRCから段階評価する。</li>
+</ol>
+<p>新しい数値に厳しい一律基準を追加して試作を止める意図はない。<strong>接続上の欠陥と大きい未モデル化部分を直し、720pを狙う合理的な根拠を作ること</strong>が今回の発注前条件である。</p>
+<h2 id="audit-section-7">6. 再現用ファイル</h2>
+<ul>
+<li><code>kicad/sim/audit_committed_simulation.py</code>：コミットを一時領域へ展開して監査。元の生成物や未コミット作業物は更新しない。</li>
+<li><code>kicad/sim/audit_6450c42_2026-10-24.json</code>：入力ハッシュ、ペア別数値、経路連続性、保存値との差、169条件の検証結果。</li>
+<li><code>kicad/sim/audit_drc_6450c42_2026-10-24.json</code>：今回のDRC出力。</li>
+</ul>
+<pre><code class="language-text">python -X utf8 kicad/sim/audit_committed_simulation.py 6450c421bee1b5b8a0f6b04c9ee91143e0416f34
+</code></pre>
+<p>今回の監査で回路・PCB・既存シミュレーション結果を修正せず、上記監査スクリプト・結果とこの引き継ぎ文書を追加した。既存の未コミット変更は保持した。実機操作・製造注文・サイト公開・別セッションへの送信は実施していない。</p>
+</article>
+        <footer><a href="https://github.com/airpocket-soundman/tab5-tang-primer20k-carrier/blob/main/docs/%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%86%8D%E7%9B%A3%E6%9F%BB_6450c42_%E9%96%8B%E7%99%BA%E5%BC%95%E7%B6%99%E3%81%8E.md">この記録のMarkdown原文</a> · <a href="hdmi-simulation.html">シミュレーションレポートへ戻る</a></footer></main></body></html>
