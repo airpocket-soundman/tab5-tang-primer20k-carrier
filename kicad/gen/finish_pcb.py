@@ -148,15 +148,31 @@ def main():
             placed = connect_to_gnd_pad(board, cx, cy, gnd)
             print("F.Cu link to a GND pad for", tgt, ":", placed)
 
-    # 1b) neck a 0.23 mm wide stub of BUCK_PH that sat 0.007 mm inside the clearance of a VIN via
+    # 1b) neck wide BUCK_PH stubs that come closer than the clearance to a foreign via
+    foreign_vias = [(pcbnew.ToMM(v.GetPosition().x), pcbnew.ToMM(v.GetPosition().y), v.GetNetname())
+                    for v in board.GetTracks() if isinstance(v, pcbnew.PCB_VIA) and v.GetNetname() != "BUCK_PH"]
     for t in board.GetTracks():
-        if isinstance(t, pcbnew.PCB_VIA) or t.GetNetname() != "BUCK_PH":
+        if isinstance(t, pcbnew.PCB_VIA) or t.GetNetname() != "BUCK_PH" or t.GetWidth() <= mm(0.3):
             continue
-        a, e = t.GetStart(), t.GetEnd()
-        if (abs(pcbnew.ToMM(a.x) - 109.34) < 0.02 and abs(pcbnew.ToMM(a.y) - 70.24) < 0.02
-                and abs(pcbnew.ToMM(e.x) - 109.5) < 0.02):
-            t.SetWidth(mm(0.5))
-            print("narrowed BUCK_PH stub")
+        a_, e_ = t.GetStart(), t.GetEnd()
+        ax_, ay_, ex_, ey_ = pcbnew.ToMM(a_.x), pcbnew.ToMM(a_.y), pcbnew.ToMM(e_.x), pcbnew.ToMM(e_.y)
+        L2 = (ex_ - ax_) ** 2 + (ey_ - ay_) ** 2 or 1e-9
+        worst = None
+        for (vx, vy, _n) in foreign_vias:
+            u = max(0.0, min(1.0, ((vx - ax_) * (ex_ - ax_) + (vy - ay_) * (ey_ - ay_)) / L2))
+            d = math.hypot(vx - (ax_ + u * (ex_ - ax_)), vy - (ay_ + u * (ey_ - ay_)))
+            room = 2 * (d - 0.3 - 0.13)
+            if room < pcbnew.ToMM(t.GetWidth()) and (worst is None or room < worst):
+                worst = room
+        if worst is not None:
+            t.SetWidth(mm(max(0.25, worst - 0.005)))
+            print("narrowed BUCK_PH stub to %.3f mm" % max(0.25, worst - 0.005))
+
+    # 1c0) solid plane connection for every through-hole GND pad (no starved thermal spokes on the routed In2 layer)
+    for fp in board.GetFootprints():
+        for pad in fp.Pads():
+            if pad.GetNetname() == "GND" and pad.GetAttribute() == pcbnew.PAD_ATTRIB_PTH:
+                pad.SetLocalZoneConnection(pcbnew.ZONE_CONNECTION_FULL)
 
     # 1c) thermal pad of the buck IC: solid connection to the planes (avoids starved-thermal on In2.Cu)
     for fp in board.GetFootprints():
@@ -174,6 +190,62 @@ def main():
             if abs(pcbnew.ToMM(q.x) - 31.4) < 0.02 and abs(pcbnew.ToMM(q.y) - 29.5) < 0.02:
                 setter(V(31.4, 29.4))
                 print("nudged HDMI_CKP vertex")
+
+    # 1e) GND pads that sit in a floating F.Cu pour island (no via inside): drop a via into the island itself
+    filler0 = pcbnew.ZONE_FILLER(board)
+    filler0.Fill(board.Zones())
+    zf = [z for z in board.Zones() if z.GetNetname() == "GND" and z.IsOnLayer(pcbnew.F_Cu)][0]
+    fp_ = zf.GetFilledPolysList(pcbnew.F_Cu)
+
+    def gnd_vias():
+        return [t.GetPosition() for t in board.GetTracks() if isinstance(t, pcbnew.PCB_VIA) and t.GetNetname() == "GND"]
+
+    for _round in range(3):
+        added = 0
+        for fpt in board.GetFootprints():
+            for pad in fpt.Pads():
+                if pad.GetNetname() != "GND" or not pad.IsOnLayer(pcbnew.F_Cu) or pad.GetAttribute() != pcbnew.PAD_ATTRIB_SMD:
+                    continue
+                q = pad.GetPosition()
+                idx = None
+                for i in range(fp_.OutlineCount()):
+                    if fp_.Outline(i).PointInside(pcbnew.VECTOR2I(q.x, q.y)):
+                        idx = i
+                if idx is None:
+                    continue
+                if any(fp_.Outline(idx).PointInside(pcbnew.VECTOR2I(v.x, v.y)) for v in gnd_vias()):
+                    continue                              # island already tied to the planes
+                bb = fp_.Outline(idx).BBox()
+                x0, y0 = pcbnew.ToMM(bb.GetX()), pcbnew.ToMM(bb.GetY())
+                x1, y1 = x0 + pcbnew.ToMM(bb.GetWidth()), y0 + pcbnew.ToMM(bb.GetHeight())
+                cx, cy = pcbnew.ToMM(q.x), pcbnew.ToMM(q.y)
+                best = None
+                nx_, ny_ = int((x1 - x0) / 0.05) + 1, int((y1 - y0) / 0.05) + 1
+                for ix in range(nx_):
+                    for iy in range(ny_):
+                        x, y = x0 + ix * 0.05, y0 + iy * 0.05
+                        d = math.hypot(x - cx, y - cy)
+                        if best is not None and d >= best[0]:
+                            continue
+                        if not fp_.Outline(idx).PointInside(pcbnew.VECTOR2I(mm(x), mm(y)), mm(0.3)):
+                            continue
+                        if items_hit(board, x, y, 0.45, ignore_net="GND"):
+                            continue
+                        if any(p2.HitTest(pcbnew.VECTOR2I(mm(x), mm(y)), mm(0.4)) for f2 in board.GetFootprints()
+                               for p2 in f2.Pads() if p2.GetNetname() == "GND"):
+                            continue                          # no via-in-pad (solder wicking on the PCBA): stay clear of every pad
+                        best = (d, x, y)
+                if best is None:
+                    print("no room for a GND via in the island of", fpt.GetReference(), pad.GetNumber())
+                    continue
+                add_via(board, best[1], best[2], gnd)
+                print("island GND via for %s.%s at (%.2f, %.2f), %.1f mm from the pad" % (fpt.GetReference(), pad.GetNumber(), best[1], best[2], best[0]))
+                added += 1
+        if not added:
+            break
+        filler0.Fill(board.Zones())
+        zf = [z for z in board.Zones() if z.GetNetname() == "GND" and z.IsOnLayer(pcbnew.F_Cu)][0]
+        fp_ = zf.GetFilledPolysList(pcbnew.F_Cu)
 
     # 2) refill zones and save
     filler = pcbnew.ZONE_FILLER(board)

@@ -85,12 +85,12 @@ svg .mut{fill:var(--muted)}
  <div class="wrap">
   <p><span class="badge">ドラフト v0.2</span><span class="badge">設計前・未検証事項あり</span></p>
   <h1>Tab5 × Tang Primer 20K キャリア基板<br>企画・設計仕様</h1>
-  <p class="sub">M5Stack Tab5（ESP32-P4）の M5-Bus に直挿しし、Tang Primer 20K Core（GW2A-18＋128MB DDR3）を載せる専用基板。更新：2026-10-22</p>
+  <p class="sub">M5Stack Tab5（ESP32-P4）の M5-Bus に直挿しし、Tang Primer 20K Core（GW2A-18＋128MB DDR3）を載せる専用基板。更新：2026-10-24</p>
  </div>
 </header>
 
 <nav class="toc"><div class="wrap">
- <a href="#overview">概要</a><a href="#spec">初期仕様</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#kicad">KiCad設計</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
+ <a href="#overview">概要</a><a href="#spec">初期仕様</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#kicad">KiCad設計</a><a href="hdmi-simulation.html">HDMIシミュレーション</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
 </div></nav>
 
 <main class="wrap">
@@ -151,7 +151,7 @@ svg .mut{fill:var(--muted)}
  <div class="tw"><table>
   <thead><tr><th>項目</th><th>初期仕様</th><th class="c">状態</th></tr></thead>
   <tbody>
-   <tr><td><b>構造</b></td><td>M5-Bus直挿し。Tab5側の面＝ピンヘッダのみ、反対面＝Core・コネクタ類。Tab5背面のM3穴でスタック。約125×78mm（Tab5全幅）、4層1.6mm。Coreはヘッダの左（バッテリーベイ上）、HDMIは下辺、電源は右</td><td class="c t-ok">STLで実測済み</td></tr>
+   <tr><td><b>構造</b></td><td>M5-Bus直挿し。Tab5側の面＝ピンヘッダのみ、反対面＝Core・コネクタ類。Tab5背面のM3穴でスタック。約125×78mm（Tab5全幅）、4層1.6mm。Coreはヘッダの右に180°回転して配置、HDMIは右辺の上寄り（キーボードは下側）、電源は左</td><td class="c t-ok">STLで実測済み</td></tr>
    <tr><td><b>FPGA</b></td><td>Tang Primer 20K Core（SODIMM 204P・横置きソケット、縦置き配置）。JTAG/UARTはCore上のJST-SHデバッガに手が届く配置</td><td class="c t-ok">確定</td></tr>
    <tr><td><b>電源入力</b></td><td>① DCバレルジャック 12〜24V　② USB-C PD（電源専用6ピン、PDトリガIC CH224K、20V要求／15Vに切替可）　①②はダイオードOR</td><td class="c t-warn">24V運用は定格確認後</td></tr>
    <tr><td><b>電源分配</b></td><td>Tab5へ：M5-Bus HPWR（25/27/29）直結（内部PTC 1Aに制限）／FPGAへ：TPS5430で5V（目標2A以下）。Tab5の5V（ピン28）とは接続せずGNDのみ共通</td><td class="c t-ok">確定</td></tr>
@@ -162,7 +162,7 @@ svg .mut{fill:var(--muted)}
    <tr><td><b>HDMI</b></td><td><b>OUTのみ</b>（FPGAのTLVDS直駆動）。INは搭載せず、差動ペアをパッドに引き出す</td><td class="c t-ok">確定</td></tr>
    <tr><td><b>Ethernet</b></td><td>100Mbps（RMII）のPHY＋RJ45のフットプリントを用意。<b>実装は任意</b></td><td class="c t-info">任意実装</td></tr>
    <tr><td><b>拡張用パッド</b></td><td>PMOD（2×6、3.3V）×2と空きIOパッド（1×9）。<b>パッドのみ・ヘッダ未実装（DNP）</b>、後付け</td><td class="c t-ok">確定</td></tr>
-   <tr><td><b>その他</b></td><td>LED ×4、ボタン ×3（リセット含む）、リセットボタン（Tab5 RST）、FPGA ON/OFFスライドスイッチ</td><td class="c t-ok">確定</td></tr>
+   <tr><td><b>その他</b></td><td>LED ×4、ユーザーボタン ×1、リセットボタン（Tab5 RST）、FPGA ON/OFFスライドスイッチ（THT）</td><td class="c t-ok">確定</td></tr>
   </tbody></table></div>
 
  <h3>初版で搭載しないもの</h3>
@@ -469,8 +469,8 @@ svg .mut{fill:var(--muted)}
    <tr><th>バンク電圧</th><td>Bank0/1は既定3.3V（Core上R5で変更可）→ TMDSに適合</td><td>同上</td></tr>
    <tr><th>追加部品</th><td>直列抵抗、ESD保護、5V給電（ヒューズ／ダイオード）、DDC用MOSFETレベルシフタ（2N7002）</td><td>AC結合コンデンサ、バイアス抵抗。専用レシーバICは<b>高価・拡張部品のため初版は見送り</b></td></tr>
    <tr><th>難度</th><td class="t-ok">低〜中</td><td class="t-bad">高（動作しない場合は受信ICフットプリントを検討）</td></tr>
-   <tr><th>想定解像度</th><td>720p60〜（測定）</td><td>720p60程度まで（測定）</td></tr>
-   <tr><th>基板要件</th><td colspan="2">4層、差動ペアは<b>100Ω差動インピーダンス管理</b>（JLCPCB 4層の積層指定）、ペア内スキュー管理、FPGA側は<b>Bank0/1のTLVDSペア</b>（例：IOT38/36/18/14系）を使用</td></tr>
+   <tr><th>想定解像度</th><td><b>720p60を目標</b>（1080p60はGW2Aのシリアライザ上限により保証対象外）</td><td>720p60程度まで（測定）</td></tr>
+   <tr><th>基板要件</th><td colspan="2">4層、差動ペアは<b>100Ω差動インピーダンスで並走配線</b>（線幅0.2mm・間隔0.13mm、JLCPCB 4層）、ペア内スキュー0.00mm。FPGA側は<b>Bank0のTLVDSペア（TX1/TX2/TX3/TX5）</b>、<b>AC結合100nF＋499Ωバイアス＋ESD</b>は公式Dockと同じ構成（9章）</td></tr>
   </tbody></table></div>
  <div class="callout warn"><b class="t">要確認</b>HDMI入力をAC結合で直結できるかは、GW2A-18のLVDS入力仕様（同相入力範囲・終端）をデータシートで確認する必要があります（Sipeed Datasheet V1.0は認証コード入力が必要なため未取得）。</div>
 </section>
@@ -517,45 +517,86 @@ svg .mut{fill:var(--muted)}
 </section>
 
 <section id="kicad">
- <h2>9. KiCad設計データ（v1.0 ドラフト）</h2>
- <p>回路図とPCBを同じデータ定義から生成しました（<code>kicad/</code>）。Core（SODIMM）のピン割当はSipeed回路図と目視照合済みで、回路図とPCBのネット一致は自動検証しています。</p>
+ <h2>9. KiCad設計データ（v2.0 ドラフト）</h2>
+ <p>回路図とPCBを同じデータ定義から生成しました（<code>kicad/</code>）。Core（SODIMM）のピン割当はSipeed回路図と目視照合済みで、回路図とPCBのネット一致は自動検証しています。v2.0で<b>Coreの向きとHDMIの位置を見直し</b>、HDMIの回路を<b>公式Dockの構成</b>に合わせ、TMDSを<b>差動ペアとして配線</b>しました。</p>
 
  <figure>
   <img src="img/render_top.png" alt="KiCad 3Dレンダリング（表面）" style="width:100%;height:auto;display:block;border-radius:6px">
-  <figcaption>図7　KiCad 3Dレンダリング（Tab5背面から見た向き）。SODIMMソケットは3Dモデルが無くパッドのみ。M5-Busヘッダは反対面（Tab5側）。</figcaption>
+  <figcaption>図7　KiCad 3Dレンダリング（Tab5背面から見た向き）。SODIMMソケットは3Dモデルが無くパッドのみ。M5-Busヘッダは反対面（Tab5側）。上辺がキーボードと反対側。</figcaption>
  </figure>
 
- <h3>配置の考え方</h3>
+ <h3>配置の考え方（v2.0）</h3>
  <div class="tw"><table>
   <thead><tr><th>領域</th><th>内容</th><th>理由</th></tr></thead>
   <tbody>
-   <tr><td>左〜中央左</td><td>Core（SODIMM）。カードは左（バッテリーベイ上）へ平置き</td><td>M5-Busヘッダの隣に置き、バス18本を短い直線リンクにする</td></tr>
-   <tr><td>中央</td><td>33Ω直列抵抗列 → M5-Busヘッダ</td><td>Core側に約4mm、ヘッダ側に約2.9mmの扇状通路を確保</td></tr>
-   <tr><td>下辺（x=63.5）</td><td>HDMI Type A（標準）</td><td>6候補の配置検証で、右辺（734mm）より短い約410mm。TMDS 8本は最優先で配線</td></tr>
-   <tr><td>右側</td><td>DCジャック、USB-C PD、PD IC、降圧DC-DC、LDO、ボタン、LED</td><td>Coreの反対側に電源系を隔離</td></tr>
-   <tr><td>左端の縦帯</td><td>PMOD ×2、空きIOパッド（1×9）</td><td><b>パッドのみ・ヘッダは未実装（DNP）</b>。後付け可能</td></tr>
+   <tr><td>中央</td><td>M5-Busヘッダ（2×15）と33Ω直列抵抗列</td><td>Tab5側のコネクタ位置に固定</td></tr>
+   <tr><td>中央右</td><td>Core（SODIMM）。<b>M5-Busの右</b>に180°回転して配置。カードは右へ平置き</td><td>バス用の奇数列パッドがヘッダ側を向き、短い直線リンクで接続。ソケットの両側は背の高い部品を置かない</td></tr>
+   <tr><td>右辺の上寄り</td><td>HDMI Type A（標準）。信号はCoreの下のカード領域を通って短く到達</td><td>キーボードは基板の下側に付くため、HDMIは上側。上辺に置くとソケット端を回り込んで配線できなかった</td></tr>
+   <tr><td>左側</td><td>DCバレルジャック（左端）、USB-C PD（左端・上寄り）、降圧DC-DC（左下）、LDO</td><td>Coreの反対側に電源系を隔離。USB-Cは取付ネジから10mm以上離した</td></tr>
+   <tr><td>上辺の左</td><td>FPGA電源スイッチ、ユーザーボタン、リセットボタンを横一列</td><td>操作部を1か所に集約</td></tr>
+   <tr><td>右下</td><td>PMOD ×2、空きIOパッド（1×9）</td><td><b>パッドのみ・ヘッダは未実装（DNP）</b>。後付け可能</td></tr>
   </tbody></table></div>
+ <p class="note">寸法ルール：HDMI・USB-C・DCジャック以外の部品は基板端から2.5mm以上、すべての部品はM3ネジ穴の縁から5mm以上離しています（筐体・ドライバ作業のため）。</p>
+
+ <h3>HDMIの回路（公式Dockを参考に変更）</h3>
+ <div class="tw"><table>
+  <thead><tr><th>項目</th><th>公式 Tang Primer 20K Dock</th><th>このキャリア基板（v2.0）</th></tr></thead>
+  <tbody>
+   <tr><td>TMDSの結合</td><td>100nF のAC結合（各線）</td><td><b>同じ</b>：100nF ×8（Basic部品）</td></tr>
+   <tr><td>バイアス</td><td>コネクタ側で499ΩをGNDへ（各線）</td><td><b>同じ</b>：499Ω ×8</td></tr>
+   <tr><td>ESD（TMDS）</td><td>RCLAMP0524P ×2（4ch）</td><td><b>同じ</b>：RCLAMP0524P ×2（LCSC C293965、拡張部品）</td></tr>
+   <tr><td>ESD（DDC/HPD）</td><td>SRV05-4</td><td><b>同じ</b>：SRV05-4（C13612、拡張部品）</td></tr>
+   <tr><td>FPGAのTMDSペア</td><td>TX1〜TX5から4組</td><td><b>TX1/TX2/TX3/TX5</b>。TX4は<b>Core基板内でN側が1.9mm短い</b>（公式の配線長表より）ため不使用</td></tr>
+  </tbody></table></div>
+ <div class="callout warn"><b class="t">FPGA側の注意</b>
+  D2はTX5のP/Nを物理的に入れ替えて接続しています（基板上の並びを崩さず交差させないため）。FPGAでD2のデータビットを<b>反転</b>してください（TMDSのデータ線では許容。クロックでは不可）。対応表は <code>kicad/core_pin_assignment.csv</code> に注記しています。</div>
 
  <h3>追加した機能</h3>
  <ul>
   <li><b>リセットボタン：</b>M5-Bus RST（ピン6）をGNDへ。Tab5（ESP32-P4）をリセット。</li>
-  <li><b>FPGA電源ON/OFF：</b>スライドスイッチで降圧ICのENをGNDへ。Tab5は本体のボタンでオン/オフ。</li>
-  <li><b>空きIOパッド：</b>FPGAの空きIO ×7＋3.3V＋GND。</li>
-  <li><b>ユーザー入力：</b>ボタン ×3（うち1つがリセット）、LED ×4。</li>
+  <li><b>FPGA電源ON/OFF：</b>スライドスイッチ（THT）で降圧ICのENをGNDへ。Tab5は本体のボタンでオン/オフ。</li>
+  <li><b>空きIOパッド：</b>FPGAの空きIO ×7＋3.3V＋GND（デジタルのみ。FPGAにADC/DACは無い）。</li>
+  <li><b>ユーザー入力：</b>ボタン ×1（BTN0）、リセット ×1、LED ×4。</li>
  </ul>
 
  <h3>設計検証の結果</h3>
  <div class="tw"><table>
   <thead><tr><th>項目</th><th>結果</th><th class="c">状態</th></tr></thead>
   <tbody>
-   <tr><td>外形・層構成</td><td>約125×78mm（Tab5全幅）、4層（F.Cu／In1=GND／In2=信号＋GND／B.Cu）、M3穴6か所（実測位置）</td><td class="c t-ok">生成済み</td></tr>
-   <tr><td>回路図</td><td>A0・1枚。データ定義とネットリスト一致（不一致0）</td><td class="c t-ok">生成済み</td></tr>
-   <tr><td>配線</td><td><b>106ネット全て自動配線</b>（3配線層＋リップアップ＋ピンスワップ）。GNDは内層ベタ＋表裏ベタ＋スティッチビア</td><td class="c t-ok">完了</td></tr>
+   <tr><td>外形・層構成</td><td>125×78mm（Tab5は128×80mm）、4層（F.Cu／In1=GND／In2=信号＋GND／B.Cu）、M3穴6か所（実測位置）</td><td class="c t-ok">生成済み</td></tr>
+   <tr><td>回路図</td><td>A0・1枚。データ定義とネットリスト一致（不一致0）、ERC違反0</td><td class="c t-ok">生成済み</td></tr>
+   <tr><td>配線</td><td><b>121ネット全て自動配線</b>（3配線層＋リップアップ＋ピンスワップ＋<b>TMDSのペア配線</b>）。GNDは内層ベタ＋表裏ベタ＋スティッチビア</td><td class="c t-ok">完了</td></tr>
    <tr><td>DRC</td><td><b>エラー0件、未接続0件</b>。残りはシルク重なり警告のみ</td><td class="c t-ok">クリーン</td></tr>
-   <tr><td>配線幅・間隔</td><td>信号 0.127mm/0.127mm（JLCPCB 4層標準）、ビア 0.6/0.3mm、電源 0.4〜0.8mm</td><td class="c t-ok">確定</td></tr>
-   <tr><td>HDMI TMDS</td><td>ペア内スキュー5mm未満、ペア間約17mm（720p〜1080pの許容内）。ただし100Ω差動インピーダンス管理はしていない</td><td class="c t-warn">720pまで推奨</td></tr>
+   <tr><td>配線幅・間隔</td><td>信号 0.127mm/0.127mm、<b>TMDSペア 線幅0.2mm・ペア内間隔0.13mm</b>、ビア 0.6/0.3mm、電源 0.4〜0.8mm</td><td class="c t-ok">確定</td></tr>
+   <tr><td>HDMI TMDS</td><td><b>ペア内スキュー0.00mm（4組すべて）</b>、結合区間の差動インピーダンスは約104Ω（2Dソルバ）。ただし<b>ESD部品の端子導通の想定が誤り、499Ω抵抗の枝が21〜53mmと長い</b>ことが判明（<a href="hdmi-simulation.html#issues">是正事項</a>）</td><td class="c t-bad">試作前に是正</td></tr>
    <tr><td>機構</td><td>取付穴・M5-Bus開口をTab5.stlから実測。背面は平坦（M3×10＋2.5mmスペーサ）</td><td class="c t-ok">確認済み</td></tr>
   </tbody></table></div>
+
+ <h3>HDMI信号品質のシミュレーション</h3>
+ <div class="callout bad"><b class="t">是正事項（試作前に必須）</b>TMDS用ESD（RCLAMP0524P）は、採用部品（DOWO製）の仕様上、入力と出力が内部でつながる保証がありません。また、499Ωバイアス抵抗の枝配線が長く、高周波では無視できません。目標は<b>720p60のPoC</b>（1080p60はGW2Aのシリアライザ上限を超えるため対象外）。詳細は<a href="hdmi-simulation.html#issues">レポート</a>。</div>
+ <div class="callout ok"><b class="t">詳細レポート</b><a href="hdmi-simulation.html"><b>HDMIシミュレーション評価レポート</b></a>に、範囲・手法・検証・結果・感度解析・限界を表とグラフでまとめました。</div>
+ <p>公開されているオープンソースだけで、<b>基板データから実形状を取り出して</b>評価しました。範囲は<b>キャリア基板側のみ</b>です（Coreの基板データは非公開で、公式の配線長表だけが得られるため、Core内は長さ38.4mmの理想100Ω線路として接続）。方針と調査の記録は <code>docs/HDMI_信号品質_調査と方針.md</code>。</p>
+ <ul>
+  <li><b>2D電磁界ソルバ</b>（自作、numpy）：JLCPCB 4層（L1–L2間0.2104mm）の差動インピーダンス。50Ω用単線0.35mmで51.7Ω（公表値と一致）。</li>
+  <li><b>チャネル推定</b>（scikit-rf系のカスケード計算）：配線の区間ごとの差動インピーダンスと長さから、S パラメータ（差動）を推定。</li>
+ </ul>
+ <div class="tw"><table>
+  <thead><tr><th>ペア</th><th class="c">キャリア長 Core側/C/K (mm)</th><th class="c">ペア内スキュー (mm)</th><th class="c">SDD11 0.825/1.65GHz</th><th class="c">SDD11 最大(〜3.3GHz)</th><th class="c">SDD21 0.825/1.65GHz</th></tr></thead>
+  <tbody>
+   <tr><td>D0</td><td class="c">43.6 / 7.2 / 7.4</td><td class="c">0.00</td><td class="c">-23.7 / -18.0 dB</td><td class="c">-15.5 dB</td><td class="c">-0.37 / -0.74 dB</td></tr>
+   <tr><td>D1</td><td class="c">25.6 / 7.2 / 7.4</td><td class="c">0.00</td><td class="c">-20.1 / -31.8 dB</td><td class="c">-14.5 dB</td><td class="c">-0.34 / -0.56 dB</td></tr>
+   <tr><td>D2</td><td class="c">25.0 / 7.9 / 7.4</td><td class="c">0.00</td><td class="c">-20.1 / -31.5 dB</td><td class="c">-14.2 dB</td><td class="c">-0.34 / -0.56 dB</td></tr>
+   <tr><td>CK</td><td class="c">43.6 / 7.9 / 7.4</td><td class="c">0.00</td><td class="c">-20.2 / -14.4 dB</td><td class="c">-12.8 dB</td><td class="c">-0.40 / -0.86 dB</td></tr>
+   </tbody></table></div>
+ <figure>
+  <img src="img/sim_sparam.png" alt="TMDS チャネル推定" style="width:100%;height:auto;display:block;border-radius:6px">
+  <figcaption>図8　TMDS 4組の差動S11/S21の推定と、Core側配線の差動インピーダンス（緑帯が100Ω±15%）。</figcaption>
+ </figure>
+ <div class="callout warn"><b class="t">この推定の限界</b>
+  準静的モデル（差動モードのみ、モード変換なし）で、ビアと内層区間は100Ωの線路として扱い、コネクタは理想です。<b>実形状の3D電磁界解析（openEMS）は未実施</b>です。インストールが必要なため、実施の可否を確認してから行います。製造前の最終確認は、この3D解析か、試作基板でのアイ測定を推奨します。</div>
+
+ <div class="callout"><b class="t">経緯：P/Nを別々に配線すると不合格だった</b>
+  最初の配線（P/Nを個別に引く）では、ペア内の長さの差が最大13mm、差動インピーダンスは約160Ω（+60%）でした。P/Nを1本の太い線として引いて2本に分けるペア配線をルータに実装し、改善しました。</div>
 
  <div class="callout"><b class="t">FPGAピン割当を最適化しました</b>
   FPGAのピンは自由に割り当てられるため、基板上の並び順に合わせて信号を振り直しました（ピンスワップ）。バス18本はヘッダのピン順どおりに並行して降りるため、配線が交差しません。対応表は <code>kicad/core_pin_assignment.csv</code> です。</div>
@@ -563,9 +604,11 @@ svg .mut{fill:var(--muted)}
  <div class="callout warn"><b class="t">製造前に必要な作業</b>
   <ol style="margin:.3em 0 0 1.2em;padding:0">
    <li>M5-Busヘッダのピン1の向きを実機で確認する（STLから位置は確認済み）。</li>
-   <li>HDMI 1080pまで使うなら、TMDSペアを差動インピーダンス管理で手配線し直す。</li>
+   <li>HDMIの実形状3D電磁界解析（openEMS等）で、ビア・ESD・コネクタ接続部を確認する。</li>
+   <li><b>【必須】TMDS用ESDの端子導通を是正する</b>（信号線は連続配線にしてESDを分岐接続、または内部導通が保証された部品に変更）。<b>499Ω抵抗の枝を数mm以下に短縮</b>する。是正後に再配線・再解析。</li>
+   <li>RCLAMP0524Pの実フットプリント（DOWO DFN2510-10L）と、499Ωの部品区分を確認する。</li>
    <li>SODIMMソケットの3Dモデルと、部品のLCSC番号・基本/拡張区分を確定する（<code>kicad/bom.csv</code>の「check」行）。</li>
-   <li>FPGAの制約ファイル（.cst）を、ピン対応表から作成する。</li>
+   <li>FPGAの制約ファイル（.cst）を、ピン対応表から作成する（D2のデータ反転を忘れない）。</li>
   </ol></div>
 </section>
 

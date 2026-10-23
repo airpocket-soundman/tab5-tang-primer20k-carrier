@@ -1,63 +1,58 @@
 sodimm_pin,signal,note
-28,F_BTN1,
 30,F_HPD,
 34,F_HSDA,
 36,F_HSCL,
-40,P2_7,
-42,P2_3,
-44,P2_6,
-46,P2_2,
-50,P2_5,
-52,P2_1,
-56,P2_4,
-58,P2_0,
-62,HDMI_D0N,true-LVDS output pair (TLVDS_OBUF)
-64,HDMI_D0P,true-LVDS output pair (TLVDS_OBUF)
-68,HDMI_D1P,true-LVDS output pair (TLVDS_OBUF)
-70,HDMI_D1N,true-LVDS output pair (TLVDS_OBUF)
-73,F_DIR,bus: Tab5 side signal is M_DIR (33R series)
+40,P2_0,
+42,P2_4,
+44,P2_1,
+46,P2_5,
+50,P2_2,
+52,P2_6,
+56,HDMI_D2P,TX5_N pad: P/N swapped on the pins -> invert the D2 data bits in the FPGA (TMDS data lanes only)
+58,HDMI_D2N,TX5_P pad (see HDMI_D2P)
+62,P2_3,
+64,P2_7,
+68,HDMI_D1P,TX3_P
+70,HDMI_D1N,TX3_N
+73,F_AUX0,
 74,F_BTN0,
-75,F_D7,bus: Tab5 side signal is M_D7 (33R series)
-76,P1_7,
-77,F_EXT35,bus: Tab5 side signal is M_EXT35 (33R series)
-78,P1_3,
-79,F_D5,bus: Tab5 side signal is M_D5 (33R series)
-80,F_CLK,K13 (GCLKT_1) - use as the bus clock input
-83,F_D6,bus: Tab5 side signal is M_D6 (33R series)
-84,P1_6,
-85,F_D3,bus: Tab5 side signal is M_D3 (33R series)
-86,P1_2,
-89,F_D4,bus: Tab5 side signal is M_D4 (33R series)
-90,P1_5,
-91,F_AUX3,bus: Tab5 side signal is M_AUX3 (33R series)
-92,P1_1,
-95,F_AUX2,bus: Tab5 side signal is M_AUX2 (33R series)
-97,F_EXT38,bus: Tab5 side signal is M_EXT38 (33R series)
-101,F_EXT37,bus: Tab5 side signal is M_EXT37 (33R series)
-103,F_D2,bus: Tab5 side signal is M_D2 (33R series)
-107,F_D1,bus: Tab5 side signal is M_D1 (33R series)
-109,F_AUX1,bus: Tab5 side signal is M_AUX1 (33R series)
-113,F_D0,bus: Tab5 side signal is M_D0 (33R series)
-115,F_RDY,bus: Tab5 side signal is M_RDY (33R series)
-119,F_AUX0,bus: Tab5 side signal is M_AUX0 (33R series)
-121,P1_4,
-123,P1_0,
-125,GPIO6,
-129,GPIO5,
-130,HDMI_D2P,true-LVDS output pair (TLVDS_OBUF)
-131,GPIO4,
-132,HDMI_D2N,true-LVDS output pair (TLVDS_OBUF)
-140,HDMI_CKP,true-LVDS output pair (TLVDS_OBUF)
-142,HDMI_CKN,true-LVDS output pair (TLVDS_OBUF)
+75,F_RDY,
+76,P1_0,
+77,F_D0,
+78,P1_4,
+79,F_AUX1,
+80,F_CLK,
+83,F_D1,
+84,P1_1,
+85,F_D2,
+86,P1_5,
+89,F_EXT37,
+90,P1_2,
+91,F_EXT38,
+92,P1_6,
+95,F_AUX2,
+97,F_AUX3,
+101,F_D4,
+103,F_D3,
+107,F_D6,
+109,F_D5,
+113,F_EXT35,
+115,F_D7,
+119,F_DIR,
+121,P1_3,
+123,P1_7,
+125,GPIO0,
+129,GPIO1,
+130,HDMI_D0P,TX2_P
+131,GPIO2,
+132,HDMI_D0N,TX2_N
+140,HDMI_CKP,TX1_P
+142,HDMI_CKN,TX1_N
 146,F_LED0,
 148,F_LED1,
 152,F_LED2,
 154,F_LED3,
 176,GPIO3,
-180,GPIO2,
-182,GPIO1,
-186,GPIO0,
-4,+5V,power in
-5,+5V,power in
-6,+5V,power in
-7,+5V,power in
+180,GPIO4,
+182,GPIO5,
+186,GPIO6,
