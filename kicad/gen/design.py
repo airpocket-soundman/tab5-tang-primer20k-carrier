@@ -270,23 +270,26 @@ def build():
 
     # ------------------------------------------------------------ HDMI out
     lines = ["D2P", "D2N", "D1P", "D1N", "D0P", "D0N", "CKP", "CKN"]   # top to bottom = Core pad order = connector pad order (no crossing)
-    C = {l: "HDMI_%s_C" % l for l in lines}     # after the AC coupling capacitor: 499R bias + ESD input
-    K = {l: "HDMI_%s_K" % l for l in lines}     # ESD output -> HDMI connector pad
+    C = {l: "HDMI_%s_C" % l for l in lines}     # after the AC coupling capacitor: ESD tap, 499R bias, HDMI connector pad (ONE net)
     hdmi = add("J", "Connector:HDMI_A", "Connector_Video:HDMI_A_Molex_208658-1001_Horizontal", "HDMI OUT",
-               {"1": K["D2P"], "2": "GND", "3": K["D2N"], "4": K["D1P"], "5": "GND", "6": K["D1N"],
-                "7": K["D0P"], "8": "GND", "9": K["D0N"], "10": K["CKP"], "11": "GND",
-                "12": K["CKN"], "13": None, "14": None, "15": "HDMI_SCL", "16": "HDMI_SDA", "17": "GND",
+               {"1": C["D2P"], "2": "GND", "3": C["D2N"], "4": C["D1P"], "5": "GND", "6": C["D1N"],
+                "7": C["D0P"], "8": "GND", "9": C["D0N"], "10": C["CKP"], "11": "GND",
+                "12": C["CKN"], "13": None, "14": None, "15": "HDMI_SCL", "16": "HDMI_SDA", "17": "GND",
                 "18": "HDMI_5V", "19": "HDMI_HPD", "SH": "GND"}, "hdmi", pos=HDMI_POSE[:2], rot=HDMI_POSE[2])
     # AC coupling (100 nF) + 499R bias to GND on the connector side, as on the official Tang Primer 20K Dock
     for k, l in enumerate(lines):
         two("C", "Device:C", C0603, "100n", "HDMI_" + l, C[l], "tmdsc", pos=(TMDS_X, TMDS_Y + k * 1.5), rot=0)
-        two("R", "Device:R", R0603, "499R", C[l], "GND", "tmds", pos=(TMDS_X - 2.0 + (k % 4) * 2.4, TMDS_Y + 17.0 + (k // 4) * 1.8), rot=0)   # bias resistors: clear of the pair paths (DC only, a short thin stub is harmless)
+        # 499R bias resistors: above the bundle for D2/D1, below it for D0/CK, so the branch off the line stays short
+        rpos = (TMDS_X + 1.2 + k * 1.7, 10.2) if k < 4 else (TMDS_X - 1.2 + (k - 4) * 1.7, 26.4)
+        two("R", "Device:R", R0603, "499R", C[l], "GND", "tmdsc", pos=rpos, rot=90)
     for tag, grp, y in (("a", lines[:4], 0.0), ("b", lines[4:], 14.0)):
         add("U", "carrier:RCLAMP0524P", "Package_SON:USON-10_2.5x1.0mm_P0.5mm", "RCLAMP0524P",
+            # I/O pins 1,2,4,5 tap the line; 6,7,9,10 are strapped to them with copper on the board (one net), so the line is
+            # continuous copper and does not depend on any internal pin-to-pin connection of the part (audit item A)
             {"1": C[grp[0]], "2": C[grp[1]], "3": "GND", "4": C[grp[2]], "5": C[grp[3]],
-             "6": K[grp[3]], "7": K[grp[2]], "8": "GND", "9": K[grp[1]], "10": K[grp[0]]},
+             "6": C[grp[3]], "7": C[grp[2]], "8": "GND", "9": C[grp[1]], "10": C[grp[0]]},
             "tmdsc", pos=(TMDS_X + 8.0, 16.75 if tag == "a" else 19.75), rot=0, lcsc="C293965",   # pin pairs level with the HDMI pad pairs (straight lanes)
-            comment="TMDS ESD array as on the official Dock (flow-through)")
+            comment="TMDS ESD array (DOWO DFN2510-10L): I/O 1,2,4,5, GND 3,8; the line is routed as continuous copper through strapped pads")
     add("U", "Power_Protection:SRV05-4", "Package_TO_SOT_SMD:SOT-23-6", "SRV05-4",
         {"1": None, "2": "GND", "3": "HDMI_HPD", "4": "HDMI_SCL", "5": "HDMI_5V", "6": "HDMI_SDA"}, "tmdsc",
         pos=(107.0, 24.8), rot=0, lcsc="C13612", comment="DDC/HPD ESD as on the official Dock")

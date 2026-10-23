@@ -90,7 +90,7 @@ svg .mut{fill:var(--muted)}
 </header>
 
 <nav class="toc"><div class="wrap">
- <a href="#overview">概要</a><a href="#spec">初期仕様</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#kicad">KiCad設計</a><a href="hdmi-simulation.html">HDMIシミュレーション</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
+ <a href="#overview">概要</a><a href="#spec">初期仕様</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#kicad">KiCad設計</a><a href="hdmi-simulation-r2.html">HDMIシミュレーション</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
 <a href="hdmi-audit.html">独立監査・開発引き継ぎ</a>
 </div></nav>
 
@@ -545,7 +545,7 @@ svg .mut{fill:var(--muted)}
   <tbody>
    <tr><td>TMDSの結合</td><td>100nF のAC結合（各線）</td><td><b>同じ</b>：100nF ×8（Basic部品）</td></tr>
    <tr><td>バイアス</td><td>コネクタ側で499ΩをGNDへ（各線）</td><td><b>同じ</b>：499Ω ×8</td></tr>
-   <tr><td>ESD（TMDS）</td><td>RCLAMP0524P ×2（4ch）</td><td><b>同じ</b>：RCLAMP0524P ×2（LCSC C293965、拡張部品）</td></tr>
+   <tr><td>ESD（TMDS）</td><td>RCLAMP0524P ×2（4ch）</td><td>RCLAMP0524P ×2（LCSC C293965、DOWO製、拡張部品）。<b>信号線は連続した銅配線とし、ESDは分岐として接続</b>（足1/10などを基板上でつなぐ。部品内部の導通に依存しない）</td></tr>
    <tr><td>ESD（DDC/HPD）</td><td>SRV05-4</td><td><b>同じ</b>：SRV05-4（C13612、拡張部品）</td></tr>
    <tr><td>FPGAのTMDSペア</td><td>TX1〜TX5から4組</td><td><b>TX1/TX2/TX3/TX5</b>。TX4は<b>Core基板内でN側が1.9mm短い</b>（公式の配線長表より）ため不使用</td></tr>
   </tbody></table></div>
@@ -566,10 +566,10 @@ svg .mut{fill:var(--muted)}
   <tbody>
    <tr><td>外形・層構成</td><td>125×78mm（Tab5は128×80mm）、4層（F.Cu／In1=GND／In2=信号＋GND／B.Cu）、M3穴6か所（実測位置）</td><td class="c t-ok">生成済み</td></tr>
    <tr><td>回路図</td><td>A0・1枚。データ定義とネットリスト一致（不一致0）、ERC違反0</td><td class="c t-ok">生成済み</td></tr>
-   <tr><td>配線</td><td><b>121ネット全て自動配線</b>（3配線層＋リップアップ＋ピンスワップ＋<b>TMDSのペア配線</b>）。GNDは内層ベタ＋表裏ベタ＋スティッチビア</td><td class="c t-ok">完了</td></tr>
+   <tr><td>配線</td><td><b>113ネット全て自動配線</b>（3配線層＋リップアップ＋ピンスワップ＋<b>TMDSのペア配線</b>）。GNDは内層ベタ＋表裏ベタ＋スティッチビア</td><td class="c t-ok">完了</td></tr>
    <tr><td>DRC</td><td><b>エラー0件、未接続0件</b>。残りはシルク重なり警告のみ</td><td class="c t-ok">クリーン</td></tr>
    <tr><td>配線幅・間隔</td><td>信号 0.127mm/0.127mm、<b>TMDSペア 線幅0.2mm・ペア内間隔0.13mm</b>、ビア 0.6/0.3mm、電源 0.4〜0.8mm</td><td class="c t-ok">確定</td></tr>
-   <tr><td>HDMI TMDS</td><td><b>ペア内スキュー0.00mm（4組すべて）</b>、結合区間の差動インピーダンスは約104Ω（2Dソルバ）。ただし<b>ESD部品の端子導通の想定が誤り、499Ω抵抗の枝が21〜53mmと長い</b>ことが判明（<a href="hdmi-simulation.html#issues">是正事項</a>）</td><td class="c t-bad">試作前に是正</td></tr>
+   <tr><td>HDMI TMDS</td><td><b>ペア内スキュー0.00mm（4組すべて）</b>、結合区間の差動インピーダンスは約103Ω（2Dソルバ）。独立監査の指摘（ESD端子導通の想定、499Ω枝の長さ）を<b>是正</b>：ESDは連続した銅配線への分岐、枝は2〜11mmに短縮（以前21〜53mm）。D1のN側（11.5mm）は目標未達（<a href="hdmi-simulation-r2.html#fixes">是正の状況</a>）</td><td class="c t-warn">是正済み・残課題あり</td></tr>
    <tr><td>機構</td><td>取付穴・M5-Bus開口をTab5.stlから実測。背面は平坦（M3×10＋2.5mmスペーサ）</td><td class="c t-ok">確認済み</td></tr>
   </tbody></table></div>
 
@@ -579,8 +579,8 @@ svg .mut{fill:var(--muted)}
 保存数値は再現できましたが、監査対象版にはESDの導通想定と長い抵抗枝の問題が残ります。
 「26か所の不連続」は解析用リストの問題で、PCBの26か所の断線を意味しません。
 開発側ではTMDS連続配線・ESDシャント接続・499Ω抵抗の近接配置へ修正中です。修正版の是正完了は未判定です。</div>
- <div class="callout bad"><b class="t">是正事項（試作前に必須）</b>TMDS用ESD（RCLAMP0524P）は、採用部品（DOWO製）の仕様上、入力と出力が内部でつながる保証がありません。また、499Ωバイアス抵抗の枝配線が長く、高周波では無視できません。目標は<b>720p60のPoC</b>（1080p60はGW2Aのシリアライザ上限を超えるため対象外）。詳細は<a href="hdmi-simulation.html#issues">レポート</a>。</div>
- <div class="callout ok"><b class="t">詳細レポート</b><a href="hdmi-simulation.html"><b>HDMIシミュレーション評価レポート</b></a>に、範囲・手法・検証・結果・感度解析・限界を表とグラフでまとめました。</div>
+ <div class="callout ok"><b class="t">監査指摘を是正して再評価しました</b>TMDS用ESD（DOWO製）は入出力が内部でつながる保証がないため、<b>信号線を連続した銅配線にしてESDを分岐接続</b>に変更し、499Ω抵抗の枝を短縮しました（解析にも含めた）。目標は<b>720p60のPoC</b>（1080p60はGW2Aのシリアライザ上限を超えるため対象外）。詳細は<a href="hdmi-simulation-r2.html#fixes">レポート</a>。</div>
+ <div class="callout ok"><b class="t">詳細レポート</b><a href="hdmi-simulation.html">第1版（監査前）</a>も残しています。<a href="hdmi-simulation-r2.html"><b>第2版 HDMIシミュレーション評価レポート</b></a>に、範囲・手法・検証・結果・感度解析・限界を表とグラフでまとめました。</div>
  <p>公開されているオープンソースだけで、<b>基板データから実形状を取り出して</b>評価しました。範囲は<b>キャリア基板側のみ</b>です（Coreの基板データは非公開で、公式の配線長表だけが得られるため、Core内は長さ38.4mmの理想100Ω線路として接続）。方針と調査の記録は <code>docs/HDMI_信号品質_調査と方針.md</code>。</p>
  <ul>
   <li><b>2D電磁界ソルバ</b>（自作、numpy）：JLCPCB 4層（L1–L2間0.2104mm）の差動インピーダンス。50Ω用単線0.35mmで51.7Ω（公表値と一致）。</li>
@@ -611,7 +611,7 @@ svg .mut{fill:var(--muted)}
   <ol style="margin:.3em 0 0 1.2em;padding:0">
    <li>M5-Busヘッダのピン1の向きを実機で確認する（STLから位置は確認済み）。</li>
    <li>HDMIの実形状3D電磁界解析（openEMS等）で、ビア・ESD・コネクタ接続部を確認する。</li>
-   <li><b>【必須】TMDS用ESDの端子導通を是正する</b>（信号線は連続配線にしてESDを分岐接続、または内部導通が保証された部品に変更）。<b>499Ω抵抗の枝を数mm以下に短縮</b>する。是正後に再配線・再解析。</li>
+   <li>499Ω抵抗の枝（D1のN側 11.5mm）をさらに短縮する（目標：数mm以下）。RCLAMP0524P（DOWO DFN2510-10L）の推奨ランドパターンとフットプリントを照合する。</li>
    <li>RCLAMP0524Pの実フットプリント（DOWO DFN2510-10L）と、499Ωの部品区分を確認する。</li>
    <li>SODIMMソケットの3Dモデルと、部品のLCSC番号・基本/拡張区分を確定する（<code>kicad/bom.csv</code>の「check」行）。</li>
    <li>FPGAの制約ファイル（.cst）を、ピン対応表から作成する（D2のデータ反転を忘れない）。</li>
