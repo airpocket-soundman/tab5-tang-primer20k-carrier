@@ -47,7 +47,7 @@ _cache = load_cache()
 def zdiff(w, gap):
     """Differential impedance and eps_eff of a microstrip pair on the L1/L2 stackup (cached 2D solutions)."""
     w = round(w, 3)
-    grid = (0.1, 0.15, 0.2, 0.3, 0.45, 0.7, 1.0, 1.5)
+    grid = (0.1, 0.13, 0.15, 0.2, 0.3, 0.45, 0.7, 1.0, 1.5)
     gap = min(grid, key=lambda g: abs(g - min(gap, 1.5)))
     key = "%.3f/%.2f" % (w, gap)
     if key not in _cache:

@@ -85,12 +85,12 @@ svg .mut{fill:var(--muted)}
  <div class="wrap">
   <p><span class="badge">ドラフト v0.2</span><span class="badge">設計前・未検証事項あり</span></p>
   <h1>Tab5 × Tang Primer 20K キャリア基板<br>企画・設計仕様</h1>
-  <p class="sub">M5Stack Tab5（ESP32-P4）の M5-Bus に直挿しし、Tang Primer 20K Core（GW2A-18＋128MB DDR3）を載せる専用基板。更新：2026-10-22</p>
+  <p class="sub">M5Stack Tab5（ESP32-P4）の M5-Bus に直挿しし、Tang Primer 20K Core（GW2A-18＋128MB DDR3）を載せる専用基板。更新：2026-10-24</p>
  </div>
 </header>
 
 <nav class="toc"><div class="wrap">
- <a href="#overview">概要</a><a href="#spec">初期仕様</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#kicad">KiCad設計</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
+ <a href="#overview">概要</a><a href="#spec">初期仕様</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#kicad">KiCad設計</a><a href="hdmi-simulation.html">HDMIシミュレーション</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
 </div></nav>
 
 <main class="wrap">
@@ -469,7 +469,7 @@ svg .mut{fill:var(--muted)}
    <tr><th>バンク電圧</th><td>Bank0/1は既定3.3V（Core上R5で変更可）→ TMDSに適合</td><td>同上</td></tr>
    <tr><th>追加部品</th><td>直列抵抗、ESD保護、5V給電（ヒューズ／ダイオード）、DDC用MOSFETレベルシフタ（2N7002）</td><td>AC結合コンデンサ、バイアス抵抗。専用レシーバICは<b>高価・拡張部品のため初版は見送り</b></td></tr>
    <tr><th>難度</th><td class="t-ok">低〜中</td><td class="t-bad">高（動作しない場合は受信ICフットプリントを検討）</td></tr>
-   <tr><th>想定解像度</th><td>720p60〜（測定）</td><td>720p60程度まで（測定）</td></tr>
+   <tr><th>想定解像度</th><td><b>720p60を目標</b>（1080p60はGW2Aのシリアライザ上限により保証対象外）</td><td>720p60程度まで（測定）</td></tr>
    <tr><th>基板要件</th><td colspan="2">4層、差動ペアは<b>100Ω差動インピーダンスで並走配線</b>（線幅0.2mm・間隔0.13mm、JLCPCB 4層）、ペア内スキュー0.00mm。FPGA側は<b>Bank0のTLVDSペア（TX1/TX2/TX3/TX5）</b>、<b>AC結合100nF＋499Ωバイアス＋ESD</b>は公式Dockと同じ構成（9章）</td></tr>
   </tbody></table></div>
  <div class="callout warn"><b class="t">要確認</b>HDMI入力をAC結合で直結できるかは、GW2A-18のLVDS入力仕様（同相入力範囲・終端）をデータシートで確認する必要があります（Sipeed Datasheet V1.0は認証コード入力が必要なため未取得）。</div>
@@ -568,11 +568,13 @@ svg .mut{fill:var(--muted)}
    <tr><td>配線</td><td><b>121ネット全て自動配線</b>（3配線層＋リップアップ＋ピンスワップ＋<b>TMDSのペア配線</b>）。GNDは内層ベタ＋表裏ベタ＋スティッチビア</td><td class="c t-ok">完了</td></tr>
    <tr><td>DRC</td><td><b>エラー0件、未接続0件</b>。残りはシルク重なり警告のみ</td><td class="c t-ok">クリーン</td></tr>
    <tr><td>配線幅・間隔</td><td>信号 0.127mm/0.127mm、<b>TMDSペア 線幅0.2mm・ペア内間隔0.13mm</b>、ビア 0.6/0.3mm、電源 0.4〜0.8mm</td><td class="c t-ok">確定</td></tr>
-   <tr><td>HDMI TMDS</td><td><b>ペア内スキュー0.00mm（4組すべて）</b>、結合区間の差動インピーダンスは約107Ω（2Dソルバ）。Core基板内の配線（約38mm）は理想線路として扱った推定</td><td class="c t-ok">目標内（推定）</td></tr>
+   <tr><td>HDMI TMDS</td><td><b>ペア内スキュー0.00mm（4組すべて）</b>、結合区間の差動インピーダンスは約104Ω（2Dソルバ）。ただし<b>ESD部品の端子導通の想定が誤り、499Ω抵抗の枝が21〜53mmと長い</b>ことが判明（<a href="hdmi-simulation.html#issues">是正事項</a>）</td><td class="c t-bad">試作前に是正</td></tr>
    <tr><td>機構</td><td>取付穴・M5-Bus開口をTab5.stlから実測。背面は平坦（M3×10＋2.5mmスペーサ）</td><td class="c t-ok">確認済み</td></tr>
   </tbody></table></div>
 
  <h3>HDMI信号品質のシミュレーション</h3>
+ <div class="callout bad"><b class="t">是正事項（試作前に必須）</b>TMDS用ESD（RCLAMP0524P）は、採用部品（DOWO製）の仕様上、入力と出力が内部でつながる保証がありません。また、499Ωバイアス抵抗の枝配線が長く、高周波では無視できません。目標は<b>720p60のPoC</b>（1080p60はGW2Aのシリアライザ上限を超えるため対象外）。詳細は<a href="hdmi-simulation.html#issues">レポート</a>。</div>
+ <div class="callout ok"><b class="t">詳細レポート</b><a href="hdmi-simulation.html"><b>HDMIシミュレーション評価レポート</b></a>に、範囲・手法・検証・結果・感度解析・限界を表とグラフでまとめました。</div>
  <p>公開されているオープンソースだけで、<b>基板データから実形状を取り出して</b>評価しました。範囲は<b>キャリア基板側のみ</b>です（Coreの基板データは非公開で、公式の配線長表だけが得られるため、Core内は長さ38.4mmの理想100Ω線路として接続）。方針と調査の記録は <code>docs/HDMI_信号品質_調査と方針.md</code>。</p>
  <ul>
   <li><b>2D電磁界ソルバ</b>（自作、numpy）：JLCPCB 4層（L1–L2間0.2104mm）の差動インピーダンス。50Ω用単線0.35mmで51.7Ω（公表値と一致）。</li>
@@ -581,13 +583,13 @@ svg .mut{fill:var(--muted)}
  <div class="tw"><table>
   <thead><tr><th>ペア</th><th class="c">キャリア長 Core側/C/K (mm)</th><th class="c">ペア内スキュー (mm)</th><th class="c">SDD11 0.825/1.65GHz</th><th class="c">SDD11 最大(〜3.3GHz)</th><th class="c">SDD21 0.825/1.65GHz</th></tr></thead>
   <tbody>
-   <tr><td>D0</td><td class="c">43.6 / 7.2 / 7.4</td><td class="c">0.00</td><td class="c">-17.9 / -23.5 dB</td><td class="c">-12.9 dB</td><td class="c">-0.43 / -0.68 dB</td></tr>
-   <tr><td>D1</td><td class="c">25.6 / 7.2 / 7.4</td><td class="c">0.00</td><td class="c">-17.4 / -17.4 dB</td><td class="c">-13.9 dB</td><td class="c">-0.38 / -0.64 dB</td></tr>
-   <tr><td>D2</td><td class="c">25.0 / 7.9 / 7.4</td><td class="c">0.00</td><td class="c">-17.4 / -17.8 dB</td><td class="c">-13.8 dB</td><td class="c">-0.38 / -0.63 dB</td></tr>
-   <tr><td>CK</td><td class="c">43.6 / 7.9 / 7.4</td><td class="c">0.00</td><td class="c">-17.1 / -17.5 dB</td><td class="c">-13.5 dB</td><td class="c">-0.45 / -0.76 dB</td></tr>
+   <tr><td>D0</td><td class="c">43.6 / 7.2 / 7.4</td><td class="c">0.00</td><td class="c">-23.7 / -18.0 dB</td><td class="c">-15.5 dB</td><td class="c">-0.37 / -0.74 dB</td></tr>
+   <tr><td>D1</td><td class="c">25.6 / 7.2 / 7.4</td><td class="c">0.00</td><td class="c">-20.1 / -31.8 dB</td><td class="c">-14.5 dB</td><td class="c">-0.34 / -0.56 dB</td></tr>
+   <tr><td>D2</td><td class="c">25.0 / 7.9 / 7.4</td><td class="c">0.00</td><td class="c">-20.1 / -31.5 dB</td><td class="c">-14.2 dB</td><td class="c">-0.34 / -0.56 dB</td></tr>
+   <tr><td>CK</td><td class="c">43.6 / 7.9 / 7.4</td><td class="c">0.00</td><td class="c">-20.2 / -14.4 dB</td><td class="c">-12.8 dB</td><td class="c">-0.40 / -0.86 dB</td></tr>
    </tbody></table></div>
  <figure>
-  <img src="img/tmds_sparam.png" alt="TMDS チャネル推定" style="width:100%;height:auto;display:block;border-radius:6px">
+  <img src="img/sim_sparam.png" alt="TMDS チャネル推定" style="width:100%;height:auto;display:block;border-radius:6px">
   <figcaption>図8　TMDS 4組の差動S11/S21の推定と、Core側配線の差動インピーダンス（緑帯が100Ω±15%）。</figcaption>
  </figure>
  <div class="callout warn"><b class="t">この推定の限界</b>
@@ -603,7 +605,8 @@ svg .mut{fill:var(--muted)}
   <ol style="margin:.3em 0 0 1.2em;padding:0">
    <li>M5-Busヘッダのピン1の向きを実機で確認する（STLから位置は確認済み）。</li>
    <li>HDMIの実形状3D電磁界解析（openEMS等）で、ビア・ESD・コネクタ接続部を確認する。</li>
-   <li>RCLAMP0524P（USON-10）の実フットプリントと、499Ωの部品区分を確認する。</li>
+   <li><b>【必須】TMDS用ESDの端子導通を是正する</b>（信号線は連続配線にしてESDを分岐接続、または内部導通が保証された部品に変更）。<b>499Ω抵抗の枝を数mm以下に短縮</b>する。是正後に再配線・再解析。</li>
+   <li>RCLAMP0524Pの実フットプリント（DOWO DFN2510-10L）と、499Ωの部品区分を確認する。</li>
    <li>SODIMMソケットの3Dモデルと、部品のLCSC番号・基本/拡張区分を確定する（<code>kicad/bom.csv</code>の「check」行）。</li>
    <li>FPGAの制約ファイル（.cst）を、ピン対応表から作成する（D2のデータ反転を忘れない）。</li>
   </ol></div>

@@ -71,23 +71,48 @@ def abcd_to_s(M, z0=Z_REF):
     return s11, s21
 
 
+def order_segments(seglist):
+    """Chain the track segments of one net from its minimum-x end (Core side / signal source) to the other end.
+    Each segment is oriented along the walk. Segments not reachable from the chain are appended in stored order."""
+    segs_ = [list(x) for x in seglist]
+    if not segs_:
+        return []
+    pts = [(x[0], x[1]) for x in segs_] + [(x[2], x[3]) for x in segs_]
+    cur = min(pts, key=lambda q: (q[0], q[1]))
+    out, used = [], [False] * len(segs_)
+    while True:
+        best = None
+        for i, sg in enumerate(segs_):
+            if used[i]:
+                continue
+            for flip in (False, True):
+                a_ = (sg[2], sg[3]) if flip else (sg[0], sg[1])
+                d = math.hypot(a_[0] - cur[0], a_[1] - cur[1])
+                if d < 0.06 and (best is None or d < best[0]):
+                    best = (d, i, flip)
+        if best is None:
+            break
+        _, i, flip = best
+        sg = segs_[i]
+        used[i] = True
+        if flip:
+            sg = [sg[2], sg[3], sg[0], sg[1]] + sg[4:]
+        out.append(tuple(sg))
+        cur = (sg[2], sg[3])
+    out += [tuple(sg) for i, sg in enumerate(segs_) if not used[i]]
+    return out
+
+
 def sections(pair_tag, p, n):
     """(Core-side, C, K) lists of (length_m, z, eeff) in signal-flow order."""
     out = {}
     for key, sfx in (("core", ""), ("C", "_C"), ("K", "_K")):
-        sp_ = tc.segs(None, p + sfx)
-        sn_ = tc.segs(None, n + sfx)
+        sp_ = order_segments(tc.segs(None, p + sfx))
+        sn_ = order_segments(tc.segs(None, n + sfx))
         if not sp_ or not sn_:
             out[key] = []
             continue
         prof = tc.profile(sp_, sn_)
-        # arc-length ordered along the P trace in path order; the Core side net is stored caps -> Core, so reverse it
-        if key == "core":
-            prof = prof[::-1]
-        else:
-            P = tc.samples(sp_)
-            order = sorted(range(len(prof)), key=lambda i: P[i][0])        # increasing x = Core -> connector
-            prof = [prof[i] for i in order]
         out[key] = [(dl * 1e-3, (z if z is not None else 100.0), (ee if ee is not None else 3.0)) for dl, z, ee, gap, ly in prof]
     return out
 
