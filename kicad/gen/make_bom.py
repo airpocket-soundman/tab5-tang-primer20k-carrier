@@ -38,7 +38,7 @@ def num(v):
 
 def lookup_resistor(val, pkg):
     ohms = {"0R": 0, "33R": 33, "10k": 1e4, "1k": 1e3, "3.3k": 3300, "15k": 1.5e4, "100k": 1e5, "2.2k": 2200,
-            "20k": 2e4}.get(val)
+            "20k": 2e4, "499R": 499}.get(val)
     if ohms is None:
         return None
     d = get("https://jlcsearch.tscircuit.com/resistors/list.json?package=%s&resistance=%g&is_basic=true" % (pkg, ohms))
@@ -94,8 +94,8 @@ def main():
                 pass
         elif value in KNOWN:
             lcsc, cls = KNOWN[value]
-        elif c.lcsc:
-            lcsc, cls = cs[0].lcsc, "extended"
+        elif cs[0].lcsc:
+            lcsc, cls = cs[0].lcsc, "extended" if cs[0].lcsc not in ("C363878",) else "extended"
         elif name.startswith(("PinHeader", "BarrelJack", "HDMI", "USB_C", "SW_", "MountingHole")):
             cls = "THT/hand-solder or extended (select part)"
         rows.append([",".join(sorted(x.ref for x in cs)), value, fp, len(cs), "DNP" if dnp else "", lcsc, cls,
@@ -105,6 +105,17 @@ def main():
         w.writerow(["Refs", "Value", "Footprint", "Qty", "DNP", "LCSC", "JLC class", "Note"])
         w.writerows(rows)
     print("wrote", OUT, len(rows), "lines")
+    # Core pin table (SODIMM pad -> carrier signal), for the FPGA constraint file
+    notes = {"HDMI_D2P": "TX5_N pad: P/N swapped on the pins -> invert the D2 data bits in the FPGA (TMDS data lanes only)",
+             "HDMI_D2N": "TX5_P pad (see HDMI_D2P)", "HDMI_D1P": "TX3_P", "HDMI_D1N": "TX3_N", "HDMI_D0P": "TX2_P",
+             "HDMI_D0N": "TX2_N", "HDMI_CKP": "TX1_P", "HDMI_CKN": "TX1_N"}
+    pin_out = os.path.join(os.path.dirname(OUT), "core_pin_assignment.csv")
+    with open(pin_out, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["sodimm_pin", "signal", "note"])
+        for sig, pin in sorted(design.CORE_PINS.items(), key=lambda kv: kv[1]):
+            w.writerow([pin, sig, notes.get(sig, "")])
+    print("wrote", pin_out, len(design.CORE_PINS), "pins")
 
 
 if __name__ == "__main__":

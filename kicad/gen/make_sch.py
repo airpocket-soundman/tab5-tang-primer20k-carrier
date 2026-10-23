@@ -142,10 +142,40 @@ def make_core_symbol():
     return sym
 
 
+def make_rclamp_symbol():
+    """RCLAMP0524P (4-channel flow-through ESD array, USON-10): IN1..IN4 left, OUT1..OUT4 right, GND pins 3 and 8."""
+    left = [("IN1", "1"), ("IN2", "2"), ("GND", "3"), ("IN3", "4"), ("IN4", "5")]
+    right = [("OUT1", "10"), ("OUT2", "9"), ("GND", "8"), ("OUT3", "7"), ("OUT4", "6")]
+    pins = []
+    for i, (nm, num) in enumerate(left):
+        pins.append(["pin", "passive", "line", ["at", "-10.16", str(round(5.08 - i * 2.54, 2)), "0"], ["length", "2.54"],
+                     ["name", S(nm), ["effects", ["font", ["size", "1.016", "1.016"]]]],
+                     ["number", S(num), ["effects", ["font", ["size", "1.016", "1.016"]]]]])
+    for i, (nm, num) in enumerate(right):
+        pins.append(["pin", "passive", "line", ["at", "10.16", str(round(5.08 - i * 2.54, 2)), "180"], ["length", "2.54"],
+                     ["name", S(nm), ["effects", ["font", ["size", "1.016", "1.016"]]]],
+                     ["number", S(num), ["effects", ["font", ["size", "1.016", "1.016"]]]]])
+    return ["symbol", S("RCLAMP0524P"),
+            ["pin_names", ["offset", "0.508"]],
+            ["exclude_from_sim", "no"], ["in_bom", "yes"], ["on_board", "yes"],
+            ["property", S("Reference"), S("U"), ["at", "0", "8.5", "0"], ["effects", ["font", ["size", "1.27", "1.27"]]]],
+            ["property", S("Value"), S("RCLAMP0524P"), ["at", "0", "-8.5", "0"], ["effects", ["font", ["size", "1.27", "1.27"]]]],
+            ["property", S("Footprint"), S("Package_SON:USON-10_2.5x1.0mm_P0.5mm"), ["at", "0", "0", "0"],
+             ["effects", ["font", ["size", "1.27", "1.27"]], ["hide", "yes"]]],
+            ["property", S("Datasheet"), S(""), ["at", "0", "0", "0"],
+             ["effects", ["font", ["size", "1.27", "1.27"]], ["hide", "yes"]]],
+            ["property", S("Description"), S("Semtech RCLAMP0524P 4-channel low-capacitance ESD array (flow-through)"),
+             ["at", "0", "0", "0"], ["effects", ["font", ["size", "1.27", "1.27"]], ["hide", "yes"]]],
+            ["symbol", S("RCLAMP0524P_0_1"),
+             ["rectangle", ["start", "-7.62", "7.62"], ["end", "7.62", "-7.62"],
+              ["stroke", ["width", "0.254"], ["type", "default"]], ["fill", ["type", "background"]]]],
+            ["symbol", S("RCLAMP0524P_1_1")] + pins]
+
+
 def write_lib():
     os.makedirs(os.path.join(OUT, "lib"), exist_ok=True)
     lib = ["kicad_symbol_lib", ["version", SYMVER], ["generator", S("carrier_gen")], ["generator_version", S("1.0")],
-           make_core_symbol()]
+           make_core_symbol(), make_rclamp_symbol()]
     open(os.path.join(OUT, "lib", "carrier.kicad_sym"), "w", encoding="utf-8").write(sexp.dump(lib) + "\n")
     _lib_cache.pop("carrier", None)
 
@@ -167,7 +197,7 @@ def fnum(v):
 
 BLOCK_ORIGIN = {  # block -> (x, y, columns width limit)
     "power": (30, 40, 360), "pd": (30, 190, 360), "buck": (30, 340, 360), "ldo": (30, 500, 360),
-    "mbus": (420, 40, 200), "series": (680, 40, 360), "hdmi": (420, 330, 420), "pmod": (420, 520, 360),
+    "mbus": (420, 40, 200), "series": (680, 40, 360), "hdmi": (420, 330, 420), "tmds": (1250, 60, 420), "tmdsc": (1250, 300, 420), "pmod": (420, 520, 360),
     "jtag": (420, 640, 200), "gpio": (700, 440, 200), "ui": (700, 640, 360), "mech": (30, 640, 300), "core": (1000, 60, 100),
 }
 
@@ -324,7 +354,7 @@ def build_sch():
     caps = {"power": "POWER INPUT: DC barrel + USB-C PD (OR) -> VIN", "pd": "USB-C PD sink (CH224K, 20V request)",
             "buck": "VIN -> +5V buck (TPS5430)", "ldo": "+5V -> +3V3 (peripherals)",
             "mbus": "M5-BUS header (Tab5-facing side)", "series": "33R series resistors (M_* = Tab5 side, F_* = FPGA side)",
-            "hdmi": "HDMI OUT (TMDS direct from FPGA) + DDC/HPD level shift", "pmod": "PMOD x2",
+            "hdmi": "HDMI OUT connector + DDC/HPD level shift + ESD", "tmds": "HDMI TMDS 499R bias, ESD", "tmdsc": "HDMI TMDS AC coupling caps", "pmod": "PMOD x2",
             "jtag": "FPGA JTAG header", "gpio": "Spare FPGA I/O pads", "ui": "LEDs / buttons", "mech": "Mounting holes (Tab5 M3)",
             "core": "Tang Primer 20K Core SODIMM socket (pin names = nets)"}
     for b, (x, y, _) in BLOCK_ORIGIN.items():
