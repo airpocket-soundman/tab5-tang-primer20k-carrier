@@ -165,6 +165,16 @@ def main():
                 if pad.GetNumber() == "9":
                     pad.SetLocalZoneConnection(pcbnew.ZONE_CONNECTION_FULL)
 
+    # 1d) HDMI_CKP: nudge a zig-zag vertex 0.1 mm away from the HDMI_D2N stub (clearance was 0.250 vs 0.254 mm)
+    for t in board.GetTracks():
+        if isinstance(t, pcbnew.PCB_VIA) or t.GetNetname() != "HDMI_CKP":
+            continue
+        for getter, setter in ((t.GetStart, t.SetStart), (t.GetEnd, t.SetEnd)):
+            q = getter()
+            if abs(pcbnew.ToMM(q.x) - 31.4) < 0.02 and abs(pcbnew.ToMM(q.y) - 29.5) < 0.02:
+                setter(V(31.4, 29.4))
+                print("nudged HDMI_CKP vertex")
+
     # 2) refill zones and save
     filler = pcbnew.ZONE_FILLER(board)
     filler.Fill(board.Zones())

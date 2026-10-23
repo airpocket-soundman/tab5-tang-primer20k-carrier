@@ -17,11 +17,19 @@ python -X utf8 kicad/gen/make_sch.py
 "C:/Program Files/KiCad/10.0/bin/python.exe" -X utf8 kicad/gen/make_pcb.py
 ```
 
+## Layout (v1.0 draft)
+* Core (SODIMM) on the LEFT of the M5-Bus header (over the battery bay), card extends to the left; 33R series resistors
+  between Core and header; HDMI Type-A on the bottom edge; DC jack / USB-C PD / buck / LDO on the right.
+* PMOD x2, spare-IO pads (1x9) in the left strip: **pads only, headers not fitted (DNP)**. Reset button (Tab5 RST), FPGA ON/OFF slide switch (buck EN), 3 user buttons, 4 LEDs.
+* Pin assignment is optimised for the fan-out (pin swap, `design._apply_pin_swap`) -> see `core_pin_assignment.csv`.
+* Placement studies: `gen/study_hdmi.py` (connector position), `gen/study_tmds.py` (TMDS channel <-> TX pair).
+
 ## Status
 * Schematic: ERC opens; netlist matches the data model (0 mismatches).
-* PCB: **103 / 103 nets auto-routed** (3 routing layers + rip-up & reroute), GND via In1/In2 planes, F/B pours and 84 stitching vias.
-  DRC: 0 errors; warnings only (silkscreen overlap, 3 hole-to-hole). One GND island (pad R33.2) is still reported unconnected.
-* **Not manufacturing-ready**: HDMI TMDS pairs are not impedance/length matched; M5-Bus pin-1 orientation, board outline and
-  mounting-hole pattern must be checked against the real Tab5; SODIMM 3D model and LCSC part selection are open (see `bom.csv`).
-* Pipeline: `make_sch.py` -> `make_pcb.py` (place + route) -> `finish_pcb.py R33.2` (touch-ups, zone refill).
+* PCB: **106 / 106 nets routed**, GND via In1/In2 planes + F/B pours + 84 stitching vias.
+  **DRC: 0 errors, 0 unconnected**; warnings only (silkscreen).
+* Pipeline: `make_sch.py` -> `make_pcb.py` (place + route, ~4 min) -> `finish_pcb.py NONE.0` (touch-ups, zone refill) -> DRC.
+* **Not manufacturing-ready**: HDMI TMDS pairs are not impedance/length matched (length spread ~17 mm, intra-pair < 5 mm);
+  M5-Bus pin-1 orientation, board outline (full Tab5 width) and mounting holes must be checked against the real Tab5;
+  Core SODIMM 3D model and LCSC part selection are open (see `bom.csv`); FPGA constraint file (.cst) still to be written from `core_pin_assignment.csv`.
 * No Ethernet / MIPI / USB-host (see site spec).
