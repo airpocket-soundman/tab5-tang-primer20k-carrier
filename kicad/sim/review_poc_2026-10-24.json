@@ -1,0 +1,576 @@
+{
+  "board_sha256": "215ebb23a614ddec622eb1510c80ad71e83b1917391ae9b3f3940339dafae6d4",
+  "geometry_sha256": "5af69ee6c3cf5e0fe9ffbf36de688c0d004b8d109bfd888ce683972baf637586",
+  "source_sha256": {
+    "tmds_channel.py": "df6e31b35e6a47426b0f58a2559eb004e0fb3b9e69af6dd7699708ed82c466ba",
+    "tmds_sparam.py": "05b0326888f9ee0b7c7008424412653a40796ce2e6a98f11990ef0b79b78de2b",
+    "review_poc.py": "2348af416461ec240c920504e31a175f584d18f1724c8f094d890980d70e5a22"
+  },
+  "limitations": [
+    "Existing section-order implementation retained; not independently certified",
+    "Inner-layer and via impedances remain idealized",
+    "Bias comparison uses a zero-length, symmetric branch",
+    "Actual long asymmetric bias branches are not simulated",
+    "100-ohm matched ports, no transmitter or cable/sink eye model",
+    "Core impedance sweep is an assumption, not a measured bound"
+  ],
+  "bias_branch_planar_mm": {
+    "HDMI_D0P_C": 20.996551211459376,
+    "HDMI_D0N_C": 23.301933598375616,
+    "HDMI_D1P_C": 20.942135623730948,
+    "HDMI_D1N_C": 31.737972567696694,
+    "HDMI_D2P_C": 29.81959594928933,
+    "HDMI_D2N_C": 32.34751801064719,
+    "HDMI_CKP_C": 29.210764773832466
+  },
+  "storage_order_discontinuities": {
+    "HDMI_D2P": 7,
+    "HDMI_D2P_C": 20,
+    "HDMI_D0P_C": 21,
+    "HDMI_D0N_C": 29,
+    "HDMI_CKP_C": 17,
+    "HDMI_CKN_C": 37,
+    "HDMI_CKN_K": 1,
+    "HDMI_CKP_K": 3,
+    "HDMI_D0N_K": 2,
+    "HDMI_D0P_K": 2,
+    "HDMI_CKN": 4,
+    "HDMI_D0P": 7,
+    "HDMI_D2N": 6,
+    "HDMI_D1P": 6,
+    "HDMI_D1N": 7,
+    "HDMI_D0N": 7,
+    "HDMI_CKP": 7,
+    "HDMI_D1N_C": 26,
+    "HDMI_D2N_C": 29,
+    "HDMI_D2P_K": 3,
+    "HDMI_D2N_K": 1,
+    "HDMI_D1P_K": 3,
+    "HDMI_D1N_K": 3,
+    "HDMI_D1P_C": 21
+  },
+  "modes": {
+    "VGA60": {
+      "pixel_MHz": 25.175,
+      "lane_Mbps": 251.75,
+      "nyquist_MHz": 125.875,
+      "UI_ps": 3972.1946375372395,
+      "intra_015UI_ps": 595.8291956305859,
+      "inter_020char_ps": 7944.389275074479,
+      "serial_clock_5x_MHz": 125.875
+    },
+    "480p60": {
+      "pixel_MHz": 27.0,
+      "lane_Mbps": 270.0,
+      "nyquist_MHz": 135.0,
+      "UI_ps": 3703.703703703704,
+      "intra_015UI_ps": 555.5555555555555,
+      "inter_020char_ps": 7407.407407407408,
+      "serial_clock_5x_MHz": 135.0
+    },
+    "720p60": {
+      "pixel_MHz": 74.25,
+      "lane_Mbps": 742.5,
+      "nyquist_MHz": 371.25,
+      "UI_ps": 1346.8013468013469,
+      "intra_015UI_ps": 202.02020202020202,
+      "inter_020char_ps": 2693.6026936026938,
+      "serial_clock_5x_MHz": 371.25
+    },
+    "1080p30": {
+      "pixel_MHz": 74.25,
+      "lane_Mbps": 742.5,
+      "nyquist_MHz": 371.25,
+      "UI_ps": 1346.8013468013469,
+      "intra_015UI_ps": 202.02020202020202,
+      "inter_020char_ps": 2693.6026936026938,
+      "serial_clock_5x_MHz": 371.25
+    },
+    "1080p60": {
+      "pixel_MHz": 148.5,
+      "lane_Mbps": 1485.0,
+      "nyquist_MHz": 742.5,
+      "UI_ps": 673.4006734006734,
+      "intra_015UI_ps": 101.01010101010101,
+      "inter_020char_ps": 1346.8013468013469,
+      "serial_clock_5x_MHz": 742.5
+    }
+  },
+  "channel_loading_comparison": {
+    "legacy": {
+      "D0": {
+        "VGA60": {
+          "s11_worst_to_lane_rate_dB": -26.570307651479098,
+          "s21_at_nearest_nyquist_dB": -0.07869213985218516,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "480p60": {
+          "s11_worst_to_lane_rate_dB": -26.01522214211858,
+          "s21_at_nearest_nyquist_dB": -0.07869213985218516,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "720p60": {
+          "s11_worst_to_lane_rate_dB": -22.33215047717763,
+          "s21_at_nearest_nyquist_dB": -0.1950156529892102,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p30": {
+          "s11_worst_to_lane_rate_dB": -22.33215047717763,
+          "s21_at_nearest_nyquist_dB": -0.1950156529892102,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p60": {
+          "s11_worst_to_lane_rate_dB": -20.367667276127065,
+          "s21_at_nearest_nyquist_dB": -0.3454691347185784,
+          "sampled_nyquist_MHz": 740.0
+        }
+      },
+      "D1": {
+        "VGA60": {
+          "s11_worst_to_lane_rate_dB": -27.129950556922594,
+          "s21_at_nearest_nyquist_dB": -0.06573706286860381,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "480p60": {
+          "s11_worst_to_lane_rate_dB": -26.5186646810969,
+          "s21_at_nearest_nyquist_dB": -0.06573706286860381,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "720p60": {
+          "s11_worst_to_lane_rate_dB": -20.314035878731946,
+          "s21_at_nearest_nyquist_dB": -0.1654385573771833,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p30": {
+          "s11_worst_to_lane_rate_dB": -20.314035878731946,
+          "s21_at_nearest_nyquist_dB": -0.1654385573771833,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p60": {
+          "s11_worst_to_lane_rate_dB": -20.080736184428257,
+          "s21_at_nearest_nyquist_dB": -0.31184158693168107,
+          "sampled_nyquist_MHz": 740.0
+        }
+      },
+      "D2": {
+        "VGA60": {
+          "s11_worst_to_lane_rate_dB": -27.125915892920155,
+          "s21_at_nearest_nyquist_dB": -0.06575338371007207,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "480p60": {
+          "s11_worst_to_lane_rate_dB": -26.51423069365796,
+          "s21_at_nearest_nyquist_dB": -0.06575338371007207,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "720p60": {
+          "s11_worst_to_lane_rate_dB": -20.286369654554377,
+          "s21_at_nearest_nyquist_dB": -0.16549997715465906,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p30": {
+          "s11_worst_to_lane_rate_dB": -20.286369654554377,
+          "s21_at_nearest_nyquist_dB": -0.16549997715465906,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p60": {
+          "s11_worst_to_lane_rate_dB": -20.03842551364706,
+          "s21_at_nearest_nyquist_dB": -0.3121612799701467,
+          "sampled_nyquist_MHz": 740.0
+        }
+      },
+      "CK": {
+        "VGA60": {
+          "s11_worst_to_lane_rate_dB": -24.525201934002318,
+          "s21_at_nearest_nyquist_dB": -0.08076278334936382,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "480p60": {
+          "s11_worst_to_lane_rate_dB": -23.960811863000657,
+          "s21_at_nearest_nyquist_dB": -0.08076278334936382,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "720p60": {
+          "s11_worst_to_lane_rate_dB": -19.794016452161518,
+          "s21_at_nearest_nyquist_dB": -0.20761296460242173,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p30": {
+          "s11_worst_to_lane_rate_dB": -19.794016452161518,
+          "s21_at_nearest_nyquist_dB": -0.20761296460242173,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p60": {
+          "s11_worst_to_lane_rate_dB": -16.313389195204334,
+          "s21_at_nearest_nyquist_dB": -0.37250044273205096,
+          "sampled_nyquist_MHz": 740.0
+        }
+      }
+    },
+    "bias_998ohm": {
+      "D0": {
+        "VGA60": {
+          "s11_worst_to_lane_rate_dB": -22.951729219210275,
+          "s21_at_nearest_nyquist_dB": -0.5051126069301547,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "480p60": {
+          "s11_worst_to_lane_rate_dB": -22.62042628849151,
+          "s21_at_nearest_nyquist_dB": -0.5051126069301547,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "720p60": {
+          "s11_worst_to_lane_rate_dB": -19.76858972430559,
+          "s21_at_nearest_nyquist_dB": -0.6317847033770118,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p30": {
+          "s11_worst_to_lane_rate_dB": -19.76858972430559,
+          "s21_at_nearest_nyquist_dB": -0.6317847033770118,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p60": {
+          "s11_worst_to_lane_rate_dB": -19.76858972430559,
+          "s21_at_nearest_nyquist_dB": -0.80217041683514,
+          "sampled_nyquist_MHz": 740.0
+        }
+      },
+      "D1": {
+        "VGA60": {
+          "s11_worst_to_lane_rate_dB": -23.640398092157024,
+          "s21_at_nearest_nyquist_dB": -0.49147854211137465,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "480p60": {
+          "s11_worst_to_lane_rate_dB": -23.326356016196446,
+          "s21_at_nearest_nyquist_dB": -0.49147854211137465,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "720p60": {
+          "s11_worst_to_lane_rate_dB": -18.846888920426235,
+          "s21_at_nearest_nyquist_dB": -0.5979806719060033,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p30": {
+          "s11_worst_to_lane_rate_dB": -18.846888920426235,
+          "s21_at_nearest_nyquist_dB": -0.5979806719060033,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p60": {
+          "s11_worst_to_lane_rate_dB": -18.52990771620991,
+          "s21_at_nearest_nyquist_dB": -0.7639243702553264,
+          "sampled_nyquist_MHz": 740.0
+        }
+      },
+      "D2": {
+        "VGA60": {
+          "s11_worst_to_lane_rate_dB": -23.662285673996774,
+          "s21_at_nearest_nyquist_dB": -0.4914851616610234,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "480p60": {
+          "s11_worst_to_lane_rate_dB": -23.349649222390877,
+          "s21_at_nearest_nyquist_dB": -0.4914851616610234,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "720p60": {
+          "s11_worst_to_lane_rate_dB": -18.86199575759409,
+          "s21_at_nearest_nyquist_dB": -0.5979785445157461,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p30": {
+          "s11_worst_to_lane_rate_dB": -18.86199575759409,
+          "s21_at_nearest_nyquist_dB": -0.5979785445157461,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p60": {
+          "s11_worst_to_lane_rate_dB": -18.52221374516028,
+          "s21_at_nearest_nyquist_dB": -0.7641544480144424,
+          "sampled_nyquist_MHz": 740.0
+        }
+      },
+      "CK": {
+        "VGA60": {
+          "s11_worst_to_lane_rate_dB": -22.146839584347656,
+          "s21_at_nearest_nyquist_dB": -0.5072682903706872,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "480p60": {
+          "s11_worst_to_lane_rate_dB": -21.773687032606905,
+          "s21_at_nearest_nyquist_dB": -0.5072682903706872,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "720p60": {
+          "s11_worst_to_lane_rate_dB": -18.58772298899096,
+          "s21_at_nearest_nyquist_dB": -0.6449894811334934,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p30": {
+          "s11_worst_to_lane_rate_dB": -18.58772298899096,
+          "s21_at_nearest_nyquist_dB": -0.6449894811334934,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p60": {
+          "s11_worst_to_lane_rate_dB": -18.58772298899096,
+          "s21_at_nearest_nyquist_dB": -0.8328622742550684,
+          "sampled_nyquist_MHz": 740.0
+        }
+      }
+    },
+    "core_85_bias": {
+      "D0": {
+        "VGA60": {
+          "s11_worst_to_lane_rate_dB": -26.450338370464905,
+          "s21_at_nearest_nyquist_dB": -0.4989778774542308,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "480p60": {
+          "s11_worst_to_lane_rate_dB": -26.450338370464905,
+          "s21_at_nearest_nyquist_dB": -0.4989778774542308,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "720p60": {
+          "s11_worst_to_lane_rate_dB": -13.244668639925692,
+          "s21_at_nearest_nyquist_dB": -0.6237664434590845,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p30": {
+          "s11_worst_to_lane_rate_dB": -13.244668639925692,
+          "s21_at_nearest_nyquist_dB": -0.6237664434590845,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p60": {
+          "s11_worst_to_lane_rate_dB": -12.674037527502023,
+          "s21_at_nearest_nyquist_dB": -0.9806109518860349,
+          "sampled_nyquist_MHz": 740.0
+        }
+      },
+      "D1": {
+        "VGA60": {
+          "s11_worst_to_lane_rate_dB": -26.43987118974777,
+          "s21_at_nearest_nyquist_dB": -0.4872354287585454,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "480p60": {
+          "s11_worst_to_lane_rate_dB": -26.43987118974777,
+          "s21_at_nearest_nyquist_dB": -0.4872354287585454,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "720p60": {
+          "s11_worst_to_lane_rate_dB": -14.319591640482653,
+          "s21_at_nearest_nyquist_dB": -0.5802713203694301,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p30": {
+          "s11_worst_to_lane_rate_dB": -14.319591640482653,
+          "s21_at_nearest_nyquist_dB": -0.5802713203694301,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p60": {
+          "s11_worst_to_lane_rate_dB": -11.589022318045492,
+          "s21_at_nearest_nyquist_dB": -0.8806838891186551,
+          "sampled_nyquist_MHz": 740.0
+        }
+      },
+      "D2": {
+        "VGA60": {
+          "s11_worst_to_lane_rate_dB": -26.439633800634756,
+          "s21_at_nearest_nyquist_dB": -0.48729432366164777,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "480p60": {
+          "s11_worst_to_lane_rate_dB": -26.439633800634756,
+          "s21_at_nearest_nyquist_dB": -0.48729432366164777,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "720p60": {
+          "s11_worst_to_lane_rate_dB": -14.39089433126249,
+          "s21_at_nearest_nyquist_dB": -0.5801693693280634,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p30": {
+          "s11_worst_to_lane_rate_dB": -14.39089433126249,
+          "s21_at_nearest_nyquist_dB": -0.5801693693280634,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p60": {
+          "s11_worst_to_lane_rate_dB": -11.58705675668326,
+          "s21_at_nearest_nyquist_dB": -0.8783255158970517,
+          "sampled_nyquist_MHz": 740.0
+        }
+      },
+      "CK": {
+        "VGA60": {
+          "s11_worst_to_lane_rate_dB": -26.456311262585164,
+          "s21_at_nearest_nyquist_dB": -0.49989276328086835,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "480p60": {
+          "s11_worst_to_lane_rate_dB": -26.456311262585164,
+          "s21_at_nearest_nyquist_dB": -0.49989276328086835,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "720p60": {
+          "s11_worst_to_lane_rate_dB": -12.367547603939041,
+          "s21_at_nearest_nyquist_dB": -0.6400698917517283,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p30": {
+          "s11_worst_to_lane_rate_dB": -12.367547603939041,
+          "s21_at_nearest_nyquist_dB": -0.6400698917517283,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p60": {
+          "s11_worst_to_lane_rate_dB": -12.036372347339263,
+          "s21_at_nearest_nyquist_dB": -1.0458849611321204,
+          "sampled_nyquist_MHz": 740.0
+        }
+      }
+    },
+    "core_115_bias": {
+      "D0": {
+        "VGA60": {
+          "s11_worst_to_lane_rate_dB": -18.581092734848514,
+          "s21_at_nearest_nyquist_dB": -0.5171850695686295,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "480p60": {
+          "s11_worst_to_lane_rate_dB": -18.1915069809507,
+          "s21_at_nearest_nyquist_dB": -0.5171850695686295,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "720p60": {
+          "s11_worst_to_lane_rate_dB": -16.701393324585247,
+          "s21_at_nearest_nyquist_dB": -0.6848501657420593,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p30": {
+          "s11_worst_to_lane_rate_dB": -16.701393324585247,
+          "s21_at_nearest_nyquist_dB": -0.6848501657420593,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p60": {
+          "s11_worst_to_lane_rate_dB": -15.535428622379657,
+          "s21_at_nearest_nyquist_dB": -0.782990922651824,
+          "sampled_nyquist_MHz": 740.0
+        }
+      },
+      "D1": {
+        "VGA60": {
+          "s11_worst_to_lane_rate_dB": -18.941445735024644,
+          "s21_at_nearest_nyquist_dB": -0.5019272195586794,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "480p60": {
+          "s11_worst_to_lane_rate_dB": -18.49137840362631,
+          "s21_at_nearest_nyquist_dB": -0.5019272195586794,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "720p60": {
+          "s11_worst_to_lane_rate_dB": -15.62845862414872,
+          "s21_at_nearest_nyquist_dB": -0.6591327579752443,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p30": {
+          "s11_worst_to_lane_rate_dB": -15.62845862414872,
+          "s21_at_nearest_nyquist_dB": -0.6591327579752443,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p60": {
+          "s11_worst_to_lane_rate_dB": -15.62845862414872,
+          "s21_at_nearest_nyquist_dB": -0.7997943799456857,
+          "sampled_nyquist_MHz": 740.0
+        }
+      },
+      "D2": {
+        "VGA60": {
+          "s11_worst_to_lane_rate_dB": -18.95512505736552,
+          "s21_at_nearest_nyquist_dB": -0.5018889730980235,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "480p60": {
+          "s11_worst_to_lane_rate_dB": -18.504149582385953,
+          "s21_at_nearest_nyquist_dB": -0.5018889730980235,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "720p60": {
+          "s11_worst_to_lane_rate_dB": -15.601875417341212,
+          "s21_at_nearest_nyquist_dB": -0.6592115258990685,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p30": {
+          "s11_worst_to_lane_rate_dB": -15.601875417341212,
+          "s21_at_nearest_nyquist_dB": -0.6592115258990685,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p60": {
+          "s11_worst_to_lane_rate_dB": -15.601875417341212,
+          "s21_at_nearest_nyquist_dB": -0.8022745467038511,
+          "sampled_nyquist_MHz": 740.0
+        }
+      },
+      "CK": {
+        "VGA60": {
+          "s11_worst_to_lane_rate_dB": -18.162534398329477,
+          "s21_at_nearest_nyquist_dB": -0.5204055431075824,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "480p60": {
+          "s11_worst_to_lane_rate_dB": -17.784645648534774,
+          "s21_at_nearest_nyquist_dB": -0.5204055431075824,
+          "sampled_nyquist_MHz": 130.0
+        },
+        "720p60": {
+          "s11_worst_to_lane_rate_dB": -16.526212703372448,
+          "s21_at_nearest_nyquist_dB": -0.6955470300021994,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p30": {
+          "s11_worst_to_lane_rate_dB": -16.526212703372448,
+          "s21_at_nearest_nyquist_dB": -0.6955470300021994,
+          "sampled_nyquist_MHz": 370.0
+        },
+        "1080p60": {
+          "s11_worst_to_lane_rate_dB": -13.261207994722866,
+          "s21_at_nearest_nyquist_dB": -0.7829144092800697,
+          "sampled_nyquist_MHz": 740.0
+        }
+      }
+    }
+  },
+  "lumped_bias_only": {
+    "Rdiff_ohm": 998,
+    "s21_dB": -0.42461482720673416,
+    "s11_dB": -26.42782556623378
+  },
+  "energy_check": [
+    {
+      "dx_mm": 0.02104,
+      "energy": "existing_cell_average",
+      "zdiff": 101.65875920286743,
+      "eeff": 2.530951346096332,
+      "single_ohm": 53.614772181900555
+    },
+    {
+      "dx_mm": 0.02104,
+      "energy": "discrete_link_energy",
+      "zdiff": 99.62511701819562,
+      "eeff": 2.54591209191243,
+      "single_ohm": 53.123224510326146
+    },
+    {
+      "dx_mm": 0.01052,
+      "energy": "existing_cell_average",
+      "zdiff": 103.4155721238323,
+      "eeff": 2.569550489996401,
+      "single_ohm": 51.70655700982038
+    },
+    {
+      "dx_mm": 0.01052,
+      "energy": "discrete_link_energy",
+      "zdiff": 102.45888678488097,
+      "eeff": 2.578014069023044,
+      "single_ohm": 51.4998152362256
+    }
+  ]
+}

@@ -1,0 +1,398 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1"><title>PoCシミュレーション 初回レビュー記録</title>
+        <meta name="description" content="6450c42時点のHDMIシミュレーション監査。数値の再現性、モデルの限界、PoC試作条件と開発引き継ぎ。">
+        <style>
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --ink:#1b1f24; --muted:#5b6672; --line:#d9dee4;
+  --accent:#1f6feb; --ok:#1a7f37; --okbg:#e3f5e8; --warn:#9a6700; --warnbg:#fff4d1;
+  --bad:#cf222e; --badbg:#fde4e6; --info:#0a6aa1; --infobg:#e1f1fb;
+  --pcb:#1f7a4d; --pcb2:#2f9e68; --tab5:#c9ced6; --code:#eef1f5;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1318; --panel:#171c23; --ink:#e6eaef; --muted:#9aa5b1; --line:#2b333d;
+    --accent:#58a6ff; --ok:#56d364; --okbg:#10301a; --warn:#e3b341; --warnbg:#3a2d0b;
+    --bad:#ff7b72; --badbg:#3c1418; --info:#79c0ff; --infobg:#0d2c44;
+    --pcb:#1d6b45; --pcb2:#2b8a5c; --tab5:#3a424d; --code:#222a33;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1318; --panel:#171c23; --ink:#e6eaef; --muted:#9aa5b1; --line:#2b333d;
+  --accent:#58a6ff; --ok:#56d364; --okbg:#10301a; --warn:#e3b341; --warnbg:#3a2d0b;
+  --bad:#ff7b72; --badbg:#3c1418; --info:#79c0ff; --infobg:#0d2c44;
+  --pcb:#1d6b45; --pcb2:#2b8a5c; --tab5:#3a424d; --code:#222a33;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 "Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif}
+a{color:var(--accent)}
+header.top{background:var(--panel);border-bottom:1px solid var(--line);padding:28px 16px 20px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header.top .wrap{padding:0}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 6px}
+.sub{color:var(--muted);margin:0}
+.badge{display:inline-block;font-size:.78rem;padding:2px 10px;border-radius:999px;background:var(--warnbg);color:var(--warn);border:1px solid var(--warn);margin-right:6px;vertical-align:middle}
+nav.toc{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+nav.toc .wrap{display:flex;gap:4px;padding-top:6px;padding-bottom:6px}
+nav.toc a{padding:4px 12px;border-radius:6px;text-decoration:none;color:var(--ink);font-size:.9rem}
+nav.toc a:hover{background:var(--code)}
+section{padding:36px 0 8px}
+h2{font-size:1.35rem;margin:0 0 14px;padding-left:12px;border-left:5px solid var(--accent)}
+h3{font-size:1.08rem;margin:26px 0 8px}
+p{margin:.6em 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.callout{border-left:5px solid var(--info);background:var(--infobg);padding:10px 14px;border-radius:6px;margin:14px 0}
+.callout.warn{border-color:var(--warn);background:var(--warnbg)}
+.callout.bad{border-color:var(--bad);background:var(--badbg)}
+.callout.ok{border-color:var(--ok);background:var(--okbg)}
+.callout b.t{display:block;margin-bottom:2px}
+figure{margin:16px 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{color:var(--muted);font-size:.88rem;padding:6px 6px 2px}
+.tw{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:560px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--code);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.c,th.c{text-align:center}
+.t-ok{background:var(--okbg);color:var(--ok);font-weight:600}
+.t-warn{background:var(--warnbg);color:var(--warn);font-weight:600}
+.t-bad{background:var(--badbg);color:var(--bad);font-weight:600}
+.t-info{background:var(--infobg);color:var(--info);font-weight:600}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font-family:ui-monospace,Consolas,monospace;font-size:.88em}
+ul{padding-left:1.3em;margin:.5em 0}
+li{margin:.2em 0}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:14px 0}
+.kpi div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi b{display:block;font-size:1.25rem}
+.kpi span{color:var(--muted);font-size:.85rem}
+footer{color:var(--muted);font-size:.85rem;padding:32px 0 48px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.85rem;color:var(--muted);margin:6px 2px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+svg text{font-family:inherit;fill:var(--ink)}
+svg .mut{fill:var(--muted)}
+</style><style>
+    article{padding:24px 0}article h2{margin-top:38px}article h3{margin-top:26px}
+    article p,article li,td{overflow-wrap:anywhere}pre{overflow:auto;background:var(--code);padding:16px;border-radius:8px}
+    pre code{padding:0}blockquote{border-left:4px solid var(--line);padding:4px 16px;margin:16px 0}
+    .audit-toc{display:flex;gap:8px 18px;flex-wrap:wrap}.audit-toc a{font-size:.9rem}
+    @media(max-width:600px){h1{font-size:1.4rem}.wrap{padding:0 12px}}
+    </style></head><body>
+        <header class="top"><div class="wrap"><p><span class="badge">2026-10-24 監査記録</span><span class="badge">6450c42時点・修正版の判定ではありません</span></p>
+        <h1>PoCシミュレーション 初回レビュー記録</h1><p class="sub">数値の再現性と製作判断を分けて記録しています。</p></div></header>
+        <nav class="toc"><div class="wrap"><a href="index.html">企画・設計仕様</a><a href="hdmi-simulation.html">シミュレーションレポート</a><a href="hdmi-audit.html">再監査</a><a href="hdmi-audit-initial.html">初回レビュー</a></div></nav>
+        <main class="wrap"><div class="callout"><b class="t">修正の進捗（ユーザー報告）</b>
+        TMDS線の連続配線、ESDの短いシャント接続、499Ω抵抗の信号線近傍への配置へ修正中です。この方針は妥当です。
+        ESDの接続枝とGND経路を短くし、抵抗はAC結合コンデンサのHDMI側に接続、P/Nを対称にします。
+        以下は修正前コミットへの監査記録です。修正版の実配線・再計算を確認するまで、是正済みとは判定しません。</div>
+        <div class="card audit-toc"><a href="#audit-section-1">結論</a><a href="#audit-section-2">1. 対象と参照版</a><a href="#audit-section-3">2. 公式情報で省略できること・できないこと</a><a href="#audit-section-4">3. 製作判断に影響する指摘</a><a href="#audit-section-5">4. 実行して確認したこと</a><a href="#audit-section-6">5. PoC向けの製作・試験条件</a><a href="#audit-section-7">6. 追加取得した一次資料と出典</a></div><article><p>確認日：2026-10-24。目的は量産品質保証ではなく、少数試作の成功見込みを判断すること。</p>
+<h2 id="audit-section-1">結論</h2>
+<p><strong>Core全体の実形状3D解析、HDMI規格認証、試作前のTDR・アイ測定を、今回の製作条件にする必要はない。公式Coreと公式Dockの公開資料を使い、不明部分を感度解析と実機試験に残す方針は妥当。</strong></p>
+<p>ただし、現行の「最終配線＝合格（推定）」は根拠が不足している。以下を直した後なら、<strong>短いケーブル・限定したモニタで720p60を狙うPoC試作へ進める</strong>。動作保証・全機器互換性・HDMI規格適合を意味しない。</p>
+<ol>
+<li><strong>ESD部品の端子間導通を是正する。</strong> C293965はDOWO品で、データシートは6/7/9/10をNCとしている。現回路は1→10、2→9、4→7、5→6を部品内で通過する想定。少なくともこの部品で導通は保証されず、8本すべての信号経路が途切れる可能性がある。PCB上で同一信号を連続配線しESDを分岐接続するか、内部導通が仕様で保証された部品へ変更する。</li>
+<li><strong>499Ω抵抗の長い枝を短縮する。</strong> クロックN側には約53mmの枝がある。抵抗を信号線近くへ置き、P/Nを対称にする。単にシミュレーションから枝を消してはならない。</li>
+<li><strong>目標を720p60と立ち上げ用低速モードに設定する。</strong> 通常の1080p60はGW2Aの公開シリアライザ上限を超えるため、初版の保証・必達条件に含めない。</li>
+<li>変更した実基板から再抽出し、ネット導通・DRC・P/N極性・主要な信号帰路・積層指定を確認する。3D解析の較正完了は待たなくてよい。</li>
+</ol>
+<p>これはHDMI経路のレビューであり、電源・逆給電・部品定格・機構の全項目を合格にしたものではない。後述の少数の製作前確認は残す。</p>
+<h2 id="audit-section-2">1. 対象と参照版</h2>
+<p>設計の実体はルートmainではなく、<code>.claude/worktrees/project-review-ff0f9d</code> の <code>claude/kicad-v4-hdmi</code>。既存の未コミットの監査方針・openEMSコードも読んだ。レビュー中に同作業ツリーへ <code>ad86bcb</code> と <code>e5857fd</code> が追加され、経路順・0.13mmグリッド修正と公開用レポートが入ったため、これらも再確認した。PCB自体のハッシュは変わっていない。回路図・PCBは変更していない。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>対象</th>
+<th>確認版・確認内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>キャリア</td>
+<td>HEAD <code>7a0a3c5</code>、PCB SHA-256 <code>215ebb23a614ddec622eb1510c80ad71e83b1917391ae9b3f3940339dafae6d4</code>。README、企画書、共通仕様、HDMI方針、監査記録、生成モデル、回路・配線データ、解析コード・結果</td>
+</tr>
+<tr>
+<td>tab5-linux-fpga</td>
+<td><code>c1cd5e47f9f07a164bc070b8defe36bb05682c6b</code>。README、DEVELOPMENT_GOALS、FPGA_LINK_PREPARATION、Tab5 Device Tree、fpga-link実装の位置。物理PARLIO/DMAの成立は未検証</td>
+</tr>
+<tr>
+<td>tab5-fpga-gpu</td>
+<td><code>3b1ace3d91c6305ec0e32378f8819fce208c2aa7</code>。README、Project B、game/compute仕様、link-bringupとTab5接続試験コード。CLK16/READY45/DIR51を照合</td>
+</tr>
+<tr>
+<td>esp32p4-linux-fpga-memory</td>
+<td><code>e4aa69d09b2643d6f62fe686ef0f3284b109c541</code>。README、Project A、共通ハード仕様。明示的READ/WRITE・退避/復元・演算用途。Linux本体の確認も別途実施</td>
+</tr>
+<tr>
+<td>Sipeed公式HDMI例</td>
+<td><code>sipeed/TangPrimer-20K-example</code>、<code>e469df4c0c9c41824f405a8515decf24ef1e8e6f</code>。video_top、CST、SDC、PLL、DVI IPソースを保存</td>
+</tr>
+</tbody>
+</table></div>
+<p>両ベースプロジェクトの中心要求はFPGA DDR3利用とTab5への双方向転送であり、GPUの基本表示先はTab5内蔵LCD。<strong>外部HDMIの1080p60成立は両者の基本要求ではない</strong>。HDMIを低速で限定しても、メモリ・GPU用のPARLIO接続要求は別途維持する。GPU側は推論アクセラレータにも範囲が広がっているが、このレビューでその性能やDDR3実動作は認定しない。</p>
+<h2 id="audit-section-3">2. 公式情報で省略できること・できないこと</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>部分</th>
+<th>PoCでの扱い</th>
+<th>限界・残す確認</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Core内DDR3配線・電源生成</td>
+<td>未改造の公式Coreを使用し、再設計・全3D解析を省略</td>
+<td>公式DDR3コントローラ例を起点に、試作後にメモリテスト。Core入力5V・負荷電流は確認</td>
+</tr>
+<tr>
+<td>Core内TMDS配線</td>
+<td>公式長さ表を使った一様線路近似＋仮定値を振る感度解析</td>
+<td>長さ一致だけでは100Ωの証明にならない。パッケージ・ビア・分岐・損失・実スタックアップは不明</td>
+</tr>
+<tr>
+<td>SODIMM接点</td>
+<td>PoCでは簡易L/Cまたは短線路でよい</td>
+<td>値の範囲は仮定と明記。L/Cを振っただけで、実部品がその範囲内とは証明できない</td>
+</tr>
+<tr>
+<td>キャリアの長い平行配線</td>
+<td>発注積層に対応する2D計算と実配線確認を中心にする</td>
+<td>線幅/間隔・層・帰路が対応する区間だけに適用。内層・下面を無条件100Ωにはしない</td>
+</tr>
+<tr>
+<td>短い対称ビア・パッド</td>
+<td>まず目視・寸法と簡易寄生モデルでよい</td>
+<td>局所3Dは改善手段。PoCの絶対条件ではない</td>
+</tr>
+<tr>
+<td>AC結合・抵抗・ESD</td>
+<td>実際のBOMメーカーと接続でモデル化</td>
+<td>公式Dockと同じ型番文字列でも互換保証にはならない</td>
+</tr>
+<tr>
+<td>ケーブル・受信機</td>
+<td>製作前の全モデル化を省略</td>
+<td>試作の機能確認には必須。短いケーブルと指定モニタを使い、必要なら2種類目で確認</td>
+</tr>
+<tr>
+<td>FPGAドライバ・PLL・RTL</td>
+<td>公式サンプルを起点に対象ピン・極性・周波数を変更</td>
+<td>受動Sパラメータだけでは振幅・DCレベル・ジッタ・エンコード・STAを判定できない</td>
+</tr>
+</tbody>
+</table></div>
+<p>Coreを100Ω・38.4mmで足すとモデル範囲には含まれるが、正確に解けたことにはならない。「Coreが公式品なので影響ゼロ」「問題の本体は必ずキャリア側」という断定は避ける。</p>
+<p>公式のPCB配線ファイルは今回確認した配布資料からは取得できていない。「非公開」と確定するより「未取得・公開確認できず」と記載する。公開長さ表には3パッド・1ビアのTXネットがあり、単純な2端子一様線路そのものの証拠ではない。</p>
+<h2 id="audit-section-4">3. 製作判断に影響する指摘</h2>
+<h3>A. ESDのIN/OUT想定と実部品が一致しない（製作前必須）</h3>
+<p><code>kicad/gen/design.py</code> はU4/U5を <code>C293965</code>、10端子ESDのIN/OUT別ネットとして定義。JLCPCBの実部品は<strong>DOWO RCLAMP0524P、DFN2510-10L</strong>である。今回取得したメーカー資料 Rev.G1.00（2024-03-01）のp.1で6/7/9/10はNC、p.2でI/Oは1/2/4/5、GNDは3/8と明記される。</p>
+<p>公式Dockの回路図にもIN/OUT記号はあるが、それを根拠に別メーカーの部品内部導通を仮定できない。DRCは部品内部を通過できるとした回路図モデルとの整合を調べるので、この誤りを検出しない。部品名の変更だけで済ませず、各TMDS線の実際の銅配線の連続性を確保する。</p>
+<p>ESD容量も訂正が必要。旧モデルは「0.3pF/線→差動0.15pF」とするが、Semtech製品ページの0.3pFはI/O間値。DOWO資料はI/O-GNDがtyp.0.4pF/max.0.5pF、I/O間typ.0.2pF/max.0.3pF。2つの対地容量だけなら差動換算は半分だが、I/O間容量の測定値をそのまま独立した相互容量として加算すると二重計上になる場合がある。PoCでは差動0.2～0.5pF等を<strong>仮定の感度範囲</strong>として使い、端子容量行列の同定済み値とは呼ばない。</p>
+<h3>B. 499Ωと枝配線を高周波で無視している（製作前に短縮）</h3>
+<p>P/N各499Ωの対地抵抗は差動998Ωの並列負荷。100Ωの整合系に置くだけでも、理想集中抵抗のSDD21は約−0.425dB、SDD11は約−26.4dBであり「DCのみ」ではない。接続先に50Ω×2の受信終端があれば負荷・振幅も変わる。</p>
+<p><code>stub_tracks.json</code> にある枝の合計は約21～32mmだが、<strong>CKNの枝がメタデータから欠落</strong>。今回、実PCBを接続グラフで追跡するとCKNは約53.44mmの抵抗枝を持つ。P側も約29.26mmで非対称。これらは「短いスタブ」として除外できない。伝搬速度1.7×10^8m/sと仮定すると、53mmの1/4波長は約0.8GHzで、720pの高調波にも関係する。実際の共振位置・深さは層・損失・499Ω終端に依存し、この概算自体は不合格判定ではない。</p>
+<p><strong>対応：抵抗を各信号の分岐点へ近づける。目標は数mm以下、可能なら1～2mm程度。</strong> 厳密な規格値ではなく、モデル化と手戻りを減らすレイアウト目標。長い枝を残すならP/N別の終端付き線路として扱い、対称差動2ポートだけの推定に依存しない。</p>
+<h3>C. 速度と規格値の整理（要求の修正）</h3>
+<p>8bit/component・通常のブランキングを含む標準タイミングの例。RGB565の内部描画形式や、描画内容が30FPSでしか更新されないことから、HDMI走査のTMDS速度を算出しない。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>モード</th>
+<th style="text-align:right">pixel clock</th>
+<th style="text-align:right">lane速度</th>
+<th style="text-align:right">Nyquist</th>
+<th style="text-align:right">UI</th>
+<th style="text-align:right">0.15UI（ペア内参考上限）</th>
+<th style="text-align:right">0.20 character（ペア間参考上限）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>640×480p60</td>
+<td style="text-align:right">25.175MHz</td>
+<td style="text-align:right">251.75Mbps</td>
+<td style="text-align:right">125.875MHz</td>
+<td style="text-align:right">3972ps</td>
+<td style="text-align:right">596ps</td>
+<td style="text-align:right">7944ps</td>
+</tr>
+<tr>
+<td>720×480p60</td>
+<td style="text-align:right">27MHz</td>
+<td style="text-align:right">270Mbps</td>
+<td style="text-align:right">135MHz</td>
+<td style="text-align:right">3704ps</td>
+<td style="text-align:right">556ps</td>
+<td style="text-align:right">7407ps</td>
+</tr>
+<tr>
+<td>1280×720p60</td>
+<td style="text-align:right">74.25MHz</td>
+<td style="text-align:right">742.5Mbps</td>
+<td style="text-align:right">371.25MHz</td>
+<td style="text-align:right">1347ps</td>
+<td style="text-align:right">202ps</td>
+<td style="text-align:right">2694ps</td>
+</tr>
+<tr>
+<td>1920×1080p30</td>
+<td style="text-align:right">74.25MHz</td>
+<td style="text-align:right">742.5Mbps</td>
+<td style="text-align:right">371.25MHz</td>
+<td style="text-align:right">1347ps</td>
+<td style="text-align:right">202ps</td>
+<td style="text-align:right">2694ps</td>
+</tr>
+<tr>
+<td>1920×1080p60</td>
+<td style="text-align:right">148.5MHz</td>
+<td style="text-align:right">1485Mbps</td>
+<td style="text-align:right">742.5MHz</td>
+<td style="text-align:right">673ps</td>
+<td style="text-align:right">101ps</td>
+<td style="text-align:right">1347ps</td>
+</tr>
+</tbody>
+</table></div>
+<p>根拠：TI SLLA414A §2.3はペア内0.15×Tbit、ペア間0.20×Tcharacterを示す。「ペア間規定なし」は訂正が必要。これらは送信機からコネクタまでの遅延を含む参考予算で、キャリアの配線だけに全量を割り当てない。5mmは自主的な保守的目標として使えるが、HDMIの一律の規格値ではない。</p>
+<p>Gowin DS102-2.7.8E Table 3-17は8:1/10:1 OSERの上限を1200Mbpsとする。通常1080p60の1485Mbpsは範囲外。公式例の5倍DDRクロック構成では742.5MHzのシリアルクロックが必要となり、同データシートのPLL出力上限625MHzも超える。720p60は742.5Mbps、5倍クロック371.25MHzで、公式例の構成とも整合する。<strong>1080p30は同じ線路速度でも、映像タイミング・モニタ対応の別確認が必要</strong>。</p>
+<p>Nyquist一点だけで合格にしない。エッジ速度が不明なら720pについて少なくとも概ね1～1.5GHzまで傾向を見る案で十分だが、これは自主的な観察帯域。低いpixel clockでも同じ高速エッジを使えば局所不連続は残る。</p>
+<p>TIの一般的HDMI設計表はAC結合なし・極性反転なしとする。一方、Sipeed公式Dockは100nF＋499ΩのLVDSベースの実験実装である。今回の構成を<strong>公式例に倣うDVI互換TMDS出力PoC</strong>として扱うのは合理的だが、標準TMDS送信機と同等の適合証明にはならない。D2のP/N交換は受信機の自動補正を期待せず、<strong>TMDSエンコード後・差動バッファ前の全シリアルビット</strong>を反転して補償する。RGB値を反転することとは異なる。</p>
+<h3>D. 解析コード・記録の精度（合格表現を保留）</h3>
+<ul>
+<li>調査開始時の <code>tmds_sparam.py:sections()</code> はCore側の配列を逆順にしていたが、KiCadの格納順は電気的経路順ではない。例：D0Pは8区間中の隣接7箇所が座標上で連続しない。レビュー中の <code>ad86bcb</code> で経路順をたどる処理が追加された点は改善。ただし始点を最小xで選び、0.06mm以内の近接で接続し、到達できない区間は末尾に無条件追加する。部品パッドを端点に指定し、層・分岐・未到達区間を検出する処理まで確認して、局所モデルの順序を確定する。</li>
+<li><code>_K</code>区間の集計、枝の除外、ビア長、パッドの取り扱いを統一する。<code>pair_lengths.json</code> はルータの値であり、全配線の実測そのものではない。今回のパッド中心間・平面最短経路はD0約58.245mm、D1約40.244mm、D2約40.266mm、CKはP58.866/N59.001mm。Core/部品内部/ビア垂直長は含まない。CKの差は約0.135mmで、長さだけを理由に再蛇行させる必要はない。</li>
+<li>公式Core長さ表の147x milはTracks列、151x milはビアを含むAll列。両者を混同しない。TX1差0.59mil、TX2差0.62mil、TX3差3.02mil、TX5差0.98mil、TX4差74.97mil。TX4の約1.9mmだけで「動かない」とは言えず、回避自体は合理的な予防措置。</li>
+<li>調査開始時の <code>zdiff()</code> は実間隔0.13mmを0.15mmへ丸めてキャッシュ参照していた。約107Ωはその値であり、<code>ad86bcb</code> では0.13mmグリッドを追加して約104Ωへ訂正された。実間隔0.13mmを直接解くとdx=0.01052mmで約103.42Ω、離散リンクのエネルギーによる参考値は約102.46Ω。どちらも100Ω近辺だが、2Dソルバと概算式の一致だけで±8%の保証誤差を定義しない。</li>
+<li>内層/下面/ビアを100Ωで置換し、ESD内導通を仮定したSDD21から、完成品の受信振幅やBERは判断できない。</li>
+<li>openEMSの差動試験は1ポート励振の列だけを求めている。対称性を使うならその成立条件を確認し、差動S行列・基準インピーダンス・抽出式を検証する。<code>pml_cells</code>は宣言されるが境界はMUR固定、ビアモデルにはアンチパッドを表現していない。現在のライブラリをそのまま実基板の合否解析に使わない。</li>
+<li>単線2メッシュの一致をもって差動・ポート・境界条件まで収束したとは言わない。較正未了の3D結果を採用しない判断は妥当。ただし一致するまで調整して2D値に合わせることも検証ではない。</li>
+<li>調査開始時は未存在だった <code>site/hdmi-simulation.html</code> と感度解析成果物は、レビュー中の <code>ad86bcb</code> で追加された。現時点ではローカル生成物として確認できる。図生成コードには比較グラフの数値の固定記述もあるため、PCBを変更したら数値も再生成されるか確認する。サイト配信成功はこのレビューでは確認していない。</li>
+</ul>
+<h2 id="audit-section-5">4. 実行して確認したこと</h2>
+<p>既存コードやPCBを書き換えず、独立したレビュー用チェックを追加した。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>確認</th>
+<th>結果・意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KiCad 10 DRC（error、all-track-errors）</td>
+<td><strong>違反0・未配線0</strong>。内部ESD導通やSI合格の証明ではない</td>
+</tr>
+<tr>
+<td>PCBからの新規読み取りと既存tmds_geom比較</td>
+<td>全対象ネットの区間・ビアが一致。古い別基板を解析していたわけではない</td>
+</tr>
+<tr>
+<td>実接続の経路・抵抗枝</td>
+<td><code>review_geometry.py</code> と <code>review_connectivity_2026-10-24.json</code>。幅のある銅同士の接触を中心線だけでは拾えない枝はnullのままとし、全枝の同定済みとはしない。CKNの長枝は追跡できた</td>
+</tr>
+<tr>
+<td>499Ωのみの効果</td>
+<td>差動998Ωの集中負荷だけで−0.425dB。無視できるという前提を否定</td>
+</tr>
+<tr>
+<td>既存モデルと負荷追加の比較</td>
+<td>720p Nyquist付近の最悪SDD21は約−0.21→−0.64dB。Coreを仮に85/115Ωにすると約−0.64/−0.70dB</td>
+</tr>
+<tr>
+<td>上記比較の反射</td>
+<td>720p lane速度までの最悪SDD11は旧モデル約−19.79dB、抵抗追加約−18.59dB、Core85/115Ωで約−12.37/−15.60dB</td>
+</tr>
+<tr>
+<td>2D数値の別計算</td>
+<td>0.2/0.13mmの直接解と、同じ離散系の別エネルギー計算を2メッシュで比較。値は100Ω近辺。完全な較正・製造公差の検証ではない</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>負荷比較は「修正後の基板が合格」の証明ではない。</strong> 経路順の問題、理想内層、旧ESD容量、ゼロ長の対称抵抗枝を残して、負荷省略の影響だけを切り分けたもの。約53mmの非対称枝やNCによる断線を含まない。Core85～115Ωも実測範囲ではない。反射が改善するケースがあっても抵抗はエネルギーを消費するため、振幅改善を意味しない。</p>
+<p>再現：</p>
+<pre><code class="language-text">python -X utf8 kicad/sim/review_poc.py --energy-check
+&quot;C:/Program Files/KiCad/10.0/bin/python.exe&quot; -X utf8 kicad/sim/review_geometry.py
+</code></pre>
+<p>保存物：<code>kicad/sim/review_poc_2026-10-24.json</code>、<code>review_connectivity_2026-10-24.json</code>、<code>review_geometry_2026-10-24.json</code>（旧枝メタデータによる集計との比較）、<code>review_drc_2026-10-24.json</code>。数値の用途は本節に限定する。</p>
+<h2 id="audit-section-6">5. PoC向けの製作・試験条件</h2>
+<h3>製作前に残す確認</h3>
+<ul>
+<li>ESDの実部品・端子・フットプリント、P/NとD2反転方針、SODIMM/HDMIの信号導通を確定。変更後に回路図とPCBを再照合。</li>
+<li>抵抗枝を短縮し、主要なTMDS帰路が切れていないこと、層替え付近のGND接続、電源スイッチング部との離隔を確認。</li>
+<li>発注する積層をJLC04161H-7628等の想定に合わせる。公式表のL1-L2 0.2104mm・εr4.4は裏付けあり。実製造差やマスクの影響は残るため、一般的な別積層に無条件で置換しない。</li>
+<li>12V等の限定した給電条件、5V出力・短絡/極性、Tab5とFPGAの5V分離、電源断時GPIOの逆給電、コネクタ向き・CoreとTab5の機械干渉を確認。温度全域・全入力電圧の認定は求めない。</li>
+<li>CLK/READY/DIRとD0～D7の両プロジェクトでの対応を維持。低速で使えることと40MHz・DMAの達成を分ける。HDMIの成功でPARLIOの合格を代替しない。</li>
+</ul>
+<h3>製作後の最低限の成功条件（提案）</h3>
+<ol>
+<li>電流制限した給電で電源確認、FPGA書込み、Tab5起動。停止中の実機をこのレビューでは操作しない。</li>
+<li>FPGAの固定テストパターンを640×480p60または480p60で表示。PLL lock、HPD、ケーブル・モニタ型番を記録。</li>
+<li>720p60へ上げ、色・チェッカ・動きのあるパターンを各数分、計30分程度表示。目視の点滅・色化け・同期抜け、再接続・数回の電源再投入を確認。30分はPoCの自主基準で、BER保証ではない。</li>
+<li>720pが失敗して低速で安定するなら「低速PoC成功・720p未達」と記録して利用可能。1080p60の失敗を基板不良の判定に使わない。</li>
+<li>PARLIOは既存の低速ID/echo/CRCから開始し、その後10→20→40MHzを段階評価。DDR3分割アクセスとGPUフレーム転送帯域は用途別に測る。</li>
+</ol>
+<p>TDR・アイ測定は、実機不調の切り分けや次版の改善に有効だが、今回のPoC成功の必須条件にはしない。公式Dockを手元に用意できれば同一Core・同一ビットストリーム相当・同一ケーブル/モニタで比較するのが、Coreの完全再モデル化より効率的。</p>
+<h2 id="audit-section-7">6. 追加取得した一次資料と出典</h2>
+<p>保存先は <code>docs/reference/</code>。取得URL・最終URL・SHA-256・取得日と失敗記録は <code>simulation-review-sources-2026-10-24.json</code> に保存。取得したメーカー資料の著作権は発行元に帰属する。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>資料</th>
+<th>ローカル保存先</th>
+<th>使用箇所・出典</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sipeed Tang Primer 20K Datasheet V1.0</td>
+<td>tang-primer-20k/Sipeed_Tang_Primer_20K_Datasheet_V1.0.pdf</td>
+<td><a href="https://dl.sipeed.com/shareURL/TANG/Primer_20K/01_Specification">公式配布</a>。今回の一覧では約1.02MBで認証なし取得成功。以前の「10MB超・要手動」は更新すべき</td>
+</tr>
+<tr>
+<td>Gowin DS102-2.7.8E（2026-07-10）</td>
+<td>gowin/DS102E_GW2A.pdf</td>
+<td><a href="https://cdn.gowinsemi.com.cn/DS102E.pdf">公式PDF</a>。Table 3-17/3-21のOSER・PLL上限</td>
+</tr>
+<tr>
+<td>Gowin UG289-2.2.1E（2025-12-19）</td>
+<td>gowin/UG289E_GPIO.pdf</td>
+<td><a href="https://cdn.gowinsemi.com.cn/UG289E.pdf">公式PDF</a>。GPIOバンク・電源・差動バッファの前提</td>
+</tr>
+<tr>
+<td>TI SLLA414A（2026-01改訂）</td>
+<td>hdmi/TI_SLLA414A.pdf</td>
+<td><a href="https://www.ti.com/lit/an/slla414/slla414.pdf">公式PDF</a>。§2.3：TMDSインピーダンス・スキュー・一般的接続条件</td>
+</tr>
+<tr>
+<td>JLCPCB積層表</td>
+<td>hdmi/JLCPCB_impedance.html</td>
+<td><a href="https://jlcpcb.com/impedance">公式表</a>。JLC04161H-7628、Dk・マスク条件</td>
+</tr>
+<tr>
+<td>DOWO RCLAMP0524P Rev.G1.00</td>
+<td>parts/RClamp0524P_DOWO_C293965.pdf</td>
+<td><a href="https://www.lcsc.com/datasheet/C293965.pdf">LCSCの当該製品データシート</a>経由のメーカーPDF。p.1端子、p.2容量、p.4外形を確認。Semtech品ではない</td>
+</tr>
+<tr>
+<td>JLCPCB当該部品ページ</td>
+<td>parts/RClamp0524P_DOWO_JLCPCB_product.html</td>
+<td><a href="https://jlcpcb.com/partdetail/DOWO-RCLAMP0524P/C293965">C293965</a>。採用メーカーを照合</td>
+</tr>
+<tr>
+<td>Semtech製品ページ</td>
+<td>parts/RClamp0524P_Semtech_product.html</td>
+<td><a href="https://www.semtech.com/products/circuit-protection/low-capacitance/rclamp0524p">公式ページ</a>。0.3pFの測定対象がI/O間であることを確認。公式PDFリンクはHTML応答となり取得未了。採用DOWO品の代用資料にしない</td>
+</tr>
+<tr>
+<td>Sipeed公式HDMI例</td>
+<td>tang-primer-20k/official-hdmi/</td>
+<td><a href="https://github.com/sipeed/TangPrimer-20K-example/blob/e469df4c0c9c41824f405a8515decf24ef1e8e6f/HDMI/src/video_top.v">固定コミットのvideo_top</a>とCST/SDC/PLL/IP。1280×720、1650×750、5倍クロック構成</td>
+</tr>
+</tbody>
+</table></div>
+<p>既存のDock_3714 PDFでは、HDMIは<strong>PDF物理3ページ目・図枠Id 5/9</strong>。5ページ目と混同しない。Core長さ表はTracks/Vias/All列を分けて確認した。追加資料のダウンロードは調査用保存のみで、製造注文・回路変更・実機書込み・サイト公開はしていない。</p>
+</article>
+        <footer><a href="https://github.com/airpocket-soundman/tab5-tang-primer20k-carrier/blob/main/docs/PoC%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3_%E5%A6%A5%E5%BD%93%E6%80%A7%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC_2026-10-24.md">この記録のMarkdown原文</a> · <a href="hdmi-simulation.html">シミュレーションレポートへ戻る</a></footer></main></body></html>

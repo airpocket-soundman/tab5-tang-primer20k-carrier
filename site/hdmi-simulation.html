@@ -87,10 +87,16 @@ svg .mut{fill:var(--muted)}
 </div></header>
 <nav class="toc"><div class="wrap">
  <a href="#summary">結論</a><a href="#issues">是正事項</a><a href="#scope">範囲</a><a href="#method">手法</a><a href="#valid">検証</a><a href="#result">配線結果</a><a href="#channel">チャネル推定</a><a href="#sens">感度解析</a><a href="#em3d">3D解析</a><a href="#limits">限界</a><a href="#repro">再現・記録</a>
+<a href="hdmi-audit.html">独立監査・開発引き継ぎ</a>
 </div></nav>
 <main class="wrap">
 
 <section id="summary">
+<div class="callout warn" id="audit-link"><b class="t">独立監査の結果</b>
+<a href="hdmi-audit.html">6450c42の再監査・開発引き継ぎ</a>を公開しました。
+保存数値は再現できましたが、監査対象版にはESDの導通想定と長い抵抗枝の問題が残ります。
+「26か所の不連続」は解析用リストの問題で、PCBの26か所の断線を意味しません。
+開発側ではTMDS連続配線・ESDシャント接続・499Ω抵抗の近接配置へ修正中です。修正版の是正完了は未判定です。</div>
  <h2>結論</h2>
  <div class="kpi">
   <div><b>0.00 mm</b><span>ペア内スキュー（4組すべて。目標 5mm 未満）</span></div>

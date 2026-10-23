@@ -228,3 +228,7 @@ try:
     _a.page_index()
 except Exception as e:  # noqa: BLE001
     print("review updates not applied:", e)
+
+# Preserve the links to the independent audit when regenerating this report.
+from make_audit_pages import link_reports
+link_reports()

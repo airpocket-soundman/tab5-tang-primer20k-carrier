@@ -91,6 +91,7 @@ svg .mut{fill:var(--muted)}
 
 <nav class="toc"><div class="wrap">
  <a href="#overview">概要</a><a href="#spec">初期仕様</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#kicad">KiCad設計</a><a href="hdmi-simulation.html">HDMIシミュレーション</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
+<a href="hdmi-audit.html">独立監査・開発引き継ぎ</a>
 </div></nav>
 
 <main class="wrap">
@@ -573,6 +574,11 @@ svg .mut{fill:var(--muted)}
   </tbody></table></div>
 
  <h3>HDMI信号品質のシミュレーション</h3>
+<div class="callout warn" id="audit-link"><b class="t">独立監査の結果</b>
+<a href="hdmi-audit.html">6450c42の再監査・開発引き継ぎ</a>を公開しました。
+保存数値は再現できましたが、監査対象版にはESDの導通想定と長い抵抗枝の問題が残ります。
+「26か所の不連続」は解析用リストの問題で、PCBの26か所の断線を意味しません。
+開発側ではTMDS連続配線・ESDシャント接続・499Ω抵抗の近接配置へ修正中です。修正版の是正完了は未判定です。</div>
  <div class="callout bad"><b class="t">是正事項（試作前に必須）</b>TMDS用ESD（RCLAMP0524P）は、採用部品（DOWO製）の仕様上、入力と出力が内部でつながる保証がありません。また、499Ωバイアス抵抗の枝配線が長く、高周波では無視できません。目標は<b>720p60のPoC</b>（1080p60はGW2Aのシリアライザ上限を超えるため対象外）。詳細は<a href="hdmi-simulation.html#issues">レポート</a>。</div>
  <div class="callout ok"><b class="t">詳細レポート</b><a href="hdmi-simulation.html"><b>HDMIシミュレーション評価レポート</b></a>に、範囲・手法・検証・結果・感度解析・限界を表とグラフでまとめました。</div>
  <p>公開されているオープンソースだけで、<b>基板データから実形状を取り出して</b>評価しました。範囲は<b>キャリア基板側のみ</b>です（Coreの基板データは非公開で、公式の配線長表だけが得られるため、Core内は長さ38.4mmの理想100Ω線路として接続）。方針と調査の記録は <code>docs/HDMI_信号品質_調査と方針.md</code>。</p>
