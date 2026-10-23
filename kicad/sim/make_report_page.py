@@ -1,4 +1,4 @@
-"""Builds site/hdmi-simulation.html from the simulation outputs (run after make_report_figs.py).
+"""Builds site/hdmi-simulation-r2.html from the simulation outputs (run after make_report_figs.py).
 
 python -X utf8 kicad/sim/make_report_page.py
 Numbers come from tmds_summary.json, report_sparam.json, report_variants.json, continuity_report.json (nothing is typed by hand
@@ -134,22 +134,22 @@ page = """<!doctype html>
    <tr><td>差動 w=0.20／間隔0.13mm</td><td class="c">約103〜104Ω</td><td class="c">IPC-2141差動式 約98.7Ω</td><td>式は概算（±10%程度）。以前の107Ωは0.15mmの値の代用だった（訂正済み）</td></tr>
   </tbody></table></div>
  <p>単線は±3%で一致。2Dソルバと概算式の一致をもって、保証できる誤差とは言いません。差動値は<b>約±8%の不確かさ</b>を見込みます。</p>
- <figure><img src="img/sim_zdiff.png" alt="差動インピーダンスと線幅・間隔" """ + IMG + """>
+ <figure><img src="img/sim_zdiff_r2.png" alt="差動インピーダンスと線幅・間隔" """ + IMG + """>
   <figcaption>図1　差動インピーダンスと線幅・ペア内間隔（2Dソルバ）。採用した線幅0.2mm・間隔0.13mmは100Ω付近。</figcaption></figure>
 </section>
 
 <section id="result">
  <h2>5. 配線の結果（是正後）</h2>
  <p>P/Nを1本の太い線として引いて2本に分けるペア配線です。Core側は入れ子の縦レーン、キャップ→ESD→コネクタは直線レーン。ESDの足は銅の細線でつないであり、線路は連続した銅配線です。</p>
- <figure><img src="img/sim_compare.png" alt="導入前後の比較" """ + IMG + """>
+ <figure><img src="img/sim_compare_r2.png" alt="導入前後の比較" """ + IMG + """>
   <figcaption>図2　配線方式による改善（最初の配線との比較）。</figcaption></figure>
  <div class="tw"><table>
   <thead><tr><th>ペア</th><th class="c">P/N長 (mm)</th><th class="c">スキュー</th><th class="c">Zdiff 最小/平均 (Ω)</th><th class="c">499Ω枝 P/N</th><th class="c">F.Cu結合割合</th></tr></thead>
   <tbody>
 """ + rows_len + """  </tbody></table></div>
- <figure><img src="img/sim_route.png" alt="TMDS実配線" """ + IMG + """>
+ <figure><img src="img/sim_route_r2.png" alt="TMDS実配線" """ + IMG + """>
   <figcaption>図3　TMDS 4組の実配線（細線=P、太線=N、黒細線=499Ω枝）。</figcaption></figure>
- <figure><img src="img/render_top.png" alt="基板3Dレンダリング" """ + IMG + """>
+ <figure><img src="img/render_top_r2.png" alt="基板3Dレンダリング" """ + IMG + """>
   <figcaption>図4　基板全体（右辺の上寄りがHDMI）。DRC違反0件、未接続0件。</figcaption></figure>
 </section>
 
@@ -160,7 +160,7 @@ page = """<!doctype html>
   <thead><tr><th>ペア</th><th class="c">SDD11 371/742MHz</th><th class="c">SDD11 最大(〜1.5GHz)</th><th class="c">SDD21 371/742MHz</th><th class="c">SDD21 1.5GHz</th></tr></thead>
   <tbody>
 """ + rows_sp + """  </tbody></table></div>
- <figure><img src="img/sim_sparam.png" alt="Sパラメータ推定" """ + IMG + """>
+ <figure><img src="img/sim_sparam_r2.png" alt="Sパラメータ推定" """ + IMG + """>
   <figcaption>図5　差動S11／S21の推定と、Core側配線の差動インピーダンス。先頭の約2.4mmはパッド直後の細い単線スタブ。</figcaption></figure>
  <p>499Ωの対地抵抗だけで、差動998Ωの並列負荷になり、SDD21が約−0.4dB下がります（理想の系との差）。「直流のみで影響しない」という以前の扱いは誤りでした。</p>
 </section>
@@ -171,14 +171,14 @@ page = """<!doctype html>
   <thead><tr><th>条件（4組のうち悪い方）</th><th class="c">SDD11 最大(〜1.5GHz)</th><th class="c">SDD21 @742MHz</th></tr></thead>
   <tbody>
 """ + rows_var + """  </tbody></table></div>
- <figure><img src="img/sim_variants.png" alt="是正の効果と感度" """ + IMG + """>
+ <figure><img src="img/sim_variants_r2.png" alt="是正の効果と感度" """ + IMG + """>
   <figcaption>図6　是正前の枝（21〜53mm）では反射が約−4dBまで悪化。是正後は理想に近い。ESD容量とCore側インピーダンスの仮定に対する感度。</figcaption></figure>
  <ul>
   <li>是正前の枝のままだと、SDD11が−4.2dB、SDD21が−2.6dBまで悪化する（<b>是正の効果は大きい</b>）。</li>
   <li>ESD容量が仮定の上限（0.5pF）、またはCoreが85Ωだと、−10dBの自主目標に近づく（−13.1dB／−11.1dB）。Coreの実インピーダンスは不明。</li>
  </ul>
  <h3>SODIMM接点の寄生</h3>
- <figure><img src="img/sim_sensitivity.png" alt="接点の感度解析" """ + IMG + """>
+ <figure><img src="img/sim_sensitivity_r2.png" alt="接点の感度解析" """ + IMG + """>
   <figcaption>図7　SODIMM接点の直列L（差動）と並列C（差動）に対する反射（左）と挿入損失（右）。実機の値は確認できていない。</figcaption></figure>
 </section>
 
@@ -247,5 +247,5 @@ def sub_ph(m):
     return ("%" + fmt) % subs[name]
 page = re.sub(r"%\((\w+)\)([-.\d]*[sf])", sub_ph, page)
 page = page.replace("%%", "%")
-open(os.path.join(SITE, "hdmi-simulation.html"), "w", encoding="utf-8").write(page)
-print("wrote site/hdmi-simulation.html")
+open(os.path.join(SITE, "hdmi-simulation-r2.html"), "w", encoding="utf-8").write(page)
+print("wrote site/hdmi-simulation-r2.html")

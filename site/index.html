@@ -90,7 +90,7 @@ svg .mut{fill:var(--muted)}
 </header>
 
 <nav class="toc"><div class="wrap">
- <a href="#overview">概要</a><a href="#spec">初期仕様</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#kicad">KiCad設計</a><a href="hdmi-simulation.html">HDMIシミュレーション</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
+ <a href="#overview">概要</a><a href="#spec">初期仕様</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#kicad">KiCad設計</a><a href="hdmi-simulation-r2.html">HDMIシミュレーション</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
 </div></nav>
 
 <main class="wrap">
@@ -568,14 +568,14 @@ svg .mut{fill:var(--muted)}
    <tr><td>配線</td><td><b>113ネット全て自動配線</b>（3配線層＋リップアップ＋ピンスワップ＋<b>TMDSのペア配線</b>）。GNDは内層ベタ＋表裏ベタ＋スティッチビア</td><td class="c t-ok">完了</td></tr>
    <tr><td>DRC</td><td><b>エラー0件、未接続0件</b>。残りはシルク重なり警告のみ</td><td class="c t-ok">クリーン</td></tr>
    <tr><td>配線幅・間隔</td><td>信号 0.127mm/0.127mm、<b>TMDSペア 線幅0.2mm・ペア内間隔0.13mm</b>、ビア 0.6/0.3mm、電源 0.4〜0.8mm</td><td class="c t-ok">確定</td></tr>
-   <tr><td>HDMI TMDS</td><td><b>ペア内スキュー0.00mm（4組すべて）</b>、結合区間の差動インピーダンスは約103Ω（2Dソルバ）。独立監査の指摘（ESD端子導通の想定、499Ω枝の長さ）を<b>是正</b>：ESDは連続した銅配線への分岐、枝は2〜11mmに短縮（以前21〜53mm）。D1のN側（11.5mm）は目標未達（<a href="hdmi-simulation.html#fixes">是正の状況</a>）</td><td class="c t-warn">是正済み・残課題あり</td></tr>
+   <tr><td>HDMI TMDS</td><td><b>ペア内スキュー0.00mm（4組すべて）</b>、結合区間の差動インピーダンスは約103Ω（2Dソルバ）。独立監査の指摘（ESD端子導通の想定、499Ω枝の長さ）を<b>是正</b>：ESDは連続した銅配線への分岐、枝は2〜11mmに短縮（以前21〜53mm）。D1のN側（11.5mm）は目標未達（<a href="hdmi-simulation-r2.html#fixes">是正の状況</a>）</td><td class="c t-warn">是正済み・残課題あり</td></tr>
    <tr><td>機構</td><td>取付穴・M5-Bus開口をTab5.stlから実測。背面は平坦（M3×10＋2.5mmスペーサ）</td><td class="c t-ok">確認済み</td></tr>
   </tbody></table></div>
 
  <h3>HDMI信号品質のシミュレーション</h3>
  <div class="callout warn"><b class="t">2026-10-24 再レビュー</b>現状の製作判定は保留です。採用ESDのNC端子と長い499Ω抵抗枝の修正が必要です。PoCは720p60を主目標とし、以下の数値は修正前の簡易モデルによる参考値です。</div>
- <div class="callout ok"><b class="t">監査指摘を是正して再評価しました</b>TMDS用ESD（DOWO製）は入出力が内部でつながる保証がないため、<b>信号線を連続した銅配線にしてESDを分岐接続</b>に変更し、499Ω抵抗の枝を短縮しました（解析にも含めた）。目標は<b>720p60のPoC</b>（1080p60はGW2Aのシリアライザ上限を超えるため対象外）。詳細は<a href="hdmi-simulation.html#fixes">レポート</a>。</div>
- <div class="callout ok"><b class="t">詳細レポート</b><a href="hdmi-simulation.html"><b>HDMIシミュレーション評価レポート</b></a>に、範囲・手法・検証・結果・感度解析・限界を表とグラフでまとめました。</div>
+ <div class="callout ok"><b class="t">監査指摘を是正して再評価しました</b>TMDS用ESD（DOWO製）は入出力が内部でつながる保証がないため、<b>信号線を連続した銅配線にしてESDを分岐接続</b>に変更し、499Ω抵抗の枝を短縮しました（解析にも含めた）。目標は<b>720p60のPoC</b>（1080p60はGW2Aのシリアライザ上限を超えるため対象外）。詳細は<a href="hdmi-simulation-r2.html#fixes">レポート</a>。</div>
+ <div class="callout ok"><b class="t">詳細レポート</b><a href="hdmi-simulation.html">第1版（監査前）</a>も残しています。<a href="hdmi-simulation-r2.html"><b>第2版 HDMIシミュレーション評価レポート</b></a>に、範囲・手法・検証・結果・感度解析・限界を表とグラフでまとめました。</div>
  <p>公開されているオープンソースだけで、<b>基板データから実形状を取り出して</b>評価しました。範囲は<b>キャリア基板側のみ</b>です（Coreの基板データは非公開で、公式の配線長表だけが得られるため、Core内は長さ38.4mmの理想100Ω線路として接続）。方針と調査の記録は <code>docs/HDMI_信号品質_調査と方針.md</code>。</p>
  <ul>
   <li><b>2D電磁界ソルバ</b>（自作、numpy）：JLCPCB 4層（L1–L2間0.2104mm）の差動インピーダンス。50Ω用単線0.35mmで51.7Ω（公表値と一致）。</li>

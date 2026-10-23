@@ -51,7 +51,7 @@ def fig_zdiff():
     ax.set_title("2Dソルバ: 差動インピーダンス（JLC04161H-7628、L1-L2間 0.2104mm）", fontsize=9)
     ax.legend(fontsize=8)
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "sim_zdiff.png"), dpi=110)
+    fig.savefig(os.path.join(OUT, "sim_zdiff_r2.png"), dpi=110)
     plt.close(fig)
 
 
@@ -79,7 +79,7 @@ def fig_compare():
     ax[1].set_ylim(0, 190)
     fig.suptitle("配線方式による改善（2Dソルバ＋実配線）")
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "sim_compare.png"), dpi=110)
+    fig.savefig(os.path.join(OUT, "sim_compare_r2.png"), dpi=110)
     plt.close(fig)
 
 
@@ -111,7 +111,7 @@ def fig_route():
     ax.legend(ncol=3, fontsize=8, loc="lower right")
     ax.set_title("TMDS 4組の実配線（細線=P、太線=N、黒細線=499Ω枝）", fontsize=10)
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "sim_route.png"), dpi=110)
+    fig.savefig(os.path.join(OUT, "sim_route_r2.png"), dpi=110)
     plt.close(fig)
 
 
@@ -151,7 +151,7 @@ def fig_sparam():
     ax[1][1].axis("off")
     ax[1][1].text(0, 1, "\n".join(rows), va="top", family="monospace", fontsize=9)
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "sim_sparam.png"), dpi=110)
+    fig.savefig(os.path.join(OUT, "sim_sparam_r2.png"), dpi=110)
     plt.close(fig)
     json.dump(res, open(os.path.join(HERE, "report_sparam.json"), "w"), indent=1)
     return res
@@ -192,7 +192,7 @@ def fig_variants():
     ax[1].set_xlabel("SDD21 @742MHz (dB)　悪い方のペア")
     fig.suptitle("是正の効果と、仮定値に対する感度")
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "sim_variants.png"), dpi=110)
+    fig.savefig(os.path.join(OUT, "sim_variants_r2.png"), dpi=110)
     plt.close(fig)
     out = {s[0]: dict(sdd11_max_1500=v[0], sdd21_742=v[1]) for s, v in zip(sc, vals)}
     json.dump(out, open(os.path.join(HERE, "report_variants.json"), "w"), indent=1, ensure_ascii=False)
@@ -222,7 +222,7 @@ def fig_sensitivity():
     ax[1].set_title("挿入損失（悪い方のペア）")
     fig.suptitle("SODIMM接点の寄生に対する余裕（感度解析）")
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "sim_sensitivity.png"), dpi=110)
+    fig.savefig(os.path.join(OUT, "sim_sensitivity_r2.png"), dpi=110)
     plt.close(fig)
     json.dump(dict(L=list(Ls), C=list(Cs), sdd11=grid.tolist(), sdd21=grid2.tolist()), open(os.path.join(HERE, "report_sensitivity.json"), "w"))
     return float(grid[0, 0])
