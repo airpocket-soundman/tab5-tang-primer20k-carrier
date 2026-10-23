@@ -68,6 +68,7 @@ class Router:
         self.stub_dir = {}       # (net, pad ref) -> outward direction of its escape stub
         self.pair_len = {}       # coupled pair -> (length P, length N) in mm
         self.stub_tracks = []    # bias-resistor branches (not part of the signal path)
+        self.main_tracks = []    # tracks of the coupled pair paths (signal path)
 
     # ------------------------------------------------------------ helpers
     def nid(self, name):
@@ -200,6 +201,29 @@ class Router:
                     self.stamp_disc(k, it[2], it[3], n, VIA_STAMP, True)
             else:
                 self.stamp_path(it[2], it[3], n, it[4], True)
+
+    def add_esd_straps(self, nets, width=0.2):
+        """TMDS ESD arrays: copper straps pad1-pad10, 2-9, 4-7, 5-6 under the package so that every line is continuous copper even if
+        the part has no internal pin-to-pin connection (DOWO RCLAMP0524P: I/O = 1,2,4,5; 6,7,9,10 are not defined as connected)."""
+        pairs = {1: 10, 2: 9, 4: 7, 5: 6}
+        cnt = 0
+        for name in nets:
+            n = self.nid(name)
+            esd = {}
+            for (x, y, layers, ref) in self.pads.get(name, []):
+                if ref.startswith("U") and "." in ref:
+                    chip, num = ref.split(".")
+                    esd.setdefault(chip, {})[int(num)] = (x, y, layers[0])
+            for chip, d in esd.items():
+                for a, b in pairs.items():
+                    if a in d and b in d:
+                        (xa, ya, la), (xb, yb, _lb) = d[a], d[b]
+                        pts = [(xa, ya), (xb, yb)]
+                        self.perm.append((name, la, pts, width))
+                        self.stamp_path(la, pts, n, width)
+                        self._stamp_base(lambda la=la, pts=pts, n=n: self.stamp_path(la, pts, n, width))
+                        cnt += 1
+        print("ESD straps:", cnt, flush=True)
 
     def tracks_of(self, name):
         return [t for t in self.tracks if t[0] == name]
@@ -361,22 +385,32 @@ class Router:
         finally:
             self._corr, self._fcost, self._fvia = None, None, None
 
-    def route_pair(self, np_, nn_, w=None, gap=None, via_cost=40.0):
+    def route_pair(self, np_, nn_, w=None, gap=None, via_cost=40.0, sel=None):
         """Route the two-pad nets np_/nn_ as one coupled pair: a single fat trace (2w+gap) from the launch point of one pair end
         to the other, then split into two offset traces (45-degree miter corners); a layer change becomes a pair of vias."""
         w = w or TMDS_W
         gap = gap or TMDS_GAP
         pitch = w + gap
         off = pitch / 2
-        lp = [t for t in self.pads.get(np_, []) if not t[3].startswith("R")]    # bias resistors are attached afterwards
-        ln = [t for t in self.pads.get(nn_, []) if not t[3].startswith("R")]
-        if len(lp) != 2 or len(ln) != 2:
-            print("   pair %s/%s: expected two main pads per net (%d, %d)" % (np_, nn_, len(lp), len(ln)), flush=True)
-            return False
+        if sel is None:
+            lp = [t for t in self.pads.get(np_, []) if not t[3].startswith("R")]    # bias resistors are attached afterwards
+            ln = [t for t in self.pads.get(nn_, []) if not t[3].startswith("R")]
+            if len(lp) != 2 or len(ln) != 2:
+                print("   pair %s/%s: expected two main pads per net (%d, %d)" % (np_, nn_, len(lp), len(ln)), flush=True)
+                return False
+        else:                                   # one chain segment of a longer net: ends chosen by pad reference
+            sel_a, sel_b = sel
+            pick = lambda net, f: [t for t in self.pads.get(net, []) if f(t[3])]       # noqa: E731
+            pa, pb, na, nb = pick(np_, sel_a), pick(np_, sel_b), pick(nn_, sel_a), pick(nn_, sel_b)
+            if not (len(pa) == len(pb) == len(na) == len(nb) == 1):
+                print("   pair %s/%s: end selection failed (%d %d %d %d)" % (np_, nn_, len(pa), len(pb), len(na), len(nb)), flush=True)
+                return False
+            lp, ln = [pa[0], pb[0]], [na[0], nb[0]]
         def has_stub(t, nm):
             return (nm, t[3]) in self.stub_dir
-        lp.sort(key=lambda t: not has_stub(t, np_))
-        ln.sort(key=lambda t: not has_stub(t, nn_))
+        if sel is None:
+            lp.sort(key=lambda t: not has_stub(t, np_))
+            ln.sort(key=lambda t: not has_stub(t, nn_))
         ends = []                                                   # [A (Core), B (cap)]
         for k in range(2):
             ep, en = lp[k], ln[k]
@@ -575,10 +609,12 @@ class Router:
                     pts2 = pts2 + [via_pts[nm][i]]
                 pts2 = simplify(pts2)
                 plen += sum(math.hypot(b_[0] - a_[0], b_[1] - a_[1]) for a_, b_ in zip(pts2[:-1], pts2[1:]))
-                self.tracks.append((nm, l, pts2, w))
+                tk = (nm, l, pts2, w)
+                self.tracks.append(tk)
+                self.main_tracks.append(tk)
                 self.sm.append(("t", nm, l, pts2, w))
                 self.stamp_path(l, pts2, n, w, True)
-            self.pair_len.setdefault(np_, {})[nm] = plen
+            self.pair_len.setdefault(np_, {})[nm] = self.pair_len.get(np_, {}).get(nm, 0.0) + plen
             for (vx, vy) in via_pts[nm]:
                 self.vias.append((nm, vx, vy))
                 self.sm.append(("v", nm, vx, vy))
@@ -950,7 +986,7 @@ ORDER_W = {"VIN": 0.8, "DC_RAW": 0.8, "DC_IN": 0.8, "VBUS_PD": 0.4, "+5V": 0.6, 
 _T = ["HDMI_D0P", "HDMI_D0N", "HDMI_D1P", "HDMI_D1N", "HDMI_D2P", "HDMI_D2N", "HDMI_CKP", "HDMI_CKN"]
 # long Core side pairs first, farthest pair first (CK, D0, D1, D2: bottom to top), then the short connector side
 TMDS_ORDER = (["HDMI_CKP", "HDMI_CKN", "HDMI_D0P", "HDMI_D0N", "HDMI_D1P", "HDMI_D1N", "HDMI_D2P", "HDMI_D2N"]
-              + [n + "_K" for n in _T] + [n + "_C" for n in _T])
+              + [n + "_C" for n in _T])
 SIDEBAND = ["HDMI_HPD", "HDMI_5V", "HDMI_SDA", "HDMI_SCL"]   # pad order from the left end: lanes peel off without crossing
 PRIORITY = TMDS_ORDER + ["HDMI_5V", "+3V3"]
 
@@ -986,6 +1022,7 @@ def run(b, comps):
     nets.sort(key=key)
     core_x = next(c.pos[0] for c in comps if c.ref == 'J4')
     r.add_escape_stubs({'J5.': (2.6, design.hdmi_stub_dir), 'J4.': (2.4, lambda x, y, cx=core_x: -1 if x < cx else 1)})
+    r.add_esd_straps([n for n in r.pads if n.endswith('_C') and (n.startswith('HDMI_D') or n.startswith('HDMI_CK'))])
     r.stitch_gnd(lambda ref: ref.startswith('J5.'))      # HDMI shield pins first: they sit between TMDS stubs
     failed = []
     pair_fallback = set()
@@ -993,10 +1030,17 @@ def run(b, comps):
     stitched = False
     frozen = False
     for idx, n in enumerate(nets):
+        if extras and n not in TMDS_ORDER:
+            for nm in extras:
+                n0 = len(r.tracks)
+                if not r.route_net(nm, TW, 6.0):
+                    failed.append(nm)
+                r.stub_tracks.extend(r.tracks[n0:])
+            extras.clear()
         if not frozen and not (n.startswith('HDMI_D') or n.startswith('HDMI_CK') or n in SIDEBAND):
             for nm in extras:                                # bias resistor branches, now that every pair has its corridor
                 n0 = len(r.tracks)
-                if not r.route_net(nm, TMDS_W, 40.0):
+                if not r.route_net(nm, TW, 6.0):
                     failed.append(nm)
                 r.stub_tracks.extend(r.tracks[n0:])
             extras.clear()
@@ -1016,7 +1060,13 @@ def run(b, comps):
             base = n[:-2] if n[-2:] in ("_C", "_K") else n
             if base.endswith("P"):                                # P: route the coupled pair (P and N together)
                 part = tmds_partner(n)
-                ok_ = r.route_pair(n, part)
+                if n.endswith("_C"):                              # cap -> ESD tap, then ESD (strapped) -> connector
+                    esd_in = lambda ref: ref.startswith("U") and int(ref.split(".")[1]) in (1, 2, 4, 5)          # noqa: E731
+                    esd_out = lambda ref: ref.startswith("U") and int(ref.split(".")[1]) in (10, 9, 7, 6)        # noqa: E731
+                    ok_ = (r.route_pair(n, part, sel=(lambda ref: ref.startswith("C"), esd_in))
+                           and r.route_pair(n, part, sel=(esd_out, lambda ref: ref.startswith("J5."))))
+                else:
+                    ok_ = r.route_pair(n, part)
                 print("   pair %s/%s routed coupled: %s" % (n, part, ok_), flush=True)
                 if ok_:
                     extras.extend([n, part])                      # extra pads (bias resistor): branch off the pair, after all pairs
@@ -1032,10 +1082,19 @@ def run(b, comps):
             failed.append(n)
     for nm in extras:
         n0 = len(r.tracks)
-        if not r.route_net(nm, TMDS_W, 40.0):
+        if not r.route_net(nm, TW, 6.0):
             failed.append(nm)
         r.stub_tracks.extend(r.tracks[n0:])
     import json as _json
+    main_ids = set(id(t) for t in r.main_tracks)
+    roles = {}
+    for t in r.tracks:
+        if t[0].startswith("HDMI_D") or t[0].startswith("HDMI_CK"):
+            roles.setdefault(t[0], {"main": [], "branch": []})["main" if id(t) in main_ids else "branch"].append([t[1], [list(q) for q in t[2]], t[3]])
+    for (nm, l, pts, w) in r.perm:
+        if nm.endswith("_C") and (nm.startswith("HDMI_D") or nm.startswith("HDMI_CK")) and len(pts) == 2:
+            roles.setdefault(nm, {"main": [], "branch": []})["main"].append([l, [list(q) for q in pts], w])
+    _json.dump(roles, open(os.path.join(os.path.dirname(__file__), "..", "sim", "tmds_roles.json"), "w"))
     _json.dump([[t[0], t[1], [list(q) for q in t[2]]] for t in r.stub_tracks],
                open(os.path.join(os.path.dirname(__file__), "..", "sim", "stub_tracks.json"), "w"))
     _json.dump({k: v for k, v in r.pair_len.items()}, open(os.path.join(os.path.dirname(__file__), "..", "sim", "pair_lengths.json"), "w"), indent=1)

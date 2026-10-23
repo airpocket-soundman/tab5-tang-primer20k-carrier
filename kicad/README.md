@@ -34,14 +34,14 @@ python -X utf8 kicad/sim/tmds_channel.py ; python -X utf8 kicad/sim/tmds_sparam.
 
 ## Status
 * Schematic: ERC 0 violations; netlist matches the data model.
-* PCB: **121 / 121 nets routed**, **DRC: 0 errors, 0 unconnected** (silkscreen warnings only).
+* PCB: **113 / 113 nets routed**, **DRC: 0 errors, 0 unconnected** (silkscreen warnings only).
 * HDMI channel (estimate, differential mode only): SDD11 <= -14 dB up to 1.65 GHz (worst -12.8 dB to 3.3 GHz), SDD21 about -0.3 ... -0.9 dB. 3D EM validation (openEMS) not done.
 * **Not manufacturing-ready**: M5-Bus pin-1 orientation, outline and holes must be checked against the real Tab5; ESD footprint / part classes and the Core SODIMM 3D model are open (see `bom.csv`); the slide switch footprint is generic (hand-fitted);
   FPGA constraint file (.cst) still to be written from `core_pin_assignment.csv`.
 * No Ethernet / MIPI / USB-host (see site spec).
 
-## Known issues (must be fixed before ordering)
-* **TMDS ESD (U4/U5, LCSC C293965 = DOWO RCLAMP0524P, DFN2510-10L)**: the board assumes the IN pins (1/2/4/5) are internally connected to the OUT pins (10/9/7/6). The vendor datasheet only defines I/O = pins 1,2,4,5 and GND = 3,8, so this is **not guaranteed**. Route each TMDS line as continuous copper and connect the ESD as a shunt tap, or use a part with a guaranteed flow-through.
-* **499 ohm bias resistors** hang on 21-53 mm branches (CKN 53.5 mm). Move them to the tap points (a few mm).
-* Target is **720p60 only** (1080p60 exceeds the GW2A serializer limit of 1200 Mbps).
-* The HDMI channel estimate (`docs/HDMI_信号品質_調査と方針.md`) does not include the two items above; re-run it after the fix.
+## Known issues
+* **TMDS ESD (U4/U5, LCSC C293965 = DOWO RCLAMP0524P, DFN2510-10L)**: fixed on the board side. Each line is continuous copper (pad 1-10, 2-9, 4-7, 5-6 are strapped with copper) and the ESD is a tap, so the design no longer depends on any internal pin connection. Check the DOWO recommended land pattern against the KiCad USON-10 footprint before ordering.
+* **499 ohm bias resistors** now hang on 2-11 mm branches (was 21-53 mm); D1 N side is 11.5 mm (target: a few mm). They are included in the channel estimate.
+* Target is **720p60 only** (1080p60 exceeds the GW2A serializer limit of 1200 Mbps). **Invert the D2 data (all serial bits after TMDS encoding)** in the FPGA.
+* Channel estimate (differential mode, worst pair): SDD11 <= -15.9 dB up to 1.5 GHz, SDD21 -0.79 dB at 742 MHz. The 3D solver (openEMS) is not calibrated and is not used for conclusions.
