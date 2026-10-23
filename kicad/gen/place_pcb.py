@@ -34,9 +34,10 @@ def run(b, comps):
             obstacles.append(bb)
             if c.block == "core":
                 core_box = bb
+    # fan-out area in front of the HDMI connector pads must stay free of parts
+    obstacles.extend(design.FANOUT_KEEPOUTS)
     # keep the Core card area free (card lies over the carrier next to the socket)
-    if core_box:
-        obstacles.append((core_box[2], 5.0, 99.0, 75.5))
+    obstacles.append(design.CARD_KEEPOUT)
 
     def area(c):
         bb = box(b.fps[c.ref])

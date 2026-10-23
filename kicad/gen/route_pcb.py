@@ -16,6 +16,9 @@ CLR = 0.127
 TW = 0.127
 VIA_D, VIA_DRILL = 0.6, 0.3
 VIA_COST = 12.0
+ZONE_COST = 4.0
+BUS_PREFIXES = ('F_D', 'M_D', 'F_RDY', 'M_RDY', 'F_AUX', 'M_AUX', 'F_EXT', 'M_EXT', 'F_CLK', 'M_CLK')
+BUS_ZONE = (43.0, 26.0, 53.0, 57.0)      # fan-out channel reserved for the bus nets (x0, y0, x1, y1)
 SOFT_PEN = 18.0
 NL = 3
 LAYER_NAMES = ["F.Cu", "In2.Cu", "B.Cu"]
@@ -45,6 +48,7 @@ class Router:
         self.names = {}
         self.pads = {}           # net name -> list of (x, y, layers, ref)
         self.max_exp = 150000
+        self.perm = []
         self.base = None
         self.trk = None
         self.sm = []
@@ -218,6 +222,7 @@ class Router:
         occ = self.base if self.soft else self.occ
         trk = self.trk
         soft = self.soft
+        zone = getattr(self, '_zone', None)
         tg = targets
         # target bbox heuristic
         ty, tx = np.nonzero(np.any(tg, axis=0))
@@ -277,6 +282,8 @@ class Router:
                         continue
                 ns = (l, nx, ny)
                 ng = gs + c
+                if zone is not None and zone[ny, nx]:
+                    ng += ZONE_COST
                 if soft:
                     for k in range(3):
                         tv = trk[l][k][ny, nx]
@@ -327,6 +334,16 @@ class Router:
         if len(lst) < 2:
             return True
         n = self.nid(name)
+        if name.startswith(BUS_PREFIXES):
+            self._zone = None
+        else:
+            if getattr(self, '_zone_mask', None) is None:
+                m = np.zeros((self.H, self.W), dtype=bool)
+                ax, ay = self.cell(BUS_ZONE[0], BUS_ZONE[1])
+                bx, by = self.cell(BUS_ZONE[2], BUS_ZONE[3])
+                m[ay:by + 1, ax:bx + 1] = True
+                self._zone_mask = m
+            self._zone = self._zone_mask
         self._cur_pads = [(x, y) for (x, y, _l, _r) in lst]
         self.prepare(n, w)
         pts = [(x, y, layers) for (x, y, layers, _) in lst]
@@ -423,6 +440,20 @@ class Router:
                 self.sm.append(("t", name, l, pts, w))
                 self.stamp_path(l, pts, n, w, True)
 
+    def freeze(self, names):
+        """Make finished nets permanent obstacles (they can no longer be ripped up)."""
+        for it in list(self.sm):
+            if it[1] not in names:
+                continue
+            n = self.nid(it[1])
+            if it[0] == "v":
+                for k in range(NL):
+                    self._stamp_base(lambda k=k, it=it, n=n: self.stamp_disc(k, it[2], it[3], n, VIA_D / 2 + CLR + TW / 2))
+            else:
+                self._stamp_base(lambda it=it, n=n: self.stamp_path(it[2], it[3], n, it[4]))
+        self.sm = [m for m in self.sm if m[1] not in names]
+        self.rebuild()
+
     def _stamp_base(self, fn):
         """Run a stamping function against the permanent `base` map (GND stitching is never ripped up)."""
         keep = self.occ
@@ -431,6 +462,28 @@ class Router:
             fn()
         finally:
             self.occ = keep
+
+    def add_escape_stubs(self, rules):
+        """Pre-route a short straight stub out of every fine-pitch signal pad so that neighbours cannot bend into its corridor.
+        rules: {ref_prefix: (length_mm, direction_fn(x) -> -1/+1)}"""
+        count = 0
+        for name, lst in list(self.pads.items()):
+            n = self.nid(name)
+            for i, (x, y, layers, ref) in enumerate(lst):
+                for prefix, (length, dfn) in rules.items():
+                    if ref.startswith(prefix):
+                        d = dfn(x, y)
+                        dx_, dy_ = d if isinstance(d, tuple) else (d, 0)
+                        xe, ye = x + dx_ * length, y + dy_ * length
+                        l = layers[0]
+                        pts = [(x, y), (xe, ye)]
+                        # permanent: a rip-up of the net must never delete the stub that links the pad to the route
+                        self.perm.append((name, l, pts, TW))
+                        self.stamp_path(l, pts, n, TW)
+                        self._stamp_base(lambda l=l, pts=pts, n=n: self.stamp_path(l, pts, n, TW))
+                        lst[i] = (xe, ye, layers, ref)
+                        count += 1
+        print("escape stubs:", count, flush=True)
 
     def gnd_pads(self):
         out = []
@@ -560,7 +613,9 @@ ORDER_W = {"VIN": 0.8, "DC_RAW": 0.8, "DC_IN": 0.8, "VBUS_PD": 0.4, "+5V": 0.6, 
            "+3V3": 0.3}
 
 
-PRIORITY = ["HDMI_CKP", "HDMI_5V", "+3V3"]
+TMDS_ORDER = ["HDMI_D0N", "HDMI_D0P", "HDMI_D1N", "HDMI_D1P", "HDMI_D2N", "HDMI_D2P", "HDMI_CKN", "HDMI_CKP"]
+SIDEBAND = ["HDMI_HPD", "HDMI_5V", "HDMI_SDA", "HDMI_SCL"]   # pad order from the left end: lanes peel off without crossing
+PRIORITY = ["HDMI_CKN", "HDMI_CKP", "HDMI_D0N", "HDMI_D0P", "HDMI_D1N", "HDMI_D1P", "HDMI_D2N", "HDMI_D2P", "HDMI_5V", "+3V3"]
 
 
 def run(b, comps):
@@ -571,6 +626,10 @@ def run(b, comps):
     nets = [n for n in r.pads if n not in SKIP]
     # order: wide power first, then HDMI, then by bbox size ascending
     def key(n):
+        if n in TMDS_ORDER:
+            return (-0.5, TMDS_ORDER.index(n))  # TMDS pairs, in the order verified by the study
+        if n in SIDEBAND:
+            return (-1, SIDEBAND.index(n))      # connector sideband first: it must escape from under the TMDS lanes
         if n in ORDER_W:
             return (0, -ORDER_W[n])
         if n in PRIORITY:
@@ -581,28 +640,39 @@ def run(b, comps):
         ys = [p[1] for p in r.pads[n]]
         return (3, -((max(xs) - min(xs)) + (max(ys) - min(ys))))
     nets.sort(key=key)
+    core_x = next(c.pos[0] for c in comps if c.ref == 'J4')
+    r.add_escape_stubs({'J5.': (2.6, design.hdmi_stub_dir), 'J4.': (2.4, lambda x, y, cx=core_x: -1 if x < cx else 1)})
+    r.stitch_gnd(lambda ref: ref.startswith('J5.'))      # HDMI shield pins first: they sit between TMDS stubs
     failed = []
     stitched = False
+    frozen = False
     for idx, n in enumerate(nets):
-        if not stitched and n not in ORDER_W:
+        if not frozen and not (n.startswith('HDMI_D') or n.startswith('HDMI_CK') or n in SIDEBAND):
+            done = [m for m in nets if (m.startswith('HDMI_D') or m.startswith('HDMI_CK') or m in SIDEBAND) and m not in failed]
+            r.freeze(set(done))
+            print('froze TMDS nets:', len(done), flush=True)
+            frozen = True
+        if (not stitched and n not in ORDER_W and n not in PRIORITY
+                and not n.startswith('HDMI_D') and not n.startswith('HDMI_CK')):
             r.stitch_gnd(lambda ref: ref.startswith('J4.') or ref.startswith('J2.'))
             stitched = True
         w = ORDER_W.get(n, TW)
+        r.max_exp = 2000000 if n.startswith('HDMI_') else 150000
         print("[%d/%d] %s (%d pads) t=%.0fs" % (idx + 1, len(nets), n, len(r.pads[n]), time.time() - t0), flush=True)
         vc = 40.0 if n.startswith("HDMI_D") or n.startswith("HDMI_CK") else VIA_COST
         if not r.route_net(n, w, vc):
             failed.append(n)
     if failed:
-        r.max_exp = 300000
+        r.max_exp = 1000000
         queue = list(failed)
         attempts = {}
         final = []
         it = 0
-        while queue and it < 150:
+        while queue and it < 250:
             it += 1
             name = queue.pop(0)
             attempts[name] = attempts.get(name, 0) + 1
-            if attempts[name] > 6:
+            if attempts[name] > 12:
                 final.append(name)
                 continue
             print("ripup[%d] %s (attempt %d), queue=%d" % (it, name, attempts[name], len(queue)), flush=True)
@@ -638,7 +708,7 @@ def run(b, comps):
             seen.add(k)
             uv.append(v)
     r.vias = uv
-    for (name, l, pts, w) in r.tracks:
+    for (name, l, pts, w) in r.perm + r.tracks:
         b.track(name, LAYER_NAMES[l], pts, w)
     for (name, x, y) in r.vias:
         b.via(name, x, y, VIA_D, VIA_DRILL)

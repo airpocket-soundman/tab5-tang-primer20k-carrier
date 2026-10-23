@@ -168,7 +168,7 @@ def fnum(v):
 BLOCK_ORIGIN = {  # block -> (x, y, columns width limit)
     "power": (30, 40, 360), "pd": (30, 190, 360), "buck": (30, 340, 360), "ldo": (30, 500, 360),
     "mbus": (420, 40, 200), "series": (680, 40, 360), "hdmi": (420, 330, 420), "pmod": (420, 520, 360),
-    "jtag": (420, 640, 200), "ui": (700, 640, 360), "mech": (30, 640, 300), "core": (1000, 60, 100),
+    "jtag": (420, 640, 200), "gpio": (700, 440, 200), "ui": (700, 640, 360), "mech": (30, 640, 300), "core": (1000, 60, 100),
 }
 
 
@@ -325,7 +325,7 @@ def build_sch():
             "buck": "VIN -> +5V buck (TPS5430)", "ldo": "+5V -> +3V3 (peripherals)",
             "mbus": "M5-BUS header (Tab5-facing side)", "series": "33R series resistors (M_* = Tab5 side, F_* = FPGA side)",
             "hdmi": "HDMI OUT (TMDS direct from FPGA) + DDC/HPD level shift", "pmod": "PMOD x2",
-            "jtag": "FPGA JTAG header", "ui": "LEDs / buttons", "mech": "Mounting holes (Tab5 M3)",
+            "jtag": "FPGA JTAG header", "gpio": "Spare FPGA I/O pads", "ui": "LEDs / buttons", "mech": "Mounting holes (Tab5 M3)",
             "core": "Tang Primer 20K Core SODIMM socket (pin names = nets)"}
     for b, (x, y, _) in BLOCK_ORIGIN.items():
         texts.append(["text", S(caps[b]), ["exclude_from_sim", "no"], ["at", fnum(x), fnum(y - 6), "0"],
