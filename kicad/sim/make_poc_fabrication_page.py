@@ -3,7 +3,7 @@ from pathlib import Path
 import re,shutil,zipfile
 from markdown_it import MarkdownIt
 ROOT=Path(__file__).resolve().parents[2]
-LINK='<p id="poc-fabrication-link"><a href="poc-fabrication.html">最新：パラレル通信・電源の修正と発注準備（M5-Bus向き確認・修正済み）</a></p>'
+LINK='<p id="poc-fabrication-link"><a href="poc-fabrication.html">発注準備：パラレル通信・電源の修正（M5-Bus向き確認・修正済み）</a></p>'
 def main():
  index=(ROOT/'site/index.html').read_text(encoding='utf8');style=index[index.index('<style>'):index.index('</style>')+8]
  for source,name,title in [('PoC発注準備_パラレル通信と電源_2026-10-24.md','poc-fabrication.html','PoC発注準備と通信及び電源の検証'),('3D均一直線のポート校正_2026-10-24.md','uniform-line-calibration.html','3D均一直線のポート校正とメッシュ確認')]:
