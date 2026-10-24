@@ -47,6 +47,14 @@ def extract(path=PCB, out=GEOM):
         else:
             a_, b_ = t.GetStart(), t.GetEnd()
             g["segs"].append((mm(a_.x), mm(a_.y), mm(b_.x), mm(b_.y), mm(t.GetWidth()), board.GetLayerName(t.GetLayer())))
+    for fp in board.GetFootprints():
+        for pad in fp.Pads():
+            n = pad.GetNetname()
+            if n in geom:
+                sz, ps = pad.GetSize(), pad.GetPosition()
+                geom[n].setdefault("pads", []).append(
+                    dict(ref=fp.GetReference() + "." + pad.GetNumber(), x=mm(ps.x), y=mm(ps.y), w=mm(sz.x), h=mm(sz.y),
+                         rot=pad.GetOrientationDegrees()))     # absolute orientation on the board
     json.dump(geom, open(out, "w"))
     print("wrote", out, len(geom), "nets")
 
@@ -71,10 +79,13 @@ def _polyline_segs(role_list):
     return out
 
 
+PATH_ROLES = ("main", "stub", "strap")     # signal path = coupled pair path + pad escape stubs + ESD straps
+
+
 def segs(board, net):
-    """Segments of the signal path (coupled pair path + ESD straps) of a net."""
+    """Segments of the signal path (coupled pair path, pad escape stubs, ESD straps) of a net."""
     if net in ROLE_DATA:
-        return _polyline_segs(ROLE_DATA[net]["main"])
+        return [x for r in PATH_ROLES for x in _polyline_segs(ROLE_DATA[net].get(r, []))]
     return [tuple(x) for x in GEOM_DATA.get(net, {}).get("segs", [])]
 
 
@@ -101,10 +112,11 @@ _c = _cache()
 
 
 def zdiff_exact(w, gap):
+    """[Zdiff, eps_eff(odd), Zeven (per line), eps_eff(even)] of the pair (2D solver, cached)."""
     key = "%.3f/%.2f" % (round(w, 3), gap)
-    if key not in _c:
+    if key not in _c or len(_c[key]) < 4:
         r = m2.pair(round(w, 3), max(gap, 0.05))
-        _c[key] = [r["zdiff"], r["odd"][1]]
+        _c[key] = [r["zdiff"], r["odd"][1], r["even"][0], r["even"][1]]
         json.dump(_c, open(CACHE, "w"))
     return _c[key]
 
@@ -118,7 +130,7 @@ def zdiff(w, gap):
     if hi == lo:
         return a
     t = (math.log(g) - math.log(lo)) / (math.log(hi) - math.log(lo))
-    return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]
+    return [a[i] + (b[i] - a[i]) * t for i in range(4)]
 
 
 def samples(seglist, step=0.1):
@@ -131,7 +143,7 @@ def samples(seglist, step=0.1):
 
 
 def profile(sp_, sn_):
-    """[(dl, Zdiff, eps_eff, gap, layer, x, y)] along the P trace, in the order of sp_ (all layers use the microstrip table)."""
+    """[(dl, Zdiff, eps_eff(odd), gap, layer, x, y, Zeven, eps_eff(even))] along the P trace, in the order of sp_ (all layers use the microstrip table)."""
     P = samples(sp_)
     N = samples(sn_)
     out = []
@@ -146,8 +158,8 @@ def profile(sp_, sn_):
         if best > 1e8:                      # partner on another layer here (via jog): treat as uncoupled
             best, wn = 1.5 + w, w
         gap = best - (w + wn) / 2
-        z, ee = zdiff(w, max(gap, 0.1))
-        out.append((dl, z, ee, gap, ly, x, y))
+        z, ee, ze, eee = zdiff(w, max(gap, 0.1))
+        out.append((dl, z, ee, gap, ly, x, y, ze, eee))
     return out
 
 
@@ -183,6 +195,49 @@ def order_segments(seglist):
     return out, loose
 
 
+def clip_at_pads(ordered, pads, refs=("J4.", "J5.")):
+    """Remove the part of the path that lies inside the Core-socket (J4) / HDMI-connector (J5) pad copper at both path ends.
+    The pad copper is a wider conductor of the pad structure itself (not a line section). Returns (segments, clipped length in mm)."""
+    rects = []
+    for p in pads:
+        if p["ref"].startswith(refs):
+            hw, hh = p["w"] / 2, p["h"] / 2
+            if int(round(p["rot"])) % 180 == 90:
+                hw, hh = hh, hw
+            rects.append((p["x"], p["y"], hw, hh))
+    segs_ = [list(x) for x in ordered]
+    total = 0.0
+
+    def inside(x, y):
+        return any(abs(x - cx) <= hw + 1e-6 and abs(y - cy) <= hh + 1e-6 for cx, cy, hw, hh in rects)
+    for end in (0, 1):
+        while segs_:
+            sg = segs_[0] if end == 0 else segs_[-1]
+            a_, b_ = ((sg[0], sg[1]), (sg[2], sg[3])) if end == 0 else ((sg[2], sg[3]), (sg[0], sg[1]))
+            if not inside(*a_):
+                break
+            L = math.hypot(b_[0] - a_[0], b_[1] - a_[1])
+            n = max(int(L / 0.005), 1)
+            t_out = None
+            for i in range(n + 1):
+                t = i / n
+                if not inside(a_[0] + (b_[0] - a_[0]) * t, a_[1] + (b_[1] - a_[1]) * t):
+                    t_out = t
+                    break
+            if t_out is None:                       # whole segment inside the pad copper
+                total += L
+                segs_.pop(0 if end == 0 else -1)
+                continue
+            total += L * t_out
+            q = (a_[0] + (b_[0] - a_[0]) * t_out, a_[1] + (b_[1] - a_[1]) * t_out)
+            if end == 0:
+                sg[0], sg[1] = q
+            else:
+                sg[2], sg[3] = q
+            break
+    return [tuple(x) for x in segs_], total
+
+
 def main():
     load()
     print("%-3s %-5s %8s %8s %6s | %s" % ("pr", "net", "len P", "len N", "skew", "branch P/N (mm) | chain complete"))
@@ -203,7 +258,7 @@ def main():
             tot_n += ln_
             row["len_" + (sfx or "core")] = (lp_, ln_)
             row["branch" + (sfx or "")] = (bp, bn)
-            for (dl, z, ee, gap, ly, x, y) in profile(sp_, sn_):
+            for (dl, z, ee, gap, ly, x, y, _ze, _ee) in profile(sp_, sn_):
                 zs.append(z)
                 ls.append(dl)
                 tot_l += dl

@@ -58,6 +58,7 @@ class Router:
         self.pads = {}           # net name -> list of (x, y, layers, ref)
         self.max_exp = 150000
         self.perm = []
+        self.perm_role = {}
         self.base = None
         self.trk = None
         self.sm = []
@@ -220,6 +221,7 @@ class Router:
                         (xa, ya, la), (xb, yb, _lb) = d[a], d[b]
                         pts = [(xa, ya), (xb, yb)]
                         self.perm.append((name, la, pts, width))
+                        self.perm_role[(name, la, tuple(pts))] = "strap"
                         self.stamp_path(la, pts, n, width)
                         self._stamp_base(lambda la=la, pts=pts, n=n: self.stamp_path(la, pts, n, width))
                         cnt += 1
@@ -847,6 +849,7 @@ class Router:
                         pts = [(x, y), (xe, ye)]
                         # permanent: a rip-up of the net must never delete the stub that links the pad to the route
                         self.perm.append((name, l, pts, TW))
+                        self.perm_role[(name, l, tuple(pts))] = "stub"
                         self.stamp_path(l, pts, n, TW)
                         self._stamp_base(lambda l=l, pts=pts, n=n: self.stamp_path(l, pts, n, TW))
                         lst[i] = (xe, ye, layers, ref)
@@ -1092,8 +1095,9 @@ def run(b, comps):
         if t[0].startswith("HDMI_D") or t[0].startswith("HDMI_CK"):
             roles.setdefault(t[0], {"main": [], "branch": []})["main" if id(t) in main_ids else "branch"].append([t[1], [list(q) for q in t[2]], t[3]])
     for (nm, l, pts, w) in r.perm:
-        if nm.endswith("_C") and (nm.startswith("HDMI_D") or nm.startswith("HDMI_CK")) and len(pts) == 2:
-            roles.setdefault(nm, {"main": [], "branch": []})["main"].append([l, [list(q) for q in pts], w])
+        if (nm.startswith("HDMI_D") or nm.startswith("HDMI_CK")) and len(pts) == 2:
+            role = r.perm_role.get((nm, l, tuple(pts)), "stub")
+            roles.setdefault(nm, {"main": [], "branch": []}).setdefault(role, []).append([l, [list(q) for q in pts], w])
     _json.dump(roles, open(os.path.join(os.path.dirname(__file__), "..", "sim", "tmds_roles.json"), "w"))
     _json.dump([[t[0], t[1], [list(q) for q in t[2]]] for t in r.stub_tracks],
                open(os.path.join(os.path.dirname(__file__), "..", "sim", "stub_tracks.json"), "w"))

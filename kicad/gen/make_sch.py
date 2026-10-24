@@ -143,9 +143,9 @@ def make_core_symbol():
 
 
 def make_rclamp_symbol():
-    """RCLAMP0524P (4-channel flow-through ESD array, USON-10): IN1..IN4 left, OUT1..OUT4 right, GND pins 3 and 8."""
-    left = [("IN1", "1"), ("IN2", "2"), ("GND", "3"), ("IN3", "4"), ("IN4", "5")]
-    right = [("OUT1", "10"), ("OUT2", "9"), ("GND", "8"), ("OUT3", "7"), ("OUT4", "6")]
+    """RCLAMP0524P (4-channel ESD array, DFN2510-10L; pins 6/7/9/10 are NC): IN1..IN4 left, OUT1..OUT4 right, GND pins 3 and 8."""
+    left = [("IO1", "1"), ("IO2", "2"), ("GND", "3"), ("IO3", "4"), ("IO4", "5")]
+    right = [("NC", "10"), ("NC", "9"), ("GND", "8"), ("NC", "7"), ("NC", "6")]
     pins = []
     for i, (nm, num) in enumerate(left):
         pins.append(["pin", "passive", "line", ["at", "-10.16", str(round(5.08 - i * 2.54, 2)), "0"], ["length", "2.54"],
@@ -160,11 +160,11 @@ def make_rclamp_symbol():
             ["exclude_from_sim", "no"], ["in_bom", "yes"], ["on_board", "yes"],
             ["property", S("Reference"), S("U"), ["at", "0", "8.5", "0"], ["effects", ["font", ["size", "1.27", "1.27"]]]],
             ["property", S("Value"), S("RCLAMP0524P"), ["at", "0", "-8.5", "0"], ["effects", ["font", ["size", "1.27", "1.27"]]]],
-            ["property", S("Footprint"), S("Package_SON:USON-10_2.5x1.0mm_P0.5mm"), ["at", "0", "0", "0"],
+            ["property", S("Footprint"), S("carrier:DFN2510-10L_RCLAMP0524P"), ["at", "0", "0", "0"],
              ["effects", ["font", ["size", "1.27", "1.27"]], ["hide", "yes"]]],
             ["property", S("Datasheet"), S(""), ["at", "0", "0", "0"],
              ["effects", ["font", ["size", "1.27", "1.27"]], ["hide", "yes"]]],
-            ["property", S("Description"), S("Semtech RCLAMP0524P 4-channel low-capacitance ESD array (flow-through)"),
+            ["property", S("Description"), S("DOWO RCLAMP0524P 4-channel low-capacitance ESD array; I/O 1,2,4,5, GND 3,8, NC 6,7,9,10"),
              ["at", "0", "0", "0"], ["effects", ["font", ["size", "1.27", "1.27"]], ["hide", "yes"]]],
             ["symbol", S("RCLAMP0524P_0_1"),
              ["rectangle", ["start", "-7.62", "7.62"], ["end", "7.62", "-7.62"],
