@@ -191,6 +191,17 @@ class Router:
                 self.occ[l][max(cy0, 0):cy1 + 1, max(cx0, 0):cx1 + 1] = n
         self.base = [o.copy() for o in self.occ]
         self.trk = [[np.zeros((self.H, self.W), dtype=np.int16) for _ in range(3)] for _ in range(NL)]
+        # Ordinary PCBA: avoid drilled vias in solder lands (thermal pad U2.9
+        # is intentionally designed with thermal vias in its library footprint).
+        self._paste_keepout = np.zeros((self.H,self.W),dtype=bool)
+        for fp in self.board.GetFootprints():
+            for pad in fp.Pads():
+                if pad.GetAttribute()!=pcbnew.PAD_ATTRIB_SMD or (fp.GetReference()=='U2' and pad.GetNumber()=='9'):
+                    continue
+                bb=pad.GetBoundingBox(); margin=.4
+                a,b=self.cell(pcbnew.ToMM(bb.GetLeft())-margin,pcbnew.ToMM(bb.GetTop())-margin)
+                c,d=self.cell(pcbnew.ToMM(bb.GetRight())+margin,pcbnew.ToMM(bb.GetBottom())+margin)
+                self._paste_keepout[max(b,0):min(d+1,self.H),max(a,0):min(c+1,self.W)]=True
 
     def rebuild(self):
         self.occ = [b.copy() for b in self.base]
@@ -241,6 +252,7 @@ class Router:
         foreign = [(src[l] != 0) & (src[l] != n) for l in range(NL)]
         r = int(round((VIA_STAMP + getattr(self, '_via_extra', 0.0)) / GRID))
         self._viafree = ~dilate(np.any(foreign, axis=0), r)
+        self._viafree &= ~self._paste_keepout
         if getattr(self, '_fvia', None) is not None:
             self._viafree &= self._fvia
         w = max(w, getattr(self, '_corr', 0.0) or 0.0)
@@ -710,7 +722,9 @@ class Router:
                 tree[l][cy, cx] = True
 
         add_pad_to_tree(0)
-        ex = [t for t in self.tracks if t[0] == name]
+        # Only VIN has a prewired connected component here. Other escape
+        # stubs are separate islands and must not all be treated as one tree.
+        ex = [t for t in self.tracks + (self.perm if name=='VIN' else []) if t[0] == name]
         if ex:                                   # copper already laid (coupled pair): extra pads branch off it
             for (_n, ly, pts_, _w) in ex:
                 for (xa, ya), (xb, yb) in zip(pts_[:-1], pts_[1:]):
@@ -1006,9 +1020,31 @@ def run(b, comps):
     x0, y0, x1, y1 = design.BOARD
     r = Router(b.board, x0, y0, x1, y1)
     r.load(design.BOARD)
-    nets = [n for n in r.pads if n not in SKIP]
+    # Reference-layout switching loop. Keep PH and bootstrap off vias and
+    # prevent rip-up from undoing these short front-side paths.
+    def pad(net, ref):
+        return next((x,y) for x,y,_layers,label in r.pads[net] if label==ref)
+    def fixed(net, points, width):
+        n=r.nid(net)
+        r.perm.append((net,0,points,width))
+        r.stamp_path(0,points,n,width)
+        r._stamp_base(lambda: r.stamp_path(0,points,n,width))
+    ph=pad('BUCK_PH','U2.8'); lp=pad('BUCK_PH','L1.1'); dk=pad('BUCK_PH','D4.1')
+    fixed('BUCK_PH',[ph,(31.0,ph[1]),(31.745,lp[1]),lp],.8)
+    fixed('BUCK_PH',[ph,(ph[0],66.7),(26.0,dk[1]),dk],.8)
+    cp=pad('BUCK_PH','C3.2')
+    fixed('BUCK_PH',[cp,(23.775,cp[1]),dk],.4)
+    boot=pad('BUCK_BOOT','U2.1'); cb=pad('BUCK_BOOT','C3.1')
+    fixed('BUCK_BOOT',[boot,(23.32,boot[1]),cb],.25)
+    vin=pad('VIN','U2.7'); ci=pad('VIN','C4.1')
+    fixed('VIN',[vin,(31.19,vin[1]),ci],.8)
+    # The initial routing tree must start on the prewired VIN component.
+    r.pads['VIN'].sort(key=lambda item:item[3]!='U2.7')
+    nets = [n for n in r.pads if n not in SKIP and n not in ('BUCK_PH','BUCK_BOOT')]
     # order: wide power first, then HDMI, then by bbox size ascending
     def key(n):
+        if n in ("BUS_OE_N", "CORE_PGOOD", "TAB_PGOOD", "BUS_ARM"):
+            return (-1.5, 0)
         if n in TMDS_ORDER:
             return (-2, TMDS_ORDER.index(n))    # TMDS pairs first: they need clean lanes between the Core and the connector
         if n in SIDEBAND:

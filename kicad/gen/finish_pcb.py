@@ -113,6 +113,15 @@ def connect_to_gnd_pad(board, cx, cy, gnd):
 def main():
     board = pcbnew.LoadBoard(PCB)
     gnd = board.FindNet("GND")
+    # R35 sits in a narrow F.Cu island. A reviewed 0.6/0.3 mm stitching via
+    # fits between the F.Cu bias branch and B.Cu DDC line with >=0.127mm gap.
+    # Keep the ordinary drilled via outside the 0603 paste land.
+    if not any(isinstance(t,pcbnew.PCB_VIA) and t.GetNetname()=='GND' and
+               abs(pcbnew.ToMM(t.GetPosition().x)-103.55)<.001 and
+               abs(pcbnew.ToMM(t.GetPosition().y)-24.45)<.001 for t in board.GetTracks()):
+        add_via(board,103.55,24.45,gnd)
+        add_track(board,(103.9,25.575),(103.55,25.225),gnd,'F.Cu',.127)
+        add_track(board,(103.55,25.225),(103.55,24.45),gnd,'F.Cu',.127)
 
     # 1) GND stub + via for R33 pad 2 (and any other isolated GND SMD pad passed on the command line)
     targets = sys.argv[1:] or ["R33.2"]

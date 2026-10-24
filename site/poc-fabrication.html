@@ -1,0 +1,206 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PoC発注準備と通信及び電源の検証</title><style>
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --ink:#1b1f24; --muted:#5b6672; --line:#d9dee4;
+  --accent:#1f6feb; --ok:#1a7f37; --okbg:#e3f5e8; --warn:#9a6700; --warnbg:#fff4d1;
+  --bad:#cf222e; --badbg:#fde4e6; --info:#0a6aa1; --infobg:#e1f1fb;
+  --pcb:#1f7a4d; --pcb2:#2f9e68; --tab5:#c9ced6; --code:#eef1f5;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1318; --panel:#171c23; --ink:#e6eaef; --muted:#9aa5b1; --line:#2b333d;
+    --accent:#58a6ff; --ok:#56d364; --okbg:#10301a; --warn:#e3b341; --warnbg:#3a2d0b;
+    --bad:#ff7b72; --badbg:#3c1418; --info:#79c0ff; --infobg:#0d2c44;
+    --pcb:#1d6b45; --pcb2:#2b8a5c; --tab5:#3a424d; --code:#222a33;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1318; --panel:#171c23; --ink:#e6eaef; --muted:#9aa5b1; --line:#2b333d;
+  --accent:#58a6ff; --ok:#56d364; --okbg:#10301a; --warn:#e3b341; --warnbg:#3a2d0b;
+  --bad:#ff7b72; --badbg:#3c1418; --info:#79c0ff; --infobg:#0d2c44;
+  --pcb:#1d6b45; --pcb2:#2b8a5c; --tab5:#3a424d; --code:#222a33;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 "Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif}
+a{color:var(--accent)}
+header.top{background:var(--panel);border-bottom:1px solid var(--line);padding:28px 16px 20px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header.top .wrap{padding:0}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 6px}
+.sub{color:var(--muted);margin:0}
+.badge{display:inline-block;font-size:.78rem;padding:2px 10px;border-radius:999px;background:var(--warnbg);color:var(--warn);border:1px solid var(--warn);margin-right:6px;vertical-align:middle}
+nav.toc{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+nav.toc .wrap{display:flex;gap:4px;padding-top:6px;padding-bottom:6px}
+nav.toc a{padding:4px 12px;border-radius:6px;text-decoration:none;color:var(--ink);font-size:.9rem}
+nav.toc a:hover{background:var(--code)}
+section{padding:36px 0 8px}
+h2{font-size:1.35rem;margin:0 0 14px;padding-left:12px;border-left:5px solid var(--accent)}
+h3{font-size:1.08rem;margin:26px 0 8px}
+p{margin:.6em 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.callout{border-left:5px solid var(--info);background:var(--infobg);padding:10px 14px;border-radius:6px;margin:14px 0}
+.callout.warn{border-color:var(--warn);background:var(--warnbg)}
+.callout.bad{border-color:var(--bad);background:var(--badbg)}
+.callout.ok{border-color:var(--ok);background:var(--okbg)}
+.callout b.t{display:block;margin-bottom:2px}
+figure{margin:16px 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{color:var(--muted);font-size:.88rem;padding:6px 6px 2px}
+.tw{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:560px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--code);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.c,th.c{text-align:center}
+.t-ok{background:var(--okbg);color:var(--ok);font-weight:600}
+.t-warn{background:var(--warnbg);color:var(--warn);font-weight:600}
+.t-bad{background:var(--badbg);color:var(--bad);font-weight:600}
+.t-info{background:var(--infobg);color:var(--info);font-weight:600}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font-family:ui-monospace,Consolas,monospace;font-size:.88em}
+ul{padding-left:1.3em;margin:.5em 0}
+li{margin:.2em 0}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:14px 0}
+.kpi div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi b{display:block;font-size:1.25rem}
+.kpi span{color:var(--muted);font-size:.85rem}
+footer{color:var(--muted);font-size:.85rem;padding:32px 0 48px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.85rem;color:var(--muted);margin:6px 2px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+svg text{font-family:inherit;fill:var(--ink)}
+svg .mut{fill:var(--muted)}
+</style></head><body><header class="top"><div class="wrap">2026-10-24 基板発注前の検証</div></header><main class="wrap"><nav><a href="index.html">設計仕様</a> / <a href="poc-fabrication.html">発注準備</a> / <a href="hdmi-simulation-r3.html">HDMI概算</a></nav><p><a href="audit-data/poc-manufacturing-candidate.zip">製造候補一式 ZIP 発注保留</a> / <a href="audit-data/poc-assembly-top.svg">上面実装図</a> / <a href="audit-data/poc-assembly-bottom.svg">下面実装図</a> / <a href="audit-data/uniform-line-calibration.zip">3Dモデルと生波形</a></p><h1>PoC発注準備とパラレル通信及び電源の検証</h1>
+<p>2026年10月24日。対象は Tab5 と Tang Primer 20K Core の共通キャリア。最低成功条件を、8ビットパラレル通信、Core上DDR3への読み書き、GPUまたはアクセラレータ処理の実行とする。HDMIは追加目標とし、その完全な3D解析や認証試験を初回試作の条件にはしない。</p>
+<p><strong>回路・配線の修正と主要SMD実装用データの作成は完了した。ただしM5-Busの物理的な左右と1番端子の照合が未決のため、発注データは保留扱いである。</strong> 電源端子を含むため、この照合を省いて発注可能とは判定しない。現在のPCBはキャリア外側から見て、J3の1番が右列 x=56.27mm、2番が左列 x=53.73mm、最上段 y=22.15mm。Tab5実物または見る面が明確な公式実装図で照合し、異なる場合はコネクタと配線を修正して再出力する。</p>
+<h2>共通用途と参照した実装</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>プロジェクトと参照版</th>
+<th>確認した要求・実装</th>
+<th>この基板での扱い</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tab5-linux-fpga <code>c1cd5e47f9f07a164bc070b8defe36bb05682c6b</code></td>
+<td>README、DEVELOPMENT_GOALS、Device Tree、tools/fpga-link。物理通信バックエンドは未実装でmockが中心</td>
+<td>FPGA側DDR3への明示的なデータ転送を可能にする配線。LinuxメインRAMの透過増設とは扱わない</td>
+</tr>
+<tr>
+<td>tab5-fpga-gpu <code>3b1ace3d91c6305ec0e32378f8819fce208c2aa7</code></td>
+<td>Project_B、board_profile、link_bringup、link_bus_wrapper。BOARD_PROFILE_VERIFIED=0。物理通信バックエンド未実装</td>
+<td>8ビット共通配線、DIRとRDY、専用クロック入力を用意。640×360 RGB565 30fpsに必要な約13.8MB/sは目標で、実測値ではない</td>
+</tr>
+<tr>
+<td>esp32p4-linux-fpga-memory <code>e4aa69d09b2643d6f62fe686ef0f3284b109c541</code></td>
+<td>READMEとProject_A研究計画</td>
+<td>研究計画との整合を確認。Linux本体の確認の代用にはしない</td>
+</tr>
+</tbody>
+</table></div>
+<p>Linux用とGPU用は別ソフトウェア・別FPGAビットストリームで使う。高速DMAとDDR3の動作は基板到着後に検証する。既存RTLのシステムクロックでのバスクロック監視を、そのまま高速ソース同期受信の保証とはみなさない。</p>
+<h2>最低成功条件を優先した修正</h2>
+<p>パラレルCLKはSODIMM 80/K13から <strong>52/K14、GCLKT_1</strong> へ変更した。Tab5側GPIO16は維持する。52番を使っていた未実装PMODのP2_6は80番へ移した。既存ビットストリームのピン制約を流用せず、<code>kicad/core_pin_assignment.csv</code> に追従する。Core公式回路図のチップ側で専用クロック入力を確認した。</p>
+<p>15本のデータ・制御・AUX線に、Ioff対応の <strong>SN74CB3Q3245PWRを2個</strong> 追加した。経路は Tab5 → バススイッチ → 33Ω → Core。キャリア3.3Vで動作し、OEは22kΩで無効側へプルアップする。Tab5 3.3Vの監視はTPS3839G33DBZR（閾値3.08V）、Core供給5Vの監視はTPS3839K50DBZR（閾値4.38V）。両方の電源が正常で、手動BUS ARMジャンパを閉じた場合だけ、直列の2N7002がOEを下げる。ジャンパは初期状態で開放とする。</p>
+<p>これにより片側電源断で直結GPIOから給電する経路を減らした。監視ICの遅延は約200msの代表値で、過渡時の波形や漏れ電流を実測した値ではない。両側GPIOが出力してしまう競合はソフトウェアで防ぐ必要があり、ARMは電源良好だけを理由に先に閉じない。追加の16ビット拡張抵抗はDNPのままとする。</p>
+<h2>電源条件と部品</h2>
+<p>初回PoCの入力は <strong>安定化12Vのみ</strong>。DC入力もUSB PD入力も12Vに限定する。24V入力は許可しない。CH224KはCFG1/CFG2をLow、CFG3を内部プルアップのHighとして12Vを要求する。R3とR5を実装、R4はDNP。Tab5公式の6〜24Vという範囲を、このキャリアの入力許容範囲へ転用しない。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>最終選定と理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>入力保護</td>
+<td>SMBJ15A、PTC 3A、入力バルク100µF/35V。TVSクランプ24.4VをTPS5430等の耐圧と照合</td>
+</tr>
+<tr>
+<td>Core用5V</td>
+<td>TPS5430DDAR、15µH、R6=10kΩ/R7=3.24kΩ、設定約4.99V</td>
+</tr>
+<tr>
+<td>出力コンデンサ</td>
+<td>Panasonic 10TPB220M、220µF/10V、ESR最大40mΩ。TI参考回路に合わせ、不確かな並列MLCCによるループ条件変更を避けてC8/C9はDNP</td>
+</tr>
+<tr>
+<td>バススイッチ用3.3V</td>
+<td>TLV1117LV33DCYR。セラミック出力コンデンサで安定する品番を指定。汎用AMS1117への置換はしない</td>
+</tr>
+<tr>
+<td>スイッチング配線</td>
+<td>PH、BOOTを表層・ビアなしへ変更。入力セラミックまで短い配線を追加</td>
+</tr>
+<tr>
+<td>5V分離</td>
+<td>Tab5の外部5V/BAT端子は未接続。Coreはキャリアの5V、Tab5はVINからHVINへ供給</td>
+</tr>
+</tbody>
+</table></div>
+<p>Core公式データシートの供給条件は5V±10%、電流要求0.5A。これは全ビットストリームのピーク電流の上限ではない。実配線から求めた5V側の各Core端子への直列経路抵抗は約0.082〜0.101Ω、0.5A全量を一つの経路へ流す計算では約50mVの電圧降下。銅厚は外層35µm/内層17.5µm、20℃と仮定した。接点、GND帰路、発熱、インダクタ、リップル、起動・負荷変動はこの計算に含めない。初回は12V 3A級の安定化電源を準備し、電流制限と段階的な負荷で確認する。TPS5430の3A定格を基板全体の連続3A保証とは呼ばない。</p>
+<p>電圧基準±2%、帰還抵抗各±1%を仮定した設定電圧範囲は約4.817〜5.167V。Core端で4.5〜5.5Vを外れないことに加え、起動と負荷変動時の波形をオシロスコープで確認する。電源監視の4.38V閾値は出力品質を保証する閾値ではない。</p>
+<h2>検証結果</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>検査</th>
+<th>結果と範囲</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>回路ERC</td>
+<td>エラー0。外部供給TAB_3V3のPWR_FLAGを追加</td>
+</tr>
+<tr>
+<td>基板DRC</td>
+<td>警告を含む違反0、未接続0。シルクの衝突部分は実装図用Fab層へ移動し、近すぎる重複GNDビアを除去</td>
+</tr>
+<tr>
+<td>パラレルと電源</td>
+<td>実PCBの導通・端子・部品値・監視/OE回路31項目成功</td>
+</tr>
+<tr>
+<td>故障注入</td>
+<td>クロック切断、スイッチ接続誤り、OEの誤プル、監視閾値違い、Core電源欠落、帰還抵抗違い、LDO置換を拒否。GND帰路の誤接続も拒否し、正常を含む9ケース</td>
+</tr>
+<tr>
+<td>HDMI物理検査</td>
+<td>銅接続・区間分類・配線幅・ESDランド・D1分岐の検査。分類11、ESD13、D1 4の回帰ケース</td>
+</tr>
+<tr>
+<td>HDMI GND参照</td>
+<td>主配線・引き出し・ESD接続の中心線直下を0.25mm刻み、1,820点で検査し全点が充填済みIn1 GND上。抵抗分岐とビアのアンチパッドは対象外</td>
+</tr>
+<tr>
+<td>発注ファイル</td>
+<td>主要SMD92個、38行。BOMとCPLの部品集合一致、座標を125×78mmの基板範囲と照合</td>
+</tr>
+</tbody>
+</table></div>
+<p>DRC成功はM5-Busの実物との向き、実装業者側の回転規約、実機通信を証明しない。JLCの部品プレビューではU2、U4/U5、U7/U8、U9/U10、C7、J2、J4を端子1・極性・パッドとの重なりで照合する。ランドの一致が取れない代替部品を自動で採用しない。</p>
+<h2>HDMIと3D解析の扱い</h2>
+<p>TMDS主配線は前版047538fから維持した。再配線では抵抗分岐が一部変わり、分岐上の信号ビアは4本となった。D1は0402の499Ω、P/N各0.585mmを維持。信号はESDへ分岐し、ESD内部を直列の通過経路にしない。主配線は表層で、対内長差はほぼ0。ペア間の長さは約41〜60mmの範囲で、HDMI速度条件とCore内部スキューを別途考慮する。</p>
+<p>均一直線のopenEMS計算を再開した。過去の単線約53Ωという値には、MSLポートを50Ωへ再正規化した後、出力側の入射波を0と仮定して二端子対の式へ代入した不整合があった。再正規化前のモードインピーダンスは約57.33Ω。幅0.2mm/間隔0.13mm/銅厚35µmの差動直線は、メッシュ0.020mmで95.36Ω、0.015mmで96.54Ωとなり、差は1.23%。<a href="uniform-line-calibration.html">3D検証記録</a>にモデルと生データを保存した。</p>
+<p>これは均一直線の抽出方法とメッシュの確認である。2Dとの差は完全に解消しておらず、2Dを真値として3Dへ補正係数を掛けない。既存の線路接続モデルの2D表もこの3D結果で置換していない。Core、ソケット、ESD、キャリア、ケーブルを含む完全な3D解析やHDMI認証は未実施。HDMIは低解像度から実機確認する追加目標であり、これを最低成功条件のパラレル/DDR3検証より先にしない。</p>
+<h2>初回実機の順序と合否</h2>
+<ol>
+<li>ARM開放、CoreとTab5を外した状態で、12V入力、5V、3.3V、極性、短絡、異常発熱を確認する。DCジャックまたは規定のUSB PD入力を使い、裸配線の誤極性を避ける。</li>
+<li>5Vに0.5Aの電子負荷を接続し、リップル・起動・負荷変動を測定する。基板温度と入力電流も記録する。</li>
+<li>Coreだけを接続して公式のDDR3テストを実行する。Core上のDDR3電源、終端、配線は公式設計を利用し、キャリア上へDDR3配線を引き出さない。Core内部全体を再シミュレーションする代わりに、この実機テストを必須にする。</li>
+<li>Tab5を接続しARMは開放のまま、両側GPIOの初期状態を確認する。DIR=0をホスト書込み、DIR=1をFPGA出力とし、切替時には双方が一度Hi-Zとなる時間を設ける。Linux Device Tree等で同じGPIOを使う周辺機能を無効にする。</li>
+<li>ARMを閉じ、まず1MHz程度の低速・8ビットでID読出し、0x00/0xFF、全ビット単独、全256値、連続転送CRC、双方向とDIR切替を検査する。通信未成立ならHDMIより先に修正する。</li>
+<li>パラレル経由でDDR3へ書き、読み戻したCRCを照合する。次に小さな画像処理/アクセラレータ処理を行い、CPU側の期待値と照合する。ここまでを最低成功とする。</li>
+<li>PARLIO/DMAの速度を段階的に上げ、エラー率と実効転送量を測る。GPUのフレームレート要求はその結果で評価する。HDMIは最後に短いケーブル・低速表示から確認する。</li>
+</ol>
+<p>実物なしで「必ず通信する」「DDR3アクセス実証済み」とは記録しない。今回の修正はその成立を妨げる電源断直結とクロック端子選択のリスクを減らしたものである。</p>
+<h2>発注データと残る1件</h2>
+<p><code>manufacturing/poc-2026-10-24/</code> にガーバーZIP、分離PTH/NPTHドリル、JLC用BOM/CPL、元のKiCad座標表、IPC-D-356、上下実装図、DNP表、手実装表を保存した。4層1.6mm、外層35µm/内層17.5µm、JLC04161H-7628相当、表層からGNDまで0.2104mmを解析の前提とする。異なる積層へ変更する場合はHDMIの数値を再確認する。</p>
+<p>手実装扱いはJ1、J3、J5、SW1/SW2/SW3、JP1と機構部品。J4のCoreソケットとJ2のUSB-Cは主要SMD実装に含む。スイッチ未実装でも初期通信の成立には影響せず、SW3は開放が電源ON。HDMIコネクタは追加目標用。J1は汎用フットプリントへ寸法を照合した部品を選ぶか、実装済みJ2から12Vを供給する。J3とJP1は2.54mmピッチで、嵌合高さとスペーサ長をTab5/Coreと合わせる。</p>
+<p><strong>残件はJ3の物理的な1番位置の確定。</strong> 公式の端子番号・信号表と写真は保存したが、現在の配置との見る面の対応を十分な確度で確定できていない。回答待ちの現物照合が取れるまで、出力ファイルは発注候補として保持する。</p>
+<p>参考資料は <code>docs/reference/poc-power-sources-2026-10-24.json</code> にURLとSHA-256を記録した。公式 <a href="https://docs.m5stack.com/en/core/Tab5">Tab5</a>、TI <a href="https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf">SN74CB3Q3245</a>、<a href="https://www.ti.com/lit/ds/symlink/tps3839.pdf">TPS3839</a>、<a href="https://www.ti.com/lit/ds/symlink/tlv1117lv.pdf">TLV1117LV</a>、<a href="https://www.ti.com/lit/an/slva237c/slva237c.pdf">TPS5430出力容量の検討</a>、<a href="https://industrial.panasonic.com/cdbs/www-data/pdf/AAA8000/AAA8000C65.pdf">Panasonic TPB</a>を参照した。</p>
+</main></body></html>

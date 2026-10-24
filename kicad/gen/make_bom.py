@@ -16,6 +16,7 @@ OUT = os.path.join(os.path.dirname(__file__), "..", "bom.csv")
 
 
 def get(url):
+    if "--offline" in sys.argv:return {}
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
         with urllib.request.urlopen(req, timeout=30) as r:
@@ -67,6 +68,7 @@ KNOWN = {  # best-effort, verify before ordering
 
 def main():
     comps = design.build()
+    catalog = json.load(open(os.path.join(os.path.dirname(__file__), "order_parts.json"),encoding="utf-8"))["parts"]
     groups = OrderedDict()
     for c in comps:
         key = (c.value, c.fp, c.dnp)
@@ -98,6 +100,8 @@ def main():
             lcsc, cls = cs[0].lcsc, "extended" if cs[0].lcsc not in ("C363878",) else "extended"
         elif name.startswith(("PinHeader", "BarrelJack", "HDMI", "USB_C", "SW_", "MountingHole")):
             cls = "THT/hand-solder or extended (select part)"
+        chosen=catalog.get(value+"|"+fp)
+        if chosen:lcsc,cls=chosen["lcsc"],"selected (verify stock at order)"
         rows.append([",".join(sorted(x.ref for x in cs)), value, fp, len(cs), "DNP" if dnp else "", lcsc, cls,
                      cs[0].comment])
     with open(OUT, "w", newline="", encoding="utf-8") as f:

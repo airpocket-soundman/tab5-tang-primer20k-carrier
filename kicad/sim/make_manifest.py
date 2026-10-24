@@ -9,6 +9,7 @@ SHA-256 of every file after normalising CRLF -> LF (so the hashes do not depend 
 import hashlib
 import json
 import os
+from pathlib import Path
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
@@ -44,6 +45,11 @@ GROUPS = {
     "figures": ["site/img/sim_zdiff_r3.png", "site/img/sim_compare_r3.png", "site/img/sim_route_r3.png", "site/img/sim_sparam_r3.png",
                 "site/img/sim_variants_r3.png", "site/img/sim_matrix_r3.png", "site/img/sim_sensitivity_r3.png", "site/img/render_top_r3.png"],
 }
+
+
+GROUPS['fabrication_revision'] = [str(p.relative_to(ROOT)).replace('\\','/') for base in ['manufacturing/poc-2026-10-24','docs/reference/openems/calibration-2026-10-24'] for p in Path(ROOT,base).rglob('*') if p.is_file()]
+GROUPS['fabrication_revision'] += ['docs/PoC発注準備_パラレル通信と電源_2026-10-24.md','docs/3D均一直線のポート校正_2026-10-24.md','docs/reference/poc-power-sources-2026-10-24.json','kicad/gen/order_parts.json','kicad/gen/export_poc_package.py','kicad/gen/prepare_manufacturing.py','kicad/gen/make_sch.py','kicad/gen/place_pcb.py','kicad/lib/carrier.kicad_sym','kicad/sim/calibrate_uniform_msl.py','kicad/sim/check_ground_reference.py','kicad/sim/ground_reference_check.json','kicad/sim/check_parallel_power.py','kicad/sim/parallel_power_check.json','kicad/sim/test_parallel_power_check.py','kicad/sim/regression_parallel_power.json','kicad/sim/check_power_dc.py','kicad/sim/power_dc_check.json','kicad/sim/review_poc_fabrication.py','kicad/sim/poc_fabrication_review.json','kicad/sim/erc_poc.json','kicad/sim/make_poc_fabrication_page.py','site/poc-fabrication.html','site/uniform-line-calibration.html','site/audit-data/poc-manufacturing-candidate.zip','site/audit-data/uniform-line-calibration.zip','site/audit-data/poc-assembly-top.svg','site/audit-data/poc-assembly-bottom.svg','.gitattributes']
+GROUPS['fabrication_revision'] += ['docs/reference/'+item['path'] for item in json.load(open(Path(ROOT,'docs/reference/poc-power-sources-2026-10-24.json'),encoding='utf8'))['sources']]
 
 
 def sha(path):

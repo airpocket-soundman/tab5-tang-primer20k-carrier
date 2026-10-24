@@ -172,10 +172,32 @@ def make_rclamp_symbol():
             ["symbol", S("RCLAMP0524P_1_1")] + pins]
 
 
+def make_bus_switch_symbol():
+    """TI PW-20 pin numbering, datasheet SCDS124C. All data paths passive."""
+    import copy
+    symbol = copy.deepcopy(get_symbol('Connector_Generic','Conn_02x10_Odd_Even'))
+    symbol[1] = S('SN74CB3Q3245')
+    names = {'1':'NC','10':'GND','19':'~{OE}','20':'VCC'}
+    names.update({str(2+i):'A%d'%(i+1) for i in range(8)})
+    names.update({str(18-i):'B%d'%(i+1) for i in range(8)})
+    for p in sexp.find(symbol,'property'):
+        if p[1]=='Reference':p[2]=S('U')
+        if p[1]=='Value':p[2]=S('SN74CB3Q3245')
+        if p[1]=='Footprint':p[2]=S('Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm')
+        if p[1]=='Datasheet':p[2]=S('https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf')
+    for child in sexp.find(symbol,'symbol'):
+        child[1]=S(str(child[1]).replace('Conn_02x10_Odd_Even','SN74CB3Q3245'))
+        for pin in sexp.find(child,'pin'):
+            num=str(sexp.first(pin,'number')[1])
+            sexp.first(pin,'name')[1]=S(names[num])
+            if num=='1':pin[1]='no_connect'
+    return symbol
+
+
 def write_lib():
     os.makedirs(os.path.join(OUT, "lib"), exist_ok=True)
     lib = ["kicad_symbol_lib", ["version", SYMVER], ["generator", S("carrier_gen")], ["generator_version", S("1.0")],
-           make_core_symbol(), make_rclamp_symbol()]
+           make_core_symbol(), make_rclamp_symbol(), make_bus_switch_symbol()]
     open(os.path.join(OUT, "lib", "carrier.kicad_sym"), "w", encoding="utf-8").write(sexp.dump(lib) + "\n")
     _lib_cache.pop("carrier", None)
 
@@ -328,7 +350,7 @@ def build_sch():
 
     # PWR_FLAGs so ERC knows these rails are driven
     fsym = need("power:PWR_FLAG")
-    for i, net in enumerate(["GND", "+5V", "HDMI_5V", "VIN", "PD_VDD", "DC_RAW", "VBUS_PD"]):
+    for i, net in enumerate(["GND", "+5V", "HDMI_5V", "VIN", "PD_VDD", "DC_RAW", "VBUS_PD", "TAB_3V3"]):
         fx, fy = 30.48 + i * 25.4, 12.7 + 5.08 * 0
         fy = 20.32 + 0.0
         pwr_count[0] += 1
@@ -351,9 +373,9 @@ def build_sch():
 
     # block captions
     texts = []
-    caps = {"power": "POWER INPUT: DC barrel + USB-C PD (OR) -> VIN", "pd": "USB-C PD sink (CH224K, 20V request)",
+    caps = {"power": "POWER INPUT: DC barrel + USB-C PD (OR) -> VIN", "pd": "USB-C PD sink (CH224K, 12V request)",
             "buck": "VIN -> +5V buck (TPS5430)", "ldo": "+5V -> +3V3 (peripherals)",
-            "mbus": "M5-BUS header (Tab5-facing side)", "series": "33R series resistors (M_* = Tab5 side, F_* = FPGA side)",
+            "mbus": "M5-BUS header (Tab5-facing side)", "series": "Power-off bus isolation + 33R (M=Tab5, ISO=switch, F=FPGA)",
             "hdmi": "HDMI OUT connector + DDC/HPD level shift + ESD", "tmds": "HDMI TMDS 499R bias, ESD", "tmdsc": "HDMI TMDS AC coupling caps", "pmod": "PMOD x2",
             "jtag": "FPGA JTAG header", "gpio": "Spare FPGA I/O pads", "ui": "LEDs / buttons", "mech": "Mounting holes (Tab5 M3)",
             "core": "Tang Primer 20K Core SODIMM socket (pin names = nets)"}

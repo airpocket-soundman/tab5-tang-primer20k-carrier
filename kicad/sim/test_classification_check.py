@@ -7,7 +7,7 @@ from regression_common import run_case,run_suite
 
 def track(b):
     return next(t for t in b.GetTracks() if t.GetNetname()=='HDMI_D0P' and not isinstance(t,pcbnew.PCB_VIA) and abs(pcbnew.ToMM(t.GetWidth())-.2)<.001)
-def via(b):return next(t for t in b.GetTracks() if isinstance(t,pcbnew.PCB_VIA) and t.GetNetname().startswith('HDMI_'))
+def via(b):return next(t for t in b.GetTracks() if isinstance(t,pcbnew.PCB_VIA) and t.GetNetname()=='HDMI_D0N_C')
 
 class ClassificationRegression(unittest.TestCase):
     def check(self,label,expected,board=None,roles=None,key=None):

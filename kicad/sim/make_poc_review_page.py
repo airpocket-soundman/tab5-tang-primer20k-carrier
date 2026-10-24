@@ -4,7 +4,7 @@ import re
 from markdown_it import MarkdownIt
 
 ROOT = Path(__file__).resolve().parents[2]
-LINK = '<p id="poc-purpose-review-link"><a href="poc-purpose-review.html">最新：目的への独立評価・D1分岐の実修正（0.585mm、共通用途の残件）</a></p>'
+LINK = '<p id="poc-purpose-review-link"><a href="poc-purpose-review.html">履歴：目的への独立評価・D1分岐の実修正（0.585mm、共通用途の残件）</a></p>'
 
 
 def link_review():

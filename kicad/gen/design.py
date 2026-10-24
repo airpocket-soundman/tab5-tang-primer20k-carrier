@@ -22,7 +22,7 @@ CORE_PINS = {
     # Odd SODIMM pins are on the pad row facing the header; even pins face the left strip (HDMI / PMOD / UI).
     # 8-bit bus (bank0/1, 3.3V), all odd pins -> short link to the header
     "F_D0": 73, "F_D1": 75, "F_D2": 77, "F_D3": 79, "F_D4": 83, "F_D5": 85, "F_D6": 89, "F_D7": 91,
-    "F_CLK": 80,   # K13 = IOT36A general I/O, NOT GCLKT_1 (K14). Timing must be checked for the receive implementation.
+    "F_CLK": 52,   # K14 = IOT30A/GCLKT_1: dedicated source-synchronous receive clock input.
     "F_RDY": 95, "F_DIR": 97,
     "F_AUX0": 101, "F_AUX1": 103, "F_AUX2": 107, "F_AUX3": 109,
     # 16-bit extension lines (via DNP 0R)
@@ -145,6 +145,7 @@ def _apply_pin_swap():
 
     assign("P1", [123, 121, 92, 90, 86, 84, 78, 76])
     assign("P2", [64, 62, 52, 50, 46, 44, 42, 40])
+    CORE_PINS["P2_6"] = 80  # trade the unused PMOD pad for the dedicated bus clock pin
     gp = [186, 182, 180, 176, 131, 129, 125]                       # GPIO0..6 top to bottom
     for i, pin in enumerate(sorted(gp, key=ypos)):
         CORE_PINS["GPIO%d" % i] = pin
@@ -168,7 +169,7 @@ def build():
     _counters.clear()
 
     # ------------------------------------------------------------ power input
-    jdc = add("J", "Connector:Barrel_Jack", "Connector_BarrelJack:BarrelJack_Horizontal", "DC 12-24V",
+    jdc = add("J", "Connector:Barrel_Jack", "Connector_BarrelJack:BarrelJack_Horizontal", "DC 12V ONLY",
               {"1": "DC_RAW", "2": "GND"}, "power", pos=(113.0, 50.0), rot=180)
     jdc.pads = {"1": "DC_RAW", "2": "GND", "3": "GND"}
     jdc.comment = "DC barrel jack, centre positive (THT, hand assembly)"
@@ -178,8 +179,8 @@ def build():
         pos=(100.5, 51.0), rot=90, comment="reverse-polarity + OR (DC jack)")
     add("D", "Device:D_Schottky", "Diode_SMD:D_SMA", "SS54", {"1": "VIN", "2": "VBUS_PD"}, "power",
         pos=(100.5, 56.0), rot=90, comment="OR (USB-C PD)")
-    add("D", "Device:D_TVS", "Diode_SMD:D_SMB", "SMBJ24A (to be selected)", {"1": "VIN", "2": "GND"}, "power",
-        pos=(111.0, 57.5), rot=0, comment="24V-class TVS; clamp vs MP4560/TPS5430 abs-max TBD")
+    add("D", "Device:D_TVS", "Diode_SMD:D_SMB", "SMBJ15A", {"1": "VIN", "2": "GND"}, "power",
+        pos=(111.0, 57.5), rot=0, lcsc="C699013", comment="YANGJIE 15V standoff, 24.4V specified clamp; regulated 12V PoC input only")
     add("C", "Device:C_Polarized", "Capacitor_SMD:CP_Elec_6.3x7.7", "100u/35V", {"1": "VIN", "2": "GND"}, "power",
         pos=(100.0, 64.0), rot=0)
 
@@ -193,16 +194,16 @@ def build():
     add("U", "Interface_USB:CH224K", "Package_SO:SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm", "CH224K",
         {"1": "PD_VDD", "2": "PD_CFG2", "3": "PD_CFG3", "4": None, "5": None, "6": "CC2", "7": "CC1",
          "8": "PD_VBUS_S", "9": "PD_CFG1", "10": "PD_PG", "11": "GND"}, "pd", pos=(110.5, 21.5), rot=0,
-        comment="PD sink, 20V request: CFG1=0 CFG2=1(internal PU) CFG3=0")
+        comment="PD sink, 12V request: CFG1=0 CFG2=0 CFG3=1(internal PU)")
     two("R", "Device:R", R0603, "10k", "VBUS_PD", "PD_VDD", "pd", pos=(105.0, 19.5), rot=90)
     two("C", "Device:C", C0603, "1u/50V", "PD_VDD", "GND", "pd", pos=(105.0, 23.0), rot=90)
     two("R", "Device:R", R0603, "1k", "VBUS_PD", "PD_VBUS_S", "pd", pos=(105.0, 16.5), rot=90)
     two("R", "Device:R", R0603, "0R", "PD_CFG1", "GND", "pd", pos=(115.0, 18.0), rot=90,
         comment="CFG1 low (fit)")
-    two("R", "Device:R", R0603, "0R", "PD_CFG3", "GND", "pd", pos=(115.0, 21.0), rot=90,
-        comment="CFG3 low (fit) -> 20V; DNP -> 15V")
-    two("R", "Device:R", R0603, "0R", "PD_CFG2", "GND", "pd", pos=(115.0, 24.0), rot=90, dnp=True,
-        comment="CFG2 low (DNP): fit with CFG3 open -> 12V")
+    two("R", "Device:R", R0603, "0R", "PD_CFG3", "GND", "pd", pos=(115.0, 21.0), rot=90, dnp=True,
+        comment="Must remain DNP: CFG3 internal pull-up for 12V request")
+    two("R", "Device:R", R0603, "0R", "PD_CFG2", "GND", "pd", pos=(115.0, 24.0), rot=90,
+        comment="Fitted: CFG2 low, CFG1 low, CFG3 high -> 12V")
 
     # ------------------------------------------------------------ buck 5V
     add("U", "Regulator_Switching:TPS5430DDA", "Package_SO:TI_SO-PowerPAD-8_ThermalVias", "TPS5430DDAR",
@@ -214,22 +215,22 @@ def build():
     add("D", "Device:D_Schottky", "Diode_SMD:D_SMA", "SS54", {"1": "BUCK_PH", "2": "GND"}, "buck",
         pos=(111.5, 75.5), rot=0, comment="catch diode")
     two("R", "Device:R", R0603, "10k", "+5V", "BUCK_FB", "buck", pos=(101.0, 73.0), rot=90)
-    two("R", "Device:R", R0603, "3.3k", "BUCK_FB", "GND", "buck", pos=(101.0, 76.0), rot=90,
-        comment="Vout = 1.221*(1+10k/3.3k) = 4.92V")
+    two("R", "Device:R", R0603, "3.24k", "BUCK_FB", "GND", "buck", pos=(101.0, 76.0), rot=90,
+        comment="Vout = 1.221*(1+10k/3.24k) = 4.99V; R7 C22994 1%")
     two("R", "Device:R", R0603, "100k", "VIN", "BUCK_EN", "buck", pos=(101.0, 69.5), rot=90)
     two("R", "Device:R", R0603, "15k", "BUCK_EN", "GND", "buck", pos=(101.0, 66.5), rot=90,
-        comment="UVLO ~9.6V (holds off until PD reaches 20V)")
+        comment="External EN divider ~9.4V threshold; stays off at default USB 5V/9V")
     two("C", "Device:C", C1206, "10u/50V", "VIN", "GND", "buck", pos=(106.0, 62.5), rot=0)
     two("C", "Device:C", C1206, "10u/50V", "VIN", "GND", "buck", pos=(110.5, 62.5), rot=0)
     two("C", "Device:C", C0603, "100n/50V", "VIN", "GND", "buck", pos=(113.5, 66.5), rot=90)
-    add("C", "Device:C_Polarized", "Capacitor_SMD:CP_Elec_6.3x7.7", "220u/10V polymer", {"1": "+5V", "2": "GND"}, "buck",
-        pos=(112.0, 60.5), rot=0, comment="TI reference design uses 220uF POSCAP on the output (loop compensation needs ESR)")
-    two("C", "Device:C", C1206, "47u/10V", "+5V", "GND", "buck", pos=(113.5, 71.0), rot=90)
-    two("C", "Device:C", C1206, "47u/10V", "+5V", "GND", "buck", pos=(116.5, 76.0), rot=0)
+    add("C", "Device:C_Polarized", "Capacitor_Tantalum_SMD:CP_EIA-7343-40_Kemet-Y", "220u/10V POSCAP", {"1": "+5V", "2": "GND"}, "buck",
+        pos=(112.0, 60.5), rot=0, lcsc="C242173", comment="Panasonic 10TPB220M, 220uF 10V ESR max40mohm; TI reference output capacitor")
+    two("C", "Device:C", C1206, "47u/10V", "+5V", "GND", "buck", pos=(113.5, 71.0), rot=90, dnp=True)
+    two("C", "Device:C", C1206, "47u/10V", "+5V", "GND", "buck", pos=(116.5, 76.0), rot=0, dnp=True)
 
     # ------------------------------------------------------------ 3V3 LDO
-    add("U", "Regulator_Linear:AMS1117-3.3", "Package_TO_SOT_SMD:SOT-223-3_TabPin2", "AMS1117-3.3",
-        {"1": "GND", "2": "+3V3", "3": "+5V"}, "ldo", pos=(68.0, 9.0), rot=0)
+    add("U", "Regulator_Linear:AMS1117-3.3", "Package_TO_SOT_SMD:SOT-223-3_TabPin2", "TLV1117LV33DCYR",
+        {"1": "GND", "2": "+3V3", "3": "+5V"}, "ldo", pos=(68.0, 9.0), rot=0, lcsc="C15578", comment="TI TLV1117LV33: ceramic-output stable, pin-compatible SOT-223")
     two("C", "Device:C", C1206, "10u/16V", "+5V", "GND", "ldo", pos=(62.0, 9.0), rot=90)
     two("C", "Device:C", C1206, "22u/10V", "+3V3", "GND", "ldo", pos=(74.0, 9.0), rot=90)
 
@@ -238,7 +239,7 @@ def build():
     add("J", "Connector_Generic:Conn_02x15_Odd_Even", "Connector_PinHeader_2.54mm:PinHeader_2x15_P2.54mm_Vertical",
         "M5-BUS (to Tab5)", pins, "mbus", pos=(56.27, 22.15), rot=180, side="B",
         comment="male header on Tab5-facing side; pin-1 orientation to be confirmed on the real Tab5")
-    # series resistors M_x -> F_x (33R); placed in one column left of the socket
+    # series resistors ISO_x -> F_x (33R); placed in one column left of the socket
     # series resistors: one per signal, horizontal, y aligned with the matching Core pad (min pitch 1.5mm)
     names = [(CORE_PINS["F_" + s], s, 0) for s in SERIES] + [(CORE_PINS["F_" + s], s, 1) for s in EXT]
     CORE_Y = CORE_POS[1]
@@ -254,7 +255,7 @@ def build():
             two("R", "Device:R", R0603, "0R", "M_" + s, "F_" + s, "series", pos=(SERIES_X, round(y, 2)), rot=0,
                 dnp=True, comment="16-bit extension (DNP): connects G%s to FPGA" % s[3:])
         else:
-            two("R", "Device:R", R0603, "33R", "M_" + s, "F_" + s, "series", pos=(SERIES_X, round(y, 2)), rot=0)
+            two("R", "Device:R", R0603, "33R", "ISO_" + s, "F_" + s, "series", pos=(SERIES_X, round(y, 2)), rot=0)
 
     # ------------------------------------------------------------ Core socket
     core = add("J", "carrier:CORE_SODIMM_204", "carrier:DDR3-SMD_0705F0BE40F", "Tang Primer 20K Core",
@@ -350,11 +351,54 @@ def build():
     for (x, y) in ((4.06, 3.95), (4.06, 75.95), (51.06, 3.95), (51.06, 75.95), (124.06, 3.95), (124.06, 75.95)):   # measured on Tab5.stl
         h = add("H", "Mechanical:MountingHole", "MountingHole:MountingHole_3.2mm_M3", "M3",
                 {}, "mech", pos=(x, y), rot=0)
+    # Bidirectional power-off isolation: preserve existing DIR protocol and
+    # GPIO assignment, gate every populated host/Core signal transparently.
+    ordered = sorted(SERIES, key=lambda sig: next(c.pos[1] for c in comps if c.pins.get("1") == "ISO_"+sig and c.value == "33R"))
+    groups = [ordered[:8], ordered[8:]]
+    for group, y in zip(groups, (28.5, 44.5)):
+        pins = {"1":None, "10":"GND", "19":"BUS_OE_N", "20":"+3V3"}
+        for i in range(8):
+            pins[str(2+i)] = 'M_'+group[i] if i<len(group) else None
+            pins[str(18-i)] = 'ISO_'+group[i] if i<len(group) else None
+        add('U','carrier:SN74CB3Q3245','Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm',
+            'SN74CB3Q3245PWR',pins,'series',pos=(64.7,y),lcsc='C470961',
+            comment='Ioff protected 8-bit passive bus switch; OE pulled high by default')
+        two('C','Device:C',C0603,'100n','+3V3','GND','series',pos=(64.7,y-5.0))
+    # Power-good is delayed on both supplies; manual ARM jumper defaults open.
+    # Series MOSFETs sink OE only when both supervisors report good power.
+    for value, supply, good, pos, part in [
+        ('TPS3839G33DBZR','TAB_3V3','TAB_PGOOD',(63.0,61.5),'C485802'),
+        ('TPS3839K50DBZR','+5V','CORE_PGOOD',(68.0,61.5),'C702204')]:
+        add('U','Power_Supervisor:TPS3839DBZ','Package_TO_SOT_SMD:SOT-23',value,
+            {'1':'GND','2':good,'3':supply},'series',pos=pos,lcsc=part,
+            comment='3.08V / 4.38V supervisor, 200ms typical release delay')
+        two('C','Device:C',C0603,'100n',supply,'GND','series',pos=(pos[0],65.0))
+    add('JP','Connector_Generic:Conn_01x02','Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical',
+        'BUS ARM (open by default)',{'1':'TAB_PGOOD','2':'BUS_ARM'},'series',pos=(58.9,71.5),
+        comment='Fit shunt only after firmware GPIO ownership has been checked')
+    add('Q','Transistor_FET:2N7002','Package_TO_SOT_SMD:SOT-23','2N7002',
+        {'1':'BUS_ARM','2':'BUS_OE_MID','3':'BUS_OE_N'},'series',pos=(63.0,68.5))
+    add('Q','Transistor_FET:2N7002','Package_TO_SOT_SMD:SOT-23','2N7002',
+        {'1':'CORE_PGOOD','2':'GND','3':'BUS_OE_MID'},'series',pos=(68.0,68.5))
+    two('R','Device:R',R0603,'22k','+3V3','BUS_OE_N','series',pos=(68.0,72.0))
+    two('R','Device:R',R0603,'100k','BUS_ARM','GND','series',pos=(59.5,65.5))
+    two('R','Device:R',R0603,'100k','CORE_PGOOD','GND','series',pos=(72.0,65.0))
+
     # power input / PD / buck block: mirrored in x about x=65 (y kept: buck stays at the bottom) -> lives LEFT of the M-Bus header
     for c in comps:
         if c.block in ("power", "pd", "buck") and c.pos is not None:
             c.pos = (round(130.0 - c.pos[0], 2), round(c.pos[1], 2))
             c.rot = (c.rot + 180) % 360
+    for c in comps:
+        if c.ref in POWER_FIXED:
+            c.pos, c.rot = POWER_FIXED[c.ref]
+    import json
+    catalog_path = os.path.join(os.path.dirname(__file__), "order_parts.json")
+    if os.path.exists(catalog_path):
+        catalog = json.load(open(catalog_path, encoding="utf-8"))["parts"]
+        for c in comps:
+            selected = catalog.get(c.value+"|"+c.fp)
+            if selected:c.lcsc=selected["lcsc"]
     return comps
 
 
@@ -372,3 +416,13 @@ HOLE_R = 1.6
 USB_SCREW_CLEARANCE = 10.0     # USB-C receptacle: keep this distance from every M3 screw (cable strain / driver access)
 EDGE_CONNECTORS = ("J1", "J2", "J5")     # DC jack, USB-C, HDMI may sit on the edge
 BOARD = (2.0, 1.0, 127.0, 79.0)   # x0,y0,x1,y1 outline (full Tab5 width: PMOD/JTAG moved over the battery bay)
+
+# Final coordinates: keep the switching loop compact and on the front side.
+POWER_FIXED = {
+ "U2":((27.0,69.0),0), "L1":((39.0,61.5),90),
+ "D4":((27.0,63.0),0), "C3":((22.0,65.0),90),
+ "C4":((33.8,69.5),0), "C5":((39.5,71.8),0), "C6":((33.8,72.5),0),
+ "C7":((39.0,49.8),90), "C8":((45.0,51.5),0), "C9":((48.5,61.5),0),
+ "R6":((22.0,70.5),90), "R7":((20.0,67.5),90),
+ "R8":((29.7,74.0),90), "R9":((26.8,75.0),0),
+}

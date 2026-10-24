@@ -21,7 +21,7 @@ def overlap(a, b, m=MARGIN):
 
 
 def is_fixed(c):
-    return c.ref[0] in ("J", "H") or c.ref.startswith("SW") or c.block in FIXED_BLOCKS     # switches sit at their given pose
+    return c.ref[0] in ("J", "H") or c.ref.startswith("SW") or c.block in FIXED_BLOCKS or c.ref in design.POWER_FIXED     # switches sit at their given pose
 
 
 def run(b, comps):

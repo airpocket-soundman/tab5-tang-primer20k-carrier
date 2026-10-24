@@ -225,7 +225,7 @@ page = """<!doctype html>
 
 <section id="em3d">
  <h2>9. 3D電磁界解析（openEMS）の状況（B1/B2）</h2>
- <p><b>今回の作業では3D解析の較正を行っていません</b>（未着手のまま保留）。第2回監査の記録では、単線の較正が未達（lumped-port単線：30,000ステップで残留エネルギー約−20.6dB、指定−40dB未達。別のMSLポート基準：−50dBに収束したが2D基準59.85Ωに対し3Dは52.4〜53.1Ωで約11%の差）です。3Dの値はこのレポートの結論に使っていません。</p>
+ <p><b>追補：均一直線の3Dポート抽出を再検証した。</b>以前の単線約53Ωには、MSLを50Ωへ再正規化した後、出力側の入射波を無視して式へ代入した不整合があった。再正規化前のモード値は約57.33Ω。銅厚35µm・幅0.2mm・間隔0.13mmの差動直線は95.36〜96.54Ω、2段階メッシュ差1.23%。<a href="uniform-line-calibration.html">モデル・生波形・限界</a>を公開した。2Dとの差は完全には解消しておらず、このページの2D線路接続モデルは置き換えていない。全Core・コネクタ等を含む完全な3D解析の完了ではない。下表は以前の試行記録として残す。</p>
 </section>
 
 <section id="limits">
@@ -285,6 +285,7 @@ def sub_ph(m):
 
 page = re.sub(r"%\((\w+)\)([-.\d]*[sfd])", sub_ph, page)
 page = page.replace("%%", "%")
+page = page.replace('</header>','</header><p id="poc-fabrication-link"><a href="poc-fabrication.html">最新：通信と電源の修正・発注準備（M5-Busの向き照合待ち）</a></p>',1)
 page = page.replace("-240.0 dB", "数値床（理想対称）").replace("-240.0dB", "数値床（理想対称）")
 page = page.replace('<section id="summary">', '<p><a href="hdmi-audit-checks.html">第3版監査後の検査修正・回帰試験（ランド寸法、配線幅・分類、D2説明）</a></p><section id="summary">')
 open(os.path.join(SITE, "hdmi-simulation-r3.html"), "w", encoding="utf-8").write(page)

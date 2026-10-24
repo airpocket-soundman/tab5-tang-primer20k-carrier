@@ -33,6 +33,7 @@ class Builder:
     def __init__(self):
         self.board = pcbnew.BOARD()
         self.board.SetCopperLayerCount(4)
+        self.board.GetDesignSettings().SetAuxOrigin(V(2.0,79.0))
         self.nets = {}
         self.fps = {}
 
