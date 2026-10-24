@@ -84,13 +84,13 @@ svg .mut{fill:var(--muted)}
  <p><span class="badge">シミュレーション評価レポート 第3版</span><span class="badge">第2回監査への対応後・再提出版</span><span class="badge">推定値（3D解析は較正未達）</span></p>
  <h1>HDMI信号品質 シミュレーション評価（第3版）</h1>
  <p class="sub">第2回監査（<code>7929491</code> 対象）のA1〜A5への対応。更新：2026-10-24　／　<a href="hdmi-simulation-r2.html">第2版（第2回監査の対象）</a>　<a href="hdmi-simulation.html">第1版</a>　<a href="index.html">← 企画・設計仕様に戻る</a></p>
-</div></header>
-<p id="poc-purpose-review-link"><a href="poc-purpose-review.html">履歴：目的への独立評価・D1分岐の実修正（0.585mm、共通用途の残件）</a></p><p id="poc-fabrication-link"><a href="poc-fabrication.html">最新：通信と電源の修正・発注準備（M5-Bus向き確認・修正済み）</a></p>
+</div></header><p id="pcb-report-link"><a href="pcb-report.html">最新：基板レポート（独立レビュー・シミュレーション・BOM・外観図、2026-10-25）</a></p>
+<p id="poc-purpose-review-link"><a href="poc-purpose-review.html">履歴：目的への独立評価・D1分岐の実修正（0.585mm、共通用途の残件）</a></p><p id="poc-fabrication-link"><a href="poc-fabrication.html">発注準備：通信と電源の修正（M5-Bus向き確認・修正済み）</a></p>
 <nav class="toc"><div class="wrap">
  <a href="#summary">結論</a><a href="#status">対応状況</a><a href="#a1">A1 ESD</a><a href="#a2">A2 経路分類</a><a href="#a3">A3 枝の位置</a><a href="#a4">A4 複合感度</a><a href="#a5">A5 検査・整合</a><a href="#result">配線結果</a><a href="#channel">チャネル推定</a><a href="#em3d">3D解析</a><a href="#limits">限界</a><a href="#repro">再現・記録</a>
 </div></nav>
 <main class="wrap">
-<p id="audit-handover-link"><a href="hdmi-audit-handover.html">最新：第3版監査の引き継ぎ・再確認（851adf4、24件の回帰試験と数値再現）</a></p>
+<p id="audit-handover-link"><a href="hdmi-audit-handover.html">履歴：第3版監査の引き継ぎ・再確認（851adf4、24件の回帰試験と数値再現）</a></p>
 
 <p><a href="hdmi-audit-checks.html">第3版監査後の検査修正・回帰試験（ランド寸法、配線幅・分類、D2説明）</a></p><section id="summary">
  <h2>結論</h2>
@@ -316,7 +316,7 @@ svg .mut{fill:var(--muted)}
 
 <section id="repro">
  <h2>11. 再現手順と記録</h2>
- <p>対象：ベースコミット <code>bc0c4773ea76c73853146437912c04381d337ebc</code>（第2版）に対する変更。回路・PCB・抽出入力・モデル・結果・図・本ページは、同じ変更に含まれます。ファイルのSHA-256（改行をLFに正規化）は下表（<code>kicad/sim/manifest_r3.json</code>）で、チェックアウト後に <code>make_manifest.py</code> で再計算して照合できます（コミット自身のSHAは、その中に含められないため記載しません）。</p>
+ <p>対象：ベースコミット <code>f47f28fa714dfb23843b7516e887ca90acdd0f14</code>（第2版）に対する変更。回路・PCB・抽出入力・モデル・結果・図・本ページは、同じ変更に含まれます。ファイルのSHA-256（改行をLFに正規化）は下表（<code>kicad/sim/manifest_r3.json</code>）で、チェックアウト後に <code>make_manifest.py</code> で再計算して照合できます（コミット自身のSHAは、その中に含められないため記載しません）。</p>
  <div class="tw"><table>
   <thead><tr><th>コマンド（順番）</th><th>内容</th></tr></thead>
   <tbody>
@@ -334,14 +334,14 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>kicad/sim/d1_bias_check.json</code></td><td><code>40a2deb20d6f9449</code></td></tr>
 <tr><td><code>kicad/sim/regression_d1_bias.json</code></td><td><code>bc1d4766afc1db6c</code></td></tr>
 <tr><td><code>kicad/sim/make_poc_review_page.py</code></td><td><code>3c49cbff4f8e0f01</code></td></tr>
-<tr><td><code>site/poc-purpose-review.html</code></td><td><code>9ab0853bf2963b3f</code></td></tr>
+<tr><td><code>site/poc-purpose-review.html</code></td><td><code>6c9e914df9b2292e</code></td></tr>
 <tr><td><code>kicad/sim/d1_finalizer_reproduction.json</code></td><td><code>a7d30dd5f3a7d3f1</code></td></tr>
 <tr><td><code>docs/reference/openems/sources.json</code></td><td><code>3b8c6dbfa17ca49d</code></td></tr>
 <tr><td><code>docs/HDMI_R3_監査引継ぎ確認_2026-10-24.md</code></td><td><code>b47be54b1355712e</code></td></tr>
 <tr><td><code>kicad/sim/audit_handover.py</code></td><td><code>a772da7d17146435</code></td></tr>
 <tr><td><code>kicad/sim/make_handover_page.py</code></td><td><code>1a99d58588a90d54</code></td></tr>
 <tr><td><code>kicad/sim/handover_851adf4_2026-10-24.json</code></td><td><code>3d28a4309d1de492</code></td></tr>
-<tr><td><code>site/hdmi-audit-handover.html</code></td><td><code>969178945c30fb2d</code></td></tr>
+<tr><td><code>site/hdmi-audit-handover.html</code></td><td><code>1a292d65a5e0832d</code></td></tr>
 <tr><td><code>site/audit-data/handover_851adf4_2026-10-24.json</code></td><td><code>3d28a4309d1de492</code></td></tr>
 <tr><td><code>kicad/gen/design.py</code></td><td><code>5957024711c889ca</code></td></tr>
 <tr><td><code>kicad/gen/route_pcb.py</code></td><td><code>04784943ae1f0bd9</code></td></tr>
@@ -364,7 +364,7 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>kicad/sim/tmds_channel.py</code></td><td><code>ffd66808e7d2f572</code></td></tr>
 <tr><td><code>kicad/sim/tmds_sparam.py</code></td><td><code>db46532cd9c21236</code></td></tr>
 <tr><td><code>kicad/sim/make_report_figs.py</code></td><td><code>50c58b11661e64e5</code></td></tr>
-<tr><td><code>kicad/sim/make_report_page.py</code></td><td><code>6abfa4e55bf55529</code></td></tr>
+<tr><td><code>kicad/sim/make_report_page.py</code></td><td><code>0de77f5157453929</code></td></tr>
 <tr><td><code>kicad/sim/check_continuity.py</code></td><td><code>7a37ca361fbd07b4</code></td></tr>
 <tr><td><code>kicad/sim/check_negative.py</code></td><td><code>798c6737b4311fad</code></td></tr>
 <tr><td><code>kicad/sim/check_classification.py</code></td><td><code>fba1733db34bad21</code></td></tr>
@@ -373,7 +373,7 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>kicad/sim/test_esd_check.py</code></td><td><code>98732daeaa2539a6</code></td></tr>
 <tr><td><code>kicad/sim/test_classification_check.py</code></td><td><code>52c4f3422546782e</code></td></tr>
 <tr><td><code>kicad/sim/make_audit_checks_page.py</code></td><td><code>b4da3b4fea5011e9</code></td></tr>
-<tr><td><code>kicad/sim/make_manifest.py</code></td><td><code>40b0559b8ac6db1a</code></td></tr>
+<tr><td><code>kicad/sim/make_manifest.py</code></td><td><code>4eaea3815d806f28</code></td></tr>
 <tr><td><code>kicad/sim/continuity_report.json</code></td><td><code>0a2e03994a23d646</code></td></tr>
 <tr><td><code>kicad/sim/negative_report.json</code></td><td><code>c43a4793152bcdb5</code></td></tr>
 <tr><td><code>kicad/sim/classification_report.json</code></td><td><code>95f323c24159db55</code></td></tr>
@@ -389,8 +389,8 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>kicad/sim/baseline_r2_report_sparam.json</code></td><td><code>935f36a64e6d5732</code></td></tr>
 <tr><td><code>kicad/sim/regression_esd.json</code></td><td><code>94815145c6080f09</code></td></tr>
 <tr><td><code>kicad/sim/regression_classification.json</code></td><td><code>4369934af03df85c</code></td></tr>
-<tr><td><code>site/index.html</code></td><td><code>53144bac50203f8a</code></td></tr>
-<tr><td><code>site/hdmi-audit-checks.html</code></td><td><code>73cdb63662d4f0a6</code></td></tr>
+<tr><td><code>site/index.html</code></td><td><code>be2ee6ed6e4cb0a2</code></td></tr>
+<tr><td><code>site/hdmi-audit-checks.html</code></td><td><code>8b71a23c651089d0</code></td></tr>
 <tr><td><code>docs/HDMI_R3_検査修正_2026-10-24.md</code></td><td><code>a5ae505bb04e8244</code></td></tr>
 <tr><td><code>docs/FPGA_HDMI要求_D2反転とピン.md</code></td><td><code>e8d0328e42204e9a</code></td></tr>
 <tr><td><code>site/img/sim_zdiff_r3.png</code></td><td><code>2c8138435590ae08</code></td></tr>
@@ -401,6 +401,8 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>site/img/sim_matrix_r3.png</code></td><td><code>8681c17ae86e1260</code></td></tr>
 <tr><td><code>site/img/sim_sensitivity_r3.png</code></td><td><code>3ec7aa454dafd350</code></td></tr>
 <tr><td><code>site/img/render_top_r3.png</code></td><td><code>a1ce472f534986c1</code></td></tr>
+<tr><td><code>kicad/sim/review_pcb_report.py</code></td><td><code>aec42966755db551</code></td></tr>
+<tr><td><code>kicad/sim/make_pcb_report_page.py</code></td><td><code>675c2be5657fa0c4</code></td></tr>
 <tr><td><code>manufacturing/poc-2026-10-24/assembly-bottom.svg</code></td><td><code>d79d2cb9a6f37421</code></td></tr>
 <tr><td><code>manufacturing/poc-2026-10-24/assembly-top.svg</code></td><td><code>5d3b7e828538eb49</code></td></tr>
 <tr><td><code>manufacturing/poc-2026-10-24/connectivity.d356</code></td><td><code>8158889315e4850a</code></td></tr>
@@ -461,9 +463,9 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>kicad/sim/review_poc_fabrication.py</code></td><td><code>f2a8c6b104625000</code></td></tr>
 <tr><td><code>kicad/sim/poc_fabrication_review.json</code></td><td><code>6c0c2069dc45fd9b</code></td></tr>
 <tr><td><code>kicad/sim/erc_poc.json</code></td><td><code>69556e9b4d9f52b7</code></td></tr>
-<tr><td><code>kicad/sim/make_poc_fabrication_page.py</code></td><td><code>fa169fbfb7cb69d2</code></td></tr>
-<tr><td><code>site/poc-fabrication.html</code></td><td><code>d1a50a4545519b7c</code></td></tr>
-<tr><td><code>site/uniform-line-calibration.html</code></td><td><code>efefbe84dafea068</code></td></tr>
+<tr><td><code>kicad/sim/make_poc_fabrication_page.py</code></td><td><code>793247caa8f58597</code></td></tr>
+<tr><td><code>site/poc-fabrication.html</code></td><td><code>30d727bf5e63029e</code></td></tr>
+<tr><td><code>site/uniform-line-calibration.html</code></td><td><code>e2e28c46766b5e08</code></td></tr>
 <tr><td><code>site/audit-data/poc-manufacturing-candidate.zip</code></td><td><code>9348b31defa16e96</code></td></tr>
 <tr><td><code>site/audit-data/uniform-line-calibration.zip</code></td><td><code>2d360d7f0db0691c</code></td></tr>
 <tr><td><code>site/audit-data/poc-assembly-top.svg</code></td><td><code>5d3b7e828538eb49</code></td></tr>

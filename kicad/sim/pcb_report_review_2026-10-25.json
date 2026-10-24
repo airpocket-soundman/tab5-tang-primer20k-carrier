@@ -1,0 +1,158 @@
+{
+ "reviewed_commit": "d93af0b5e37e601deff30fedbd10b1b3e6f9c736",
+ "pcb_sha256": "504e7f908d2295b43914edb1df9449e365dc87b77c5a415ac059950e3cdf2fe4",
+ "kicad": "10.0.6",
+ "board": {
+  "size_mm": [
+   125.0,
+   78.0
+  ],
+  "copper_layers": 4,
+  "thickness_mm": 1.6,
+  "footprints_by_side": {
+   "top": 107,
+   "bottom": 1
+  },
+  "holes": [
+   {
+    "ref": "H1",
+    "x_mm": 4.06,
+    "y_mm": 3.95,
+    "drill_mm": 3.2,
+    "min_web_mm": 0.46
+   },
+   {
+    "ref": "H2",
+    "x_mm": 4.06,
+    "y_mm": 75.95,
+    "drill_mm": 3.2,
+    "min_web_mm": 0.46
+   },
+   {
+    "ref": "H3",
+    "x_mm": 51.06,
+    "y_mm": 3.95,
+    "drill_mm": 3.2,
+    "min_web_mm": 1.35
+   },
+   {
+    "ref": "H4",
+    "x_mm": 51.06,
+    "y_mm": 75.95,
+    "drill_mm": 3.2,
+    "min_web_mm": 1.45
+   },
+   {
+    "ref": "H5",
+    "x_mm": 124.06,
+    "y_mm": 3.95,
+    "drill_mm": 3.2,
+    "min_web_mm": 1.34
+   },
+   {
+    "ref": "H6",
+    "x_mm": 124.06,
+    "y_mm": 75.95,
+    "drill_mm": 3.2,
+    "min_web_mm": 1.34
+   }
+  ],
+  "tht_leads_toward_tab5": [
+   "J1",
+   "J2",
+   "J5",
+   "J6",
+   "J7",
+   "J8",
+   "JP1",
+   "SW3"
+  ],
+  "tracks": 2218,
+  "vias": 243,
+  "track_length_m": 3.6,
+  "nets": 134
+ },
+ "drc_erc": {
+  "drc_violations": 0,
+  "unconnected": 0,
+  "parity_total": 426,
+  "parity_categories": {
+   "footprint library nickname differs, footprint name equal": 114,
+   "LCSC/Comment fields only in the schematic": 107,
+   "net name differs only by the hierarchical \"/\" prefix": 120,
+   "mounting holes: exclude-from-BOM attribute differs": 6,
+   "other: 回路図に対応するピンが見つかりません PTHパッド 3 [GND] (J1)": 1,
+   "schematic no-connect pin, unnumbered pad without net on the PCB": 78
+  },
+  "erc_all_severities": {
+   "warning:lib_symbol_mismatch": 156,
+   "warning:isolated_pin_label": 3
+  }
+ },
+ "netlist": {
+  "schematic_pins": 575,
+  "pcb_pads": 577,
+  "nets": 241,
+  "differences": [],
+  "pcb_only_nets": [
+   {
+    "pad": "J1.3",
+    "schematic": null,
+    "pcb": [
+     "GND"
+    ]
+   },
+   {
+    "pad": "J4.MP",
+    "schematic": null,
+    "pcb": [
+     "GND"
+    ]
+   }
+  ],
+  "single_pin_nets": [
+   "PD_PG",
+   "TAB_SCL",
+   "TAB_SDA"
+  ]
+ },
+ "checks": {
+  "check_continuity": 0,
+  "check_negative": 0,
+  "check_classification": 0,
+  "check_esd_footprint": 0,
+  "check_d1_bias": 0,
+  "check_ground_reference": 0,
+  "check_parallel_power": 0,
+  "check_power_dc": 0,
+  "check_mbus_revision": 0,
+  "test_classification_check": 0,
+  "test_d1_bias_check": 0,
+  "test_esd_check": 0,
+  "test_parallel_power_check": 0
+ },
+ "model": {
+  "exit_codes": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "identical": [
+   "tmds_geom.json",
+   "tmds_roles.json",
+   "pair_lengths.json",
+   "tmds_summary.json",
+   "tmds_sparam.json",
+   "report_sparam.json",
+   "report_matrix.json",
+   "report_variants.json",
+   "report_sensitivity.json"
+  ],
+  "changed": []
+ },
+ "manifest": {
+  "files": 155,
+  "mismatched": []
+ }
+}

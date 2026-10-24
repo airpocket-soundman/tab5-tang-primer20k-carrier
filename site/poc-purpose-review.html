@@ -70,7 +70,7 @@ footer{color:var(--muted);font-size:.85rem;padding:32px 0 48px}
 .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
 svg text{font-family:inherit;fill:var(--ink)}
 svg .mut{fill:var(--muted)}
-</style></head><body><header class="top"><div class="wrap"><p>2026-10-24・独立評価と設計修正</p></div></header><p id="poc-fabrication-link"><a href="poc-fabrication.html">最新：パラレル通信・電源の修正と発注準備（M5-Bus向き確認・修正済み）</a></p><main class="wrap"><nav><a href="index.html">設計仕様</a> / <a href="hdmi-simulation-r3.html">更新シミュレーション</a> / <a href="hdmi-audit-handover.html">修正前851adf4の確認</a></nav><h1>PoC目的への独立評価とD1分岐の実修正</h1>
+</style></head><body><header class="top"><div class="wrap"><p>2026-10-24・独立評価と設計修正</p></div></header><p id="pcb-report-link"><a href="pcb-report.html">最新：基板レポート（独立レビュー・シミュレーション・BOM・外観図、2026-10-25）</a></p><p id="poc-fabrication-link"><a href="poc-fabrication.html">発注準備：パラレル通信・電源の修正（M5-Bus向き確認・修正済み）</a></p><main class="wrap"><nav><a href="index.html">設計仕様</a> / <a href="hdmi-simulation-r3.html">更新シミュレーション</a> / <a href="hdmi-audit-handover.html">修正前851adf4の確認</a></nav><h1>PoC目的への独立評価とD1分岐の実修正</h1>
 <p>日付：2026-10-24。変更前：<code>f47f28fa714dfb23843b7516e887ca90acdd0f14</code>。この評価の変更後は固定コミット <code>047538febbbf98b8758caa1441b386347c2afe14</code>。当時のmanifestも同コミットから参照する。最新の電源・パラレル通信修正と発注準備は <a href="poc-fabrication.html">PoC発注準備</a> を参照。</p>
 <h2>結論</h2>
 <p><strong>720p60のHDMIを短いケーブル・限定モニタで試す少数PoCとして、較正済みの全Core 3D解析を発注前の必須条件にする必要はない。一方、現状をLinux/GPU共通キャリア全体の製作合格とは判断しない。</strong> 通信の実装、電源断時の信号隔離、実装部品・実物との機構照合が未完了だからである。HDMIの受動伝送推定の合否だけで、この基板の本来の目的は判定できない。</p>

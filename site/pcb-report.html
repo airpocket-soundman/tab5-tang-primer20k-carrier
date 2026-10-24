@@ -1,0 +1,182 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>キャリア基板レポート</title><meta name="description" content="Tab5 × Tang Primer 20K キャリア基板の最新版レポート：独立レビュー、HDMIシミュレーション、BOM、外観図"><style>
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --ink:#1b1f24; --muted:#5b6672; --line:#d9dee4;
+  --accent:#1f6feb; --ok:#1a7f37; --okbg:#e3f5e8; --warn:#9a6700; --warnbg:#fff4d1;
+  --bad:#cf222e; --badbg:#fde4e6; --info:#0a6aa1; --infobg:#e1f1fb;
+  --pcb:#1f7a4d; --pcb2:#2f9e68; --tab5:#c9ced6; --code:#eef1f5;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1318; --panel:#171c23; --ink:#e6eaef; --muted:#9aa5b1; --line:#2b333d;
+    --accent:#58a6ff; --ok:#56d364; --okbg:#10301a; --warn:#e3b341; --warnbg:#3a2d0b;
+    --bad:#ff7b72; --badbg:#3c1418; --info:#79c0ff; --infobg:#0d2c44;
+    --pcb:#1d6b45; --pcb2:#2b8a5c; --tab5:#3a424d; --code:#222a33;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1318; --panel:#171c23; --ink:#e6eaef; --muted:#9aa5b1; --line:#2b333d;
+  --accent:#58a6ff; --ok:#56d364; --okbg:#10301a; --warn:#e3b341; --warnbg:#3a2d0b;
+  --bad:#ff7b72; --badbg:#3c1418; --info:#79c0ff; --infobg:#0d2c44;
+  --pcb:#1d6b45; --pcb2:#2b8a5c; --tab5:#3a424d; --code:#222a33;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 "Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif}
+a{color:var(--accent)}
+header.top{background:var(--panel);border-bottom:1px solid var(--line);padding:28px 16px 20px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header.top .wrap{padding:0}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 6px}
+.sub{color:var(--muted);margin:0}
+.badge{display:inline-block;font-size:.78rem;padding:2px 10px;border-radius:999px;background:var(--warnbg);color:var(--warn);border:1px solid var(--warn);margin-right:6px;vertical-align:middle}
+nav.toc{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+nav.toc .wrap{display:flex;gap:4px;padding-top:6px;padding-bottom:6px}
+nav.toc a{padding:4px 12px;border-radius:6px;text-decoration:none;color:var(--ink);font-size:.9rem}
+nav.toc a:hover{background:var(--code)}
+section{padding:36px 0 8px}
+h2{font-size:1.35rem;margin:0 0 14px;padding-left:12px;border-left:5px solid var(--accent)}
+h3{font-size:1.08rem;margin:26px 0 8px}
+p{margin:.6em 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.callout{border-left:5px solid var(--info);background:var(--infobg);padding:10px 14px;border-radius:6px;margin:14px 0}
+.callout.warn{border-color:var(--warn);background:var(--warnbg)}
+.callout.bad{border-color:var(--bad);background:var(--badbg)}
+.callout.ok{border-color:var(--ok);background:var(--okbg)}
+.callout b.t{display:block;margin-bottom:2px}
+figure{margin:16px 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{color:var(--muted);font-size:.88rem;padding:6px 6px 2px}
+.tw{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:560px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--code);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.c,th.c{text-align:center}
+.t-ok{background:var(--okbg);color:var(--ok);font-weight:600}
+.t-warn{background:var(--warnbg);color:var(--warn);font-weight:600}
+.t-bad{background:var(--badbg);color:var(--bad);font-weight:600}
+.t-info{background:var(--infobg);color:var(--info);font-weight:600}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font-family:ui-monospace,Consolas,monospace;font-size:.88em}
+ul{padding-left:1.3em;margin:.5em 0}
+li{margin:.2em 0}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:14px 0}
+.kpi div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi b{display:block;font-size:1.25rem}
+.kpi span{color:var(--muted);font-size:.85rem}
+footer{color:var(--muted);font-size:.85rem;padding:32px 0 48px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.85rem;color:var(--muted);margin:6px 2px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+svg text{font-family:inherit;fill:var(--ink)}
+svg .mut{fill:var(--muted)}
+figure img{width:100%;height:auto;display:block;border-radius:6px}figure img.paper{background:#fff;padding:8px}.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}.grid3 figure{margin:0}.verdict{font-size:1.05rem}table.bom td:nth-child(6),table.bom td:nth-child(7){font-size:.82rem;color:var(--muted)}main.wrap{padding-bottom:24px}code.hash{overflow-wrap:anywhere}table.nw td{white-space:nowrap}</style></head><body>
+<header class="top"><div class="wrap">
+ <p><span class="badge">基板レポート 最新版</span><span class="badge">少数PoC 発注候補</span></p>
+ <h1>Tab5 × Tang Primer 20K キャリア基板<br>基板レポート（独立レビュー・シミュレーション・BOM・外観図）</h1>
+ <p class="sub">対象：コミット <code>d93af0b</code>（M5-Bus列の実物確認・修正後）、PCB SHA-256 <code>504e7f908d2295b4</code>。作成：2026-10-25、KiCad 10.0.6。</p>
+</div></header>
+<nav class="toc"><div class="wrap"><a href="#verdict">結論</a><a href="#review">独立レビュー</a><a href="#look">外観図</a><a href="#board">基板仕様</a><a href="#power">電源</a><a href="#bus">パラレル</a><a href="#hdmi">HDMIシミュレーション</a><a href="#bom">BOM</a><a href="#verify">検査一覧</a><a href="#files">データ</a></div></nav>
+<main class="wrap">
+<p><a href="index.html">← 企画・設計仕様</a> ／ 詳細：<a href="poc-fabrication.html">発注準備（通信・電源）</a>、<a href="hdmi-simulation-r3.html">HDMIシミュレーション第3版</a>、<a href="uniform-line-calibration.html">3D均一直線の校正</a></p>
+
+<section id="verdict">
+<h2>1. 結論</h2>
+<div class="kpi">
+ <div><b>0 / 0</b><span>DRC違反 / 未配線（警告を含む全重大度）</span></div>
+ <div><b>0 件</b><span>回路図とPCBのピン単位のネット不一致（575ピン）</span></div>
+ <div><b>13 / 13</b><span>自動検査・故障注入スクリプト成功（回帰38ケース）</span></div>
+ <div><b>-15.5 dB</b><span>SDD11最大（〜1.5GHz、悪い方 D2）</span></div>
+ <div><b>-0.88 dB</b><span>SDD21 @742MHz（悪い方 D0）</span></div>
+ <div><b>92個 / 38行</b><span>JLC実装（BOM・CPLの部品集合一致）</span></div>
+</div>
+<div class="callout ok verdict"><b class="t">判断：少数PoCとして発注してよい（左側取付穴の扱いを決めてから）</b>
+電気的な設計は、DRC・ERC（エラー）・ネット照合・TMDS/パラレル/電源の自動検査・故障注入のすべてを私の環境で再実行して確認した。
+HDMIのチャネル推定もPCBから抽出し直して、公開値と完全に一致した（9ファイルがバイト単位で同一）。
+発注前に判断が必要なのは<b>左側M3穴（H1/H2）の縁残り0.46mm</b>の1件で、電気特性には影響しない。</div>
+<div class="callout warn"><b class="t">このレポートが保証しないこと</b>
+実機での通信・DDR3アクセス・720p60表示、HDMI規格適合は未確認。HDMIの数値は2D線路接続モデルによる推定で、Core基板内・SODIMM接点・ビアの寄生は感度解析に留まる。
+複合条件（Core側 85Ω × ESD 0.50pF）では自主目標の−10dBを外れる（-9.1dB）。</div>
+</section>
+
+<section id="review">
+<h2>2. 独立レビューの指摘</h2>
+<p>監査済みの設計を、記録された結果を信用せずに再実行し、図面・BOM・3D外観を目視で確認した。再実行の内容は9章と <code>kicad/sim/pcb_report_review_2026-10-25.json</code> に保存した。</p>
+<div class="tw"><table class=""><thead><tr><th>区分</th><th>項目</th><th>内容</th></tr></thead><tbody><tr><td class="t-warn">発注前に判断</td><td><b>左側M3穴の縁残りが少ない</b></td><td>H1・H2（x=4.06mm）は穴の縁から基板外形まで<b>0.46mm</b>しかない（他の穴は1.34mm以上）。DRCは銅と外形の距離を見るため、銅の無い取付穴は検出されない。加工時の欠け・ネジ締めでの割れ、M3なべ頭（φ5.5mm程度）の外形はみ出しが起こりうる。設計仕様（index.html 2章）では左側の穴は「キャリアは使用しない」としている。使わないなら穴を削除し、使うなら外形を左へ広げられるかTab5.stlで確認する。</td></tr><tr><td class="t-warn">組立時に確認</td><td><b>Tab5側へ出るTHTのリード</b></td><td>上面実装のTHT部品（J1、J2、J5、J6、J7、J8、JP1、SW3）のリードはTab5背面側へ出る。J3の嵌合で決まる隙間より短く切り、絶縁を確認する。特にJP1や、後付けするJ6〜J8のピンヘッダの尾部（一般に約3mm）は、そのままでは当たる可能性がある。</td></tr><tr><td class="t-info">記録</td><td><b>回路図とPCBの等価性</b></td><td>KiCadの等価性検査は426件を表示するが、内訳はすべて表記の差（ネット名の「/」、ライブラリ名、LCSC欄、取付穴のBOM属性）。ピン単位の比較（回路図575ピン）で不一致は0件。PCBだけにあるネットはJ1.3→GND、J4.MP→GNDで、DCジャックのスリーブ側とCoreソケット固定金具をGNDへ接続する意図した接続。回路図側へ反映しておくと、次回から等価性検査を合否判定に使える。</td></tr><tr><td class="t-info">記録</td><td><b>1ピンだけのネット</b></td><td>PD_PG、TAB_SCL、TAB_SDAは1ピンだけに接続（ERC警告3件）。CH224Kのパワーグッドと、M5-BusのI2Cをキャリアで使わない設計どおり。意図を示すため未接続フラグにするとよい。</td></tr><tr><td class="t-info">記録</td><td><b>降圧のENA分圧（R8 100k／R9 15k）</b></td><td>12V入力時のENAは約1.57V。TPS5430のENA立上り閾値はデータシートで代表値1.3Vのみ（最小・最大の規定なし）で、余裕は約0.27V。BOM注記の「9V以下では起動しない」は保証値ではない。ただしTPS5430は9V入力でも5Vを出力できるため、安全上の問題ではない。</td></tr><tr><td class="t-info">記録</td><td><b>BOM注記の混同</b></td><td>D4（降圧のキャッチダイオード）がD1/D2と同じ行で「reverse-polarity + OR」と注記されている。U9とU10の注記はどちらも「3.08V / 4.38V」。C10「10u/16V」は50V品C13585を共用（耐圧は上側なので問題なし）。注文時の照合で迷わないよう注記を分けるとよい。</td></tr><tr><td class="t-info">記録</td><td><b>kicad/README.md の状態欄が古い</b></td><td>「Not manufacturing-ready（M5-Busの向きが未確認）」と、旧版の数値（SDD11 −16.1dB、SCD21 −33.6dB）が残っている。最新はM5-Bus確認済み、SDD11最大 −15.5dB、SCD21最大 −25.5dB。</td></tr><tr><td class="t-info">記録</td><td><b>3Dモデルの欠落</b></td><td>J4（SODIMMソケット）とTang Primer 20K Core本体の3Dモデルが無く、下の外観図には写らない。Core搭載時の高さ・HDMIコネクタとの干渉は実物で確認する。</td></tr></tbody></table></div>
+</section>
+
+<section id="look">
+<h2>3. 外観図</h2>
+<p>KiCad 3Dビューアで現行PCBから描画（d93af0b）。Coreとソケット（J4）は3Dモデルが無いため、シルクの枠だけが写る。</p>
+<figure><img src="img/render_top_poc.png" alt="基板上面の3D画像" loading="lazy"><figcaption>図1　上面（部品面）。左：電源入力（DCジャックJ1、USB-C PD J2、降圧U2）、中央：M5-Bus（J3、下面）とバススイッチU7/U8、右：Coreソケット J4、HDMI J5。</figcaption></figure>
+<div class="grid2">
+<figure><img src="img/render_iso_poc.png" alt="基板の斜視3D画像" loading="lazy"><figcaption>図2　斜め上から。HDMIコネクタは右辺から張り出す。</figcaption></figure>
+<figure><img src="img/render_bottom_poc.png" alt="基板下面の3D画像" loading="lazy"><figcaption>図3　下面（Tab5側）。M5-Busヘッダ J3 のみを実装。下面から見た鏡像。</figcaption></figure>
+</div>
+<div class="grid2">
+<figure><img class="paper" src="audit-data/poc-assembly-top.svg" alt="上面実装図" loading="lazy"><figcaption>図4　上面実装図（発注データと同じもの）</figcaption></figure>
+<figure><img class="paper" src="audit-data/poc-assembly-bottom.svg" alt="下面実装図" loading="lazy"><figcaption>図5　下面実装図（下面から見た鏡像）</figcaption></figure>
+</div>
+</section>
+
+<section id="board">
+<h2>4. 基板仕様</h2>
+<div class="tw"><table class=""><thead><tr><th>項目</th><th>値</th></tr></thead><tbody><tr><td>外形・層</td><td>125 × 78 mm、4層、1.6 mm</td></tr><tr><td>積層</td><td>外層35µm／内層17.5µm、JLC04161H-7628相当。表層からIn1 GNDまで0.2104mm（HDMI解析の前提）</td></tr><tr><td>部品</td><td>上面 107個、下面 1個（J3）、取付穴6</td></tr><tr><td>配線</td><td>ネット134、配線2218本（総延長3.6 m）、ビア243</td></tr><tr><td>入力</td><td>安定化12Vのみ（DCジャック、またはUSB PDで12V要求）。24Vは不可</td></tr><tr><td>M5-Bus</td><td>Tab5裏面を電池区画が左になる向きで見て、左列がGND／1番（2026-10-24 実物確認）</td></tr></tbody></table></div>
+<h3>取付穴</h3>
+<div class="tw"><table class=""><thead><tr><th>穴</th><th>中心 (x, y)</th><th>穴径</th><th>外形までの残り</th></tr></thead><tbody><tr><td>H1</td><td>(4.06, 3.95)</td><td>3.2 mm</td><td class="t-warn">0.46 mm</td></tr><tr><td>H2</td><td>(4.06, 75.95)</td><td>3.2 mm</td><td class="t-warn">0.46 mm</td></tr><tr><td>H3</td><td>(51.06, 3.95)</td><td>3.2 mm</td><td class="t-ok">1.35 mm</td></tr><tr><td>H4</td><td>(51.06, 75.95)</td><td>3.2 mm</td><td class="t-ok">1.45 mm</td></tr><tr><td>H5</td><td>(124.06, 3.95)</td><td>3.2 mm</td><td class="t-ok">1.34 mm</td></tr><tr><td>H6</td><td>(124.06, 75.95)</td><td>3.2 mm</td><td class="t-ok">1.34 mm</td></tr></tbody></table></div>
+</section>
+
+<section id="power">
+<h2>5. 電源</h2>
+<div class="tw"><table class=""><thead><tr><th>区分</th><th>構成</th></tr></thead><tbody><tr><td>入力保護</td><td>PTC 3A（F1）、SMBJ15A（D3、クランプ24.4V）、SS54でDC/PDをOR（D1/D2）、100µF/35V</td></tr><tr><td>USB PD</td><td>CH224K（U1）で12V要求：CFG1/CFG2=Low、CFG3=内部プルアップ（R4はDNP）</td></tr><tr><td>Core用5V</td><td>TPS5430（U2）、15µH、10k/3.24kで約4.99V、出力220µF POSCAP（ESR最大40mΩ）</td></tr><tr><td>バススイッチ用3.3V</td><td>TLV1117LV33（U3）、セラミック出力で安定する品番</td></tr><tr><td>Tab5への供給</td><td>VIN（12V）をM5-Bus HVIN（25/27/29番）へ。Tab5の5V/BATは未接続</td></tr></tbody></table></div>
+<p>Core 5V端子までの銅経路の直列抵抗は 0.105〜0.124 Ω、0.5Aを1経路に流した場合の降下は約62 mV。
+帰還抵抗±1%・基準±2%での設定範囲は 4.817〜5.167 V で、Coreの規定（4.5〜5.5 V）に入る。
+接点・GND帰路・リップル・負荷変動は含まないため、初回通電で測定する。</p>
+</section>
+
+<section id="bus">
+<h2>6. パラレル通信</h2>
+<p>Tab5 → SN74CB3Q3245（U7/U8、Ioff対応）→ 33Ω → Core。両方の電源監視（TPS3839：Tab5 3.3V／Core 5V）が正常で、BUS ARMジャンパ（JP1、初期は開放）を閉じたときだけOEが有効になる。CLKはCoreの専用クロック入力（52番、GCLKT_1）。</p>
+<div class="tw"><table class=""><thead><tr><th>信号</th><th>M5-Busピン</th><th>Core SODIMMピン</th></tr></thead><tbody><tr><td>D0</td><td>7</td><td>77</td></tr><tr><td>D1</td><td>9</td><td>83</td></tr><tr><td>D2</td><td>11</td><td>85</td></tr><tr><td>D3</td><td>19</td><td>103</td></tr><tr><td>D4</td><td>20</td><td>101</td></tr><tr><td>D5</td><td>21</td><td>109</td></tr><tr><td>D6</td><td>22</td><td>107</td></tr><tr><td>D7</td><td>23</td><td>115</td></tr><tr><td>CLK</td><td>2</td><td>52</td></tr><tr><td>RDY</td><td>8</td><td>75</td></tr><tr><td>DIR</td><td>26</td><td>119</td></tr><tr><td>AUX0</td><td>4</td><td>73</td></tr><tr><td>AUX1</td><td>10</td><td>79</td></tr><tr><td>AUX2</td><td>16</td><td>95</td></tr><tr><td>AUX3</td><td>15</td><td>97</td></tr></tbody></table></div>
+</section>
+
+<section id="hdmi">
+<h2>7. HDMIシミュレーション</h2>
+<p>実PCBの銅から抽出した経路に、2D電磁界ソルバの線路定数、AC結合キャップ、ESD（0.35pF）、499Ω枝（P/N別位置）、コネクタを接続した4ポートモデル。観察帯域は720p60に対して〜1.5GHz。今回のレビューで抽出から図の生成までを再実行し、結果は公開値と一致した。</p>
+<div class="tw"><table class="nw"><thead><tr><th>ペア</th><th>P/N長</th><th>スキュー</th><th>Zdiff 最小/平均</th><th>499Ω枝 P/N</th><th>SDD11 371/742MHz</th><th>SDD11最大</th><th>SDD21 371/742MHz</th><th>SCD21最大</th></tr></thead><tbody><tr><td>D0</td><td>59.01 / 59.01 mm</td><td>0.00 mm</td><td>103 / 112 Ω</td><td>9.1 / 8.0 mm</td><td>-23.4 / -19.3 dB</td><td><b>-16.8 dB</b></td><td>-0.67 / -0.88 dB</td><td>-39.5 dB</td></tr><tr><td>D1</td><td>41.01 / 41.01 mm</td><td>0.00 mm</td><td>103 / 116 Ω</td><td>0.6 / 0.6 mm</td><td>-23.2 / -19.7 dB</td><td><b>-17.3 dB</b></td><td>-0.63 / -0.80 dB</td><td>数値床（理想対称）</td></tr><tr><td>D2</td><td>41.04 / 41.04 mm</td><td>0.00 mm</td><td>103 / 116 Ω</td><td>2.2 / 7.5 mm</td><td>-24.5 / -20.9 dB</td><td><b>-15.5 dB</b></td><td>-0.63 / -0.79 dB</td><td>-25.5 dB</td></tr><tr><td>CK</td><td>59.64 / 59.64 mm</td><td>0.00 mm</td><td>103 / 112 Ω</td><td>8.2 / 6.4 mm</td><td>-23.3 / -19.4 dB</td><td><b>-17.4 dB</b></td><td>-0.67 / -0.88 dB</td><td>-35.3 dB</td></tr></tbody></table></div>
+<figure><img src="img/sim_sparam_r3.png" alt="Sパラメータのグラフ" loading="lazy"><figcaption>図6　差動S11／S21、モード変換、Core側配線の差動インピーダンス</figcaption></figure>
+<div class="grid2">
+<figure><img src="img/sim_route_r3.png" alt="TMDS配線図" loading="lazy"><figcaption>図7　TMDS 4組の実配線（細線=P、太線=N、黒細線=499Ω枝）</figcaption></figure>
+<figure><img src="img/sim_matrix_r3.png" alt="複合条件の結果" loading="lazy"><figcaption>図8　Core側ZとESD容量の複合条件（悪い方のペア）</figcaption></figure>
+</div>
+<h3>複合条件（Core側Z × ESD容量）</h3>
+<div class="tw"><table class=""><thead><tr><th>Core側Z</th><th>ESD差動容量</th><th>SDD11最大（悪い方）</th><th>SDD21 @742MHz</th><th>−10dB目標</th></tr></thead><tbody><tr><td>85 Ω</td><td>0.20 pF</td><td>-11.1 dB (D1)</td><td>-0.99 dB</td><td class="t-ok">満たす</td></tr><tr><td>85 Ω</td><td>0.35 pF</td><td>-10.6 dB (D2)</td><td>-0.97 dB</td><td class="t-ok">満たす</td></tr><tr><td>85 Ω</td><td>0.50 pF</td><td>-9.1 dB (D2)</td><td>-0.96 dB</td><td class="t-bad">外れる</td></tr><tr><td>100 Ω</td><td>0.20 pF</td><td>-17.8 dB (D1)</td><td>-0.88 dB</td><td class="t-ok">満たす</td></tr><tr><td>100 Ω</td><td>0.35 pF</td><td>-15.5 dB (D2)</td><td>-0.88 dB</td><td class="t-ok">満たす</td></tr><tr><td>100 Ω</td><td>0.50 pF</td><td>-12.9 dB (D2)</td><td>-0.90 dB</td><td class="t-ok">満たす</td></tr><tr><td>115 Ω</td><td>0.20 pF</td><td>-15.7 dB (D1)</td><td>-0.92 dB</td><td class="t-ok">満たす</td></tr><tr><td>115 Ω</td><td>0.35 pF</td><td>-14.5 dB (D2)</td><td>-0.96 dB</td><td class="t-ok">満たす</td></tr><tr><td>115 Ω</td><td>0.50 pF</td><td>-13.1 dB (D2)</td><td>-1.00 dB</td><td class="t-ok">満たす</td></tr></tbody></table></div>
+<h3>是正の効果と感度</h3>
+<div class="tw"><table class=""><thead><tr><th>条件</th><th>SDD11最大</th><th>SDD21 @742MHz</th><th>SCD21最大</th></tr></thead><tbody><tr><td>理想（ESD・枝なし）</td><td>-17.6 dB (D0)</td><td>-0.44 dB</td><td>数値床（理想対称）</td></tr><tr><td>是正後（現在の枝）</td><td>-15.5 dB (D2)</td><td>-0.88 dB</td><td>-25.5 dB</td></tr><tr><td>是正前の枝（21〜53mm）</td><td>-4.2 dB (D2)</td><td>-3.77 dB</td><td>-9.4 dB</td></tr><tr><td>P/N枝を同じ位置とした旧近似</td><td>-15.5 dB (D2)</td><td>-0.88 dB</td><td>-25.5 dB</td></tr><tr><td>比較案：短い対称枝（3mm×2、キャップ位置）</td><td>-16.1 dB (D2)</td><td>-0.86 dB</td><td>数値床（理想対称）</td></tr><tr><td>ESD 0.2pF</td><td>-17.8 dB (D1)</td><td>-0.88 dB</td><td>-24.9 dB</td></tr><tr><td>ESD 0.35pF（基準）</td><td>-15.5 dB (D2)</td><td>-0.88 dB</td><td>-25.5 dB</td></tr><tr><td>ESD 0.5pF</td><td>-12.9 dB (D2)</td><td>-0.90 dB</td><td>-26.4 dB</td></tr><tr><td>Core 85Ω</td><td>-10.6 dB (D2)</td><td>-0.97 dB</td><td>-25.2 dB</td></tr><tr><td>Core 100Ω（基準）</td><td>-15.5 dB (D2)</td><td>-0.88 dB</td><td>-25.5 dB</td></tr><tr><td>Core 115Ω</td><td>-14.5 dB (D2)</td><td>-0.96 dB</td><td>-26.0 dB</td></tr></tbody></table></div>
+<div class="grid2">
+<figure><img src="img/sim_variants_r3.png" alt="感度のグラフ" loading="lazy"><figcaption>図9　是正の効果とESD容量・Core側Zへの感度</figcaption></figure>
+<figure><img src="img/sim_sensitivity_r3.png" alt="接点寄生の感度" loading="lazy"><figcaption>図10　SODIMM接点の直列Lと並列C（実機の値は未確認）</figcaption></figure>
+</div>
+<p>モード変換の最悪は D2（-25.5 dB）で、P/Nの499Ω枝の長さの差による。D1は対称のため理論上0。D2はFPGA側でシリアルビットを反転する（<a href="https://github.com/airpocket-soundman/tab5-tang-primer20k-carrier/blob/main/docs/FPGA_HDMI%E8%A6%81%E6%B1%82_D2%E5%8F%8D%E8%BB%A2%E3%81%A8%E3%83%94%E3%83%B3.md">要求</a>）。3D電磁界解析は均一直線の校正までで、設計判断には使っていない。</p>
+</section>
+
+<section id="bom">
+<h2>8. BOM</h2>
+<p>JLC実装 92個、手実装 7個（ほかにM3取付穴6）、実装しない 9個。原本は <a href="https://github.com/airpocket-soundman/tab5-tang-primer20k-carrier/blob/main/kicad/bom.csv">kicad/bom.csv</a>、発注用は <code>manufacturing/poc-2026-10-24/jlc-bom.csv</code>。在庫と代替は注文時に確認し、ランドが合わない代替品は採用しない。</p>
+<div class="tw"><table class="bom"><thead><tr><th>区分</th><th>部品番号</th><th>値</th><th>数</th><th>LCSC</th><th>フットプリント</th><th>注記</th></tr></thead><tbody><tr><td>PCBA（JLC実装）</td><td><code>F1</code></td><td>PTC 3A hold</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C47002391.html">C47002391</a></td><td>Fuse_1812_4532Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>D1, D2, D4</code></td><td>SS54</td><td class="c">3</td><td><a href="https://www.lcsc.com/product-detail/C22452.html">C22452</a></td><td>D_SMA</td><td>reverse-polarity + OR (DC jack)</td></tr><tr><td>PCBA（JLC実装）</td><td><code>D3</code></td><td>SMBJ15A</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C699013.html">C699013</a></td><td>D_SMB</td><td>YANGJIE 15V standoff, 24.4V specified clamp; regulated 12V PoC input only</td></tr><tr><td>PCBA（JLC実装）</td><td><code>C1</code></td><td>100u/35V</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C2983388.html">C2983388</a></td><td>CP_Elec_6.3x7.7</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>J2</code></td><td>USB-C PD in</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C5246813.html">C5246813</a></td><td>USB_C_Receptacle_GCT_USB4125-xx-x-0190_6P_TopMnt_Horizontal</td><td>power-only USB-C 6P receptacle</td></tr><tr><td>PCBA（JLC実装）</td><td><code>U1</code></td><td>CH224K</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C970725.html">C970725</a></td><td>SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm</td><td>PD sink, 12V request: CFG1=0 CFG2=0 CFG3=1(internal PU)</td></tr><tr><td>PCBA（JLC実装）</td><td><code>R1, R36, R37, R40, R6</code></td><td>10k</td><td class="c">5</td><td><a href="https://www.lcsc.com/product-detail/C25804.html">C25804</a></td><td>R_0603_1608Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>C2</code></td><td>1u/50V</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C15849.html">C15849</a></td><td>C_0603_1608Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>R2, R42, R43, R44, R45</code></td><td>1k</td><td class="c">5</td><td><a href="https://www.lcsc.com/product-detail/C21190.html">C21190</a></td><td>R_0603_1608Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>R3, R5</code></td><td>0R</td><td class="c">2</td><td><a href="https://www.lcsc.com/product-detail/C21189.html">C21189</a></td><td>R_0603_1608Metric</td><td>CFG1 low (fit)</td></tr><tr><td>PCBA（JLC実装）</td><td><code>U2</code></td><td>TPS5430DDAR</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C9864.html">C9864</a></td><td>TI_SO-PowerPAD-8_ThermalVias</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>C3</code></td><td>10n</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C57112.html">C57112</a></td><td>C_0603_1608Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>L1</code></td><td>15u/4A</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C2041333.html">C2041333</a></td><td>L_Bourns_SRR1260</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>R7</code></td><td>3.24k</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C22994.html">C22994</a></td><td>R_0603_1608Metric</td><td>Vout = 1.221*(1+10k/3.24k) = 4.99V; R7 C22994 1%</td></tr><tr><td>PCBA（JLC実装）</td><td><code>R47, R48, R8</code></td><td>100k</td><td class="c">3</td><td><a href="https://www.lcsc.com/product-detail/C25803.html">C25803</a></td><td>R_0603_1608Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>R9</code></td><td>15k</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C22809.html">C22809</a></td><td>R_0603_1608Metric</td><td>External EN divider ~9.4V threshold; stays off at default USB 5V/9V</td></tr><tr><td>PCBA（JLC実装）</td><td><code>C4, C5</code></td><td>10u/50V</td><td class="c">2</td><td><a href="https://www.lcsc.com/product-detail/C13585.html">C13585</a></td><td>C_1206_3216Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>C6</code></td><td>100n/50V</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C14663.html">C14663</a></td><td>C_0603_1608Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>C7</code></td><td>220u/10V POSCAP</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C242173.html">C242173</a></td><td>CP_EIA-7343-40_Kemet-Y</td><td>Panasonic 10TPB220M, 220uF 10V ESR max40mohm; TI reference output capacitor</td></tr><tr><td>PCBA（JLC実装）</td><td><code>U3</code></td><td>TLV1117LV33DCYR</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C15578.html">C15578</a></td><td>SOT-223-3_TabPin2</td><td>TI TLV1117LV33: ceramic-output stable, pin-compatible SOT-223</td></tr><tr><td>PCBA（JLC実装）</td><td><code>C10</code></td><td>10u/16V</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C13585.html">C13585</a></td><td>C_1206_3216Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>C11</code></td><td>22u/10V</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C12891.html">C12891</a></td><td>C_1206_3216Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>R10, R11, R12, R13, R14, R15, R16, R19, R20, R21, R22, R23, R24, R26, R27</code></td><td>33R</td><td class="c">15</td><td><a href="https://www.lcsc.com/product-detail/C23140.html">C23140</a></td><td>R_0603_1608Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>J4</code></td><td>Tang Primer 20K Core</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C367004.html">C367004</a></td><td>DDR3-SMD_0705F0BE40F</td><td>Sipeed footprint (LCSC C367004)</td></tr><tr><td>PCBA（JLC実装）</td><td><code>C12, C13, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23</code></td><td>100n</td><td class="c">12</td><td><a href="https://www.lcsc.com/product-detail/C14663.html">C14663</a></td><td>C_0603_1608Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>R28, R29, R32, R33, R34, R35</code></td><td>499R</td><td class="c">6</td><td><a href="https://www.lcsc.com/product-detail/C23065.html">C23065</a></td><td>R_0603_1608Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>R30, R31</code></td><td>499R</td><td class="c">2</td><td><a href="https://www.lcsc.com/product-detail/C4125.html">C4125</a></td><td>R_0402_1005Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>U4, U5</code></td><td>RCLAMP0524P</td><td class="c">2</td><td><a href="https://www.lcsc.com/product-detail/C293965.html">C293965</a></td><td>DFN2510-10L_RCLAMP0524P</td><td>TMDS ESD array (DOWO DFN2510-10L): I/O 1,2,4,5, GND 3,8; the line is routed as continuous copper through strapped pads</td></tr><tr><td>PCBA（JLC実装）</td><td><code>U6</code></td><td>SRV05-4</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C13612.html">C13612</a></td><td>SOT-23-6</td><td>DDC/HPD ESD as on the official Dock</td></tr><tr><td>PCBA（JLC実装）</td><td><code>F2</code></td><td>PTC 500mA</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C315893.html">C315893</a></td><td>Fuse_1206_3216Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>Q1, Q2, Q3, Q4</code></td><td>2N7002</td><td class="c">4</td><td><a href="https://www.lcsc.com/product-detail/C8545.html">C8545</a></td><td>SOT-23</td><td>DDC level shifter (pin1=G pin2=S pin3=D)</td></tr><tr><td>PCBA（JLC実装）</td><td><code>R38, R39</code></td><td>2.2k</td><td class="c">2</td><td><a href="https://www.lcsc.com/product-detail/C4190.html">C4190</a></td><td>R_0603_1608Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>R41</code></td><td>20k</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C4184.html">C4184</a></td><td>R_0603_1608Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>D5, D6, D7, D8</code></td><td>LED</td><td class="c">4</td><td><a href="https://www.lcsc.com/product-detail/C2286.html">C2286</a></td><td>LED_0603_1608Metric</td><td></td></tr><tr><td>PCBA（JLC実装）</td><td><code>U7, U8</code></td><td>SN74CB3Q3245PWR</td><td class="c">2</td><td><a href="https://www.lcsc.com/product-detail/C470961.html">C470961</a></td><td>TSSOP-20_4.4x6.5mm_P0.65mm</td><td>Ioff protected 8-bit passive bus switch; OE pulled high by default</td></tr><tr><td>PCBA（JLC実装）</td><td><code>U9</code></td><td>TPS3839G33DBZR</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C485802.html">C485802</a></td><td>SOT-23</td><td>3.08V / 4.38V supervisor, 200ms typical release delay</td></tr><tr><td>PCBA（JLC実装）</td><td><code>U10</code></td><td>TPS3839K50DBZR</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C702204.html">C702204</a></td><td>SOT-23</td><td>3.08V / 4.38V supervisor, 200ms typical release delay</td></tr><tr><td>PCBA（JLC実装）</td><td><code>R46</code></td><td>22k</td><td class="c">1</td><td><a href="https://www.lcsc.com/product-detail/C31850.html">C31850</a></td><td>R_0603_1608Metric</td><td></td></tr><tr><td>手実装</td><td><code>J1</code></td><td>DC 12V ONLY</td><td class="c">1</td><td>—</td><td>BarrelJack_Horizontal</td><td>DC barrel jack, centre positive (THT, hand assembly)</td></tr><tr><td>手実装</td><td><code>J3</code></td><td>M5-BUS (to Tab5)</td><td class="c">1</td><td>—</td><td>PinHeader_2x15_Tab5_Bottom</td><td>User confirmed 2026-10-24: rear view, battery left, pin1 GND on left; mirrored-column footprint</td></tr><tr><td>手実装</td><td><code>J5</code></td><td>HDMI OUT</td><td class="c">1</td><td>—</td><td>HDMI_A_Molex_208658-1001_Horizontal</td><td>TMDS from FPGA true-LVDS outputs (3.3V bank), AC coupled + 499R bias + ESD (official-Dock style)</td></tr><tr><td>手実装</td><td><code>SW1</code></td><td>SW</td><td class="c">1</td><td>—</td><td>SW_SPST_EVQP0</td><td></td></tr><tr><td>手実装</td><td><code>SW2</code></td><td>RESET (Tab5)</td><td class="c">1</td><td>—</td><td>SW_SPST_EVQP0</td><td>pulls the M5-Bus RST/EN line (pin 6) low: resets the ESP32-P4</td></tr><tr><td>手実装</td><td><code>SW3</code></td><td>FPGA ON/OFF</td><td class="c">1</td><td>—</td><td>SW_DIP_SPSTx01_Slide_9.78x4.72mm_W7.62mm_P2.54mm</td><td>slide switch: ON = open (buck runs), OFF = short EN to GND (FPGA 5V off). Tab5 keeps its own power button. Sits in the switch row with the two tact switches, clear of the board edge</td></tr><tr><td>手実装</td><td><code>JP1</code></td><td>BUS ARM (open by default)</td><td class="c">1</td><td>—</td><td>PinHeader_1x02_P2.54mm_Vertical</td><td>Fit shunt only after firmware GPIO ownership has been checked</td></tr><tr><td>実装しない（DNP）</td><td><code>R17, R18, R25, R4</code></td><td>0R</td><td class="c">4</td><td><a href="https://www.lcsc.com/product-detail/C21189.html">C21189</a></td><td>R_0603_1608Metric</td><td>Must remain DNP: CFG3 internal pull-up for 12V request</td></tr><tr><td>実装しない（DNP）</td><td><code>C8, C9</code></td><td>47u/10V</td><td class="c">2</td><td><a href="https://www.lcsc.com/product-detail/C96123.html">C96123</a></td><td>C_1206_3216Metric</td><td></td></tr><tr><td>実装しない（DNP）</td><td><code>J6</code></td><td>PMOD1</td><td class="c">1</td><td>—</td><td>PinHeader_2x06_P2.54mm_Vertical</td><td>2x6 PMOD-style, 3.3V. Pads only: pin header is hand-fitted later (DNP)</td></tr><tr><td>実装しない（DNP）</td><td><code>J7</code></td><td>PMOD2</td><td class="c">1</td><td>—</td><td>PinHeader_2x06_P2.54mm_Vertical</td><td>2x6 PMOD-style, 3.3V. Pads only: pin header is hand-fitted later (DNP)</td></tr><tr><td>実装しない（DNP）</td><td><code>J8</code></td><td>GPIO pads</td><td class="c">1</td><td>—</td><td>PinHeader_1x09_P2.54mm_Vertical</td><td>spare FPGA I/O (3.3V, bank 7): pads only, hand-fit a header or wires later</td></tr></tbody></table></div>
+</section>
+
+<section id="verify">
+<h2>9. 検査一覧（このレビューで再実行）</h2>
+<div class="tw"><table class=""><thead><tr><th>検査</th><th>結果</th><th>範囲</th><th>スクリプト</th></tr></thead><tbody><tr><td>DRC（警告・除外を含む全重大度）</td><td class="t-ok">違反0、未配線0</td><td>KiCad 10.0.6、トラックの全エラー</td><td><code>kicad-cli pcb drc</code></td></tr><tr><td>ERC</td><td class="t-ok">エラー0、警告159</td><td>回路図内のシンボルがライブラリ版と異なる156件、1ピンのネット3件</td><td><code>kicad-cli sch erc</code></td></tr><tr><td>回路図とPCBのネット照合</td><td class="t-ok">不一致0</td><td>回路図ネットリストの全575ピンとPCBパッドのネット</td><td><code>review_pcb_report.py</code></td></tr><tr><td>TMDS銅の連続性とピン対応</td><td class="t-ok">成功（終了コード0）</td><td>8線すべて、Coreパッド→キャップ→コネクタを銅だけで到達。期待ピン番号と一致</td><td><code>check_continuity.py</code></td></tr><tr><td>ストラップ除去の負の検査</td><td class="t-ok">成功（終了コード0）</td><td>各線のESDストラップを1本ずつ外すと、その線だけが不連続になる</td><td><code>check_negative.py</code></td></tr><tr><td>TMDS銅の区間分類</td><td class="t-ok">成功（終了コード0）</td><td>未分類0、重複0、幅の不一致0、ビア形状の誤り0</td><td><code>check_classification.py</code></td></tr><tr><td>ESDランドとデータシートの照合</td><td class="t-ok">成功（終了コード0）</td><td>DOWO RCLAMP0524P（DFN2510-10L）の外形寸法と配置済みランド</td><td><code>check_esd_footprint.py</code></td></tr><tr><td>D1バイアス分岐</td><td class="t-ok">成功（終了コード0）</td><td>R30/R31は0402、分岐0.585mm、近傍GNDビアあり</td><td><code>check_d1_bias.py</code></td></tr><tr><td>TMDS直下のGND参照</td><td class="t-ok">成功（終了コード0）</td><td>主配線・引き出し・ストラップ直下を0.25mm刻みで検査、全点が充填済みIn1 GND上</td><td><code>check_ground_reference.py</code></td></tr><tr><td>パラレル配線と電源トポロジ</td><td class="t-ok">成功（終了コード0）</td><td>15信号のM5-Bus↔Coreピン、バススイッチ、監視IC、OE回路など32項目</td><td><code>check_parallel_power.py</code></td></tr><tr><td>Core 5V銅経路の抵抗</td><td class="t-ok">成功（終了コード0）</td><td>Core 5V各端子までの直列抵抗と電圧降下（銅のみ）</td><td><code>check_power_dc.py</code></td></tr><tr><td>M5-Busの向き</td><td class="t-ok">成功（終了コード0）</td><td>実物確認した四隅（1=GND、2=CLK、29=VIN、30=未接続）とTMDS形状の不変</td><td><code>check_mbus_revision.py</code></td></tr><tr><td>故障注入：区間分類</td><td class="t-ok">成功（終了コード0）</td><td>11ケース</td><td><code>test_classification_check.py</code></td></tr><tr><td>故障注入：D1分岐</td><td class="t-ok">成功（終了コード0）</td><td>4ケース</td><td><code>test_d1_bias_check.py</code></td></tr><tr><td>故障注入：ESDランド</td><td class="t-ok">成功（終了コード0）</td><td>13ケース（回転・裏面反転を含む）</td><td><code>test_esd_check.py</code></td></tr><tr><td>故障注入：パラレル・電源</td><td class="t-ok">成功（終了コード0）</td><td>10ケース（M5-Bus列の左右反転を含む）</td><td><code>test_parallel_power_check.py</code></td></tr><tr><td>チャネルモデルの再現</td><td class="t-ok">9ファイル同一</td><td>抽出→線路→Sパラメータ→図</td><td><code>tmds_channel.py</code> ほか</td></tr><tr><td>ハッシュ台帳</td><td class="t-ok">155ファイル一致</td><td><code>manifest_r3.json</code> の全ファイル</td><td><code>make_manifest.py</code></td></tr></tbody></table></div>
+<p>DRCが通っても、M5-Busの機械的な嵌合、実装業者の回転規約、実機での通信は証明しない。JLCの部品プレビューでU2、U4/U5、U7/U8、U9/U10、C7、J2、J4の端子1・極性を照合する。</p>
+</section>
+
+<section id="files">
+<h2>10. データと再現手順</h2>
+<p><a href="audit-data/poc-manufacturing-candidate.zip">製造データ一式 ZIP</a>（ガーバー、ドリル、JLC BOM/CPL、IPC-D-356、実装図、DNP表、手実装表）／ <a href="audit-data/poc-assembly-top.svg">上面実装図</a> ／ <a href="audit-data/poc-assembly-bottom.svg">下面実装図</a></p>
+<div class="tw"><table class=""><thead><tr><th>コマンド</th><th>内容</th></tr></thead><tbody><tr><td><code>python -X utf8 kicad/sim/review_pcb_report.py</code></td><td>DRC・ERC・ネット照合・全検査・チャネルモデル再現・台帳照合・3D描画（KiCad 10のkicad-cliとPythonを使用）</td></tr><tr><td><code>python -X utf8 kicad/sim/make_pcb_report_page.py</code></td><td>このページ（数値はすべてJSONとbom.csvから読む）</td></tr></tbody></table></div>
+<p>PCB SHA-256（改行LF正規化）：<code class="hash">504e7f908d2295b43914edb1df9449e365dc87b77c5a415ac059950e3cdf2fe4</code>。製造データの元PCBと一致：はい。</p>
+</section>
+<footer>Tab5 × Tang Primer 20K キャリア基板 ／ 基板レポート ／ 2026-10-25</footer>
+</main></body></html>
