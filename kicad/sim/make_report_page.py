@@ -288,3 +288,6 @@ page = page.replace("%%", "%")
 page = page.replace('<section id="summary">', '<p><a href="hdmi-audit-checks.html">第3版監査後の検査修正・回帰試験（ランド寸法、配線幅・分類、D2説明）</a></p><section id="summary">')
 open(os.path.join(SITE, "hdmi-simulation-r3.html"), "w", encoding="utf-8").write(page)
 print("wrote site/hdmi-simulation-r3.html")
+
+from make_handover_page import link_handover
+link_handover()

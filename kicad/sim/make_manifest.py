@@ -13,6 +13,9 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 GROUPS = {
+    "handover": ["docs/HDMI_R3_監査引継ぎ確認_2026-10-24.md", "kicad/sim/audit_handover.py",
+                 "kicad/sim/make_handover_page.py", "kicad/sim/handover_851adf4_2026-10-24.json",
+                 "site/hdmi-audit-handover.html", "site/audit-data/handover_851adf4_2026-10-24.json"],
     "design": ["kicad/gen/design.py", "kicad/gen/route_pcb.py", "kicad/gen/make_pcb.py", "kicad/gen/finish_pcb.py",
                "kicad/lib/carrier.pretty/DFN2510-10L_RCLAMP0524P.kicad_mod", "kicad/tab5-fpga-carrier.kicad_pcb",
                "kicad/tab5-fpga-carrier.kicad_sch", "kicad/bom.csv", "kicad/core_pin_assignment.csv"],

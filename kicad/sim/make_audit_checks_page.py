@@ -28,3 +28,6 @@ text='''<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewpor
 </html>'''.replace('COUNT',str(count)).replace('ROWS',''.join(rows))
 (ROOT/'site/hdmi-audit-checks.html').write_text(text,encoding='utf-8')
 print('Published checker addendum:',count,'regressions')
+
+from make_handover_page import link_handover
+link_handover()
