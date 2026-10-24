@@ -35,14 +35,14 @@ python -X utf8 kicad/sim/tmds_channel.py ; python -X utf8 kicad/sim/tmds_sparam.
 ## Status
 * Schematic: ERC 0 violations; netlist matches the data model.
 * PCB: **113 / 113 nets routed**, **DRC: 0 errors, 0 unconnected** (silkscreen warnings only).
-* HDMI channel (4-port estimate, report r3): worst-pair SDD11 <= -12.9 dB up to 1.5 GHz, SDD21 -0.88 dB at 742 MHz, SCD21 <= -24.9 dB (mode conversion). Combined sensitivity (Core Z x ESD C): Core 85 ohm x ESD 0.35 pF (-9.1 dB), Core 85 ohm x ESD 0.50 pF (-7.9 dB) fail the -10 dB goal. 3D EM validation (openEMS) not done.
+* HDMI channel (4-port estimate, report r3): worst-pair SDD11 <= -16.1 dB up to 1.5 GHz, SDD21 -0.88 dB at 742 MHz, SCD21 <= -33.6 dB (mode conversion). Combined sensitivity (Core Z x ESD C): Core 85 ohm x ESD 0.50 pF (-9.4 dB, D2) fails the -10 dB goal. 3D EM validation (openEMS) not done.
 * **Not manufacturing-ready**: M5-Bus pin-1 orientation, outline and holes must be checked against the real Tab5; part classes and the Core SODIMM 3D model are open (see `bom.csv`); the slide switch footprint is generic (hand-fitted);
   FPGA constraint file (.cst) still to be written from `core_pin_assignment.csv`.
 * No Ethernet / MIPI / USB-host (see site spec).
 
 ## Known issues
 * **TMDS ESD (U4/U5, LCSC C293965 = DOWO RCLAMP0524P, DFN2510-10L)**: fixed on the board side. Each line is continuous copper (pad 1-10, 2-9, 4-7, 5-6 are strapped with copper) and the ESD is a tap, so the design no longer depends on any internal pin connection. Footprint `carrier:DFN2510-10L_RCLAMP0524P` (own, from the DOWO outline, GND land widened to 0.42 mm; the datasheet has no land pattern - check JLCPCB's footprint and pin-1 orientation when ordering, `docs/ESD_フットプリント照合_RCLAMP0524P.md`).
-* **499 ohm bias resistors** now hang on 2-11 mm branches (was 21-53 mm); D1 N side is 11.5 mm (target: a few mm). They are included in the channel estimate.
+* **499 ohm bias resistors** now hang on 0.585-9.1 mm branches (was 21-53 mm); D1 P/N use 0402 resistors with symmetric 0.585 mm front-side taps and nearby GND vias outside the solder lands. They are included in the channel estimate.
 * Target is **720p60 only** (1080p60 exceeds the GW2A serializer limit of 1200 Mbps). **Invert the D2 data (all serial bits after TMDS encoding)** in the FPGA.
 * Channel estimate (4-port model, P/N branches at their own taps; report r3): see the Status line. The 3D solver (openEMS) is not calibrated and is not used for conclusions.
 
@@ -54,3 +54,7 @@ python -X utf8 kicad/sim/tmds_channel.py ; python -X utf8 kicad/sim/tmds_sparam.
 配置済みランドの寸法とPCB／モデルの配線幅を検査し、二重分類・部分的stale・ビア形状も検出するよう修正。正常と故障注入の計24ケースに成功した。D2の色説明を赤へ訂正し、符号語と制御期間のRTL試験要求を登録した。回路・PCB・チャネルモデルは変更していない。
 
 詳細：[検査修正と再現手順](../docs/HDMI_R3_検査修正_2026-10-24.md)、公開追記：[hdmi-audit-checks.html](../site/hdmi-audit-checks.html)。
+
+## 目的への独立評価とD1修正（2026-10-24）
+
+[目的適合性・製作判断・修正可能な残件](../docs/PoC目的適合性_独立評価とD1修正_2026-10-24.md)。R30/R31は0402。`gen/shorten_d1_bias.py` をPCB生成工程へ組み込み済み。`sim/check_d1_bias.py` と `sim/test_d1_bias_check.py` で短い信号分岐・近傍GNDビアと故障検出を検査する。独立電源断時の信号隔離・物理通信・3D較正は未完了。

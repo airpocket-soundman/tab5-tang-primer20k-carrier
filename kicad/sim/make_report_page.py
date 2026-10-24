@@ -94,7 +94,7 @@ page = """<!doctype html>
   <div><b>%(wsc).1f dB</b><span>SCD21 最大（〜1.5GHz）：P/N枝の非対称によるモード変換</span></div>
  </div>
  <div class="callout ok"><b class="t">監査指摘への対応</b>A1（ESD実部品の照合）：データシートの寸法とフットプリントを照合し、<b>GND端子のランド幅の不足を修正</b>して専用フットプリントを作成。A2（経路分類）：全TMDS銅（配線・ビア）を主経路／パッドエスケープ／ESDストラップ／枝に分類し、<b>未分類0</b>。<b>これまで解析経路から抜けていた引き出し線（各2.4mm）をモデルに追加</b>。A3：P/Nの枝を<b>別々の位置</b>に接続する4ポートモデルへ変更し、モード変換（SCD21）を評価。A4：Core側Z×ESD容量の複合条件を評価。A5：検査を終了コードで失敗するよう変更し、説明・ハッシュを同一版に揃えた。</div>
- <div class="callout warn"><b class="t">まだ残っていること（隠さずに記載）</b>①<b>複合条件でSDD11の自主目標（−10dB）を外れる条件がある</b>（%(failing)s）。②D1のN側の抵抗枝が%(d1n).1fmm（数mm以下の目標は未達。PoCで残す理由は A3）。③3D解析（openEMS）は較正未達で、設計根拠に使っていない。④ESDのメーカー推奨ランドパターンは入手できない。⑤実機での720p60動作は未確認。目標は<b>短いケーブル・限定モニタでの720p60のPoC</b>で、動作保証・HDMI規格適合を意味しません。</div>
+ <div class="callout warn"><b class="t">まだ残っていること（隠さずに記載）</b>①<b>複合条件でSDD11の自主目標（−10dB）を外れる条件がある</b>（%(failing)s）。②D1の抵抗枝は0402への変更でP/Nとも0.585mmに短縮済み。ほかの長い分岐・未同定の寄生は残る。③3D解析（openEMS）は較正未達で、設計根拠に使っていない。④ESDのメーカー推奨ランドパターンは入手できない。⑤実機での720p60動作は未確認。目標は<b>短いケーブル・限定モニタでの720p60のPoC</b>で、動作保証・HDMI規格適合を意味しません。</div>
 </section>
 
 <section id="status">
@@ -104,11 +104,11 @@ page = """<!doctype html>
   <tbody>
    <tr><td class="c">A1</td><td>ESD実部品とフットプリントの照合</td><td class="t-ok">完了（残る制限あり）</td><td>寸法・端子の比較表を保存（<code>docs/ESD_フットプリント照合_RCLAMP0524P.md</code>）。<b>GNDランド幅0.30→0.42mmに修正</b>、専用フットプリント作成、BOM・回路・PCBへ反映。メーカー推奨ランドはデータシートに無い</td></tr>
    <tr><td class="c">A2</td><td>ソケット引き出し線・パッド遷移のモデル化、分類の網羅</td><td class="t-ok">完了</td><td>全トラック・ビアを分類し未分類0。引き出し線をモデルへ追加。パッド内の銅は除外し長さを記録</td></tr>
-   <tr><td class="c">A3</td><td>P/N抵抗枝の異なる接続位置</td><td class="t-warn">完了（枝11.5mmは残す）</td><td>4ポートモデルでP/Nを別位置に接続。モード変換を評価。短い対称枝との比較を保存。D1Nの枝は残す理由を記録</td></tr>
+   <tr><td class="c">A3</td><td>P/N抵抗枝の異なる接続位置</td><td class="t-warn">完了（D1を0.585mmへ追加修正）</td><td>4ポートモデルでP/Nを別位置に接続。モード変換を評価。短い対称枝との比較を保存。D1P/Nの枝を0.585mmへ短縮し再解析</td></tr>
    <tr><td class="c">A4</td><td>Core Z × ESD容量の複合感度</td><td class="t-warn">完了（目標を外れる条件あり）</td><td>3×3の結果表を公開。外れる条件と受け入れる不確かさを明記</td></tr>
    <tr><td class="c">A5</td><td>自動検査・説明の整合</td><td class="t-ok">完了</td><td>導通・ピン対応・負の検査・分類・ESD照合が終了コードで失敗する。READMEの数値、対象版、ハッシュ・再生成手順を揃えた</td></tr>
    <tr><td class="c">B1/B2</td><td>3D解析の較正（単線・差動）</td><td class="t-bad">未着手（未達のまま保留）</td><td>今回の作業では実施していない。3Dの数値は設計根拠に使っていない。第2回監査の記録（単線の較正未達）が最新</td></tr>
-   <tr><td class="c">C</td><td>MeOS利用に関する未完了事項</td><td class="t-bad">未着手</td><td>8bit双方向PARLIO、電源断・逆給電、最終ネットリストのピン表、GPIO所有権はキャリア要求側の確定事項で、この作業では扱っていない。HDMI修正だけではMeOSでの利用可否は確定しない</td></tr>
+   <tr><td class="c">C</td><td>Linux/GPU共通用途の未完了事項</td><td class="t-bad">未着手</td><td>8bit双方向PARLIO、電源断・逆給電、最終ネットリストのピン表、GPIO所有権はキャリア要求側の確定事項で、この作業では扱っていない。HDMI修正だけではLinux/GPUの物理通信・安全な電源操作の成立を確定しない</td></tr>
   </tbody></table></div>
 </section>
 
@@ -150,9 +150,9 @@ page = """<!doctype html>
   <tbody>
 """ + rows_branch + """  </tbody></table></div>
  <ul>
-  <li>D1のN側の枝は11.5mmで、ESDの入力パッド付近（キャップから7.2mm）で分岐しています。実位置を反映すると、D1のSDD11は旧近似より悪化し、<b>モード変換（SCD21）も −25dB 程度まで増えます</b>（他のペアは −33dB 以下）。</li>
+  <li>2026-10-24追加修正：D1のR30/R31を0402に変更してESD後の主配線間へ配置。信号分岐はP/Nとも0.585mm、GNDパッドから0.69mm配線したランド外にビアを設けた。主差動配線は維持した。</li>
   <li><b>短く対称な枝（3mm×2、キャップ位置）との比較</b>（8章の表）：D1のSDD11最大は改善しますが、SDD21は大きく変わらず、モード変換は理想上ほぼ0になります。枝を短くする効果は<b>反射とモード変換の改善</b>です。</li>
-  <li><b>D1の枝（11.5mm）：再配置を試行し、改善できなかった</b>：D1の2つの抵抗を、ESDの右側の空き領域（レーンの上）へ移して全体を再配線しました（DRC 0件・113/113ネットは達成）が、ルータは同じネットの<b>パッドにしか分岐を接続できず</b>、枝がレーンをビアで越えて遠回りし、<b>D1の枝が9.0／18.3mmと悪化</b>したため、元の配置に戻しました。枝を短くした場合の効果は解析で見積もりました（D1、SDD11最大：基準／Core 85Ω・ESD 0.35pF／Core 85Ω・ESD 0.5pF）：N枝11.5mm＝−12.9／−9.1／−7.9dB、7mm＝−14.3／−9.9／−8.6dB、5mm＝−14.9／−10.3／−8.9dB。<b>枝を5〜7mmにしても、Core 85Ω・ESD 0.5pFの組み合わせは目標を満たせません</b>（Core側のインピーダンスの不整合自体が−11dB程度で、ESD・枝の寄与が加わるため）。別の案（ルータに配線途中への分岐を許す、または抵抗を信号パッド近傍へ置く部品配置の再設計）は次版の課題です。<b>D1の枝を残す理由</b>：基準条件（Core 100Ω・ESD 0.35pF）の反射は自主目標（−10dB）を満たしている（実位置で %(d1s11).1f dB）ので、PoCではこのまま製作し、試作の反射・モード変換の測定結果に基づいて、次版で抵抗を信号線の近くへ置き直します。ただし<b>モード変換（SCD21 %(d1sc).1f dB）が実機で許容できるかは未確認</b>で、複合条件の最悪側（A4）ではD1が目標を外れる主因です。</li>
+  <li><b>先行した再配置の失敗を理由に長い枝を残す判断を見直した。</b>粗い格子のルータでは狭い配置を扱えないため、配線後に抵抗と分岐を局所変更する工程を追加した。「ルータはパッドにしか接続できない」という従来説明も訂正する。既存コードは配線上の点も接続木へ登録しており、失敗はその機能がないことの証拠ではない。D1の反射は約−12.9→−17.3dBへ改善。左右対称モデルでSCD21が数値床へ下がることを実機のモード変換ゼロとは解釈しない。</li>
   <li>枝の線路は幅0.127mm・単線約85Ω・誘電率3.0の近似で、隣接配線との結合や層の違いは考慮していません。</li>
  </ul>
 </section>
@@ -166,7 +166,7 @@ page = """<!doctype html>
 """ + rows_mat + """  </tbody></table></div>
  <figure><img src="img/sim_matrix_r3.png" alt="複合条件" """ + IMG + """>
   <figcaption>図1　Core側ZとESD容量の複合条件（悪い方のペア）。観察帯域は〜1.5GHz（720p60）。</figcaption></figure>
- <p><b>目標を外れる条件への扱い</b>：外れる条件は %(failing)s の<b>最悪側の組み合わせ</b>で、いずれも悪い方のペアはD1（N側の枝11.5mm・分岐位置が非対称）です。比較案（枝を短く対称にした場合）では %(failing_ideal)s。これは<b>出現確率・製造歩留まり・実機の表示可否ではありません</b>。対処：①PoCでは受け入れる不確かさとして記録し、試作で反射（TDRまたは公式Dockとの比較）を測る、②反射が悪ければ、ESD容量を下げる（別部品）、D1の枝を短縮する（A3）、低速（640×480）で動作確認する、を次版の対処とする。自主目標は規格値ではありません。</p>
+ <p><b>目標を外れる条件への扱い</b>：現在の目標外は %(failing)s。D1短縮前には2条件でD1が弱点だったが、短縮後は1条件、悪い方はD2へ移った。比較案（全ペアを3mmの対称枝）では %(failing_ideal)s。これらは仮定の感度計算で、<b>出現確率・歩留まり・実機表示可否ではない</b>。自主目標−10dBを規格適合の合格値とは呼ばない。</p>
 </section>
 
 <section id="a5">
@@ -192,8 +192,8 @@ page = """<!doctype html>
  <p>長さは実PCBの銅線を接続順にたどり、パッド中心からの積算です（ルータの設計値ではなく、実配線の抽出値）。部品内部・ビアの垂直方向（約1.6mm相当）・Core側基板内（38.4mm）は含みません。</p>
  <figure><img src="img/sim_route_r3.png" alt="TMDS実配線" """ + IMG + """>
   <figcaption>図2　TMDS 4組の実配線（細線=P、太線=N、黒細線=499Ω枝）。</figcaption></figure>
- <figure><img src="img/render_top_r3.png" alt="基板3Dレンダリング" """ + IMG + """>
-  <figcaption>図3　基板全体（右辺の上寄りがHDMI）。</figcaption></figure>
+ <figure><img src="img/render_top_r3.png" alt="D1修正前の基板3Dレンダリング（参考）" """ + IMG + """>
+  <figcaption>図3　D1修正前の参考3D画像。R30/R31の現在の位置は図2とPCBを参照。</figcaption></figure>
 </section>
 
 <section id="channel">
@@ -233,12 +233,12 @@ page = """<!doctype html>
  <div class="tw"><table>
   <thead><tr><th>事項</th><th>状況・対応</th></tr></thead>
   <tbody>
-   <tr><td>D1のN側の枝（%(d1n).1fmm）、P/N非対称</td><td>PoCでは残す（A3）。試作でモード変換・反射を測り、次版で抵抗を信号線近くへ</td></tr>
+   <tr><td>D1の長い非対称分岐</td><td>0402へ変更しP/Nとも0.585mmへ短縮済み。ほかの分岐・実物の非対称性は残る</td></tr>
    <tr><td>複合条件で−10dB目標を外れる最悪側</td><td>PoCで受け入れる不確かさとして記録（A4）。実機で反射を確認</td></tr>
    <tr><td>ESDの推奨ランド</td><td>データシートに無い。注文時にJLCPCBのフットプリント・向きを確認</td></tr>
    <tr><td>Core基板内・SODIMM接点</td><td>感度解析のみ。公式Dockとの比較測定が有効</td></tr>
    <tr><td>内層・ビア・多層の帰路</td><td>全層をマイクロストリップ表で近似（未確認）。3D解析の較正後に確認</td></tr>
-   <tr><td>3D解析（B1/B2）、MeOS要求（C）</td><td>未着手（この作業の範囲外）</td></tr>
+   <tr><td>3D解析（B1/B2）、共通キャリア要求（C）</td><td>3D較正、物理通信、電源断時隔離は未完了。Linux/GPUにも必要な条件であり、MeOSだけの条件ではない</td></tr>
    <tr><td>製作後の成功条件（PoC）</td><td>短いケーブル・限定モニタで、640×480→720p60の固定パターンを30分程度表示。1080p60は保証対象外</td></tr>
   </tbody></table></div>
 </section>
@@ -285,9 +285,12 @@ def sub_ph(m):
 
 page = re.sub(r"%\((\w+)\)([-.\d]*[sfd])", sub_ph, page)
 page = page.replace("%%", "%")
+page = page.replace("-240.0 dB", "数値床（理想対称）").replace("-240.0dB", "数値床（理想対称）")
 page = page.replace('<section id="summary">', '<p><a href="hdmi-audit-checks.html">第3版監査後の検査修正・回帰試験（ランド寸法、配線幅・分類、D2説明）</a></p><section id="summary">')
 open(os.path.join(SITE, "hdmi-simulation-r3.html"), "w", encoding="utf-8").write(page)
 print("wrote site/hdmi-simulation-r3.html")
 
 from make_handover_page import link_handover
 link_handover()
+from make_poc_review_page import link_review
+link_review()

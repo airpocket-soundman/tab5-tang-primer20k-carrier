@@ -29,7 +29,8 @@ J3,M5-BUS (to Tab5),Connector_PinHeader_2.54mm:PinHeader_2x15_P2.54mm_Vertical,1
 J4,Tang Primer 20K Core,carrier:DDR3-SMD_0705F0BE40F,1,,C367004,extended,Sipeed footprint (LCSC C367004)
 J5,HDMI OUT,Connector_Video:HDMI_A_Molex_208658-1001_Horizontal,1,,,THT/hand-solder or extended (select part),"TMDS from FPGA true-LVDS outputs (3.3V bank), AC coupled + 499R bias + ESD (official-Dock style)"
 "C12,C13,C14,C15,C16,C17,C18,C19",100n,Capacitor_SMD:C_0603_1608Metric,8,,C14663,basic,
-"R28,R29,R30,R31,R32,R33,R34,R35",499R,Resistor_SMD:R_0603_1608Metric,8,,,check,
+"R28,R29,R32,R33,R34,R35",499R,Resistor_SMD:R_0603_1608Metric,6,,,check,
+"R30,R31",499R,Resistor_SMD:R_0402_1005Metric,2,,,check (0402 499 ohm part to select),Short symmetric D1 bias branches; front-side assembly
 "U4,U5",RCLAMP0524P,carrier:DFN2510-10L_RCLAMP0524P,2,,C293965,extended,"TMDS ESD array (DOWO DFN2510-10L): I/O 1,2,4,5, GND 3,8; the line is routed as continuous copper through strapped pads"
 U6,SRV05-4,Package_TO_SOT_SMD:SOT-23-6,1,,C13612,extended,DDC/HPD ESD as on the official Dock
 F2,PTC 500mA,Fuse:Fuse_1206_3216Metric,1,,,check,

@@ -22,7 +22,7 @@ CORE_PINS = {
     # Odd SODIMM pins are on the pad row facing the header; even pins face the left strip (HDMI / PMOD / UI).
     # 8-bit bus (bank0/1, 3.3V), all odd pins -> short link to the header
     "F_D0": 73, "F_D1": 75, "F_D2": 77, "F_D3": 79, "F_D4": 83, "F_D5": 85, "F_D6": 89, "F_D7": 91,
-    "F_CLK": 80,   # K13 = GCLKT_1 (even pin, one net crosses under the socket)
+    "F_CLK": 80,   # K13 = IOT36A general I/O, NOT GCLKT_1 (K14). Timing must be checked for the receive implementation.
     "F_RDY": 95, "F_DIR": 97,
     "F_AUX0": 101, "F_AUX1": 103, "F_AUX2": 107, "F_AUX3": 109,
     # 16-bit extension lines (via DNP 0R)
@@ -281,7 +281,13 @@ def build():
         two("C", "Device:C", C0603, "100n", "HDMI_" + l, C[l], "tmdsc", pos=(TMDS_X, TMDS_Y + k * 1.5), rot=0)
         # 499R bias resistors: above the bundle for D2/D1, below it for D0/CK, so the branch off the line stays short
         rpos = (TMDS_X + 1.2 + k * 1.7, 10.2) if k < 4 else (TMDS_X - 1.2 + (k - 4) * 1.7, 26.4)
-        two("R", "Device:R", R0603, "499R", C[l], "GND", "tmdsc", pos=rpos, rot=90)
+        # D1: 0402 fits the 1.17 mm space between adjacent pairs after the ESD.
+        # Pad 1 taps the signal locally; pad 2 has a short return to a GND via outside the solder land.
+        if l in ("D1P", "D1N"):
+            two("R", "Device:R", "Resistor_SMD:R_0402_1005Metric", "499R", C[l], "GND", "tmdsc",
+                pos=(110.3, 16.75 if l == "D1P" else 18.25), rot=0)
+        else:
+            two("R", "Device:R", R0603, "499R", C[l], "GND", "tmdsc", pos=rpos, rot=90)
     for tag, grp, y in (("a", lines[:4], 0.0), ("b", lines[4:], 14.0)):
         add("U", "carrier:RCLAMP0524P", "carrier:DFN2510-10L_RCLAMP0524P", "RCLAMP0524P",
             # I/O pins 1,2,4,5 tap the line; 6,7,9,10 are strapped to them with copper on the board (one net), so the line is

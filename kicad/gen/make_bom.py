@@ -75,8 +75,8 @@ def main():
     for (value, fp, dnp), cs in groups.items():
         lcsc, cls = "", "check"
         name = fp.split(":")[1]
-        if name.startswith("R_0603"):
-            r = lookup_resistor(value, "0603")
+        if name.startswith(("R_0603", "R_0402")):
+            r = lookup_resistor(value, "0402" if name.startswith("R_0402") else "0603")
             if r:
                 lcsc, cls = r
         elif name.startswith("C_0603") or name.startswith("C_1206"):

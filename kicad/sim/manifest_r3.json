@@ -1,7 +1,51 @@
 {
- "baseline_commit": "7929491",
+ "baseline_commit": "f47f28fa714dfb23843b7516e887ca90acdd0f14",
  "checker_baseline_commit": "91dc3b4",
  "files": {
+  "docs/PoC\u76ee\u7684\u9069\u5408\u6027_\u72ec\u7acb\u8a55\u4fa1\u3068D1\u4fee\u6b63_2026-10-24.md": {
+   "group": "purpose_review",
+   "sha256": "11959912cd0f95af9b7f9f95bfb931c10611286beb5f60e3ab52bf2d89b19c97"
+  },
+  "kicad/sim/review_poc_purpose.py": {
+   "group": "purpose_review",
+   "sha256": "93da83d874f11ed11bb6fe0da1588a39b6b96452b8992de02369b08270838085"
+  },
+  "kicad/sim/poc_purpose_review.json": {
+   "group": "purpose_review",
+   "sha256": "3a5e094d5ed92f81b39c4e381c5514a9748f8019e0c2ae2b587818d2a9e49b54"
+  },
+  "kicad/sim/check_d1_bias.py": {
+   "group": "purpose_review",
+   "sha256": "56bc5826ab77393186f674e059ac6bc08ef76cf041b6d5b46c85f1d8ae944965"
+  },
+  "kicad/sim/test_d1_bias_check.py": {
+   "group": "purpose_review",
+   "sha256": "496fcb2b295accce8ecb37414dfe2a0d154996546ad8e2a17c43e02657c25b5d"
+  },
+  "kicad/sim/d1_bias_check.json": {
+   "group": "purpose_review",
+   "sha256": "40a2deb20d6f944917721c209f9754de14699641a6bd28ff6715f3ae7796f721"
+  },
+  "kicad/sim/regression_d1_bias.json": {
+   "group": "purpose_review",
+   "sha256": "bc1d4766afc1db6c72975f0fa1129a09efa6f043cd14c817423bb6bb42cf96eb"
+  },
+  "kicad/sim/make_poc_review_page.py": {
+   "group": "purpose_review",
+   "sha256": "a712cebadd98631e6934f8e91fed3154f6b5aa13165a54be0ada4d1867a406bc"
+  },
+  "site/poc-purpose-review.html": {
+   "group": "purpose_review",
+   "sha256": "c499168f389da4da2376051627338994a81d0fff3bb5399524c18310d1a41f3a"
+  },
+  "kicad/sim/d1_finalizer_reproduction.json": {
+   "group": "purpose_review",
+   "sha256": "a7d30dd5f3a7d3f17cfb1a7abf3ad2d1a08466485b79fe7eb04ee24898c44a52"
+  },
+  "docs/reference/openems/sources.json": {
+   "group": "purpose_review",
+   "sha256": "3b8c6dbfa17ca49da455450a1c17a2d701cecaf7da00cef4f88275db5ade3629"
+  },
   "docs/HDMI_R3_\u76e3\u67fb\u5f15\u7d99\u304e\u78ba\u8a8d_2026-10-24.md": {
    "group": "handover",
    "sha256": "b47be54b1355712e466a32bf874bfc1acb01439500ebdc988d26ba02837c3d93"
@@ -20,7 +64,7 @@
   },
   "site/hdmi-audit-handover.html": {
    "group": "handover",
-   "sha256": "ccb6cfa094f14af31b3ee394d29cbe1974034a77b78f2f4e6975e35f9d53b053"
+   "sha256": "c677471a45917bfa98b56bc8b8bbea75a2db4ac503e0bb5e37c597d76db5bae3"
   },
   "site/audit-data/handover_851adf4_2026-10-24.json": {
    "group": "handover",
@@ -28,7 +72,7 @@
   },
   "kicad/gen/design.py": {
    "group": "design",
-   "sha256": "4b7bdba1a2f99704913e458184ed5f8eb313b5b1386a585563208cfd998d29ec"
+   "sha256": "dcb187668eb5dde2cb1b16a70bd750d05134113db5ebe5b6296c6f35ab2ade30"
   },
   "kicad/gen/route_pcb.py": {
    "group": "design",
@@ -36,11 +80,19 @@
   },
   "kicad/gen/make_pcb.py": {
    "group": "design",
-   "sha256": "99a0127ebbe524f9644b290007a430e1aae8d0578f7c451950e46cdc47777897"
+   "sha256": "86c1da8f1ba5377748dfc2a5efceb4a3b91a1f5c0f2beec2f4c0e3841969bfdb"
   },
   "kicad/gen/finish_pcb.py": {
    "group": "design",
    "sha256": "50659a7787192c54e056b30363a10768d2636d3e6e2644d9b8723c5ad0904f4f"
+  },
+  "kicad/gen/shorten_d1_bias.py": {
+   "group": "design",
+   "sha256": "dd8bb1c7daa04b39bb38da2e661888ba1b4c8d750018ff7df3a98e22f0a89031"
+  },
+  "kicad/gen/make_bom.py": {
+   "group": "design",
+   "sha256": "b81b94dec01a6a671808534811a4d6f38883145fea304525e2eb09c9d34398ed"
   },
   "kicad/lib/carrier.pretty/DFN2510-10L_RCLAMP0524P.kicad_mod": {
    "group": "design",
@@ -48,15 +100,19 @@
   },
   "kicad/tab5-fpga-carrier.kicad_pcb": {
    "group": "design",
-   "sha256": "3758ea23c1cd8dee493f688eefb5ad140f70b4fc46e42607c58cf1768e997433"
+   "sha256": "3b4d9b99150d75886eea6e04b69044486c2dd2060e57eb067fd0ecc3af2f5b84"
+  },
+  "kicad/tab5-fpga-carrier.kicad_pro": {
+   "group": "design",
+   "sha256": "832a254610287b922e913df3ae3e3a950a502da5eb9d2eaacc6ce6ce234100d8"
   },
   "kicad/tab5-fpga-carrier.kicad_sch": {
    "group": "design",
-   "sha256": "54f6872d8f38e70d2a5acd3c6f6303fee9a7a0d858bb204318e1efe193671573"
+   "sha256": "aa3861d36d3349c77d4dfcc0ce956f782c5278f417983866a3632c6078594f0d"
   },
   "kicad/bom.csv": {
    "group": "design",
-   "sha256": "1f5b731862651d2f9a9e3e438d34b9645513cf4e94af4fe9fbd289c9ab72eb4f"
+   "sha256": "ee21409e6033f7996d004dc250bd79aca7c89bdbcd52e3525e34168c74f21d59"
   },
   "kicad/core_pin_assignment.csv": {
    "group": "design",
@@ -64,11 +120,11 @@
   },
   "kicad/sim/tmds_roles.json": {
    "group": "extracted",
-   "sha256": "595296321dbe6778b8060bc90032ae6ed33cc1df1cb4e085ecd1deac75e79be3"
+   "sha256": "0ccba1e93d78389a7027a11361ef368441ae4c23c4883963e86e013127ea617a"
   },
   "kicad/sim/tmds_geom.json": {
    "group": "extracted",
-   "sha256": "da373e586cafd282415d93cb4ee4e36710d0edd9880a9f8abb120ca5862ea415"
+   "sha256": "b4c29ff0cac7a1d337f0d3441334b729e8a89bdc958d3d80ad523dc78d392da4"
   },
   "kicad/sim/pair_lengths.json": {
    "group": "extracted",
@@ -80,7 +136,7 @@
   },
   "kicad/sim/tmds_via_policy.json": {
    "group": "extracted",
-   "sha256": "961297a8328a79b837cbd6d0643e7820489772dfa819c87c55e904ce575b8412"
+   "sha256": "3016671ff65b22565288e9f17c313d8e75aeed6f4ceaff81058ad53b02583e37"
   },
   "kicad/sim/microstrip2d.py": {
    "group": "model",
@@ -100,7 +156,7 @@
   },
   "kicad/sim/make_report_page.py": {
    "group": "model",
-   "sha256": "056a1d743096047f179408ce903a1f78cf1010b292717c38adb18aed6181d040"
+   "sha256": "942702cf56f6c34d82e4d1fb82a1163ced5347b20940f7fc697a14c3dc8df5b8"
   },
   "kicad/sim/check_continuity.py": {
    "group": "checks",
@@ -136,11 +192,11 @@
   },
   "kicad/sim/make_manifest.py": {
    "group": "checks",
-   "sha256": "d3a5f1eff25023e9ce96af52edfb3b823b9e33b62239b494024c7d98f9a34153"
+   "sha256": "84a014f4b0724702ac17fac2380a67a7866cc96015f166b2cd519eb192d9337a"
   },
   "kicad/sim/continuity_report.json": {
    "group": "results",
-   "sha256": "0449138b3667965e8e3a52151d12bbc4e7528c6202c342ca51dcf8e246345bea"
+   "sha256": "fac99e8648492762f3928b6c46b70983b05126271772235e1b8a0dd0dbf4e037"
   },
   "kicad/sim/negative_report.json": {
    "group": "results",
@@ -148,7 +204,7 @@
   },
   "kicad/sim/classification_report.json": {
    "group": "results",
-   "sha256": "4663609e681d810eb49c4eda9aa87f138fe6e5ff53c3d36bf507d242529c46ab"
+   "sha256": "587be4ca467d5d37d421696ef07adc3044b46d5deeb2ab6ed229d74a8c2ac0e3"
   },
   "kicad/sim/esd_footprint_check.json": {
    "group": "results",
@@ -156,35 +212,35 @@
   },
   "kicad/sim/drc_r3.json": {
    "group": "results",
-   "sha256": "03ca1f81b07daeab621d1e029f22ef4092a58d9c91e9f1713dc9c8ac6b1164d8"
+   "sha256": "bf92057ad4def46ceebf42a5f4cfecefe9e74e7e50e848e4e278730550939b7d"
   },
   "kicad/sim/tmds_summary.json": {
    "group": "results",
-   "sha256": "5d4dec54f35a4f2c5346810a7bf22a1927674afe319d928df6b061ae5d740b81"
+   "sha256": "548f8342910b578cbd1e7c8196b7bd8ebcb3748c2c40ed3e3efc91e2f3007334"
   },
   "kicad/sim/tmds_sparam.json": {
    "group": "results",
-   "sha256": "0aa81841f94f8f57ba44295630e2fdba95fb33b46d710f3a8950c1747b58ab8a"
+   "sha256": "c7966eb1767142178f2a30e18f8d15dbe19ceb3ed545aa9c9f6a5204583480ec"
   },
   "kicad/sim/report_sparam.json": {
    "group": "results",
-   "sha256": "ec30e6da8947b4e048508d2d77d0f764a5d8d806fc31af736eedf833721d2a08"
+   "sha256": "4253eb738029bef2c52253c45f9cae28e223c12b1886119861aa8a04119bf6a8"
   },
   "kicad/sim/report_variants.json": {
    "group": "results",
-   "sha256": "0a2fb568e1853435fdf926d4d92a171afc166982e40040636debc2c6ab4f0a98"
+   "sha256": "1de44b0abf2095fdff901467eb7761c01921bf2788c133c2c8aa1b59e2981875"
   },
   "kicad/sim/report_matrix.json": {
    "group": "results",
-   "sha256": "ff46d481d65e3d374272627b732208f9b777363723d3f36a4de519758531b982"
+   "sha256": "adb5a03c1867a9b3dead308495aa1e6168fbbc2aa3b59c87b068984a7e923fb9"
   },
   "kicad/sim/report_sensitivity.json": {
    "group": "results",
-   "sha256": "be45ec4f1419231a48d792f19c3f7f62e2bc3f09aa7cd28c89278b7d1dec69bb"
+   "sha256": "fa8c15def5e466bc683ea6fdb2de825f04f80771d3f1a4810e28543f82e52568"
   },
   "kicad/sim/report_stub_effect.json": {
    "group": "results",
-   "sha256": "afe4ef33fbe981a7589afbcb5e1c0b34fd6a925b8b38a136ff5c8582b17db7fc"
+   "sha256": "b62cc6d4dc8448763f19b1a686636709a39c0cfea40495652a348b91ec121e6a"
   },
   "kicad/sim/baseline_r2_report_sparam.json": {
    "group": "results",
@@ -200,11 +256,11 @@
   },
   "site/index.html": {
    "group": "publication",
-   "sha256": "049fe623d472b588b9ec9740825989b777c0d09f064eb9609821b76a195f3840"
+   "sha256": "061ce2d193b989cd8c94ac8af784949068159c71049e5682786ddb878b6052b0"
   },
   "site/hdmi-audit-checks.html": {
    "group": "publication",
-   "sha256": "af92361315b7ebeac4df9e43d479d5c285595d78a1b2d50842771adfe4ebd7c1"
+   "sha256": "1b26e79a6d03b2eca0fbf67bdae3a909493638ae6b8ff146702b8d70aec7aa3f"
   },
   "docs/HDMI_R3_\u691c\u67fb\u4fee\u6b63_2026-10-24.md": {
    "group": "publication",
@@ -224,23 +280,23 @@
   },
   "site/img/sim_route_r3.png": {
    "group": "figures",
-   "sha256": "b3bc8313c2fce97bd8c5e3a7252d5f5ba321c8d35fb244b684119f5e95b60071"
+   "sha256": "859a725482d8a0ea953b7acad6cbdb4a7509d0545f886b79631bb9c4a288a467"
   },
   "site/img/sim_sparam_r3.png": {
    "group": "figures",
-   "sha256": "094f73f6410b62a47762c399fdce96f3aee48418f0792149c5602368c3ca4fa0"
+   "sha256": "af93e4042c5676f9c2f9b27d0f559f9249cbb07db44a988da329782a1cca039e"
   },
   "site/img/sim_variants_r3.png": {
    "group": "figures",
-   "sha256": "aa7b10e9885c03727d478b77bcd046bca25cae0d8257b9dd48ebcc3c324f6f22"
+   "sha256": "0b1e694b0b5c75422328a9b5efe7cdc6408a6b1fdc11c5cce4738d279f85fb67"
   },
   "site/img/sim_matrix_r3.png": {
    "group": "figures",
-   "sha256": "8f729d832bf4997d6b2e2baf3826663be54ee78b50cc850bf5ff99078f9bb78f"
+   "sha256": "9e34400caa2e981dadd27ba1bd2196fda86f96c6c063244b9952cdfeac0013da"
   },
   "site/img/sim_sensitivity_r3.png": {
    "group": "figures",
-   "sha256": "051a8681ddcd49fa5809173e8c4bdb699794b3baf780c916eedf7420d0270fa3"
+   "sha256": "fb08c6850aa7a6d2965fdd171e3e96e2e51f7b5826bb81331d6a7e77a7f93a83"
   },
   "site/img/render_top_r3.png": {
    "group": "figures",

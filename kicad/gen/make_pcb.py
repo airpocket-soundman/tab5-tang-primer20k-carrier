@@ -184,15 +184,20 @@ def write_pro():
 def main(route=True):
     b = Builder()
     comps = design.build()
+    # Stage D1 bias parts outside the narrow post-ESD gaps while the coarse
+    # router runs; move only their branches to the final DRC-checked layout.
+    import shorten_d1_bias
+    route_comps = shorten_d1_bias.routing_components(comps) if route else comps
     b.outline()
-    for c in comps:
+    for c in route_comps:
         b.create(c)
     import place_pcb
-    place_pcb.run(b, comps)
+    place_pcb.run(b, route_comps)
     out = os.path.join(PRJ, design.PROJECT + ".kicad_pcb")
     if route:
         import route_pcb
-        route_pcb.run(b, comps)
+        route_pcb.run(b, route_comps)
+        shorten_d1_bias.apply(b.board)
     for layer in ("In1.Cu", "In2.Cu", "F.Cu", "B.Cu"):
         z = b.zone("GND", layer)
         if layer != "In1.Cu":

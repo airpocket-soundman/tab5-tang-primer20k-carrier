@@ -13,11 +13,18 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 GROUPS = {
+    "purpose_review": ["docs/PoC目的適合性_独立評価とD1修正_2026-10-24.md", "kicad/sim/review_poc_purpose.py",
+                       "kicad/sim/poc_purpose_review.json", "kicad/sim/check_d1_bias.py", "kicad/sim/test_d1_bias_check.py",
+                       "kicad/sim/d1_bias_check.json", "kicad/sim/regression_d1_bias.json", "kicad/sim/make_poc_review_page.py",
+                       "site/poc-purpose-review.html", "kicad/sim/d1_finalizer_reproduction.json",
+                       "docs/reference/openems/sources.json"],
     "handover": ["docs/HDMI_R3_監査引継ぎ確認_2026-10-24.md", "kicad/sim/audit_handover.py",
                  "kicad/sim/make_handover_page.py", "kicad/sim/handover_851adf4_2026-10-24.json",
                  "site/hdmi-audit-handover.html", "site/audit-data/handover_851adf4_2026-10-24.json"],
     "design": ["kicad/gen/design.py", "kicad/gen/route_pcb.py", "kicad/gen/make_pcb.py", "kicad/gen/finish_pcb.py",
+               "kicad/gen/shorten_d1_bias.py", "kicad/gen/make_bom.py",
                "kicad/lib/carrier.pretty/DFN2510-10L_RCLAMP0524P.kicad_mod", "kicad/tab5-fpga-carrier.kicad_pcb",
+               "kicad/tab5-fpga-carrier.kicad_pro",
                "kicad/tab5-fpga-carrier.kicad_sch", "kicad/bom.csv", "kicad/core_pin_assignment.csv"],
     "extracted": ["kicad/sim/tmds_roles.json", "kicad/sim/tmds_geom.json", "kicad/sim/pair_lengths.json", "kicad/sim/zdiff_cache.json", "kicad/sim/tmds_via_policy.json"],
     "model": ["kicad/sim/microstrip2d.py", "kicad/sim/tmds_channel.py", "kicad/sim/tmds_sparam.py", "kicad/sim/make_report_figs.py",
@@ -41,13 +48,13 @@ GROUPS = {
 
 def sha(path):
     data = open(path, "rb").read()
-    if path.endswith((".py", ".json", ".csv", ".kicad_pcb", ".kicad_sch", ".kicad_mod", ".md", ".html")):
+    if path.endswith((".py", ".json", ".csv", ".kicad_pcb", ".kicad_pro", ".kicad_sch", ".kicad_mod", ".md", ".html")):
         data = data.replace(b"\r\n", b"\n")
     return hashlib.sha256(data).hexdigest()
 
 
 def main():
-    base = os.environ.get("BASELINE_COMMIT", "7929491")
+    base = os.environ.get("BASELINE_COMMIT", "f47f28fa714dfb23843b7516e887ca90acdd0f14")
     out = {"baseline_commit": base, "checker_baseline_commit": "91dc3b4", "files": {}}
     for g, lst in GROUPS.items():
         for rel in lst:

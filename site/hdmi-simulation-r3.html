@@ -85,6 +85,7 @@ svg .mut{fill:var(--muted)}
  <h1>HDMI信号品質 シミュレーション評価（第3版）</h1>
  <p class="sub">第2回監査（<code>7929491</code> 対象）のA1〜A5への対応。更新：2026-10-24　／　<a href="hdmi-simulation-r2.html">第2版（第2回監査の対象）</a>　<a href="hdmi-simulation.html">第1版</a>　<a href="index.html">← 企画・設計仕様に戻る</a></p>
 </div></header>
+<p id="poc-purpose-review-link"><a href="poc-purpose-review.html">最新：目的への独立評価・D1分岐の実修正（0.585mm、共通用途の残件）</a></p>
 <nav class="toc"><div class="wrap">
  <a href="#summary">結論</a><a href="#status">対応状況</a><a href="#a1">A1 ESD</a><a href="#a2">A2 経路分類</a><a href="#a3">A3 枝の位置</a><a href="#a4">A4 複合感度</a><a href="#a5">A5 検査・整合</a><a href="#result">配線結果</a><a href="#channel">チャネル推定</a><a href="#em3d">3D解析</a><a href="#limits">限界</a><a href="#repro">再現・記録</a>
 </div></nav>
@@ -95,12 +96,12 @@ svg .mut{fill:var(--muted)}
  <h2>結論</h2>
  <div class="kpi">
   <div><b>DRC 0 件</b><span>違反・未配線の合計（113ネット配線済み）</span></div>
-  <div><b>≤ -12.9 dB</b><span>SDD11 最大（〜1.5GHz、悪い方のペア）</span></div>
+  <div><b>≤ -16.1 dB</b><span>SDD11 最大（〜1.5GHz、悪い方のペア）</span></div>
   <div><b>-0.88 dB</b><span>SDD21 @742MHz（悪い方のペア。499Ω負荷の約−0.4dBを含む）</span></div>
-  <div><b>-24.9 dB</b><span>SCD21 最大（〜1.5GHz）：P/N枝の非対称によるモード変換</span></div>
+  <div><b>-33.6 dB</b><span>SCD21 最大（〜1.5GHz）：P/N枝の非対称によるモード変換</span></div>
  </div>
  <div class="callout ok"><b class="t">監査指摘への対応</b>A1（ESD実部品の照合）：データシートの寸法とフットプリントを照合し、<b>GND端子のランド幅の不足を修正</b>して専用フットプリントを作成。A2（経路分類）：全TMDS銅（配線・ビア）を主経路／パッドエスケープ／ESDストラップ／枝に分類し、<b>未分類0</b>。<b>これまで解析経路から抜けていた引き出し線（各2.4mm）をモデルに追加</b>。A3：P/Nの枝を<b>別々の位置</b>に接続する4ポートモデルへ変更し、モード変換（SCD21）を評価。A4：Core側Z×ESD容量の複合条件を評価。A5：検査を終了コードで失敗するよう変更し、説明・ハッシュを同一版に揃えた。</div>
- <div class="callout warn"><b class="t">まだ残っていること（隠さずに記載）</b>①<b>複合条件でSDD11の自主目標（−10dB）を外れる条件がある</b>（Core 85Ω × ESD 0.35pF（-9.1dB）、Core 85Ω × ESD 0.50pF（-7.9dB））。②D1のN側の抵抗枝が11.5mm（数mm以下の目標は未達。PoCで残す理由は A3）。③3D解析（openEMS）は較正未達で、設計根拠に使っていない。④ESDのメーカー推奨ランドパターンは入手できない。⑤実機での720p60動作は未確認。目標は<b>短いケーブル・限定モニタでの720p60のPoC</b>で、動作保証・HDMI規格適合を意味しません。</div>
+ <div class="callout warn"><b class="t">まだ残っていること（隠さずに記載）</b>①<b>複合条件でSDD11の自主目標（−10dB）を外れる条件がある</b>（Core 85Ω × ESD 0.50pF（-9.4dB））。②D1の抵抗枝は0402への変更でP/Nとも0.585mmに短縮済み。ほかの長い分岐・未同定の寄生は残る。③3D解析（openEMS）は較正未達で、設計根拠に使っていない。④ESDのメーカー推奨ランドパターンは入手できない。⑤実機での720p60動作は未確認。目標は<b>短いケーブル・限定モニタでの720p60のPoC</b>で、動作保証・HDMI規格適合を意味しません。</div>
 </section>
 
 <section id="status">
@@ -110,11 +111,11 @@ svg .mut{fill:var(--muted)}
   <tbody>
    <tr><td class="c">A1</td><td>ESD実部品とフットプリントの照合</td><td class="t-ok">完了（残る制限あり）</td><td>寸法・端子の比較表を保存（<code>docs/ESD_フットプリント照合_RCLAMP0524P.md</code>）。<b>GNDランド幅0.30→0.42mmに修正</b>、専用フットプリント作成、BOM・回路・PCBへ反映。メーカー推奨ランドはデータシートに無い</td></tr>
    <tr><td class="c">A2</td><td>ソケット引き出し線・パッド遷移のモデル化、分類の網羅</td><td class="t-ok">完了</td><td>全トラック・ビアを分類し未分類0。引き出し線をモデルへ追加。パッド内の銅は除外し長さを記録</td></tr>
-   <tr><td class="c">A3</td><td>P/N抵抗枝の異なる接続位置</td><td class="t-warn">完了（枝11.5mmは残す）</td><td>4ポートモデルでP/Nを別位置に接続。モード変換を評価。短い対称枝との比較を保存。D1Nの枝は残す理由を記録</td></tr>
+   <tr><td class="c">A3</td><td>P/N抵抗枝の異なる接続位置</td><td class="t-warn">完了（D1を0.585mmへ追加修正）</td><td>4ポートモデルでP/Nを別位置に接続。モード変換を評価。短い対称枝との比較を保存。D1P/Nの枝を0.585mmへ短縮し再解析</td></tr>
    <tr><td class="c">A4</td><td>Core Z × ESD容量の複合感度</td><td class="t-warn">完了（目標を外れる条件あり）</td><td>3×3の結果表を公開。外れる条件と受け入れる不確かさを明記</td></tr>
    <tr><td class="c">A5</td><td>自動検査・説明の整合</td><td class="t-ok">完了</td><td>導通・ピン対応・負の検査・分類・ESD照合が終了コードで失敗する。READMEの数値、対象版、ハッシュ・再生成手順を揃えた</td></tr>
    <tr><td class="c">B1/B2</td><td>3D解析の較正（単線・差動）</td><td class="t-bad">未着手（未達のまま保留）</td><td>今回の作業では実施していない。3Dの数値は設計根拠に使っていない。第2回監査の記録（単線の較正未達）が最新</td></tr>
-   <tr><td class="c">C</td><td>MeOS利用に関する未完了事項</td><td class="t-bad">未着手</td><td>8bit双方向PARLIO、電源断・逆給電、最終ネットリストのピン表、GPIO所有権はキャリア要求側の確定事項で、この作業では扱っていない。HDMI修正だけではMeOSでの利用可否は確定しない</td></tr>
+   <tr><td class="c">C</td><td>Linux/GPU共通用途の未完了事項</td><td class="t-bad">未着手</td><td>8bit双方向PARLIO、電源断・逆給電、最終ネットリストのピン表、GPIO所有権はキャリア要求側の確定事項で、この作業では扱っていない。HDMI修正だけではLinux/GPUの物理通信・安全な電源操作の成立を確定しない</td></tr>
   </tbody></table></div>
 </section>
 
@@ -135,7 +136,7 @@ svg .mut{fill:var(--muted)}
 
 <section id="a2">
  <h2>3. A2　経路の分類とパッド遷移のモデル化</h2>
- <p>ルータが出力する <code>tmds_roles.json</code> に、<b>stub（パッドエスケープの細線、Core側・コネクタ側）</b>と<b>strap（ESD銅ストラップ）</b>の役割を追加し、全TMDS銅を分類しました。<code>check_classification.py</code> が、基板の全トラック・ビアの各点が役割の線分に一致するかを検査します（未分類・役割だけで銅が無い場合は終了コード1）。結果：<b>main 120, stub 16, strap 8, branch 54, via_main 10、未分類 0、実体のない役割 0</b>。</p>
+ <p>ルータが出力する <code>tmds_roles.json</code> に、<b>stub（パッドエスケープの細線、Core側・コネクタ側）</b>と<b>strap（ESD銅ストラップ）</b>の役割を追加し、全TMDS銅を分類しました。<code>check_classification.py</code> が、基板の全トラック・ビアの各点が役割の線分に一致するかを検査します（未分類・役割だけで銅が無い場合は終了コード1）。結果：<b>main 120, stub 16, strap 8, branch 38, via_main 6、未分類 0、実体のない役割 0</b>。</p>
  <div class="tw"><table>
   <thead><tr><th>ネット</th><th class="c">PCB線分</th><th class="c">ビア</th><th class="c">main</th><th class="c">stub</th><th class="c">strap</th><th class="c">枝</th></tr></thead>
   <tbody>
@@ -148,9 +149,9 @@ svg .mut{fill:var(--muted)}
 <tr><td>HDMI_D0P</td><td class="c">8</td><td class="c">0</td><td class="c">7</td><td class="c">1</td><td class="c">0</td><td class="c">0</td></tr>
 <tr><td>HDMI_D0P_C</td><td class="c">17</td><td class="c">0</td><td class="c">8</td><td class="c">1</td><td class="c">1</td><td class="c">7</td></tr>
 <tr><td>HDMI_D1N</td><td class="c">8</td><td class="c">0</td><td class="c">7</td><td class="c">1</td><td class="c">0</td><td class="c">0</td></tr>
-<tr><td>HDMI_D1N_C</td><td class="c">21</td><td class="c">2</td><td class="c">8</td><td class="c">1</td><td class="c">1</td><td class="c">11</td></tr>
+<tr><td>HDMI_D1N_C</td><td class="c">11</td><td class="c">0</td><td class="c">8</td><td class="c">1</td><td class="c">1</td><td class="c">1</td></tr>
 <tr><td>HDMI_D1P</td><td class="c">8</td><td class="c">0</td><td class="c">7</td><td class="c">1</td><td class="c">0</td><td class="c">0</td></tr>
-<tr><td>HDMI_D1P_C</td><td class="c">17</td><td class="c">2</td><td class="c">8</td><td class="c">1</td><td class="c">1</td><td class="c">7</td></tr>
+<tr><td>HDMI_D1P_C</td><td class="c">11</td><td class="c">0</td><td class="c">8</td><td class="c">1</td><td class="c">1</td><td class="c">1</td></tr>
 <tr><td>HDMI_D2N</td><td class="c">8</td><td class="c">0</td><td class="c">7</td><td class="c">1</td><td class="c">0</td><td class="c">0</td></tr>
 <tr><td>HDMI_D2N_C</td><td class="c">19</td><td class="c">2</td><td class="c">8</td><td class="c">1</td><td class="c">1</td><td class="c">9</td></tr>
 <tr><td>HDMI_D2P</td><td class="c">8</td><td class="c">0</td><td class="c">7</td><td class="c">1</td><td class="c">0</td><td class="c">0</td></tr>
@@ -161,7 +162,7 @@ svg .mut{fill:var(--muted)}
   <thead><tr><th>ペア</th><th class="c">解析経路長（引き出し線なし→あり）</th><th class="c">パッド内の除外長（Core側とコネクタ側、P+N合計）</th><th class="c">SDD11最大(〜1.5GHz)</th><th class="c">SDD21 @742MHz</th></tr></thead>
   <tbody>
 <tr><td>D0</td><td class="c">54.01 → 56.71 mm</td><td class="c">4.61 mm</td><td class="c">-15.5 → -17.2 dB</td><td class="c">-0.86 → -0.88 dB</td></tr>
-<tr><td>D1</td><td class="c">36.01 → 38.71 mm</td><td class="c">4.61 mm</td><td class="c">-12.7 → -12.9 dB</td><td class="c">-0.82 → -0.84 dB</td></tr>
+<tr><td>D1</td><td class="c">36.01 → 38.71 mm</td><td class="c">4.61 mm</td><td class="c">-15.9 → -17.3 dB</td><td class="c">-0.78 → -0.80 dB</td></tr>
 <tr><td>D2</td><td class="c">36.04 → 38.73 mm</td><td class="c">4.61 mm</td><td class="c">-15.6 → -16.1 dB</td><td class="c">-0.76 → -0.78 dB</td></tr>
 <tr><td>CK</td><td class="c">54.64 → 57.33 mm</td><td class="c">4.61 mm</td><td class="c">-16.4 → -18.5 dB</td><td class="c">-0.85 → -0.87 dB</td></tr>
   </tbody></table></div>
@@ -175,14 +176,14 @@ svg .mut{fill:var(--muted)}
   <thead><tr><th>ペア</th><th class="c">枝長 P/N</th><th class="c">分岐位置 P/N（キャップ側からの距離）</th><th class="c">SDD11最大：P位置のみの旧近似 → 実位置</th><th class="c">SCD21最大：旧近似 → 実位置</th></tr></thead>
   <tbody>
 <tr><td>D0</td><td class="c">9.1 / 6.8 mm</td><td class="c">0.0 / 0.0 mm</td><td class="c">-17.2 dB → -17.2 dB</td><td class="c">-33.9 dB → -33.9 dB</td></tr>
-<tr><td>D1</td><td class="c">6.6 / 11.5 mm</td><td class="c">0.0 / 7.24 mm</td><td class="c">-13.8 dB → -12.9 dB</td><td class="c">-25.0 dB → -24.9 dB</td></tr>
+<tr><td>D1</td><td class="c">0.6 / 0.6 mm</td><td class="c">9.4 / 9.4 mm</td><td class="c">-17.3 dB → -17.3 dB</td><td class="c">数値床（理想対称） → 数値床（理想対称）</td></tr>
 <tr><td>D2</td><td class="c">2.2 / 4.4 mm</td><td class="c">0.0 / 0.0 mm</td><td class="c">-16.1 dB → -16.1 dB</td><td class="c">-33.6 dB → -33.6 dB</td></tr>
 <tr><td>CK</td><td class="c">5.2 / 5.4 mm</td><td class="c">0.86 / 0.1 mm</td><td class="c">-18.4 dB → -18.5 dB</td><td class="c">-61.4 dB → -53.9 dB</td></tr>
   </tbody></table></div>
  <ul>
-  <li>D1のN側の枝は11.5mmで、ESDの入力パッド付近（キャップから7.2mm）で分岐しています。実位置を反映すると、D1のSDD11は旧近似より悪化し、<b>モード変換（SCD21）も −25dB 程度まで増えます</b>（他のペアは −33dB 以下）。</li>
+  <li>2026-10-24追加修正：D1のR30/R31を0402に変更してESD後の主配線間へ配置。信号分岐はP/Nとも0.585mm、GNDパッドから0.69mm配線したランド外にビアを設けた。主差動配線は維持した。</li>
   <li><b>短く対称な枝（3mm×2、キャップ位置）との比較</b>（8章の表）：D1のSDD11最大は改善しますが、SDD21は大きく変わらず、モード変換は理想上ほぼ0になります。枝を短くする効果は<b>反射とモード変換の改善</b>です。</li>
-  <li><b>D1の枝（11.5mm）：再配置を試行し、改善できなかった</b>：D1の2つの抵抗を、ESDの右側の空き領域（レーンの上）へ移して全体を再配線しました（DRC 0件・113/113ネットは達成）が、ルータは同じネットの<b>パッドにしか分岐を接続できず</b>、枝がレーンをビアで越えて遠回りし、<b>D1の枝が9.0／18.3mmと悪化</b>したため、元の配置に戻しました。枝を短くした場合の効果は解析で見積もりました（D1、SDD11最大：基準／Core 85Ω・ESD 0.35pF／Core 85Ω・ESD 0.5pF）：N枝11.5mm＝−12.9／−9.1／−7.9dB、7mm＝−14.3／−9.9／−8.6dB、5mm＝−14.9／−10.3／−8.9dB。<b>枝を5〜7mmにしても、Core 85Ω・ESD 0.5pFの組み合わせは目標を満たせません</b>（Core側のインピーダンスの不整合自体が−11dB程度で、ESD・枝の寄与が加わるため）。別の案（ルータに配線途中への分岐を許す、または抵抗を信号パッド近傍へ置く部品配置の再設計）は次版の課題です。<b>D1の枝を残す理由</b>：基準条件（Core 100Ω・ESD 0.35pF）の反射は自主目標（−10dB）を満たしている（実位置で -12.9 dB）ので、PoCではこのまま製作し、試作の反射・モード変換の測定結果に基づいて、次版で抵抗を信号線の近くへ置き直します。ただし<b>モード変換（SCD21 -24.9 dB）が実機で許容できるかは未確認</b>で、複合条件の最悪側（A4）ではD1が目標を外れる主因です。</li>
+  <li><b>先行した再配置の失敗を理由に長い枝を残す判断を見直した。</b>粗い格子のルータでは狭い配置を扱えないため、配線後に抵抗と分岐を局所変更する工程を追加した。「ルータはパッドにしか接続できない」という従来説明も訂正する。既存コードは配線上の点も接続木へ登録しており、失敗はその機能がないことの証拠ではない。D1の反射は約−12.9→−17.3dBへ改善。左右対称モデルでSCD21が数値床へ下がることを実機のモード変換ゼロとは解釈しない。</li>
   <li>枝の線路は幅0.127mm・単線約85Ω・誘電率3.0の近似で、隣接配線との結合や層の違いは考慮していません。</li>
  </ul>
 </section>
@@ -193,19 +194,19 @@ svg .mut{fill:var(--muted)}
  <div class="tw"><table>
   <thead><tr><th>Core側 Z</th><th class="c">ESD 差動容量</th><th class="c">SDD11最大(〜1.5GHz)（悪い方のペア）</th><th class="c">SDD21 @742MHz（悪い方）</th><th class="c">−10dBの自主目標</th><th class="c">（比較案）枝を3mm×2の対称にした場合の最悪値</th></tr></thead>
   <tbody>
-<tr><td>85 Ω</td><td class="c">0.20 pF</td><td class="c">-10.4 dB (D1)</td><td class="c">-1.00 dB</td><td class="c">満たす</td><td class="c">-12.1 dB (満たす)</td></tr>
-<tr><td>85 Ω</td><td class="c">0.35 pF</td><td class="c">-9.1 dB (D1)</td><td class="c">-0.97 dB</td><td class="c"><b>外れる</b></td><td class="c">-10.9 dB (満たす)</td></tr>
-<tr><td>85 Ω</td><td class="c">0.50 pF</td><td class="c">-7.9 dB (D1)</td><td class="c">-0.96 dB</td><td class="c"><b>外れる</b></td><td class="c">-9.4 dB (<b>外れる</b>)</td></tr>
-<tr><td>100 Ω</td><td class="c">0.20 pF</td><td class="c">-15.3 dB (D1)</td><td class="c">-0.87 dB</td><td class="c">満たす</td><td class="c">-19.7 dB (満たす)</td></tr>
-<tr><td>100 Ω</td><td class="c">0.35 pF</td><td class="c">-12.9 dB (D1)</td><td class="c">-0.88 dB</td><td class="c">満たす</td><td class="c">-16.1 dB (満たす)</td></tr>
-<tr><td>100 Ω</td><td class="c">0.50 pF</td><td class="c">-11.0 dB (D1)</td><td class="c">-0.90 dB</td><td class="c">満たす</td><td class="c">-13.4 dB (満たす)</td></tr>
-<tr><td>115 Ω</td><td class="c">0.20 pF</td><td class="c">-14.7 dB (D1)</td><td class="c">-0.93 dB</td><td class="c">満たす</td><td class="c">-15.8 dB (満たす)</td></tr>
-<tr><td>115 Ω</td><td class="c">0.35 pF</td><td class="c">-13.4 dB (D1)</td><td class="c">-0.97 dB</td><td class="c">満たす</td><td class="c">-14.9 dB (満たす)</td></tr>
-<tr><td>115 Ω</td><td class="c">0.50 pF</td><td class="c">-12.2 dB (D1)</td><td class="c">-1.02 dB</td><td class="c">満たす</td><td class="c">-13.5 dB (満たす)</td></tr>
+<tr><td>85 Ω</td><td class="c">0.20 pF</td><td class="c">-11.1 dB (D1)</td><td class="c">-1.00 dB</td><td class="c">満たす</td><td class="c">-12.1 dB (満たす)</td></tr>
+<tr><td>85 Ω</td><td class="c">0.35 pF</td><td class="c">-10.8 dB (D0)</td><td class="c">-0.97 dB</td><td class="c">満たす</td><td class="c">-10.9 dB (満たす)</td></tr>
+<tr><td>85 Ω</td><td class="c">0.50 pF</td><td class="c">-9.4 dB (D2)</td><td class="c">-0.96 dB</td><td class="c"><b>外れる</b></td><td class="c">-9.4 dB (<b>外れる</b>)</td></tr>
+<tr><td>100 Ω</td><td class="c">0.20 pF</td><td class="c">-17.8 dB (D1)</td><td class="c">-0.87 dB</td><td class="c">満たす</td><td class="c">-19.7 dB (満たす)</td></tr>
+<tr><td>100 Ω</td><td class="c">0.35 pF</td><td class="c">-16.1 dB (D2)</td><td class="c">-0.88 dB</td><td class="c">満たす</td><td class="c">-16.1 dB (満たす)</td></tr>
+<tr><td>100 Ω</td><td class="c">0.50 pF</td><td class="c">-13.3 dB (D2)</td><td class="c">-0.90 dB</td><td class="c">満たす</td><td class="c">-13.4 dB (満たす)</td></tr>
+<tr><td>115 Ω</td><td class="c">0.20 pF</td><td class="c">-15.7 dB (D1)</td><td class="c">-0.92 dB</td><td class="c">満たす</td><td class="c">-15.8 dB (満たす)</td></tr>
+<tr><td>115 Ω</td><td class="c">0.35 pF</td><td class="c">-14.8 dB (D2)</td><td class="c">-0.95 dB</td><td class="c">満たす</td><td class="c">-14.9 dB (満たす)</td></tr>
+<tr><td>115 Ω</td><td class="c">0.50 pF</td><td class="c">-13.5 dB (D2)</td><td class="c">-0.99 dB</td><td class="c">満たす</td><td class="c">-13.5 dB (満たす)</td></tr>
   </tbody></table></div>
  <figure><img src="img/sim_matrix_r3.png" alt="複合条件" style="width:100%;height:auto;display:block;border-radius:6px">
   <figcaption>図1　Core側ZとESD容量の複合条件（悪い方のペア）。観察帯域は〜1.5GHz（720p60）。</figcaption></figure>
- <p><b>目標を外れる条件への扱い</b>：外れる条件は Core 85Ω × ESD 0.35pF（-9.1dB）、Core 85Ω × ESD 0.50pF（-7.9dB） の<b>最悪側の組み合わせ</b>で、いずれも悪い方のペアはD1（N側の枝11.5mm・分岐位置が非対称）です。比較案（枝を短く対称にした場合）では 外れる条件は残る（Core 85Ω × ESD 0.50pF（-9.4dB））。これは<b>出現確率・製造歩留まり・実機の表示可否ではありません</b>。対処：①PoCでは受け入れる不確かさとして記録し、試作で反射（TDRまたは公式Dockとの比較）を測る、②反射が悪ければ、ESD容量を下げる（別部品）、D1の枝を短縮する（A3）、低速（640×480）で動作確認する、を次版の対処とする。自主目標は規格値ではありません。</p>
+ <p><b>目標を外れる条件への扱い</b>：現在の目標外は Core 85Ω × ESD 0.50pF（-9.4dB）。D1短縮前には2条件でD1が弱点だったが、短縮後は1条件、悪い方はD2へ移った。比較案（全ペアを3mmの対称枝）では 外れる条件は残る（Core 85Ω × ESD 0.50pF（-9.4dB））。これらは仮定の感度計算で、<b>出現確率・歩留まり・実機表示可否ではない</b>。自主目標−10dBを規格適合の合格値とは呼ばない。</p>
 </section>
 
 <section id="a5">
@@ -236,15 +237,15 @@ svg .mut{fill:var(--muted)}
   <thead><tr><th>ペア</th><th class="c">P/N長 (mm)（引き出し線を含む）</th><th class="c">スキュー</th><th class="c">Zdiff 最小/平均 (Ω)</th><th class="c">499Ω枝 P/N</th><th class="c">F.Cu結合割合</th></tr></thead>
   <tbody>
 <tr><td>D0</td><td class="c">59.01 / 59.01</td><td class="c">0.00 mm</td><td class="c">103 / 112</td><td class="c">9.1 / 6.8 mm</td><td class="c">85 %</td></tr>
-<tr><td>D1</td><td class="c">41.01 / 41.01</td><td class="c">0.00 mm</td><td class="c">103 / 116</td><td class="c">6.6 / 11.5 mm</td><td class="c">78 %</td></tr>
+<tr><td>D1</td><td class="c">41.01 / 41.01</td><td class="c">0.00 mm</td><td class="c">103 / 116</td><td class="c">0.6 / 0.6 mm</td><td class="c">78 %</td></tr>
 <tr><td>D2</td><td class="c">41.04 / 41.04</td><td class="c">0.00 mm</td><td class="c">103 / 116</td><td class="c">2.2 / 4.4 mm</td><td class="c">78 %</td></tr>
 <tr><td>CK</td><td class="c">59.64 / 59.64</td><td class="c">0.00 mm</td><td class="c">103 / 112</td><td class="c">5.2 / 5.4 mm</td><td class="c">85 %</td></tr>
   </tbody></table></div>
  <p>長さは実PCBの銅線を接続順にたどり、パッド中心からの積算です（ルータの設計値ではなく、実配線の抽出値）。部品内部・ビアの垂直方向（約1.6mm相当）・Core側基板内（38.4mm）は含みません。</p>
  <figure><img src="img/sim_route_r3.png" alt="TMDS実配線" style="width:100%;height:auto;display:block;border-radius:6px">
   <figcaption>図2　TMDS 4組の実配線（細線=P、太線=N、黒細線=499Ω枝）。</figcaption></figure>
- <figure><img src="img/render_top_r3.png" alt="基板3Dレンダリング" style="width:100%;height:auto;display:block;border-radius:6px">
-  <figcaption>図3　基板全体（右辺の上寄りがHDMI）。</figcaption></figure>
+ <figure><img src="img/render_top_r3.png" alt="D1修正前の基板3Dレンダリング（参考）" style="width:100%;height:auto;display:block;border-radius:6px">
+  <figcaption>図3　D1修正前の参考3D画像。R30/R31の現在の位置は図2とPCBを参照。</figcaption></figure>
 </section>
 
 <section id="channel">
@@ -254,7 +255,7 @@ svg .mut{fill:var(--muted)}
   <thead><tr><th>ペア</th><th class="c">SDD11 371/742MHz</th><th class="c">SDD11 最大(〜1.5GHz)</th><th class="c">SDD21 371/742MHz</th><th class="c">SDD21 1.5GHz</th><th class="c">SCD21 最大</th></tr></thead>
   <tbody>
 <tr><td>D0</td><td class="c">-23.4 / -19.4 dB</td><td class="c">-17.2 dB</td><td class="c">-0.67 / -0.88 dB</td><td class="c">-1.27 dB</td><td class="c">-33.9 dB</td></tr>
-<tr><td>D1</td><td class="c">-24.0 / -19.4 dB</td><td class="c">-12.9 dB</td><td class="c">-0.63 / -0.84 dB</td><td class="c">-1.46 dB</td><td class="c">-24.9 dB</td></tr>
+<tr><td>D1</td><td class="c">-23.2 / -19.7 dB</td><td class="c">-17.3 dB</td><td class="c">-0.63 / -0.80 dB</td><td class="c">-1.12 dB</td><td class="c">数値床（理想対称）</td></tr>
 <tr><td>D2</td><td class="c">-24.3 / -20.8 dB</td><td class="c">-16.1 dB</td><td class="c">-0.62 / -0.78 dB</td><td class="c">-1.11 dB</td><td class="c">-33.6 dB</td></tr>
 <tr><td>CK</td><td class="c">-23.2 / -19.8 dB</td><td class="c">-18.5 dB</td><td class="c">-0.67 / -0.87 dB</td><td class="c">-1.19 dB</td><td class="c">-53.9 dB</td></tr>
   </tbody></table></div>
@@ -265,7 +266,7 @@ svg .mut{fill:var(--muted)}
   <thead><tr><th>ペア</th><th class="c">SDD11最大(〜1.5GHz)　第2版 → 第3版</th><th class="c">SDD21 @742MHz　第2版 → 第3版</th></tr></thead>
   <tbody>
 <tr><td>D0</td><td class="c">-17.0 dB → -17.2 dB</td><td class="c">-0.79 dB → -0.88 dB</td></tr>
-<tr><td>D1</td><td class="c">-15.9 dB → -12.9 dB</td><td class="c">-0.75 dB → -0.84 dB</td></tr>
+<tr><td>D1</td><td class="c">-15.9 dB → -17.3 dB</td><td class="c">-0.75 dB → -0.80 dB</td></tr>
 <tr><td>D2</td><td class="c">-18.7 dB → -16.1 dB</td><td class="c">-0.72 dB → -0.78 dB</td></tr>
 <tr><td>CK</td><td class="c">-18.6 dB → -18.5 dB</td><td class="c">-0.78 dB → -0.87 dB</td></tr>
   </tbody></table></div>
@@ -275,16 +276,16 @@ svg .mut{fill:var(--muted)}
   <thead><tr><th>条件（4組のうち悪い方）</th><th class="c">SDD11 最大(〜1.5GHz)</th><th class="c">SDD21 @742MHz</th><th class="c">SCD21 最大</th></tr></thead>
   <tbody>
 <tr><td>理想（ESD・枝なし）</td><td class="c">-17.6 dB (D0)</td><td class="c">-0.44 dB</td><td class="c">-199.0 dB</td></tr>
-<tr><td>是正後（現在の枝）</td><td class="c">-12.9 dB (D1)</td><td class="c">-0.88 dB</td><td class="c">-24.9 dB</td></tr>
+<tr><td>是正後（現在の枝）</td><td class="c">-16.1 dB (D2)</td><td class="c">-0.88 dB</td><td class="c">-33.6 dB</td></tr>
 <tr><td>是正前の枝（21〜53mm）</td><td class="c">-4.2 dB (D2)</td><td class="c">-3.77 dB</td><td class="c">-9.6 dB</td></tr>
-<tr><td>P/N枝を同じ位置とした旧近似</td><td class="c">-13.8 dB (D1)</td><td class="c">-0.88 dB</td><td class="c">-25.0 dB</td></tr>
+<tr><td>P/N枝を同じ位置とした旧近似</td><td class="c">-16.1 dB (D2)</td><td class="c">-0.88 dB</td><td class="c">-33.6 dB</td></tr>
 <tr><td>比較案：短い対称枝（3mm×2、キャップ位置）</td><td class="c">-16.1 dB (D2)</td><td class="c">-0.86 dB</td><td class="c">-199.0 dB</td></tr>
-<tr><td>ESD 0.2pF</td><td class="c">-15.3 dB (D1)</td><td class="c">-0.87 dB</td><td class="c">-25.1 dB</td></tr>
-<tr><td>ESD 0.35pF（基準）</td><td class="c">-12.9 dB (D1)</td><td class="c">-0.88 dB</td><td class="c">-24.9 dB</td></tr>
-<tr><td>ESD 0.5pF</td><td class="c">-11.0 dB (D1)</td><td class="c">-0.90 dB</td><td class="c">-24.8 dB</td></tr>
-<tr><td>Core 85Ω</td><td class="c">-9.1 dB (D1)</td><td class="c">-0.97 dB</td><td class="c">-25.2 dB</td></tr>
-<tr><td>Core 100Ω（基準）</td><td class="c">-12.9 dB (D1)</td><td class="c">-0.88 dB</td><td class="c">-24.9 dB</td></tr>
-<tr><td>Core 115Ω</td><td class="c">-13.4 dB (D1)</td><td class="c">-0.97 dB</td><td class="c">-24.5 dB</td></tr>
+<tr><td>ESD 0.2pF</td><td class="c">-17.8 dB (D1)</td><td class="c">-0.87 dB</td><td class="c">-33.0 dB</td></tr>
+<tr><td>ESD 0.35pF（基準）</td><td class="c">-16.1 dB (D2)</td><td class="c">-0.88 dB</td><td class="c">-33.6 dB</td></tr>
+<tr><td>ESD 0.5pF</td><td class="c">-13.3 dB (D2)</td><td class="c">-0.90 dB</td><td class="c">-34.4 dB</td></tr>
+<tr><td>Core 85Ω</td><td class="c">-10.8 dB (D0)</td><td class="c">-0.97 dB</td><td class="c">-33.3 dB</td></tr>
+<tr><td>Core 100Ω（基準）</td><td class="c">-16.1 dB (D2)</td><td class="c">-0.88 dB</td><td class="c">-33.6 dB</td></tr>
+<tr><td>Core 115Ω</td><td class="c">-14.8 dB (D2)</td><td class="c">-0.95 dB</td><td class="c">-33.5 dB</td></tr>
   </tbody></table></div>
  <figure><img src="img/sim_variants_r3.png" alt="是正の効果と感度" style="width:100%;height:auto;display:block;border-radius:6px">
   <figcaption>図5　是正の効果とESD容量・Core側Zへの感度。</figcaption></figure>
@@ -303,19 +304,19 @@ svg .mut{fill:var(--muted)}
  <div class="tw"><table>
   <thead><tr><th>事項</th><th>状況・対応</th></tr></thead>
   <tbody>
-   <tr><td>D1のN側の枝（11.5mm）、P/N非対称</td><td>PoCでは残す（A3）。試作でモード変換・反射を測り、次版で抵抗を信号線近くへ</td></tr>
+   <tr><td>D1の長い非対称分岐</td><td>0402へ変更しP/Nとも0.585mmへ短縮済み。ほかの分岐・実物の非対称性は残る</td></tr>
    <tr><td>複合条件で−10dB目標を外れる最悪側</td><td>PoCで受け入れる不確かさとして記録（A4）。実機で反射を確認</td></tr>
    <tr><td>ESDの推奨ランド</td><td>データシートに無い。注文時にJLCPCBのフットプリント・向きを確認</td></tr>
    <tr><td>Core基板内・SODIMM接点</td><td>感度解析のみ。公式Dockとの比較測定が有効</td></tr>
    <tr><td>内層・ビア・多層の帰路</td><td>全層をマイクロストリップ表で近似（未確認）。3D解析の較正後に確認</td></tr>
-   <tr><td>3D解析（B1/B2）、MeOS要求（C）</td><td>未着手（この作業の範囲外）</td></tr>
+   <tr><td>3D解析（B1/B2）、共通キャリア要求（C）</td><td>3D較正、物理通信、電源断時隔離は未完了。Linux/GPUにも必要な条件であり、MeOSだけの条件ではない</td></tr>
    <tr><td>製作後の成功条件（PoC）</td><td>短いケーブル・限定モニタで、640×480→720p60の固定パターンを30分程度表示。1080p60は保証対象外</td></tr>
   </tbody></table></div>
 </section>
 
 <section id="repro">
  <h2>11. 再現手順と記録</h2>
- <p>対象：ベースコミット <code>7929491</code>（第2版）に対する変更。回路・PCB・抽出入力・モデル・結果・図・本ページは、同じ変更に含まれます。ファイルのSHA-256（改行をLFに正規化）は下表（<code>kicad/sim/manifest_r3.json</code>）で、チェックアウト後に <code>make_manifest.py</code> で再計算して照合できます（コミット自身のSHAは、その中に含められないため記載しません）。</p>
+ <p>対象：ベースコミット <code>f47f28fa714dfb23843b7516e887ca90acdd0f14</code>（第2版）に対する変更。回路・PCB・抽出入力・モデル・結果・図・本ページは、同じ変更に含まれます。ファイルのSHA-256（改行をLFに正規化）は下表（<code>kicad/sim/manifest_r3.json</code>）で、チェックアウト後に <code>make_manifest.py</code> で再計算して照合できます（コミット自身のSHAは、その中に含められないため記載しません）。</p>
  <div class="tw"><table>
   <thead><tr><th>コマンド（順番）</th><th>内容</th></tr></thead>
   <tbody>
@@ -325,31 +326,45 @@ svg .mut{fill:var(--muted)}
    <tr><td><code>tmds_channel.py</code>、<code>tmds_sparam.py</code>、<code>make_report_figs.py</code>、<code>make_manifest.py</code>、<code>make_report_page.py</code></td><td>解析・図・ハッシュ・このページ</td></tr>
   </tbody></table></div>
  <details><summary>ファイルのハッシュ（先頭16桁）</summary><div class="tw"><table><thead><tr><th>ファイル</th><th>SHA-256</th></tr></thead><tbody>
+<tr><td><code>docs/PoC目的適合性_独立評価とD1修正_2026-10-24.md</code></td><td><code>11959912cd0f95af</code></td></tr>
+<tr><td><code>kicad/sim/review_poc_purpose.py</code></td><td><code>93da83d874f11ed1</code></td></tr>
+<tr><td><code>kicad/sim/poc_purpose_review.json</code></td><td><code>3a5e094d5ed92f81</code></td></tr>
+<tr><td><code>kicad/sim/check_d1_bias.py</code></td><td><code>56bc5826ab773931</code></td></tr>
+<tr><td><code>kicad/sim/test_d1_bias_check.py</code></td><td><code>496fcb2b295accce</code></td></tr>
+<tr><td><code>kicad/sim/d1_bias_check.json</code></td><td><code>40a2deb20d6f9449</code></td></tr>
+<tr><td><code>kicad/sim/regression_d1_bias.json</code></td><td><code>bc1d4766afc1db6c</code></td></tr>
+<tr><td><code>kicad/sim/make_poc_review_page.py</code></td><td><code>a712cebadd98631e</code></td></tr>
+<tr><td><code>site/poc-purpose-review.html</code></td><td><code>c499168f389da4da</code></td></tr>
+<tr><td><code>kicad/sim/d1_finalizer_reproduction.json</code></td><td><code>a7d30dd5f3a7d3f1</code></td></tr>
+<tr><td><code>docs/reference/openems/sources.json</code></td><td><code>3b8c6dbfa17ca49d</code></td></tr>
 <tr><td><code>docs/HDMI_R3_監査引継ぎ確認_2026-10-24.md</code></td><td><code>b47be54b1355712e</code></td></tr>
 <tr><td><code>kicad/sim/audit_handover.py</code></td><td><code>a772da7d17146435</code></td></tr>
 <tr><td><code>kicad/sim/make_handover_page.py</code></td><td><code>1a99d58588a90d54</code></td></tr>
 <tr><td><code>kicad/sim/handover_851adf4_2026-10-24.json</code></td><td><code>3d28a4309d1de492</code></td></tr>
-<tr><td><code>site/hdmi-audit-handover.html</code></td><td><code>ccb6cfa094f14af3</code></td></tr>
+<tr><td><code>site/hdmi-audit-handover.html</code></td><td><code>c677471a45917bfa</code></td></tr>
 <tr><td><code>site/audit-data/handover_851adf4_2026-10-24.json</code></td><td><code>3d28a4309d1de492</code></td></tr>
-<tr><td><code>kicad/gen/design.py</code></td><td><code>4b7bdba1a2f99704</code></td></tr>
+<tr><td><code>kicad/gen/design.py</code></td><td><code>dcb187668eb5dde2</code></td></tr>
 <tr><td><code>kicad/gen/route_pcb.py</code></td><td><code>312b054b15ac1954</code></td></tr>
-<tr><td><code>kicad/gen/make_pcb.py</code></td><td><code>99a0127ebbe524f9</code></td></tr>
+<tr><td><code>kicad/gen/make_pcb.py</code></td><td><code>86c1da8f1ba53777</code></td></tr>
 <tr><td><code>kicad/gen/finish_pcb.py</code></td><td><code>50659a7787192c54</code></td></tr>
+<tr><td><code>kicad/gen/shorten_d1_bias.py</code></td><td><code>dd8bb1c7daa04b39</code></td></tr>
+<tr><td><code>kicad/gen/make_bom.py</code></td><td><code>b81b94dec01a6a67</code></td></tr>
 <tr><td><code>kicad/lib/carrier.pretty/DFN2510-10L_RCLAMP0524P.kicad_mod</code></td><td><code>e4260680ff83a050</code></td></tr>
-<tr><td><code>kicad/tab5-fpga-carrier.kicad_pcb</code></td><td><code>3758ea23c1cd8dee</code></td></tr>
-<tr><td><code>kicad/tab5-fpga-carrier.kicad_sch</code></td><td><code>54f6872d8f38e70d</code></td></tr>
-<tr><td><code>kicad/bom.csv</code></td><td><code>1f5b731862651d2f</code></td></tr>
+<tr><td><code>kicad/tab5-fpga-carrier.kicad_pcb</code></td><td><code>3b4d9b99150d7588</code></td></tr>
+<tr><td><code>kicad/tab5-fpga-carrier.kicad_pro</code></td><td><code>832a254610287b92</code></td></tr>
+<tr><td><code>kicad/tab5-fpga-carrier.kicad_sch</code></td><td><code>aa3861d36d3349c7</code></td></tr>
+<tr><td><code>kicad/bom.csv</code></td><td><code>ee21409e6033f799</code></td></tr>
 <tr><td><code>kicad/core_pin_assignment.csv</code></td><td><code>7199e147135b232a</code></td></tr>
-<tr><td><code>kicad/sim/tmds_roles.json</code></td><td><code>595296321dbe6778</code></td></tr>
-<tr><td><code>kicad/sim/tmds_geom.json</code></td><td><code>da373e586cafd282</code></td></tr>
+<tr><td><code>kicad/sim/tmds_roles.json</code></td><td><code>0ccba1e93d78389a</code></td></tr>
+<tr><td><code>kicad/sim/tmds_geom.json</code></td><td><code>b4c29ff0cac7a1d3</code></td></tr>
 <tr><td><code>kicad/sim/pair_lengths.json</code></td><td><code>4b7c4979d8934178</code></td></tr>
 <tr><td><code>kicad/sim/zdiff_cache.json</code></td><td><code>b6d5501d5d2e8ce8</code></td></tr>
-<tr><td><code>kicad/sim/tmds_via_policy.json</code></td><td><code>961297a8328a79b8</code></td></tr>
+<tr><td><code>kicad/sim/tmds_via_policy.json</code></td><td><code>3016671ff65b2256</code></td></tr>
 <tr><td><code>kicad/sim/microstrip2d.py</code></td><td><code>ea78aff10f19a0ec</code></td></tr>
 <tr><td><code>kicad/sim/tmds_channel.py</code></td><td><code>ffd66808e7d2f572</code></td></tr>
 <tr><td><code>kicad/sim/tmds_sparam.py</code></td><td><code>db46532cd9c21236</code></td></tr>
 <tr><td><code>kicad/sim/make_report_figs.py</code></td><td><code>50c58b11661e64e5</code></td></tr>
-<tr><td><code>kicad/sim/make_report_page.py</code></td><td><code>056a1d743096047f</code></td></tr>
+<tr><td><code>kicad/sim/make_report_page.py</code></td><td><code>942702cf56f6c34d</code></td></tr>
 <tr><td><code>kicad/sim/check_continuity.py</code></td><td><code>7a37ca361fbd07b4</code></td></tr>
 <tr><td><code>kicad/sim/check_negative.py</code></td><td><code>798c6737b4311fad</code></td></tr>
 <tr><td><code>kicad/sim/check_classification.py</code></td><td><code>fba1733db34bad21</code></td></tr>
@@ -358,33 +373,33 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>kicad/sim/test_esd_check.py</code></td><td><code>98732daeaa2539a6</code></td></tr>
 <tr><td><code>kicad/sim/test_classification_check.py</code></td><td><code>530cc1851234dd80</code></td></tr>
 <tr><td><code>kicad/sim/make_audit_checks_page.py</code></td><td><code>b4da3b4fea5011e9</code></td></tr>
-<tr><td><code>kicad/sim/make_manifest.py</code></td><td><code>d3a5f1eff25023e9</code></td></tr>
-<tr><td><code>kicad/sim/continuity_report.json</code></td><td><code>0449138b3667965e</code></td></tr>
+<tr><td><code>kicad/sim/make_manifest.py</code></td><td><code>84a014f4b0724702</code></td></tr>
+<tr><td><code>kicad/sim/continuity_report.json</code></td><td><code>fac99e8648492762</code></td></tr>
 <tr><td><code>kicad/sim/negative_report.json</code></td><td><code>c43a4793152bcdb5</code></td></tr>
-<tr><td><code>kicad/sim/classification_report.json</code></td><td><code>4663609e681d810e</code></td></tr>
+<tr><td><code>kicad/sim/classification_report.json</code></td><td><code>587be4ca467d5d37</code></td></tr>
 <tr><td><code>kicad/sim/esd_footprint_check.json</code></td><td><code>4395acde91c2ae89</code></td></tr>
-<tr><td><code>kicad/sim/drc_r3.json</code></td><td><code>03ca1f81b07daeab</code></td></tr>
-<tr><td><code>kicad/sim/tmds_summary.json</code></td><td><code>5d4dec54f35a4f2c</code></td></tr>
-<tr><td><code>kicad/sim/tmds_sparam.json</code></td><td><code>0aa81841f94f8f57</code></td></tr>
-<tr><td><code>kicad/sim/report_sparam.json</code></td><td><code>ec30e6da8947b4e0</code></td></tr>
-<tr><td><code>kicad/sim/report_variants.json</code></td><td><code>0a2fb568e1853435</code></td></tr>
-<tr><td><code>kicad/sim/report_matrix.json</code></td><td><code>ff46d481d65e3d37</code></td></tr>
-<tr><td><code>kicad/sim/report_sensitivity.json</code></td><td><code>be45ec4f1419231a</code></td></tr>
-<tr><td><code>kicad/sim/report_stub_effect.json</code></td><td><code>afe4ef33fbe981a7</code></td></tr>
+<tr><td><code>kicad/sim/drc_r3.json</code></td><td><code>bf92057ad4def46c</code></td></tr>
+<tr><td><code>kicad/sim/tmds_summary.json</code></td><td><code>548f8342910b578c</code></td></tr>
+<tr><td><code>kicad/sim/tmds_sparam.json</code></td><td><code>c7966eb176714217</code></td></tr>
+<tr><td><code>kicad/sim/report_sparam.json</code></td><td><code>4253eb738029bef2</code></td></tr>
+<tr><td><code>kicad/sim/report_variants.json</code></td><td><code>1de44b0abf2095fd</code></td></tr>
+<tr><td><code>kicad/sim/report_matrix.json</code></td><td><code>adb5a03c1867a9b3</code></td></tr>
+<tr><td><code>kicad/sim/report_sensitivity.json</code></td><td><code>fa8c15def5e466bc</code></td></tr>
+<tr><td><code>kicad/sim/report_stub_effect.json</code></td><td><code>b62cc6d4dc844876</code></td></tr>
 <tr><td><code>kicad/sim/baseline_r2_report_sparam.json</code></td><td><code>935f36a64e6d5732</code></td></tr>
 <tr><td><code>kicad/sim/regression_esd.json</code></td><td><code>94815145c6080f09</code></td></tr>
 <tr><td><code>kicad/sim/regression_classification.json</code></td><td><code>4369934af03df85c</code></td></tr>
-<tr><td><code>site/index.html</code></td><td><code>049fe623d472b588</code></td></tr>
-<tr><td><code>site/hdmi-audit-checks.html</code></td><td><code>af92361315b7ebea</code></td></tr>
+<tr><td><code>site/index.html</code></td><td><code>061ce2d193b989cd</code></td></tr>
+<tr><td><code>site/hdmi-audit-checks.html</code></td><td><code>1b26e79a6d03b2ec</code></td></tr>
 <tr><td><code>docs/HDMI_R3_検査修正_2026-10-24.md</code></td><td><code>a5ae505bb04e8244</code></td></tr>
 <tr><td><code>docs/FPGA_HDMI要求_D2反転とピン.md</code></td><td><code>e8d0328e42204e9a</code></td></tr>
 <tr><td><code>site/img/sim_zdiff_r3.png</code></td><td><code>2c8138435590ae08</code></td></tr>
 <tr><td><code>site/img/sim_compare_r3.png</code></td><td><code>e1af0314d577a82d</code></td></tr>
-<tr><td><code>site/img/sim_route_r3.png</code></td><td><code>b3bc8313c2fce97b</code></td></tr>
-<tr><td><code>site/img/sim_sparam_r3.png</code></td><td><code>094f73f6410b62a4</code></td></tr>
-<tr><td><code>site/img/sim_variants_r3.png</code></td><td><code>aa7b10e9885c0372</code></td></tr>
-<tr><td><code>site/img/sim_matrix_r3.png</code></td><td><code>8f729d832bf4997d</code></td></tr>
-<tr><td><code>site/img/sim_sensitivity_r3.png</code></td><td><code>051a8681ddcd49fa</code></td></tr>
+<tr><td><code>site/img/sim_route_r3.png</code></td><td><code>859a725482d8a0ea</code></td></tr>
+<tr><td><code>site/img/sim_sparam_r3.png</code></td><td><code>af93e4042c5676f9</code></td></tr>
+<tr><td><code>site/img/sim_variants_r3.png</code></td><td><code>0b1e694b0b5c7542</code></td></tr>
+<tr><td><code>site/img/sim_matrix_r3.png</code></td><td><code>9e34400caa2e981d</code></td></tr>
+<tr><td><code>site/img/sim_sensitivity_r3.png</code></td><td><code>fb08c6850aa7a6d2</code></td></tr>
 <tr><td><code>site/img/render_top_r3.png</code></td><td><code>a1ce472f534986c1</code></td></tr>
  </tbody></table></div></details>
  <p>使用環境：KiCad 10.0.6、Python 3.12（numpy、scipy、matplotlib）。方針・前提・判断の記録：<a href="https://github.com/airpocket-soundman/tab5-tang-primer20k-carrier/blob/main/docs/%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E6%96%B9%E9%87%9D%E3%81%A8%E7%9B%A3%E6%9F%BB%E8%A8%98%E9%8C%B2.md">docs/シミュレーション方針と監査記録.md</a>（§11に今回の対応）。</p>

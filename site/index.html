@@ -88,6 +88,7 @@ svg .mut{fill:var(--muted)}
   <p class="sub">M5Stack Tab5（ESP32-P4）の M5-Bus に直挿しし、Tang Primer 20K Core（GW2A-18＋128MB DDR3）を載せる専用基板。更新：2026-10-24</p>
  </div>
 </header>
+<p id="poc-purpose-review-link"><a href="poc-purpose-review.html">最新：目的への独立評価・D1分岐の実修正（0.585mm、共通用途の残件）</a></p>
 
 <nav class="toc"><div class="wrap">
  <a href="#overview">概要</a><a href="#spec">初期仕様</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#kicad">KiCad設計</a><a href="hdmi-simulation-r3.html">HDMIシミュレーション</a><a href="hdmi-audit-checks.html">第3版監査の検査修正</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
@@ -570,7 +571,7 @@ svg .mut{fill:var(--muted)}
    <tr><td>配線</td><td><b>113ネット全て自動配線</b>（3配線層＋リップアップ＋ピンスワップ＋<b>TMDSのペア配線</b>）。GNDは内層ベタ＋表裏ベタ＋スティッチビア</td><td class="c t-ok">完了</td></tr>
    <tr><td>DRC</td><td><b>エラー0件、未接続0件</b>。残りはシルク重なり警告のみ</td><td class="c t-ok">クリーン</td></tr>
    <tr><td>配線幅・間隔</td><td>信号 0.127mm/0.127mm、<b>TMDSペア 線幅0.2mm・ペア内間隔0.13mm</b>、ビア 0.6/0.3mm、電源 0.4〜0.8mm</td><td class="c t-ok">確定</td></tr>
-   <tr><td>HDMI TMDS</td><td><b>ペア内スキュー0.00mm（4組すべて）</b>、結合区間の差動インピーダンスは約103Ω（2Dソルバ）。独立監査の指摘（ESD端子導通の想定、499Ω枝の長さ）を<b>是正</b>：ESDは連続した銅配線への分岐、枝は2〜11mmに短縮（以前21〜53mm）。D1のN側（11.5mm）は目標未達（<a href="hdmi-simulation-r3.html#status">第2回監査への対応状況（第3版）</a>）。複合条件（Core 85Ω×ESD大）でSDD11目標を外れる条件あり</td><td class="c t-warn">是正済み・検査修正追記あり</td></tr>
+   <tr><td>HDMI TMDS</td><td><b>ペア内スキュー0.00mm（4組すべて）</b>、結合区間の差動インピーダンスは約103Ω（2Dソルバ）。独立監査の指摘（ESD端子導通の想定、499Ω枝の長さ）を<b>是正</b>：ESDは連続した銅配線への分岐、枝は0.585〜9.1mmに短縮（以前21〜53mm）。D1のP/Nは0402で各0.585mmへ修正済み（<a href="hdmi-simulation-r3.html#status">第2回監査への対応状況（第3版）</a>）。複合条件（Core 85Ω×ESD大）でSDD11目標を外れる条件あり</td><td class="c t-warn">是正済み・検査修正追記あり</td></tr>
    <tr><td>機構</td><td>取付穴・M5-Bus開口をTab5.stlから実測。背面は平坦（M3×10＋2.5mmスペーサ）</td><td class="c t-ok">確認済み</td></tr>
   </tbody></table></div>
 
@@ -579,9 +580,9 @@ svg .mut{fill:var(--muted)}
 <a href="hdmi-audit.html">6450c42の再監査・開発引き継ぎ</a>を公開しました。
 保存数値は再現できましたが、監査対象版にはESDの導通想定と長い抵抗枝の問題が残ります。
 「26か所の不連続」は解析用リストの問題で、PCBの26か所の断線を意味しません。
-開発側ではTMDS連続配線・ESDシャント接続・499Ω抵抗の近接配置へ修正しました（第2版）。第2回監査（<code>7929491</code>対象）の指摘A1〜A5には第3版で対応しました。<b>是正の完了は未判定</b>（再監査待ち）です。</div>
+開発側ではTMDS連続配線・ESDシャント接続・499Ω抵抗の近接配置へ修正しました（第2版）。第2回監査（<code>7929491</code>対象）の指摘A1〜A5には第3版で対応しました。検査修正を確認済み。今回さらにD1分岐を実修正し、<a href="poc-purpose-review.html">目的への独立評価</a>を追加しました。</div>
  <div class="callout ok"><b class="t">第2回監査（A1〜A5）に対応し、再評価しました（第3版レポート）</b>ESD実部品（DOWO RCLAMP0524P）のデータシートとフットプリントを照合して<b>GNDランド幅の不足を修正</b>、全TMDS銅を分類して<b>解析から抜けていた引き出し線を追加</b>、抵抗枝をP/Nの別位置に接続する<b>4ポートモデル</b>へ変更し、Core Z×ESD容量の<b>複合感度</b>を評価しました。目標は<b>720p60のPoC</b>（1080p60はGW2Aのシリアライザ上限を超えるため対象外）。詳細は<a href="hdmi-simulation-r3.html#status">第3版レポート</a>。</div>
- <div class="callout warn"><b class="t">残課題（第3版に明記）</b>複合条件（Core 85Ω＋ESD 0.35〜0.5pF）でSDD11の自主目標（−10dB）を外れる／D1のN側の枝11.5mm／3D解析（openEMS）は較正未達で未着手／MeOS向け要求（PARLIO・電源断など）は別作業。</div>
+ <div class="callout warn"><b class="t">残課題（第3版に明記）</b>D1短縮後の目標外はCore 85Ω＋ESD 0.5pFの1条件（D2、約−9.4dB）。3D較正・実機表示は未完了。物理通信と電源断時隔離はLinux/GPUにも共通する未完了項目。</div>
  <div class="callout ok"><b class="t">詳細レポート</b><a href="hdmi-simulation-r3.html"><b>第3版</b>（第2回監査対応後）</a>、<a href="hdmi-simulation-r2.html">第2版</a>（第2回監査の対象）、<a href="hdmi-simulation.html">第1版</a>（監査前）を残しています。範囲・手法・検証・結果・感度解析・限界を表とグラフでまとめています。</div>
  <p>公開されているオープンソースだけで、<b>基板データから実形状を取り出して</b>評価しました。範囲は<b>キャリア基板側のみ</b>です（Coreの基板データは未取得で、公式の配線長表だけが得られるため、Core内は長さ38.4mmの理想100Ω線路として接続）。方針と調査の記録は <code>docs/HDMI_信号品質_調査と方針.md</code>。</p>
  <ul>
@@ -612,8 +613,8 @@ svg .mut{fill:var(--muted)}
  <div class="callout warn"><b class="t">製造前に必要な作業</b>
   <ol style="margin:.3em 0 0 1.2em;padding:0">
    <li>M5-Busヘッダのピン1の向きを実機で確認する（STLから位置は確認済み）。</li>
-   <li>HDMIの実形状3D電磁界解析（openEMS等）で、ビア・ESD・コネクタ接続部を確認する。</li>
-   <li>499Ω抵抗の枝（D1のN側 11.5mm）をさらに短縮する（目標：数mm以下。複合条件でSDD11目標を外れるのはD1）。</li>
+   <li>電源断時の信号隔離と限定入力での電源保護を確定する。3D較正は保留とし、少数PoCの製作前必須条件とはしない。</li>
+   <li>D1の499Ω分岐はP/N各0.585mmへ修正済み。残る複合条件の弱点D2と、ほかの抵抗枝の寄与を実機で確認する。</li>
    <li>RCLAMP0524P（DOWO DFN2510-10L）：専用フットプリントを作成済み（GNDランド幅を修正）。メーカー推奨ランドは無いので、注文時にJLCPCBのフットプリントと向き（端子1）を確認する。499Ωの部品区分も確認する。</li>
    <li>SODIMMソケットの3Dモデルと、部品のLCSC番号・基本/拡張区分を確定する（<code>kicad/bom.csv</code>の「check」行）。</li>
    <li>FPGAの制約ファイル（.cst）を、ピン対応表から作成する（D2のデータ反転を忘れない）。</li>
