@@ -283,7 +283,7 @@ def build():
         rpos = (TMDS_X + 1.2 + k * 1.7, 10.2) if k < 4 else (TMDS_X - 1.2 + (k - 4) * 1.7, 26.4)
         two("R", "Device:R", R0603, "499R", C[l], "GND", "tmdsc", pos=rpos, rot=90)
     for tag, grp, y in (("a", lines[:4], 0.0), ("b", lines[4:], 14.0)):
-        add("U", "carrier:RCLAMP0524P", "Package_SON:USON-10_2.5x1.0mm_P0.5mm", "RCLAMP0524P",
+        add("U", "carrier:RCLAMP0524P", "carrier:DFN2510-10L_RCLAMP0524P", "RCLAMP0524P",
             # I/O pins 1,2,4,5 tap the line; 6,7,9,10 are strapped to them with copper on the board (one net), so the line is
             # continuous copper and does not depend on any internal pin-to-pin connection of the part (audit item A)
             {"1": C[grp[0]], "2": C[grp[1]], "3": "GND", "4": C[grp[2]], "5": C[grp[3]],

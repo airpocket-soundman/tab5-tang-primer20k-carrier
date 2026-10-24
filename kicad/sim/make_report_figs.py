@@ -1,4 +1,4 @@
-"""Figures for site/hdmi-simulation.html (system python: numpy, scipy, matplotlib).
+"""Figures for site/hdmi-simulation-r3.html (system python: numpy, scipy, matplotlib).
 
 python -X utf8 kicad/sim/make_report_figs.py   (after tmds_channel.py --extract, tmds_channel.py, tmds_sparam.py)
 """
@@ -51,7 +51,7 @@ def fig_zdiff():
     ax.set_title("2Dソルバ: 差動インピーダンス（JLC04161H-7628、L1-L2間 0.2104mm）", fontsize=9)
     ax.legend(fontsize=8)
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "sim_zdiff_r2.png"), dpi=110)
+    fig.savefig(os.path.join(OUT, "sim_zdiff_r3.png"), dpi=110)
     plt.close(fig)
 
 
@@ -79,7 +79,7 @@ def fig_compare():
     ax[1].set_ylim(0, 190)
     fig.suptitle("配線方式による改善（2Dソルバ＋実配線）")
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "sim_compare_r2.png"), dpi=110)
+    fig.savefig(os.path.join(OUT, "sim_compare_r3.png"), dpi=110)
     plt.close(fig)
 
 
@@ -111,7 +111,7 @@ def fig_route():
     ax.legend(ncol=3, fontsize=8, loc="lower right")
     ax.set_title("TMDS 4組の実配線（細線=P、太線=N、黒細線=499Ω枝）", fontsize=10)
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "sim_route_r2.png"), dpi=110)
+    fig.savefig(os.path.join(OUT, "sim_route_r3.png"), dpi=110)
     plt.close(fig)
 
 
@@ -120,19 +120,22 @@ def fig_sparam():
     res = {}
     for tag, p, n in tc.PAIRS:
         M = sp.channel(tag, p, n)
-        s11, s21 = sp.abcd_to_s(M)
-        res[tag] = sp.metrics(s11, s21)
+        s11, s21, scd = sp.curves(M)
+        res[tag] = sp.metrics(M)
         ax[0][0].plot(sp.F / 1e9, 20 * np.log10(abs(s11)), color=COL[tag], label=tag)
         ax[0][1].plot(sp.F / 1e9, 20 * np.log10(abs(s21)), color=COL[tag], label=tag)
+        ax[1][1].plot(sp.F / 1e9, 20 * np.log10(np.maximum(abs(scd), 1e-6)), color=COL[tag], label=tag)
         sec = sp._SEC[tag]["core"]
-        xs = np.cumsum([0] + [q[0] * 1e3 for q in sec])
-        zs = [sec[0][1]] + [q[1] for q in sec]
+        xs = np.cumsum([0] + [q["dl"] * 1e3 for q in sec])
+        zs = [2 * sec[0]["zo"]] + [2 * q["zo"] for q in sec]
         ax[1][0].plot(xs, zs, color=COL[tag], label=tag)
     ax[0][0].axhline(-10, color="k", ls=":")
     ax[0][0].set_ylim(-45, 0)
-    ax[0][0].set_title("SDD11：Core側から見た反射（100Ω基準、ESD 0.35pF、枝あり）", fontsize=9)
+    ax[0][0].set_title("SDD11：Core側から見た反射（4ポート、100Ω基準、ESD 0.35pF、枝あり）", fontsize=9)
     ax[0][1].set_title("SDD21：挿入損失")
-    for a in (ax[0][0], ax[0][1]):
+    ax[1][1].set_title("SCD21：差動→コモンのモード変換（P/N枝の位置・長さの違い）", fontsize=9)
+    ax[1][1].set_ylim(-70, -10)
+    for a in (ax[0][0], ax[0][1], ax[1][1]):
         a.set_xlabel("周波数 (GHz)")
         a.set_ylabel("dB")
         a.legend()
@@ -141,41 +144,39 @@ def fig_sparam():
     ax[0][0].text(0.39, -4, "720p60 Nyquist", fontsize=7)
     ax[0][0].text(1.52, -4, "観察上限1.5GHz", fontsize=7)
     ax[1][0].axhspan(85, 115, color="g", alpha=.12)
-    ax[1][0].set_title("Core側 キャリア配線の差動インピーダンス（2Dソルバ）")
+    ax[1][0].set_title("Core側 キャリア配線の差動インピーダンス（2Dソルバ、パッド内を除く）", fontsize=9)
     ax[1][0].set_xlabel("配線に沿った距離 (mm)")
     ax[1][0].set_ylabel("Ω")
     ax[1][0].legend()
-    rows = ["ペア SDD11 371/742MHz   最大(<=1.5G)  SDD21 371/742MHz"]
-    for tag, r in res.items():
-        rows.append("%-3s %6.1f / %6.1f dB   %6.1f dB   %5.2f / %5.2f dB" % (tag, r["s11_371"], r["s11_742"], r["s11_max_1500"], r["s21_371"], r["s21_742"]))
-    ax[1][1].axis("off")
-    ax[1][1].text(0, 1, "\n".join(rows), va="top", family="monospace", fontsize=9)
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "sim_sparam_r2.png"), dpi=110)
+    fig.savefig(os.path.join(OUT, "sim_sparam_r3.png"), dpi=110)
     plt.close(fig)
     json.dump(res, open(os.path.join(HERE, "report_sparam.json"), "w"), indent=1)
     return res
 
 
 def worst(kw):
-    """Worst-pair SDD11 maximum up to 1.5 GHz and SDD21 at 742 MHz for a parameter set."""
-    w11, w21 = -99.0, 0.0
-    i = int(np.argmin(abs(sp.F - 0.742e9)))
+    """Worst-pair SDD11 maximum up to 1.5 GHz, SDD21 at 742 MHz and SCD21 maximum up to 1.5 GHz for a parameter set (and the worst pair names)."""
+    w11, w21, wsc, n11 = -99.0, 0.0, -199.0, ""
     for tag, p, n in tc.PAIRS:
-        s11, s21 = sp.abcd_to_s(sp.channel(tag, p, n, **kw))
-        w11 = max(w11, float(20 * np.log10(abs(s11[sp.F <= 1.5e9])).max()))
-        w21 = min(w21, float(20 * np.log10(abs(s21[i]))))
-    return w11, w21
+        m = sp.metrics(sp.channel(tag, p, n, **kw))
+        if m["s11_max_1500"] > w11:
+            w11, n11 = m["s11_max_1500"], tag
+        w21 = min(w21, m["s21_742"])
+        wsc = max(wsc, m["scd21_max_1500"])
+    return w11, w21, wsc, n11
 
 
 def fig_variants():
     sc = [("理想（ESD・枝なし）", dict(esd_cd=0.0, branches=False)),
           ("是正後（現在の枝）", dict()),
           ("是正前の枝（21〜53mm）", dict(branch_len={k: v * 1e-3 for k, v in OLD_BRANCH.items()})),
+          ("P/N枝を同じ位置とした旧近似", dict(branch_mode="p_only")),
+          ("比較案：短い対称枝（3mm×2、キャップ位置）", dict(branch_ideal=3e-3)),
           ("ESD 0.2pF", dict(esd_cd=0.2e-12)), ("ESD 0.35pF（基準）", dict()), ("ESD 0.5pF", dict(esd_cd=0.5e-12)),
           ("Core 85Ω", dict(core_z=85.0)), ("Core 100Ω（基準）", dict()), ("Core 115Ω", dict(core_z=115.0))]
     vals = [worst(kw) for _, kw in sc]
-    colors = ["#888", "#4a4", "#c44"] + ["#69c"] * 3 + ["#c96"] * 3
+    colors = ["#888", "#4a4", "#c44", "#999", "#7a7"] + ["#69c"] * 3 + ["#c96"] * 3
     fig, ax = plt.subplots(1, 2, figsize=(11, 4.6))
     y = np.arange(len(sc))
     ax[0].barh(y, [v[0] for v in vals], color=colors)
@@ -192,11 +193,73 @@ def fig_variants():
     ax[1].set_xlabel("SDD21 @742MHz (dB)　悪い方のペア")
     fig.suptitle("是正の効果と、仮定値に対する感度")
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "sim_variants_r2.png"), dpi=110)
+    fig.savefig(os.path.join(OUT, "sim_variants_r3.png"), dpi=110)
     plt.close(fig)
-    out = {s[0]: dict(sdd11_max_1500=v[0], sdd21_742=v[1]) for s, v in zip(sc, vals)}
+    out = {s[0]: dict(sdd11_max_1500=v[0], sdd21_742=v[1], scd21_max_1500=v[2], worst_pair=v[3]) for s, v in zip(sc, vals)}
     json.dump(out, open(os.path.join(HERE, "report_variants.json"), "w"), indent=1, ensure_ascii=False)
     return out
+
+
+def stub_effect():
+    """A2: effect of the pad escape stubs (missing from the path in the previous report) on the channel, same model."""
+    out = {}
+    saved = tc.PATH_ROLES
+    for name, roles in (("without_stubs", ("main", "strap")), ("with_stubs", ("main", "stub", "strap"))):
+        tc.PATH_ROLES = roles
+        sp._SEC.clear()
+        out[name] = {}
+        for tag, p, n in tc.PAIRS:
+            m = sp.metrics(sp.channel(tag, p, n))
+            sec = sp._SEC[tag]
+            out[name][tag] = dict(m, path_len_mm=sum(q["dl"] for q in sec["core"]) * 1e3 + sum(q["dl"] for q in sec["C"]) * 1e3,
+                                  in_pad_clipped_mm=sum(sum(v.values()) for v in sec["clipped"].values()))
+    tc.PATH_ROLES = saved
+    sp._SEC.clear()
+    json.dump(out, open(os.path.join(HERE, "report_stub_effect.json"), "w"), indent=1)
+    return out
+
+
+CORE_Z = (85.0, 100.0, 115.0)
+ESD_CD = (0.2e-12, 0.35e-12, 0.5e-12)
+
+
+def fig_matrix():
+    """A4: combined Core impedance x ESD differential capacitance (socket parasitics are a separate sensitivity)."""
+    cells = []
+    g11 = np.zeros((3, 3))
+    g21 = np.zeros((3, 3))
+    for a, cz in enumerate(CORE_Z):
+        for b, ce in enumerate(ESD_CD):
+            per = {}
+            for tag, p, n in tc.PAIRS:
+                m = sp.metrics(sp.channel(tag, p, n, core_z=cz, esd_cd=ce))
+                per[tag] = dict(sdd11_max_1500=m["s11_max_1500"], sdd21_742=m["s21_742"], scd21_max_1500=m["scd21_max_1500"])
+            ideal = max(sp.metrics(sp.channel(tag, p, n, core_z=cz, esd_cd=ce, branch_ideal=3e-3))["s11_max_1500"] for tag, p, n in tc.PAIRS)
+            wp = max(per, key=lambda k: per[k]["sdd11_max_1500"])
+            g11[a, b] = per[wp]["sdd11_max_1500"]
+            g21[a, b] = min(v["sdd21_742"] for v in per.values())
+            cells.append(dict(core_z=cz, esd_cd_pf=ce * 1e12, worst_pair=wp, sdd11_max_1500=per[wp]["sdd11_max_1500"], sdd11_ideal_branch=ideal,
+                              sdd21_742=g21[a, b], per_pair=per))
+    fig, ax = plt.subplots(1, 2, figsize=(10, 4))
+    for k, (g, ttl, cm, lo, hi) in enumerate(((g11, "SDD11 最大 (〜1.5GHz, dB)", "RdYlGn_r", -20, -5), (g21, "SDD21 @742MHz (dB)", "RdYlGn", -2, 0))):
+        im = ax[k].imshow(g, cmap=cm, vmin=lo, vmax=hi, origin="lower")
+        ax[k].set_xticks(range(3))
+        ax[k].set_xticklabels(["%.2f" % (c * 1e12) for c in ESD_CD])
+        ax[k].set_yticks(range(3))
+        ax[k].set_yticklabels(["%.0f" % c for c in CORE_Z])
+        ax[k].set_xlabel("ESD 差動容量 (pF)")
+        ax[k].set_ylabel("Core側 差動インピーダンス (Ω)")
+        ax[k].set_title(ttl, fontsize=10)
+        for a in range(3):
+            for b in range(3):
+                ax[k].text(b, a, "%.1f" % g[a, b], ha="center", va="center", fontsize=10)
+        plt.colorbar(im, ax=ax[k])
+    fig.suptitle("複合条件（Core側Z × ESD容量）の感度：悪い方のペア", fontsize=11)
+    fig.tight_layout()
+    fig.savefig(os.path.join(OUT, "sim_matrix_r3.png"), dpi=110)
+    plt.close(fig)
+    json.dump(cells, open(os.path.join(HERE, "report_matrix.json"), "w"), indent=1)
+    return cells
 
 
 def fig_sensitivity():
@@ -206,7 +269,7 @@ def fig_sensitivity():
     grid2 = np.zeros_like(grid)
     for a, c in enumerate(Cs):
         for b, l in enumerate(Ls):
-            grid[a, b], grid2[a, b] = worst(dict(socket_l=l, socket_c=c))
+            grid[a, b], grid2[a, b] = worst(dict(socket_l=l, socket_c=c))[:2]
     fig, ax = plt.subplots(1, 2, figsize=(11, 4.4))
     ext = [Ls[0] * 1e9, Ls[-1] * 1e9, Cs[0] * 1e12, Cs[-1] * 1e12]
     im = ax[0].imshow(grid, origin="lower", aspect="auto", extent=ext, cmap="RdYlGn_r", vmin=-25, vmax=0)
@@ -222,7 +285,7 @@ def fig_sensitivity():
     ax[1].set_title("挿入損失（悪い方のペア）")
     fig.suptitle("SODIMM接点の寄生に対する余裕（感度解析）")
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "sim_sensitivity_r2.png"), dpi=110)
+    fig.savefig(os.path.join(OUT, "sim_sensitivity_r3.png"), dpi=110)
     plt.close(fig)
     json.dump(dict(L=list(Ls), C=list(Cs), sdd11=grid.tolist(), sdd21=grid2.tolist()), open(os.path.join(HERE, "report_sensitivity.json"), "w"))
     return float(grid[0, 0])
@@ -235,4 +298,6 @@ if __name__ == "__main__":
     fig_route()
     print(fig_sparam())
     print(fig_variants())
+    stub_effect()
+    fig_matrix()
     print("sensitivity: worst SDD11 with ideal socket", fig_sensitivity())

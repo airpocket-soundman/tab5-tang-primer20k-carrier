@@ -35,13 +35,16 @@ python -X utf8 kicad/sim/tmds_channel.py ; python -X utf8 kicad/sim/tmds_sparam.
 ## Status
 * Schematic: ERC 0 violations; netlist matches the data model.
 * PCB: **113 / 113 nets routed**, **DRC: 0 errors, 0 unconnected** (silkscreen warnings only).
-* HDMI channel (estimate, differential mode only): SDD11 <= -14 dB up to 1.65 GHz (worst -12.8 dB to 3.3 GHz), SDD21 about -0.3 ... -0.9 dB. 3D EM validation (openEMS) not done.
-* **Not manufacturing-ready**: M5-Bus pin-1 orientation, outline and holes must be checked against the real Tab5; ESD footprint / part classes and the Core SODIMM 3D model are open (see `bom.csv`); the slide switch footprint is generic (hand-fitted);
+* HDMI channel (4-port estimate, report r3): worst-pair SDD11 <= -12.9 dB up to 1.5 GHz, SDD21 -0.88 dB at 742 MHz, SCD21 <= -24.9 dB (mode conversion). Combined sensitivity (Core Z x ESD C): Core 85 ohm x ESD 0.35 pF (-9.1 dB), Core 85 ohm x ESD 0.50 pF (-7.9 dB) fail the -10 dB goal. 3D EM validation (openEMS) not done.
+* **Not manufacturing-ready**: M5-Bus pin-1 orientation, outline and holes must be checked against the real Tab5; part classes and the Core SODIMM 3D model are open (see `bom.csv`); the slide switch footprint is generic (hand-fitted);
   FPGA constraint file (.cst) still to be written from `core_pin_assignment.csv`.
 * No Ethernet / MIPI / USB-host (see site spec).
 
 ## Known issues
-* **TMDS ESD (U4/U5, LCSC C293965 = DOWO RCLAMP0524P, DFN2510-10L)**: fixed on the board side. Each line is continuous copper (pad 1-10, 2-9, 4-7, 5-6 are strapped with copper) and the ESD is a tap, so the design no longer depends on any internal pin connection. Check the DOWO recommended land pattern against the KiCad USON-10 footprint before ordering.
+* **TMDS ESD (U4/U5, LCSC C293965 = DOWO RCLAMP0524P, DFN2510-10L)**: fixed on the board side. Each line is continuous copper (pad 1-10, 2-9, 4-7, 5-6 are strapped with copper) and the ESD is a tap, so the design no longer depends on any internal pin connection. Footprint `carrier:DFN2510-10L_RCLAMP0524P` (own, from the DOWO outline, GND land widened to 0.42 mm; the datasheet has no land pattern - check JLCPCB's footprint and pin-1 orientation when ordering, `docs/ESD_フットプリント照合_RCLAMP0524P.md`).
 * **499 ohm bias resistors** now hang on 2-11 mm branches (was 21-53 mm); D1 N side is 11.5 mm (target: a few mm). They are included in the channel estimate.
 * Target is **720p60 only** (1080p60 exceeds the GW2A serializer limit of 1200 Mbps). **Invert the D2 data (all serial bits after TMDS encoding)** in the FPGA.
-* Channel estimate (differential mode, worst pair): SDD11 <= -15.9 dB up to 1.5 GHz, SDD21 -0.79 dB at 742 MHz. The 3D solver (openEMS) is not calibrated and is not used for conclusions.
+* Channel estimate (4-port model, P/N branches at their own taps; report r3): see the Status line. The 3D solver (openEMS) is not calibrated and is not used for conclusions.
+
+## Checks (exit code 1 on failure; KiCad python unless noted)
+`sim/check_continuity.py` (copper continuity + expected pin numbers), `sim/check_negative.py` (remove each ESD strap, exactly that line must fail), `sim/check_classification.py` (every TMDS track/via belongs to main/stub/strap/branch), `sim/check_esd_footprint.py` (footprint vs DOWO datasheet), `kicad-cli pcb drc`. Model/report (system python): `sim/tmds_channel.py`, `sim/tmds_sparam.py` (4-port P/N model), `sim/make_report_figs.py`, `sim/make_manifest.py` (SHA-256 of all inputs/results), `sim/make_report_page.py` -> `site/hdmi-simulation-r3.html`. FPGA side: `docs/FPGA_HDMI要求_D2反転とピン.md`.

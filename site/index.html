@@ -90,7 +90,7 @@ svg .mut{fill:var(--muted)}
 </header>
 
 <nav class="toc"><div class="wrap">
- <a href="#overview">概要</a><a href="#spec">初期仕様</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#kicad">KiCad設計</a><a href="hdmi-simulation-r2.html">HDMIシミュレーション</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
+ <a href="#overview">概要</a><a href="#spec">初期仕様</a><a href="#mech">機構・外形</a><a href="#power">電源</a><a href="#gpio">GPIO検証</a><a href="#bus16">8bit/16bit</a><a href="#video">HDMI</a><a href="#periph">周辺</a><a href="#jlc">JLCPCB</a><a href="#kicad">KiCad設計</a><a href="hdmi-simulation-r3.html">HDMIシミュレーション</a><a href="#todo">未解決事項</a><a href="#refs">参考資料</a>
 <a href="hdmi-audit.html">独立監査・開発引き継ぎ</a>
 </div></nav>
 
@@ -569,7 +569,7 @@ svg .mut{fill:var(--muted)}
    <tr><td>配線</td><td><b>113ネット全て自動配線</b>（3配線層＋リップアップ＋ピンスワップ＋<b>TMDSのペア配線</b>）。GNDは内層ベタ＋表裏ベタ＋スティッチビア</td><td class="c t-ok">完了</td></tr>
    <tr><td>DRC</td><td><b>エラー0件、未接続0件</b>。残りはシルク重なり警告のみ</td><td class="c t-ok">クリーン</td></tr>
    <tr><td>配線幅・間隔</td><td>信号 0.127mm/0.127mm、<b>TMDSペア 線幅0.2mm・ペア内間隔0.13mm</b>、ビア 0.6/0.3mm、電源 0.4〜0.8mm</td><td class="c t-ok">確定</td></tr>
-   <tr><td>HDMI TMDS</td><td><b>ペア内スキュー0.00mm（4組すべて）</b>、結合区間の差動インピーダンスは約103Ω（2Dソルバ）。独立監査の指摘（ESD端子導通の想定、499Ω枝の長さ）を<b>是正</b>：ESDは連続した銅配線への分岐、枝は2〜11mmに短縮（以前21〜53mm）。D1のN側（11.5mm）は目標未達（<a href="hdmi-simulation-r2.html#fixes">是正の状況</a>）</td><td class="c t-warn">是正済み・残課題あり</td></tr>
+   <tr><td>HDMI TMDS</td><td><b>ペア内スキュー0.00mm（4組すべて）</b>、結合区間の差動インピーダンスは約103Ω（2Dソルバ）。独立監査の指摘（ESD端子導通の想定、499Ω枝の長さ）を<b>是正</b>：ESDは連続した銅配線への分岐、枝は2〜11mmに短縮（以前21〜53mm）。D1のN側（11.5mm）は目標未達（<a href="hdmi-simulation-r3.html#status">第2回監査への対応状況（第3版）</a>）。複合条件（Core 85Ω×ESD大）でSDD11目標を外れる条件あり</td><td class="c t-warn">是正済み・残課題あり（再監査待ち）</td></tr>
    <tr><td>機構</td><td>取付穴・M5-Bus開口をTab5.stlから実測。背面は平坦（M3×10＋2.5mmスペーサ）</td><td class="c t-ok">確認済み</td></tr>
   </tbody></table></div>
 
@@ -578,28 +578,29 @@ svg .mut{fill:var(--muted)}
 <a href="hdmi-audit.html">6450c42の再監査・開発引き継ぎ</a>を公開しました。
 保存数値は再現できましたが、監査対象版にはESDの導通想定と長い抵抗枝の問題が残ります。
 「26か所の不連続」は解析用リストの問題で、PCBの26か所の断線を意味しません。
-開発側ではTMDS連続配線・ESDシャント接続・499Ω抵抗の近接配置へ修正中です。修正版の是正完了は未判定です。</div>
- <div class="callout ok"><b class="t">監査指摘を是正して再評価しました</b>TMDS用ESD（DOWO製）は入出力が内部でつながる保証がないため、<b>信号線を連続した銅配線にしてESDを分岐接続</b>に変更し、499Ω抵抗の枝を短縮しました（解析にも含めた）。目標は<b>720p60のPoC</b>（1080p60はGW2Aのシリアライザ上限を超えるため対象外）。詳細は<a href="hdmi-simulation-r2.html#fixes">レポート</a>。</div>
- <div class="callout ok"><b class="t">詳細レポート</b><a href="hdmi-simulation.html">第1版（監査前）</a>も残しています。<a href="hdmi-simulation-r2.html"><b>第2版 HDMIシミュレーション評価レポート</b></a>に、範囲・手法・検証・結果・感度解析・限界を表とグラフでまとめました。</div>
- <p>公開されているオープンソースだけで、<b>基板データから実形状を取り出して</b>評価しました。範囲は<b>キャリア基板側のみ</b>です（Coreの基板データは非公開で、公式の配線長表だけが得られるため、Core内は長さ38.4mmの理想100Ω線路として接続）。方針と調査の記録は <code>docs/HDMI_信号品質_調査と方針.md</code>。</p>
+開発側ではTMDS連続配線・ESDシャント接続・499Ω抵抗の近接配置へ修正しました（第2版）。第2回監査（<code>7929491</code>対象）の指摘A1〜A5には第3版で対応しました。<b>是正の完了は未判定</b>（再監査待ち）です。</div>
+ <div class="callout ok"><b class="t">第2回監査（A1〜A5）に対応し、再評価しました（第3版レポート）</b>ESD実部品（DOWO RCLAMP0524P）のデータシートとフットプリントを照合して<b>GNDランド幅の不足を修正</b>、全TMDS銅を分類して<b>解析から抜けていた引き出し線を追加</b>、抵抗枝をP/Nの別位置に接続する<b>4ポートモデル</b>へ変更し、Core Z×ESD容量の<b>複合感度</b>を評価しました。目標は<b>720p60のPoC</b>（1080p60はGW2Aのシリアライザ上限を超えるため対象外）。詳細は<a href="hdmi-simulation-r3.html#status">第3版レポート</a>。</div>
+ <div class="callout warn"><b class="t">残課題（第3版に明記）</b>複合条件（Core 85Ω＋ESD 0.35〜0.5pF）でSDD11の自主目標（−10dB）を外れる／D1のN側の枝11.5mm／3D解析（openEMS）は較正未達で未着手／MeOS向け要求（PARLIO・電源断など）は別作業。</div>
+ <div class="callout ok"><b class="t">詳細レポート</b><a href="hdmi-simulation-r3.html"><b>第3版</b>（第2回監査対応後）</a>、<a href="hdmi-simulation-r2.html">第2版</a>（第2回監査の対象）、<a href="hdmi-simulation.html">第1版</a>（監査前）を残しています。範囲・手法・検証・結果・感度解析・限界を表とグラフでまとめています。</div>
+ <p>公開されているオープンソースだけで、<b>基板データから実形状を取り出して</b>評価しました。範囲は<b>キャリア基板側のみ</b>です（Coreの基板データは未取得で、公式の配線長表だけが得られるため、Core内は長さ38.4mmの理想100Ω線路として接続）。方針と調査の記録は <code>docs/HDMI_信号品質_調査と方針.md</code>。</p>
  <ul>
-  <li><b>2D電磁界ソルバ</b>（自作、numpy）：JLCPCB 4層（L1–L2間0.2104mm）の差動インピーダンス。50Ω用単線0.35mmで51.7Ω（公表値と一致）。</li>
-  <li><b>チャネル推定</b>（scikit-rf系のカスケード計算）：配線の区間ごとの差動インピーダンスと長さから、S パラメータ（差動）を推定。</li>
+  <li><b>2D電磁界ソルバ</b>（自作、numpy）：JLCPCB 4層（L1–L2間0.2104mm）の差動インピーダンス（偶モード・奇モード）。50Ω用単線0.35mmで51.7Ω（公表値と一致）。</li>
+  <li><b>チャネル推定</b>（4ポートのABCDカスケード）：配線の区間ごとのインピーダンスと長さから、差動S パラメータとモード変換（SCD21）を推定。</li>
  </ul>
  <div class="tw"><table>
-  <thead><tr><th>ペア</th><th class="c">キャリア長 Core側/C/K (mm)</th><th class="c">ペア内スキュー (mm)</th><th class="c">SDD11 0.825/1.65GHz</th><th class="c">SDD11 最大(〜3.3GHz)</th><th class="c">SDD21 0.825/1.65GHz</th></tr></thead>
+  <thead><tr><th>ペア</th><th class="c">P/N長（引き出し線含む）</th><th class="c">ペア内スキュー (mm)</th><th class="c">SDD11 371/742MHz</th><th class="c">SDD11 最大(〜1.5GHz)</th><th class="c">SDD21 371/742MHz</th><th class="c">SCD21 最大</th></tr></thead>
   <tbody>
-   <tr><td>D0</td><td class="c">43.6 / 7.2 / 7.4</td><td class="c">0.00</td><td class="c">-23.7 / -18.0 dB</td><td class="c">-15.5 dB</td><td class="c">-0.37 / -0.74 dB</td></tr>
-   <tr><td>D1</td><td class="c">25.6 / 7.2 / 7.4</td><td class="c">0.00</td><td class="c">-20.1 / -31.8 dB</td><td class="c">-14.5 dB</td><td class="c">-0.34 / -0.56 dB</td></tr>
-   <tr><td>D2</td><td class="c">25.0 / 7.9 / 7.4</td><td class="c">0.00</td><td class="c">-20.1 / -31.5 dB</td><td class="c">-14.2 dB</td><td class="c">-0.34 / -0.56 dB</td></tr>
-   <tr><td>CK</td><td class="c">43.6 / 7.9 / 7.4</td><td class="c">0.00</td><td class="c">-20.2 / -14.4 dB</td><td class="c">-12.8 dB</td><td class="c">-0.40 / -0.86 dB</td></tr>
+   <tr><td>D0</td><td class="c">59.0 / 59.0 mm</td><td class="c">0.00</td><td class="c">-23.4 / -19.4 dB</td><td class="c">-17.2 dB</td><td class="c">-0.67 / -0.88 dB</td><td class="c">-33.9 dB</td></tr>
+   <tr><td>D1</td><td class="c">41.0 / 41.0 mm</td><td class="c">0.00</td><td class="c">-24.0 / -19.4 dB</td><td class="c">-12.9 dB</td><td class="c">-0.63 / -0.84 dB</td><td class="c">-24.9 dB</td></tr>
+   <tr><td>D2</td><td class="c">41.0 / 41.0 mm</td><td class="c">-0.00</td><td class="c">-24.3 / -20.8 dB</td><td class="c">-16.1 dB</td><td class="c">-0.62 / -0.78 dB</td><td class="c">-33.6 dB</td></tr>
+   <tr><td>CK</td><td class="c">59.6 / 59.6 mm</td><td class="c">0.00</td><td class="c">-23.2 / -19.8 dB</td><td class="c">-18.5 dB</td><td class="c">-0.67 / -0.87 dB</td><td class="c">-53.9 dB</td></tr>
    </tbody></table></div>
  <figure>
-  <img src="img/sim_sparam.png" alt="TMDS チャネル推定" style="width:100%;height:auto;display:block;border-radius:6px">
-  <figcaption>図8　TMDS 4組の差動S11/S21の推定と、Core側配線の差動インピーダンス（緑帯が100Ω±15%）。</figcaption>
+  <img src="img/sim_sparam_r3.png" alt="TMDS チャネル推定" style="width:100%;height:auto;display:block;border-radius:6px">
+  <figcaption>図8　TMDS 4組の差動S11/S21・モード変換の推定と、Core側配線の差動インピーダンス（緑帯が100Ω±15%）。</figcaption>
  </figure>
  <div class="callout warn"><b class="t">この推定の限界</b>
-  準静的モデル（差動モードのみ、モード変換なし）で、ビアと内層区間は100Ωの線路として扱い、コネクタは理想です。<b>実形状の3D電磁界解析（openEMS）は未実施</b>です。インストールが必要なため、実施の可否を確認してから行います。製造前の最終確認は、この3D解析か、試作基板でのアイ測定を推奨します。</div>
+  準静的モデル（P/Nを別々に持つ4ポート。全層を同じマイクロストリップ表で近似、ビアは未考慮、コネクタは理想）です。<b>実形状の3D電磁界解析（openEMS）は較正未達で、結論には使っていません</b>。実機では、短いケーブル・限定モニタでの720p60表示確認を成功条件とし、反射の測定（TDRまたは公式Dockとの比較）を推奨します。</div>
 
  <div class="callout"><b class="t">経緯：P/Nを別々に配線すると不合格だった</b>
   最初の配線（P/Nを個別に引く）では、ペア内の長さの差が最大13mm、差動インピーダンスは約160Ω（+60%）でした。P/Nを1本の太い線として引いて2本に分けるペア配線をルータに実装し、改善しました。</div>
@@ -611,8 +612,8 @@ svg .mut{fill:var(--muted)}
   <ol style="margin:.3em 0 0 1.2em;padding:0">
    <li>M5-Busヘッダのピン1の向きを実機で確認する（STLから位置は確認済み）。</li>
    <li>HDMIの実形状3D電磁界解析（openEMS等）で、ビア・ESD・コネクタ接続部を確認する。</li>
-   <li>499Ω抵抗の枝（D1のN側 11.5mm）をさらに短縮する（目標：数mm以下）。RCLAMP0524P（DOWO DFN2510-10L）の推奨ランドパターンとフットプリントを照合する。</li>
-   <li>RCLAMP0524Pの実フットプリント（DOWO DFN2510-10L）と、499Ωの部品区分を確認する。</li>
+   <li>499Ω抵抗の枝（D1のN側 11.5mm）をさらに短縮する（目標：数mm以下。複合条件でSDD11目標を外れるのはD1）。</li>
+   <li>RCLAMP0524P（DOWO DFN2510-10L）：専用フットプリントを作成済み（GNDランド幅を修正）。メーカー推奨ランドは無いので、注文時にJLCPCBのフットプリントと向き（端子1）を確認する。499Ωの部品区分も確認する。</li>
    <li>SODIMMソケットの3Dモデルと、部品のLCSC番号・基本/拡張区分を確定する（<code>kicad/bom.csv</code>の「check」行）。</li>
    <li>FPGAの制約ファイル（.cst）を、ピン対応表から作成する（D2のデータ反転を忘れない）。</li>
   </ol></div>
