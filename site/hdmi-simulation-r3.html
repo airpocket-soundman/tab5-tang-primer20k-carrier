@@ -181,7 +181,7 @@ svg .mut{fill:var(--muted)}
  <ul>
   <li>D1のN側の枝は11.5mmで、ESDの入力パッド付近（キャップから7.2mm）で分岐しています。実位置を反映すると、D1のSDD11は旧近似より悪化し、<b>モード変換（SCD21）も −25dB 程度まで増えます</b>（他のペアは −33dB 以下）。</li>
   <li><b>短く対称な枝（3mm×2、キャップ位置）との比較</b>（8章の表）：D1のSDD11最大は改善しますが、SDD21は大きく変わらず、モード変換は理想上ほぼ0になります。枝を短くする効果は<b>反射とモード変換の改善</b>です。</li>
-  <li><b>D1の枝（11.5mm）を残す理由</b>：今回の作業では、抵抗の再配置・再配線は<b>試行していません</b>（時間の都合）。基準条件（Core 100Ω・ESD 0.35pF）の反射は自主目標（−10dB）を満たしている（実位置で -12.9 dB）ので、PoCではこのまま製作し、試作の反射・モード変換の測定結果に基づいて、次版で抵抗を信号線の近くへ置き直します。ただし<b>モード変換（SCD21 -24.9 dB）が実機で許容できるかは未確認</b>で、複合条件の最悪側（A4）ではD1が目標を外れる主因です。</li>
+  <li><b>D1の枝（11.5mm）：再配置を試行し、改善できなかった</b>：D1の2つの抵抗を、ESDの右側の空き領域（レーンの上）へ移して全体を再配線しました（DRC 0件・113/113ネットは達成）が、ルータは同じネットの<b>パッドにしか分岐を接続できず</b>、枝がレーンをビアで越えて遠回りし、<b>D1の枝が9.0／18.3mmと悪化</b>したため、元の配置に戻しました。枝を短くした場合の効果は解析で見積もりました（D1、SDD11最大：基準／Core 85Ω・ESD 0.35pF／Core 85Ω・ESD 0.5pF）：N枝11.5mm＝−12.9／−9.1／−7.9dB、7mm＝−14.3／−9.9／−8.6dB、5mm＝−14.9／−10.3／−8.9dB。<b>枝を5〜7mmにしても、Core 85Ω・ESD 0.5pFの組み合わせは目標を満たせません</b>（Core側のインピーダンスの不整合自体が−11dB程度で、ESD・枝の寄与が加わるため）。別の案（ルータに配線途中への分岐を許す、または抵抗を信号パッド近傍へ置く部品配置の再設計）は次版の課題です。<b>D1の枝を残す理由</b>：基準条件（Core 100Ω・ESD 0.35pF）の反射は自主目標（−10dB）を満たしている（実位置で -12.9 dB）ので、PoCではこのまま製作し、試作の反射・モード変換の測定結果に基づいて、次版で抵抗を信号線の近くへ置き直します。ただし<b>モード変換（SCD21 -24.9 dB）が実機で許容できるかは未確認</b>で、複合条件の最悪側（A4）ではD1が目標を外れる主因です。</li>
   <li>枝の線路は幅0.127mm・単線約85Ω・誘電率3.0の近似で、隣接配線との結合や層の違いは考慮していません。</li>
  </ul>
 </section>
@@ -341,7 +341,7 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>kicad/sim/tmds_channel.py</code></td><td><code>ffd66808e7d2f572</code></td></tr>
 <tr><td><code>kicad/sim/tmds_sparam.py</code></td><td><code>db46532cd9c21236</code></td></tr>
 <tr><td><code>kicad/sim/make_report_figs.py</code></td><td><code>50c58b11661e64e5</code></td></tr>
-<tr><td><code>kicad/sim/make_report_page.py</code></td><td><code>877b92c99b87816d</code></td></tr>
+<tr><td><code>kicad/sim/make_report_page.py</code></td><td><code>9e7ba292c5545bf5</code></td></tr>
 <tr><td><code>kicad/sim/check_continuity.py</code></td><td><code>7a37ca361fbd07b4</code></td></tr>
 <tr><td><code>kicad/sim/check_negative.py</code></td><td><code>798c6737b4311fad</code></td></tr>
 <tr><td><code>kicad/sim/check_classification.py</code></td><td><code>c3a0231ad1db3660</code></td></tr>
