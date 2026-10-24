@@ -90,7 +90,7 @@ svg .mut{fill:var(--muted)}
 </div></nav>
 <main class="wrap">
 
-<section id="summary">
+<p><a href="hdmi-audit-checks.html">第3版監査後の検査修正・回帰試験（ランド寸法、配線幅・分類、D2説明）</a></p><section id="summary">
  <h2>結論</h2>
  <div class="kpi">
   <div><b>DRC 0 件</b><span>違反・未配線の合計（113ネット配線済み）</span></div>
@@ -129,7 +129,7 @@ svg .mut{fill:var(--muted)}
    <tr><td>端子長 L</td><td class="c">0.33〜0.43</td><td class="c">ランド0.55</td><td class="c">ランド0.55（つま先0.16mm）</td></tr>
    <tr><td>端子機能</td><td class="c">I/O=1,2,4,5　GND=3,8　NC=6,7,9,10</td><td class="c">フロースルー前提のシンボル</td><td class="c">シンボルをIO／NCへ修正。NCは銅ストラップで信号線へ接続</td></tr>
   </tbody></table></div>
- <p>自動検査 <code>check_esd_footprint.py</code>（18項目）：<b>全項目OK</b>。ストラップ除去の負の検査、DRC、銅の連続性も再実行しました（A5）。<b>残る制限</b>：データシートに推奨ランドパターンが無いため、新ランドは外形図から導いた値です。注文時にJLCPCBの部品ライブラリのフットプリントと向き（端子1）を確認してください。</p>
+ <p>自動検査 <code>check_esd_footprint.py</code>（127項目）：<b>全項目OK</b>。ストラップ除去の負の検査、DRC、銅の連続性も再実行しました（A5）。<b>残る制限</b>：データシートに推奨ランドパターンが無いため、新ランドは外形図から導いた値です。注文時にJLCPCBの部品ライブラリのフットプリントと向き（端子1）を確認してください。</p>
 </section>
 
 <section id="a2">
@@ -337,19 +337,25 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>kicad/sim/tmds_geom.json</code></td><td><code>da373e586cafd282</code></td></tr>
 <tr><td><code>kicad/sim/pair_lengths.json</code></td><td><code>4b7c4979d8934178</code></td></tr>
 <tr><td><code>kicad/sim/zdiff_cache.json</code></td><td><code>b6d5501d5d2e8ce8</code></td></tr>
+<tr><td><code>kicad/sim/tmds_via_policy.json</code></td><td><code>961297a8328a79b8</code></td></tr>
 <tr><td><code>kicad/sim/microstrip2d.py</code></td><td><code>ea78aff10f19a0ec</code></td></tr>
 <tr><td><code>kicad/sim/tmds_channel.py</code></td><td><code>ffd66808e7d2f572</code></td></tr>
 <tr><td><code>kicad/sim/tmds_sparam.py</code></td><td><code>db46532cd9c21236</code></td></tr>
 <tr><td><code>kicad/sim/make_report_figs.py</code></td><td><code>50c58b11661e64e5</code></td></tr>
-<tr><td><code>kicad/sim/make_report_page.py</code></td><td><code>9e7ba292c5545bf5</code></td></tr>
+<tr><td><code>kicad/sim/make_report_page.py</code></td><td><code>39442eeb686dd31a</code></td></tr>
 <tr><td><code>kicad/sim/check_continuity.py</code></td><td><code>7a37ca361fbd07b4</code></td></tr>
 <tr><td><code>kicad/sim/check_negative.py</code></td><td><code>798c6737b4311fad</code></td></tr>
-<tr><td><code>kicad/sim/check_classification.py</code></td><td><code>c3a0231ad1db3660</code></td></tr>
-<tr><td><code>kicad/sim/check_esd_footprint.py</code></td><td><code>e4649abcb45c14a9</code></td></tr>
+<tr><td><code>kicad/sim/check_classification.py</code></td><td><code>fba1733db34bad21</code></td></tr>
+<tr><td><code>kicad/sim/check_esd_footprint.py</code></td><td><code>08ce5be085882004</code></td></tr>
+<tr><td><code>kicad/sim/regression_common.py</code></td><td><code>de1e83e60ec8cc2b</code></td></tr>
+<tr><td><code>kicad/sim/test_esd_check.py</code></td><td><code>98732daeaa2539a6</code></td></tr>
+<tr><td><code>kicad/sim/test_classification_check.py</code></td><td><code>530cc1851234dd80</code></td></tr>
+<tr><td><code>kicad/sim/make_audit_checks_page.py</code></td><td><code>6f7a4ea0340e14c1</code></td></tr>
+<tr><td><code>kicad/sim/make_manifest.py</code></td><td><code>240830714b97049a</code></td></tr>
 <tr><td><code>kicad/sim/continuity_report.json</code></td><td><code>0449138b3667965e</code></td></tr>
 <tr><td><code>kicad/sim/negative_report.json</code></td><td><code>c43a4793152bcdb5</code></td></tr>
-<tr><td><code>kicad/sim/classification_report.json</code></td><td><code>79934e097b3db53c</code></td></tr>
-<tr><td><code>kicad/sim/esd_footprint_check.json</code></td><td><code>a6edd30903079402</code></td></tr>
+<tr><td><code>kicad/sim/classification_report.json</code></td><td><code>4663609e681d810e</code></td></tr>
+<tr><td><code>kicad/sim/esd_footprint_check.json</code></td><td><code>4395acde91c2ae89</code></td></tr>
 <tr><td><code>kicad/sim/drc_r3.json</code></td><td><code>03ca1f81b07daeab</code></td></tr>
 <tr><td><code>kicad/sim/tmds_summary.json</code></td><td><code>5d4dec54f35a4f2c</code></td></tr>
 <tr><td><code>kicad/sim/tmds_sparam.json</code></td><td><code>0aa81841f94f8f57</code></td></tr>
@@ -359,6 +365,12 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>kicad/sim/report_sensitivity.json</code></td><td><code>be45ec4f1419231a</code></td></tr>
 <tr><td><code>kicad/sim/report_stub_effect.json</code></td><td><code>afe4ef33fbe981a7</code></td></tr>
 <tr><td><code>kicad/sim/baseline_r2_report_sparam.json</code></td><td><code>935f36a64e6d5732</code></td></tr>
+<tr><td><code>kicad/sim/regression_esd.json</code></td><td><code>94815145c6080f09</code></td></tr>
+<tr><td><code>kicad/sim/regression_classification.json</code></td><td><code>4369934af03df85c</code></td></tr>
+<tr><td><code>site/index.html</code></td><td><code>8e4a3bf828629411</code></td></tr>
+<tr><td><code>site/hdmi-audit-checks.html</code></td><td><code>667528609adfea99</code></td></tr>
+<tr><td><code>docs/HDMI_R3_検査修正_2026-10-24.md</code></td><td><code>a5ae505bb04e8244</code></td></tr>
+<tr><td><code>docs/FPGA_HDMI要求_D2反転とピン.md</code></td><td><code>e8d0328e42204e9a</code></td></tr>
 <tr><td><code>site/img/sim_zdiff_r3.png</code></td><td><code>2c8138435590ae08</code></td></tr>
 <tr><td><code>site/img/sim_compare_r3.png</code></td><td><code>e1af0314d577a82d</code></td></tr>
 <tr><td><code>site/img/sim_route_r3.png</code></td><td><code>b3bc8313c2fce97b</code></td></tr>

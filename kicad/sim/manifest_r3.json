@@ -1,5 +1,6 @@
 {
  "baseline_commit": "7929491",
+ "checker_baseline_commit": "91dc3b4",
  "files": {
   "kicad/gen/design.py": {
    "group": "design",
@@ -53,6 +54,10 @@
    "group": "extracted",
    "sha256": "b6d5501d5d2e8ce8a5cfb3c68e9b8c6c474d75a086ef78676a0d69c770d8b42f"
   },
+  "kicad/sim/tmds_via_policy.json": {
+   "group": "extracted",
+   "sha256": "961297a8328a79b837cbd6d0643e7820489772dfa819c87c55e904ce575b8412"
+  },
   "kicad/sim/microstrip2d.py": {
    "group": "model",
    "sha256": "ea78aff10f19a0ec810ad178ffe8360cdc031631679ac940f0eab40593752601"
@@ -71,7 +76,7 @@
   },
   "kicad/sim/make_report_page.py": {
    "group": "model",
-   "sha256": "9e7ba292c5545bf51d0c6e0ea5d16fcd33460e51426ea5cb7cc3175beb60c182"
+   "sha256": "39442eeb686dd31af9e48f6d0c9bfc4d2a2a768fb4c6e0a7852ac77fa028e6f5"
   },
   "kicad/sim/check_continuity.py": {
    "group": "checks",
@@ -83,11 +88,31 @@
   },
   "kicad/sim/check_classification.py": {
    "group": "checks",
-   "sha256": "c3a0231ad1db3660b78d1cddcfca380d6e2a3510bfc844bfd342c1b55257a8fd"
+   "sha256": "fba1733db34bad2103e0f9b665517e11bc44d1a6ad4be31442919f6a4a8a7986"
   },
   "kicad/sim/check_esd_footprint.py": {
    "group": "checks",
-   "sha256": "e4649abcb45c14a965015b9ceb46ca6e2a0f535da6a2b8347cda101751cf7037"
+   "sha256": "08ce5be0858820048f040dbd7c7f2b1278ff82651c2a3ec3b98e3a640666b006"
+  },
+  "kicad/sim/regression_common.py": {
+   "group": "checks",
+   "sha256": "de1e83e60ec8cc2b5d541934aab3a3f423e2d907812a42d612cc571a8272b725"
+  },
+  "kicad/sim/test_esd_check.py": {
+   "group": "checks",
+   "sha256": "98732daeaa2539a607178f5ac230af62338d6647693356419e82c75df42501db"
+  },
+  "kicad/sim/test_classification_check.py": {
+   "group": "checks",
+   "sha256": "530cc1851234dd806e8dca67b12326532bd71cb567d37d9809b797a9285e3441"
+  },
+  "kicad/sim/make_audit_checks_page.py": {
+   "group": "checks",
+   "sha256": "6f7a4ea0340e14c116ea54193466667ef5d4669312b4baea95c20c797857cb34"
+  },
+  "kicad/sim/make_manifest.py": {
+   "group": "checks",
+   "sha256": "240830714b97049aa7dc8747dcd26f82fe4599ddea635c658ab03406da66edfb"
   },
   "kicad/sim/continuity_report.json": {
    "group": "results",
@@ -99,11 +124,11 @@
   },
   "kicad/sim/classification_report.json": {
    "group": "results",
-   "sha256": "79934e097b3db53c4252074aa2d383ae2af3d1258daa709dcbbccc998195494f"
+   "sha256": "4663609e681d810eb49c4eda9aa87f138fe6e5ff53c3d36bf507d242529c46ab"
   },
   "kicad/sim/esd_footprint_check.json": {
    "group": "results",
-   "sha256": "a6edd30903079402ebb5d6b08976e68ce75ca98b9bc547650db4bd94c443dce2"
+   "sha256": "4395acde91c2ae89cc1a951cf295992987fb1340b3c3a1254dbbd01aa40b67ca"
   },
   "kicad/sim/drc_r3.json": {
    "group": "results",
@@ -140,6 +165,30 @@
   "kicad/sim/baseline_r2_report_sparam.json": {
    "group": "results",
    "sha256": "935f36a64e6d573274f3022636b6bb3144ca3069a1141cf1529ec2e54ba0ff2c"
+  },
+  "kicad/sim/regression_esd.json": {
+   "group": "results",
+   "sha256": "94815145c6080f0949c607665a10a9904ce5e68714d9daee636609070e1a4d83"
+  },
+  "kicad/sim/regression_classification.json": {
+   "group": "results",
+   "sha256": "4369934af03df85cda9f52825ea8069b82c0e3699045a6a25fdc4aa9330aa30b"
+  },
+  "site/index.html": {
+   "group": "publication",
+   "sha256": "8e4a3bf82862941172834cf850689d86378fbaec67e80645bc7d2ca2e87b9b8b"
+  },
+  "site/hdmi-audit-checks.html": {
+   "group": "publication",
+   "sha256": "667528609adfea99fc651042aa05cd7c8ec5329677c22a88ad8228ed396b7583"
+  },
+  "docs/HDMI_R3_\u691c\u67fb\u4fee\u6b63_2026-10-24.md": {
+   "group": "publication",
+   "sha256": "a5ae505bb04e8244a4b5afbeb84ea27df1295bc78ca1dd117dea06e521f708df"
+  },
+  "docs/FPGA_HDMI\u8981\u6c42_D2\u53cd\u8ee2\u3068\u30d4\u30f3.md": {
+   "group": "publication",
+   "sha256": "e8d0328e42204e9a1430b5bbb547fafe7dd60e79e0570958d3708207039347b4"
   },
   "site/img/sim_zdiff_r3.png": {
    "group": "figures",

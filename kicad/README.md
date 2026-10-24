@@ -48,3 +48,9 @@ python -X utf8 kicad/sim/tmds_channel.py ; python -X utf8 kicad/sim/tmds_sparam.
 
 ## Checks (exit code 1 on failure; KiCad python unless noted)
 `sim/check_continuity.py` (copper continuity + expected pin numbers), `sim/check_negative.py` (remove each ESD strap, exactly that line must fail), `sim/check_classification.py` (every TMDS track/via belongs to main/stub/strap/branch), `sim/check_esd_footprint.py` (footprint vs DOWO datasheet), `kicad-cli pcb drc`. Model/report (system python): `sim/tmds_channel.py`, `sim/tmds_sparam.py` (4-port P/N model), `sim/make_report_figs.py`, `sim/make_manifest.py` (SHA-256 of all inputs/results), `sim/make_report_page.py` -> `site/hdmi-simulation-r3.html`. FPGA side: `docs/FPGA_HDMI要求_D2反転とピン.md`.
+
+## 第3版の追加監査への検査修正（2026-10-24）
+
+配置済みランドの寸法とPCB／モデルの配線幅を検査し、二重分類・部分的stale・ビア形状も検出するよう修正。正常と故障注入の計24ケースに成功した。D2の色説明を赤へ訂正し、符号語と制御期間のRTL試験要求を登録した。回路・PCB・チャネルモデルは変更していない。
+
+詳細：[検査修正と再現手順](../docs/HDMI_R3_検査修正_2026-10-24.md)、公開追記：[hdmi-audit-checks.html](../site/hdmi-audit-checks.html)。
