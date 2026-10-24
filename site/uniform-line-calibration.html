@@ -70,7 +70,7 @@ footer{color:var(--muted);font-size:.85rem;padding:32px 0 48px}
 .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
 svg text{font-family:inherit;fill:var(--ink)}
 svg .mut{fill:var(--muted)}
-</style></head><body><header class="top"><div class="wrap">2026-10-24 基板発注前の検証</div></header><main class="wrap"><nav><a href="index.html">設計仕様</a> / <a href="poc-fabrication.html">発注準備</a> / <a href="hdmi-simulation-r3.html">HDMI概算</a></nav><p><a href="audit-data/poc-manufacturing-candidate.zip">製造候補一式 ZIP 発注保留</a> / <a href="audit-data/poc-assembly-top.svg">上面実装図</a> / <a href="audit-data/poc-assembly-bottom.svg">下面実装図</a> / <a href="audit-data/uniform-line-calibration.zip">3Dモデルと生波形</a></p><h1>3D均一直線のポート校正とメッシュ確認</h1>
+</style></head><body><header class="top"><div class="wrap">2026-10-24 基板発注前の検証</div></header><main class="wrap"><nav><a href="index.html">設計仕様</a> / <a href="poc-fabrication.html">発注準備</a> / <a href="hdmi-simulation-r3.html">HDMI概算</a></nav><p><a href="audit-data/poc-manufacturing-candidate.zip">少数PoC用 製造データ一式 ZIP</a> / <a href="audit-data/poc-assembly-top.svg">上面実装図</a> / <a href="audit-data/poc-assembly-bottom.svg">下面実装図</a> / <a href="audit-data/uniform-line-calibration.zip">3Dモデルと生波形</a></p><h1>3D均一直線のポート校正とメッシュ確認</h1>
 <p>2026年10月24日。過去の2Dと3Dの差を理由に3D解析を終了する判断を見直し、保存済みopenEMS環境を使って均一直線の抽出を再検証した。<strong>以前の約53Ωにはポートの扱いによる偏りがあり、再抽出では単線約57.33Ω。銅厚35µmの差動直線は95.36〜96.54Ω、2つのメッシュの差1.23%となった。</strong> これは均一直線の数値的な確認で、基板全体の電磁界検証の完了ではない。</p>
 <h2>過去の抽出の問題</h2>
 <p>MSLポートは伝送線路のモードインピーダンスを基準とし、50Ωで終端した実回路そのものではない。以前の処理は <code>CalcPort(ref_impedance=50)</code> の後の反射・透過振幅を、そのまま出力側入射波が0である二端子対の式へ代入していた。今回の単線でも、50Ωへ再正規化した出力側入射波は入力側入射波の最大約7%あり、この仮定を満たさない。</p>

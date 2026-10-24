@@ -32,6 +32,11 @@ def check(board):
     def pin_net(ref,num,net):return pads(ref)[str(num)].GetNetname()==net
     checks=[]
     def record(name,ok,**kw):checks.append(dict(name=name,ok=bool(ok),**kw))
+    # User checked the real Tab5 rear face, battery compartment on the left.
+    def at(ref,num,x,y):
+        p=pads(ref)[str(num)].GetPosition()
+        return abs(pcbnew.ToMM(p.x)-x)<.003 and abs(pcbnew.ToMM(p.y)-y)<.003
+    record('M5Bus_confirmed_left_pin1',fps['J3'].IsFlipped() and all(at('J3',n,x,y) for n,x,y in [(1,53.73,22.15),(2,56.27,22.15),(3,53.73,24.69),(29,53.73,57.71),(30,56.27,57.71)]))
     for sig,host_pin in MBUS.items():
         a=pads('J3')[str(host_pin)];c=pads('J4')[str(CORE[sig])]
         switches=[(f,p) for f in ('U7','U8') for n,p in pads(f).items() if n in [str(i) for i in range(2,10)] and p.GetNetname()=='M_'+sig]

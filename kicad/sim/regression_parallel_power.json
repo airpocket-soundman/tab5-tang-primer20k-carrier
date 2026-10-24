@@ -1,6 +1,6 @@
 {
  "ok": true,
- "tests": 9,
+ "tests": 10,
  "cases": [
   {
    "case": "clock-disconnected",
@@ -52,6 +52,12 @@
   },
   {
    "case": "wrong-buck-feedback",
+   "expected_ok": false,
+   "actual_ok": false,
+   "exit_code": 1
+  },
+  {
+   "case": "M5Bus-mirrored-columns",
    "expected_ok": false,
    "actual_ok": false,
    "exit_code": 1

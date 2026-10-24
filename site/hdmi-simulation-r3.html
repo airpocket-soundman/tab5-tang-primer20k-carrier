@@ -85,7 +85,7 @@ svg .mut{fill:var(--muted)}
  <h1>HDMI信号品質 シミュレーション評価（第3版）</h1>
  <p class="sub">第2回監査（<code>7929491</code> 対象）のA1〜A5への対応。更新：2026-10-24　／　<a href="hdmi-simulation-r2.html">第2版（第2回監査の対象）</a>　<a href="hdmi-simulation.html">第1版</a>　<a href="index.html">← 企画・設計仕様に戻る</a></p>
 </div></header>
-<p id="poc-purpose-review-link"><a href="poc-purpose-review.html">履歴：目的への独立評価・D1分岐の実修正（0.585mm、共通用途の残件）</a></p><p id="poc-fabrication-link"><a href="poc-fabrication.html">最新：通信と電源の修正・発注準備（M5-Busの向き照合待ち）</a></p>
+<p id="poc-purpose-review-link"><a href="poc-purpose-review.html">履歴：目的への独立評価・D1分岐の実修正（0.585mm、共通用途の残件）</a></p><p id="poc-fabrication-link"><a href="poc-fabrication.html">最新：通信と電源の修正・発注準備（M5-Bus向き確認・修正済み）</a></p>
 <nav class="toc"><div class="wrap">
  <a href="#summary">結論</a><a href="#status">対応状況</a><a href="#a1">A1 ESD</a><a href="#a2">A2 経路分類</a><a href="#a3">A3 枝の位置</a><a href="#a4">A4 複合感度</a><a href="#a5">A5 検査・整合</a><a href="#result">配線結果</a><a href="#channel">チャネル推定</a><a href="#em3d">3D解析</a><a href="#limits">限界</a><a href="#repro">再現・記録</a>
 </div></nav>
@@ -316,7 +316,7 @@ svg .mut{fill:var(--muted)}
 
 <section id="repro">
  <h2>11. 再現手順と記録</h2>
- <p>対象：ベースコミット <code>047538febbbf98b8758caa1441b386347c2afe14</code>（第2版）に対する変更。回路・PCB・抽出入力・モデル・結果・図・本ページは、同じ変更に含まれます。ファイルのSHA-256（改行をLFに正規化）は下表（<code>kicad/sim/manifest_r3.json</code>）で、チェックアウト後に <code>make_manifest.py</code> で再計算して照合できます（コミット自身のSHAは、その中に含められないため記載しません）。</p>
+ <p>対象：ベースコミット <code>bc0c4773ea76c73853146437912c04381d337ebc</code>（第2版）に対する変更。回路・PCB・抽出入力・モデル・結果・図・本ページは、同じ変更に含まれます。ファイルのSHA-256（改行をLFに正規化）は下表（<code>kicad/sim/manifest_r3.json</code>）で、チェックアウト後に <code>make_manifest.py</code> で再計算して照合できます（コミット自身のSHAは、その中に含められないため記載しません）。</p>
  <div class="tw"><table>
   <thead><tr><th>コマンド（順番）</th><th>内容</th></tr></thead>
   <tbody>
@@ -334,29 +334,29 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>kicad/sim/d1_bias_check.json</code></td><td><code>40a2deb20d6f9449</code></td></tr>
 <tr><td><code>kicad/sim/regression_d1_bias.json</code></td><td><code>bc1d4766afc1db6c</code></td></tr>
 <tr><td><code>kicad/sim/make_poc_review_page.py</code></td><td><code>3c49cbff4f8e0f01</code></td></tr>
-<tr><td><code>site/poc-purpose-review.html</code></td><td><code>71c3f058be11ea24</code></td></tr>
+<tr><td><code>site/poc-purpose-review.html</code></td><td><code>9ab0853bf2963b3f</code></td></tr>
 <tr><td><code>kicad/sim/d1_finalizer_reproduction.json</code></td><td><code>a7d30dd5f3a7d3f1</code></td></tr>
 <tr><td><code>docs/reference/openems/sources.json</code></td><td><code>3b8c6dbfa17ca49d</code></td></tr>
 <tr><td><code>docs/HDMI_R3_監査引継ぎ確認_2026-10-24.md</code></td><td><code>b47be54b1355712e</code></td></tr>
 <tr><td><code>kicad/sim/audit_handover.py</code></td><td><code>a772da7d17146435</code></td></tr>
 <tr><td><code>kicad/sim/make_handover_page.py</code></td><td><code>1a99d58588a90d54</code></td></tr>
 <tr><td><code>kicad/sim/handover_851adf4_2026-10-24.json</code></td><td><code>3d28a4309d1de492</code></td></tr>
-<tr><td><code>site/hdmi-audit-handover.html</code></td><td><code>e9faeaab6e00587c</code></td></tr>
+<tr><td><code>site/hdmi-audit-handover.html</code></td><td><code>969178945c30fb2d</code></td></tr>
 <tr><td><code>site/audit-data/handover_851adf4_2026-10-24.json</code></td><td><code>3d28a4309d1de492</code></td></tr>
-<tr><td><code>kicad/gen/design.py</code></td><td><code>b1317f07f26ecc42</code></td></tr>
+<tr><td><code>kicad/gen/design.py</code></td><td><code>5957024711c889ca</code></td></tr>
 <tr><td><code>kicad/gen/route_pcb.py</code></td><td><code>04784943ae1f0bd9</code></td></tr>
 <tr><td><code>kicad/gen/make_pcb.py</code></td><td><code>ec28461306b77324</code></td></tr>
-<tr><td><code>kicad/gen/finish_pcb.py</code></td><td><code>2630a38576a664f4</code></td></tr>
+<tr><td><code>kicad/gen/finish_pcb.py</code></td><td><code>947f4a9a43be20c3</code></td></tr>
 <tr><td><code>kicad/gen/shorten_d1_bias.py</code></td><td><code>dd8bb1c7daa04b39</code></td></tr>
 <tr><td><code>kicad/gen/make_bom.py</code></td><td><code>200abbd3d2d74770</code></td></tr>
 <tr><td><code>kicad/lib/carrier.pretty/DFN2510-10L_RCLAMP0524P.kicad_mod</code></td><td><code>e4260680ff83a050</code></td></tr>
-<tr><td><code>kicad/tab5-fpga-carrier.kicad_pcb</code></td><td><code>6b955e28019d8544</code></td></tr>
+<tr><td><code>kicad/tab5-fpga-carrier.kicad_pcb</code></td><td><code>504e7f908d2295b4</code></td></tr>
 <tr><td><code>kicad/tab5-fpga-carrier.kicad_pro</code></td><td><code>832a254610287b92</code></td></tr>
-<tr><td><code>kicad/tab5-fpga-carrier.kicad_sch</code></td><td><code>e383116bcd9d0662</code></td></tr>
-<tr><td><code>kicad/bom.csv</code></td><td><code>9f6c601d4416d39f</code></td></tr>
+<tr><td><code>kicad/tab5-fpga-carrier.kicad_sch</code></td><td><code>bb8bced3660fa61e</code></td></tr>
+<tr><td><code>kicad/bom.csv</code></td><td><code>054ab89a9db10090</code></td></tr>
 <tr><td><code>kicad/core_pin_assignment.csv</code></td><td><code>40c2f5814b64798c</code></td></tr>
 <tr><td><code>kicad/sim/tmds_roles.json</code></td><td><code>6d28698c484e7543</code></td></tr>
-<tr><td><code>kicad/sim/tmds_geom.json</code></td><td><code>22d8d5977dba39f6</code></td></tr>
+<tr><td><code>kicad/sim/tmds_geom.json</code></td><td><code>f1f2eaf1fe007d65</code></td></tr>
 <tr><td><code>kicad/sim/pair_lengths.json</code></td><td><code>4b7c4979d8934178</code></td></tr>
 <tr><td><code>kicad/sim/zdiff_cache.json</code></td><td><code>b6d5501d5d2e8ce8</code></td></tr>
 <tr><td><code>kicad/sim/tmds_via_policy.json</code></td><td><code>f8492938afc33e82</code></td></tr>
@@ -364,7 +364,7 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>kicad/sim/tmds_channel.py</code></td><td><code>ffd66808e7d2f572</code></td></tr>
 <tr><td><code>kicad/sim/tmds_sparam.py</code></td><td><code>db46532cd9c21236</code></td></tr>
 <tr><td><code>kicad/sim/make_report_figs.py</code></td><td><code>50c58b11661e64e5</code></td></tr>
-<tr><td><code>kicad/sim/make_report_page.py</code></td><td><code>657d6a7354e6f650</code></td></tr>
+<tr><td><code>kicad/sim/make_report_page.py</code></td><td><code>6abfa4e55bf55529</code></td></tr>
 <tr><td><code>kicad/sim/check_continuity.py</code></td><td><code>7a37ca361fbd07b4</code></td></tr>
 <tr><td><code>kicad/sim/check_negative.py</code></td><td><code>798c6737b4311fad</code></td></tr>
 <tr><td><code>kicad/sim/check_classification.py</code></td><td><code>fba1733db34bad21</code></td></tr>
@@ -373,12 +373,12 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>kicad/sim/test_esd_check.py</code></td><td><code>98732daeaa2539a6</code></td></tr>
 <tr><td><code>kicad/sim/test_classification_check.py</code></td><td><code>52c4f3422546782e</code></td></tr>
 <tr><td><code>kicad/sim/make_audit_checks_page.py</code></td><td><code>b4da3b4fea5011e9</code></td></tr>
-<tr><td><code>kicad/sim/make_manifest.py</code></td><td><code>948db2d07e3931d3</code></td></tr>
+<tr><td><code>kicad/sim/make_manifest.py</code></td><td><code>40b0559b8ac6db1a</code></td></tr>
 <tr><td><code>kicad/sim/continuity_report.json</code></td><td><code>0a2e03994a23d646</code></td></tr>
 <tr><td><code>kicad/sim/negative_report.json</code></td><td><code>c43a4793152bcdb5</code></td></tr>
-<tr><td><code>kicad/sim/classification_report.json</code></td><td><code>5168fd04d3bb88aa</code></td></tr>
+<tr><td><code>kicad/sim/classification_report.json</code></td><td><code>95f323c24159db55</code></td></tr>
 <tr><td><code>kicad/sim/esd_footprint_check.json</code></td><td><code>4395acde91c2ae89</code></td></tr>
-<tr><td><code>kicad/sim/drc_r3.json</code></td><td><code>79d5981519a69595</code></td></tr>
+<tr><td><code>kicad/sim/drc_r3.json</code></td><td><code>c214d954cd81df3a</code></td></tr>
 <tr><td><code>kicad/sim/tmds_summary.json</code></td><td><code>3335ee9d671e1e9f</code></td></tr>
 <tr><td><code>kicad/sim/tmds_sparam.json</code></td><td><code>07f3f5173b14ec63</code></td></tr>
 <tr><td><code>kicad/sim/report_sparam.json</code></td><td><code>0205b724063f5df9</code></td></tr>
@@ -389,8 +389,8 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>kicad/sim/baseline_r2_report_sparam.json</code></td><td><code>935f36a64e6d5732</code></td></tr>
 <tr><td><code>kicad/sim/regression_esd.json</code></td><td><code>94815145c6080f09</code></td></tr>
 <tr><td><code>kicad/sim/regression_classification.json</code></td><td><code>4369934af03df85c</code></td></tr>
-<tr><td><code>site/index.html</code></td><td><code>0e49d592fabe7047</code></td></tr>
-<tr><td><code>site/hdmi-audit-checks.html</code></td><td><code>3a65b92f71f50f6a</code></td></tr>
+<tr><td><code>site/index.html</code></td><td><code>53144bac50203f8a</code></td></tr>
+<tr><td><code>site/hdmi-audit-checks.html</code></td><td><code>73cdb63662d4f0a6</code></td></tr>
 <tr><td><code>docs/HDMI_R3_検査修正_2026-10-24.md</code></td><td><code>a5ae505bb04e8244</code></td></tr>
 <tr><td><code>docs/FPGA_HDMI要求_D2反転とピン.md</code></td><td><code>e8d0328e42204e9a</code></td></tr>
 <tr><td><code>site/img/sim_zdiff_r3.png</code></td><td><code>2c8138435590ae08</code></td></tr>
@@ -401,32 +401,32 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>site/img/sim_matrix_r3.png</code></td><td><code>8681c17ae86e1260</code></td></tr>
 <tr><td><code>site/img/sim_sensitivity_r3.png</code></td><td><code>3ec7aa454dafd350</code></td></tr>
 <tr><td><code>site/img/render_top_r3.png</code></td><td><code>a1ce472f534986c1</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/assembly-bottom.svg</code></td><td><code>be17b0183e00dedc</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/assembly-top.svg</code></td><td><code>58d6b17ab93530be</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/connectivity.d356</code></td><td><code>111c0a733de4db6c</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/assembly-bottom.svg</code></td><td><code>d79d2cb9a6f37421</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/assembly-top.svg</code></td><td><code>5d3b7e828538eb49</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/connectivity.d356</code></td><td><code>8158889315e4850a</code></td></tr>
 <tr><td><code>manufacturing/poc-2026-10-24/dnp.csv</code></td><td><code>dea765e1ddbb494a</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/gerbers.zip</code></td><td><code>0a8999631efd03cf</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/gerbers.zip</code></td><td><code>3aa701b78a0b59b5</code></td></tr>
 <tr><td><code>manufacturing/poc-2026-10-24/jlc-bom.csv</code></td><td><code>78ad1549b1aa059e</code></td></tr>
 <tr><td><code>manufacturing/poc-2026-10-24/jlc-cpl.csv</code></td><td><code>704bc4165bed3321</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/kicad-position.csv</code></td><td><code>4b85733b02d23b80</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/manual-assembly.csv</code></td><td><code>80224f8c41a413d1</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/package-check.json</code></td><td><code>a09dceec1b15797d</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/README.md</code></td><td><code>00d344f9805e666d</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-B_Cu.gbl</code></td><td><code>b283111461c9b96f</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-B_Mask.gbs</code></td><td><code>5f126cbab5116094</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-B_Paste.gbp</code></td><td><code>8bcf1bcd7b950c0b</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-B_Silkscreen.gbo</code></td><td><code>128754d8951cba0c</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-drill.rpt</code></td><td><code>c12408cebcd9d3c5</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-Edge_Cuts.gm1</code></td><td><code>77be844af1330332</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-F_Cu.gtl</code></td><td><code>32221ddaf3cfbce2</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-F_Mask.gts</code></td><td><code>cdd5e1deca7ddb96</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-F_Paste.gtp</code></td><td><code>92944b7b3f64fbf4</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-F_Silkscreen.gto</code></td><td><code>43520cc1ebc37578</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-In1_Cu.g1</code></td><td><code>bb7ab51899798c41</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-In2_Cu.g2</code></td><td><code>b8327f4cb745abde</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-job.gbrjob</code></td><td><code>209daad55691bf93</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-NPTH.drl</code></td><td><code>f9fb0dde4b52e151</code></td></tr>
-<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-PTH.drl</code></td><td><code>910c37d266b45f2a</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/kicad-position.csv</code></td><td><code>11e5767641fafefc</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/manual-assembly.csv</code></td><td><code>2a1810cc2abbce8f</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/package-check.json</code></td><td><code>3acc247099c80c28</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/README.md</code></td><td><code>6a64be3a07dceaa3</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-B_Cu.gbl</code></td><td><code>a2613fc9531e2849</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-B_Mask.gbs</code></td><td><code>e6122d1619104e23</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-B_Paste.gbp</code></td><td><code>3f96668c1d62362e</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-B_Silkscreen.gbo</code></td><td><code>f6b92aada4b5ccd4</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-drill.rpt</code></td><td><code>405da6a98a89d603</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-Edge_Cuts.gm1</code></td><td><code>9f540584a2f25c8d</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-F_Cu.gtl</code></td><td><code>95b9317766fff8ec</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-F_Mask.gts</code></td><td><code>0193bb7c854f3808</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-F_Paste.gtp</code></td><td><code>733f111f496173a7</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-F_Silkscreen.gto</code></td><td><code>939dec857cb020a6</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-In1_Cu.g1</code></td><td><code>4014ff82a9f2dae0</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-In2_Cu.g2</code></td><td><code>b3f5e152584d2947</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-job.gbrjob</code></td><td><code>36ec6939d2678283</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-NPTH.drl</code></td><td><code>3f33b896ce28a0b3</code></td></tr>
+<tr><td><code>manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-PTH.drl</code></td><td><code>c2c8b8b1de09a757</code></td></tr>
 <tr><td><code>docs/reference/openems/calibration-2026-10-24/summary.json</code></td><td><code>e9c05733b5d54ec3</code></td></tr>
 <tr><td><code>docs/reference/openems/calibration-2026-10-24/pair-015-z16-t035/model.xml</code></td><td><code>faeeb63aa1f5cd74</code></td></tr>
 <tr><td><code>docs/reference/openems/calibration-2026-10-24/pair-015-z16-t035/port-traces.zip</code></td><td><code>34af02e3a47abb81</code></td></tr>
@@ -440,11 +440,11 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>docs/reference/openems/calibration-2026-10-24/single-020-z12/model.xml</code></td><td><code>f288fae1ded3eecf</code></td></tr>
 <tr><td><code>docs/reference/openems/calibration-2026-10-24/single-020-z12/port-traces.zip</code></td><td><code>3064bfc25d25d110</code></td></tr>
 <tr><td><code>docs/reference/openems/calibration-2026-10-24/single-020-z12/result.json</code></td><td><code>c2661c50053433ee</code></td></tr>
-<tr><td><code>docs/PoC発注準備_パラレル通信と電源_2026-10-24.md</code></td><td><code>adb0bc22964a5c28</code></td></tr>
+<tr><td><code>docs/PoC発注準備_パラレル通信と電源_2026-10-24.md</code></td><td><code>74361def527272e5</code></td></tr>
 <tr><td><code>docs/3D均一直線のポート校正_2026-10-24.md</code></td><td><code>4d4be384ec2b59c7</code></td></tr>
 <tr><td><code>docs/reference/poc-power-sources-2026-10-24.json</code></td><td><code>672197a7b77cfdd6</code></td></tr>
 <tr><td><code>kicad/gen/order_parts.json</code></td><td><code>15f7ea76de4126e9</code></td></tr>
-<tr><td><code>kicad/gen/export_poc_package.py</code></td><td><code>7efb16de52dc98a5</code></td></tr>
+<tr><td><code>kicad/gen/export_poc_package.py</code></td><td><code>30ef2fc15a67146c</code></td></tr>
 <tr><td><code>kicad/gen/prepare_manufacturing.py</code></td><td><code>e3d948aa7c4f6023</code></td></tr>
 <tr><td><code>kicad/gen/make_sch.py</code></td><td><code>6ef93b8097444e2f</code></td></tr>
 <tr><td><code>kicad/gen/place_pcb.py</code></td><td><code>1537f2ef0c8b00ea</code></td></tr>
@@ -452,23 +452,27 @@ svg .mut{fill:var(--muted)}
 <tr><td><code>kicad/sim/calibrate_uniform_msl.py</code></td><td><code>519d39d7f7d2e399</code></td></tr>
 <tr><td><code>kicad/sim/check_ground_reference.py</code></td><td><code>0fb8885a9390ec9a</code></td></tr>
 <tr><td><code>kicad/sim/ground_reference_check.json</code></td><td><code>92bcd4d1aac739a4</code></td></tr>
-<tr><td><code>kicad/sim/check_parallel_power.py</code></td><td><code>1da18eba7cc14802</code></td></tr>
-<tr><td><code>kicad/sim/parallel_power_check.json</code></td><td><code>df8d89afc31bdea0</code></td></tr>
-<tr><td><code>kicad/sim/test_parallel_power_check.py</code></td><td><code>e82f95bbf778d74a</code></td></tr>
-<tr><td><code>kicad/sim/regression_parallel_power.json</code></td><td><code>4bea04b4b8550171</code></td></tr>
+<tr><td><code>kicad/sim/check_parallel_power.py</code></td><td><code>79e60a8b8a541040</code></td></tr>
+<tr><td><code>kicad/sim/parallel_power_check.json</code></td><td><code>b122d33c50e8332c</code></td></tr>
+<tr><td><code>kicad/sim/test_parallel_power_check.py</code></td><td><code>a388d21dbc424500</code></td></tr>
+<tr><td><code>kicad/sim/regression_parallel_power.json</code></td><td><code>a0c1f5355a700639</code></td></tr>
 <tr><td><code>kicad/sim/check_power_dc.py</code></td><td><code>433d7e6e789eb601</code></td></tr>
-<tr><td><code>kicad/sim/power_dc_check.json</code></td><td><code>499f49a8c8012fdb</code></td></tr>
+<tr><td><code>kicad/sim/power_dc_check.json</code></td><td><code>ab0a94f3f8270be6</code></td></tr>
 <tr><td><code>kicad/sim/review_poc_fabrication.py</code></td><td><code>f2a8c6b104625000</code></td></tr>
 <tr><td><code>kicad/sim/poc_fabrication_review.json</code></td><td><code>6c0c2069dc45fd9b</code></td></tr>
-<tr><td><code>kicad/sim/erc_poc.json</code></td><td><code>1d8f230289a34f71</code></td></tr>
-<tr><td><code>kicad/sim/make_poc_fabrication_page.py</code></td><td><code>50e2d9a8daa26e0f</code></td></tr>
-<tr><td><code>site/poc-fabrication.html</code></td><td><code>d2217f620a90bb0b</code></td></tr>
-<tr><td><code>site/uniform-line-calibration.html</code></td><td><code>d4053b0de6af73ac</code></td></tr>
-<tr><td><code>site/audit-data/poc-manufacturing-candidate.zip</code></td><td><code>af91abf90f5a9b54</code></td></tr>
+<tr><td><code>kicad/sim/erc_poc.json</code></td><td><code>69556e9b4d9f52b7</code></td></tr>
+<tr><td><code>kicad/sim/make_poc_fabrication_page.py</code></td><td><code>fa169fbfb7cb69d2</code></td></tr>
+<tr><td><code>site/poc-fabrication.html</code></td><td><code>d1a50a4545519b7c</code></td></tr>
+<tr><td><code>site/uniform-line-calibration.html</code></td><td><code>efefbe84dafea068</code></td></tr>
+<tr><td><code>site/audit-data/poc-manufacturing-candidate.zip</code></td><td><code>9348b31defa16e96</code></td></tr>
 <tr><td><code>site/audit-data/uniform-line-calibration.zip</code></td><td><code>2d360d7f0db0691c</code></td></tr>
-<tr><td><code>site/audit-data/poc-assembly-top.svg</code></td><td><code>58d6b17ab93530be</code></td></tr>
-<tr><td><code>site/audit-data/poc-assembly-bottom.svg</code></td><td><code>be17b0183e00dedc</code></td></tr>
-<tr><td><code>.gitattributes</code></td><td><code>355840732237a7f6</code></td></tr>
+<tr><td><code>site/audit-data/poc-assembly-top.svg</code></td><td><code>5d3b7e828538eb49</code></td></tr>
+<tr><td><code>site/audit-data/poc-assembly-bottom.svg</code></td><td><code>d79d2cb9a6f37421</code></td></tr>
+<tr><td><code>kicad/sim/check_mbus_revision.py</code></td><td><code>b7240f86a52cd307</code></td></tr>
+<tr><td><code>kicad/sim/mbus_revision_check.json</code></td><td><code>f90268502277954e</code></td></tr>
+<tr><td><code>.gitattributes</code></td><td><code>fa8037141b430293</code></td></tr>
+<tr><td><code>kicad/lib/carrier.pretty/PinHeader_2x15_Tab5_Bottom.kicad_mod</code></td><td><code>80dc7f9863e6b45d</code></td></tr>
+<tr><td><code>docs/reference/tab5/mbus_orientation_confirmation_2026-10-24.json</code></td><td><code>15ed3a995cfed3cd</code></td></tr>
 <tr><td><code>docs/reference/parts/sn74cb3q3245_datasheet.pdf</code></td><td><code>97c7177a3203d8eb</code></td></tr>
 <tr><td><code>docs/reference/parts/tps3839_datasheet.pdf</code></td><td><code>a18940237afc63cf</code></td></tr>
 <tr><td><code>docs/reference/parts/TLV1117LV_datasheet.pdf</code></td><td><code>84091b2a9521014c</code></td></tr>

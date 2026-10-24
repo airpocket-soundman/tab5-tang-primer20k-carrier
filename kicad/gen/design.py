@@ -236,9 +236,9 @@ def build():
 
     # ------------------------------------------------------------ M5-Bus header (Tab5-facing side)
     pins = OrderedDict((str(k), v) for k, v in sorted(MBUS.items()))
-    add("J", "Connector_Generic:Conn_02x15_Odd_Even", "Connector_PinHeader_2.54mm:PinHeader_2x15_P2.54mm_Vertical",
+    add("J", "Connector_Generic:Conn_02x15_Odd_Even", "carrier:PinHeader_2x15_Tab5_Bottom",
         "M5-BUS (to Tab5)", pins, "mbus", pos=(56.27, 22.15), rot=180, side="B",
-        comment="male header on Tab5-facing side; pin-1 orientation to be confirmed on the real Tab5")
+        comment="User confirmed 2026-10-24: rear view, battery left, pin1 GND on left; mirrored-column footprint")
     # series resistors ISO_x -> F_x (33R); placed in one column left of the socket
     # series resistors: one per signal, horizontal, y aligned with the matching Core pad (min pitch 1.5mm)
     names = [(CORE_PINS["F_" + s], s, 0) for s in SERIES] + [(CORE_PINS["F_" + s], s, 1) for s in EXT]

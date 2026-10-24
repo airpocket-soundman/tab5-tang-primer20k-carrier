@@ -8,6 +8,10 @@ MANUAL={'J1','J3','J5','SW1','SW2','SW3','JP1'}
 def run(*args):subprocess.run([str(CLI),*map(str,args)],check=True)
 def main():
  OUT.mkdir(parents=True,exist_ok=True);g=OUT/'gerbers';g.mkdir(exist_ok=True)
+ checks=json.loads((ROOT/'kicad/sim/parallel_power_check.json').read_text())
+ assert checks['ok'] and any(r['name']=='M5Bus_confirmed_left_pin1' and r['ok'] for r in checks['checks'])
+ drc=json.loads((ROOT/'kicad/sim/drc_r3.json').read_text())
+ assert not drc['violations'] and not drc['unconnected_items']
  b=pcbnew.LoadBoard(str(PCB));fps={f.GetReference():f for f in b.GetFootprints()}
  run('pcb','export','gerbers','-l','F.Cu,In1.Cu,In2.Cu,B.Cu,F.Paste,B.Paste,F.Silkscreen,B.Silkscreen,F.Mask,B.Mask,Edge.Cuts','--subtract-soldermask','--use-drill-file-origin','-o',str(g)+'/',PCB)
  run('pcb','export','drill','--drill-origin','plot','--excellon-separate-th','--generate-report','-o',str(g)+'/',PCB)
@@ -51,6 +55,6 @@ def main():
  for r in cpl:assert 0<=float(r[1])<=125 and 0<=float(r[2])<=78,r
  with zipfile.ZipFile(OUT/'gerbers.zip','w',zipfile.ZIP_DEFLATED) as z:
   for p in sorted(g.iterdir()):z.write(p,p.name)
- report=dict(status='HOLD: M5-Bus physical pin-1 orientation unresolved',pcba_components=len(refs),pcba_bom_rows=len(rows),bom_cpl_equal=True,origin_mm=[2,79],board_dimensions_mm=[125,78],cpl_coordinates='KiCad drill/place origin, +X right +Y up; bottom only manual J3; rotation is KiCad convention, confirm manufacturer preview',manual_refs=sorted(MANUAL),source_pcb_sha256=hashlib.sha256(PCB.read_bytes().replace(b'\r\n',b'\n')).hexdigest(),files={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(OUT.iterdir()) if p.is_file() and p.name!='package-check.json'})
+ report=dict(status='Ready for small PoC fabrication; M5-Bus left pin1 confirmed by user, 2026-10-24; manufacturer assembly preview required',pcba_components=len(refs),pcba_bom_rows=len(rows),bom_cpl_equal=True,origin_mm=[2,79],board_dimensions_mm=[125,78],cpl_coordinates='KiCad drill/place origin, +X right +Y up; bottom only manual J3; rotation is KiCad convention, confirm manufacturer preview',manual_refs=sorted(MANUAL),source_pcb_sha256=hashlib.sha256(PCB.read_bytes().replace(b'\r\n',b'\n')).hexdigest(),files={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(OUT.iterdir()) if p.is_file() and p.name!='package-check.json'})
  (OUT/'package-check.json').write_text(json.dumps(report,indent=2));print(json.dumps({k:v for k,v in report.items() if k!='files'},indent=1))
 if __name__=='__main__':main()

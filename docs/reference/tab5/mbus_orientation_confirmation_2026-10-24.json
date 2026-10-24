@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-24",
+  "source": "User checked actual Tab5",
+  "view": "Tab5 rear view, battery compartment on left; same frame as carrier outer/front face when installed",
+  "answer": "電池側（左側）がGND／1番",
+  "corrected_pad_centres_mm": {
+    "1": [
+      53.73,
+      22.15
+    ],
+    "2": [
+      56.27,
+      22.15
+    ],
+    "29": [
+      53.73,
+      57.71
+    ],
+    "30": [
+      56.27,
+      57.71
+    ]
+  },
+  "previous_release": "bc0c477 and earlier: opposite columns; superseded, do not manufacture",
+  "action": "Mirror J3 footprint column geometry and reroute; keep hole positions, top-to-bottom numbering and electrical pin numbers",
+  "four_corners_user_confirmation": {
+    "battery_top": "GND / pin1",
+    "battery_bottom": "HVIN / pin29",
+    "opposite_top": "GPIO16 / pin2",
+    "opposite_bottom": "VBAT_OUT / pin30"
+  }
+}

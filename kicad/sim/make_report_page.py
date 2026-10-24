@@ -285,7 +285,7 @@ def sub_ph(m):
 
 page = re.sub(r"%\((\w+)\)([-.\d]*[sfd])", sub_ph, page)
 page = page.replace("%%", "%")
-page = page.replace('</header>','</header><p id="poc-fabrication-link"><a href="poc-fabrication.html">最新：通信と電源の修正・発注準備（M5-Busの向き照合待ち）</a></p>',1)
+page = page.replace('</header>','</header><p id="poc-fabrication-link"><a href="poc-fabrication.html">最新：通信と電源の修正・発注準備（M5-Bus向き確認・修正済み）</a></p>',1)
 page = page.replace("-240.0 dB", "数値床（理想対称）").replace("-240.0dB", "数値床（理想対称）")
 page = page.replace('<section id="summary">', '<p><a href="hdmi-audit-checks.html">第3版監査後の検査修正・回帰試験（ランド寸法、配線幅・分類、D2説明）</a></p><section id="summary">')
 open(os.path.join(SITE, "hdmi-simulation-r3.html"), "w", encoding="utf-8").write(page)

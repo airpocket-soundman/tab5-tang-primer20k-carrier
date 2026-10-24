@@ -123,6 +123,12 @@ def main():
         add_track(board,(103.9,25.575),(103.55,25.225),gnd,'F.Cu',.127)
         add_track(board,(103.55,25.225),(103.55,24.45),gnd,'F.Cu',.127)
 
+    # Confirmed left-column M5-Bus revision: connect CH224K exposed ground
+    # outside the paste land. 0.5/0.3 via clears front pins and back sense trace.
+    if any(f.GetReference()=='J3' and str(f.GetFPID().GetLibItemName())=='PinHeader_2x15_Tab5_Bottom' for f in board.GetFootprints()) and not any(isinstance(t,pcbnew.PCB_VIA) and abs(pcbnew.ToMM(t.GetPosition().x)-18.09)<.001 and abs(pcbnew.ToMM(t.GetPosition().y)-22.84)<.001 for t in board.GetTracks()):
+        via=pcbnew.PCB_VIA(board);via.SetPosition(V(18.09,22.84));via.SetWidth(mm(.5));via.SetDrill(mm(.3));via.SetViaType(pcbnew.VIATYPE_THROUGH);via.SetNet(gnd);board.Add(via)
+        add_track(board,(18.6,22.9),(18.09,22.84),gnd,'F.Cu',.127)
+
     # 1) GND stub + via for R33 pad 2 (and any other isolated GND SMD pad passed on the command line)
     targets = sys.argv[1:] or ["R33.2"]
     for tgt in targets:
