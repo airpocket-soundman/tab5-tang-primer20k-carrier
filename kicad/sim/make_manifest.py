@@ -54,7 +54,7 @@ GROUPS['fabrication_revision'] += ['docs/reference/'+item['path'] for item in js
 
 def sha(path):
     data = open(path, "rb").read()
-    if path.endswith((".py", ".json", ".csv", ".kicad_pcb", ".kicad_pro", ".kicad_sch", ".kicad_mod", ".md", ".html")):
+    if os.path.basename(path) == ".gitattributes" or path.endswith((".kicad_sym", ".py", ".json", ".csv", ".kicad_pcb", ".kicad_pro", ".kicad_sch", ".kicad_mod", ".md", ".html")):
         data = data.replace(b"\r\n", b"\n")
     return hashlib.sha256(data).hexdigest()
 
