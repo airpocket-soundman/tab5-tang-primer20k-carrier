@@ -1,0 +1,72 @@
+{
+ "ok": true,
+ "tests": 11,
+ "cases": [
+  {
+   "case": "duplicate-role-interval",
+   "expected_ok": false,
+   "actual_ok": false,
+   "exit_code": 1
+  },
+  {
+   "case": "uncovered-path",
+   "expected_ok": false,
+   "actual_ok": false,
+   "exit_code": 1
+  },
+  {
+   "case": "normal",
+   "expected_ok": true,
+   "actual_ok": true,
+   "exit_code": 0
+  },
+  {
+   "case": "role-width-drift",
+   "expected_ok": false,
+   "actual_ok": false,
+   "exit_code": 1
+  },
+  {
+   "case": "split-collinear-role-shared-endpoint",
+   "expected_ok": true,
+   "actual_ok": true,
+   "exit_code": 0
+  },
+  {
+   "case": "stale-midpoint-on-copper-but-ends-outside",
+   "expected_ok": false,
+   "actual_ok": false,
+   "exit_code": 1
+  },
+  {
+   "case": "tiny-unclassified-copper",
+   "expected_ok": false,
+   "actual_ok": false,
+   "exit_code": 1
+  },
+  {
+   "case": "via-diameter-drift",
+   "expected_ok": false,
+   "actual_ok": false,
+   "exit_code": 1
+  },
+  {
+   "case": "via-drill-drift",
+   "expected_ok": false,
+   "actual_ok": false,
+   "exit_code": 1
+  },
+  {
+   "case": "via-removed",
+   "expected_ok": false,
+   "actual_ok": false,
+   "exit_code": 1
+  },
+  {
+   "case": "trace-0.20-to-0.18",
+   "expected_ok": false,
+   "actual_ok": false,
+   "exit_code": 1
+  }
+ ]
+}

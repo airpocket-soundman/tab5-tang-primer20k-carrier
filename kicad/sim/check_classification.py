@@ -1,105 +1,146 @@
-"""Classification coverage of every TMDS copper item of the routed board (KiCad python):
-
-  "C:/Program Files/KiCad/10.0/bin/python.exe" -X utf8 kicad/sim/check_classification.py
-
-Every track segment and via of the 16 TMDS nets (HDMI_D*/HDMI_CK*, Core side and `_C` side) must belong to exactly one role recorded by the
-router in tmds_roles.json: main (coupled pair path), stub (pad escape stub), strap (ESD copper strap) or branch (bias-resistor branch).
-Vias are classified as main when they sit on a vertex of a role polyline. Anything that is not covered is "unclassified"; the script exits
-with code 1 if there is one, or if a role segment has no PCB copper (stale roles). Also lists the intentional exclusions (the part of a
-stub that lies inside a socket/connector pad is reported by tmds_sparam.py as `clipped_in_pad_mm`).
-Output: kicad/sim/classification_report.json
+"""Exact interval coverage of TMDS centre lines, widths, roles and via geometry.
+Run with KiCad Python. CHECK_PCB / CHECK_ROLES / CHECK_JSON support isolated
+regressions. Position tolerance is 0.003mm; width tolerance is 0.001mm.
+Vias are checked against a reviewed physical policy, not an EM parasitic model.
 """
 import json
 import math
 import os
 import sys
-
+from pathlib import Path
 import pcbnew
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-PCB = os.environ.get("CHECK_PCB") or os.path.join(HERE, "..", "tab5-fpga-carrier.kicad_pcb")
+HERE = Path(__file__).resolve().parent
 mm = pcbnew.ToMM
-TOL = 0.03
-board = pcbnew.LoadBoard(PCB)
-roles = json.load(open(os.path.join(HERE, "tmds_roles.json")))
-LAYERS = ["F.Cu", "In2.Cu", "B.Cu"]
+POS_TOL, WIDTH_TOL = .003, .001
+LAYERS = ['F.Cu', 'In2.Cu', 'B.Cu']
+ROLES = ('main', 'stub', 'strap', 'branch')
 
-
-def role_segments(net):
+def segments(net, role_data):
     out = []
-    for role, lst in roles.get(net, {}).items():
-        for layer, pts, w in lst:
-            ln = LAYERS[layer] if isinstance(layer, int) else layer
-            for a, b in zip(pts[:-1], pts[1:]):
-                out.append((role, ln, a[0], a[1], b[0], b[1]))
+    for role, polylines in role_data.get(net, {}).items():
+        if role not in ROLES:
+            raise ValueError('Unknown role: '+role)
+        for layer, points, width in polylines:
+            layer = LAYERS[layer] if isinstance(layer, int) else layer
+            for a, b in zip(points[:-1], points[1:]):
+                out.append(dict(role=role, layer=layer, a=a, b=b, width=width))
     return out
 
+def overlap(source, candidate):
+    """Collinear overlap as a distance interval on source; point contacts do not count."""
+    if source['layer'] != candidate['layer']:
+        return None
+    x, y = source['a']; dx=source['b'][0]-x; dy=source['b'][1]-y
+    length=math.hypot(dx,dy)
+    if length <= POS_TOL:
+        return None
+    ux,uy=dx/length,dy/length
+    projected=[]
+    for px,py in (candidate['a'],candidate['b']):
+        if abs((px-x)*uy-(py-y)*ux) > POS_TOL:
+            return None
+        projected.append((px-x)*ux+(py-y)*uy)
+    lo,hi=max(0,min(projected)),min(length,max(projected))
+    return (lo,hi) if hi-lo > POS_TOL else None
 
-def dist_to_seg(px, py, x0, y0, x1, y1):
-    dx, dy = x1 - x0, y1 - y0
-    L2 = dx * dx + dy * dy
-    t = 0.0 if L2 == 0 else max(0.0, min(1.0, ((px - x0) * dx + (py - y0) * dy) / L2))
-    return math.hypot(px - (x0 + t * dx), py - (y0 + t * dy))
-
-
-report = {"nets": {}, "unclassified": [], "stale_roles": []}
-counts = {"main": 0, "stub": 0, "strap": 0, "branch": 0, "via_main": 0}
-nets = sorted({t.GetNetname() for t in board.GetTracks() if t.GetNetname().startswith(("HDMI_D", "HDMI_CK"))})
-for net in nets:
-    rs = role_segments(net)
-    pcb_segs, pcb_vias = [], []
-    for t in board.GetTracks():
-        if t.GetNetname() != net:
+def coverage(source, candidates):
+    """Partition at every collinear endpoint; no midpoint-only/stale sampling shortcut."""
+    length=math.dist(source['a'],source['b'])
+    if length <= POS_TOL:
+        return False, [], [], []
+    intervals=[]; widths=[]
+    for index,candidate in enumerate(candidates):
+        span=overlap(source,candidate)
+        if span is None:
             continue
-        if isinstance(t, pcbnew.PCB_VIA):
-            pcb_vias.append((mm(t.GetPosition().x), mm(t.GetPosition().y)))
+        if abs(source['width']-candidate['width']) > WIDTH_TOL:
+            widths.append(dict(span_mm=span, actual=source['width'], other=candidate['width']))
         else:
-            pcb_segs.append((board.GetLayerName(t.GetLayer()), mm(t.GetStart().x), mm(t.GetStart().y), mm(t.GetEnd().x), mm(t.GetEnd().y)))
-    cls = {"main": 0, "stub": 0, "strap": 0, "branch": 0, "via_main": 0}
-    for (ln, x0, y0, x1, y1) in pcb_segs:
-        L = math.hypot(x1 - x0, y1 - y0)
-        n = max(int(L / 0.05), 1)
-        votes = {}
-        ok = True
-        for i in range(n + 1):
-            px, py = x0 + (x1 - x0) * i / n, y0 + (y1 - y0) * i / n
-            hit = None
-            for (role, rln, ax, ay, bx, by) in rs:
-                if rln == ln and dist_to_seg(px, py, ax, ay, bx, by) <= TOL:
-                    hit = role
-                    break
-            if hit is None:
-                ok = False
-                break
-            votes[hit] = votes.get(hit, 0) + 1
-        if ok:
-            r = max(votes, key=votes.get)
-            cls[r] += 1
-            counts[r] += 1
-        else:
-            report["unclassified"].append(dict(net=net, kind="segment", layer=ln, a=[round(x0, 3), round(y0, 3)], b=[round(x1, 3), round(y1, 3)]))
-    for (vx, vy) in pcb_vias:
-        hit = any(math.hypot(vx - px, vy - py) <= TOL for (_r, _l, ax, ay, bx, by) in rs for (px, py) in ((ax, ay), (bx, by)))
-        if hit:
-            cls["via_main"] += 1
-            counts["via_main"] += 1
-        else:
-            report["unclassified"].append(dict(net=net, kind="via", at=[round(vx, 3), round(vy, 3)]))
-    # role segments that have no copper on the board (stale roles)
-    for (role, rln, ax, ay, bx, by) in rs:
-        mx, my = (ax + bx) / 2, (ay + by) / 2
-        if not any(ln == rln and dist_to_seg(mx, my, x0, y0, x1, y1) <= TOL for (ln, x0, y0, x1, y1) in pcb_segs):
-            report["stale_roles"].append(dict(net=net, role=role, layer=rln, a=[round(ax, 3), round(ay, 3)], b=[round(bx, 3), round(by, 3)]))
-    cls["pcb_segments"] = len(pcb_segs)
-    cls["pcb_vias"] = len(pcb_vias)
-    report["nets"][net] = cls
-report["counts"] = counts
-report["ok"] = not report["unclassified"] and not report["stale_roles"]
-if not os.environ.get("CHECK_PCB"):
-    json.dump(report, open(os.path.join(HERE, "classification_report.json"), "w"), indent=1)
-print("TMDS classification:", counts, "unclassified:", len(report["unclassified"]), "stale roles:", len(report["stale_roles"]))
-for u in report["unclassified"][:10]:
-    print("  unclassified", u)
-for u in report["stale_roles"][:10]:
-    print("  stale role", u)
-sys.exit(0 if report["ok"] else 1)
+            intervals.append((span,index))
+    cuts=sorted({0.,length}|{v for span,_ in intervals for v in span})
+    gaps=[]; duplicates=[]
+    for lo,hi in zip(cuts[:-1],cuts[1:]):
+        if hi-lo <= POS_TOL:
+            continue
+        mid=(lo+hi)/2
+        hits=[i for (a,b),i in intervals if a <= mid <= b]
+        if not hits:
+            gaps.append([lo,hi])
+        elif len(hits)>1:
+            duplicates.append(dict(span_mm=[lo,hi], candidates=hits))
+    return not gaps and not widths, gaps, duplicates, widths
+
+def via_record(board, via):
+    p=via.GetPosition()
+    return dict(net=via.GetNetname(), x=mm(p.x), y=mm(p.y), diameter_mm=mm(via.GetWidth(via.TopLayer())),
+                drill_mm=mm(via.GetDrillValue()), type=int(via.GetViaType()),
+                layers=[board.GetLayerName(via.TopLayer()),board.GetLayerName(via.BottomLayer())])
+
+def audit(board, roles, policy):
+    report=dict(nets={},unclassified=[],stale_roles=[],overlapping_roles=[],width_mismatches=[],via_errors=[],vias=[])
+    counts={r:0 for r in ROLES}; counts['via_main']=0
+    tracks=list(board.GetTracks())
+    nets=sorted({t.GetNetname() for t in tracks if t.GetNetname().startswith(('HDMI_D','HDMI_CK'))}|set(roles))
+    seen_vias=set()
+    for net in nets:
+        rs=segments(net,roles); copper=[]; vias=[]
+        for track in tracks:
+            if track.GetNetname()!=net: continue
+            if isinstance(track,pcbnew.PCB_VIA):
+                vias.append(track)
+            else:
+                a,b=track.GetStart(),track.GetEnd()
+                copper.append(dict(layer=board.GetLayerName(track.GetLayer()),a=[mm(a.x),mm(a.y)],
+                                   b=[mm(b.x),mm(b.y)],width=mm(track.GetWidth())))
+        cls={r:0 for r in ROLES};cls.update(via_main=0,pcb_segments=len(copper),pcb_vias=len(vias))
+        for segment in copper:
+            ok,gaps,duplicates,widths=coverage(segment,rs)
+            detail=dict(net=net,segment=segment)
+            if gaps:report['unclassified'].append(dict(**detail,gaps_mm=gaps))
+            if not ok and not gaps and not widths:
+                report['unclassified'].append(dict(**detail,error='Degenerate segment at/below position tolerance'))
+            if widths:report['width_mismatches'].append(dict(**detail,mismatches=widths))
+            if duplicates:report['overlapping_roles'].append(dict(**detail,overlaps=duplicates))
+            if ok and not duplicates:
+                # Count once; a straight copper segment may cross several role boundaries.
+                candidates=[r for r in rs if overlap(segment,r) is not None]
+                role=max(candidates,key=lambda r: overlap(segment,r)[1]-overlap(segment,r)[0])['role']
+                cls[role]+=1;counts[role]+=1
+        for role in rs:
+            ok,gaps,_duplicates,widths=coverage(role,copper)
+            if not ok:report['stale_roles'].append(dict(net=net,role=role,gaps_mm=gaps,width_mismatch=bool(widths)))
+        for via in vias:
+            actual=via_record(board,via); report['vias'].append(actual)
+            matches=[(i,v) for i,v in enumerate(policy['vias']) if v['net']==net and math.hypot(v['x']-actual['x'],v['y']-actual['y'])<=POS_TOL]
+            geometry_ok=False
+            if len(matches)==1:
+                i,v=matches[0];seen_vias.add(i)
+                geometry_ok=(abs(v['diameter_mm']-actual['diameter_mm'])<=WIDTH_TOL
+                             and abs(v['drill_mm']-actual['drill_mm'])<=WIDTH_TOL
+                             and v['layers']==actual['layers'] and v['type']==actual['type'])
+            contact=any(math.dist([actual['x'],actual['y']],r[end])<=POS_TOL for r in rs for end in ('a','b'))
+            if geometry_ok and contact:
+                cls['via_main']+=1;counts['via_main']+=1
+            else:
+                report['via_errors'].append(dict(actual=actual,policy_matches=len(matches),geometry_ok=geometry_ok,role_contact=contact))
+        report['nets'][net]=cls
+    for i,via in enumerate(policy['vias']):
+        if i not in seen_vias:report['via_errors'].append(dict(missing_expected_via=via))
+    report.update(counts=counts,position_tolerance_mm=POS_TOL,width_tolerance_mm=WIDTH_TOL,
+                  via_model=policy['model'], exclusions='Socket/connector in-pad lengths are reported by tmds_sparam.py; pad EM transitions and via parasitics are not modelled.')
+    report['ok']=not any(report[k] for k in ('unclassified','stale_roles','overlapping_roles','width_mismatches','via_errors'))
+    return report
+
+def main():
+    board=pcbnew.LoadBoard(os.environ.get('CHECK_PCB') or str(HERE.parent/'tab5-fpga-carrier.kicad_pcb'))
+    roles=json.loads(Path(os.environ.get('CHECK_ROLES') or HERE/'tmds_roles.json').read_text())
+    policy=json.loads((HERE/'tmds_via_policy.json').read_text())
+    report=audit(board,roles,policy)
+    output=os.environ.get('CHECK_JSON') or (str(HERE/'classification_report.json') if not os.environ.get('CHECK_PCB') and not os.environ.get('CHECK_ROLES') else None)
+    if output:Path(output).write_text(json.dumps(report,indent=1)+'\n')
+    print('TMDS classification:', 'OK' if report['ok'] else 'FAILED',report['counts'])
+    print({k:len(report[k]) for k in ('unclassified','stale_roles','overlapping_roles','width_mismatches','via_errors')})
+    sys.exit(0 if report['ok'] else 1)
+
+if __name__=='__main__':main()
