@@ -23,6 +23,7 @@ LIB = os.path.join(HERE, "..", "lib", "carrier.pretty")
 BODY_X = 1.00                                    # E (body width across the lead rows)
 LEAD = dict(len_nom=0.38, w=0.20, w_gnd=0.40)    # lead length L, lead width b, GND lead width b1
 checks, fails = [], []
+TOL_MM = 0.001
 
 
 def check(name, ok, detail):
@@ -59,6 +60,49 @@ def inspect(fp, tag):
     return rows
 
 
+def compare_placed(fp, expected):
+    """Compare the actual embedded pads, not merely the library identifier.
+
+    Apply the same side and orientation to a fresh library footprint. Relative
+    positions then remove translation/rotation without losing mirrored pin IDs.
+    """
+    # KiCad Flip requires an owning board (a bare library footprint can crash).
+    expected_board = pcbnew.BOARD()
+    expected_board.Add(expected)
+    if fp.IsFlipped():
+        expected.Flip(expected.GetPosition(), False)
+    expected.SetOrientationDegrees(fp.GetOrientationDegrees())
+    actual_pads = list(fp.Pads())
+    reference_pads = {p.GetNumber(): p for p in expected.Pads()}
+    numbers = [p.GetNumber() for p in actual_pads]
+    tag = fp.GetReference()
+    check(tag + ": exactly ten unique pads 1..10",
+          sorted(numbers) == sorted(reference_pads), numbers)
+    for method in ("GetLocalSolderMaskMargin", "GetLocalSolderPasteMargin", "GetLocalSolderPasteMarginRatio"):
+        check(tag + ": footprint " + method, getattr(fp, method)() == getattr(expected, method)(),
+              str(getattr(fp, method)()))
+    for pad in actual_pads:
+        number = pad.GetNumber()
+        if number not in reference_pads:
+            continue
+        ref = reference_pads[number]
+        pos, rpos = pad.GetFPRelativePosition(), ref.GetFPRelativePosition()
+        size, rsize = pad.GetSize(), ref.GetSize()
+        angle = (pad.GetFPRelativeOrientation().AsDegrees() - ref.GetFPRelativeOrientation().AsDegrees() + 180) % 360 - 180
+        geometry_ok = (abs(mm(pos.x-rpos.x)) <= TOL_MM and abs(mm(pos.y-rpos.y)) <= TOL_MM
+                       and abs(mm(size.x-rsize.x)) <= TOL_MM and abs(mm(size.y-rsize.y)) <= TOL_MM
+                       and abs(angle) <= 0.001 and pad.GetShape() == ref.GetShape()
+                       and pad.GetAttribute() == ref.GetAttribute()
+                       and abs(pad.GetRoundRectRadiusRatio()-ref.GetRoundRectRadiusRatio()) <= 1e-6)
+        check(tag + "." + number + ": placed pad geometry matches library", geometry_ok,
+              dict(position_mm=[mm(pos.x), mm(pos.y)], size_mm=[mm(size.x), mm(size.y)], angle_delta=angle))
+        check(tag + "." + number + ": placed pad layers match library",
+              pad.GetLayerSet().FmtBin() == ref.GetLayerSet().FmtBin(), pad.GetLayerSet().FmtBin())
+        for method in ("GetLocalSolderMaskMargin", "GetLocalSolderPasteMargin", "GetLocalSolderPasteMarginRatio"):
+            check(tag + "." + number + ": " + method,
+                  getattr(pad, method)() == getattr(ref, method)(), str(getattr(pad, method)()))
+
+
 # library footprint
 lib_fp = pcbnew.FootprintLoad(LIB, "DFN2510-10L_RCLAMP0524P")
 check("library footprint DFN2510-10L_RCLAMP0524P exists", lib_fp is not None, "")
@@ -68,20 +112,24 @@ if lib_fp is not None:
 # placed parts: footprint name, pad->net mapping (I/O 1,2,4,5 on a line net, GND 3,8, 6/7/9/10 joined by copper to their line)
 board = pcbnew.LoadBoard(PCB)
 placed = {}
+references = [fp.GetReference() for fp in board.GetFootprints() if fp.GetReference() in ("U4", "U5")]
+check("exactly one U4 and one U5", sorted(references) == ["U4", "U5"], references)
 for fp in board.GetFootprints():
     if fp.GetReference() in ("U4", "U5"):
+        compare_placed(fp, pcbnew.FootprintLoad(LIB, "DFN2510-10L_RCLAMP0524P"))
         nets = {p.GetNumber(): p.GetNetname() for p in fp.Pads()}
         name = fp.GetFPID().GetLibItemName()
         check("%s uses DFN2510-10L_RCLAMP0524P" % fp.GetReference(), str(name) == "DFN2510-10L_RCLAMP0524P", str(name))
-        check("%s GND pads are 3 and 8" % fp.GetReference(), nets["3"] == "GND" and nets["8"] == "GND", (nets["3"], nets["8"]))
-        io_ok = all(nets[k].startswith("HDMI_") and nets[k].endswith("_C") for k in ("1", "2", "4", "5"))
-        check("%s I/O pins 1,2,4,5 on the TMDS lines" % fp.GetReference(), io_ok, {k: nets[k] for k in ("1", "2", "4", "5")})
-        tie_ok = all(nets[a] == nets[b] for a, b in (("1", "10"), ("2", "9"), ("4", "7"), ("5", "6")))
-        check("%s NC pins 6/7/9/10 only joined to their line by copper (strap)" % fp.GetReference(), tie_ok, {k: nets[k] for k in ("6", "7", "9", "10")})
+        check("%s GND pads are 3 and 8" % fp.GetReference(), nets.get("3") == "GND" and nets.get("8") == "GND", (nets.get("3"), nets.get("8")))
+        io_ok = all(nets.get(k, "").startswith("HDMI_") and nets.get(k, "").endswith("_C") for k in ("1", "2", "4", "5"))
+        check("%s I/O pins 1,2,4,5 on the TMDS lines" % fp.GetReference(), io_ok, {k: nets.get(k) for k in ("1", "2", "4", "5")})
+        tie_ok = all(a in nets and b in nets and nets[a] == nets[b] for a, b in (("1", "10"), ("2", "9"), ("4", "7"), ("5", "6")))
+        check("%s NC pins 6/7/9/10 share their line net (copper verified separately)" % fp.GetReference(), tie_ok, {k: nets.get(k) for k in ("6", "7", "9", "10")})
         placed[fp.GetReference()] = dict(nets=nets, pos=[round(mm(fp.GetPosition().x), 3), round(mm(fp.GetPosition().y), 3)], rot=fp.GetOrientationDegrees())
 report = dict(ok=not fails, failed=fails, checks=checks, placed=placed)
-if not os.environ.get("CHECK_PCB"):
-    json.dump(report, open(os.path.join(HERE, "esd_footprint_check.json"), "w"), indent=1, ensure_ascii=False)
+output = os.environ.get("CHECK_JSON") or (os.path.join(HERE, "esd_footprint_check.json") if not os.environ.get("CHECK_PCB") else None)
+if output:
+    json.dump(report, open(output, "w"), indent=1, ensure_ascii=False)
 print("ESD footprint check:", "OK" if report["ok"] else "FAILED", "(%d checks)" % len(checks))
 for c in checks:
     print(" ", "ok  " if c["ok"] else "FAIL", c["name"])
