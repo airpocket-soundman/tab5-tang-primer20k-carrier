@@ -1,5 +1,7 @@
 # 案A：99×78mm、HDMI・USB PD・バレル入力を保持
 
+> **実装区分の更新**：J5 HDMI（MOLEX2086581001/C916313）もPCBA必須へ変更。19信号端子と4本のSH固定タブを含む業者実装を指定。手実装の調達は[秋月優先の購入リスト](manual-parts-procurement.json)を参照。J1は無加工互換品未確定、SW1/SW2は秋月TS-06104用にランド・位置・局所配線を変更。SW3だけ他店調達の例外。電源・通信回路の定数は変更なし。
+
 > **2026-10-25 追加シミュレーション反映版**：15本の直列抵抗は680Ω／Basic C23228。HDMI専用部は低背化し、HPD反転・100nFフィルタ・Core手前10kΩを反映（Cは全DNP）。初期1MHz、DATA setup/hold各250ns以上、DIR待ち500ns以上、弱い駆動／SLOW、規定12V・Core通常0.5A・局所3V3通常10mA以下の条件付きPoC製造候補です。実通信・DDR3／GPUの実機動作は未確認です。
 >
 > [最新の個別評価・全BoM・PCBA実装区分](../../site/lite-a-evaluation.html)、[親の独立レビュー](../simulation/independent-dynamic-review.json)、[電源](../simulation/power/final-summary.json)、[パラレル](../simulation/parallel/final-summary.json)、[HDMI](../simulation/hdmi/final-summary.json)。以下は初回設計検証時の記録も含み、最新の値・条件は上記評価を優先します。

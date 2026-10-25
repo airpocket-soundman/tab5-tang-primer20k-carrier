@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-25",
+  "scope": "A only; user requested Akizuki-first manual buttons and full HDMI PCBA",
+  "before_sha256_LF": "0e1e0042fb797896201c978e8f4b65a2121134c5db525bb48c5f29daf5a2e805",
+  "after_sha256_LF": "d8e81e5b9dc43149641b86a65e7be6e98f3dddb48d23b91c46c788acd39e5b70",
+  "all_tracks_except_button_reset_unchanged": true,
+  "all_other_pads_unchanged": true,
+  "switch": "TS-06104 H4.3mm / Akizuki115969; normally open momentary, A/B common=1 C/D common=2",
+  "drawing": "reference/TS-06104.pdf p8; 1.8x1.0mm pads, centers X+/-4.1 Y+/-2.25mm",
+  "drc_violations": 0,
+  "unconnected_items": 0,
+  "erc_errors": 0,
+  "erc_warnings": 165,
+  "simulation_disposition": "No new transient simulation claimed. Existing parallel, power and HDMI circuit/track models retained because those nets and other pads are identical. GND fill changes locally around manual switch pads; DRC and mechanical envelope rerun. New button/reset local routes checked for connectivity. Hardware bringup still required.",
+  "mechanical": "Core envelope swept with manufacturer4.3mm button height; pass in mechanical/clearance.json",
+  "related_repositories": {
+    "tab5-linux-fpga": "c1cd5e47f9f07a164bc070b8defe36bb05682c6b",
+    "tab5-fpga-gpu": "3b1ace3d91c6305ec0e32378f8819fce208c2aa7",
+    "esp32p4-linux-fpga-memory": "e4aa69d09b2643d6f62fe686ef0f3284b109c541"
+  },
+  "requirements_disposition": "README/goals, Linux DT/mock transport, GPU plan/display/RTL and memory research plan reviewed. No bus pins, protocol, supply values or separate-bitstream assumptions changed; physical driver/DDR3/GPU remains unverified.",
+  "manual_exception": "SW3 CTS206-1S remains DigiKey. J1 Akizuki candidate not confirmed drop-in; PD12V can operate without J1.",
+  "HDMI_PCBA": "J5 C916313 includes all19 SMT contacts and4 shell tabs; confirm supplier assembly preview"
+}

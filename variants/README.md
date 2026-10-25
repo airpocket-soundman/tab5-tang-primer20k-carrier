@@ -4,7 +4,7 @@
 
 | 案 | 方法＋ソケット変更 | 基板mm | 機能・実装 | PCBA部品/品目 | 製造候補 |
 |---|---|---|---|---|---|
-| [A](lite-a-dual/README.md) | 1・2・6・7 | 99×78 | HDMI実装／USB PD＋バレル | 98/39 | [発注用ファイル](lite-a-dual/manufacturing/lite-a-dual-2026-10-25/) |
+| [A](lite-a-dual/README.md) | 1・2・6・7 | 99×78 | HDMI実装／USB PD＋バレル | 99/40 | [発注用ファイル](lite-a-dual/manufacturing/lite-a-dual-2026-10-25/) |
 | [B](lite-b-barrel/README.md) | 1・2・5・6・7 | 99×78 | HDMI実装／バレルのみ | 90/35 | [発注用ファイル](lite-b-barrel/manufacturing/poc-2026-10-25/) |
 | [C](lite-c-dnp/README.md) | 1・2・3・5・7 | 125×78 | HDMI・PDは回路を残してDNP／バレル使用 | 58/27 | [発注用ファイル](lite-c-dnp/manufacturing/poc-lite-c-2026-10-25/) |
 
@@ -23,7 +23,7 @@
 
 作業エージェントの自己評価に加え、親側で実回路図からXMLを出力し、PCBの端子接続・部品値・フットプリント・実装設定を照合した。M5-Busの確認済み左右、全204端子と新ソケット図面の位置、必須部品の実装、BOMとCPLの一致、指定品番、座標原点、PCB版と製造データのハッシュを検査した。DRCも親側で実行した。KiCad既定の無効検査種別は元版から増やしていない。
 
-- A：[独立監査 32項目](validation/lite-a-dual-independent-audit.json)、[親側DRC](validation/lite-a-dual-drc.json)。
+- A：[独立監査 34項目](validation/lite-a-dual-independent-audit.json)、[親側DRC](validation/lite-a-dual-drc.json)。
 - B：[独立監査 32項目](validation/lite-b-barrel-independent-audit.json)、[親側DRC](validation/lite-b-barrel-drc.json)。
 - C：[独立監査 27項目](validation/lite-c-dnp-independent-audit.json)、[親側DRC](validation/lite-c-dnp-drc.json)。
 

@@ -9,7 +9,7 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 SIM=ROOT/'variants/simulation'
 BASE='https://github.com/airpocket-soundman/tab5-tang-primer20k-carrier/blob/codex/lite-variants/'
-STYLE='''body{font:16px/1.75 system-ui,"Meiryo",sans-serif;color:#203040;background:#f4f7fa;margin:0}main{max-width:1150px;margin:auto;padding:25px}section{background:white;padding:22px;margin:20px 0;border:1px solid #d6dfe7;border-radius:10px}a{color:#155bbc}table{border-collapse:collapse;font-size:14px;width:100%}td,th{border:1px solid #ccd3da;padding:8px;text-align:left;vertical-align:top;overflow-wrap:anywhere}th{background:#edf2f7}img{max-width:100%;height:auto}small,code{overflow-wrap:anywhere}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}.warn{border-left:5px solid #bb820c}.pass{color:#18713c}.fail{color:#b33730}.uncertain{color:#88610c}h1{line-height:1.4}#bom th:nth-child(5),#bom td:nth-child(5){white-space:nowrap;min-width:95px}'''
+STYLE='''body{font:16px/1.75 system-ui,"Meiryo",sans-serif;color:#203040;background:#f4f7fa;margin:0}main{max-width:1150px;margin:auto;padding:25px}section{background:white;padding:22px;margin:20px 0;border:1px solid #d6dfe7;border-radius:10px}a{color:#155bbc}table{border-collapse:collapse;font-size:14px;width:100%}td,th{border:1px solid #ccd3da;padding:8px;text-align:left;vertical-align:top;overflow-wrap:anywhere}th{background:#edf2f7}img{max-width:100%;height:auto}small,code{overflow-wrap:anywhere}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}.warn{border-left:5px solid #bb820c}.pass{color:#18713c}.fail{color:#b33730}.uncertain{color:#88610c}h1{line-height:1.4}#bom .bom-table th:nth-child(5),#bom .bom-table td:nth-child(5){white-space:nowrap;min-width:95px}'''
 
 def read(p):return json.loads(p.read_text(encoding='utf-8'))
 def esc(x):return html.escape(str(x))
@@ -77,6 +77,9 @@ def main():
             text+=f'<p>{evidence(SIM/"hdmi/results"/name/"eye_results.json","HDMI解析結果")} ／ {evidence(SIM/"hdmi/hpd/summary.json","HPD DC／電源断過渡")} ／ {evidence(SIM/"hdmi/hpd/offrail_sensitivity.json","Core電源だけが低下する感度")}</p></section>'
         else:
             text+='<section><h2>HDMI・PD未実装の扱い</h2><p>専用回路・パターンを残し、PCBAから除外します。今回のPoCはバレル12Vとパラレル通信で進めます。HDMIやPDの後付けには専用部品一式と再確認が必要で、端子だけの追加で動作する扱いにはしません。</p></section>'
+        if label=='a':
+            text=text.replace('J4はPCBA、J6/J7/J8はPCBA対象外です。','J4とJ5 HDMIはPCBA、J6/J7/J8はPCBA対象外です。')
+            text+=f'<section><h2>秋月ボタン・HDMI実装の更新</h2><p>SW1/SW2は秋月115969 TS-06104用にランド・配置・局所配線を変更しました。手実装は計2個。旧Panasonic品を購入しないでください。DRC違反0・未配線0、ERCエラー0（既存の警告165件は残存）、Core干渉の再確認は合格。電源・通信の配線と他部品のパッドの同一性を比較し、従来解析を継承しました。変更後の全基板の再シミュレーションや実測を意味しません。</p><p>J5 HDMIは19信号端子と4本の固定タブを含めPCBA必須。追加実装費は再見積が必要です。SW3はDigiKey調達、J1の秋月候補は無加工互換未確定です。</p><p>{evidence(SIM/"button-revision-review.json","ボタン変更の独立照合・解析継承根拠")} ／ {evidence(ROOT/"variants/lite-a-dual/reference/TS-06104.pdf","メーカー寸法図（8ページ）")}</p></section>'
         text+=f'''<section class="warn"><h2>Core DDR3と関連プロジェクトへの引き継ぎ</h2><p>Core上のDDR3と電源回路は公式のまま使います。キャリアの5V・IOとNC端子に加わる負荷は評価していますが、Core全体のDDR3信号品質とメモリコントローラの完全なシミュレーションではありません。</p><p>Linux側の物理通信ドライバ、GPU側のDDR3／最終ボードトップは未実装です。基板製作後、電源確認→1MHz CRC往復→公式DDR3試験→メモリREAD／WRITE→GPU・アクセラレータの順で実証します。Linuxの透過的なメインRAM増設を達成したものではありません。</p><p>{evidence(SIM/'requirements-review.json','関連リポジトリの参照版と要求照合')} ／ {evidence(SIM/'hdmi/ddr_nc_loading.json','DDR関連NC端子の局所負荷感度')}</p></section>
 <!-- BOM START --><!-- BOM END -->
 <section><h2>評価した版</h2><p><small>PCB SHA-256（改行LF正規化）：{digest}</small></p><p>{evidence(ROOT/'variants/validation'/f'{name}-independent-audit.json','独立照合結果')}</p></section></main></body></html>'''
