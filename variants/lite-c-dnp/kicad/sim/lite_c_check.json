@@ -1,0 +1,73 @@
+{
+  "ok": true,
+  "variant": "lite-c-dnp",
+  "checks": [
+    {
+      "name": "schematic_design_and_PCB_pin_nets",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "all_original_signal_tracks_and_vias_preserved",
+      "ok": true,
+      "original_signal_items": 1699,
+      "added_items": 24,
+      "removed_power_items": 1
+    },
+    {
+      "name": "socket_all_204_pin_numbers_and_positions",
+      "ok": true,
+      "max_pad_shift_mm": 0.002027
+    },
+    {
+      "name": "socket_hold_downs_grounded",
+      "ok": true
+    },
+    {
+      "name": "changed_footprints_match_design",
+      "ok": true
+    },
+    {
+      "name": "LDO_capacitors_near_pins",
+      "ok": true,
+      "straight_pad_distance_mm": {
+        "input": 2.672546,
+        "output": 2.452167
+      }
+    },
+    {
+      "name": "new_placements_keep_5mm_from_hole_edge",
+      "ok": true,
+      "clearance_mm": {
+        "C10": 10.021052017782207,
+        "C11": 5.142688632882281,
+        "U3": 7.4883101427053,
+        "R49": 10.729122915682247,
+        "R50": 9.662205462075404,
+        "L1": 8.32037549692551
+      }
+    },
+    {
+      "name": "socket_populated_and_core_module_not_procured",
+      "ok": true
+    },
+    {
+      "name": "required_barrel_power_and_bus_fitted",
+      "ok": true
+    },
+    {
+      "name": "DRC_all_severities_and_unconnected_zero",
+      "ok": true
+    },
+    {
+      "name": "PCBA_BOM_CPL_exact_ref_match",
+      "ok": true,
+      "pcba_components": 58
+    },
+    {
+      "name": "PCBA_socket_included_HDMI_PD_excluded",
+      "ok": true
+    }
+  ],
+  "scope": "CAD connectivity and population validation; not measured hardware or firmware operation"
+}

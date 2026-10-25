@@ -1,0 +1,2423 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-10-25T09:12:19",
+    "ignored_checks": [
+        {
+            "description": "Global label only appears once in the schematic",
+            "key": "single_global_label"
+        },
+        {
+            "description": "Four connection points are joined together",
+            "key": "four_way_junction"
+        },
+        {
+            "description": "SPICE model issue",
+            "key": "simulation_model_issue"
+        },
+        {
+            "description": "Assigned footprint doesn't match footprint filters",
+            "key": "footprint_filter"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "10.0.6",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/87e3d323-7b97-4a56-b35b-06c12fca0e7e",
+            "violations": [
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR152 [GND]",
+                            "pos": {
+                                "x": 0.3048,
+                                "y": 0.2032
+                            },
+                            "uuid": "66eb88ad-1b1a-40c7-a9f4-056ca5144d36"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+5V' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR154 [+5V]",
+                            "pos": {
+                                "x": 0.5588,
+                                "y": 0.2032
+                            },
+                            "uuid": "6c2a233c-c4fd-415c-b8aa-5faf5724ecb2"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+5V' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR030 [+5V]",
+                            "pos": {
+                                "x": 0.6096,
+                                "y": 5.1308
+                            },
+                            "uuid": "8c7762fb-811b-421c-8dff-7e8bdc0d0593"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR009 [GND]",
+                            "pos": {
+                                "x": 0.6604,
+                                "y": 2.7051
+                            },
+                            "uuid": "f5b8a13f-dfe4-4b99-a008-9d089bcec267"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+5V' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR016 [+5V]",
+                            "pos": {
+                                "x": 0.6604,
+                                "y": 3.9751
+                            },
+                            "uuid": "0ed97a1f-73d6-4ecc-a48c-900e00e1c5b4"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR020 [GND]",
+                            "pos": {
+                                "x": 0.6604,
+                                "y": 4.5847
+                            },
+                            "uuid": "37fb9048-d294-46cc-9048-013de9265c52"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR001 [GND]",
+                            "pos": {
+                                "x": 0.7112,
+                                "y": 0.5588
+                            },
+                            "uuid": "8e1751f4-efc6-4022-b1ae-d01863ec3e7b"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR028 [GND]",
+                            "pos": {
+                                "x": 0.7366,
+                                "y": 5.2578
+                            },
+                            "uuid": "54974fed-e61b-413f-a056-d37b3654a348"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR007 [GND]",
+                            "pos": {
+                                "x": 0.762,
+                                "y": 2.286
+                            },
+                            "uuid": "0bdea916-0dcb-46b6-8bf0-a7ceffebef84"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR012 [GND]",
+                            "pos": {
+                                "x": 0.762,
+                                "y": 3.7338
+                            },
+                            "uuid": "64786f38-684e-4d21-8dba-95702f064d9c"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR002 [GND]",
+                            "pos": {
+                                "x": 0.7747,
+                                "y": 0.9652
+                            },
+                            "uuid": "9b3672c9-f9ca-4054-ac48-b2d20efc64e4"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR013 [GND]",
+                            "pos": {
+                                "x": 0.7874,
+                                "y": 3.7338
+                            },
+                            "uuid": "38e7376d-4f9d-4fbe-bc0e-dcc273b7e372"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR130 [GND]",
+                            "pos": {
+                                "x": 0.8636,
+                                "y": 4.9022
+                            },
+                            "uuid": "5510fada-0256-48aa-ba0d-b2c6b8442786"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+3V3' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR029 [+3V3]",
+                            "pos": {
+                                "x": 0.8636,
+                                "y": 5.1308
+                            },
+                            "uuid": "243ccef1-ecab-4ac0-b835-c0e33123a8ab"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "Label connected to only one pin",
+                    "items": [
+                        {
+                            "description": "ラベル 'PD_PG'",
+                            "pos": {
+                                "x": 0.9144,
+                                "y": 2.0828
+                            },
+                            "uuid": "2c8460b5-8ded-4673-ab08-8b0617264f51"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "isolated_pin_label"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR010 [GND]",
+                            "pos": {
+                                "x": 1.3462,
+                                "y": 2.7051
+                            },
+                            "uuid": "1161557b-b203-4d7a-b565-48df7c4192e3"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR017 [GND]",
+                            "pos": {
+                                "x": 1.3462,
+                                "y": 4.1529
+                            },
+                            "uuid": "59a7bb82-6f0d-41cc-a8bd-74eb64d4396b"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR021 [GND]",
+                            "pos": {
+                                "x": 1.3462,
+                                "y": 4.5847
+                            },
+                            "uuid": "d9b181b2-e604-4205-abff-dbeb7ab21c3f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR003 [GND]",
+                            "pos": {
+                                "x": 1.4224,
+                                "y": 1.0795
+                            },
+                            "uuid": "22c64090-3cd5-4fda-a765-3a205f2f45f3"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+5V' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR031 [+5V]",
+                            "pos": {
+                                "x": 1.4986,
+                                "y": 5.0673
+                            },
+                            "uuid": "80f6d1fb-3a21-45f7-be85-0917f3894fbf"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR032 [GND]",
+                            "pos": {
+                                "x": 1.4986,
+                                "y": 5.2451
+                            },
+                            "uuid": "9e0cd98c-05cb-44eb-9868-52c3a1270f1a"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR011 [GND]",
+                            "pos": {
+                                "x": 2.0574,
+                                "y": 2.7051
+                            },
+                            "uuid": "3b30271a-ddd2-425e-95d9-fa960443bd22"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+5V' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR022 [+5V]",
+                            "pos": {
+                                "x": 2.0574,
+                                "y": 4.4069
+                            },
+                            "uuid": "538435ff-37db-4c70-9acf-207fda87a228"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR023 [GND]",
+                            "pos": {
+                                "x": 2.0574,
+                                "y": 4.5847
+                            },
+                            "uuid": "fdca63e8-3e32-4555-9bfd-4bf9af3186ce"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR006 [GND]",
+                            "pos": {
+                                "x": 2.1336,
+                                "y": 1.27
+                            },
+                            "uuid": "9357a2fe-aa46-4778-a01b-eb4ff5df301f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR004 [GND]",
+                            "pos": {
+                                "x": 2.2098,
+                                "y": 1.27
+                            },
+                            "uuid": "8ee47642-4b2b-4426-8c8e-299f257af515"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR005 [GND]",
+                            "pos": {
+                                "x": 2.2098,
+                                "y": 1.27
+                            },
+                            "uuid": "d82a6690-599c-4702-b012-8a634c0f3f62"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+3V3' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR033 [+3V3]",
+                            "pos": {
+                                "x": 2.2098,
+                                "y": 5.0673
+                            },
+                            "uuid": "25a8acf9-d0f4-424f-859e-88060b12e3f6"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR034 [GND]",
+                            "pos": {
+                                "x": 2.2098,
+                                "y": 5.2451
+                            },
+                            "uuid": "79e0deda-edfa-4f2c-99dd-829d147861ec"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR008 [GND]",
+                            "pos": {
+                                "x": 2.2606,
+                                "y": 2.1463
+                            },
+                            "uuid": "d51102c9-d0b4-42ca-add0-6a9ead150f40"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+5V' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR014 [+5V]",
+                            "pos": {
+                                "x": 2.3114,
+                                "y": 3.6449
+                            },
+                            "uuid": "26b37b54-d914-49d2-8d76-4a4b4b66ea26"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR018 [GND]",
+                            "pos": {
+                                "x": 2.7432,
+                                "y": 4.1529
+                            },
+                            "uuid": "e747d1d2-e281-4dfb-aaf8-946cad69e838"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+5V' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR024 [+5V]",
+                            "pos": {
+                                "x": 2.7432,
+                                "y": 4.4069
+                            },
+                            "uuid": "2878462e-b6fd-4a0f-b7e7-e206b18da79c"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR025 [GND]",
+                            "pos": {
+                                "x": 2.7432,
+                                "y": 4.5847
+                            },
+                            "uuid": "96e45207-d217-4c96-9a3e-5966933df715"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR015 [GND]",
+                            "pos": {
+                                "x": 3.1369,
+                                "y": 3.5306
+                            },
+                            "uuid": "72d490fc-d787-4345-9774-61e1d322b23f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR019 [GND]",
+                            "pos": {
+                                "x": 3.4544,
+                                "y": 4.1529
+                            },
+                            "uuid": "b034cc73-c562-4546-aa92-0b90661225ce"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+5V' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR026 [+5V]",
+                            "pos": {
+                                "x": 3.4544,
+                                "y": 4.4069
+                            },
+                            "uuid": "dc955faa-40c8-4cc3-ae27-bdc550b61670"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR027 [GND]",
+                            "pos": {
+                                "x": 3.4544,
+                                "y": 4.5847
+                            },
+                            "uuid": "6f3b8a68-6a52-4623-9023-78086e4f5d92"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR035 [GND]",
+                            "pos": {
+                                "x": 4.4958,
+                                "y": 0.508
+                            },
+                            "uuid": "2b6db990-e53e-43f4-9ee2-e7094a94775a"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR036 [GND]",
+                            "pos": {
+                                "x": 4.4958,
+                                "y": 0.5334
+                            },
+                            "uuid": "95c6741b-c0c9-4d20-bea2-3b51027f6241"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR037 [GND]",
+                            "pos": {
+                                "x": 4.4958,
+                                "y": 0.5588
+                            },
+                            "uuid": "49cedd1f-dc3f-472e-96dc-2e1479505a17"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "Label connected to only one pin",
+                    "items": [
+                        {
+                            "description": "ラベル 'TAB_SDA'",
+                            "pos": {
+                                "x": 4.4958,
+                                "y": 0.7112
+                            },
+                            "uuid": "cca1e13f-2918-4dec-b37d-1bfe01d9ce82"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "isolated_pin_label"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR116 [GND]",
+                            "pos": {
+                                "x": 4.4958,
+                                "y": 5.4102
+                            },
+                            "uuid": "7b90585c-0020-4d27-a532-9873b74374de"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+3V3' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR118 [+3V3]",
+                            "pos": {
+                                "x": 4.4958,
+                                "y": 5.4356
+                            },
+                            "uuid": "36eb8ac5-3e1e-4574-9afb-fbd99bb617a6"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR091 [GND]",
+                            "pos": {
+                                "x": 4.5974,
+                                "y": 4.0386
+                            },
+                            "uuid": "bf5c27da-4ccd-41d2-b366-ff9174789690"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR092 [GND]",
+                            "pos": {
+                                "x": 4.6228,
+                                "y": 4.0386
+                            },
+                            "uuid": "41e3bd77-54ec-4d6e-9074-88fdb4368ada"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR093 [GND]",
+                            "pos": {
+                                "x": 4.6482,
+                                "y": 4.0386
+                            },
+                            "uuid": "c71c875f-6e22-4876-b93b-b8a38cb735ef"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR094 [GND]",
+                            "pos": {
+                                "x": 4.6736,
+                                "y": 4.0386
+                            },
+                            "uuid": "cc879916-f405-4c08-be45-583dd3aeb5f9"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR095 [GND]",
+                            "pos": {
+                                "x": 4.699,
+                                "y": 4.0386
+                            },
+                            "uuid": "da993be5-5082-4120-b105-cbb7e39cc77a"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "Label connected to only one pin",
+                    "items": [
+                        {
+                            "description": "ラベル 'TAB_SCL'",
+                            "pos": {
+                                "x": 4.7244,
+                                "y": 0.7112
+                            },
+                            "uuid": "cf24d189-d38b-4fac-8752-78fa4909d4aa"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "isolated_pin_label"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR096 [GND]",
+                            "pos": {
+                                "x": 4.7244,
+                                "y": 4.0386
+                            },
+                            "uuid": "f3dcccc6-332a-42b2-80ca-a3f81cdeeb5c"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR117 [GND]",
+                            "pos": {
+                                "x": 4.7244,
+                                "y": 5.4102
+                            },
+                            "uuid": "b07e68fd-bf58-4213-8ae8-295cd546ab9c"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+3V3' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR119 [+3V3]",
+                            "pos": {
+                                "x": 4.7244,
+                                "y": 5.4356
+                            },
+                            "uuid": "8ebcfae9-2abc-4daa-99c6-881c3da978e1"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR115 [GND]",
+                            "pos": {
+                                "x": 5.2578,
+                                "y": 4.4577
+                            },
+                            "uuid": "bae3d392-a0b0-41c0-a472-02145aa132f6"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR120 [GND]",
+                            "pos": {
+                                "x": 5.334,
+                                "y": 5.4102
+                            },
+                            "uuid": "34e08032-d366-46c8-af0b-2bfc68d1654d"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+3V3' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR122 [+3V3]",
+                            "pos": {
+                                "x": 5.334,
+                                "y": 5.4356
+                            },
+                            "uuid": "0a9002d5-8b78-4a4e-8653-60c0a105c9c0"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+3V3' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR111 [+3V3]",
+                            "pos": {
+                                "x": 5.3848,
+                                "y": 3.4798
+                            },
+                            "uuid": "c6de9a5a-2568-4b9b-b175-66b563403c4c"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '2N7002' が、ライブラリ 'Transistor_FET' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル Q1 [2N7002]",
+                            "pos": {
+                                "x": 5.4864,
+                                "y": 3.4798
+                            },
+                            "uuid": "ec9f904f-3370-4a48-a276-f4e248c8da9b"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR121 [GND]",
+                            "pos": {
+                                "x": 5.5626,
+                                "y": 5.4102
+                            },
+                            "uuid": "178b9578-e4e0-4649-a6a1-2b07e7a52de7"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+3V3' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR123 [+3V3]",
+                            "pos": {
+                                "x": 5.5626,
+                                "y": 5.4356
+                            },
+                            "uuid": "165fb16f-e580-445e-9bbd-3c36668c30e4"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+3V3' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR112 [+3V3]",
+                            "pos": {
+                                "x": 6.1468,
+                                "y": 3.4798
+                            },
+                            "uuid": "11ffb6ba-0735-4530-9299-83062e26d174"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '2N7002' が、ライブラリ 'Transistor_FET' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル Q2 [2N7002]",
+                            "pos": {
+                                "x": 6.2484,
+                                "y": 3.4798
+                            },
+                            "uuid": "fa1b2a8d-86c2-41a1-9ea0-6c632ee3c91e"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+3V3' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR113 [+3V3]",
+                            "pos": {
+                                "x": 6.985,
+                                "y": 3.3655
+                            },
+                            "uuid": "90a44573-b3c0-4232-9fbc-d2487ef10fd7"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+3V3' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR135 [+3V3]",
+                            "pos": {
+                                "x": 7.1374,
+                                "y": 2.3749
+                            },
+                            "uuid": "6a63b9e0-ebd8-493b-86ec-b18c20e9925f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR136 [GND]",
+                            "pos": {
+                                "x": 7.1374,
+                                "y": 2.5527
+                            },
+                            "uuid": "70e55fe6-da63-4c1a-87a0-8bb2116572a4"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR142 [GND]",
+                            "pos": {
+                                "x": 7.1374,
+                                "y": 3.1369
+                            },
+                            "uuid": "89ab17e1-7252-4b4f-b72e-8e5aa7ab2100"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR150 [GND]",
+                            "pos": {
+                                "x": 7.1374,
+                                "y": 4.1021
+                            },
+                            "uuid": "fc58a2bf-fe13-4947-9d06-8f10be6d7ce3"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '2N7002' が、ライブラリ 'Transistor_FET' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル Q3 [2N7002]",
+                            "pos": {
+                                "x": 7.1882,
+                                "y": 3.5814
+                            },
+                            "uuid": "8b36f781-0b6a-4c56-82a0-a3247a807e99"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+3V3' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR131 [+3V3]",
+                            "pos": {
+                                "x": 7.2898,
+                                "y": 4.5212
+                            },
+                            "uuid": "d234434b-0840-4d75-878c-70d32e6be1aa"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR132 [GND]",
+                            "pos": {
+                                "x": 7.2898,
+                                "y": 4.5466
+                            },
+                            "uuid": "ab3d5348-aed6-4ec3-8d03-550c0869b772"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR128 [GND]",
+                            "pos": {
+                                "x": 7.493,
+                                "y": 7.3914
+                            },
+                            "uuid": "31c7baad-3fc7-4c6f-a184-a9a82506da07"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+3V3' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR114 [+3V3]",
+                            "pos": {
+                                "x": 7.6708,
+                                "y": 3.3655
+                            },
+                            "uuid": "ee745fc8-a098-4853-888e-505cd7af7202"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+5V' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR144 [+5V]",
+                            "pos": {
+                                "x": 7.8486,
+                                "y": 2.9464
+                            },
+                            "uuid": "597c8b5d-b6e3-49ad-b03e-3a4a9348f0b4"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR143 [GND]",
+                            "pos": {
+                                "x": 7.8486,
+                                "y": 3.2004
+                            },
+                            "uuid": "8d7e0e69-e50a-4b63-b1e9-4763f1b059dc"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '2N7002' が、ライブラリ 'Transistor_FET' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル Q4 [2N7002]",
+                            "pos": {
+                                "x": 7.9756,
+                                "y": 3.5814
+                            },
+                            "uuid": "bd67b8e0-1096-4499-a9b6-4048cdd9fca6"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR124 [GND]",
+                            "pos": {
+                                "x": 7.9883,
+                                "y": 6.5278
+                            },
+                            "uuid": "c067e61e-b6f4-4334-99ff-63a16fd4d87f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR126 [GND]",
+                            "pos": {
+                                "x": 7.9883,
+                                "y": 6.9596
+                            },
+                            "uuid": "fd26030e-7cac-4877-b602-e808c9a1c17e"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR147 [GND]",
+                            "pos": {
+                                "x": 8.001,
+                                "y": 3.683
+                            },
+                            "uuid": "21884c49-7de4-4a4c-874a-88166e666fd8"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR137 [GND]",
+                            "pos": {
+                                "x": 8.0264,
+                                "y": 2.5146
+                            },
+                            "uuid": "56282fe9-1c17-4482-8473-9a5386c6fd9e"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+3V3' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR138 [+3V3]",
+                            "pos": {
+                                "x": 8.0264,
+                                "y": 2.6416
+                            },
+                            "uuid": "066e24d3-93e7-4978-8a3e-fbb7fdac912f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR129 [GND]",
+                            "pos": {
+                                "x": 8.3058,
+                                "y": 7.3914
+                            },
+                            "uuid": "cd4c78ca-1626-448d-b901-bec70152937f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+5V' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR145 [+5V]",
+                            "pos": {
+                                "x": 8.6614,
+                                "y": 2.9591
+                            },
+                            "uuid": "9985b442-ce16-45e3-9318-a7e85ad15401"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR146 [GND]",
+                            "pos": {
+                                "x": 8.6614,
+                                "y": 3.1369
+                            },
+                            "uuid": "9edd2005-3fd3-47af-8308-64454ca179cd"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+3V3' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR139 [+3V3]",
+                            "pos": {
+                                "x": 8.6868,
+                                "y": 2.3749
+                            },
+                            "uuid": "0bca6377-cbad-4688-8eb2-1dd36dae3603"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR140 [GND]",
+                            "pos": {
+                                "x": 8.6868,
+                                "y": 2.5527
+                            },
+                            "uuid": "d1e10c7f-2d05-46f9-8845-116f3ffa8467"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+3V3' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR148 [+3V3]",
+                            "pos": {
+                                "x": 8.7122,
+                                "y": 3.4671
+                            },
+                            "uuid": "3f2c18d9-589a-48ac-a237-6ebdf4eb8c72"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR141 [GND]",
+                            "pos": {
+                                "x": 9.3726,
+                                "y": 2.6162
+                            },
+                            "uuid": "47605b25-7bf4-407c-b310-cc2e0bd92394"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR149 [GND]",
+                            "pos": {
+                                "x": 9.398,
+                                "y": 3.6449
+                            },
+                            "uuid": "34372615-8d0d-47a0-ac25-f87782534770"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR133 [GND]",
+                            "pos": {
+                                "x": 9.4234,
+                                "y": 1.9304
+                            },
+                            "uuid": "66ee1f30-e700-41ea-9d19-7abc1328f6b9"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+3V3' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR134 [+3V3]",
+                            "pos": {
+                                "x": 9.4234,
+                                "y": 2.0574
+                            },
+                            "uuid": "c6f26c78-fc0e-4bc3-bcd4-6c813da690bc"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR125 [GND]",
+                            "pos": {
+                                "x": 9.4869,
+                                "y": 6.5278
+                            },
+                            "uuid": "80eac116-b068-411a-8c67-6f23d0ce02d0"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR127 [GND]",
+                            "pos": {
+                                "x": 9.4869,
+                                "y": 6.9596
+                            },
+                            "uuid": "29df7a49-6dd2-4224-8488-f58f441bf2ce"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR043 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 0.7493
+                            },
+                            "uuid": "68f2a3a0-f592-4b50-877f-527dfb2df998"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+5V' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR039 [+5V]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 0.7747
+                            },
+                            "uuid": "e0e62912-36e2-4f35-979d-acf3b80f0d17"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+5V' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR041 [+5V]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 0.8001
+                            },
+                            "uuid": "9fe1cadd-41b7-4279-bcfc-4e9f848ce73a"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR045 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 0.8255
+                            },
+                            "uuid": "8452e3a2-d257-427b-833e-c81c84ec56d4"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR046 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 0.8763
+                            },
+                            "uuid": "b20e1942-0909-4562-9e0d-e8d06821c12f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR048 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 0.9525
+                            },
+                            "uuid": "6be88951-a400-4315-a75e-672a21be2a9a"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR050 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 1.0287
+                            },
+                            "uuid": "2cbc5a8c-4fae-4ceb-8323-0c9a04eaeb76"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR052 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 1.1049
+                            },
+                            "uuid": "51a43b75-2233-4159-8d24-454742bc9919"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR054 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 1.1811
+                            },
+                            "uuid": "d7cd18dd-f512-4612-98d1-9c4ce2a16c4d"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR056 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 1.2573
+                            },
+                            "uuid": "79d8fb08-340c-4ccc-9062-d37d2054ecfe"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR058 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 1.3335
+                            },
+                            "uuid": "3933f186-84a1-4690-8792-0015171fe02a"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR060 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 1.4097
+                            },
+                            "uuid": "de253566-6189-4252-9c7e-685c8aaf3d5d"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR062 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 1.4859
+                            },
+                            "uuid": "9777874f-beea-4467-91b3-eadd2f995c97"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR064 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 1.6129
+                            },
+                            "uuid": "ac0038ed-fdde-492b-8d4d-82b42fd10603"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR066 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 2.3241
+                            },
+                            "uuid": "1e996200-be0e-49ec-a198-8bc45f0d6b3f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR068 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 2.4003
+                            },
+                            "uuid": "65bb4ea7-6a88-42d0-a321-b551eb8331b8"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR071 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 2.4765
+                            },
+                            "uuid": "f116b0a1-a4e1-4cc7-8629-8111853100f2"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR073 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 2.5527
+                            },
+                            "uuid": "26b7e89a-bfc4-4b24-8775-9bea5520ddb2"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR075 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 2.6289
+                            },
+                            "uuid": "0c24262c-a33c-47fb-8e80-26cbb4033afe"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR076 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 2.6797
+                            },
+                            "uuid": "f4d40d67-e970-456a-bda1-aee9b88385c9"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR078 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 2.7559
+                            },
+                            "uuid": "abe5bbac-6f12-45c7-9f4f-d4ce39fdfcb2"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR082 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 2.9083
+                            },
+                            "uuid": "cdad9388-36c9-4375-bd86-142a507fe2f1"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR084 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 2.9845
+                            },
+                            "uuid": "274f76fc-7de1-4c08-a56c-a847da09b530"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR086 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 3.0607
+                            },
+                            "uuid": "1038de58-1e1f-406a-b57b-7400eb9c4498"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR087 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 3.1115
+                            },
+                            "uuid": "ff9bf5f9-ffa0-4b6c-875b-35230b1c944d"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR089 [GND]",
+                            "pos": {
+                                "x": 10.287,
+                                "y": 3.1877
+                            },
+                            "uuid": "1ad97683-d891-4187-8104-b3d3d6aee497"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR042 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 0.7239
+                            },
+                            "uuid": "877a0a21-c119-4e5d-a87a-96e1059d7504"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+5V' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR038 [+5V]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 0.7493
+                            },
+                            "uuid": "4a9e8391-3a1d-4fb1-9aff-987ff694f100"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+5V' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR040 [+5V]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 0.7747
+                            },
+                            "uuid": "46c8055d-d1be-4c27-a453-c8dba4f350a6"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR044 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 0.8001
+                            },
+                            "uuid": "02782f54-0b47-451b-8ce0-2d2266dbc655"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR047 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 0.8763
+                            },
+                            "uuid": "4ce6afca-a5f7-4bed-9318-584d0d11999e"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR049 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 0.9525
+                            },
+                            "uuid": "e36d19fe-d346-47a7-8075-b6a6d4c7348f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR051 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 1.0287
+                            },
+                            "uuid": "b74889dc-0bd7-4e98-adab-26cdb967e6e0"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR053 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 1.1049
+                            },
+                            "uuid": "5d1228e3-72ae-4f8b-a113-99eb0e9db296"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR055 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 1.1811
+                            },
+                            "uuid": "ecf6ff17-0b20-4e32-b5a7-c088275d510a"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR057 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 1.3081
+                            },
+                            "uuid": "978fbfb2-3d4f-4105-8c31-7fa9020dde5f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR059 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 1.3843
+                            },
+                            "uuid": "49bfd1f1-957a-472e-85b5-9fdad7c2a4fa"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR061 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 1.4605
+                            },
+                            "uuid": "f4d45f54-79dc-4a01-a256-a8b06cd88aef"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR063 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 1.5367
+                            },
+                            "uuid": "07d9becc-048d-4e69-bb8b-633428e1e765"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR065 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 1.6129
+                            },
+                            "uuid": "f6b88636-156d-4c45-a768-c8b7d413dada"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR067 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 2.3241
+                            },
+                            "uuid": "504958b3-5805-4be4-99c1-b3259e478b42"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR069 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 2.4003
+                            },
+                            "uuid": "3548e02c-5cd6-472e-a891-3d0e091736c3"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR070 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 2.4511
+                            },
+                            "uuid": "d23f1885-f3bb-488e-8cf6-f333ad53a2a5"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR072 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 2.5273
+                            },
+                            "uuid": "054bbba5-c6fe-42d2-a32d-b0a1c47bda10"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR074 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 2.6035
+                            },
+                            "uuid": "1fa3e11d-a926-47e8-abf1-58b266e661e5"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR077 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 2.6797
+                            },
+                            "uuid": "a355ee7f-dea3-43fe-b16c-493761c921cb"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR079 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 2.7559
+                            },
+                            "uuid": "9d1e46c6-f299-4bfb-a327-a1843be91bec"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR080 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 2.8321
+                            },
+                            "uuid": "e4dc8262-d63f-43cf-a92c-98890fa6834f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR081 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 2.8829
+                            },
+                            "uuid": "eab2f060-b4ba-4419-b046-de149334f80c"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR083 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 2.9591
+                            },
+                            "uuid": "d2870a19-711b-4eac-b49f-34ef9999ab75"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR085 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 3.0353
+                            },
+                            "uuid": "a3bf3ae0-ac8a-41e0-b116-9136b30ae7eb"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR088 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 3.1115
+                            },
+                            "uuid": "0d17589e-5c89-450b-ba28-3bdb5dbb80b3"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR090 [GND]",
+                            "pos": {
+                                "x": 10.6426,
+                                "y": 3.1877
+                            },
+                            "uuid": "15426589-8ea9-41b3-9349-7631ce0525a7"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR107 [GND]",
+                            "pos": {
+                                "x": 12.8016,
+                                "y": 4.4958
+                            },
+                            "uuid": "48af68dd-120a-4919-8fcf-98932a30d7eb"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR108 [GND]",
+                            "pos": {
+                                "x": 13.1064,
+                                "y": 4.4958
+                            },
+                            "uuid": "6f4cb624-32b0-4081-b3cc-87d1d5693df7"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR097 [GND]",
+                            "pos": {
+                                "x": 13.5382,
+                                "y": 3.2385
+                            },
+                            "uuid": "74926450-61bd-45dd-b39e-efa1446ee046"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR100 [GND]",
+                            "pos": {
+                                "x": 13.5382,
+                                "y": 3.6957
+                            },
+                            "uuid": "0c5ecc24-e6e4-4961-b76e-c44a1f229235"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR103 [GND]",
+                            "pos": {
+                                "x": 13.5382,
+                                "y": 4.1275
+                            },
+                            "uuid": "6ca686dc-2c53-44d1-be7d-ee73362f8b72"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR109 [GND]",
+                            "pos": {
+                                "x": 13.8684,
+                                "y": 4.7498
+                            },
+                            "uuid": "db8e326c-383c-462d-a141-d3adab1cc9dc"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル '+5V' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR110 [+5V]",
+                            "pos": {
+                                "x": 14.7066,
+                                "y": 4.4069
+                            },
+                            "uuid": "5f682b88-080a-4de2-a1d1-d74e4603cb88"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR098 [GND]",
+                            "pos": {
+                                "x": 14.9606,
+                                "y": 3.2385
+                            },
+                            "uuid": "960261e3-0abf-4cc3-9d66-b8b75f7a9bd9"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR101 [GND]",
+                            "pos": {
+                                "x": 14.9606,
+                                "y": 3.6957
+                            },
+                            "uuid": "c7779f19-8bae-4181-9b0f-bcad29b7e5b8"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR104 [GND]",
+                            "pos": {
+                                "x": 14.9606,
+                                "y": 4.1275
+                            },
+                            "uuid": "9ba06e50-1f49-4dbc-8050-f2c6e71ffad2"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR105 [GND]",
+                            "pos": {
+                                "x": 15.5956,
+                                "y": 4.0386
+                            },
+                            "uuid": "b86a9957-6fb2-4040-a68d-1c525eb08a8d"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR106 [GND]",
+                            "pos": {
+                                "x": 15.9004,
+                                "y": 4.0386
+                            },
+                            "uuid": "b4cea5c9-ea99-427a-9579-4851853fe340"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR099 [GND]",
+                            "pos": {
+                                "x": 16.3576,
+                                "y": 3.2385
+                            },
+                            "uuid": "940bc638-70b3-4287-b45c-e13c0d5431fb"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "シンボル 'GND' が、ライブラリ 'power' のコピーと一致しません",
+                    "items": [
+                        {
+                            "description": "シンボル #PWR102 [GND]",
+                            "pos": {
+                                "x": 16.3576,
+                                "y": 3.6957
+                            },
+                            "uuid": "9cb5bee8-51c9-4b4c-bf3f-1fbcd0ee3819"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                }
+            ]
+        }
+    ],
+    "source": "tab5-fpga-carrier.kicad_sch"
+}

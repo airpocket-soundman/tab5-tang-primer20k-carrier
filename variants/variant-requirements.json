@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-25",
+  "status": "three routed manufacturing-review candidates; independent design audits passed; physical bringup and supplier socket confirmation pending",
+  "preserved_release": "d93af0b5e37e601deff30fedbd10b1b3e6f9c736",
+  "methods": {
+    "1": "Basic resistor substitutions",
+    "2": "Basic low-current 3.3V regulator",
+    "3": "HDMI circuitry retained, all HDMI-specific components DNP",
+    "4": "PD-only input (not selected)",
+    "5": "12V barrel-only operation",
+    "6": "99x78mm target board outline",
+    "7": "Lower-cost Extended 15uH inductor"
+  },
+  "common": {
+    "socket_replacement": true,
+    "socket_assembly": "PCBA required; not hand soldered",
+    "core_module": "user supplied, not included in procurement BOM",
+    "minimum_functions": ["Tab5 8-bit parallel link", "Core DDR3 access with appropriate FPGA bitstream", "GPU/accelerator use with appropriate firmware", "power supply and power-off bus isolation"],
+    "no_hardware_function_claim_before_bringup": true
+  },
+  "variants": {
+    "lite-a-dual": {"methods": [1,2,6,7], "board_target_mm": [99,78], "hdmi": "fitted", "pd": "fitted", "barrel": "fitted"},
+    "lite-b-barrel": {"methods": [1,2,5,6,7], "board_target_mm": [99,78], "hdmi": "fitted", "pd": "removed", "barrel": "fitted"},
+    "lite-c-dnp": {"methods": [1,2,3,5,7], "board_target_mm": [125,78], "hdmi": "circuit and lands retained; DNP", "pd": "circuit and lands retained; DNP", "barrel": "fitted"}
+  }
+}

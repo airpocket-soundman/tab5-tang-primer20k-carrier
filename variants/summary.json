@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-25",
+  "status": "design and routing checked; manufacturing-review candidates; not physically tested",
+  "baseline_preserved": true,
+  "original_release": "d93af0b",
+  "currency": "USD",
+  "quantity": 5,
+  "cost_is_estimate_not_vendor_quote": true,
+  "socket_S": "mandatory procurement/loading/PCBA/fixture cost, unquoted",
+  "Basic_510_unit_price_assumption": 0.0022,
+  "board_savings_range": [
+    1.2688000000000024,
+    29.1
+  ],
+  "rows": [
+    {
+      "label": "A",
+      "name": "lite-a-dual",
+      "methods": "1・2・6・7",
+      "functions": "HDMI実装／USB PD＋バレル",
+      "dimensions": "99×78",
+      "pcba": 94,
+      "bom_rows": 38,
+      "audit_checks": 25,
+      "package": "variants/lite-a-dual/manufacturing/lite-a-dual-2026-10-25",
+      "price": "$103.75〜131.58＋S",
+      "pcb_sha256": "576b3ebb2bd1f27f9adec6fcd160e8591148681028aed604d14987e91c3ed938"
+    },
+    {
+      "label": "B",
+      "name": "lite-b-barrel",
+      "methods": "1・2・5・6・7",
+      "functions": "HDMI実装／バレルのみ",
+      "dimensions": "99×78",
+      "pcba": 86,
+      "bom_rows": 34,
+      "audit_checks": 25,
+      "package": "variants/lite-b-barrel/manufacturing/poc-2026-10-25",
+      "price": "$89.81〜117.65＋S",
+      "pcb_sha256": "14731614afd55765b5afb10396531257df0c59281d898470aeb3dc361cf7a3aa"
+    },
+    {
+      "label": "C",
+      "name": "lite-c-dnp",
+      "methods": "1・2・3・5・7",
+      "functions": "HDMI・PDは回路を残してDNP／バレル使用",
+      "dimensions": "125×78",
+      "pcba": 58,
+      "bom_rows": 27,
+      "audit_checks": 23,
+      "package": "variants/lite-c-dnp/manufacturing/poc-lite-c-2026-10-25",
+      "price": "$104.34＋S",
+      "pcb_sha256": "4a14f13e1025ac107434fc04f65633798485873a4b5719e1fdd998df620ffdc5"
+    }
+  ]
+}

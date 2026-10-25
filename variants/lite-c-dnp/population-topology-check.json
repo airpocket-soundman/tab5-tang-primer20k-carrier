@@ -1,0 +1,168 @@
+{
+  "status": "PASS: DNP policy circuit-topology check only; NOT fabrication release",
+  "source_revision": "d433a03768bb30937342781597e4b6213ba932dd",
+  "checked_model": "preserved circuit plus C population policy; new component and PCB validation pending",
+  "checks": [
+    {
+      "name": "all_PD_and_HDMI_lands_retained",
+      "ok": true
+    },
+    {
+      "name": "all_PD_and_HDMI_parts_DNP",
+      "ok": true
+    },
+    {
+      "name": "HDMI_groups_have_no_fitted_parts",
+      "ok": true
+    },
+    {
+      "name": "PD_group_has_no_fitted_parts",
+      "ok": true
+    },
+    {
+      "name": "barrel_is_12V_input",
+      "ok": true
+    },
+    {
+      "name": "barrel_fuse_and_forward_diode",
+      "ok": true
+    },
+    {
+      "name": "TVS_and_bulk_capacitor",
+      "ok": true
+    },
+    {
+      "name": "buck_VIN_PH_inductor_path",
+      "ok": true
+    },
+    {
+      "name": "buck_catch_boot_and_output_capacitor",
+      "ok": true
+    },
+    {
+      "name": "buck_feedback_and_enable_parts",
+      "ok": true
+    },
+    {
+      "name": "LDO_5V_to_3V3",
+      "ok": true
+    },
+    {
+      "name": "socket_fitted_and_Core_5V_pins",
+      "ok": true
+    },
+    {
+      "name": "Core_ground_pins",
+      "ok": true
+    },
+    {
+      "name": "M5Bus_HVIN_and_output_rails",
+      "ok": true
+    },
+    {
+      "name": "supervisors_and_arm",
+      "ok": true
+    },
+    {
+      "name": "parallel_D0",
+      "ok": true
+    },
+    {
+      "name": "parallel_D1",
+      "ok": true
+    },
+    {
+      "name": "parallel_D2",
+      "ok": true
+    },
+    {
+      "name": "parallel_D3",
+      "ok": true
+    },
+    {
+      "name": "parallel_D4",
+      "ok": true
+    },
+    {
+      "name": "parallel_D5",
+      "ok": true
+    },
+    {
+      "name": "parallel_D6",
+      "ok": true
+    },
+    {
+      "name": "parallel_D7",
+      "ok": true
+    },
+    {
+      "name": "parallel_CLK",
+      "ok": true
+    },
+    {
+      "name": "parallel_RDY",
+      "ok": true
+    },
+    {
+      "name": "parallel_DIR",
+      "ok": true
+    },
+    {
+      "name": "parallel_AUX0",
+      "ok": true
+    },
+    {
+      "name": "parallel_AUX1",
+      "ok": true
+    },
+    {
+      "name": "parallel_AUX2",
+      "ok": true
+    },
+    {
+      "name": "parallel_AUX3",
+      "ok": true
+    }
+  ],
+  "fault_detection": [
+    {
+      "fault": "F1 accidentally DNP",
+      "caught": true
+    },
+    {
+      "fault": "D1 accidentally DNP",
+      "caught": true
+    },
+    {
+      "fault": "L1 accidentally DNP",
+      "caught": true
+    },
+    {
+      "fault": "U3 accidentally DNP",
+      "caught": true
+    },
+    {
+      "fault": "J4 accidentally DNP",
+      "caught": true
+    },
+    {
+      "fault": "U7 accidentally DNP",
+      "caught": true
+    },
+    {
+      "fault": "U10 accidentally DNP",
+      "caught": true
+    },
+    {
+      "fault": "VBAT_OUT incorrectly tied to Core 5V",
+      "caught": true
+    }
+  ],
+  "open_gates": [
+    "replacement socket footprint and PCBA availability",
+    "Basic resistor network and new LDO validation",
+    "replacement inductor footprint and power margins",
+    "new board DRC and BOM/CPL reconciliation",
+    "physical Tab5 link and Core DDR3 bringup"
+  ]
+}

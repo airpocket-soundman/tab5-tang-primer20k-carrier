@@ -1,0 +1,48 @@
+Refs,Value,Footprint,Qty,DNP,LCSC,JLC class,Note
+J1,DC 12V ONLY,Connector_BarrelJack:BarrelJack_Horizontal,1,,,THT/hand-solder or extended (select part),"DC barrel jack, centre positive (THT, hand assembly)"
+F1,PTC 3A hold,Fuse:Fuse_1812_4532Metric,1,,C47002391,selected (verify stock at order),
+"D1,D4",SS54,Diode_SMD:D_SMA,2,,C22452,selected (verify stock at order),reverse-polarity + OR (DC jack)
+D3,SMBJ15A,Diode_SMD:D_SMB,1,,C699013,selected (verify stock at order),"YANGJIE 15V standoff, 24.4V specified clamp; regulated 12V PoC input only"
+C1,100u/35V,Capacitor_SMD:CP_Elec_6.3x7.7,1,,C2983388,selected (verify stock at order),
+U2,TPS5430DDAR,Package_SO:TI_SO-PowerPAD-8_ThermalVias,1,,C9864,selected (verify stock at order),
+C3,10n,Capacitor_SMD:C_0603_1608Metric,1,,C57112,selected (verify stock at order),
+L1,15u MS1040-150M,carrier:L_COILMX_MS1040,1,,C380054,selected (verify stock at order),
+"R36,R37,R40,R6",10k,Resistor_SMD:R_0603_1608Metric,4,,C25804,selected (verify stock at order),
+R7,3.3k,Resistor_SMD:R_0603_1608Metric,1,,C22978,selected (verify stock at order),"3.3k parallel (100k+100k): Req 3246.433 ohm, nominal buck 4.982V"
+"R47,R48,R49,R50,R8",100k,Resistor_SMD:R_0603_1608Metric,5,,C25803,selected (verify stock at order),
+R9,15k,Resistor_SMD:R_0603_1608Metric,1,,C22809,selected (verify stock at order),External EN divider ~9.4V threshold; stays off at default USB 5V/9V
+"C4,C5",10u/50V,Capacitor_SMD:C_1206_3216Metric,2,,C13585,selected (verify stock at order),
+C6,100n/50V,Capacitor_SMD:C_0603_1608Metric,1,,C14663,selected (verify stock at order),
+C7,220u/10V POSCAP,Capacitor_Tantalum_SMD:CP_EIA-7343-40_Kemet-Y,1,,C242173,selected (verify stock at order),"Panasonic 10TPB220M, 220uF 10V ESR max40mohm; TI reference output capacitor"
+"C8,C9",47u/10V,Capacitor_SMD:C_1206_3216Metric,2,DNP,C96123,selected (verify stock at order),
+U3,XC6206P332MR-G,Package_TO_SOT_SMD:SOT-23,1,,C5446,selected (verify stock at order),3.3V local logic only; no external 3V3 loads; design limit 50mA
+C10,10u/16V,Capacitor_SMD:C_1206_3216Metric,1,,C13585,selected (verify stock at order),
+C11,22u/10V,Capacitor_SMD:C_1206_3216Metric,1,,C12891,selected (verify stock at order),
+J3,M5-BUS (to Tab5),carrier:PinHeader_2x15_Tab5_Bottom,1,,,THT/hand-solder or extended (select part),"User confirmed 2026-10-24: rear view, battery left, pin1 GND on left; mirrored-column footprint"
+"R10,R11,R12,R13,R14,R15,R16,R19,R20,R21,R22,R23,R24,R26,R27",33R,Resistor_SMD:R_0603_1608Metric,15,,C23140,selected (verify stock at order),
+"R17,R18,R25",0R,Resistor_SMD:R_0603_1608Metric,3,DNP,C21189,selected (verify stock at order),16-bit extension (DNP): connects G37 to FPGA
+J4,SOCKET XDAP-4042044-20401,carrier:DDR3_XDAP_4042044_20401,1,,C22471982,selected (verify stock at order),"PCBA required; socket only, user supplies Tang Primer 20K Core module"
+J5,HDMI OUT,Connector_Video:HDMI_A_Molex_208658-1001_Horizontal,1,,,THT/hand-solder or extended (select part),"TMDS from FPGA true-LVDS outputs (3.3V bank), AC coupled + 499R bias + ESD (official-Dock style)"
+"C12,C13,C14,C15,C16,C17,C18,C19,C20,C21,C22,C23",100n,Capacitor_SMD:C_0603_1608Metric,12,,C14663,selected (verify stock at order),
+"R28,R29,R32,R33,R34,R35",510R,Resistor_SMD:R_0603_1608Metric,6,,C23193,selected (verify stock at order),Basic 510 ohm; +2.2% vs 499; unchanged HDMI branch geometry
+"R30,R31",510R,Resistor_SMD:R_0402_1005Metric,2,,C25123,selected (verify stock at order),Basic 510 ohm; +2.2% vs 499; unchanged HDMI branch geometry
+"U4,U5",RCLAMP0524P,carrier:DFN2510-10L_RCLAMP0524P,2,,C293965,selected (verify stock at order),"TMDS ESD array (DOWO DFN2510-10L): I/O 1,2,4,5, GND 3,8; the line is routed as continuous copper through strapped pads"
+U6,SRV05-4,Package_TO_SOT_SMD:SOT-23-6,1,,C13612,selected (verify stock at order),DDC/HPD ESD as on the official Dock
+F2,PTC 500mA,Fuse:Fuse_1206_3216Metric,1,,C315893,selected (verify stock at order),
+"Q1,Q2,Q3,Q4",2N7002,Package_TO_SOT_SMD:SOT-23,4,,C8545,selected (verify stock at order),DDC level shifter (pin1=G pin2=S pin3=D)
+"R38,R39",2.2k,Resistor_SMD:R_0603_1608Metric,2,,C4190,selected (verify stock at order),
+R41,20k,Resistor_SMD:R_0603_1608Metric,1,,C4184,selected (verify stock at order),
+J6,PMOD1,Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical,1,DNP,,THT/hand-solder or extended (select part),"2x6 PMOD-style, 3.3V. Pads only: pin header is hand-fitted later (DNP)"
+J7,PMOD2,Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical,1,DNP,,THT/hand-solder or extended (select part),"2x6 PMOD-style, 3.3V. Pads only: pin header is hand-fitted later (DNP)"
+"R42,R43,R44,R45",1k,Resistor_SMD:R_0603_1608Metric,4,,C21190,selected (verify stock at order),
+"D5,D6,D7,D8",LED,LED_SMD:LED_0603_1608Metric,4,,C2286,selected (verify stock at order),
+SW1,SW,Button_Switch_SMD:SW_SPST_EVQP0,1,,,THT/hand-solder or extended (select part),
+SW2,RESET (Tab5),Button_Switch_SMD:SW_SPST_EVQP0,1,,,THT/hand-solder or extended (select part),pulls the M5-Bus RST/EN line (pin 6) low: resets the ESP32-P4
+SW3,FPGA ON/OFF,Button_Switch_THT:SW_DIP_SPSTx01_Slide_9.78x4.72mm_W7.62mm_P2.54mm,1,,,THT/hand-solder or extended (select part),"slide switch: ON = open (buck runs), OFF = short EN to GND (FPGA 5V off). Tab5 keeps its own power button. Sits in the switch row with the two tact switches, clear of the board edge"
+J8,GPIO pads,Connector_PinHeader_2.54mm:PinHeader_1x09_P2.54mm_Vertical,1,DNP,,THT/hand-solder or extended (select part),"spare FPGA I/O (3.3V, bank 7): pads only, hand-fit a header or wires later"
+"H3,H4,H5,H6",M3,MountingHole:MountingHole_3.2mm_M3,4,,,THT/hand-solder or extended (select part),
+"U7,U8",SN74CB3Q3245PWR,Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm,2,,C470961,selected (verify stock at order),Ioff protected 8-bit passive bus switch; OE pulled high by default
+U9,TPS3839G33DBZR,Package_TO_SOT_SMD:SOT-23,1,,C485802,selected (verify stock at order),"3.08V / 4.38V supervisor, 200ms typical release delay"
+U10,TPS3839K50DBZR,Package_TO_SOT_SMD:SOT-23,1,,C702204,selected (verify stock at order),"3.08V / 4.38V supervisor, 200ms typical release delay"
+JP1,BUS ARM (open by default),Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical,1,,,THT/hand-solder or extended (select part),Fit shunt only after firmware GPIO ownership has been checked
+R46,22k,Resistor_SMD:R_0603_1608Metric,1,,C31850,selected (verify stock at order),

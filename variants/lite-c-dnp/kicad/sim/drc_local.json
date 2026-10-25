@@ -1,0 +1,84 @@
+{
+    "$schema": "https://schemas.kicad.org/drc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-10-25T08:57:12",
+    "ignored_checks": [
+        {
+            "description": "Footprint has no courtyard defined",
+            "key": "missing_courtyard"
+        },
+        {
+            "description": "Track endpoint not centered on via",
+            "key": "track_not_centered_on_via"
+        },
+        {
+            "description": "Tuning profile track geometries",
+            "key": "tuning_profile_track_geometries"
+        },
+        {
+            "description": "Footprint doesn't match symbol's footprint filters",
+            "key": "footprint_filters_mismatch"
+        },
+        {
+            "description": "Footprint component type doesn't match footprint pads",
+            "key": "footprint_type_mismatch"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "10.0.6",
+    "schematic_parity": [],
+    "source": "tab5-fpga-carrier.kicad_pcb",
+    "unconnected_items": [],
+    "violations": [
+        {
+            "description": "Courtyards overlap",
+            "items": [
+                {
+                    "description": "フットプリント L1",
+                    "pos": {
+                        "x": 39.0,
+                        "y": 61.5
+                    },
+                    "uuid": "12db1e37-d4c9-4f27-981f-953fbeef238e"
+                },
+                {
+                    "description": "フットプリント C4",
+                    "pos": {
+                        "x": 33.8,
+                        "y": 69.5
+                    },
+                    "uuid": "a43c0c96-8500-4ea3-b91a-397aedb984e2"
+                }
+            ],
+            "severity": "error",
+            "type": "courtyards_overlap"
+        },
+        {
+            "description": "Courtyards overlap",
+            "items": [
+                {
+                    "description": "フットプリント L1",
+                    "pos": {
+                        "x": 39.0,
+                        "y": 61.5
+                    },
+                    "uuid": "12db1e37-d4c9-4f27-981f-953fbeef238e"
+                },
+                {
+                    "description": "フットプリント D2",
+                    "pos": {
+                        "x": 34.5,
+                        "y": 51.0
+                    },
+                    "uuid": "d5695804-cdc5-4605-b663-81ce7f590f24"
+                }
+            ],
+            "severity": "error",
+            "type": "courtyards_overlap"
+        }
+    ]
+}
