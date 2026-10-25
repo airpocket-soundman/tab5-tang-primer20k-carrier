@@ -41,3 +41,22 @@ def build():
         c.dnp=False;c.comment='Active-low HPD; input only, invert and debounce >=10ms; R52 limits off-bank charge injection, no hotplug guarantee'
     cs.extend(new);return cs
 # END qualified low-profile HDMI and isolated active-low HPD
+
+# Akizuki TS-06104 hand-solder buttons, manufacturer drawing p8.
+
+_build_before_akizuki_buttons = build
+def build():
+    cs = _build_before_akizuki_buttons()
+    for c in cs:
+        if c.ref in ('SW1','SW2'):
+            c.fp='carrier:SW_TS_06104_HandSolder';c.value='TS-06104';c.lcsc=''
+            c.pos=((59.9 if c.ref=='SW1' else 70.5),6.5);c.rot=0
+            c.comment='Manual assembly; Akizuki115969; TS-06104 H4.3mm; dedicated manufacturer p8 lands; pads1=A/B and2=C/D'
+    return cs
+
+_build_before_hdmi_pcba = build
+def build():
+    cs=_build_before_hdmi_pcba()
+    c=next(c for c in cs if c.ref=='J5');c.lcsc='C916313'
+    c.comment='MOLEX2086581001 PCBA mandatory including19 SMT contacts and all4 SH shell tabs; confirm supplier preview'
+    return cs

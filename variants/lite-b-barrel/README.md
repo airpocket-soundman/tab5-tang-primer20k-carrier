@@ -1,5 +1,8 @@
 # 廉価版B：99×78mm、HDMIあり、12Vバレル入力
 
+> **秋月ボタン対応**：SW1/SW2をTS-06104（秋月115969）用にランド・配置・局所配線変更。手実装は各1個。J5 HDMIは固定タブも含めPCBA必須。[購入リスト](manual-parts-procurement.json)。SW3はDigiKey、J1の秋月候補は無加工互換未確定のためバレル使用前に選定が必要。
+
+
 > **2026-10-25 追加シミュレーション反映版**：15本の直列抵抗は680Ω／Basic C23228。HDMI専用部は低背化し、HPD反転・100nFフィルタ・Core手前10kΩを反映（Cは全DNP）。初期1MHz、DATA setup/hold各250ns以上、DIR待ち500ns以上、弱い駆動／SLOW、規定12V・Core通常0.5A・局所3V3通常10mA以下の条件付きPoC製造候補です。実通信・DDR3／GPUの実機動作は未確認です。
 >
 > [最新の個別評価・全BoM・PCBA実装区分](../../site/lite-b-evaluation.html)、[親の独立レビュー](../simulation/independent-dynamic-review.json)、[電源](../simulation/power/final-summary.json)、[パラレル](../simulation/parallel/final-summary.json)、[HDMI](../simulation/hdmi/final-summary.json)。以下は初回設計検証時の記録も含み、最新の値・条件は上記評価を優先します。

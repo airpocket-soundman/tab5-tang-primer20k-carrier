@@ -42,8 +42,7 @@ J6,PMOD1,Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical,1,DNP,,THT/h
 J7,PMOD2,Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical,1,DNP,,THT/hand-solder or extended (select part),"2x6 PMOD-style, 3.3V. Pads only: pin header is hand-fitted later (DNP)"
 "R42,R43,R44,R45",1k,Resistor_SMD:R_0603_1608Metric,4,,C21190,selected (verify stock at order),
 "D5,D6,D7,D8",LED,LED_SMD:LED_0603_1608Metric,4,,C2286,selected (verify stock at order),
-SW1,SW,Button_Switch_SMD:SW_SPST_EVQP0,1,,,THT/hand-solder or extended (select part),
-SW2,RESET (Tab5),Button_Switch_SMD:SW_SPST_EVQP0,1,,,THT/hand-solder or extended (select part),pulls the M5-Bus RST/EN line (pin 6) low: resets the ESP32-P4
+"SW1,SW2",TS-06104,carrier:SW_TS_06104_HandSolder,2,,,THT/hand-solder or extended (select part),Manual assembly; Akizuki115969; TS-06104 H4.3mm; dedicated manufacturer p8 lands; pads1=A/B and2=C/D
 SW3,FPGA ON/OFF,Button_Switch_THT:SW_DIP_SPSTx01_Slide_9.78x4.72mm_W7.62mm_P2.54mm,1,,,THT/hand-solder or extended (select part),"slide switch: ON = open (buck runs), OFF = short EN to GND (FPGA 5V off). Tab5 keeps its own power button. Sits in the switch row with the two tact switches, clear of the board edge"
 J8,GPIO pads,Connector_PinHeader_2.54mm:PinHeader_1x09_P2.54mm_Vertical,1,DNP,,THT/hand-solder or extended (select part),"spare FPGA I/O (3.3V, bank 7): pads only, hand-fit a header or wires later"
 "H1,H2,H3,H4,H5,H6",M3,MountingHole:MountingHole_3.2mm_M3,6,,,THT/hand-solder or extended (select part),

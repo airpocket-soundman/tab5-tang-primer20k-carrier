@@ -28,11 +28,13 @@
         "jlc-bom.csv",
         "jlc-cpl.csv"
       ],
-      "source_pcb_sha256_LF": "bcc60b30a6094220057f5d26d87612e8c3ad37ce6d8fb75ffec1ddccbdaf7003",
-      "pcba_components": 90,
-      "pcba_bom_rows": 35,
+      "source_pcb_sha256_LF": "eb23662bcbd178563ce79a90d442f3a74c79077b90a1ff8dcd1aeca5cc92eb9f",
+      "pcba_components": 91,
+      "pcba_bom_rows": 36,
       "report": "site/lite-b-evaluation.html",
-      "assembly": "J4 PCBA mandatory; Core user-supplied; J6/J7/J8 optional user-fit, excluded PCBA; other manual/DNP CSVs must be checked"
+      "assembly": "J4 socket PCBA; Core user supplied; Akizuki TS-06104 manual buttons; J6/J7/J8 excluded from PCBA; J5 HDMI including shell tabs PCBA mandatory",
+      "manual_procurement": "variants/lite-b-barrel/manual-parts-procurement.json",
+      "barrel_jack_procurement": "Akizuki MJ-179PH candidate not confirmed drop-in; confirm compatible jack before ordering"
     },
     {
       "variant": "lite-c-dnp",
@@ -43,11 +45,13 @@
         "jlc-bom.csv",
         "jlc-cpl.csv"
       ],
-      "source_pcb_sha256_LF": "b2ca3fd81eb17d8ccaf36506321dde04c4c555dca3f5dfe2ea7ad42d1458d01e",
+      "source_pcb_sha256_LF": "fcc2849f8588164b25819bb97db40d6de5f5792036fcc39e91ab4bd7a0ccf308",
       "pcba_components": 58,
       "pcba_bom_rows": 27,
       "report": "site/lite-c-evaluation.html",
-      "assembly": "J4 PCBA mandatory; Core user-supplied; J6/J7/J8 optional user-fit, excluded PCBA; other manual/DNP CSVs must be checked"
+      "assembly": "J4 socket PCBA; Core user supplied; Akizuki TS-06104 manual buttons; J6/J7/J8 excluded from PCBA; HDMI/PD all DNP",
+      "manual_procurement": "variants/lite-c-dnp/manual-parts-procurement.json",
+      "barrel_jack_procurement": "Akizuki MJ-179PH candidate not confirmed drop-in; confirm compatible jack before ordering"
     }
   ]
 }

@@ -1,5 +1,5 @@
 """Export consistent Gerber/drill/BOM/CPL candidate; run with KiCad Python."""
-import csv,hashlib,json,subprocess,sys,zipfile,tempfile
+import csv,hashlib,json,subprocess,sys,zipfile,tempfile,shutil
 from pathlib import Path
 import pcbnew
 ROOT=Path(__file__).resolve().parents[2];CLI=Path(sys.executable).parent/'kicad-cli.exe'
@@ -57,8 +57,16 @@ def main():
  assert 'J4' in refs and all(ref not in refs for ref in ('J2','U1','J5','U4','U5','U6','Q1','Q2','F2'))
  write('dnp.csv',['Refs','Value','Footprint'],[[r['Refs'],r['Value'],r['Footprint']] for r in bom if r['DNP']])
  for r in cpl:assert 0<=float(r[1])<=125 and 0<=float(r[2])<=78,r
+ (OUT/'assembly-instructions.txt').write_text('J5 HDMI and all dedicated HDMI/PD components remain DNP; do not populate them in this order.'+'\nSW1/SW2: customer hand solder TS-06104 H4.3mm, Akizuki115969; dedicated new lands. J4 socket PCBA; Core customer supplied. J6/J7/J8 excluded from PCBA.\n',encoding='utf8')
  with zipfile.ZipFile(OUT/'gerbers.zip','w',zipfile.ZIP_DEFLATED) as z:
   for p in sorted(g.iterdir()):z.write(p,p.name)
  report=dict(status='Lite C candidate: DRC/connectivity passed; socket stock, PCBA fixture/preview and final manufacturer acceptance remain required',variant='lite-c-dnp',assembly_scope='HDMI and USB PD fully DNP; barrel J1 manual; J4 socket PCBA mandatory; Core module user supplied',pcba_components=len(refs),pcba_bom_rows=len(rows),bom_cpl_equal=True,origin_mm=[2,79],board_dimensions_mm=[125,78],cpl_coordinates='KiCad drill/place origin, +X right +Y up; bottom only manual J3; rotation is KiCad convention, confirm manufacturer preview',manual_refs=actual_manual_refs,source_pcb_sha256=hashlib.sha256(PCB.read_bytes().replace(b'\r\n',b'\n')).hexdigest(),files={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(OUT.iterdir()) if p.is_file() and p.name!='package-check.json'})
  (OUT/'package-check.json').write_text(json.dumps(report,indent=2));print(json.dumps({k:v for k,v in report.items() if k!='files'},indent=1))
-if __name__=='__main__':main()
+if __name__=='__main__':
+ destination=OUT
+ with tempfile.TemporaryDirectory(prefix='carrier-bc-export-') as td:
+  OUT=Path(td)/'package'
+  main()
+  for source in OUT.rglob('*'):
+   if source.is_file():
+    target=destination/source.relative_to(OUT);target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,target)

@@ -61,11 +61,13 @@ for ref,c in schema.items():
 check('schematic_values_equal_PCB',not values,values)
 check('schematic_footprints_equal_PCB',not footprints,footprints)
 check('schematic_population_equal_PCB',not dnp,dnp)
-if name=='lite-a-dual':
+if name in ('lite-a-dual','lite-b-barrel','lite-c-dnp'):
     button_errors=[]
-    for ref,x in [('SW1',59.9),('SW2',70.5)]:
+    cy=7.5 if name=='lite-c-dnp' else 6.5
+    coords=[('SW1',29.),('SW2',42.2)] if name=='lite-c-dnp' else [('SW1',59.9),('SW2',70.5)]
+    for ref,x in coords:
         f=fps[ref]
-        expected=sorted((n,round(x+dx,5),round(6.5+dy,5)) for n,dx in [('1',-4.1),('2',4.1)] for dy in [-2.25,2.25])
+        expected=sorted((n,round(x+dx,5),round(cy+dy,5)) for n,dx in [('1',-4.1),('2',4.1)] for dy in [-2.25,2.25])
         actual=sorted((p.GetNumber(),round(pos(p)[0],5),round(pos(p)[1],5)) for p in f.Pads())
         if f.GetValue()!='TS-06104' or str(f.GetFPID().GetLibItemName())!='SW_TS_06104_HandSolder' or actual!=expected:button_errors.append(ref)
     check('Akizuki_TS06104_button_pads_match_manufacturer',not button_errors,button_errors)
@@ -129,7 +131,7 @@ if len(packages)==1:
     check('socket_LDO_L1_correct_procurement',all(brefs.get(r)==p for r,p in [('J4','C22471982'),('U3','C5446'),('L1','C380054'),('R7','C22978'),('R49','C25803'),('R50','C25803')]))
     check('parallel_series_approved_Basic_680R',len(series)==15 and all(brefs.get(r)=='C23228' for r in series))
     check('manual_barrel_not_accidentally_PCBA',all(r not in crefs for r in ('J1','J3','JP1')))
-    if name=='lite-a-dual':check('HDMI_connector_PCBA_required',brefs.get('J5')=='C916313' and 'J5' in crefs)
+    if name in ('lite-a-dual','lite-b-barrel'):check('HDMI_connector_PCBA_required',brefs.get('J5')=='C916313' and 'J5' in crefs)
     check('PMOD_GPIO_pin_sockets_not_in_BOM_CPL',not {'J6','J7','J8'}.intersection(set(brefs)|set(crefs)))
     if name!='lite-c-dnp':check('Basic_bias_correct_procurement',all(brefs.get(f'R{i}')==('C25123' if i in (30,31) else 'C23193') for i in range(28,36)))
     check('CPL_in_board_origin_frame',all(0<=float(row['Mid X'])<=target[0] and 0<=float(row['Mid Y'])<=target[1] for row in cpl))

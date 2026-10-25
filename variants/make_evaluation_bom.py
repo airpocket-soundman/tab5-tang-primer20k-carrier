@@ -47,11 +47,16 @@ def main():
         if purchase_file.exists():
             guide = json.loads(purchase_file.read_text(encoding='utf-8'))
             purchase_rows = ''.join('<tr>' + ''.join('<td>' + html.escape(str(r[k])) + '</td>' for k in ('refs','qty','part')) + '<td><a href="' + html.escape(r['url'], quote=True) + '">' + html.escape(r['supplier']) + '</a></td><td>' + html.escape(r['status'] + '。' + r['note']) + '</td></tr>' for r in guide['items'])
-            procurement = '<h3>手実装品の購入先：秋月を優先</h3><p>J5 HDMIはPCBAに含めました。お客様がHDMIをはんだ付けする前提ではありません。19端子に加え4本のスルーホール固定タブも業者実装の指示に含めます。最終見積・実装プレビューで対応を確認してください。</p><p>ヘッダー・ジャンパー・任意ソケットは秋月で調達する候補です。スイッチは現基板との適合を優先し他店調達が残ります。J1は無加工互換未確定で、まだ購入確定品として扱いません。在庫は確認時点の表示で取り置きではありません。</p><div style="overflow-x:auto"><table><tr><th>対象</th><th>数量/枚</th><th>部品</th><th>購入先</th><th>適合・注意</th></tr>' + purchase_rows + '</table></div>'
+            hdmi_note = 'HDMI／USB PDは専用部品も含めDNPです。今回の発注ではHDMIの購入・手はんだは不要です。' if label=='c' else 'J5 HDMIはPCBAに含めました。お客様がHDMIをはんだ付けする前提ではありません。19端子に加え4本のスルーホール固定タブも業者実装の指示に含めます。最終見積・実装プレビューで対応を確認してください。'
+            power_note = '案AはUSB PD12V使用時にJ1を省略できます。' if label=='a' else 'この案はバレル入力を使うため、発注前にJ1の互換品を確定する必要があります。'
+            procurement = '<h3>手実装品の購入先：秋月を優先</h3><p>'+hdmi_note+'</p><p>SW1/SW2は秋月TS-06104専用ランドへ変更済みです。ヘッダー・ジャンパー・任意ソケットも秋月を優先し、SW3のみ他店調達が残ります。J1の秋月候補は無加工互換未確定で、購入確定品ではありません。'+power_note+'在庫は確認時点の表示で取り置きではありません。</p><div style="overflow-x:auto"><table><tr><th>対象</th><th>数量/枚</th><th>部品</th><th>購入先</th><th>適合・注意</th></tr>' + purchase_rows + '</table></div>'
+        explanation=''
+        if label=='a':
+            explanation='<h3>案AのBoMの読み方</h3><p>99部品は1枚に載る実部品の数、40品目は同じ品番・値・フットプリントをまとめた発注行数です。例えば680Ωの直列抵抗15本は1品目にまとまります。LCSC番号はPCBA業者が調達する部品番号で、お客様が99部品を個別購入する意味ではありません。</p><ul><li>PCBA：USB PD受電・12V保護・5V変換・局所3.3V、パラレルのバッファ／680Ω／電源監視、LED、Core用J4ソケット、HDMI一式を業者が実装します。Core本体は含みません。</li><li>手実装：J3 M5-Bus接続用ヘッダー、SW1 FPGAボタン、SW2 Tab5 RESET、SW3 FPGA ON/OFF、JP1 BUS ARM用2ピンヘッダー。J1 DCジャックはバレル給電を使う場合に追加します。JP1用ショートピンは別途1個、初期は外します。</li><li>DNP：R4/R17/R18/R25とC8/C9は購入・実装不要。J6/J7/J8のPMOD/GPIOソケットもPCBA対象外で、拡張を使う場合だけ手実装します。</li><li>H3〜H6は4個の取付穴です。電子部品ではなく、必要なねじ・スペーサーは別途選びます。</li></ul><p>発注にはjlc-bom.csvとjlc-cpl.csvを組で使用します。CPLは実装位置・角度、Gerberは基板製造用で、BoMの代わりにはなりません。</p>'
         fragment = f'''{START}<section id="bom"><h2>BoMと実装範囲</h2>
 <p>PCBAは{len(sets[0])}部品・{len(pcba)}品目。J4 SO-DIMMソケットはPCBA必須。Tang Primer 20K Core本体はユーザー支給で、PCBA発注BoMに含めません。</p>
 <p>「別途取り付け」は手はんだ等が必要です。GPIO・PMODのJ6/J7/J8はPCBA対象外で、必要な場合のみユーザーが取り付けます。DNP部品は原則取り付けません。取付穴の行は購入する電子部品ではありません。</p>
-<p>{links}</p><div style="overflow-x:auto"><table class="bom-table"><thead><tr><th>参照番号</th><th>部品・値</th><th>数量/枚</th><th>フットプリント</th><th>LCSC品番</th><th>実装区分</th></tr></thead><tbody>{body}</tbody></table></div>
+<p>{links}</p>{explanation}<div style="overflow-x:auto"><table class="bom-table"><thead><tr><th>参照番号</th><th>部品・値</th><th>数量/枚</th><th>フットプリント</th><th>LCSC品番</th><th>実装区分</th></tr></thead><tbody>{body}</tbody></table></div>
 <p><small>製造候補CSVから生成。基板SHA-256: {digest}。追加シミュレーションに伴う設計更新時はBoMも再生成します。</small></p>{procurement}</section>{END}'''
         page = ROOT / 'site' / f'lite-{label}-evaluation.html'
         if page.exists():

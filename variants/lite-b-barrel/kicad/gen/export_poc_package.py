@@ -1,10 +1,10 @@
 """Export consistent Gerber/drill/BOM/CPL candidate; run with KiCad Python."""
-import csv,hashlib,json,subprocess,sys,zipfile,tempfile
+import csv,hashlib,json,subprocess,sys,zipfile,tempfile,shutil
 from pathlib import Path
 import pcbnew
 ROOT=Path(__file__).resolve().parents[2];CLI=Path(sys.executable).parent/'kicad-cli.exe'
 PCB=ROOT/'kicad/tab5-fpga-carrier.kicad_pcb';OUT=ROOT/'manufacturing/poc-2026-10-25'
-MANUAL={'J1','J3','J5','SW1','SW2','SW3','JP1'}
+MANUAL={'J1','J3','SW1','SW2','SW3','JP1'}
 def run(*args):subprocess.run([str(CLI),*map(str,args)],check=True)
 def main():
  OUT.mkdir(parents=True,exist_ok=True);g=OUT/'gerbers';g.mkdir(exist_ok=True)
@@ -51,12 +51,21 @@ def main():
  assert {r[0] for r in cpl}==refs and len(cpl)==len(refs)
  assert not {'J6','J7','J8'}.intersection(refs),'PMOD/GPIO pin sockets must remain outside PCBA'
  assert 'J4' in refs,'Core socket must be assembled by PCBA'
+ assert 'J5' in refs and next(r for r in rows if r[1]=='J5')[3]=='C916313'
  write('jlc-cpl.csv',['Designator','Mid X','Mid Y','Layer','Rotation'],cpl)
  write('manual-assembly.csv',['Refs','Value','Footprint','Action'],manual)
  write('dnp.csv',['Refs','Value','Footprint'],[[r['Refs'],r['Value'],r['Footprint']] for r in bom if r['DNP']])
  for r in cpl:assert 0<=float(r[1])<=99 and 0<=float(r[2])<=78,r
+ (OUT/'assembly-instructions.txt').write_text('J5 MOLEX2086581001/C916313: full PCBA required; solder all19 SMT contacts AND all4 through-hole SH shell tabs. No customer HDMI soldering. Supplier preview must confirm full connector assembly, quote capable service if Economic cannot solder tabs.'+'\nSW1/SW2: customer hand solder TS-06104 H4.3mm, Akizuki115969; dedicated new lands. J4 socket PCBA; Core customer supplied. J6/J7/J8 excluded from PCBA.\n',encoding='utf8')
  with zipfile.ZipFile(OUT/'gerbers.zip','w',zipfile.ZIP_DEFLATED) as z:
   for p in sorted(g.iterdir()):z.write(p,p.name)
  report=dict(status='Lite B CAD checks passed; prepared for re-quotation and assembly preview; socket stock/fixture confirmation pending; not an order authorization',variant='lite-b-barrel',pcba_components=len(refs),pcba_bom_rows=len(rows),bom_cpl_equal=True,origin_mm=[28,79],board_dimensions_mm=[99,78],cpl_coordinates='KiCad drill/place origin, +X right +Y up; bottom only manual J3; rotation is KiCad convention, confirm manufacturer preview',manual_refs=sorted(MANUAL),source_pcb_sha256=hashlib.sha256(PCB.read_bytes().replace(b'\r\n',b'\n')).hexdigest(),files={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(OUT.iterdir()) if p.is_file() and p.name!='package-check.json'})
  (OUT/'package-check.json').write_text(json.dumps(report,indent=2));print(json.dumps({k:v for k,v in report.items() if k!='files'},indent=1))
-if __name__=='__main__':main()
+if __name__=='__main__':
+ destination=OUT
+ with tempfile.TemporaryDirectory(prefix='carrier-bc-export-') as td:
+  OUT=Path(td)/'package'
+  main()
+  for source in OUT.rglob('*'):
+   if source.is_file():
+    target=destination/source.relative_to(OUT);target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,target)

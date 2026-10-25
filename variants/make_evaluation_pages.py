@@ -80,6 +80,11 @@ def main():
         if label=='a':
             text=text.replace('J4はPCBA、J6/J7/J8はPCBA対象外です。','J4とJ5 HDMIはPCBA、J6/J7/J8はPCBA対象外です。')
             text+=f'<section><h2>秋月ボタン・HDMI実装の更新</h2><p>SW1/SW2は秋月115969 TS-06104用にランド・配置・局所配線を変更しました。手実装は計2個。旧Panasonic品を購入しないでください。DRC違反0・未配線0、ERCエラー0（既存の警告165件は残存）、Core干渉の再確認は合格。電源・通信の配線と他部品のパッドの同一性を比較し、従来解析を継承しました。変更後の全基板の再シミュレーションや実測を意味しません。</p><p>J5 HDMIは19信号端子と4本の固定タブを含めPCBA必須。追加実装費は再見積が必要です。SW3はDigiKey調達、J1の秋月候補は無加工互換未確定です。</p><p>{evidence(SIM/"button-revision-review.json","ボタン変更の独立照合・解析継承根拠")} ／ {evidence(ROOT/"variants/lite-a-dual/reference/TS-06104.pdf","メーカー寸法図（8ページ）")}</p></section>'
+        if label in ('b','c'):
+            update=read(SIM/'bc-button-revision-review.json')['variants'][name]
+            if label=='b':text=text.replace('J4はPCBA、J6/J7/J8はPCBA対象外です。','J4とJ5 HDMIはPCBA、J6/J7/J8はPCBA対象外です。')
+            assembly='J5 HDMIは19信号端子と4本の固定タブを含めPCBA必須。追加実装費とタブの工程を業者の最終見積・プレビューで確認します。' if label=='b' else 'HDMIとUSB PDは回路・配線を残して全専用部品DNPのままです。今回の注文で購入・後付けする必要はありません。'
+            text+=f'<section><h2>案Aと同じ秋月ボタン・実装基準へ更新</h2><p>SW1/SW2は秋月115969 TS-06104 H4.3mm用の専用ランド・配置・局所配線へ変更し、手実装は計2個です。旧Panasonic品を購入しないでください。DRC違反0・未配線0、ERCエラー0（警告{update["erc_warnings"]}件は残存）、Core干渉の再確認は合格。電源・通信の配線と他部品のパッドの同一性を比較して従来解析を継承し、変更後の全基板を新たに波形シミュレーションしたものではありません。</p><p>{assembly} J4ソケットはPCBA必須、Coreは支給、GPIO/PMODソケットはPCBA対象外を維持します。</p><p>SW3はDigiKey調達。J1の秋月候補は無加工互換未確定です。この案はバレル給電のため、注文前に適合ジャックの選定が必要です。</p><p>{evidence(SIM/"bc-button-revision-review.json","B/C変更の独立照合・解析継承根拠")} ／ {evidence(ROOT/"variants"/name/"reference/TS-06104.pdf","メーカー寸法図（8ページ）")}</p></section>'
         text+=f'''<section class="warn"><h2>Core DDR3と関連プロジェクトへの引き継ぎ</h2><p>Core上のDDR3と電源回路は公式のまま使います。キャリアの5V・IOとNC端子に加わる負荷は評価していますが、Core全体のDDR3信号品質とメモリコントローラの完全なシミュレーションではありません。</p><p>Linux側の物理通信ドライバ、GPU側のDDR3／最終ボードトップは未実装です。基板製作後、電源確認→1MHz CRC往復→公式DDR3試験→メモリREAD／WRITE→GPU・アクセラレータの順で実証します。Linuxの透過的なメインRAM増設を達成したものではありません。</p><p>{evidence(SIM/'requirements-review.json','関連リポジトリの参照版と要求照合')} ／ {evidence(SIM/'hdmi/ddr_nc_loading.json','DDR関連NC端子の局所負荷感度')}</p></section>
 <!-- BOM START --><!-- BOM END -->
 <section><h2>評価した版</h2><p><small>PCB SHA-256（改行LF正規化）：{digest}</small></p><p>{evidence(ROOT/'variants/validation'/f'{name}-independent-audit.json','独立照合結果')}</p></section></main></body></html>'''
