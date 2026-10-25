@@ -1,0 +1,159 @@
+{
+  "date": "2026-10-25",
+  "sources": [
+    {
+      "device": "SN74CB3Q3245",
+      "url": "https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf",
+      "local": "reference/sn74cb3q3245_current.pdf",
+      "revision": "SCDS124C August 2026",
+      "facts": {
+        "supply_V": [
+          2.3,
+          3.6
+        ],
+        "IO_recommended_V": [
+          0,
+          5.5
+        ],
+        "OE_VIH_V": 2.0,
+        "OE_VIL_V": 0.8,
+        "Ron_3V_max_ohm": 8,
+        "Ron_low_supply_conservative_max_ohm": 9,
+        "Cio_on_max_pF": 11,
+        "Cio_off_max_pF": 5,
+        "ICC_max_mA": 2,
+        "ICCD_OE_switching_max_mA_per_MHz": 0.45,
+        "Ioff_max_per_channel_uA": 1
+      }
+    },
+    {
+      "device": "SN74CB3Q3245 PW package",
+      "url": "https://www.ti.com/lit/zip/scdm044",
+      "revision": "TI IBIS3.2 file1.2 September2003",
+      "facts": {
+        "package_R_max_ohm": 0.06,
+        "package_L_max_nH": 3.553,
+        "package_C_max_pF": 0.443,
+        "IO_per_port_Ccomp_min_typ_max_pF": [
+          2.86,
+          3.15,
+          4.03
+        ],
+        "package_C_min_typ_max_pF": [
+          0.202,
+          0.317,
+          0.443
+        ]
+      },
+      "use": "Package parasitic and per-port Ccomp facts; full pass-switch nonlinear I-V and external GPIO IBIS are not executed. Final model uses per-port3.062/3.467/4.473pF plus separate11pF load bound. Historical11pF on both ports is not a worst-overshoot guarantee.",
+      "redistribution": "IBIS file explicitly disallows redistribution; raw file kept outside repository at D:/tmp/carrier-parallel-models/sn74cb3q3245.ibs. Download from TI to reproduce."
+    },
+    {
+      "device": "ESP32-P4",
+      "url": "https://documentation.espressif.com/esp32-p4_datasheet_en.html",
+      "local_existing": "docs/reference/tab5/esp32-p4_datasheet_en.pdf",
+      "facts": {
+        "Cin_typ_pF": 2,
+        "VIH_min_fraction_VDD": 0.75,
+        "VIL_max_fraction_VDD": 0.25,
+        "VOH_min_fraction_VDD": 0.8,
+        "VOL_max_fraction_VDD": 0.1,
+        "input_leakage_max_nA": 50
+      },
+      "conditions": "DC table at3.3V25C; exact user Tab5 SoC revision and full GPIO IBIS are not identified. v0.7 official HTML checked; existing archived v0.5 has the same listed DC facts."
+    },
+    {
+      "device": "GW2A",
+      "url": "https://www.gowinsemi.com/upload/database_doc/1830/document/6831328fb9769.pdf",
+      "local_existing": "docs/reference/gowin/DS102E_GW2A.pdf",
+      "revision": "DS102-2.7.8E",
+      "facts": {
+        "Cin_max_pF": 8,
+        "LVCMOS33_VIH_V": 2.0,
+        "LVCMOS33_VIL_V": 0.8,
+        "VOH_at_4_to_24mA": "VCCIO-0.4V",
+        "VOL_at_4_to_24mA_V": 0.4,
+        "VOH_at_0p1mA": "VCCIO-0.2V",
+        "VOL_at_0p1mA_V": 0.2,
+        "input_leakage_within_rail_max_uA": 10
+      },
+      "use": "Set3.3V I/O type; weakest4mA and SLOW are required initial configuration. No package-specific GPIO IBIS was obtained."
+    },
+    {
+      "device": "TPS3839",
+      "url": "https://www.ti.com/lit/ds/symlink/tps3839.pdf",
+      "local_existing": "docs/reference/parts/tps3839_datasheet.pdf",
+      "facts": {
+        "G33_trip_min_typ_max_V": [
+          3.003,
+          3.08,
+          3.126
+        ],
+        "K50_trip_min_typ_max_V": [
+          4.271,
+          4.38,
+          4.446
+        ],
+        "release_delay_min_typ_max_ms": [
+          120,
+          200,
+          350
+        ],
+        "assert_delay_typ_us": 20
+      },
+      "limits": "20us is typical only; no guaranteed maximum used. K50 PGOOD does not certify Core input>=4.5V."
+    }
+  ],
+  "explicit_sensitivity_assumptions": {
+    "carrier_impedance_ohm": [
+      85,
+      120
+    ],
+    "effective_permittivity": [
+      2.5,
+      4.1
+    ],
+    "Tab5_internal_trace_mm": [
+      30,
+      80
+    ],
+    "Core_internal_parallel_trace_mm": [
+      30,
+      80
+    ],
+    "GPIO_package_series_L_nH": 2,
+    "SODIMM_contact_series_L_nH": 2,
+    "SODIMM_contact_shunt_C_pF": 1,
+    "via_L_each_nH": 0.9,
+    "via_C_each_pF": 0.3,
+    "source_Thevenin_R_ohm": [
+      10,
+      35,
+      60,
+      100
+    ],
+    "source_edge_ns": [
+      0.5,
+      2,
+      3,
+      8
+    ],
+    "GPIO_rails_V": [
+      3.135,
+      3.465
+    ],
+    "model_scope": "These are declared parameter sweeps, not extracted full Core/Tab5 boards or GPIO IBIS. Source slew/current and shared-ground models require bench confirmation. Existing internal routing affects source-pad peaks even when carrier receiver damping passes."
+  },
+  "solver": {
+    "analog": "KiCad10 ngspice shared DLL, real transient solves",
+    "digital": "Icarus Verilog12.0 Windows extracted distribution, actual link_bringup.v and link_bus_wrapper.v",
+    "digital_binary_source": "https://bleyer.org/icarus/iverilog-v12-20220611-x64_setup.exe",
+    "digital_extraction_source": "https://github.com/dscharrer/innoextract/releases/tag/1.9"
+  },
+  "selected_resistor": {
+    "ohm": 680,
+    "lcsc": "C23228",
+    "class": "Basic",
+    "url": "https://jlcpcb.com/partdetail/23955-0603WAF6800T5E/C23228"
+  }
+}

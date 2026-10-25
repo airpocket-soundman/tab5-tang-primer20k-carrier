@@ -1,0 +1,23 @@
+TI TPS5430 unencrypted ngspice compatibility test
+.include "D:/github/airpocket-soundman/tab5-tang-primer20k-carrier-audit-pages/variants/simulation/power/models/TPS5430_TRANS.LIB"
+.param temper=25
+V1 src 0 PWL(0 0 10u 0 20u 12)
+RS src vin 0.1
+CIN vin 0 20u
+Rena vin en 100k
+Renb en 0 15k
+XU boot en 0 nc nc1 0 ph vin fb TPS5430_TRANS MODE=0
+Cboot boot ph 10n
+Rind ph li .045
+L1 li out 15u
+D1 0 ph DSS54
+.model DSS54 D(Is=50u Rs=.02 N=1.2 Cjo=200p Tt=8n Bv=40 Ibv=1m)
+RC out cp .04
+CO cp 0 220u
+Rtop out fb 10k
+Rbot fb 0 3246.43384
+Rload out 0 10
+.options reltol=.003 abstol=1n vntol=10u itl4=200 method=gear
+.save v(out) v(vin) v(ph) v(en) i(L1)
+.tran 100n 1m 0 100n uic
+.end

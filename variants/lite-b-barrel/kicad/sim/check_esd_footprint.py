@@ -126,6 +126,12 @@ for fp in board.GetFootprints():
         tie_ok = all(a in nets and b in nets and nets[a] == nets[b] for a, b in (("1", "10"), ("2", "9"), ("4", "7"), ("5", "6")))
         check("%s NC pins 6/7/9/10 share their line net (copper verified separately)" % fp.GetReference(), tie_ok, {k: nets.get(k) for k in ("6", "7", "9", "10")})
         placed[fp.GetReference()] = dict(nets=nets, pos=[round(mm(fp.GetPosition().x), 3), round(mm(fp.GetPosition().y), 3)], rot=fp.GetOrientationDegrees())
+for fp in board.GetFootprints():
+    if fp.GetReference() == "U6":
+        compare_placed(fp, pcbnew.FootprintLoad(LIB, "DFN2510-10L_RCLAMP0524P"))
+        nets = {p.GetNumber(): str(p.GetNetname()) for p in fp.Pads()}
+        expected = {"1":"HDMI_SDA","10":"HDMI_SDA","2":"HDMI_5V","9":"HDMI_5V","3":"GND","8":"GND","4":"HDMI_SCL","7":"HDMI_SCL","5":"HDMI_HPD","6":"HDMI_HPD"}
+        check("U6 independent-ground sideband ESD mapping", nets == expected, nets)
 report = dict(ok=not fails, failed=fails, checks=checks, placed=placed)
 output = os.environ.get("CHECK_JSON") or (os.path.join(HERE, "esd_footprint_check.json") if not os.environ.get("CHECK_PCB") else None)
 if output:

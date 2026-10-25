@@ -1,0 +1,409 @@
+{
+  "scope": "Three-board parallel dynamic simulation, selected680ohm series; physical firmware/DDR3 not claimed",
+  "variants": {
+    "lite-a-dual": {
+      "status": "uncertain",
+      "status_scope": "1MHz configured PoC model tests pass; unconditional GPIO/complete-board functionality is not established",
+      "PoC_initial_1MHz_models": "pass",
+      "sourcePCBhash": "0e1e0042fb797896201c978e8f4b65a2121134c5db525bb48c5f29daf5a2e805",
+      "series_ohm_model": 680,
+      "series_values_extracted": [
+        "680R"
+      ],
+      "tests": [
+        {
+          "name": "15 channels, both directions, distributed RLC receiver envelope",
+          "status": "pass",
+          "criteria": "-0.3V <= GPIO receiver <=3.6V, 5% settling <250ns",
+          "min_V": -0.09175469228600797,
+          "max_V": 3.556754692286008,
+          "settle_max_ns": 89.68782957456517
+        },
+        {
+          "name": "Configured weak/SLOW driving-source pad envelope",
+          "status": "pass",
+          "criteria": "declared Rs60..100ohm, edge3..8ns, source/receiver GPIO within -0.3..3.6V"
+        },
+        {
+          "name": "Extreme uncalibrated fast-source pad stress",
+          "status": "fail",
+          "qualification": "The sensitivity model violates conservative voltage limits; not a measured absolute-maximum violation and not silently waived",
+          "min_V": -0.39892143748223674,
+          "max_V": 3.8639214374822366,
+          "parameters": "10ohm Thevenin,0.5ns edge,unextracted Tab5/Core internal paths80mm each,2nH GPIO package,no clamp model"
+        },
+        {
+          "name": "SN74CB3Q3245 external pins, uncalibrated strong-fast stress",
+          "status": "fail",
+          "criteria": "Design excursion envelope -0.5..5.5V; recommended operating0..5.5V, absolute-0.5..7V and clamp-current exception are separate vendor ratings",
+          "min_V": -2.558619650576696,
+          "max_V": 6.023619650576696,
+          "reason": "Fast sensitivity model is unclamped; negative undershoot and positive voltage excursions are not certified by reporting only the positive peak"
+        },
+        {
+          "name": "SN74CB3Q3245 external pins, configured weak/SLOW",
+          "status": "pass",
+          "min_V": -3.370175742301029e-05,
+          "max_V": 3.465033701757423
+        },
+        {
+          "name": "Actual periodic1MHz write/read sampled thresholds",
+          "status": "pass",
+          "criteria": "write VIH2.0/VIL0.8V; read VIH2.59875/VIL0.78375V; sample250ns after transition"
+        },
+        {
+          "name": "Actual portable RTL at27MHz, all37 phase positions",
+          "status": "pass",
+          "phase_count": 37,
+          "transactions_per_phase": 69,
+          "delay_budget_ns": 100,
+          "turnaround_guard_ns": 500
+        },
+        {
+          "name": "RLC segmentation sensitivity",
+          "status": "pass",
+          "scope": "Representative longestCLK A/B(shared)/C, doubled segmentation",
+          "receiver_peak_change_max_mV": 4.846745483963577,
+          "settling_change_max_ns": 0.3025260587381311
+        },
+        {
+          "name": "Distant-plane carrier160ohm sensitivity",
+          "status": "pass",
+          "scope": "Representative longestCLK A/B(shared)/C; does not reconstruct every return path",
+          "receiver_max_V": 3.5256048510670013
+        },
+        {
+          "name": "Settled DC logic levels",
+          "status": "pass",
+          "scope": "3.3V rails +/-5%, normal-operation input pulls disabled, FPGA Voh/VOL at<=0.1mA; source datasheet limits, not just ideal model rails",
+          "write_high_margin_V": 0.5005199999999999,
+          "write_low_margin_V": 0.44602,
+          "read_high_margin_V": 0.33553599999999983,
+          "read_low_margin_V": 0.5830359999999999
+        },
+        {
+          "name": "Power-good/ARM MOSFET OE transient",
+          "status": "pass",
+          "criteria": "No enable with either PG absent or ARM open; enable only after both PG and ARM"
+        },
+        {
+          "name": "Powered-off DC leakage",
+          "status": "pass",
+          "criteria": "TI specified <=1uA/channel, <=15uA aggregate for15 populated channels; no zero-leakage claim"
+        },
+        {
+          "name": "Abrupt power collapse guarantee",
+          "status": "uncertain",
+          "reason": "Supervisor20us assertion is typical only; assumed Core regulator collapse and off-state feedthrough are not fully characterized"
+        },
+        {
+          "name": "Physical DDR3/controller functionality",
+          "status": "uncertain",
+          "reason": "Current linked RTL implements ID/echo/invert/CRC/timeout; no board top or DDR3 controller is implemented in those files"
+        }
+      ],
+      "limits": [
+        "ActualGPIO drive/slew/package IBIS and full Tab5/Core layouts are unavailable; source-pad fast-edge stress remains an explicit uncertainty.",
+        "Internal board lengths and package/via parasitics are sensitivity ranges, not measured extraction.",
+        "Single-pair crosstalk and assumed shared-return model do not certify every simultaneous-switching configuration.",
+        "Stable12V operation differs from brownout; K50 PGOOD does not guarantee Core input>=4.5V."
+      ],
+      "operating_conditions": [
+        "Initial1MHz only; DATA setup/hold>=250ns; DIR turnaround>=500ns in each direction.",
+        "FPGA LVCMOS33 weakest4mA/SLOW; Tab5 weakest drive. Verify real pin edges on first hardware.",
+        "Both rails stable>=350ms, preferably500ms, before manualARM and handshake.",
+        "No Core hotplug; stop clocks and safe-state IO>=300us before intentional power-off; reinitialize FPGA/DDR after brownout."
+      ],
+      "dynamic_cases": 150,
+      "receiver_waveform_plot": "lite-a-dual-transient.png",
+      "comparison_plot": "lite-a-dual-damping.png"
+    },
+    "lite-b-barrel": {
+      "status": "uncertain",
+      "status_scope": "1MHz configured PoC model tests pass; unconditional GPIO/complete-board functionality is not established",
+      "PoC_initial_1MHz_models": "pass",
+      "sourcePCBhash": "bcc60b30a6094220057f5d26d87612e8c3ad37ce6d8fb75ffec1ddccbdaf7003",
+      "series_ohm_model": 680,
+      "series_values_extracted": [
+        "680R"
+      ],
+      "tests": [
+        {
+          "name": "15 channels, both directions, distributed RLC receiver envelope",
+          "status": "pass",
+          "criteria": "-0.3V <= GPIO receiver <=3.6V, 5% settling <250ns",
+          "min_V": -0.09175469228600797,
+          "max_V": 3.556754692286008,
+          "settle_max_ns": 89.68782957456517
+        },
+        {
+          "name": "Configured weak/SLOW driving-source pad envelope",
+          "status": "pass",
+          "criteria": "declared Rs60..100ohm, edge3..8ns, source/receiver GPIO within -0.3..3.6V"
+        },
+        {
+          "name": "Extreme uncalibrated fast-source pad stress",
+          "status": "fail",
+          "qualification": "The sensitivity model violates conservative voltage limits; not a measured absolute-maximum violation and not silently waived",
+          "min_V": -0.39892143748223674,
+          "max_V": 3.8639214374822366,
+          "parameters": "10ohm Thevenin,0.5ns edge,unextracted Tab5/Core internal paths80mm each,2nH GPIO package,no clamp model"
+        },
+        {
+          "name": "SN74CB3Q3245 external pins, uncalibrated strong-fast stress",
+          "status": "fail",
+          "criteria": "Design excursion envelope -0.5..5.5V; recommended operating0..5.5V, absolute-0.5..7V and clamp-current exception are separate vendor ratings",
+          "min_V": -2.558619650576696,
+          "max_V": 6.023619650576696,
+          "reason": "Fast sensitivity model is unclamped; negative undershoot and positive voltage excursions are not certified by reporting only the positive peak"
+        },
+        {
+          "name": "SN74CB3Q3245 external pins, configured weak/SLOW",
+          "status": "pass",
+          "min_V": -3.370175742301029e-05,
+          "max_V": 3.465033701757423
+        },
+        {
+          "name": "Actual periodic1MHz write/read sampled thresholds",
+          "status": "pass",
+          "criteria": "write VIH2.0/VIL0.8V; read VIH2.59875/VIL0.78375V; sample250ns after transition"
+        },
+        {
+          "name": "Actual portable RTL at27MHz, all37 phase positions",
+          "status": "pass",
+          "phase_count": 37,
+          "transactions_per_phase": 69,
+          "delay_budget_ns": 100,
+          "turnaround_guard_ns": 500
+        },
+        {
+          "name": "RLC segmentation sensitivity",
+          "status": "pass",
+          "scope": "Representative longestCLK A/B(shared)/C, doubled segmentation",
+          "receiver_peak_change_max_mV": 4.846745483963577,
+          "settling_change_max_ns": 0.3025260587381311
+        },
+        {
+          "name": "Distant-plane carrier160ohm sensitivity",
+          "status": "pass",
+          "scope": "Representative longestCLK A/B(shared)/C; does not reconstruct every return path",
+          "receiver_max_V": 3.5256048510670013
+        },
+        {
+          "name": "Settled DC logic levels",
+          "status": "pass",
+          "scope": "3.3V rails +/-5%, normal-operation input pulls disabled, FPGA Voh/VOL at<=0.1mA; source datasheet limits, not just ideal model rails",
+          "write_high_margin_V": 0.5005199999999999,
+          "write_low_margin_V": 0.44602,
+          "read_high_margin_V": 0.33553599999999983,
+          "read_low_margin_V": 0.5830359999999999
+        },
+        {
+          "name": "Power-good/ARM MOSFET OE transient",
+          "status": "pass",
+          "criteria": "No enable with either PG absent or ARM open; enable only after both PG and ARM"
+        },
+        {
+          "name": "Powered-off DC leakage",
+          "status": "pass",
+          "criteria": "TI specified <=1uA/channel, <=15uA aggregate for15 populated channels; no zero-leakage claim"
+        },
+        {
+          "name": "Abrupt power collapse guarantee",
+          "status": "uncertain",
+          "reason": "Supervisor20us assertion is typical only; assumed Core regulator collapse and off-state feedthrough are not fully characterized"
+        },
+        {
+          "name": "Physical DDR3/controller functionality",
+          "status": "uncertain",
+          "reason": "Current linked RTL implements ID/echo/invert/CRC/timeout; no board top or DDR3 controller is implemented in those files"
+        }
+      ],
+      "limits": [
+        "ActualGPIO drive/slew/package IBIS and full Tab5/Core layouts are unavailable; source-pad fast-edge stress remains an explicit uncertainty.",
+        "Internal board lengths and package/via parasitics are sensitivity ranges, not measured extraction.",
+        "Single-pair crosstalk and assumed shared-return model do not certify every simultaneous-switching configuration.",
+        "Stable12V operation differs from brownout; K50 PGOOD does not guarantee Core input>=4.5V."
+      ],
+      "operating_conditions": [
+        "Initial1MHz only; DATA setup/hold>=250ns; DIR turnaround>=500ns in each direction.",
+        "FPGA LVCMOS33 weakest4mA/SLOW; Tab5 weakest drive. Verify real pin edges on first hardware.",
+        "Both rails stable>=350ms, preferably500ms, before manualARM and handshake.",
+        "No Core hotplug; stop clocks and safe-state IO>=300us before intentional power-off; reinitialize FPGA/DDR after brownout."
+      ],
+      "dynamic_cases": 150,
+      "receiver_waveform_plot": "lite-b-barrel-transient.png",
+      "comparison_plot": "lite-b-barrel-damping.png"
+    },
+    "lite-c-dnp": {
+      "status": "uncertain",
+      "status_scope": "1MHz configured PoC model tests pass; unconditional GPIO/complete-board functionality is not established",
+      "PoC_initial_1MHz_models": "pass",
+      "sourcePCBhash": "b2ca3fd81eb17d8ccaf36506321dde04c4c555dca3f5dfe2ea7ad42d1458d01e",
+      "series_ohm_model": 680,
+      "series_values_extracted": [
+        "680R"
+      ],
+      "tests": [
+        {
+          "name": "15 channels, both directions, distributed RLC receiver envelope",
+          "status": "pass",
+          "criteria": "-0.3V <= GPIO receiver <=3.6V, 5% settling <250ns",
+          "min_V": -0.0901418419753588,
+          "max_V": 3.5551418419753587,
+          "settle_max_ns": 89.84782290470775
+        },
+        {
+          "name": "Configured weak/SLOW driving-source pad envelope",
+          "status": "pass",
+          "criteria": "declared Rs60..100ohm, edge3..8ns, source/receiver GPIO within -0.3..3.6V"
+        },
+        {
+          "name": "Extreme uncalibrated fast-source pad stress",
+          "status": "fail",
+          "qualification": "The sensitivity model violates conservative voltage limits; not a measured absolute-maximum violation and not silently waived",
+          "min_V": -0.40546057911952227,
+          "max_V": 3.870460579119522,
+          "parameters": "10ohm Thevenin,0.5ns edge,unextracted Tab5/Core internal paths80mm each,2nH GPIO package,no clamp model"
+        },
+        {
+          "name": "SN74CB3Q3245 external pins, uncalibrated strong-fast stress",
+          "status": "fail",
+          "criteria": "Design excursion envelope -0.5..5.5V; recommended operating0..5.5V, absolute-0.5..7V and clamp-current exception are separate vendor ratings",
+          "min_V": -2.559345677726734,
+          "max_V": 6.024345677726734,
+          "reason": "Fast sensitivity model is unclamped; negative undershoot and positive voltage excursions are not certified by reporting only the positive peak"
+        },
+        {
+          "name": "SN74CB3Q3245 external pins, configured weak/SLOW",
+          "status": "pass",
+          "min_V": -5.491642132726682e-05,
+          "max_V": 3.465054916421327
+        },
+        {
+          "name": "Actual periodic1MHz write/read sampled thresholds",
+          "status": "pass",
+          "criteria": "write VIH2.0/VIL0.8V; read VIH2.59875/VIL0.78375V; sample250ns after transition"
+        },
+        {
+          "name": "Actual portable RTL at27MHz, all37 phase positions",
+          "status": "pass",
+          "phase_count": 37,
+          "transactions_per_phase": 69,
+          "delay_budget_ns": 100,
+          "turnaround_guard_ns": 500
+        },
+        {
+          "name": "RLC segmentation sensitivity",
+          "status": "pass",
+          "scope": "Representative longestCLK A/B(shared)/C, doubled segmentation",
+          "receiver_peak_change_max_mV": 4.846745483963577,
+          "settling_change_max_ns": 0.3025260587381311
+        },
+        {
+          "name": "Distant-plane carrier160ohm sensitivity",
+          "status": "pass",
+          "scope": "Representative longestCLK A/B(shared)/C; does not reconstruct every return path",
+          "receiver_max_V": 3.5256048510670013
+        },
+        {
+          "name": "Settled DC logic levels",
+          "status": "pass",
+          "scope": "3.3V rails +/-5%, normal-operation input pulls disabled, FPGA Voh/VOL at<=0.1mA; source datasheet limits, not just ideal model rails",
+          "write_high_margin_V": 0.5005199999999999,
+          "write_low_margin_V": 0.44602,
+          "read_high_margin_V": 0.33553599999999983,
+          "read_low_margin_V": 0.5830359999999999
+        },
+        {
+          "name": "Power-good/ARM MOSFET OE transient",
+          "status": "pass",
+          "criteria": "No enable with either PG absent or ARM open; enable only after both PG and ARM"
+        },
+        {
+          "name": "Powered-off DC leakage",
+          "status": "pass",
+          "criteria": "TI specified <=1uA/channel, <=15uA aggregate for15 populated channels; no zero-leakage claim"
+        },
+        {
+          "name": "Abrupt power collapse guarantee",
+          "status": "uncertain",
+          "reason": "Supervisor20us assertion is typical only; assumed Core regulator collapse and off-state feedthrough are not fully characterized"
+        },
+        {
+          "name": "Physical DDR3/controller functionality",
+          "status": "uncertain",
+          "reason": "Current linked RTL implements ID/echo/invert/CRC/timeout; no board top or DDR3 controller is implemented in those files"
+        }
+      ],
+      "limits": [
+        "ActualGPIO drive/slew/package IBIS and full Tab5/Core layouts are unavailable; source-pad fast-edge stress remains an explicit uncertainty.",
+        "Internal board lengths and package/via parasitics are sensitivity ranges, not measured extraction.",
+        "Single-pair crosstalk and assumed shared-return model do not certify every simultaneous-switching configuration.",
+        "Stable12V operation differs from brownout; K50 PGOOD does not guarantee Core input>=4.5V."
+      ],
+      "operating_conditions": [
+        "Initial1MHz only; DATA setup/hold>=250ns; DIR turnaround>=500ns in each direction.",
+        "FPGA LVCMOS33 weakest4mA/SLOW; Tab5 weakest drive. Verify real pin edges on first hardware.",
+        "Both rails stable>=350ms, preferably500ms, before manualARM and handshake.",
+        "No Core hotplug; stop clocks and safe-state IO>=300us before intentional power-off; reinitialize FPGA/DDR after brownout."
+      ],
+      "dynamic_cases": 150,
+      "receiver_waveform_plot": "lite-c-dnp-transient.png",
+      "comparison_plot": "lite-c-dnp-damping.png"
+    }
+  },
+  "rtl_speed_matrix": [
+    {
+      "bus_Hz": 1000000,
+      "passed": 37,
+      "cases": 37
+    },
+    {
+      "bus_Hz": 2000000,
+      "passed": 0,
+      "cases": 37
+    },
+    {
+      "bus_Hz": 3000000,
+      "passed": 0,
+      "cases": 37
+    },
+    {
+      "bus_Hz": 4000000,
+      "passed": 0,
+      "cases": 37
+    },
+    {
+      "bus_Hz": 5000000,
+      "passed": 0,
+      "cases": 37
+    },
+    {
+      "bus_Hz": 10000000,
+      "passed": 0,
+      "cases": 37
+    },
+    {
+      "bus_Hz": 20000000,
+      "passed": 0,
+      "cases": 37
+    },
+    {
+      "bus_Hz": 40000000,
+      "passed": 0,
+      "cases": 37
+    }
+  ],
+  "tests_total": {
+    "resistor_channel_cases": 450,
+    "unique_spice_channel_solves": 300,
+    "RTL_phase_speed_cases": 296,
+    "RTL_independent_skew_cases": 74,
+    "crosstalk_cases": 18,
+    "power_OE_cases": 4,
+    "ladder_refinement_cases": 8,
+    "inner_layer_stress_cases": 12
+  },
+  "handoff": "HANDOFF.md"
+}

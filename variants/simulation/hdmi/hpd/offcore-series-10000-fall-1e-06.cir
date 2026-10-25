@@ -1,0 +1,21 @@
+Active-low HPD proposal: NPN buffer
+Vrail v33 0 3.366
+Vcore core 0 PWL(0 3.135 1m 3.135 0.001001 0 12m 0)
+R40 hpd base 47470.0
+R41 base 0 99000.0
+R51 v33 buf 47470.0
+Q5 buf base 0 Q3904
+.model Q3904 NPN(IS=1e-14 BF=20 BR=1 VAF=100 IKF=.1 RB=10 RC=1 RE=1 CJE=10p CJC=8e-12 TF=.4n TR=100n)
+R_esd hpd 0 5meg
+Cbuf buf 0 5e-12
+I_input buf 0 0
+Bcbo buf base I=50n*tanh(max(v(buf,base),0)/.1)
+.model GPIOclamp D(IS=1e-9 N=1 RS=1)
+.options reltol=1e-5 abstol=1e-12 vntol=1e-7
+.save all
+Dupper pin core GPIOclamp
+.save @dupper[id]
+Cfilter buf 0 1e-07
+.tran 1u 12m 0 1u
+R52 buf pin 10000
+.end

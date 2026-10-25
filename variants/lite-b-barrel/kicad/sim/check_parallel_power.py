@@ -45,7 +45,7 @@ def check(board):
         if ok:
             ref,sw_a=switches[0];sw_b=pads(ref)[str(20-int(sw_a.GetNumber()))]
             resistor=resistors[0];rp={p.GetNumber():p for p in resistor.Pads()}
-            ok=(fps[ref].GetValue()=='SN74CB3Q3245PWR' and resistor.GetValue()=='33R' and
+            ok=(fps[ref].GetValue()=='SN74CB3Q3245PWR' and resistor.GetValue()=='680R' and
                 a.GetNetname()=='M_'+sig and c.GetNetname()=='F_'+sig and
                 sw_b.GetNetname()=='ISO_'+sig and rp['1'].GetNetname()=='ISO_'+sig and
                 rp['2'].GetNetname()=='F_'+sig and reaches(a,sw_a) and reaches(sw_b,rp['1']) and reaches(rp['2'],c))

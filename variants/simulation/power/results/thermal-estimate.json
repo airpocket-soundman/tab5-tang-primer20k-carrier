@@ -1,0 +1,41 @@
+{
+  "status": "uncertain",
+  "scope": "Order-of-magnitude dissipation sensitivity, not PCB thermal simulation",
+  "ambient_C": 50,
+  "TPS5430": {
+    "normal_output_A": 0.56,
+    "Rds_max_ohm": 0.23,
+    "switch_frequency_Hz": 600000,
+    "assumed_total_switch_edge_s": [
+      2e-08,
+      1e-07
+    ],
+    "assumed_thetaJA_C_per_W": [
+      45,
+      100
+    ],
+    "estimated_loss_W": [
+      0.14,
+      0.34
+    ],
+    "estimated_junction_C_upper": 84,
+    "limitations": "Switch transition time and actual board thermal resistance are assumptions; EVM theta cannot certify this copper layout."
+  },
+  "XC6206": {
+    "normal_local_load_A": 0.01,
+    "worst_assumed_input_V": 5.5,
+    "low_output_V": 3.234,
+    "estimated_loss_W": 0.02266,
+    "assumed_thetaJA_C_per_W": 400,
+    "estimated_junction_C": 59.064,
+    "limitations": "Package Pd-based estimate, not measured thermal impedance."
+  },
+  "other_losses": {
+    "L1_normal_W": 0.016,
+    "L1_1A_sensitivity_W": 0.057,
+    "buck_diode_normal_W": 0.17,
+    "buck_diode_extra_W": 0.326,
+    "input_OR_diode_with_Tab5_1A_budget_W_approx": 0.7,
+    "limitations": "Input diode dissipation depends on actual Tab5 draw and forward voltage; copper and ambient airflow require hardware temperature measurement."
+  }
+}

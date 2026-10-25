@@ -2,7 +2,7 @@
   "ok": true,
   "scope": "Independent actual XML/PCB and preserved pin/physical pattern check; physical operation and full-board EM not established",
   "variant": "lite-a-dual",
-  "pcb_sha256": "576b3ebb2bd1f27f9adec6fcd160e8591148681028aed604d14987e91c3ed938",
+  "pcb_sha256": "0e1e0042fb797896201c978e8f4b65a2121134c5db525bb48c5f29daf5a2e805",
   "pcb_hash_normalization": "CRLF to LF",
   "checks": [
     {
@@ -46,6 +46,11 @@
       "details": null
     },
     {
+      "name": "PMOD_GPIO_pin_sockets_DNP",
+      "ok": true,
+      "details": null
+    },
+    {
       "name": "M5Bus_real_left_right_preserved",
       "ok": true,
       "details": null
@@ -64,6 +69,42 @@
       "name": "minimum_power_bus_safety_parts_fitted",
       "ok": true,
       "details": []
+    },
+    {
+      "name": "all_15_parallel_series_680R_fitted",
+      "ok": true,
+      "details": [
+        "R14",
+        "R26",
+        "R27",
+        "R24",
+        "R20",
+        "R16",
+        "R11",
+        "R22",
+        "R10",
+        "R15",
+        "R23",
+        "R13",
+        "R19",
+        "R21",
+        "R12"
+      ]
+    },
+    {
+      "name": "HDMI_caps_low_profile_0402",
+      "ok": true,
+      "details": null
+    },
+    {
+      "name": "sideband_ESD_independent_ground_low_profile",
+      "ok": true,
+      "details": null
+    },
+    {
+      "name": "HPD_inverting_filtered_current_limited_topology",
+      "ok": true,
+      "details": null
     },
     {
       "name": "outline_target",
@@ -112,7 +153,17 @@
       "details": null
     },
     {
+      "name": "parallel_series_approved_Basic_680R",
+      "ok": true,
+      "details": null
+    },
+    {
       "name": "manual_barrel_not_accidentally_PCBA",
+      "ok": true,
+      "details": null
+    },
+    {
+      "name": "PMOD_GPIO_pin_sockets_not_in_BOM_CPL",
       "ok": true,
       "details": null
     },

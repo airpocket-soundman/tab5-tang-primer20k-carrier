@@ -1,5 +1,10 @@
 # 案A：99×78mm、HDMI・USB PD・バレル入力を保持
 
+> **2026-10-25 追加シミュレーション反映版**：15本の直列抵抗は680Ω／Basic C23228。HDMI専用部は低背化し、HPD反転・100nFフィルタ・Core手前10kΩを反映（Cは全DNP）。初期1MHz、DATA setup/hold各250ns以上、DIR待ち500ns以上、弱い駆動／SLOW、規定12V・Core通常0.5A・局所3V3通常10mA以下の条件付きPoC製造候補です。実通信・DDR3／GPUの実機動作は未確認です。
+>
+> [最新の個別評価・全BoM・PCBA実装区分](../../site/lite-a-evaluation.html)、[親の独立レビュー](../simulation/independent-dynamic-review.json)、[電源](../simulation/power/final-summary.json)、[パラレル](../simulation/parallel/final-summary.json)、[HDMI](../simulation/hdmi/final-summary.json)。以下は初回設計検証時の記録も含み、最新の値・条件は上記評価を優先します。
+
+
 2026年10月25日。方法1・2・6・7とソケット変更を採用した独立設計。元の125×78mm版は変更していない。
 
 KiCad回路図・実配線PCB・製造候補データを作成した。**DRC全項目0件、未接続0件、必須パラレル通信・電源32項目通過**。これはPoC用の設計検証であり、実機通信、DDR3初期化、HDMI規格適合を実証した結果ではない。ソケットの調達・治具費と業者実装プレビューは発注時に確認する。
@@ -37,7 +42,7 @@ L1の推奨ランドは中心±4.75mm、各4.1×4.95mm。[MS1040メーカー図�
 
 Tab5のD0〜D7・CLK・RDY・DIR・AUX0〜3は元の端子割当を保持する。15信号はSN74CB3Q3245を介して接続し、両電源監視・電源断保護・手動ARMを保持する。Tab5のHVINへはVINを供給する。Tab5の5V出力・VBAT_OUTをCore 5Vへ接続しない。JP1はGPIO所有権とファームウェア設定確認後にARMする。
 
-3.3Vの負荷は、SN74CB3Q3245のICC最大2mA×2、DDCの10kΩプルアップ2本で約0.66mA、OEの22kΩで約0.15mA、合計約4.81mA。通常負荷を余裕込み10mA以下と見積もり、設計上限50mA、室内周囲50℃以下、外部給電禁止を条件とする。Core上FPGA／DDR3の電源はこのLDOから供給しない。
+3.3Vの負荷は、SN74CB3Q3245のICC最大2mA×2、DDCの10kΩプルアップ2本で約0.66mA、OEの22kΩで約0.15mA、合計約4.81mA。通常負荷を余裕込み10mA以下と見積もり、初回静的予算50mA（急変時は追加解析で±5%目標外れ、PoC条件は通常10mA以下）、室内周囲50℃以下、外部給電禁止を条件とする。Core上FPGA／DDR3の電源はこのLDOから供給しない。
 
 SN74CB3Q3245のICCは、VCC=3.6V、II/O=0、Switch ON/OFF、入力VCC/GNDの条件で最大2mA。[TI SCDS124C](https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf)を参照。OEの高速反復切替では消費電流が増えるため、OEは電源監視とARMによる静的制御として扱う。U3の50mA上限は85℃周囲での連続動作保証を意味しない。
 

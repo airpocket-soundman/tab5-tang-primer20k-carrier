@@ -1,0 +1,62 @@
+{
+  "status": "conditional_pass_with_100nF_filter",
+  "recommended_filter_F": 1e-07,
+  "recommended_debounce_ms": 10,
+  "internal_offrail_peak_injection_target_A": 1e-06,
+  "circuit": "MMBT3904 NPN, emitter GND, base from HPD47k + base100kPD, collector FPGA +47kPU to3V3; active-low",
+  "dc_cases": 480,
+  "dc_misses": 0,
+  "powered_low_max_V": 0.046521862780776864,
+  "powered_high_min_V": 2.756973704819135,
+  "off_core_pin_max_V": 0.018077602964890648,
+  "off_core_DC_injection_max_A": 1.01160442911143e-09,
+  "transients": [
+    {
+      "rail_V": 0,
+      "Cfilter_F": 0,
+      "pin_max_V": 0.26385179735085534,
+      "pin_min_V": -0.13619158618523472,
+      "core_injection_peak_A": 2.690503320402338e-05,
+      "core_injected_charge_C": 3.0098861281974032e-12,
+      "active_low_max_V": 0.018063723663024618,
+      "released_high_min_V": -7.539366314961819e-10
+    },
+    {
+      "rail_V": 0,
+      "Cfilter_F": 1e-07,
+      "pin_max_V": 0.0180636699511175,
+      "pin_min_V": 7.157665432601686e-22,
+      "core_injection_peak_A": 1.0105210979371934e-09,
+      "core_injected_charge_C": 5.475303211052168e-12,
+      "active_low_max_V": 0.0180636699511175,
+      "released_high_min_V": 0.0021119238505139756
+    },
+    {
+      "rail_V": 3.3,
+      "Cfilter_F": 0,
+      "pin_max_V": 3.055936649789574,
+      "pin_min_V": 0.011884624942842774,
+      "core_injection_peak_A": 0.0,
+      "core_injected_charge_C": 0.0,
+      "active_low_max_V": 0.02612512758802685,
+      "released_high_min_V": 2.822973653762504
+    },
+    {
+      "rail_V": 3.3,
+      "Cfilter_F": 1e-07,
+      "pin_max_V": 2.8229979792063746,
+      "pin_min_V": 0.026084898274392157,
+      "core_injection_peak_A": 0.0,
+      "core_injected_charge_C": 0.0,
+      "active_low_max_V": 0.026777802268185037,
+      "released_high_min_V": 2.293307486453543
+    }
+  ],
+  "limits": [
+    "Generic NPN model, not vendor-corner signoff.",
+    "GPIO clamp and pin capacitance are assumed sensitivities; no ESD compliance test.",
+    "RCLAMP5V leakage above VRWM, at5.5V, is not guaranteed by the 1uA@5V specification.",
+    "Firmware must invert HPD, configure the pin as input, and debounce.",
+    "DC source impedance swept up to1k; other source behavior not guaranteed."
+  ]
+}

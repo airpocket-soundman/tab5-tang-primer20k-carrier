@@ -23,12 +23,10 @@ def stage(name,args):
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--route',action='store_true');ap.add_argument('--export',action='store_true');args=ap.parse_args()
     if args.route:
-        stage('initial-layout',[KP,H/'setup_variant.py'])
-        stage('routing-setup',[sys.executable,H/'prepare_pipeline.py'])
-        stage('route',[KP,H/'kicad/gen/make_pcb.py'])
-        stage('ground-repair',[KP,H/'repair_after_route.py'])
-        stage('socket-courtyard',[KP,H/'update_socket_courtyard.py'])
-        stage('manufacturing-graphics',[KP,H/'kicad/gen/prepare_manufacturing.py'])
+        # Canonical local rebuild preserves reviewed routing and source wrappers.
+        # Historical setup/repair scripts mutate qualified footprints and are
+        # intentionally excluded from the release workflow.
+        stage('qualified-local-stage',[KP,H/'kicad/gen/make_pcb.py'])
     pcb=H/'kicad/tab5-fpga-carrier.kicad_pcb'
     sch=H/'kicad/tab5-fpga-carrier.kicad_sch'
     stage('bom',[sys.executable,H/'kicad/gen/make_bom.py','--offline'])

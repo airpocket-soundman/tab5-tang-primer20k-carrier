@@ -243,7 +243,7 @@ HDMIのチャネル推定もPCBから抽出し直して、公開値と完全に�
 
 <section id="bus">
 <h2>6. パラレル通信</h2>
-<p>Tab5 → SN74CB3Q3245（U7/U8、Ioff対応）→ 33Ω → Core。両方の電源監視（TPS3839：Tab5 3.3V／Core 5V）が正常で、BUS ARMジャンパ（JP1、初期は開放）を閉じたときだけOEが有効になる。CLKはCoreの専用クロック入力（52番、GCLKT_1）。</p>
+<p>Tab5 → SN74CB3Q3245（U7/U8、Ioff対応）→ 330Ω → Core。両方の電源監視（TPS3839：Tab5 3.3V／Core 5V）が正常で、BUS ARMジャンパ（JP1、初期は開放）を閉じたときだけOEが有効になる。CLKはCoreの専用クロック入力（52番、GCLKT_1）。</p>
 {table(["信号", "M5-Busピン", "Core SODIMMピン"], bus_rows)}
 </section>
 

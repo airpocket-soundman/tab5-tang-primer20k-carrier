@@ -1,0 +1,29 @@
+{
+  "results": [
+    {
+      "case": "weak_4mA_3ns",
+      "assumed_shared_return_L_nH": 3,
+      "assumed_shared_R_ohm": 0.05,
+      "8line_total_current_A": 0.032,
+      "edge_ns": 3.0,
+      "max_ground_V": 0.06461727223995903,
+      "min_ground_V": -0.06594144438518544,
+      "scope": "Explicit package/connector return sensitivity, not extracted measured shared package model"
+    },
+    {
+      "case": "strong_40mA_half_ns",
+      "assumed_shared_return_L_nH": 3,
+      "assumed_shared_R_ohm": 0.05,
+      "8line_total_current_A": 0.32,
+      "edge_ns": 0.5,
+      "max_ground_V": 4.6293767905588865,
+      "min_ground_V": -4.659200649384627,
+      "scope": "Explicit package/connector return sensitivity, not extracted measured shared package model"
+    }
+  ],
+  "limits": [
+    "The 3nH shared-return and simultaneous-current waveform are sensitivity assumptions, not the complete ESP32-P4/GW2A package IBIS power model.",
+    "The strong ideal-current stress exceeds supply compliance: its multi-volt ringing is a model-domain warning, not a prediction that real chip ground will reach that voltage.",
+    "Input thresholds and local supply references move with package ground; figures are not simply added as independent worst-case noise guarantees."
+  ]
+}

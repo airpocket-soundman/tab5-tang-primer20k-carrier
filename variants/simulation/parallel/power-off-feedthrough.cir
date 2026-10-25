@@ -1,0 +1,10 @@
+Powered-off isolation Ioff/feedthrough sensitivity
+Vsignal a 0 PULSE(0 3.465 10n 3n 3n 500n 1u)
+Roff a b 3.6Meg
+Ca a 0 5p
+Cb b 0 13p
+Rpull b 0 45k
+Cfeed a b 1p
+.tran 1n 2u 0 1n
+.save v(b) v(a)
+.end

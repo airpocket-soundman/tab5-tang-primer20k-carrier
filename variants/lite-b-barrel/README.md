@@ -1,5 +1,10 @@
 # 廉価版B：99×78mm、HDMIあり、12Vバレル入力
 
+> **2026-10-25 追加シミュレーション反映版**：15本の直列抵抗は680Ω／Basic C23228。HDMI専用部は低背化し、HPD反転・100nFフィルタ・Core手前10kΩを反映（Cは全DNP）。初期1MHz、DATA setup/hold各250ns以上、DIR待ち500ns以上、弱い駆動／SLOW、規定12V・Core通常0.5A・局所3V3通常10mA以下の条件付きPoC製造候補です。実通信・DDR3／GPUの実機動作は未確認です。
+>
+> [最新の個別評価・全BoM・PCBA実装区分](../../site/lite-b-evaluation.html)、[親の独立レビュー](../simulation/independent-dynamic-review.json)、[電源](../simulation/power/final-summary.json)、[パラレル](../simulation/parallel/final-summary.json)、[HDMI](../simulation/hdmi/final-summary.json)。以下は初回設計検証時の記録も含み、最新の値・条件は上記評価を優先します。
+
+
 2026年10月25日。指定方法1・2・5・6・7とソケット変更を反映した、現行版とは別の回路図・PCB。現行の125×78mm版は変更していない。
 
 ## 設計と実装
@@ -11,10 +16,10 @@
 | USB PD | J2・U1・C2・R1〜R5・D2とPD専用9ネットの銅配線を除去 |
 | Coreソケット | XDAP-4042044-20401、C22471982。204P、標準方向、5.2mm高。**PCBA対象**。Core本体はユーザー支給で購入BOMに含めない |
 | L1 | COILMX MS1040-150M、C380054。15µH、Irms4.5A、Isat6A、DCR最大45mΩ。メーカー推奨ランドへ変更 |
-| U3 | TOREX XC6206P332MR-G、C5446。3.3V局所回路用。外部給電なし、総負荷50mA以下が設計条件 |
+| U3 | TOREX XC6206P332MR-G、C5446。3.3V局所回路用。外部給電なし、通常総負荷10mA以下がPoC条件。50mA急変は追加感度で目標外れあり |
 | 帰還抵抗 | R7=3.3kΩと、R49＋R50=100kΩ＋100kΩを並列。合成3246.4338Ω、5V降圧の公称設定4.982V |
 | HDMIバイアス | 元の単一499ΩをBasic単一510Ωへ変更。8個の短い分岐形状を維持し、二並列化は採用しない。元値との差は+2.2%、別途感度評価済み |
-| 必須通信 | 8bitデータ、CLK、RDY、DIR、AUXを含む15信号、33Ω直列抵抗、2個のIoffバススイッチ、両電源監視と手動ARMを維持 |
+| 必須通信 | 8bitデータ、CLK、RDY、DIR、AUXを含む15信号、680Ω直列抵抗、2個のIoffバススイッチ、両電源監視と手動ARMを維持 |
 
 HDMI端子は保持。J1・J3・J5・SW1〜SW3・JP1は元版と同様に手実装対象で、PCBA納品後に必要な組立を行う。J4の204ピンソケットを手はんだへ回す構成ではない。JP1は初期開放とし、Tab5／FPGAのGPIO駆動方向を確認してからARMする。
 

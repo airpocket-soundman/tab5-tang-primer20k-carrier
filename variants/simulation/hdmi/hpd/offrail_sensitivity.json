@@ -1,0 +1,80 @@
+{
+  "status": "uncertain_no_vendor_injection_rating",
+  "scope": "Independent Core-bank fall while local3V3 remains powered; generic assumed GPIO diode, HPD unplugged/inactive worst charged filter",
+  "results": [
+    {
+      "series_R_ohm": 0.1,
+      "core_fall_s": 1e-06,
+      "local_rail_V": 3.366,
+      "postfall_injection_peak_A": 0.31347360776348676,
+      "postfall_injection_final_A": 6.48199846615394e-05,
+      "GPIO_final_V": 0.28663218478003527,
+      "buffer_final_V": 0.2866386667785014
+    },
+    {
+      "series_R_ohm": 0.1,
+      "core_fall_s": 0.001,
+      "local_rail_V": 3.366,
+      "postfall_injection_peak_A": 0.0003769306628302353,
+      "postfall_injection_final_A": 6.481998466228284e-05,
+      "GPIO_final_V": 0.2866321847803327,
+      "buffer_final_V": 0.2866386667787989
+    },
+    {
+      "series_R_ohm": 1000,
+      "core_fall_s": 1e-06,
+      "local_rail_V": 3.366,
+      "postfall_injection_peak_A": 0.0029134380231022883,
+      "postfall_injection_final_A": 6.349360744830853e-05,
+      "GPIO_final_V": 0.28609611655136113,
+      "buffer_final_V": 0.34958972399964583
+    },
+    {
+      "series_R_ohm": 1000,
+      "core_fall_s": 0.001,
+      "local_rail_V": 3.366,
+      "postfall_injection_peak_A": 0.00036279555369906485,
+      "postfall_injection_final_A": 6.349360744832447e-05,
+      "GPIO_final_V": 0.2860961165513677,
+      "buffer_final_V": 0.34958972399968047
+    },
+    {
+      "series_R_ohm": 4700,
+      "core_fall_s": 1e-06,
+      "local_rail_V": 3.366,
+      "postfall_injection_peak_A": 0.0006315715505053766,
+      "postfall_injection_final_A": 5.902667577753246e-05,
+      "GPIO_final_V": 0.2842048410238569,
+      "buffer_final_V": 0.5616302171782521
+    },
+    {
+      "series_R_ohm": 4700,
+      "core_fall_s": 0.001,
+      "local_rail_V": 3.366,
+      "postfall_injection_peak_A": 0.0002884569276948791,
+      "postfall_injection_final_A": 5.902667584102377e-05,
+      "GPIO_final_V": 0.28420484105174126,
+      "buffer_final_V": 0.5616302175047584
+    },
+    {
+      "series_R_ohm": 10000,
+      "core_fall_s": 1e-06,
+      "local_rail_V": 3.366,
+      "postfall_injection_peak_A": 0.000299250038052866,
+      "postfall_injection_final_A": 5.362701731910545e-05,
+      "GPIO_final_V": 0.2817180964327839,
+      "buffer_final_V": 0.8179882696237146
+    },
+    {
+      "series_R_ohm": 10000,
+      "core_fall_s": 0.001,
+      "local_rail_V": 3.366,
+      "postfall_injection_peak_A": 0.00019883404907496604,
+      "postfall_injection_final_A": 5.36275965705139e-05,
+      "GPIO_final_V": 0.2817183763848243,
+      "buffer_final_V": 0.8179943420902516
+    }
+  ],
+  "recommendation": "Add 10k between filtered collector node and Core input to limit stored-capacitor discharge. This reduces but does not eliminate local3V3-to-off-Core DC injection (~50uA). No absent-rail guarantee without bank-referenced pullup or qualified fail-safe buffer.",
+  "original_off_core_18mV_scope": "Both Core and local rails zero only"
+}

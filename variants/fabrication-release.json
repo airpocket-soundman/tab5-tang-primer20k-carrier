@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-25",
+  "status": "conditional PoC fabrication candidates; not measured hardware success",
+  "initial_conditions": "1MHz, data setup/hold250ns, direction500ns, weak drive/SLOW, regulated12V +/-5%, Core0.5A normal/local3V3<=10mA, ambient0..50C sensitivity; see per-variant limits",
+  "variants": [
+    {
+      "variant": "lite-a-dual",
+      "label": "A",
+      "folder": "variants/lite-a-dual/manufacturing/lite-a-dual-2026-10-25",
+      "required_uploads": [
+        "gerbers.zip",
+        "jlc-bom.csv",
+        "jlc-cpl.csv"
+      ],
+      "source_pcb_sha256_LF": "0e1e0042fb797896201c978e8f4b65a2121134c5db525bb48c5f29daf5a2e805",
+      "pcba_components": 98,
+      "pcba_bom_rows": 39,
+      "report": "site/lite-a-evaluation.html",
+      "assembly": "J4 PCBA mandatory; Core user-supplied; J6/J7/J8 optional user-fit, excluded PCBA; other manual/DNP CSVs must be checked"
+    },
+    {
+      "variant": "lite-b-barrel",
+      "label": "B",
+      "folder": "variants/lite-b-barrel/manufacturing/poc-2026-10-25",
+      "required_uploads": [
+        "gerbers.zip",
+        "jlc-bom.csv",
+        "jlc-cpl.csv"
+      ],
+      "source_pcb_sha256_LF": "bcc60b30a6094220057f5d26d87612e8c3ad37ce6d8fb75ffec1ddccbdaf7003",
+      "pcba_components": 90,
+      "pcba_bom_rows": 35,
+      "report": "site/lite-b-evaluation.html",
+      "assembly": "J4 PCBA mandatory; Core user-supplied; J6/J7/J8 optional user-fit, excluded PCBA; other manual/DNP CSVs must be checked"
+    },
+    {
+      "variant": "lite-c-dnp",
+      "label": "C",
+      "folder": "variants/lite-c-dnp/manufacturing/poc-lite-c-2026-10-25",
+      "required_uploads": [
+        "gerbers.zip",
+        "jlc-bom.csv",
+        "jlc-cpl.csv"
+      ],
+      "source_pcb_sha256_LF": "b2ca3fd81eb17d8ccaf36506321dde04c4c555dca3f5dfe2ea7ad42d1458d01e",
+      "pcba_components": 58,
+      "pcba_bom_rows": 27,
+      "report": "site/lite-c-evaluation.html",
+      "assembly": "J4 PCBA mandatory; Core user-supplied; J6/J7/J8 optional user-fit, excluded PCBA; other manual/DNP CSVs must be checked"
+    }
+  ]
+}

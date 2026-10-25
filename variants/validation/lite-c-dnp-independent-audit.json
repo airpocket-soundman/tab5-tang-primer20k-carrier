@@ -2,7 +2,7 @@
   "ok": true,
   "scope": "Independent actual XML/PCB and preserved pin/physical pattern check; physical operation and full-board EM not established",
   "variant": "lite-c-dnp",
-  "pcb_sha256": "4a14f13e1025ac107434fc04f65633798485873a4b5719e1fdd998df620ffdc5",
+  "pcb_sha256": "b2ca3fd81eb17d8ccaf36506321dde04c4c555dca3f5dfe2ea7ad42d1458d01e",
   "pcb_hash_normalization": "CRLF to LF",
   "checks": [
     {
@@ -46,6 +46,11 @@
       "details": null
     },
     {
+      "name": "PMOD_GPIO_pin_sockets_DNP",
+      "ok": true,
+      "details": null
+    },
+    {
       "name": "M5Bus_real_left_right_preserved",
       "ok": true,
       "details": null
@@ -64,6 +69,27 @@
       "name": "minimum_power_bus_safety_parts_fitted",
       "ok": true,
       "details": []
+    },
+    {
+      "name": "all_15_parallel_series_680R_fitted",
+      "ok": true,
+      "details": [
+        "R26",
+        "R14",
+        "R16",
+        "R15",
+        "R19",
+        "R13",
+        "R12",
+        "R22",
+        "R11",
+        "R20",
+        "R24",
+        "R21",
+        "R10",
+        "R23",
+        "R27"
+      ]
     },
     {
       "name": "outline_target",
@@ -107,7 +133,17 @@
       "details": null
     },
     {
+      "name": "parallel_series_approved_Basic_680R",
+      "ok": true,
+      "details": null
+    },
+    {
       "name": "manual_barrel_not_accidentally_PCBA",
+      "ok": true,
+      "details": null
+    },
+    {
+      "name": "PMOD_GPIO_pin_sockets_not_in_BOM_CPL",
       "ok": true,
       "details": null
     },

@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-25",
+  "purpose": "Tab5 8bit parallel + independently powered Tang Primer20K Core DDR3/accelerator; Linux and GPU use separate software/bitstreams. HDMI is optional minimum success.",
+  "repositories": [
+    {
+      "repository": "tab5-linux-fpga",
+      "commit": "c1cd5e47f9f07a164bc070b8defe36bb05682c6b",
+      "reviewed_files": [
+        "README.md",
+        "docs/DEVELOPMENT_GOALS.md",
+        "linux/dts/tab5-overrides.dtsi",
+        "tools/fpga-link/transport.py",
+        "docs/FPGA_LINK_PREPARATION.md"
+      ]
+    },
+    {
+      "repository": "tab5-fpga-gpu",
+      "commit": "3b1ace3d91c6305ec0e32378f8819fce208c2aa7",
+      "reviewed_files": [
+        "README.md",
+        "docs/Project_B_Tab5_FPGA_GPU.md",
+        "bringup/tab5/main/board_profile.h",
+        "bringup/rtl/link_bus_wrapper.v",
+        "bringup/rtl/link_bringup.v"
+      ]
+    },
+    {
+      "repository": "esp32p4-linux-fpga-memory",
+      "commit": "e4aa69d09b2643d6f62fe686ef0f3284b109c541",
+      "reviewed_files": [
+        "README.md",
+        "docs/Project_A_P4_Linux_FPGA_Virtual_MMU.md"
+      ]
+    }
+  ],
+  "findings": [
+    "On reviewed local development branch Linux transport is mock only; published main has no physical FPGA transport driver. DeviceTree/PARLIO implementation is not established in either reviewed version.",
+    "GPU board profile is explicitly unverified; actual link RTL is echo/CRC/timeout, not complete DDR3 GPU board top.",
+    "Research memory repository is planning material and cannot substitute for Linux review.",
+    "Initial 1MHz is a fabrication/bringup condition; 40MHz/40MBps architecture target is not validated by this evaluation.",
+    "Core onboard DDR3 layout is retained; official factory DDR test is a bringup reference. Complete Core DDR3 SI/RTL and final GPU functionality are not simulated.",
+    "Carrier GPIO/net assignments remain unchanged; firmware weak drive/SLOW, startup ARM guard, brownout reinitialization and inverted HPD must be reflected during related-project implementation."
+  ],
+  "related_repository_modifications": "No source changes in related repositories; handoff required before enabling their unverified board profiles.",
+  "published_main_recheck": {
+    "repository": "tab5-linux-fpga",
+    "commit": "020884957cbcfc0f426e1af39869ec3989996b23",
+    "reviewed_files": [
+      "README.md",
+      "docs/DEVELOPMENT_GOALS.md",
+      "docs/RAM_GPU_PLAN.md",
+      "linux/dts/tab5-overrides.dtsi"
+    ],
+    "finding": "Published main emphasizes explicit FPGA DDR3 tiled/spill/compute use and separate GPU bitstreams. Initial8bitPARLIO remains a proposal, physical driver/DMA unimplemented. Active local development branch c1cd5e4 additionally contains mock preparation; do not conflate branch implementation statuses. No changed pin or power requirement found.",
+    "device_tree_difference_from_reviewed_local": "none for tab5-overrides.dtsi",
+    "implementation_search": "git ls-tree origin/main tools linux/dts: no FPGA physical transport driver found; tools/fpga-link exists only on reviewed development branch."
+  }
+}

@@ -1,0 +1,27 @@
+calibration-vendor-minimal
+.include "D:/github/airpocket-soundman/tab5-tang-primer20k-carrier-audit-pages/variants/simulation/power/models/TPS5430_TRANS.LIB"
+.param temper=25
+Vsource src 0 PWL(0 0 10u 0 20u 12)
+Rsource src vin .1
+Cin vin 0 20u
+Rena vin en 100k
+Renb en 0 15k
+Rtop vout fb 10k
+Rbot fb 0 3246.43384
+XU boot en 0 nc nc1 0 ph vin fb TPS5430_TRANS MODE=0
+Cboot boot ph 10n
+Dcatch 0 ph D54
+Rdcr ph li .045
+L1 li vout 15u
+Resr vout capout .04
+Cout capout 0 220u
+Rload vout 0 10
+.model D54 D(Is=50u Rs=.02 N=1.2 Cjo=200p Tt=8n Bv=40 Ibv=1m)
+Rcore vout vcore .001
+Rcore_bleed vcore 0 1G
+R33dummy v33raw 0 1k
+Istep vout 0 PWL(0 0 9m 0 9.001m .5 10m .5 10.001m 0)
+.options reltol=.003 abstol=1n vntol=10u itl4=200 method=gear
+.save v(vout) v(vcore) v(v33raw) v(vin) v(en) i(L1) i(Vsource)
+.tran 1e-07 0.011 0 1e-07 uic
+.end

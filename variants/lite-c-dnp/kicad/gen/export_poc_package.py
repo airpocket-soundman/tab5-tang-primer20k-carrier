@@ -49,6 +49,8 @@ def main():
  pos=list(csv.DictReader((OUT/'kicad-position.csv').open(encoding='utf8',newline='')))
  cpl=[[r['Ref'],r['PosX'],r['PosY'],r['Side'],r['Rot']] for r in pos if r['Ref'] in refs]
  assert {r[0] for r in cpl}==refs and len(cpl)==len(refs)
+ assert not {'J6','J7','J8'}.intersection(refs),'PMOD/GPIO pin sockets must remain outside PCBA'
+ assert 'J4' in refs,'Core socket must be assembled by PCBA'
  write('jlc-cpl.csv',['Designator','Mid X','Mid Y','Layer','Rotation'],cpl)
  write('manual-assembly.csv',['Refs','Value','Footprint','Action'],manual)
  actual_manual_refs=sorted({ref for row in manual for ref in row[0].split(',') if not ref.startswith('H')})

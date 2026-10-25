@@ -212,4 +212,17 @@ def main(route=True):
 
 
 if __name__ == "__main__":
-    main(route="--noroute" not in sys.argv)
+    if '--experimental-full-route' in sys.argv:
+        main(route=True)
+    elif '--noroute' in sys.argv:
+        main(route=False)
+    else:
+        # Preserve the qualified essential routing. A full route is experimental;
+        # the final reviewed HDMI stage is the default reproducible release path.
+        import subprocess
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[4]
+        variant=Path(__file__).resolve().parents[2].name
+        py='C:/Program Files/KiCad/10.0/bin/python.exe'
+        subprocess.run([py,'-X','utf8',str(root/'variants/simulation/hdmi/prepare_hdmi_cad.py'),variant],check=True)
+        subprocess.run(['python','-X','utf8',str(root/'variants/simulation/hdmi/adopt_hdmi_cad.py'),variant],check=True)

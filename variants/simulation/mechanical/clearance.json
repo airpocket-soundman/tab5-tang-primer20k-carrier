@@ -1,0 +1,4682 @@
+{
+  "scope": "Conservative 3D AABB check using official Core STEP component geometry.\n\nCore STEP uses +Y up; KiCad uses +Y down. At socket rotation 270 degrees:\ncarrier X = socket X + STEP Y + (15 - native card-edge Y),\ncarrier Y = socket Y + STEP X. STEP Z remains up (no physical board flip).\nInsertion depth and support height are swept rather than silently assuming an\nexact mounted pose unavailable as a controlled drawing dimension.\n",
+  "proposal_only_not_actual_CAD": false,
+  "core_step_sha256": "67c94bbba472b0fe799a4fadc396a9f40a4214332b4fb97c35a2d5aadd848416",
+  "criteria": {
+    "minimum_clearance_mm": 0.3,
+    "relative_xy_uncertainty_mm": 0.25,
+    "card_edge_native_Y_sweep_mm": [
+      -0.5,
+      4.5
+    ],
+    "card_bottom_above_carrier_sweep_mm": [
+      2.3,
+      2.6,
+      2.8,
+      3.0,
+      3.3,
+      3.5
+    ]
+  },
+  "pose_limitations": "These broad sweeps are engineering assumptions from 3.30 reference/contact-gap/1mm card and housing dimensions, not a manufacturer-guaranteed mounted-height tolerance. AABB separation is conservative; overlapping envelopes require physical-detail review or relocation.",
+  "variants": {
+    "lite-a-dual": {
+      "pass_clearance": true,
+      "components": [
+        {
+          "ref": "R14",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            31.6975,
+            71.89,
+            32.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R7",
+          "value": "3.3k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            32.0375,
+            64.65,
+            33.0825,
+            66.35
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R48",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            71.15,
+            64.5375,
+            72.85,
+            65.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D7",
+          "value": "LED",
+          "footprint": "LED_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            121.455,
+            64.55,
+            123.86,
+            65.795
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "J5",
+          "value": "HDMI OUT",
+          "footprint": "HDMI_A_Molex_208658-1001_Horizontal",
+          "height_envelope_mm": 6.55,
+          "body_xy_mm": [
+            114.825,
+            12.45,
+            127.075,
+            27.55
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "J1",
+          "value": "DC 12V ONLY",
+          "footprint": "BarrelJack_Horizontal",
+          "height_envelope_mm": 11.65,
+          "body_xy_mm": [
+            29.25,
+            10.444575,
+            43.85,
+            19.55
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "L1",
+          "value": "15u MS1040-150M",
+          "footprint": "L_COILMX_MS1040",
+          "height_envelope_mm": 4.05,
+          "body_xy_mm": [
+            37.95,
+            45.7,
+            48.05,
+            57.3
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C11",
+          "value": "22u/10V",
+          "footprint": "C_1206_3216Metric",
+          "height_envelope_mm": 2.05,
+          "body_xy_mm": [
+            65.65,
+            11.85,
+            67.35,
+            15.15
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C13",
+          "value": "100n",
+          "footprint": "C_0402_1005Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            99.45,
+            14.2,
+            100.55,
+            14.8
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "R8",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            38.65,
+            68.5375,
+            40.35,
+            69.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R31",
+          "value": "510R",
+          "footprint": "R_0402_1005Metric",
+          "height_envelope_mm": 0.45,
+          "body_xy_mm": [
+            109.725,
+            17.93,
+            110.875,
+            18.57
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 1.8499999,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "218",
+            "core_part_type": "Tang_Primer_20K_3690 PCB",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              81.7399999,
+              6.799999900000003,
+              2.2999999,
+              111.74000010000005,
+              74.40000010000063,
+              3.3000001
+            ]
+          }
+        },
+        {
+          "ref": "R26",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            49.6975,
+            71.89,
+            50.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C12",
+          "value": "100n",
+          "footprint": "C_0402_1005Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            99.45,
+            12.7,
+            100.55,
+            13.3
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "R51",
+          "value": "47k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            59.15,
+            57.5375,
+            60.85,
+            58.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U10",
+          "value": "TPS3839K50DBZR",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            67.18,
+            60.0,
+            68.82,
+            63.12
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R27",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            51.3175,
+            71.89,
+            52.2425
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R6",
+          "value": "10k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            34.5375,
+            65.65,
+            35.4625,
+            67.35
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R35",
+          "value": "510R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            103.4375,
+            25.55,
+            104.3625,
+            27.25
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.4499770390055273,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "213",
+            "core_part_type": "SOT-23",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              100.82997703900553,
+              24.39997603900553,
+              1.0499770390055274,
+              103.33002296099447,
+              27.400021960994472,
+              2.250022960994472
+            ]
+          }
+        },
+        {
+          "ref": "F2",
+          "value": "PTC 500mA",
+          "footprint": "Fuse_1206_3216Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            109.55,
+            27.65,
+            111.25,
+            30.95
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.8499998870590769,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "143",
+            "core_part_type": "R_Array_Concave_4x0402",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              108.8199999,
+              27.60999986317616,
+              1.799999887059077,
+              110.82000009999999,
+              28.610000136823842,
+              2.250000112941
+            ]
+          }
+        },
+        {
+          "ref": "D3",
+          "value": "SMBJ15A",
+          "footprint": "D_SMB",
+          "height_envelope_mm": 2.65,
+          "body_xy_mm": [
+            30.45,
+            37.65,
+            34.55,
+            42.35
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R28",
+          "value": "510R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            100.7375,
+            9.35,
+            101.7825,
+            11.05
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "R30",
+          "value": "510R",
+          "footprint": "R_0402_1005Metric",
+          "height_envelope_mm": 0.45,
+          "body_xy_mm": [
+            109.725,
+            16.43,
+            110.875,
+            17.07
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 1.8499999,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "218",
+            "core_part_type": "Tang_Primer_20K_3690 PCB",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              81.7399999,
+              6.799999900000003,
+              2.2999999,
+              111.74000010000005,
+              74.40000010000063,
+              3.3000001
+            ]
+          }
+        },
+        {
+          "ref": "Q2",
+          "value": "2N7002",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            65.8,
+            17.5,
+            67.2,
+            20.5
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D2",
+          "value": "SS54",
+          "footprint": "D_SMA",
+          "height_envelope_mm": 2.65,
+          "body_xy_mm": [
+            47.45,
+            34.15,
+            50.55,
+            38.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R39",
+          "value": "2.2k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            115.95,
+            30.3375,
+            117.65,
+            31.2625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C17",
+          "value": "100n",
+          "footprint": "C_0402_1005Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            99.45,
+            20.2,
+            100.55,
+            20.8
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "R5",
+          "value": "0R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            37.5375,
+            33.15,
+            38.4625,
+            34.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D6",
+          "value": "LED",
+          "footprint": "LED_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            121.455,
+            62.55,
+            123.86,
+            63.795
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C1",
+          "value": "100u/35V",
+          "footprint": "CP_Elec_6.3x7.7",
+          "height_envelope_mm": 7.75,
+          "body_xy_mm": [
+            38.15,
+            36.65,
+            44.85,
+            43.35
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "JP1",
+          "value": "BUS ARM (open by default)",
+          "footprint": "PinHeader_1x02_P2.54mm_Vertical",
+          "height_envelope_mm": 8.55,
+          "body_xy_mm": [
+            57.58,
+            70.18,
+            60.22,
+            75.36
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C19",
+          "value": "100n",
+          "footprint": "C_0402_1005Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            99.45,
+            23.2,
+            100.55,
+            23.8
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 1.1499998999999996,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "62",
+            "core_part_type": "C_0402_1005Metric",
+            "card_edge_native_mm": 1.75,
+            "core_bbox_mm": [
+              100.7299999,
+              22.6299999,
+              1.7499998999999997,
+              101.2300001,
+              23.630000100000004,
+              2.2500001
+            ]
+          }
+        },
+        {
+          "ref": "R24",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            46.6975,
+            71.89,
+            47.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R46",
+          "value": "22k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            67.15,
+            71.5375,
+            68.85,
+            72.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R34",
+          "value": "510R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            101.7375,
+            25.55,
+            102.7825,
+            27.25
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.4499770390055273,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "213",
+            "core_part_type": "SOT-23",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              100.82997703900553,
+              24.39997603900553,
+              1.0499770390055274,
+              103.33002296099447,
+              27.400021960994472,
+              2.250022960994472
+            ]
+          }
+        },
+        {
+          "ref": "R20",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            40.6975,
+            71.89,
+            41.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R45",
+          "value": "1k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            118.35,
+            66.5375,
+            120.05,
+            67.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R42",
+          "value": "1k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            118.35,
+            60.5375,
+            120.05,
+            61.5825
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "SW3",
+          "value": "FPGA ON/OFF",
+          "footprint": "SW_DIP_SPSTx01_Slide_9.78x4.72mm_W7.62mm_P2.54mm",
+          "height_envelope_mm": 4.35,
+          "body_xy_mm": [
+            31.87,
+            4.09,
+            41.75,
+            8.91
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R16",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            34.6975,
+            71.89,
+            35.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D8",
+          "value": "LED",
+          "footprint": "LED_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            122.15,
+            66.55,
+            123.85,
+            67.45
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C15",
+          "value": "100n",
+          "footprint": "C_0402_1005Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            99.45,
+            17.2,
+            100.55,
+            17.8
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "R32",
+          "value": "510R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            98.3375,
+            25.55,
+            99.3825,
+            27.25
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.4499770390055273,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "213",
+            "core_part_type": "SOT-23",
+            "card_edge_native_mm": 0.75,
+            "core_bbox_mm": [
+              99.57997703900553,
+              24.39997603900553,
+              1.0499770390055274,
+              102.08002296099447,
+              27.400021960994472,
+              2.250022960994472
+            ]
+          }
+        },
+        {
+          "ref": "U9",
+          "value": "TPS3839G33DBZR",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            62.18,
+            60.0,
+            63.82,
+            63.12
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C23",
+          "value": "100n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            67.15,
+            64.55,
+            68.85,
+            65.45
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R11",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            27.1975,
+            71.89,
+            28.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U7",
+          "value": "SN74CB3Q3245PWR",
+          "footprint": "TSSOP-20_4.4x6.5mm_P0.65mm",
+          "height_envelope_mm": 1.25,
+          "body_xy_mm": [
+            62.45,
+            25.2,
+            66.95,
+            31.8
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R9",
+          "value": "15k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            42.15,
+            68.5375,
+            43.85,
+            69.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R37",
+          "value": "10k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            59.0375,
+            33.15,
+            59.9625,
+            34.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R22",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            43.6975,
+            71.89,
+            44.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "SW2",
+          "value": "RESET (Tab5)",
+          "footprint": "SW_SPST_EVQP0",
+          "height_envelope_mm": 4.35,
+          "body_xy_mm": [
+            67.9,
+            3.95,
+            74.5,
+            10.05
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C10",
+          "value": "10u/16V",
+          "footprint": "C_1206_3216Metric",
+          "height_envelope_mm": 2.05,
+          "body_xy_mm": [
+            55.65,
+            11.35,
+            57.35,
+            14.65
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "Q3",
+          "value": "2N7002",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            62.3,
+            67.0,
+            63.7,
+            70.0
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C5",
+          "value": "10u/50V",
+          "footprint": "C_1206_3216Metric",
+          "height_envelope_mm": 2.05,
+          "body_xy_mm": [
+            44.85,
+            65.15,
+            48.15,
+            66.97
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C24",
+          "value": "100n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            64.15,
+            54.55,
+            65.85,
+            55.45
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R52",
+          "value": "10k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            67.15,
+            54.5375,
+            68.85,
+            55.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R47",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            58.65,
+            65.0375,
+            60.35,
+            65.9625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R1",
+          "value": "10k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            49.0375,
+            26.65,
+            49.9625,
+            28.35
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C22",
+          "value": "100n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            62.15,
+            64.55,
+            63.85,
+            65.57
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D5",
+          "value": "LED",
+          "footprint": "LED_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            121.455,
+            60.55,
+            123.86,
+            61.795
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C20",
+          "value": "100n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            63.85,
+            23.05,
+            65.55,
+            24.07
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U5",
+          "value": "RCLAMP0524P",
+          "footprint": "DFN2510-10L_RCLAMP0524P",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            107.45,
+            18.45,
+            108.55,
+            21.05
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "R40",
+          "value": "47k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            59.0375,
+            36.65,
+            59.9625,
+            38.35
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R10",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            18.6175,
+            71.89,
+            19.5425
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C16",
+          "value": "100n",
+          "footprint": "C_0402_1005Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            99.45,
+            18.7,
+            100.55,
+            19.3
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "R3",
+          "value": "0R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            37.5375,
+            26.15,
+            38.4625,
+            27.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U6",
+          "value": "RCLAMP0524P",
+          "footprint": "DFN2510-10L_RCLAMP0524P",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            106.45,
+            23.5,
+            107.55,
+            26.1
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.4499770390055273,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "121",
+            "core_part_type": "SOT-23",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              105.15997703900553,
+              24.37997703900553,
+              1.0499770390055274,
+              107.66002296099447,
+              27.380022960994474,
+              2.250022960994472
+            ]
+          }
+        },
+        {
+          "ref": "R50",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            33.65,
+            68.5375,
+            35.35,
+            69.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C18",
+          "value": "100n",
+          "footprint": "C_0402_1005Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            99.45,
+            21.7,
+            100.55,
+            22.3
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "D4",
+          "value": "SS54",
+          "footprint": "D_SMA",
+          "height_envelope_mm": 2.65,
+          "body_xy_mm": [
+            31.15,
+            55.45,
+            35.85,
+            58.55
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C14",
+          "value": "100n",
+          "footprint": "C_0402_1005Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            99.45,
+            15.7,
+            100.55,
+            16.3
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "F1",
+          "value": "PTC 3A hold",
+          "footprint": "Fuse_1812_4532Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            40.7,
+            22.35,
+            45.3,
+            25.65
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R38",
+          "value": "2.2k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            112.75,
+            30.3375,
+            114.45,
+            31.2625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C6",
+          "value": "100n/50V",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            45.65,
+            68.55,
+            47.35,
+            69.45
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R44",
+          "value": "1k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            118.35,
+            64.5375,
+            120.05,
+            65.5825
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R33",
+          "value": "510R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            100.0375,
+            25.55,
+            101.0825,
+            27.25
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.4499770390055273,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "213",
+            "core_part_type": "SOT-23",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              100.82997703900553,
+              24.39997603900553,
+              1.0499770390055274,
+              103.33002296099447,
+              27.400021960994472,
+              2.250022960994472
+            ]
+          }
+        },
+        {
+          "ref": "R2",
+          "value": "1k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            49.0375,
+            23.15,
+            49.9625,
+            24.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U4",
+          "value": "RCLAMP0524P",
+          "footprint": "DFN2510-10L_RCLAMP0524P",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            107.45,
+            15.45,
+            108.55,
+            18.05
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "J2",
+          "value": "USB-C PD in",
+          "footprint": "USB_C_Receptacle_GCT_USB4125-xx-x-0190_6P_TopMnt_Horizontal",
+          "height_envelope_mm": 3.55,
+          "body_xy_mm": [
+            28.55,
+            25.48,
+            35.45,
+            34.52
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R49",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            30.15,
+            68.5375,
+            31.85,
+            69.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C2",
+          "value": "1u/50V",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            49.05,
+            30.15,
+            49.95,
+            31.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R15",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            33.1975,
+            71.89,
+            34.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U1",
+          "value": "CH224K",
+          "footprint": "SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm",
+          "height_envelope_mm": 1.8,
+          "body_xy_mm": [
+            41.0,
+            28.0,
+            45.0,
+            33.0
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D1",
+          "value": "SS54",
+          "footprint": "D_SMA",
+          "height_envelope_mm": 2.65,
+          "body_xy_mm": [
+            47.45,
+            14.15,
+            50.55,
+            18.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U8",
+          "value": "SN74CB3Q3245PWR",
+          "footprint": "TSSOP-20_4.4x6.5mm_P0.65mm",
+          "height_envelope_mm": 1.25,
+          "body_xy_mm": [
+            62.45,
+            41.2,
+            66.95,
+            47.8
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R23",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            45.1975,
+            71.89,
+            46.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C4",
+          "value": "10u/50V",
+          "footprint": "C_1206_3216Metric",
+          "height_envelope_mm": 2.05,
+          "body_xy_mm": [
+            44.85,
+            61.15,
+            48.15,
+            62.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R13",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            30.1975,
+            71.89,
+            31.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R29",
+          "value": "510R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            102.4375,
+            9.35,
+            103.3625,
+            11.05
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "C21",
+          "value": "100n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            63.85,
+            39.05,
+            65.55,
+            40.07
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R19",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            39.1975,
+            71.89,
+            40.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R36",
+          "value": "10k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            59.0375,
+            22.15,
+            59.9625,
+            23.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C3",
+          "value": "10n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            33.05,
+            60.45,
+            33.95,
+            62.15
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R41",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            59.0375,
+            40.15,
+            59.9625,
+            41.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R43",
+          "value": "1k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            118.35,
+            62.5375,
+            120.05,
+            63.5825
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "Q4",
+          "value": "2N7002",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            67.18,
+            67.0,
+            68.82,
+            70.12
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "SW1",
+          "value": "SW",
+          "footprint": "SW_SPST_EVQP0",
+          "height_envelope_mm": 4.35,
+          "body_xy_mm": [
+            58.59,
+            3.95,
+            65.41,
+            10.16
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R21",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            42.1975,
+            71.89,
+            43.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "Q1",
+          "value": "2N7002",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            57.8,
+            16.5,
+            59.2,
+            19.5
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U2",
+          "value": "TPS5430DDAR",
+          "footprint": "TI_SO-PowerPAD-8_ThermalVias",
+          "height_envelope_mm": 1.8,
+          "body_xy_mm": [
+            37.975,
+            60.475,
+            42.025,
+            65.525
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U3",
+          "value": "XC6206P332MR-G",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            60.8,
+            11.5,
+            62.2,
+            14.5
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C7",
+          "value": "220u/10V POSCAP",
+          "footprint": "CP_EIA-7343-40_Kemet-Y",
+          "height_envelope_mm": 4.05,
+          "body_xy_mm": [
+            31.3,
+            44.8,
+            35.7,
+            52.2
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R12",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            28.6975,
+            71.89,
+            29.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "Q5",
+          "value": "MMBT3904",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            60.3,
+            53.5,
+            61.7,
+            56.5
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        }
+      ],
+      "failures": []
+    },
+    "lite-b-barrel": {
+      "pass_clearance": true,
+      "components": [
+        {
+          "ref": "R14",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            31.6975,
+            71.89,
+            32.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R7",
+          "value": "3.3k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            32.0375,
+            64.65,
+            33.0825,
+            66.35
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R48",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            71.15,
+            64.5375,
+            72.85,
+            65.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D7",
+          "value": "LED",
+          "footprint": "LED_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            121.455,
+            64.55,
+            123.86,
+            65.795
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "J5",
+          "value": "HDMI OUT",
+          "footprint": "HDMI_A_Molex_208658-1001_Horizontal",
+          "height_envelope_mm": 6.55,
+          "body_xy_mm": [
+            114.825,
+            12.45,
+            127.075,
+            27.55
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "J1",
+          "value": "DC 12V ONLY",
+          "footprint": "BarrelJack_Horizontal",
+          "height_envelope_mm": 11.65,
+          "body_xy_mm": [
+            29.25,
+            10.444575,
+            43.85,
+            19.55
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "L1",
+          "value": "15u MS1040-150M",
+          "footprint": "L_COILMX_MS1040",
+          "height_envelope_mm": 4.05,
+          "body_xy_mm": [
+            37.95,
+            45.7,
+            48.05,
+            57.3
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C11",
+          "value": "22u/10V",
+          "footprint": "C_1206_3216Metric",
+          "height_envelope_mm": 2.05,
+          "body_xy_mm": [
+            65.65,
+            11.85,
+            67.35,
+            15.15
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C13",
+          "value": "100n",
+          "footprint": "C_0402_1005Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            99.45,
+            14.2,
+            100.55,
+            14.8
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "R8",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            38.65,
+            68.5375,
+            40.35,
+            69.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R31",
+          "value": "510R",
+          "footprint": "R_0402_1005Metric",
+          "height_envelope_mm": 0.45,
+          "body_xy_mm": [
+            109.725,
+            17.93,
+            110.875,
+            18.57
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 1.8499999,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "218",
+            "core_part_type": "Tang_Primer_20K_3690 PCB",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              81.7399999,
+              6.799999900000003,
+              2.2999999,
+              111.74000010000005,
+              74.40000010000063,
+              3.3000001
+            ]
+          }
+        },
+        {
+          "ref": "R26",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            49.6975,
+            71.89,
+            50.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C12",
+          "value": "100n",
+          "footprint": "C_0402_1005Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            99.45,
+            12.7,
+            100.55,
+            13.3
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "U10",
+          "value": "TPS3839K50DBZR",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            67.18,
+            60.0,
+            68.82,
+            63.12
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R51",
+          "value": "47k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            59.15,
+            57.5375,
+            60.85,
+            58.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R27",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            51.3175,
+            71.89,
+            52.2425
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R6",
+          "value": "10k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            34.5375,
+            65.65,
+            35.4625,
+            67.35
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R35",
+          "value": "510R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            103.4375,
+            25.55,
+            104.3625,
+            27.25
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.4499770390055273,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "213",
+            "core_part_type": "SOT-23",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              100.82997703900553,
+              24.39997603900553,
+              1.0499770390055274,
+              103.33002296099447,
+              27.400021960994472,
+              2.250022960994472
+            ]
+          }
+        },
+        {
+          "ref": "F2",
+          "value": "PTC 500mA",
+          "footprint": "Fuse_1206_3216Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            109.55,
+            27.65,
+            111.25,
+            30.95
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.8499998870590769,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "143",
+            "core_part_type": "R_Array_Concave_4x0402",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              108.8199999,
+              27.60999986317616,
+              1.799999887059077,
+              110.82000009999999,
+              28.610000136823842,
+              2.250000112941
+            ]
+          }
+        },
+        {
+          "ref": "D3",
+          "value": "SMBJ15A",
+          "footprint": "D_SMB",
+          "height_envelope_mm": 2.65,
+          "body_xy_mm": [
+            30.45,
+            37.65,
+            34.55,
+            42.35
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R28",
+          "value": "510R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            100.7375,
+            9.35,
+            101.7825,
+            11.05
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "R30",
+          "value": "510R",
+          "footprint": "R_0402_1005Metric",
+          "height_envelope_mm": 0.45,
+          "body_xy_mm": [
+            109.725,
+            16.43,
+            110.875,
+            17.07
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 1.8499999,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "218",
+            "core_part_type": "Tang_Primer_20K_3690 PCB",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              81.7399999,
+              6.799999900000003,
+              2.2999999,
+              111.74000010000005,
+              74.40000010000063,
+              3.3000001
+            ]
+          }
+        },
+        {
+          "ref": "Q2",
+          "value": "2N7002",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            65.8,
+            17.5,
+            67.2,
+            20.5
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R39",
+          "value": "2.2k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            115.95,
+            30.3375,
+            117.65,
+            31.2625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C17",
+          "value": "100n",
+          "footprint": "C_0402_1005Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            99.45,
+            20.2,
+            100.55,
+            20.8
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "D6",
+          "value": "LED",
+          "footprint": "LED_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            121.455,
+            62.55,
+            123.86,
+            63.795
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C1",
+          "value": "100u/35V",
+          "footprint": "CP_Elec_6.3x7.7",
+          "height_envelope_mm": 7.75,
+          "body_xy_mm": [
+            38.15,
+            36.65,
+            44.85,
+            43.35
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "JP1",
+          "value": "BUS ARM (open by default)",
+          "footprint": "PinHeader_1x02_P2.54mm_Vertical",
+          "height_envelope_mm": 8.55,
+          "body_xy_mm": [
+            57.58,
+            70.18,
+            60.22,
+            75.36
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C19",
+          "value": "100n",
+          "footprint": "C_0402_1005Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            99.45,
+            23.2,
+            100.55,
+            23.8
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 1.1499998999999996,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "62",
+            "core_part_type": "C_0402_1005Metric",
+            "card_edge_native_mm": 1.75,
+            "core_bbox_mm": [
+              100.7299999,
+              22.6299999,
+              1.7499998999999997,
+              101.2300001,
+              23.630000100000004,
+              2.2500001
+            ]
+          }
+        },
+        {
+          "ref": "R24",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            46.6975,
+            71.89,
+            47.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R46",
+          "value": "22k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            67.15,
+            71.5375,
+            68.85,
+            72.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R34",
+          "value": "510R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            101.7375,
+            25.55,
+            102.7825,
+            27.25
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.4499770390055273,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "213",
+            "core_part_type": "SOT-23",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              100.82997703900553,
+              24.39997603900553,
+              1.0499770390055274,
+              103.33002296099447,
+              27.400021960994472,
+              2.250022960994472
+            ]
+          }
+        },
+        {
+          "ref": "R20",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            40.6975,
+            71.89,
+            41.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R45",
+          "value": "1k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            118.35,
+            66.5375,
+            120.05,
+            67.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R42",
+          "value": "1k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            118.35,
+            60.5375,
+            120.05,
+            61.5825
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "SW3",
+          "value": "FPGA ON/OFF",
+          "footprint": "SW_DIP_SPSTx01_Slide_9.78x4.72mm_W7.62mm_P2.54mm",
+          "height_envelope_mm": 4.35,
+          "body_xy_mm": [
+            31.87,
+            4.09,
+            41.75,
+            8.91
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R16",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            34.6975,
+            71.89,
+            35.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D8",
+          "value": "LED",
+          "footprint": "LED_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            122.15,
+            66.55,
+            123.85,
+            67.45
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C15",
+          "value": "100n",
+          "footprint": "C_0402_1005Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            99.45,
+            17.2,
+            100.55,
+            17.8
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "R32",
+          "value": "510R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            98.3375,
+            25.55,
+            99.3825,
+            27.25
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.4499770390055273,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "213",
+            "core_part_type": "SOT-23",
+            "card_edge_native_mm": 0.75,
+            "core_bbox_mm": [
+              99.57997703900553,
+              24.39997603900553,
+              1.0499770390055274,
+              102.08002296099447,
+              27.400021960994472,
+              2.250022960994472
+            ]
+          }
+        },
+        {
+          "ref": "U9",
+          "value": "TPS3839G33DBZR",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            62.18,
+            60.0,
+            63.82,
+            63.12
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C23",
+          "value": "100n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            67.15,
+            64.55,
+            68.85,
+            65.45
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R11",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            27.1975,
+            71.89,
+            28.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U7",
+          "value": "SN74CB3Q3245PWR",
+          "footprint": "TSSOP-20_4.4x6.5mm_P0.65mm",
+          "height_envelope_mm": 1.25,
+          "body_xy_mm": [
+            62.45,
+            25.2,
+            66.95,
+            31.8
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R9",
+          "value": "15k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            42.15,
+            68.5375,
+            43.85,
+            69.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R37",
+          "value": "10k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            59.0375,
+            33.15,
+            59.9625,
+            34.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R22",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            43.6975,
+            71.89,
+            44.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "SW2",
+          "value": "RESET (Tab5)",
+          "footprint": "SW_SPST_EVQP0",
+          "height_envelope_mm": 4.35,
+          "body_xy_mm": [
+            67.9,
+            3.95,
+            74.5,
+            10.05
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C10",
+          "value": "10u/16V",
+          "footprint": "C_1206_3216Metric",
+          "height_envelope_mm": 2.05,
+          "body_xy_mm": [
+            55.65,
+            11.35,
+            57.35,
+            14.65
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "Q3",
+          "value": "2N7002",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            62.3,
+            67.0,
+            63.7,
+            70.0
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C5",
+          "value": "10u/50V",
+          "footprint": "C_1206_3216Metric",
+          "height_envelope_mm": 2.05,
+          "body_xy_mm": [
+            44.85,
+            65.15,
+            48.15,
+            66.97
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R47",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            58.65,
+            65.0375,
+            60.35,
+            65.9625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R52",
+          "value": "10k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            67.15,
+            54.5375,
+            68.85,
+            55.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C22",
+          "value": "100n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            62.15,
+            64.55,
+            63.85,
+            65.57
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D5",
+          "value": "LED",
+          "footprint": "LED_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            121.455,
+            60.55,
+            123.86,
+            61.795
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C20",
+          "value": "100n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            63.85,
+            23.05,
+            65.55,
+            24.07
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U5",
+          "value": "RCLAMP0524P",
+          "footprint": "DFN2510-10L_RCLAMP0524P",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            107.45,
+            18.45,
+            108.55,
+            21.05
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "R40",
+          "value": "47k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            59.0375,
+            36.65,
+            59.9625,
+            38.35
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R10",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            18.6175,
+            71.89,
+            19.5425
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C16",
+          "value": "100n",
+          "footprint": "C_0402_1005Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            99.45,
+            18.7,
+            100.55,
+            19.3
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "U6",
+          "value": "RCLAMP0524P",
+          "footprint": "DFN2510-10L_RCLAMP0524P",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            106.45,
+            23.5,
+            107.55,
+            26.1
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.4499770390055273,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "121",
+            "core_part_type": "SOT-23",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              105.15997703900553,
+              24.37997703900553,
+              1.0499770390055274,
+              107.66002296099447,
+              27.380022960994474,
+              2.250022960994472
+            ]
+          }
+        },
+        {
+          "ref": "R50",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            33.65,
+            68.5375,
+            35.35,
+            69.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C18",
+          "value": "100n",
+          "footprint": "C_0402_1005Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            99.45,
+            21.7,
+            100.55,
+            22.3
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "D4",
+          "value": "SS54",
+          "footprint": "D_SMA",
+          "height_envelope_mm": 2.65,
+          "body_xy_mm": [
+            31.15,
+            55.45,
+            35.85,
+            58.55
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C14",
+          "value": "100n",
+          "footprint": "C_0402_1005Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            99.45,
+            15.7,
+            100.55,
+            16.3
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "F1",
+          "value": "PTC 3A hold",
+          "footprint": "Fuse_1812_4532Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            40.7,
+            22.35,
+            45.3,
+            25.65
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R38",
+          "value": "2.2k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            112.75,
+            30.3375,
+            114.45,
+            31.2625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C6",
+          "value": "100n/50V",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            45.65,
+            68.55,
+            47.35,
+            69.45
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R44",
+          "value": "1k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            118.35,
+            64.5375,
+            120.05,
+            65.5825
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R33",
+          "value": "510R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            100.0375,
+            25.55,
+            101.0825,
+            27.25
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.4499770390055273,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "213",
+            "core_part_type": "SOT-23",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              100.82997703900553,
+              24.39997603900553,
+              1.0499770390055274,
+              103.33002296099447,
+              27.400021960994472,
+              2.250022960994472
+            ]
+          }
+        },
+        {
+          "ref": "U4",
+          "value": "RCLAMP0524P",
+          "footprint": "DFN2510-10L_RCLAMP0524P",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            107.45,
+            15.45,
+            108.55,
+            18.05
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "R49",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            30.15,
+            68.5375,
+            31.85,
+            69.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R15",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            33.1975,
+            71.89,
+            34.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D1",
+          "value": "SS54",
+          "footprint": "D_SMA",
+          "height_envelope_mm": 2.65,
+          "body_xy_mm": [
+            47.45,
+            14.15,
+            50.55,
+            18.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U8",
+          "value": "SN74CB3Q3245PWR",
+          "footprint": "TSSOP-20_4.4x6.5mm_P0.65mm",
+          "height_envelope_mm": 1.25,
+          "body_xy_mm": [
+            62.45,
+            41.2,
+            66.95,
+            47.8
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R23",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            45.1975,
+            71.89,
+            46.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C4",
+          "value": "10u/50V",
+          "footprint": "C_1206_3216Metric",
+          "height_envelope_mm": 2.05,
+          "body_xy_mm": [
+            44.85,
+            61.15,
+            48.15,
+            62.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R13",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            30.1975,
+            71.89,
+            31.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R29",
+          "value": "510R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            102.4375,
+            9.35,
+            103.3625,
+            11.05
+          ],
+          "overlap_in_xy": true,
+          "minimum_vertical_gap_mm": 0.309323240391961,
+          "pass_clearance": true,
+          "limiting": {
+            "core_part": "186",
+            "core_part_type": "microSD_HC_Molex_104031-0811",
+            "card_edge_native_mm": -0.5,
+            "core_bbox_mm": [
+              96.23183424039196,
+              8.939380240391959,
+              0.9093232403919611,
+              108.28318775960804,
+              21.620733759608036,
+              2.360676759608039
+            ]
+          }
+        },
+        {
+          "ref": "C21",
+          "value": "100n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            63.85,
+            39.05,
+            65.55,
+            40.07
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R19",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            39.1975,
+            71.89,
+            40.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R36",
+          "value": "10k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            59.0375,
+            22.15,
+            59.9625,
+            23.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C3",
+          "value": "10n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            33.05,
+            60.45,
+            33.95,
+            62.15
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R41",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            59.0375,
+            40.15,
+            59.9625,
+            41.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R43",
+          "value": "1k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            118.35,
+            62.5375,
+            120.05,
+            63.5825
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "Q4",
+          "value": "2N7002",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            67.18,
+            67.0,
+            68.82,
+            70.12
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "SW1",
+          "value": "SW",
+          "footprint": "SW_SPST_EVQP0",
+          "height_envelope_mm": 4.35,
+          "body_xy_mm": [
+            58.59,
+            3.95,
+            65.41,
+            10.16
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R21",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            42.1975,
+            71.89,
+            43.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "Q1",
+          "value": "2N7002",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            57.8,
+            16.5,
+            59.2,
+            19.5
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C24",
+          "value": "100n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            64.15,
+            54.55,
+            65.85,
+            55.45
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U2",
+          "value": "TPS5430DDAR",
+          "footprint": "TI_SO-PowerPAD-8_ThermalVias",
+          "height_envelope_mm": 1.8,
+          "body_xy_mm": [
+            37.975,
+            60.475,
+            42.025,
+            65.525
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U3",
+          "value": "XC6206P332MR-G",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            60.8,
+            11.5,
+            62.2,
+            14.5
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C7",
+          "value": "220u/10V POSCAP",
+          "footprint": "CP_EIA-7343-40_Kemet-Y",
+          "height_envelope_mm": 4.05,
+          "body_xy_mm": [
+            31.3,
+            44.8,
+            35.7,
+            52.2
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "Q5",
+          "value": "MMBT3904",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            60.3,
+            53.5,
+            61.7,
+            56.5
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R12",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            28.6975,
+            71.89,
+            29.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        }
+      ],
+      "failures": []
+    },
+    "lite-c-dnp": {
+      "pass_clearance": true,
+      "components": [
+        {
+          "ref": "SW2",
+          "value": "RESET (Tab5)",
+          "footprint": "SW_SPST_EVQP0",
+          "height_envelope_mm": 4.35,
+          "body_xy_mm": [
+            36.1,
+            4.45,
+            42.7,
+            10.55
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "L1",
+          "value": "15uH MS1040-150M",
+          "footprint": "L_COILMX_MS1040",
+          "height_envelope_mm": 4.05,
+          "body_xy_mm": [
+            33.825,
+            55.725,
+            44.175,
+            67.275
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R26",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            49.6975,
+            71.89,
+            50.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R6",
+          "value": "10k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            21.5375,
+            69.65,
+            22.4625,
+            71.35
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "SW3",
+          "value": "FPGA ON/OFF",
+          "footprint": "SW_DIP_SPSTx01_Slide_9.78x4.72mm_W7.62mm_P2.54mm",
+          "height_envelope_mm": 4.35,
+          "body_xy_mm": [
+            11.25,
+            5.09,
+            21.13,
+            9.91
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U10",
+          "value": "TPS3839K50DBZR",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            67.18,
+            60.0,
+            68.82,
+            63.12
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "SW1",
+          "value": "SW",
+          "footprint": "SW_SPST_EVQP0",
+          "height_envelope_mm": 4.35,
+          "body_xy_mm": [
+            26.7,
+            4.45,
+            33.3,
+            10.55
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C1",
+          "value": "100u/35V",
+          "footprint": "CP_Elec_6.3x7.7",
+          "height_envelope_mm": 7.75,
+          "body_xy_mm": [
+            24.03,
+            53.65,
+            30.85,
+            60.47
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "J1",
+          "value": "DC 12V ONLY",
+          "footprint": "BarrelJack_Horizontal",
+          "height_envelope_mm": 11.65,
+          "body_xy_mm": [
+            3.25,
+            45.444575,
+            17.85,
+            54.55
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "Q3",
+          "value": "2N7002",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            62.3,
+            67.0,
+            63.7,
+            70.0
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R47",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            58.65,
+            65.0375,
+            60.35,
+            65.9625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C23",
+          "value": "100n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            67.15,
+            64.55,
+            68.85,
+            65.45
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R14",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            31.6975,
+            71.89,
+            32.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C21",
+          "value": "100n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            63.85,
+            39.05,
+            65.55,
+            40.07
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U9",
+          "value": "TPS3839G33DBZR",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            62.18,
+            60.0,
+            63.82,
+            63.12
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C5",
+          "value": "10u/50V",
+          "footprint": "C_1206_3216Metric",
+          "height_envelope_mm": 2.05,
+          "body_xy_mm": [
+            37.85,
+            70.95,
+            41.15,
+            72.65
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R16",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            34.6975,
+            71.89,
+            35.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R46",
+          "value": "22k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            67.15,
+            71.5375,
+            68.85,
+            72.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R15",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            33.1975,
+            71.89,
+            34.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U2",
+          "value": "TPS5430DDAR",
+          "footprint": "TI_SO-PowerPAD-8_ThermalVias",
+          "height_envelope_mm": 1.8,
+          "body_xy_mm": [
+            24.975,
+            66.475,
+            29.025,
+            71.525
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R19",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            39.1975,
+            71.89,
+            40.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D6",
+          "value": "LED",
+          "footprint": "LED_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            63.155,
+            13.705,
+            65.56,
+            15.295
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R49",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            15.65,
+            69.0375,
+            17.35,
+            69.9625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R50",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            15.65,
+            72.0375,
+            17.35,
+            72.9625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R13",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            30.1975,
+            71.89,
+            31.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R45",
+          "value": "1k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            73.25,
+            5.0375,
+            74.95,
+            5.9625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U3",
+          "value": "XC6206P332MR-G",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            61.0875,
+            6.55,
+            62.4875,
+            9.55
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R12",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            28.6975,
+            71.89,
+            29.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "JP1",
+          "value": "BUS ARM (open by default)",
+          "footprint": "PinHeader_1x02_P2.54mm_Vertical",
+          "height_envelope_mm": 8.55,
+          "body_xy_mm": [
+            57.58,
+            70.18,
+            60.22,
+            75.36
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R9",
+          "value": "15k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            25.95,
+            74.5375,
+            27.65,
+            75.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "F1",
+          "value": "PTC 3A hold",
+          "footprint": "Fuse_1812_4532Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            22.35,
+            43.7,
+            25.65,
+            48.3
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R42",
+          "value": "1k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            60.15,
+            13.5375,
+            61.85,
+            14.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C11",
+          "value": "22u/10V",
+          "footprint": "C_1206_3216Metric",
+          "height_envelope_mm": 2.05,
+          "body_xy_mm": [
+            57.75,
+            6.85,
+            59.45,
+            10.15
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R22",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            43.6975,
+            71.89,
+            44.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C20",
+          "value": "100n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            63.85,
+            23.05,
+            65.55,
+            24.07
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C4",
+          "value": "10u/50V",
+          "footprint": "C_1206_3216Metric",
+          "height_envelope_mm": 2.05,
+          "body_xy_mm": [
+            32.15,
+            68.65,
+            35.45,
+            70.47
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R44",
+          "value": "1k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            69.55,
+            5.0375,
+            71.25,
+            5.9625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D7",
+          "value": "LED",
+          "footprint": "LED_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            70.855,
+            15.705,
+            73.26,
+            17.295
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R7",
+          "value": "3.3k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            19.5375,
+            66.65,
+            20.4625,
+            68.35
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U7",
+          "value": "SN74CB3Q3245PWR",
+          "footprint": "TSSOP-20_4.4x6.5mm_P0.65mm",
+          "height_envelope_mm": 1.25,
+          "body_xy_mm": [
+            62.45,
+            25.2,
+            66.95,
+            31.8
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D8",
+          "value": "LED",
+          "footprint": "LED_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            71.055,
+            14.05,
+            73.46,
+            15.295
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D4",
+          "value": "SS54",
+          "footprint": "D_SMA",
+          "height_envelope_mm": 2.65,
+          "body_xy_mm": [
+            23.43,
+            61.29,
+            29.35,
+            64.55
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R8",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            29.2375,
+            73.15,
+            30.1625,
+            74.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "Q4",
+          "value": "2N7002",
+          "footprint": "SOT-23",
+          "height_envelope_mm": 1.5,
+          "body_xy_mm": [
+            67.18,
+            67.0,
+            68.82,
+            70.12
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R43",
+          "value": "1k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            53.85,
+            16.5375,
+            55.55,
+            17.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R11",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            27.1975,
+            71.89,
+            28.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R20",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            40.6975,
+            71.89,
+            41.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D1",
+          "value": "SS54",
+          "footprint": "D_SMA",
+          "height_envelope_mm": 2.65,
+          "body_xy_mm": [
+            27.95,
+            47.15,
+            31.05,
+            51.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C22",
+          "value": "100n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            62.15,
+            64.55,
+            63.85,
+            65.57
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C6",
+          "value": "100n/50V",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            32.95,
+            72.05,
+            34.65,
+            72.95
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C7",
+          "value": "220u/10V POSCAP",
+          "footprint": "CP_EIA-7343-40_Kemet-Y",
+          "height_envelope_mm": 4.05,
+          "body_xy_mm": [
+            36.68,
+            46.09,
+            41.2,
+            54.275
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C3",
+          "value": "10n",
+          "footprint": "C_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            21.55,
+            64.15,
+            22.45,
+            65.85
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D3",
+          "value": "SMBJ15A",
+          "footprint": "D_SMB",
+          "height_envelope_mm": 2.65,
+          "body_xy_mm": [
+            16.15,
+            57.45,
+            20.85,
+            61.55
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "U8",
+          "value": "SN74CB3Q3245PWR",
+          "footprint": "TSSOP-20_4.4x6.5mm_P0.65mm",
+          "height_envelope_mm": 1.25,
+          "body_xy_mm": [
+            62.45,
+            41.2,
+            66.95,
+            47.8
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R24",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            46.6975,
+            71.89,
+            47.8625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "C10",
+          "value": "10u/16V",
+          "footprint": "C_1206_3216Metric",
+          "height_envelope_mm": 2.05,
+          "body_xy_mm": [
+            63.35,
+            4.65,
+            66.65,
+            6.35
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "D5",
+          "value": "LED",
+          "footprint": "LED_0603_1608Metric",
+          "height_envelope_mm": 0.9500000000000001,
+          "body_xy_mm": [
+            61.65,
+            16.05,
+            63.35,
+            16.95
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R21",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            42.1975,
+            71.89,
+            43.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R10",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            18.6175,
+            71.89,
+            19.5425
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R48",
+          "value": "100k",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            71.15,
+            64.5375,
+            72.85,
+            65.4625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R23",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            45.1975,
+            71.89,
+            46.3625
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        },
+        {
+          "ref": "R27",
+          "value": "680R",
+          "footprint": "R_0603_1608Metric",
+          "height_envelope_mm": 0.6000000000000001,
+          "body_xy_mm": [
+            70.19,
+            51.3175,
+            71.89,
+            52.2425
+          ],
+          "overlap_in_xy": false,
+          "minimum_vertical_gap_mm": null,
+          "pass_clearance": true,
+          "limiting": null
+        }
+      ],
+      "failures": []
+    }
+  }
+}

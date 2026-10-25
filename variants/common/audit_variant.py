@@ -66,6 +66,7 @@ for ref in ('J3','J4'):
     wrong=[p for p in pins if p not in new or old[p].GetNetname()!=new[p].GetNetname()]
     check(ref+'_preserved_all_connector_pin_nets',not wrong,wrong)
 check('socket_PCBA_required',not fps['J4'].IsDNP())
+check('PMOD_GPIO_pin_sockets_DNP',all(r in fps and fps[r].IsDNP() for r in ('J6','J7','J8')))
 mb=pads(fps['J3'])
 check('M5Bus_real_left_right_preserved',fps['J3'].IsFlipped() and all(sum((a-z)**2 for a,z in zip(pos(mb[n]),xy))<1e-6 for n,xy in [('1',(53.73,22.15)),('2',(56.27,22.15)),('29',(53.73,57.71)),('30',(56.27,57.71))]))
 check('Tab5_5V_VBAT_not_tied',all(not mb[p].GetNetname() for p in ('28','30')))
@@ -80,11 +81,24 @@ for n in range(1,205):
 check('socket_204_centers_match_STD_drawing',not geometry,geometry)
 required=('U7','U8','U9','U10','Q3','Q4','JP1','R46','R47','R48','U2','U3','L1','D1','D3','D4','F1','C1','C7','R6','R7','R49','R50')
 check('minimum_power_bus_safety_parts_fitted',all(r in fps and not fps[r].IsDNP() for r in required),[r for r in required if r not in fps or fps[r].IsDNP()])
+series=[]
+for ref,fp in fps.items():
+    if not ref.startswith('R'):continue
+    ns={str(p.GetNetname()) for p in fp.Pads()}
+    iso=next((n for n in ns if n.startswith('ISO_')),None)
+    if iso and ns=={iso,'F_'+iso[4:]}:series.append(ref)
+check('all_15_parallel_series_680R_fitted',len(series)==15 and all(fps[r].GetValue()=='680R' and not fps[r].IsDNP() for r in series),series)
+if name!='lite-c-dnp':
+    caps=[f'C{i}' for i in range(12,20)]
+    check('HDMI_caps_low_profile_0402',all('C_0402' in str(fps[r].GetFPID().GetLibItemName()) for r in caps))
+    check('sideband_ESD_independent_ground_low_profile',str(fps['U6'].GetFPID().GetLibItemName())=='DFN2510-10L_RCLAMP0524P' and fps['U6'].GetValue()=='RCLAMP0524P')
+    expected_hpd={'Q5':{'1':'HPD_B','2':'GND','3':'HPD_BUF'},'R40':{'1':'HDMI_HPD','2':'HPD_B'},'R41':{'1':'HPD_B','2':'GND'},'R51':{'1':'+3V3','2':'HPD_BUF'},'R52':{'1':'HPD_BUF','2':'F_HPD'},'C24':{'1':'HPD_BUF','2':'GND'}}
+    check('HPD_inverting_filtered_current_limited_topology',all(r in fps and not fps[r].IsDNP() and {n:str(p.GetNetname()) for n,p in pads(fps[r]).items()}==ns for r,ns in expected_hpd.items()))
 shape=b.GetBoardEdgesBoundingBox();dims=[pcbnew.ToMM(shape.GetWidth()),pcbnew.ToMM(shape.GetHeight())]
 target=[125,78] if name=='lite-c-dnp' else [99,78]
 check('outline_target',all(abs(a-z)<.15 for a,z in zip(dims,target)),dict(actual_edge_bbox_mm=dims,target_mm=target))
 if name=='lite-c-dnp':
-    expected={'J2','U1','C2','R1','R2','R3','R4','R5','D2','J5','U4','U5','U6','Q1','Q2','F2'}|{f'C{i}' for i in range(12,20)}|{f'R{i}' for i in range(28,42)}
+    expected={'J2','U1','C2','R1','R2','R3','R4','R5','D2','J5','U4','U5','U6','Q1','Q2','F2','Q5','R51','R52','C24'}|{f'C{i}' for i in range(12,20)}|{f'R{i}' for i in range(28,42)}
     check('all_HDMI_PD_lands_retained_but_DNP',all(r in fps and fps[r].IsDNP() for r in expected))
 elif name=='lite-b-barrel':
     removed={'J2','U1','C2','R1','R2','R3','R4','R5','D2'}
@@ -105,7 +119,9 @@ if len(packages)==1:
     crefs=[row['Designator'] for row in cpl]
     check('BOM_CPL_equal_and_no_DNP',set(brefs)==set(crefs) and len(crefs)==len(set(crefs)) and all(not fps[r].IsDNP() for r in crefs))
     check('socket_LDO_L1_correct_procurement',all(brefs.get(r)==p for r,p in [('J4','C22471982'),('U3','C5446'),('L1','C380054'),('R7','C22978'),('R49','C25803'),('R50','C25803')]))
+    check('parallel_series_approved_Basic_680R',len(series)==15 and all(brefs.get(r)=='C23228' for r in series))
     check('manual_barrel_not_accidentally_PCBA',all(r not in crefs for r in ('J1','J3','JP1')))
+    check('PMOD_GPIO_pin_sockets_not_in_BOM_CPL',not {'J6','J7','J8'}.intersection(set(brefs)|set(crefs)))
     if name!='lite-c-dnp':check('Basic_bias_correct_procurement',all(brefs.get(f'R{i}')==('C25123' if i in (30,31) else 'C23193') for i in range(28,36)))
     check('CPL_in_board_origin_frame',all(0<=float(row['Mid X'])<=target[0] and 0<=float(row['Mid Y'])<=target[1] for row in cpl))
     hashes=[]

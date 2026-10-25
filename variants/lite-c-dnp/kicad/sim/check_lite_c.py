@@ -50,8 +50,8 @@ def geometry(b):
             result[('track',t.GetNetname(),t.GetLayer(),tuple(sorted((a,z))),t.GetWidth())]+=1
     return result
 old=geometry(base);new=geometry(board)
-signal_old=Counter({k:v for k,v in old.items() if k[1] not in ('GND','+5V','+3V3','VIN','DC_RAW','DC_IN','VBUS_PD','BUCK_PH','BUCK_BOOT','BUCK_FB','BUCK_EN')})
-record('all_original_signal_tracks_and_vias_preserved',not(signal_old-new),original_signal_items=sum(signal_old.values()),added_items=sum((new-old).values()),removed_power_items=sum((old-new).values()))
+signal_old=Counter({k:v for k,v in old.items() if k[1] not in ('GND','+5V','+3V3','VIN','DC_RAW','DC_IN','VBUS_PD','BUCK_PH','BUCK_BOOT','BUCK_FB','BUCK_EN','HDMI_SDA','HDMI_SCL','HDMI_HPD','HDMI_5V','F_HPD')})
+record('all_original_parallel_and_TMDS_tracks_and_vias_preserved_HDMI_sideband_intentionally_rerouted',not(signal_old-new),original_signal_items=sum(signal_old.values()),added_items=sum((new-old).values()),removed_power_items=sum((old-new).values()))
 oldpads={p.GetNumber():p for p in bfps['J4'].Pads() if p.GetNumber().isdigit()}
 newpads={p.GetNumber():p for p in fps['J4'].Pads() if p.GetNumber().isdigit()}
 delta={n:pcbnew.ToMM((oldpads[n].GetPosition()-newpads[n].GetPosition()).EuclideanNorm()) for n in oldpads}
@@ -80,7 +80,7 @@ if package.exists():
     cpl=list(csv.DictReader((package/'jlc-cpl.csv').open(encoding='utf-8',newline='')))
     refs={r for row in bom for r in row['Designator'].split(',')}
     record('PCBA_BOM_CPL_exact_ref_match',refs=={r['Designator'] for r in cpl} and len(refs)==len(cpl),pcba_components=len(refs))
-    record('PCBA_socket_included_HDMI_PD_excluded','J4' in refs and not (refs&{'J2','U1','C2','R1','R2','R3','R4','R5','D2','J5','U4','U5','U6','Q1','Q2','F2'}))
+    record('PCBA_socket_included_HDMI_PD_excluded','J4' in refs and not (refs&{'J2','U1','C2','R1','R2','R3','R4','R5','D2','J5','U4','U5','U6','Q1','Q2','Q5','R51','R52','C24','F2'}))
 result=dict(ok=all(r['ok'] for r in checks),variant='lite-c-dnp',checks=checks,scope='CAD connectivity and population validation; not measured hardware or firmware operation')
 (HERE/'lite_c_check.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
 print(json.dumps({'ok':result['ok'],'checks':len(checks),'failed':[r for r in checks if not r['ok']]},indent=1))

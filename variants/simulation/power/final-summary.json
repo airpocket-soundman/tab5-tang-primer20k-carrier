@@ -1,0 +1,861 @@
+{
+  "date": "2026-10-25",
+  "scope": "Power transient model evaluation for positive regulated 12V PoC; no original or variant CAD modified by this analysis",
+  "model_calibration": {
+    "TI_original_model": {
+      "status": "reference circuit complete",
+      "tstop_s": 0.011,
+      "points": 3494628,
+      "model_file": "models/TPS5430_TRANS.LIB",
+      "original_model_unmodified": true,
+      "full_switch_runtime_s": 758.6174628734589
+    },
+    "averaged_vs_vendor": {
+      "comparison_window_s": [
+        0.0085,
+        0.0108
+      ],
+      "vendor_filter_s": 2e-06,
+      "rms_difference_V": 0.0009741794018221241,
+      "maximum_difference_V": 0.006058811900151007,
+      "status": "close agreement at reference point; not IC process-corner validation"
+    },
+    "LDO": {
+      "model": "Non-vendor PI/pass-current fit to typical XC6206P302 family plot, 3.0V; 3.3V part not directly characterized",
+      "vout_min": 2.4745712587234534,
+      "vout_max_after_release": 3.525429403569543,
+      "approximate_reference_plot_min_V": 2.45,
+      "approximate_reference_plot_peak_V": 3.5,
+      "reference_plot_timescale_ms_per_div": 1,
+      "minimum_time_s": 0.0020317761518627996,
+      "complete": true,
+      "calibration_status": "approximate typical-curve agreement only; no transistor/control-corner validation"
+    },
+    "actual_full_switch_variants": {
+      "lite-a-dual": false,
+      "lite-c-dnp": false
+    }
+  },
+  "criteria": {
+    "core_steady_and_step_V": [
+      4.5,
+      5.5
+    ],
+    "local_3V3_after_startup_V": [
+      3.135,
+      3.465
+    ],
+    "regular_input_V": [
+      11.4,
+      12.6
+    ],
+    "ambient_C": [
+      0,
+      50
+    ],
+    "Core_normal_A": 0.5,
+    "Core_extra_sensitivity_A": 1.0,
+    "local_3V3_normal_A": 0.01,
+    "local_3V3_50mA_step": "extra sensitivity, not required external load capability"
+  },
+  "variants": {
+    "lite-a-dual": {
+      "status": "uncertain",
+      "poc_minimum_model_status": "pass",
+      "status_scope": "Required positive-12V modeled conditions can pass while uncharacterized hardware/abnormal-power behavior remains uncertain",
+      "sourcePCBhash": "0e1e0042fb797896201c978e8f4b65a2121134c5db525bb48c5f29daf5a2e805",
+      "tested_sourcePCBhash": "576b3ebb2bd1f27f9adec6fcd160e8591148681028aed604d14987e91c3ed938",
+      "tests": [
+        {
+          "name": "ldo-DCbias-minimum",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.869258986874726,
+          "core_max_V": 4.987470122839051,
+          "local_3V3_min_V": 3.1513478375292925,
+          "local_3V3_max_V": 3.2971478090143806,
+          "complete": true,
+          "case_json": "results/lite-a-dual-ldo-DCbias-minimum.json"
+        },
+        {
+          "name": "nominal",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.869357206159152,
+          "core_max_V": 4.987464913235885,
+          "local_3V3_min_V": 3.2999974684100395,
+          "local_3V3_max_V": 3.300003940563246,
+          "complete": true,
+          "case_json": "results/lite-a-dual-nominal.json"
+        },
+        {
+          "name": "low-supply-cold",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.694867978200491,
+          "core_max_V": 4.8119272330714935,
+          "local_3V3_min_V": 3.2339958303797176,
+          "local_3V3_max_V": 3.2340037989585144,
+          "complete": true,
+          "case_json": "results/lite-a-dual-low-supply-cold.json"
+        },
+        {
+          "name": "high-supply-hot",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 5.026747767586615,
+          "core_max_V": 5.1616711001374975,
+          "local_3V3_min_V": 3.3659973774147973,
+          "local_3V3_max_V": 3.366004082326489,
+          "complete": true,
+          "case_json": "results/lite-a-dual-high-supply-hot.json"
+        },
+        {
+          "name": "Tab5-1A-budget",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.694879101933812,
+          "core_max_V": 4.811906367632142,
+          "local_3V3_min_V": 3.2339954467127465,
+          "local_3V3_max_V": 3.2340037988981543,
+          "complete": true,
+          "case_json": "results/lite-a-dual-Tab5-1A-budget.json"
+        },
+        {
+          "name": "ldo-minimum-load-steps",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.869242777642518,
+          "core_max_V": 4.987469573006065,
+          "local_3V3_min_V": 3.2000180058641705,
+          "local_3V3_max_V": 3.293585893590211,
+          "complete": true,
+          "case_json": "results/lite-a-dual-ldo-minimum-load-steps.json"
+        },
+        {
+          "name": "ldo-minimum-slow-loop",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.869273312321656,
+          "core_max_V": 4.9874656598224,
+          "local_3V3_min_V": 3.1782606272176834,
+          "local_3V3_max_V": 3.35703607032702,
+          "complete": true,
+          "case_json": "results/lite-a-dual-ldo-minimum-slow-loop.json"
+        },
+        {
+          "name": "softstart-fast",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.869340976299057,
+          "core_max_V": 4.987464913235777,
+          "local_3V3_min_V": 3.2999994643465027,
+          "local_3V3_max_V": 3.3000008337902687,
+          "complete": true,
+          "case_json": "results/lite-a-dual-softstart-fast.json"
+        },
+        {
+          "name": "softstart-slow",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.869357224564438,
+          "core_max_V": 4.987464913236057,
+          "local_3V3_min_V": 3.299988080239728,
+          "local_3V3_max_V": 3.3000165086396014,
+          "complete": true,
+          "case_json": "results/lite-a-dual-softstart-slow.json"
+        },
+        {
+          "name": "combined-loop-worst",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.673786113880956,
+          "core_max_V": 4.813526482776436,
+          "local_3V3_min_V": 3.2999941122509333,
+          "local_3V3_max_V": 3.300003833522437,
+          "complete": true,
+          "case_json": "results/lite-a-dual-combined-loop-worst.json"
+        },
+        {
+          "name": "long-low-esr",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.6738891481164515,
+          "core_max_V": 4.813582948398602,
+          "local_3V3_min_V": 3.299994083690589,
+          "local_3V3_max_V": 3.3000038589312544,
+          "complete": true,
+          "case_json": "results/lite-a-dual-long-low-esr.json"
+        },
+        {
+          "name": "slow-input-ramp",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.970329741839336,
+          "core_max_V": 4.970329741839544,
+          "local_3V3_min_V": 3.2999999999745073,
+          "local_3V3_max_V": 3.300000000039648,
+          "complete": true,
+          "case_json": "results/lite-a-dual-slow-input-ramp.json"
+        },
+        {
+          "name": "switch-cycle",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.869357206159152,
+          "core_max_V": 4.970330082411454,
+          "local_3V3_min_V": 3.2997870888849388,
+          "local_3V3_max_V": 3.300136777916622,
+          "complete": true,
+          "case_json": "results/lite-a-dual-switch-cycle.json"
+        },
+        {
+          "name": "switch-cycle-PG",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.871073895890419,
+          "core_max_V": 4.970330100250736,
+          "local_3V3_min_V": 3.299787775880808,
+          "local_3V3_max_V": 3.3001363809107995,
+          "complete": true,
+          "case_json": "results/lite-a-dual-switch-cycle-PG.json"
+        },
+        {
+          "name": "one-amp-step",
+          "status": "pass",
+          "criteria": "Additional sensitivity; failures retained, do not redefine the normal local-3V3 <=10mA PoC budget",
+          "core_min_V": 4.541862487128036,
+          "local_3V3_min_V": 3.2999940326401704,
+          "local_3V3_max_V": 3.300003833600247,
+          "complete": true
+        },
+        {
+          "name": "Tab5-plus-Core1A",
+          "status": "pass",
+          "criteria": "Additional sensitivity; failures retained, do not redefine the normal local-3V3 <=10mA PoC budget",
+          "core_min_V": 4.542206581292097,
+          "local_3V3_min_V": 3.299994032612211,
+          "local_3V3_max_V": 3.300003833546485,
+          "complete": true
+        },
+        {
+          "name": "ldo-50mA-sensitivity",
+          "status": "fail",
+          "criteria": "Additional sensitivity; failures retained, do not redefine the normal local-3V3 <=10mA PoC budget",
+          "core_min_V": 4.869361477261987,
+          "local_3V3_min_V": 3.0200916350584905,
+          "local_3V3_max_V": 3.364432675433994,
+          "complete": true
+        },
+        {
+          "name": "ldo-loop-slow",
+          "status": "fail",
+          "criteria": "Additional sensitivity; failures retained, do not redefine the normal local-3V3 <=10mA PoC budget",
+          "core_min_V": 4.8692471577748915,
+          "local_3V3_min_V": 2.8059549143996465,
+          "local_3V3_max_V": 3.49527855724736,
+          "complete": true
+        },
+        {
+          "name": "ldo-loop-fast",
+          "status": "pass",
+          "criteria": "Additional sensitivity; failures retained, do not redefine the normal local-3V3 <=10mA PoC budget",
+          "core_min_V": 4.8691751835132475,
+          "local_3V3_min_V": 3.2591660293495,
+          "local_3V3_max_V": 3.4310212352279508,
+          "complete": true
+        },
+        {
+          "name": "powerdown-while-armed",
+          "status": "uncertain",
+          "criteria": "K50 is an isolation/brownout detector, not a guarantee that Core voltage remains >=4.5V whenever bus is enabled",
+          "nominal_PG_threshold_V": 4.38,
+          "typical_assertion_delay_s": 2e-05,
+          "assumed_release_delay_s": 0.2,
+          "time_bus_high_below_Core_spec_s": 0.00011464148324963341,
+          "minimum_Core_voltage_while_model_bus_enabled_V": 4.233058513997402,
+          "limits": "Vout approximates U10 sense; physical sense resistance, maximum assertion delay and Core-bank hold-up not characterized. Stop communication before OFF/brownout, release ARM and reinitialize DDR3 after stable power."
+        },
+        {
+          "name": "long-reverse-input",
+          "status": "uncertain",
+          "criteria": "Positive 12V is the required operating condition. Reverse-input absolute ratings are not guaranteed by series diode alone",
+          "reverse_hold_s": 1.9999999999999998,
+          "predicted_VIN_min_V": -0.4111906856783545,
+          "regulator_output_max_V": 3.762600586966304e-09,
+          "model_limit": "SS54/TVS leakage/low-current forward clamp are approximate; internal IC input clamp not characterized"
+        },
+        {
+          "name": "PD-stairs",
+          "status": "pass",
+          "criteria": "Imposed 5/9/12V voltage profile; stable 12V output in range. This is not a CH224K protocol model",
+          "core_min_after_settling_V": 4.869326171835274
+        },
+        {
+          "name": "PD-low-ENA",
+          "status": "pass",
+          "criteria": "Imposed 5/9/12V voltage profile; stable 12V output in range. This is not a CH224K protocol model",
+          "core_min_after_settling_V": 4.869326163350709
+        },
+        {
+          "name": "PD-high-ENA",
+          "status": "pass",
+          "criteria": "Imposed 5/9/12V voltage profile; stable 12V output in range. This is not a CH224K protocol model",
+          "core_min_after_settling_V": 4.869357631806054
+        },
+        {
+          "name": "low-ESR-long-hold",
+          "status": "pass",
+          "criteria": "L12u/C176u/ESR2mOhm/PWM-response1.25us, 250ms transient; no growing or sustained averaged oscillation during 0.5A hold",
+          "early_settled_pp_V": 0.0,
+          "late_settled_pp_V": 0.0,
+          "minimum_analytical_phase_margin_deg": 6.575687689268307,
+          "limits": "Small positive margin is sensitive to unmodeled delay/process effects; capacitor min ESR is not specified. Does not prove switching-cycle or IC process-corner stability."
+        }
+      ],
+      "operating_conditions": {
+        "supply": "regulated positive 12V +/-5%; Thevenin source resistance sensitivity up to 0.5ohm",
+        "Tab5_HVIN_budget_A": 1.0,
+        "Core_normal_A": 0.5,
+        "Core_1A": "extra transient sensitivity, not a claim of the Core maximum consumption",
+        "local_3V3": "normally <=10mA; no external PMOD power loads",
+        "ambient": "0..50C as modeled; no enclosure thermal qualification"
+      },
+      "limits": [
+        "TI original switching model completed the simple reference circuit; extra parasitic/full-variant decks stopped with ngspice timestep errors and are not marked successful.",
+        "Averaged model uses TI compensation network and is matched to one vendor-model operating point; low-load DCM, pulse skipping, hiccup and IC process corners are incompletely modeled.",
+        "XC6206 is a fit to a 3.0V family typical curve, not a manufacturer model of the selected 3.3V part.",
+        "50mA fast local-load steps can violate the +/-5% rail target; they are not within the actual carrier local-load budget.",
+        "K50 PG does not certify Core operation above 4.5V throughout power-down. Communication must stop, ARM be released, and DDR3 be reinitialized after stable power.",
+        "Do not rely on extended reverse-polarity protection or real USB-PD current-limit/negotiation behavior from these voltage-profile models."
+      ],
+      "plots": [
+        "results/lite-a-dual-power.png",
+        "results/lite-a-dual-power-sequence.png",
+        "results/calibration-buck.png",
+        "results/calibration-XC6206.png",
+        "results/loop-margin.png"
+      ]
+    },
+    "lite-b-barrel": {
+      "status": "uncertain",
+      "poc_minimum_model_status": "pass",
+      "status_scope": "Required positive-12V modeled conditions can pass while uncharacterized hardware/abnormal-power behavior remains uncertain",
+      "sourcePCBhash": "bcc60b30a6094220057f5d26d87612e8c3ad37ce6d8fb75ffec1ddccbdaf7003",
+      "tested_sourcePCBhash": "14731614afd55765b5afb10396531257df0c59281d898470aeb3dc361cf7a3aa",
+      "tests": [
+        {
+          "name": "ldo-DCbias-minimum",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.869258986874726,
+          "core_max_V": 4.987470122839051,
+          "local_3V3_min_V": 3.1513478375292925,
+          "local_3V3_max_V": 3.2971478090143806,
+          "complete": true,
+          "case_json": "results/lite-b-barrel-ldo-DCbias-minimum.json"
+        },
+        {
+          "name": "nominal",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.869357206159152,
+          "core_max_V": 4.987464913235885,
+          "local_3V3_min_V": 3.2999974684100395,
+          "local_3V3_max_V": 3.300003940563246,
+          "complete": true,
+          "case_json": "results/lite-b-barrel-nominal.json"
+        },
+        {
+          "name": "low-supply-cold",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.694867978200491,
+          "core_max_V": 4.8119272330714935,
+          "local_3V3_min_V": 3.2339958303797176,
+          "local_3V3_max_V": 3.2340037989585144,
+          "complete": true,
+          "case_json": "results/lite-b-barrel-low-supply-cold.json"
+        },
+        {
+          "name": "high-supply-hot",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 5.026747767586615,
+          "core_max_V": 5.1616711001374975,
+          "local_3V3_min_V": 3.3659973774147973,
+          "local_3V3_max_V": 3.366004082326489,
+          "complete": true,
+          "case_json": "results/lite-b-barrel-high-supply-hot.json"
+        },
+        {
+          "name": "Tab5-1A-budget",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.694879101933812,
+          "core_max_V": 4.811906367632142,
+          "local_3V3_min_V": 3.2339954467127465,
+          "local_3V3_max_V": 3.2340037988981543,
+          "complete": true,
+          "case_json": "results/lite-b-barrel-Tab5-1A-budget.json"
+        },
+        {
+          "name": "ldo-minimum-load-steps",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.869242777642518,
+          "core_max_V": 4.987469573006065,
+          "local_3V3_min_V": 3.2000180058641705,
+          "local_3V3_max_V": 3.293585893590211,
+          "complete": true,
+          "case_json": "results/lite-b-barrel-ldo-minimum-load-steps.json"
+        },
+        {
+          "name": "ldo-minimum-slow-loop",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.869273312321656,
+          "core_max_V": 4.9874656598224,
+          "local_3V3_min_V": 3.1782606272176834,
+          "local_3V3_max_V": 3.35703607032702,
+          "complete": true,
+          "case_json": "results/lite-b-barrel-ldo-minimum-slow-loop.json"
+        },
+        {
+          "name": "softstart-fast",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.869340976299057,
+          "core_max_V": 4.987464913235777,
+          "local_3V3_min_V": 3.2999994643465027,
+          "local_3V3_max_V": 3.3000008337902687,
+          "complete": true,
+          "case_json": "results/lite-b-barrel-softstart-fast.json"
+        },
+        {
+          "name": "softstart-slow",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.869357224564438,
+          "core_max_V": 4.987464913236057,
+          "local_3V3_min_V": 3.299988080239728,
+          "local_3V3_max_V": 3.3000165086396014,
+          "complete": true,
+          "case_json": "results/lite-b-barrel-softstart-slow.json"
+        },
+        {
+          "name": "combined-loop-worst",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.673786113880956,
+          "core_max_V": 4.813526482776436,
+          "local_3V3_min_V": 3.2999941122509333,
+          "local_3V3_max_V": 3.300003833522437,
+          "complete": true,
+          "case_json": "results/lite-b-barrel-combined-loop-worst.json"
+        },
+        {
+          "name": "long-low-esr",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.6738891481164515,
+          "core_max_V": 4.813582948398602,
+          "local_3V3_min_V": 3.299994083690589,
+          "local_3V3_max_V": 3.3000038589312544,
+          "complete": true,
+          "case_json": "results/lite-b-barrel-long-low-esr.json"
+        },
+        {
+          "name": "slow-input-ramp",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.970329741839336,
+          "core_max_V": 4.970329741839544,
+          "local_3V3_min_V": 3.2999999999745073,
+          "local_3V3_max_V": 3.300000000039648,
+          "complete": true,
+          "case_json": "results/lite-b-barrel-slow-input-ramp.json"
+        },
+        {
+          "name": "switch-cycle",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.869357206159152,
+          "core_max_V": 4.970330082411454,
+          "local_3V3_min_V": 3.2997870888849388,
+          "local_3V3_max_V": 3.300136777916622,
+          "complete": true,
+          "case_json": "results/lite-b-barrel-switch-cycle.json"
+        },
+        {
+          "name": "switch-cycle-PG",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.871073895890419,
+          "core_max_V": 4.970330100250736,
+          "local_3V3_min_V": 3.299787775880808,
+          "local_3V3_max_V": 3.3001363809107995,
+          "complete": true,
+          "case_json": "results/lite-b-barrel-switch-cycle-PG.json"
+        },
+        {
+          "name": "one-amp-step",
+          "status": "pass",
+          "criteria": "Additional sensitivity; failures retained, do not redefine the normal local-3V3 <=10mA PoC budget",
+          "core_min_V": 4.541862487128036,
+          "local_3V3_min_V": 3.2999940326401704,
+          "local_3V3_max_V": 3.300003833600247,
+          "complete": true
+        },
+        {
+          "name": "Tab5-plus-Core1A",
+          "status": "pass",
+          "criteria": "Additional sensitivity; failures retained, do not redefine the normal local-3V3 <=10mA PoC budget",
+          "core_min_V": 4.542206581292097,
+          "local_3V3_min_V": 3.299994032612211,
+          "local_3V3_max_V": 3.300003833546485,
+          "complete": true
+        },
+        {
+          "name": "ldo-50mA-sensitivity",
+          "status": "fail",
+          "criteria": "Additional sensitivity; failures retained, do not redefine the normal local-3V3 <=10mA PoC budget",
+          "core_min_V": 4.869361477261987,
+          "local_3V3_min_V": 3.0200916350584905,
+          "local_3V3_max_V": 3.364432675433994,
+          "complete": true
+        },
+        {
+          "name": "ldo-loop-slow",
+          "status": "fail",
+          "criteria": "Additional sensitivity; failures retained, do not redefine the normal local-3V3 <=10mA PoC budget",
+          "core_min_V": 4.8692471577748915,
+          "local_3V3_min_V": 2.8059549143996465,
+          "local_3V3_max_V": 3.49527855724736,
+          "complete": true
+        },
+        {
+          "name": "ldo-loop-fast",
+          "status": "pass",
+          "criteria": "Additional sensitivity; failures retained, do not redefine the normal local-3V3 <=10mA PoC budget",
+          "core_min_V": 4.8691751835132475,
+          "local_3V3_min_V": 3.2591660293495,
+          "local_3V3_max_V": 3.4310212352279508,
+          "complete": true
+        },
+        {
+          "name": "powerdown-while-armed",
+          "status": "uncertain",
+          "criteria": "K50 is an isolation/brownout detector, not a guarantee that Core voltage remains >=4.5V whenever bus is enabled",
+          "nominal_PG_threshold_V": 4.38,
+          "typical_assertion_delay_s": 2e-05,
+          "assumed_release_delay_s": 0.2,
+          "time_bus_high_below_Core_spec_s": 0.00011464148324963341,
+          "minimum_Core_voltage_while_model_bus_enabled_V": 4.233058513997402,
+          "limits": "Vout approximates U10 sense; physical sense resistance, maximum assertion delay and Core-bank hold-up not characterized. Stop communication before OFF/brownout, release ARM and reinitialize DDR3 after stable power."
+        },
+        {
+          "name": "long-reverse-input",
+          "status": "uncertain",
+          "criteria": "Positive 12V is the required operating condition. Reverse-input absolute ratings are not guaranteed by series diode alone",
+          "reverse_hold_s": 1.9999999999999998,
+          "predicted_VIN_min_V": -0.4111906856783545,
+          "regulator_output_max_V": 3.762600586966304e-09,
+          "model_limit": "SS54/TVS leakage/low-current forward clamp are approximate; internal IC input clamp not characterized"
+        },
+        {
+          "name": "low-ESR-long-hold",
+          "status": "pass",
+          "criteria": "L12u/C176u/ESR2mOhm/PWM-response1.25us, 250ms transient; no growing or sustained averaged oscillation during 0.5A hold",
+          "early_settled_pp_V": 0.0,
+          "late_settled_pp_V": 0.0,
+          "minimum_analytical_phase_margin_deg": 6.575687689268307,
+          "limits": "Small positive margin is sensitive to unmodeled delay/process effects; capacitor min ESR is not specified. Does not prove switching-cycle or IC process-corner stability."
+        }
+      ],
+      "operating_conditions": {
+        "supply": "regulated positive 12V +/-5%; Thevenin source resistance sensitivity up to 0.5ohm",
+        "Tab5_HVIN_budget_A": 1.0,
+        "Core_normal_A": 0.5,
+        "Core_1A": "extra transient sensitivity, not a claim of the Core maximum consumption",
+        "local_3V3": "normally <=10mA; no external PMOD power loads",
+        "ambient": "0..50C as modeled; no enclosure thermal qualification"
+      },
+      "limits": [
+        "TI original switching model completed the simple reference circuit; extra parasitic/full-variant decks stopped with ngspice timestep errors and are not marked successful.",
+        "Averaged model uses TI compensation network and is matched to one vendor-model operating point; low-load DCM, pulse skipping, hiccup and IC process corners are incompletely modeled.",
+        "XC6206 is a fit to a 3.0V family typical curve, not a manufacturer model of the selected 3.3V part.",
+        "50mA fast local-load steps can violate the +/-5% rail target; they are not within the actual carrier local-load budget.",
+        "K50 PG does not certify Core operation above 4.5V throughout power-down. Communication must stop, ARM be released, and DDR3 be reinitialized after stable power.",
+        "Do not rely on extended reverse-polarity protection or real USB-PD current-limit/negotiation behavior from these voltage-profile models."
+      ],
+      "plots": [
+        "results/lite-b-barrel-power.png",
+        "results/lite-b-barrel-power-sequence.png",
+        "results/calibration-buck.png",
+        "results/calibration-XC6206.png",
+        "results/loop-margin.png"
+      ]
+    },
+    "lite-c-dnp": {
+      "status": "uncertain",
+      "poc_minimum_model_status": "pass",
+      "status_scope": "Required positive-12V modeled conditions can pass while uncharacterized hardware/abnormal-power behavior remains uncertain",
+      "sourcePCBhash": "b2ca3fd81eb17d8ccaf36506321dde04c4c555dca3f5dfe2ea7ad42d1458d01e",
+      "tested_sourcePCBhash": "4a14f13e1025ac107434fc04f65633798485873a4b5719e1fdd998df620ffdc5",
+      "tests": [
+        {
+          "name": "ldo-DCbias-minimum",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.875295331886022,
+          "core_max_V": 4.988398012258396,
+          "local_3V3_min_V": 3.151332190406231,
+          "local_3V3_max_V": 3.29718776319238,
+          "complete": true,
+          "case_json": "results/lite-c-dnp-ldo-DCbias-minimum.json"
+        },
+        {
+          "name": "nominal",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.87526423842783,
+          "core_max_V": 4.988498762111013,
+          "local_3V3_min_V": 3.2999973739311708,
+          "local_3V3_max_V": 3.3000040814359552,
+          "complete": true,
+          "case_json": "results/lite-c-dnp-nominal.json"
+        },
+        {
+          "name": "low-supply-cold",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.700544109657956,
+          "core_max_V": 4.8131294780554335,
+          "local_3V3_min_V": 3.233995768891481,
+          "local_3V3_max_V": 3.234003934584007,
+          "complete": true,
+          "case_json": "results/lite-c-dnp-low-supply-cold.json"
+        },
+        {
+          "name": "high-supply-hot",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 5.034533409184032,
+          "core_max_V": 5.162526739963385,
+          "local_3V3_min_V": 3.3659972795010242,
+          "local_3V3_max_V": 3.3660042281595097,
+          "complete": true,
+          "case_json": "results/lite-c-dnp-high-supply-hot.json"
+        },
+        {
+          "name": "Tab5-1A-budget",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.70058305333242,
+          "core_max_V": 4.813112161476244,
+          "local_3V3_min_V": 3.2339953529300884,
+          "local_3V3_max_V": 3.2340039345582214,
+          "complete": true,
+          "case_json": "results/lite-c-dnp-Tab5-1A-budget.json"
+        },
+        {
+          "name": "ldo-minimum-load-steps",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.875295748169265,
+          "core_max_V": 4.988490618091104,
+          "local_3V3_min_V": 3.19999550941286,
+          "local_3V3_max_V": 3.293666060188105,
+          "complete": true,
+          "case_json": "results/lite-c-dnp-ldo-minimum-load-steps.json"
+        },
+        {
+          "name": "ldo-minimum-slow-loop",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.875295664699505,
+          "core_max_V": 4.988498845448234,
+          "local_3V3_min_V": 3.1782408018101194,
+          "local_3V3_max_V": 3.357097809793059,
+          "complete": true,
+          "case_json": "results/lite-c-dnp-ldo-minimum-slow-loop.json"
+        },
+        {
+          "name": "softstart-fast",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.875270638415359,
+          "core_max_V": 4.988498762111065,
+          "local_3V3_min_V": 3.2999994415611713,
+          "local_3V3_max_V": 3.300000867931132,
+          "complete": true,
+          "case_json": "results/lite-c-dnp-softstart-fast.json"
+        },
+        {
+          "name": "softstart-slow",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.87528306592684,
+          "core_max_V": 4.988498762110898,
+          "local_3V3_min_V": 3.299987712719203,
+          "local_3V3_max_V": 3.3000169305244316,
+          "complete": true,
+          "case_json": "results/lite-c-dnp-softstart-slow.json"
+        },
+        {
+          "name": "combined-loop-worst",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.681441868955167,
+          "core_max_V": 4.81450089216617,
+          "local_3V3_min_V": 3.299993931022047,
+          "local_3V3_max_V": 3.3000039706281354,
+          "complete": true,
+          "case_json": "results/lite-c-dnp-combined-loop-worst.json"
+        },
+        {
+          "name": "long-low-esr",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.681530377405631,
+          "core_max_V": 4.814530827019692,
+          "local_3V3_min_V": 3.299993876750825,
+          "local_3V3_max_V": 3.3000039976087896,
+          "complete": true,
+          "case_json": "results/lite-c-dnp-long-low-esr.json"
+        },
+        {
+          "name": "slow-input-ramp",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.970955043425514,
+          "core_max_V": 4.970955043425713,
+          "local_3V3_min_V": 3.2999999999724365,
+          "local_3V3_max_V": 3.3000000000427816,
+          "complete": true,
+          "case_json": "results/lite-c-dnp-slow-input-ramp.json"
+        },
+        {
+          "name": "switch-cycle",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.87526423842783,
+          "core_max_V": 4.970955390437167,
+          "local_3V3_min_V": 3.2997825569876658,
+          "local_3V3_max_V": 3.3001399095302033,
+          "complete": true,
+          "case_json": "results/lite-c-dnp-switch-cycle.json"
+        },
+        {
+          "name": "switch-cycle-PG",
+          "status": "pass",
+          "criteria": "During valid positive input, after startup and outside intentional OFF: Core 4.5..5.5V, local 3V3 3.135..3.465V",
+          "core_min_V": 4.877083911522995,
+          "core_max_V": 4.970955425486957,
+          "local_3V3_min_V": 3.29978326457456,
+          "local_3V3_max_V": 3.3001420916236865,
+          "complete": true,
+          "case_json": "results/lite-c-dnp-switch-cycle-PG.json"
+        },
+        {
+          "name": "one-amp-step",
+          "status": "pass",
+          "criteria": "Additional sensitivity; failures retained, do not redefine the normal local-3V3 <=10mA PoC budget",
+          "core_min_V": 4.557688134755555,
+          "local_3V3_min_V": 3.299993830668301,
+          "local_3V3_max_V": 3.300003970876779,
+          "complete": true
+        },
+        {
+          "name": "Tab5-plus-Core1A",
+          "status": "pass",
+          "criteria": "Additional sensitivity; failures retained, do not redefine the normal local-3V3 <=10mA PoC budget",
+          "core_min_V": 4.557563988283523,
+          "local_3V3_min_V": 3.2999938286387795,
+          "local_3V3_max_V": 3.300003970859273,
+          "complete": true
+        },
+        {
+          "name": "ldo-50mA-sensitivity",
+          "status": "fail",
+          "criteria": "Additional sensitivity; failures retained, do not redefine the normal local-3V3 <=10mA PoC budget",
+          "core_min_V": 4.8753000349936855,
+          "local_3V3_min_V": 3.019945709026499,
+          "local_3V3_max_V": 3.3647022020422175,
+          "complete": true
+        },
+        {
+          "name": "ldo-loop-slow",
+          "status": "fail",
+          "criteria": "Additional sensitivity; failures retained, do not redefine the normal local-3V3 <=10mA PoC budget",
+          "core_min_V": 4.8752917229331905,
+          "local_3V3_min_V": 2.8058062591286723,
+          "local_3V3_max_V": 3.4955512427598565,
+          "complete": true
+        },
+        {
+          "name": "ldo-loop-fast",
+          "status": "pass",
+          "criteria": "Additional sensitivity; failures retained, do not redefine the normal local-3V3 <=10mA PoC budget",
+          "core_min_V": 4.875247421946489,
+          "local_3V3_min_V": 3.259009763724375,
+          "local_3V3_max_V": 3.4312922488039623,
+          "complete": true
+        },
+        {
+          "name": "powerdown-while-armed",
+          "status": "uncertain",
+          "criteria": "K50 is an isolation/brownout detector, not a guarantee that Core voltage remains >=4.5V whenever bus is enabled",
+          "nominal_PG_threshold_V": 4.38,
+          "typical_assertion_delay_s": 2e-05,
+          "assumed_release_delay_s": 0.2,
+          "time_bus_high_below_Core_spec_s": 0.00011999999999945388,
+          "minimum_Core_voltage_while_model_bus_enabled_V": 4.243945438995867,
+          "limits": "Vout approximates U10 sense; physical sense resistance, maximum assertion delay and Core-bank hold-up not characterized. Stop communication before OFF/brownout, release ARM and reinitialize DDR3 after stable power."
+        },
+        {
+          "name": "long-reverse-input",
+          "status": "uncertain",
+          "criteria": "Positive 12V is the required operating condition. Reverse-input absolute ratings are not guaranteed by series diode alone",
+          "reverse_hold_s": 1.9999999999999998,
+          "predicted_VIN_min_V": -0.41119068567833356,
+          "regulator_output_max_V": 4.062211361412545e-09,
+          "model_limit": "SS54/TVS leakage/low-current forward clamp are approximate; internal IC input clamp not characterized"
+        },
+        {
+          "name": "low-ESR-long-hold",
+          "status": "pass",
+          "criteria": "L12u/C176u/ESR2mOhm/PWM-response1.25us, 250ms transient; no growing or sustained averaged oscillation during 0.5A hold",
+          "early_settled_pp_V": 8.970602038971265e-14,
+          "late_settled_pp_V": 8.881784197001252e-14,
+          "minimum_analytical_phase_margin_deg": 6.575687689268307,
+          "limits": "Small positive margin is sensitive to unmodeled delay/process effects; capacitor min ESR is not specified. Does not prove switching-cycle or IC process-corner stability."
+        }
+      ],
+      "operating_conditions": {
+        "supply": "regulated positive 12V +/-5%; Thevenin source resistance sensitivity up to 0.5ohm",
+        "Tab5_HVIN_budget_A": 1.0,
+        "Core_normal_A": 0.5,
+        "Core_1A": "extra transient sensitivity, not a claim of the Core maximum consumption",
+        "local_3V3": "normally <=10mA; no external PMOD power loads",
+        "ambient": "0..50C as modeled; no enclosure thermal qualification"
+      },
+      "limits": [
+        "TI original switching model completed the simple reference circuit; extra parasitic/full-variant decks stopped with ngspice timestep errors and are not marked successful.",
+        "Averaged model uses TI compensation network and is matched to one vendor-model operating point; low-load DCM, pulse skipping, hiccup and IC process corners are incompletely modeled.",
+        "XC6206 is a fit to a 3.0V family typical curve, not a manufacturer model of the selected 3.3V part.",
+        "50mA fast local-load steps can violate the +/-5% rail target; they are not within the actual carrier local-load budget.",
+        "K50 PG does not certify Core operation above 4.5V throughout power-down. Communication must stop, ARM be released, and DDR3 be reinitialized after stable power.",
+        "Do not rely on extended reverse-polarity protection or real USB-PD current-limit/negotiation behavior from these voltage-profile models."
+      ],
+      "plots": [
+        "results/lite-c-dnp-power.png",
+        "results/lite-c-dnp-power-sequence.png",
+        "results/calibration-buck.png",
+        "results/calibration-XC6206.png",
+        "results/loop-margin.png"
+      ]
+    }
+  }
+}
