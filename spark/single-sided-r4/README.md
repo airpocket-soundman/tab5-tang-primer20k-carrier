@@ -9,7 +9,7 @@
 BOM/CPL集合一致：Full101点/43行、Lite103点/43行。J3はBOMとCPLの両方から除外。
 J1とJP1のTHT実装工程、部品受理・回転は業者確認。片面SMTであっても、全品がEconomic PCBAで受理されるとは断言しない。
 
-EasyEDA API実行は2026-10-26に“No EDA window connected”で停止した。r4のネイティブ移植・同側再計算・Spark公開更新は未完了。
+再接続前はEasyEDA API実行が“No EDA window connected”で停止していた。現在は再接続後のネイティブ移植・同側再計算・Spark公開更新を完了している。
 過去版の検証結果をr4の新しいEasyEDA実行結果として掲載しない。ローカル見積もり候補のみで製造未リリース。
 元設計、r2/r3、top-placement-trialフォルダーは保存し現行とは区別する。
 
@@ -28,3 +28,5 @@ EasyEDA内の実計算はFull207/Lite221件完走。Full電源6/6、Lite18/20（
 両版ネイティブPCB DRC0、回路図fatal0/warn13。117部品と全接続ピン・配線照合一致。
 U2の銅箔専用パッドに移植時の不要マスク/ペースト開口があったため、正確なネイティブPAD定義を用いて抑止しAPIから再インポート。PAD APIでの穴単位変換を避け、実Gerberで表面開口8.06mm²・裏面ペースト0、全PTH/NPTHの位置・径・長穴一致を確認。
 解析実行プロジェクトUUIDと最終ネイティブUUIDはfinalization.jsonへ記録。変更は非電気的な開口のみでSPICEデッキ・銅箔は不変。
+
+公開確認済み： https://airpocket-soundman.github.io/tab5-fpga-carrier-spark/ 。実サイトのHTML/JS/データ/HDMI図、および固定コミットのFull/Liteネイティブ・BOM・CPLをハッシュ照合済み。
