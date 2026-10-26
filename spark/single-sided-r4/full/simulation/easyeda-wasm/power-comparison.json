@@ -1,0 +1,123 @@
+{
+  "ok": true,
+  "cases": [
+    {
+      "name": "spark-12V-nominal",
+      "samples": 22621,
+      "vcore_min_valid_input_V": 4.8914558818961655,
+      "vcore_max_valid_input_V": 4.998796540868238,
+      "vout_max_V": 5.035742945863138,
+      "within_4p5_to_5p5V": true,
+      "delta_vs_previous_V": {
+        "vcore_min_valid_input_V": 8.656652639160711e-08,
+        "vcore_max_valid_input_V": 6.839126331925627e-08,
+        "vout_max_V": -1.7222790024362666e-05
+      },
+      "max_sampled_core_waveform_delta_V": 2.187572070155852e-07,
+      "engine_agreement_within_25mV": true,
+      "diagnostics": {
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "name": "spark-11p4V",
+      "samples": 22617,
+      "vcore_min_valid_input_V": 4.891468745631003,
+      "vcore_max_valid_input_V": 4.99878215261811,
+      "vout_max_V": 5.0357564433265285,
+      "within_4p5_to_5p5V": true,
+      "delta_vs_previous_V": {
+        "vcore_min_valid_input_V": 9.576409443212697e-08,
+        "vcore_max_valid_input_V": 7.257916578851109e-08,
+        "vout_max_V": 3.935860449999495e-06
+      },
+      "max_sampled_core_waveform_delta_V": 2.4416514587954907e-07,
+      "engine_agreement_within_25mV": true,
+      "diagnostics": {
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "name": "spark-12p6V",
+      "samples": 22619,
+      "vcore_min_valid_input_V": 4.891444286976325,
+      "vcore_max_valid_input_V": 4.998809484392973,
+      "vout_max_V": 5.0357372474414435,
+      "within_4p5_to_5p5V": true,
+      "delta_vs_previous_V": {
+        "vcore_min_valid_input_V": 7.719584260712509e-08,
+        "vcore_max_valid_input_V": 6.453478462731255e-08,
+        "vout_max_V": 9.761840042976644e-06
+      },
+      "max_sampled_core_waveform_delta_V": 1.9714302812445794e-07,
+      "engine_agreement_within_25mV": true,
+      "diagnostics": {
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "name": "spark-PD-profile",
+      "samples": 22633,
+      "vcore_min_valid_input_V": 4.891454925442737,
+      "vcore_max_valid_input_V": 4.99879779524708,
+      "vout_max_V": 5.035761170814859,
+      "within_4p5_to_5p5V": true,
+      "delta_vs_previous_V": {
+        "vcore_min_valid_input_V": 7.960412062857358e-08,
+        "vcore_max_valid_input_V": 6.216871906161714e-08,
+        "vout_max_V": 7.801150836428405e-09
+      },
+      "max_sampled_core_waveform_delta_V": 4.577920513781919e-07,
+      "engine_agreement_within_25mV": true,
+      "diagnostics": {
+        "errors": [],
+        "warnings": [
+          "Warning: Value of resistor rptc is too small, set to 1.000000e-12"
+        ]
+      }
+    },
+    {
+      "name": "spark-load1A-sensitivity",
+      "samples": 22613,
+      "vcore_min_valid_input_V": 4.812704503022163,
+      "vcore_max_valid_input_V": 4.9320673258701495,
+      "vout_max_V": 5.035718218368409,
+      "within_4p5_to_5p5V": true,
+      "delta_vs_previous_V": {
+        "vcore_min_valid_input_V": 1.0461710253650836e-07,
+        "vcore_max_valid_input_V": 4.414393206531031e-08,
+        "vout_max_V": 2.147575031585802e-06
+      },
+      "max_sampled_core_waveform_delta_V": 3.4638933676944816e-07,
+      "engine_agreement_within_25mV": true,
+      "diagnostics": {
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "name": "spark-lowESR-sensitivity",
+      "samples": 22685,
+      "vcore_min_valid_input_V": 4.889534986311956,
+      "vcore_max_valid_input_V": 5.000589910819533,
+      "vout_max_V": 5.037500107668718,
+      "within_4p5_to_5p5V": true,
+      "delta_vs_previous_V": {
+        "vcore_min_valid_input_V": 3.06109765091378e-07,
+        "vcore_max_valid_input_V": 2.676068628915118e-07,
+        "vout_max_V": -1.4596728963311989e-05
+      },
+      "max_sampled_core_waveform_delta_V": 1.4756554644002051e-05,
+      "engine_agreement_within_25mV": true,
+      "diagnostics": {
+        "errors": [],
+        "warnings": []
+      }
+    }
+  ],
+  "agreement_tolerance_V": 0.025,
+  "scope": "Same averaged5V cases rerun with official NGspice46 WASM in EasyEDA API Gateway. Postprocessing only in Python; excludes TLV1117/PD negotiation/thermal/hardware."
+}

@@ -1,6 +1,6 @@
 # Spark応募準備：Tab5 FPGAキャリア
 
-> **現行候補は片面SMT・SW3省略r4：** [single-sided-r4/README.md](single-sided-r4/README.md)。J3はLCSC別購入・手はんだ。以下の旧版記録とは混用しない。EasyEDA反映・同側再計算はAPI再接続待ち。
+> **現行候補は片面SMT・SW3省略r4：** [single-sided-r4/README.md](single-sided-r4/README.md)。J3はLCSC別購入・手はんだ。以下の旧版記録とは混用しない。EasyEDA反映・同側再計算完了。
 
 > **改訂前候補：2026-10-26 LCSC優先改訂** — [lcsc-priority/README.md](lcsc-priority/README.md)。手付け予定4品もLCSC/JLC候補へ変更し、103部品PCBAを優先する。[廉価版A LCSC改訂](lcsc-lite-a/README.md)も追加。公開用は別リポジトリtab5-fpga-carrier-spark。以下と従来ZIPは直前の秋月版の記録。
 
