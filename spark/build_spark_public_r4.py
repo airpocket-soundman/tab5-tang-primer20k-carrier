@@ -45,7 +45,7 @@ def plot_hdmi(wasm,path,label):
  fig.text(.08,.015,'Actual EasyEDA NGspice46 WASM outputs. Dashed +/-100mV lines are engineering thresholds, not a compliance mask.',fontsize=8)
  fig.tight_layout(rect=[0,.05,1,.94]);fig.savefig(path,dpi=160);plt.close(fig)
 
-project={'updated':'2026-10-26','status':'r4 single-sided SMT, SW3 omitted, J3 manually soldered. Quotation candidate; supplier acceptance and hardware validation pending.','variants':{}}
+project={'updated':'2026-10-26','status':'r4 PoC manufacturing data checked. Top-side SMT, SW3 omitted, J3 manually soldered. Supplier acceptance and hardware validation remain order/build steps.','variants':{}}
 for id,folder,name,dim,count in [('full','single-sided-r4/full','spark-lcsc-priority-review.epro2',[125,78],101),('lite-a','single-sided-r4/lite-a','spark-lite-a-lcsc-review.epro2',[99,78],103)]:
  source=H/folder;design=source/'design';wasm=source/'simulation/easyeda-wasm';hardware=OUT/'hardware'/id;sim=OUT/'simulation'/id
  hardware.mkdir(parents=True,exist_ok=True);sim.mkdir(parents=True,exist_ok=True)
@@ -111,12 +111,38 @@ for id,folder,name,dim,count in [('full','single-sided-r4/full','spark-lcsc-prio
   write(sim/(kind+'-inputs.json'),{'cases':cases})
  # DRC evidence is native-client output, retained verbatim.
  write(hardware/'easyeda-pcb-drc.json',drc);write(hardware/'easyeda-schematic-drc.json',sch)
- fullnative={'native_project_sha256':sha(native),'components':load(design/'easyeda/electrical-migration-audit.json')['components'],'pcba_components':count,'manual_components':1,'smt_side':'top only','manual_refs':['J3'],'power_switch':'omitted','bom_rows':len(bom),'board_dimensions_mm':dim,'pcba_status':'quotation candidate; supplier acceptance pending','pcb_drc_violations':0,'schematic_fatal_errors':0,'schematic_warnings':sum(r['count'] for r in sch if r['type']=='warn'),'connected_schematic_pins_verified':load(design/'easyeda/schematic-migration-audit.json')['connected_pins_checked'],'checks_scope':'Native project connectivity, component values, copper pad positions, track/via net and geometry cross-checks. Physical fit, full DFM and warning classification pending.'}
+ review=load(design/'easyeda/schematic-warning-review.json')
+ assert review['unclassified_warnings']==0 and review['warnings']==sum(r['count'] for r in sch if r['type']=='warn')
+ write(hardware/'schematic-warning-review.json',review)
+ shutil.copy2(design/'easyeda/schematic-drc-log.txt',hardware/'schematic-drc-log.txt')
+ placements=load(H/'single-sided-r4/assembly-placement-corrections.json')
+ write(hardware/'assembly-placement-corrections.json',{'date':placements['date'],'method':placements['method'],'placements':placements['variants'][id]['placements']})
+ profile=load(source/'order-profile.json')
+ for filename,item in profile['artifacts'].items():
+  assert sha(hardware/filename)==item['sha256'],(id,filename)
+  item['path']=filename
+ profile['placement']['correction_record']='assembly-placement-corrections.json'
+ profile['placement'].pop('source_board_normalized_sha256',None)
+ profile['placement']['regeneration']='Use the supplied corrected CPL; raw CAD-origin exports use different frames.'
+ write(hardware/'order-profile.json',profile)
+ assembly=(source/'ASSEMBLY.md').read_text(encoding='utf8')
+ assembly=re.sub(r'design/manufacturing/[^/\s)]+/', '', assembly)
+ assembly=assembly.replace('../assembly-placement-corrections.json','assembly-placement-corrections.json')
+ (hardware/'ASSEMBLY.md').write_text(assembly,encoding='utf8')
+ write(hardware/'supplier-parts.json',load(H/'single-sided-r4/supplier-footprint-index.json'))
+ with zipfile.ZipFile(hardware/(id+'-r4-poc-order.zip'),'w',zipfile.ZIP_DEFLATED) as bundle:
+  for filename in ['gerbers.zip','jlc-bom.csv','jlc-cpl.csv','assembly-top.svg','assembly-bottom.svg','order-profile.json','ASSEMBLY.md','assembly-placement-corrections.json']:
+   bundle.write(hardware/filename,filename)
+ fullnative={'native_project_sha256':sha(native),'components':load(design/'easyeda/electrical-migration-audit.json')['components'],'pcba_components':count,'manual_components':1,'smt_side':'top only','manual_refs':['J3'],'power_switch':'omitted','bom_rows':len(bom),'board_dimensions_mm':dim,'pcba_status':'PoC manufacturing data checked; supplier acceptance remains ordering step','pcb_drc_violations':0,'schematic_fatal_errors':0,'schematic_warnings':sum(r['count'] for r in sch if r['type']=='warn'),'connected_schematic_pins_verified':load(design/'easyeda/schematic-migration-audit.json')['connected_pins_checked'],'checks_scope':'Native project connectivity, component values, copper pad positions, track/via net and geometry cross-checks. All 13 native schematic warnings individually reviewed; see schematic-warning-review.json. Supplier DFM and physical hardware validation remain order/build steps.'}
+ fullnative['schematic_unclassified_warnings']=0
+ fullnative['gerber_cpl_origin_mm']=[2,79] if id=='full' else [28,79]
+ fullnative['cpl_frame']='Official supplier footprint frame; numbered-pad orientation corrected; see assembly-placement-corrections.json'
+ fullnative['manufacturing_stackup']='JLC04161H-7628'
  write(hardware/'design-record.json',fullnative)
  plot_hdmi(wasm,OUT/'docs/assets'/(id+'-hdmi.png'),('FULL' if id=='full' else 'LITE A'))
  nominal='spark-12V-nominal' if id=='full' else 'spark-lite-a-nominal';plot_power(load(wasm/'results'/(nominal+'.json')),OUT/'docs/assets'/(id+'-power.png'),('FULL' if id=='full' else 'LITE A')+' · power transient / nominal',id=='lite-a')
  if id=='lite-a':plot_power(load(wasm/'results/spark-lite-a-ldo-loop-slow.json'),OUT/'docs/assets/lite-a-stress.png','LITE A · 50mA load step / slow-loop sensitivity',True)
- project['variants'][id]={'dimensions':dim,'components':count,'cases':len(executions),'bom':bom,'power':{'cases':len(powers),'pass':sum(r['within_numeric_voltage_limits'] for r in powers)},'link':{'cases':len(links),'receiverPass':sum(r['receiver_voltage_ok'] for r in links),'driverPass':sum(r['source_voltage_ok'] for r in links),'maxSettleNs':max(r['settle_5percent_ns'] for r in links)},'hdmi':{'cases':len(hdmi),'pass':sum(r['engineering_criteria_ok'] for r in hdmi)},'periodic':{'cases':len(periodic),'oneMHzPass':sum(r['threshold_ok'] for r in periodic if r['freq_Hz']==1000000)},'files':{'native':f'hardware/{id}/{name}','gerbers':f'hardware/{id}/gerbers.zip','bom':f'hardware/{id}/bom.csv','assembly':f'hardware/{id}/assembly-top.svg'},'native':fullnative}
+ project['variants'][id]={'dimensions':dim,'components':count,'cases':len(executions),'bom':bom,'power':{'cases':len(powers),'pass':sum(r['within_numeric_voltage_limits'] for r in powers)},'link':{'cases':len(links),'receiverPass':sum(r['receiver_voltage_ok'] for r in links),'driverPass':sum(r['source_voltage_ok'] for r in links),'maxSettleNs':max(r['settle_5percent_ns'] for r in links)},'hdmi':{'cases':len(hdmi),'pass':sum(r['engineering_criteria_ok'] for r in hdmi)},'periodic':{'cases':len(periodic),'oneMHzPass':sum(r['threshold_ok'] for r in periodic if r['freq_Hz']==1000000)},'files':{'order':f'hardware/{id}/{id}-r4-poc-order.zip','native':f'hardware/{id}/{name}','gerbers':f'hardware/{id}/gerbers.zip','bom':f'hardware/{id}/bom.csv','assembly':f'hardware/{id}/assembly-top.svg'},'native':fullnative}
 shutil.copy2(H/'single-sided-r4/full/simulation/easyeda-wasm/worker.js',OUT/'simulation/runtime/worker.js')
 shutil.copytree(H/'lcsc-priority/simulation/easyeda-wasm/licenses',OUT/'simulation/runtime/licenses',dirs_exist_ok=True)
 write(OUT/'docs/data/project.json',project)

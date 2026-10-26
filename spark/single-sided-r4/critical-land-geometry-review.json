@@ -1,0 +1,820 @@
+{
+  "date": "2026-10-26",
+  "status": "Reviewed for PoC land compatibility. No CAD changes made.",
+  "method": "Read-only source copper pad polygons vs supplier official footprint rectangular pads after numbered-pin rotation alignment, preserving physical component body origin. Rounded source corners represented with24segments/quadrant. This is overlap evidence, not manufacturer IPC/stencil/reflow approval.",
+  "sources": {
+    "CH224K": "docs/reference/parts/CH224K_datasheet_lcsc.pdf, WCH V2.1 page15 ESSOP10",
+    "Bourns_SRR1260": "https://www.bourns.com/docs/product-datasheets/srr1260.pdf, page2 Recommended Layout",
+    "Panasonic_TPB": "docs/reference/parts/Panasonic_TPB_catalog.pdf,30-Sep-26,page1 Dimensions,page2 10TPB220M D3L",
+    "Torex_XC6206": "variants/simulation/power/reference/XC6206_C5446_manufacturer_copy.pdf,page13 SOT23 package drawing; https://product.torexsemi.com/en/packages/sot-23 andhttps://product.torexsemi.com/system/files/series/xc6206.pdf",
+    "supplier_footprints": "Official LCSC EasyEDA library exports indexed by supplier-footprint-index.json; not manufacturer terminal dimensions."
+  },
+  "results": [
+    {
+      "variant": "full",
+      "reference": "U1",
+      "lcsc": "C970725",
+      "body_origin_policy": "Preserve existing physical component body origin; apply supplier zero-axis rotation only. Different recommended land-center lengths do not imply a body-origin shift.",
+      "proper_supplier_rotation_deg": 90,
+      "pads": [
+        {
+          "pin": "1",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            22.1375,
+            -23.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            22.500121,
+            -23.4999198
+          ],
+          "source_area_mm2": 0.9856353795685555,
+          "supplier_area_mm2": 0.8999964000036027,
+          "intersection_area_mm2": 0.725157239967618,
+          "fraction_of_supplier_land_overlapped": 0.8057334895614197,
+          "fraction_of_source_land_overlapped": 0.7357256598124986
+        },
+        {
+          "pin": "2",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            22.1375,
+            -22.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            22.500121,
+            -22.4999218
+          ],
+          "source_area_mm2": 0.9856353795685555,
+          "supplier_area_mm2": 0.8999964000036027,
+          "intersection_area_mm2": 0.7251593945978921,
+          "fraction_of_supplier_land_overlapped": 0.8057358836046337,
+          "fraction_of_source_land_overlapped": 0.7357278458442896
+        },
+        {
+          "pin": "3",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            22.1375,
+            -21.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            22.500121,
+            -21.4999238
+          ],
+          "source_area_mm2": 0.9856353795685555,
+          "supplier_area_mm2": 0.8999964000036027,
+          "intersection_area_mm2": 0.7251615491059827,
+          "fraction_of_supplier_land_overlapped": 0.8057382775120877,
+          "fraction_of_source_land_overlapped": 0.7357300317521165
+        },
+        {
+          "pin": "4",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            22.1375,
+            -20.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            22.500121,
+            -20.4999258
+          ],
+          "source_area_mm2": 0.9856353795685555,
+          "supplier_area_mm2": 0.8999964000036027,
+          "intersection_area_mm2": 0.7251637034918821,
+          "fraction_of_supplier_land_overlapped": 0.8057406712837731,
+          "fraction_of_source_land_overlapped": 0.7357322175359713
+        },
+        {
+          "pin": "5",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            22.1375,
+            -19.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            22.500121,
+            -19.4999278
+          ],
+          "source_area_mm2": 0.9856353795685555,
+          "supplier_area_mm2": 0.8999964000036027,
+          "intersection_area_mm2": 0.725165857755594,
+          "fraction_of_supplier_land_overlapped": 0.8057430649196943,
+          "fraction_of_source_land_overlapped": 0.7357344031958578
+        },
+        {
+          "pin": "6",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            16.8625,
+            -19.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            16.500133,
+            -19.4999278
+          ],
+          "source_area_mm2": 0.9856353795685555,
+          "supplier_area_mm2": 0.8999964000036027,
+          "intersection_area_mm2": 0.7253182392643952,
+          "fraction_of_supplier_land_overlapped": 0.8059123783845044,
+          "fraction_of_source_land_overlapped": 0.7358890055081936
+        },
+        {
+          "pin": "7",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            16.8625,
+            -20.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            16.499879,
+            -20.4999258
+          ],
+          "source_area_mm2": 0.9856353795685555,
+          "supplier_area_mm2": 0.8999964000036027,
+          "intersection_area_mm2": 0.725163703491882,
+          "fraction_of_supplier_land_overlapped": 0.805740671283773,
+          "fraction_of_source_land_overlapped": 0.7357322175359712
+        },
+        {
+          "pin": "8",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            16.8625,
+            -21.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            16.499879,
+            -21.4999238
+          ],
+          "source_area_mm2": 0.9856353795685555,
+          "supplier_area_mm2": 0.8999964000036027,
+          "intersection_area_mm2": 0.7251615491059826,
+          "fraction_of_supplier_land_overlapped": 0.8057382775120876,
+          "fraction_of_source_land_overlapped": 0.7357300317521164
+        },
+        {
+          "pin": "9",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            16.8625,
+            -22.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            16.499879,
+            -22.4999218
+          ],
+          "source_area_mm2": 0.9856353795685555,
+          "supplier_area_mm2": 0.8999964000036027,
+          "intersection_area_mm2": 0.7251593945978921,
+          "fraction_of_supplier_land_overlapped": 0.8057358836046337,
+          "fraction_of_source_land_overlapped": 0.7357278458442896
+        },
+        {
+          "pin": "10",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            16.8625,
+            -23.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            16.500133,
+            -23.4999198
+          ],
+          "source_area_mm2": 0.9856353795685555,
+          "supplier_area_mm2": 0.8999964000036027,
+          "intersection_area_mm2": 0.7253096194444194,
+          "fraction_of_supplier_land_overlapped": 0.805902800768443,
+          "fraction_of_source_land_overlapped": 0.7358802600632203
+        },
+        {
+          "pin": "11",
+          "source_land_size_mm": [
+            2.1,
+            3.3
+          ],
+          "source_land_center_world_mm": [
+            19.5,
+            -21.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            19.499873,
+            -21.4999238
+          ],
+          "source_area_mm2": 6.929999999999999,
+          "supplier_area_mm2": 6.929972280027723,
+          "intersection_area_mm2": 6.929407030263456,
+          "fraction_of_supplier_land_overlapped": 0.9999184340511872,
+          "fraction_of_source_land_overlapped": 0.9999144343814512
+        }
+      ],
+      "minimum_supplier_land_area_overlap_fraction": 0.8057334895614197
+    },
+    {
+      "variant": "lite-a",
+      "reference": "U1",
+      "lcsc": "C970725",
+      "body_origin_policy": "Preserve existing physical component body origin; apply supplier zero-axis rotation only. Different recommended land-center lengths do not imply a body-origin shift.",
+      "proper_supplier_rotation_deg": 90,
+      "pads": [
+        {
+          "pin": "1",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            45.6375,
+            -32.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            46.000121,
+            -32.4999198
+          ],
+          "source_area_mm2": 0.9856353795685452,
+          "supplier_area_mm2": 0.8999964000035878,
+          "intersection_area_mm2": 0.7251572399676103,
+          "fraction_of_supplier_land_overlapped": 0.8057334895614243,
+          "fraction_of_source_land_overlapped": 0.7357256598124985
+        },
+        {
+          "pin": "2",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            45.6375,
+            -31.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            46.000121,
+            -31.4999218
+          ],
+          "source_area_mm2": 0.9856353795685552,
+          "supplier_area_mm2": 0.8999964000035985,
+          "intersection_area_mm2": 0.7251593945978922,
+          "fraction_of_supplier_land_overlapped": 0.8057358836046375,
+          "fraction_of_source_land_overlapped": 0.7357278458442901
+        },
+        {
+          "pin": "3",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            45.6375,
+            -30.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            46.000121,
+            -30.4999238
+          ],
+          "source_area_mm2": 0.9856353795685552,
+          "supplier_area_mm2": 0.8999964000035985,
+          "intersection_area_mm2": 0.7251615491059827,
+          "fraction_of_supplier_land_overlapped": 0.8057382775120915,
+          "fraction_of_source_land_overlapped": 0.7357300317521167
+        },
+        {
+          "pin": "4",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            45.6375,
+            -29.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            46.000121,
+            -29.4999258
+          ],
+          "source_area_mm2": 0.9856353795685552,
+          "supplier_area_mm2": 0.8999964000035985,
+          "intersection_area_mm2": 0.7251637034918821,
+          "fraction_of_supplier_land_overlapped": 0.8057406712837769,
+          "fraction_of_source_land_overlapped": 0.7357322175359715
+        },
+        {
+          "pin": "5",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            45.6375,
+            -28.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            46.000121,
+            -28.499927800000002
+          ],
+          "source_area_mm2": 0.9856353795685552,
+          "supplier_area_mm2": 0.8999964000035985,
+          "intersection_area_mm2": 0.7251658577555978,
+          "fraction_of_supplier_land_overlapped": 0.8057430649197023,
+          "fraction_of_source_land_overlapped": 0.7357344031958619
+        },
+        {
+          "pin": "6",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            40.3625,
+            -28.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            40.000133,
+            -28.499927800000002
+          ],
+          "source_area_mm2": 0.9856353795685552,
+          "supplier_area_mm2": 0.8999964000035985,
+          "intersection_area_mm2": 0.7253182392643968,
+          "fraction_of_supplier_land_overlapped": 0.8059123783845099,
+          "fraction_of_source_land_overlapped": 0.7358890055081954
+        },
+        {
+          "pin": "7",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            40.3625,
+            -29.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            39.999879,
+            -29.4999258
+          ],
+          "source_area_mm2": 0.9856353795685552,
+          "supplier_area_mm2": 0.8999964000035985,
+          "intersection_area_mm2": 0.7251637034918821,
+          "fraction_of_supplier_land_overlapped": 0.8057406712837769,
+          "fraction_of_source_land_overlapped": 0.7357322175359715
+        },
+        {
+          "pin": "8",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            40.3625,
+            -30.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            39.999879,
+            -30.4999238
+          ],
+          "source_area_mm2": 0.9856353795685552,
+          "supplier_area_mm2": 0.8999964000035985,
+          "intersection_area_mm2": 0.7251615491059828,
+          "fraction_of_supplier_land_overlapped": 0.8057382775120916,
+          "fraction_of_source_land_overlapped": 0.7357300317521168
+        },
+        {
+          "pin": "9",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            40.3625,
+            -31.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            39.999879,
+            -31.4999218
+          ],
+          "source_area_mm2": 0.9856353795685552,
+          "supplier_area_mm2": 0.8999964000035985,
+          "intersection_area_mm2": 0.7251593945978922,
+          "fraction_of_supplier_land_overlapped": 0.8057358836046375,
+          "fraction_of_source_land_overlapped": 0.7357278458442901
+        },
+        {
+          "pin": "10",
+          "source_land_size_mm": [
+            1.675,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            40.3625,
+            -32.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            40.000133,
+            -32.4999198
+          ],
+          "source_area_mm2": 0.9856353795685452,
+          "supplier_area_mm2": 0.8999964000035878,
+          "intersection_area_mm2": 0.7253096194444092,
+          "fraction_of_supplier_land_overlapped": 0.805902800768445,
+          "fraction_of_source_land_overlapped": 0.7358802600632176
+        },
+        {
+          "pin": "11",
+          "source_land_size_mm": [
+            2.1,
+            3.3
+          ],
+          "source_land_center_world_mm": [
+            43.0,
+            -30.5
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            42.999873,
+            -30.4999238
+          ],
+          "source_area_mm2": 6.929999999999975,
+          "supplier_area_mm2": 6.929972280027723,
+          "intersection_area_mm2": 6.9294070302634445,
+          "fraction_of_supplier_land_overlapped": 0.9999184340511855,
+          "fraction_of_source_land_overlapped": 0.999914434381453
+        }
+      ],
+      "minimum_supplier_land_area_overlap_fraction": 0.8057334895614243
+    },
+    {
+      "variant": "full",
+      "reference": "L1",
+      "lcsc": "C2041333",
+      "body_origin_policy": "Preserve existing physical component body origin; apply supplier zero-axis rotation only. Different recommended land-center lengths do not imply a body-origin shift.",
+      "proper_supplier_rotation_deg": 90,
+      "pads": [
+        {
+          "pin": "1",
+          "source_land_size_mm": [
+            2.9,
+            5.4
+          ],
+          "source_land_center_world_mm": [
+            39.0,
+            -66.35
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            39.0,
+            -67.187314
+          ],
+          "source_area_mm2": 15.660000000000046,
+          "supplier_area_mm2": 19.59992160007836,
+          "intersection_area_mm2": 12.758485499999965,
+          "fraction_of_supplier_land_overlapped": 0.6509457415354639,
+          "fraction_of_source_land_overlapped": 0.8147181034482712
+        },
+        {
+          "pin": "2",
+          "source_land_size_mm": [
+            2.9,
+            5.4
+          ],
+          "source_land_center_world_mm": [
+            39.0,
+            -56.65
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            39.0,
+            -55.812686
+          ],
+          "source_area_mm2": 15.660000000000046,
+          "supplier_area_mm2": 19.59992160007844,
+          "intersection_area_mm2": 12.758485500000042,
+          "fraction_of_supplier_land_overlapped": 0.6509457415354652,
+          "fraction_of_source_land_overlapped": 0.8147181034482761
+        }
+      ],
+      "minimum_supplier_land_area_overlap_fraction": 0.6509457415354639
+    },
+    {
+      "variant": "full",
+      "reference": "C7",
+      "lcsc": "C242173",
+      "body_origin_policy": "Preserve existing physical component body origin; apply supplier zero-axis rotation only. Different recommended land-center lengths do not imply a body-origin shift.",
+      "proper_supplier_rotation_deg": 90,
+      "pads": [
+        {
+          "pin": "1",
+          "source_land_size_mm": [
+            2.07,
+            2.59
+          ],
+          "source_land_center_world_mm": [
+            39.0,
+            -52.92
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            39.0,
+            -53.236619999999995
+          ],
+          "source_area_mm2": 5.307509387690419,
+          "supplier_area_mm2": 5.663531336140476,
+          "intersection_area_mm2": 4.663296325845231,
+          "fraction_of_supplier_land_overlapped": 0.8233902222960287,
+          "fraction_of_source_land_overlapped": 0.8786223415187364
+        },
+        {
+          "pin": "2",
+          "source_land_size_mm": [
+            2.07,
+            2.59
+          ],
+          "source_land_center_world_mm": [
+            39.0,
+            -46.68
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            39.0,
+            -46.36338
+          ],
+          "source_area_mm2": 5.307509387690419,
+          "supplier_area_mm2": 5.663531336140476,
+          "intersection_area_mm2": 4.663296325845212,
+          "fraction_of_supplier_land_overlapped": 0.8233902222960253,
+          "fraction_of_source_land_overlapped": 0.8786223415187329
+        }
+      ],
+      "minimum_supplier_land_area_overlap_fraction": 0.8233902222960253
+    },
+    {
+      "variant": "lite-a",
+      "reference": "C7",
+      "lcsc": "C242173",
+      "body_origin_policy": "Preserve existing physical component body origin; apply supplier zero-axis rotation only. Different recommended land-center lengths do not imply a body-origin shift.",
+      "proper_supplier_rotation_deg": 90,
+      "pads": [
+        {
+          "pin": "1",
+          "source_land_size_mm": [
+            2.07,
+            2.59
+          ],
+          "source_land_center_world_mm": [
+            33.5,
+            -51.62
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            33.5,
+            -51.93662
+          ],
+          "source_area_mm2": 5.307509387690419,
+          "supplier_area_mm2": 5.663531336140476,
+          "intersection_area_mm2": 4.663296325845213,
+          "fraction_of_supplier_land_overlapped": 0.8233902222960254,
+          "fraction_of_source_land_overlapped": 0.8786223415187331
+        },
+        {
+          "pin": "2",
+          "source_land_size_mm": [
+            2.07,
+            2.59
+          ],
+          "source_land_center_world_mm": [
+            33.5,
+            -45.38
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            33.5,
+            -45.06338
+          ],
+          "source_area_mm2": 5.307509387690419,
+          "supplier_area_mm2": 5.663531336140476,
+          "intersection_area_mm2": 4.663296325845212,
+          "fraction_of_supplier_land_overlapped": 0.8233902222960253,
+          "fraction_of_source_land_overlapped": 0.8786223415187329
+        }
+      ],
+      "minimum_supplier_land_area_overlap_fraction": 0.8233902222960253
+    },
+    {
+      "variant": "lite-a",
+      "reference": "U3",
+      "lcsc": "C5446",
+      "body_origin_policy": "Preserve existing physical component body origin; apply supplier zero-axis rotation only. Different recommended land-center lengths do not imply a body-origin shift.",
+      "proper_supplier_rotation_deg": 180,
+      "pads": [
+        {
+          "pin": "1",
+          "source_land_size_mm": [
+            1.475,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            60.5625,
+            -12.05
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            60.264925,
+            -12.05004
+          ],
+          "source_area_mm2": 0.8656353795685549,
+          "supplier_area_mm2": 0.6419989559995204,
+          "intersection_area_mm2": 0.5752392926450624,
+          "fraction_of_supplier_land_overlapped": 0.8960128163284615,
+          "fraction_of_source_land_overlapped": 0.6645283987026616
+        },
+        {
+          "pin": "2",
+          "source_land_size_mm": [
+            1.475,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            60.5625,
+            -13.95
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            60.264925,
+            -13.949959999999999
+          ],
+          "source_area_mm2": 0.8656353795685549,
+          "supplier_area_mm2": 0.6419989559995204,
+          "intersection_area_mm2": 0.5752392926450609,
+          "fraction_of_supplier_land_overlapped": 0.8960128163284593,
+          "fraction_of_source_land_overlapped": 0.6645283987026599
+        },
+        {
+          "pin": "3",
+          "source_land_size_mm": [
+            1.475,
+            0.6
+          ],
+          "source_land_center_world_mm": [
+            62.4375,
+            -13.0
+          ],
+          "supplier_land_center_world_at_preserved_body_origin_mm": [
+            62.735075,
+            -13.0
+          ],
+          "source_area_mm2": 0.8656353795685549,
+          "supplier_area_mm2": 0.6419989559995204,
+          "intersection_area_mm2": 0.5752718198630388,
+          "fraction_of_supplier_land_overlapped": 0.8960634818594136,
+          "fraction_of_source_land_overlapped": 0.6645659748215959
+        }
+      ],
+      "minimum_supplier_land_area_overlap_fraction": 0.8960128163284593
+    }
+  ],
+  "manufacturer_checks": {
+    "U1_CH224K": {
+      "pitch_mm": 1.0,
+      "package_lead_tip_span_nominal_mm": 6.0,
+      "lead_foot_nominal_mm": 0.5,
+      "lead_width_nominal_mm": 0.43,
+      "source_land_pitch_mm": 1.0,
+      "source_land_radial_bounds_from_body_center_mm": [
+        1.8,
+        3.475
+      ],
+      "nominal_lead_foot_radial_interval_mm": [
+        2.5,
+        3.0
+      ],
+      "nominal_contact_covered": true,
+      "maximum_stated_tip_span_mm": 6.2,
+      "toe_margin_at_max_span_mm": 0.375,
+      "exposed_pad_source_and_supplier_mm": [
+        2.1,
+        3.3
+      ],
+      "note": "Drawing uses general +/-0.2mm dimensions except nominal pinpitch. Nominal terminal feet fully lie on source lands. Not a complete worst-case IPC tolerance calculation."
+    },
+    "L1_SRR1260": {
+      "manufacturer_recommended_land_size_mm": [
+        2.9,
+        5.4
+      ],
+      "manufacturer_recommended_inner_gap_mm": 6.8,
+      "manufacturer_recommended_center_pitch_mm": 9.7,
+      "source_matches_manufacturer_recommended_pattern": true,
+      "note": "Supplier generic-library lands differ; do not replace exact Bourns recommended pattern merely to match supplier pad centers."
+    },
+    "C7_10TPB220M": {
+      "case": "D3L",
+      "body_length_nominal_mm": 7.3,
+      "body_length_tolerance_mm": 0.3,
+      "terminal_length_nominal_mm": 1.3,
+      "terminal_length_tolerance_mm": 0.2,
+      "terminal_width_nominal_mm": 2.4,
+      "terminal_width_tolerance_mm": 0.1,
+      "source_land_size_mm": [
+        2.07,
+        2.59
+      ],
+      "source_land_center_pitch_mm": 6.24,
+      "source_land_radial_bounds_from_body_center_mm": [
+        2.085,
+        4.155
+      ],
+      "nominal_terminal_radial_interval_mm": [
+        2.35,
+        3.65
+      ],
+      "nominal_contact_covered": true,
+      "toe_margin_at_longest_body_mm": 0.355,
+      "note": "Package-terminal nominal overlap reviewed. Supplier reference land has a longer external toe; center mismatch alone is not an incompatible part. Manufacturer recommended stencil and full tolerance stack are not established."
+    },
+    "U3_XC6206": {
+      "package": "SOT23 MR",
+      "nominal_lead_tip_span_mm": 2.8,
+      "lead_tip_span_tolerance_mm": 0.2,
+      "nominal_lead_width_mm": 0.4,
+      "lead_width_tolerance_plus_mm": 0.1,
+      "lead_width_tolerance_minus_mm": 0.05,
+      "paired_lead_pitch_mm": 1.9,
+      "paired_lead_pitch_tolerance_mm": 0.2,
+      "source_land_size_mm": [
+        1.475,
+        0.6
+      ],
+      "source_land_radial_bounds_from_body_center_mm": [
+        0.2,
+        1.675
+      ],
+      "toe_margin_at_max_lead_tip_span_mm": 0.175,
+      "body_origin_shift_not_required": true,
+      "nominal_contact_covered": true,
+      "note": "Least-squares shift+0.09919mm is bias from two-vs-one pad bank and different land lengths; preserve body origin. Nominal lead/land coverage and maximum toe reach reviewed, not an IPC class3 joint guarantee."
+    }
+  },
+  "J1_frame_check": {
+    "lcsc": "C381116",
+    "drawing": "XKB DC-005-5A-2.0,A1,2025-04-22,topview",
+    "source_relative_pin_centers_mm": {
+      "1": [
+        0,
+        0
+      ],
+      "2": [
+        -5.9,
+        0
+      ],
+      "3": [
+        -3,
+        -4.7
+      ]
+    },
+    "manufacturer_matches_source_relative_pin_centers": true,
+    "supplier_library_pin_centers_mm": {
+      "1": [
+        2.999994,
+        2.351659
+      ],
+      "2": [
+        -2.999994,
+        2.351659
+      ],
+      "3": [
+        -0.000254,
+        -2.351659
+      ]
+    },
+    "frame_shift_from_source_anchor_to_supplier_origin_mm": [
+      -3,
+      -2.35
+    ],
+    "least_squares_x_bias_mm": 0.033418,
+    "policy": "Use the drawing-basedframe shift, not average the supplierlibrary pin2 pitch discrepancy. Source manufacturer slot1x3.5mm preserved."
+  },
+  "limitations": [
+    "Comparing copper land areas does not itself qualify solder paste volume or reflow yield.",
+    "CPL rotations are supplier library-frame conventions; actual placement preview should still match physical pin1/polarity.",
+    "No circuit, board, BOM, CPL, or EasyEDA API mutations performed by this audit."
+  ]
+}

@@ -1,10 +1,10 @@
 {
   "ok": true,
   "path_resistance_ohm": {
-    "4": 0.08883290905660231,
-    "5": 0.086350809822523,
-    "6": 0.10294088579228776,
-    "7": 0.08543265310353582
+    "4": 0.08974602058953726,
+    "5": 0.0872697901613309,
+    "6": 0.10391268538395222,
+    "7": 0.08639271508345436
   },
   "copper_temperature_C": 20,
   "regulator_conservative_bound_V": [
@@ -15,11 +15,11 @@
     4.5,
     5.5
   ],
-  "core_0_5A_max_path_drop_V": 0.05147044289614388,
-  "core_2A_max_path_drop_V": 0.20588177158457552,
+  "core_0_5A_max_path_drop_V": 0.05195634269197611,
+  "core_2A_max_path_drop_V": 0.20782537076790444,
   "notes": [
     "Shortest series-resistance path gives a conservative copper-only drop when assigning the entire Core current to each individual path; parallel copper paths reduce actual resistance.",
-    "35um outer /17.5um inner; 2mOhm via; contact/inductor/ground-return resistance, heating, regulator ripple/transients and load regulation excluded.",
+    "35um outer /15.2um inner; 2mOhm via; contact/inductor/ground-return resistance, heating, regulator ripple/transients and load regulation excluded.",
     "2% Vref /1% feedback resistor bound is a design allowance, not a measured regulator output. Core official 0.5A requirement is not a peak-current guarantee."
   ]
 }

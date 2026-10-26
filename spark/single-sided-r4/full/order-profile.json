@@ -1,0 +1,113 @@
+{
+  "revision": "single-sided-no-switch-r4",
+  "variant": "full",
+  "date": "2026-10-26",
+  "purpose": "PoC PCB and PCBA order profile; supplier quote/assembly review remains part of ordering",
+  "board": {
+    "dimensions_mm": [
+      125,
+      78
+    ],
+    "layers": 4,
+    "material": "FR-4",
+    "stackup": "JLC04161H-7628",
+    "finished_thickness_mm": 1.6,
+    "copper": {
+      "outer_finished_um": 35,
+      "inner_um": 15.2
+    },
+    "prepreg": "7628",
+    "outer_copper_to_adjacent_ground_dielectric_mm": 0.2104,
+    "design_dielectric_constant": 4.4,
+    "artwork_policy": "Preserve delivered copper widths/gaps and outline; do not substitute a different stackup or resize impedance traces without design review."
+  },
+  "assembly": {
+    "SMT_sides": [
+      "top"
+    ],
+    "bottom_stencil": "none; bottom paste layer is empty",
+    "pcba_candidate_components": 101,
+    "pcba_bom_rows": 43,
+    "manual": [
+      {
+        "reference": "J3",
+        "LCSC": "C56496",
+        "quantity_per_board": 1,
+        "mount_side": "bottom",
+        "method": "separately purchase from LCSC and manually solder; excluded from PCBA BOM and CPL"
+      }
+    ],
+    "separate_unfitted_accessories": [
+      {
+        "reference": "JP1 shunt",
+        "LCSC": "C5305",
+        "quantity_per_board": 1,
+        "initial_state": "not fitted"
+      }
+    ],
+    "required_hybrid_assembly": [
+      "J2: SMT contacts plus all four through-hole shell stakes",
+      "J5: all19 SMT signal contacts plus all four through-hole shell tabs"
+    ],
+    "THT_candidates": [
+      "J1/C381116",
+      "JP1/C124375"
+    ],
+    "THT_fallback": "If supplier declines J1 or JP1, buy the same selected LCSC part separately and hand solder; update the supplier assembly selection to avoid duplicate procurement.",
+    "U2_PowerPAD": "Eight nominal0.3mm thermal holes; preserve supplied solder-mask tenting and the2.6x3.1mm top opening. Do not add bottom paste or open the bottom thermal mask. Review exposed-pad/thermal-via soldering with assembler."
+  },
+  "placement": {
+    "basis": "Official LCSC/EasyEDA orientation and rigid frame offsets by numbered pins; preserve manufacturer body centers where library recommended land lengths differ. J1 manufacturer frame(-3,-2.35)mm. Supplied Gerber plot coordinates, +X right/+Y up.",
+    "corrected_CPL_complete": true,
+    "verified_references": 101,
+    "all_layers_top": true,
+    "BOM_CPL_reference_sets_equal": true,
+    "J3_excluded": true,
+    "source_board_normalized_sha256": "dc5854243dbe38bd6fb6010a91cc87108191bbdf318ce7149c12df71c08aa7de",
+    "correction_record": "../assembly-placement-corrections.json",
+    "regeneration": "The exporter must run finalize_placement.py. Do not replace release CPL with an uncorrected CAD-origin export.",
+    "supplier_review": "Official library-frame correction is not independent confirmation of tape/reel orientation or final factory placement; review the current order preview against assembly/polarity references."
+  },
+  "artifacts": {
+    "gerbers.zip": {
+      "path": "design/manufacturing/spark-lcsc-review-single-sided-r4-2026-10-26/gerbers.zip",
+      "sha256": "25208c01c86a689e583f3522b2cb1594949c729b234d01f2893fdf3418c15137"
+    },
+    "jlc-bom.csv": {
+      "path": "design/manufacturing/spark-lcsc-review-single-sided-r4-2026-10-26/jlc-bom.csv",
+      "sha256": "b9529887a6eda1c684d89a9cc6cc7e3ae437a54143cb68b1ae6c0af9a75ae1f6"
+    },
+    "jlc-cpl.csv": {
+      "path": "design/manufacturing/spark-lcsc-review-single-sided-r4-2026-10-26/jlc-cpl.csv",
+      "sha256": "5e1f297155662ad8832ae7ed561449b5d9ac203481a26415e0c05cc307bea944"
+    },
+    "assembly-top.svg": {
+      "path": "design/manufacturing/spark-lcsc-review-single-sided-r4-2026-10-26/assembly-top.svg",
+      "sha256": "174f8e5fa7518bcfb284e0bc414381f413809ea7c45576a538d25f6c64190e11"
+    },
+    "assembly-bottom.svg": {
+      "path": "design/manufacturing/spark-lcsc-review-single-sided-r4-2026-10-26/assembly-bottom.svg",
+      "sha256": "fd7df26f270ee1e618d37002ce389f015733b9115158533cde7840387e261c00"
+    },
+    "dnp.csv": {
+      "path": "design/manufacturing/spark-lcsc-review-single-sided-r4-2026-10-26/dnp.csv",
+      "sha256": "3c37906e4685300de4839d21320d90777df32721715ff2e2b68aa9b83a531550"
+    }
+  },
+  "excluded_from_PCBA": [
+    "Tab5",
+    "Tang Primer20K Core",
+    "J3",
+    "C5305 shunt",
+    "cables",
+    "mechanical hardware"
+  ],
+  "power_switch": "omitted: neither main external-power switch nor old FPGA-only SW3 is fitted",
+  "verification": {
+    "PCB_DRC_violations": 0,
+    "PCB_unconnected": 0,
+    "populated_bottom_SMT": 0,
+    "CPL_official_frame_matches_all_references": true,
+    "scope": "Checks of supplied data and footprint-frame alignment; not factory acceptance or physical validation."
+  }
+}

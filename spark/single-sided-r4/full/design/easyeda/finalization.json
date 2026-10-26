@@ -1,5 +1,20 @@
 {
   "native_project_uuid": "cd2e33d9ad2aaff07808921a54e53f67d559e04846e76e49926f46f87768092a",
   "simulation_execution_project_uuid": "6c49524a820f8c0daaacd830c93718e05caa43ca83c241fd37c5bef618aaaa27",
-  "changes_after_simulation": "Mask/paste suppression on U2 copper-only pads. Exact original geometry restored to avoid component-pad API serialization rounding and hole unit conversion. Reimported corrected native archive through EasyEDA API. SPICE inputs and electrical routing unchanged; actual native Gerber/drill output audited."
+  "changes_after_simulation": "Mask/paste-only U2 correction reimported via EasyEDA API with exact pad/drill geometry retained. Native Gerber/drill output audited. Separate power-model thickness refinement rerun; remaining signal simulations retain original execution provenance.",
+  "power_model_revision": "Inner copper15.2um / outer35um matching JLC04161H-7628. Power cases rerun in final native project; no physical circuit or route change.",
+  "execution_projects_by_analysis": {
+    "power": [
+      "cd2e33d9ad2aaff07808921a54e53f67d559e04846e76e49926f46f87768092a"
+    ],
+    "parallel": [
+      "6c49524a820f8c0daaacd830c93718e05caa43ca83c241fd37c5bef618aaaa27"
+    ],
+    "periodic": [
+      "6c49524a820f8c0daaacd830c93718e05caa43ca83c241fd37c5bef618aaaa27"
+    ],
+    "hdmi": [
+      "6c49524a820f8c0daaacd830c93718e05caa43ca83c241fd37c5bef618aaaa27"
+    ]
+  }
 }

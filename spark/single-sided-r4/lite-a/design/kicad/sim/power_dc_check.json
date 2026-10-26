@@ -1,18 +1,18 @@
 {
   "ok": true,
   "path_resistance_ohm": {
-    "4": 0.13205308396338622,
-    "5": 0.10481703386059184,
-    "6": 0.13674453593189015,
-    "7": 0.1035469675208843
+    "4": 0.14525399291630295,
+    "5": 0.11386588909702909,
+    "6": 0.14994544488480688,
+    "7": 0.11256761610253498
   },
   "copper_temperature_C": 20,
   "hot_copper_temperature_C": 85,
   "hot_path_resistance_ohm": {
-    "4": 0.16578604426183322,
-    "5": 0.13159254516028002,
-    "6": 0.17167592763569148,
-    "7": 0.12999804037409418
+    "4": 0.18235912540677254,
+    "5": 0.14295293046686516,
+    "6": 0.18824900878063078,
+    "7": 0.14132301363592753
   },
   "feedback_lower_equivalent_ohm": 3246.433841613379,
   "regulator_conservative_bound_V": [
@@ -23,12 +23,12 @@
     4.5,
     5.5
   ],
-  "core_0_5A_max_path_drop_V": 0.06837226796594507,
-  "core_2A_max_path_drop_V": 0.2734890718637803,
-  "core_0_5A_hot_copper_lower_bound_V": 4.7212531252910654,
+  "core_0_5A_max_path_drop_V": 0.07497272244240344,
+  "core_2A_max_path_drop_V": 0.29989088976961376,
+  "core_0_5A_hot_copper_lower_bound_V": 4.712966584718596,
   "notes": [
     "Shortest series-resistance path gives a conservative copper-only drop when assigning the entire Core current to each individual path; parallel copper paths reduce actual resistance.",
-    "35um outer /17.5um inner; 2mOhm via; contact/inductor/ground-return resistance, regulator ripple/transients and load regulation excluded.",
+    "35um outer /15.2um inner; 2mOhm via; contact/inductor/ground-return resistance, regulator ripple/transients and load regulation excluded.",
     "TPS5430 Vref 1.196..1.245V and each feedback resistor +/-1% are design bounds, not measured output. Core official 0.5A requirement is not a peak-current guarantee.",
     "85C copper sensitivity is a resistance model only; it does not qualify the complete board for 85C ambient operation."
   ]

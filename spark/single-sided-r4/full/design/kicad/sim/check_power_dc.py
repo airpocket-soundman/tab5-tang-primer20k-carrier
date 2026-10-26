@@ -26,7 +26,7 @@ for t in tracks:
   v=pcbnew.VECTOR2I(round(a.x+q*dx),round(a.y+q*dy));distance=(pp-v).EuclideanNorm()/1e6
   if 0<distance<=mm(t.GetWidth())/2:
    other=node(t.GetLayer(),v)
-   edge(k,other,.00001724*distance/(.127*.0175))
+   edge(k,other,.00001724*distance/(.127*.0152))
 # Include pads touching the interior of a track, not just segment endpoints.
 for ref,p in pads:
  for t in tracks:
@@ -43,7 +43,7 @@ for t in tracks:
   q=((p.x-a.x)*dx+(p.y-a.y)*dy)/ll if ll else 0
   if -.000001<=q<=1.000001 and abs((p.x-a.x)*dy-(p.y-a.y)*dx)/math.sqrt(ll or 1)<10:hits.append((q,k))
  hits.sort()
- th=.035 if t.GetLayer() in (pcbnew.F_Cu,pcbnew.B_Cu) else .0175
+ th=.035 if t.GetLayer() in (pcbnew.F_Cu,pcbnew.B_Cu) else .0152
  for (_,n),(_,m) in zip(hits,hits[1:]):
   length=math.hypot(n[1]-m[1],n[2]-m[2])/1e6
   edge(n,m,.00001724*length/(mm(t.GetWidth())*th))
@@ -62,5 +62,5 @@ res={str(n):dist.get(('pad','J4',str(n))) for n in (4,5,6,7)}
 assert all(v is not None for v in res.values()),res
 # Worst independent resistor tolerance / Vref bound; nominal TPS5430 Vref=1.221.
 vmin=1.221*.98*(1+10000*.99/(3240*1.01));vmax=1.221*1.02*(1+10000*1.01/(3240*.99))
-out=dict(ok=True,path_resistance_ohm=res,copper_temperature_C=20,regulator_conservative_bound_V=[vmin,vmax],core_5V_official_range_V=[4.5,5.5],core_0_5A_max_path_drop_V=max(res.values())*.5,core_2A_max_path_drop_V=max(res.values())*2,notes=['Shortest series-resistance path gives a conservative copper-only drop when assigning the entire Core current to each individual path; parallel copper paths reduce actual resistance.','35um outer /17.5um inner; 2mOhm via; contact/inductor/ground-return resistance, heating, regulator ripple/transients and load regulation excluded.','2% Vref /1% feedback resistor bound is a design allowance, not a measured regulator output. Core official 0.5A requirement is not a peak-current guarantee.'])
+out=dict(ok=True,path_resistance_ohm=res,copper_temperature_C=20,regulator_conservative_bound_V=[vmin,vmax],core_5V_official_range_V=[4.5,5.5],core_0_5A_max_path_drop_V=max(res.values())*.5,core_2A_max_path_drop_V=max(res.values())*2,notes=['Shortest series-resistance path gives a conservative copper-only drop when assigning the entire Core current to each individual path; parallel copper paths reduce actual resistance.','35um outer /15.2um inner; 2mOhm via; contact/inductor/ground-return resistance, heating, regulator ripple/transients and load regulation excluded.','2% Vref /1% feedback resistor bound is a design allowance, not a measured regulator output. Core official 0.5A requirement is not a peak-current guarantee.'])
 (H/'power_dc_check.json').write_text(json.dumps(out,indent=2));print(json.dumps(out,indent=1))

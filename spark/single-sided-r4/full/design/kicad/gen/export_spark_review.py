@@ -57,4 +57,9 @@ def main():
   for p in sorted(g.iterdir()):z.write(p,p.name)
  report=dict(status='Quotation only. Source PCB DRC passed. R4 native migration and native validation pending API connection. Supplier assembly acceptance and rotation preview pending.',pcba_components=len(refs),pcba_bom_rows=len(rows),bom_cpl_equal=True,origin_mm=[2,79],board_dimensions_mm=[125,78],cpl_coordinates='KiCad drill/place origin, +X right +Y up; J3 excluded from PCBA, LCSC separately purchased and manually soldered; rotation is KiCad convention, confirm manufacturer preview',manual_refs=sorted(MANUAL),source_pcb_sha256=hashlib.sha256(PCB.read_bytes().replace(b'\r\n',b'\n')).hexdigest(),files={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(OUT.iterdir()) if p.is_file() and p.name!='package-check.json'})
  (OUT/'package-check.json').write_text(json.dumps(report,indent=2));print(json.dumps({k:v for k,v in report.items() if k!='files'},indent=1))
-if __name__=='__main__':main()
+if __name__=='__main__':
+ main()
+ import importlib.util
+ helper=ROOT.parents[1]/'finalize_placement.py'
+ spec=importlib.util.spec_from_file_location('placement',helper);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+ module.apply('full')
