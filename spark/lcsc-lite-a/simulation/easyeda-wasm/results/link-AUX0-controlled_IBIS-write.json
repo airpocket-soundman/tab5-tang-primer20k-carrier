@@ -1,0 +1,52 @@
+{
+  "ok": true,
+  "status": 0,
+  "summary": {
+    "signal": "AUX0",
+    "corner": "controlled_IBIS",
+    "direction": "write",
+    "samples": 21876,
+    "pin_extrema_V": {
+      "GPIO_receiver": {
+        "max": 3.4649976583872273,
+        "min_rising": 0,
+        "min_falling_by_linearity": 0
+      },
+      "GPIO_driver_pad": {
+        "max": 3.4650009093678324,
+        "min_rising": 0,
+        "min_falling_by_linearity": -9.093678325911014e-7
+      },
+      "switch_host_pin": {
+        "max": 3.465003296345047,
+        "min_rising": 0,
+        "min_falling_by_linearity": -0.0000032963450471434896
+      },
+      "switch_core_pin": {
+        "max": 3.465013533656397,
+        "min_rising": 0,
+        "min_falling_by_linearity": -0.000013533656397335392
+      }
+    },
+    "settle_5percent_ns": 38.5095753481161,
+    "receiver_voltage_ok": true,
+    "source_voltage_ok": true,
+    "switch_design_envelope_ok": true
+  },
+  "exportSampling": "adaptive solver output",
+  "logs": [],
+  "runtimeMs": 766.6999999880791,
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) EasyEDAPro/3.2.149.88089769 Chrome/146.0.7680.188 Electron/41.2.1-jlc-sa-win-x64.2 Safari/537.36",
+  "engine": "Official EasyEDA NGspice46 WASM; executed in EasyEDA API Gateway Worker",
+  "rawPath": "D:/tmp/easyeda-ngspice-wasm/raw-lite-a/link-AUX0-controlled_IBIS-write.json",
+  "diagnostics": {
+    "errors": [],
+    "warnings": []
+  },
+  "caseName": "link-AUX0-controlled_IBIS-write",
+  "source": {
+    "netlist_sha256": "184de19271fa221ec1d16f2ec9131d32024ebd9568c46f0bfbc6475570b76a1d",
+    "pcb_normalized_sha256": "48f6b27ce7d612f80a51cf8f8202afb03022aa2c51a9efa30a5f774eed10d69a",
+    "scope": "Identical run_final_selected.py model construction; no physical validation"
+  }
+}

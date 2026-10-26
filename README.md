@@ -4,7 +4,9 @@ M5Stack Tab5のM5-BusとTang Primer 20K Coreを接続する専用キャリア基
 
 ## 状態
 
-構想・設計前。共通仕様と確認項目を登録した段階で、回路図・PCB・製造データは未作成です。
+フル125×78mmと廉価版A99×78mmの設計レビュー用データがあります。未製造・未実機検証です。
+
+**主電源仕様の訂正（2026-10-26）：** 必要なのは押すごとにON/OFFを保持する外部給電の主電源です。既存SW3のFPGA専用停止回路は要求と異なります。現行PCB・EasyEDAデータ・製造資料は旧回路の記録であり、新仕様の発注用データとして使用できません。[改訂状況](spark/main-power-r2/README.md)を参照してください。
 
 ## 設計の起点
 
@@ -19,8 +21,16 @@ GPIO割り当て・コネクタ・電源条件は暫定です。一次資料と�
 
 ## 利用する2つの独立プロジェクト
 
-- [Linux向け外部メモリ管理・演算補助](https://github.com/airpocket-soundman/esp32p4-linux-fpga-memory)
+- [Tab5 Linux本体・FPGA通信ドライバ](https://github.com/airpocket-soundman/tab5-linux-fpga)（研究計画・FPGA回路・評価は [esp32p4-linux-fpga-memory](https://github.com/airpocket-soundman/esp32p4-linux-fpga-memory)）
 - [Tab5外付けGPU](https://github.com/airpocket-soundman/tab5-fpga-gpu)
+
+本プロジェクトの目的は、上記2プロジェクトの要求を満たす共通キャリア基板を設計・検証することです。作業開始時と仕様変更前には、両リポジトリの要求資料と関連実装を確認することを前提とします。
+
+Linux側では双方向のコマンド・データ転送、128MB DDR3全域への分割読み書き、フロー制御・通知とエラー検出を支えます。GPU側では描画コマンド送信と完成フレーム受信を支え、640×360 RGB565・30FPSの目標に対して、フレーム本体だけで約13.8MB/sを要する受信経路を評価します。DMA対応と実効帯域は未検証であり、性能を保証するものではありません。
 
 本リポジトリは両者で使用する接続基板を扱います。ソフトウェアとFPGAビットストリームは各プロジェクトで管理し、同時動作は初期要件に含めません。
 共通仕様の更新は本リポジトリを起点とし、各プロジェクトに収録した仕様へ反映してください。
+
+## Spark応募用の独立フル機能版
+
+従来設計とA/B/Cの計画を保持し、125×78mm・HDMI・USB PD付きの別版を [spark/](spark/README.md) で開発しています。KiCadで設計・解析してEasyEDAへ移植し、PCBAを優先、手はんだ品もLCSC調達を優先し、適合品をLCSCで調達できない場合のみ秋月電子へ集約します。[検証状況と残件](spark/design/VERIFICATION_STATUS.md)を確認してください。現行の製造データは見積・レビュー用です。

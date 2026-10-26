@@ -1,0 +1,51 @@
+{
+  "ok": true,
+  "status": 0,
+  "summary": {
+    "signal": "D2",
+    "corner": "fast_IBIS_min",
+    "direction": "read",
+    "samples": 19895,
+    "pin_extrema_V": {
+      "GPIO_receiver": {
+        "max": 3.5313192408939074,
+        "min_rising": 0,
+        "min_falling_by_linearity": -0.0663192408939075
+      },
+      "GPIO_driver_pad": {
+        "max": 3.78731743208012,
+        "min_rising": 0,
+        "min_falling_by_linearity": -0.3223174320801201
+      },
+      "switch_host_pin": {
+        "max": 3.490438347407769,
+        "min_rising": 0,
+        "min_falling_by_linearity": -0.02543834740776907
+      },
+      "switch_core_pin": {
+        "max": 3.502080241826144,
+        "min_rising": 0,
+        "min_falling_by_linearity": -0.037080241826144
+      }
+    },
+    "settle_5percent_ns": 41.0654811758716,
+    "receiver_voltage_ok": true,
+    "source_voltage_ok": false,
+    "switch_design_envelope_ok": true
+  },
+  "logs": [],
+  "runtimeMs": 738.5,
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) EasyEDAPro/3.2.149.88089769 Chrome/146.0.7680.188 Electron/41.2.1-jlc-sa-win-x64.2 Safari/537.36",
+  "engine": "Official EasyEDA NGspice46 WASM; executed in EasyEDA API Gateway Worker",
+  "rawPath": "D:/tmp/easyeda-ngspice-wasm/raw/link-D2-fast_IBIS_min-read.json",
+  "diagnostics": {
+    "errors": [],
+    "warnings": []
+  },
+  "caseName": "link-D2-fast_IBIS_min-read",
+  "source": {
+    "netlist_sha256": "4d95b7d2fd75828de37c3b41cf8aafd129e9b052ff486528a6d1ffab73d1d592",
+    "pcb_normalized_sha256": "4af1f75cc07f49e4f9ced2dffbc1e195ff6774d5200efcff032f5ba6ebcb1aac",
+    "scope": "Identical run_final_selected.py model construction; no physical validation"
+  }
+}

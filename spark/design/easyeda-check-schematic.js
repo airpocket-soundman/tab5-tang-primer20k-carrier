@@ -1,0 +1,14 @@
+const p=await eda.dmt_Project.getCurrentProjectInfo();
+if(p?.uuid!=="b7a6783339159b0708ab3bf639c202306b62d83ae5fc2c3bf655e9d774467d8f")throw Error("Wrong project");
+const board=p.data.find(x=>x.itemType==="Board"&&x.schematic?.name==="spark-label-power");
+if(!board)throw Error("Missing associated board");
+await eda.dmt_EditorControl.openDocument(board.schematic.page[0].uuid);
+const doc=await eda.dmt_SelectControl.getCurrentDocumentInfo();
+if(doc?.parentProjectUuid!==p.uuid)throw Error("Wrong context");
+const source=await eda.sys_FileManager.getDocumentSource();
+if(!source)throw Error("No schematic source");
+const base="D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/spark/design/easyeda/";
+await eda.sys_FileSystem.saveFileToFileSystem(base+"akizuki-schematic-source.txt",new Blob([source],{type:"text/plain"}),undefined,true);
+const details=await eda.sch_Drc.check(true,false,true);
+await eda.sys_FileSystem.saveFileToFileSystem(base+"akizuki-schematic-drc.json",new Blob([JSON.stringify(details,null,2)],{type:"application/json"}),undefined,true);
+return {board:board.name,detailEntries:details.length,document:doc};

@@ -1,0 +1,16 @@
+const project=await eda.dmt_Project.getCurrentProjectInfo();
+if(project?.uuid!=="8b55c295039849eff0b8170876b8b9828d103c48dd3ea0b78772b2c9bdc34a9b")throw Error("Unexpected active project");
+const boards=await eda.dmt_Board.getAllBoardsInfo();
+if(boards.length!==1)throw Error("Expected one board");
+const tab=await eda.dmt_EditorControl.openDocument(boards[0].pcb.uuid);
+const doc=await eda.dmt_SelectControl.getCurrentDocumentInfo();
+if(doc?.parentProjectUuid!==project.uuid||doc?.documentType!==3)throw Error("Expected final review PCB");
+const components=await eda.pcb_PrimitiveComponent.getAll();
+const refs=components.map(c=>c.getState_Designator()).sort();
+const source=await eda.sys_FileManager.getDocumentSource();
+if(!source)throw Error("PCB source export failed");
+const sourceSaved=await eda.sys_FileSystem.saveFileToFileSystem("D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/spark/design/easyeda/imported-pcb-source.txt",new Blob([source],{type:"text/plain"}),undefined,false);
+const file=await eda.sys_FileManager.getProjectFileByProjectUuid(project.uuid,"tab5-spark-engineering-review",undefined,"epro2");
+if(!file)throw Error("Project export failed");
+const saved=await eda.sys_FileSystem.saveFileToFileSystem("D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/spark/design/easyeda/tab5-spark-engineering-review.epro2",file,undefined,false);
+return {projectUuid:project.uuid,tab,document:doc,componentCount:components.length,refs,sourceSaved,saved,format:"epro2",eligibility:"KiCad-derived import; Spark100% EasyEDA requirement NOT established"};

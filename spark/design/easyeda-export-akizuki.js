@@ -1,0 +1,15 @@
+const project=await eda.dmt_Project.getCurrentProjectInfo();
+if(project?.uuid!=="b7a6783339159b0708ab3bf639c202306b62d83ae5fc2c3bf655e9d774467d8f")throw Error("Unexpected project");
+const pcb=project.data.find(item=>item.itemType==="PCB")||project.data.find(item=>item.itemType==="Board"&&item.pcb)?.pcb;
+if(!pcb)throw Error("No PCB");
+await eda.dmt_EditorControl.openDocument(pcb.uuid);
+const doc=await eda.dmt_SelectControl.getCurrentDocumentInfo();
+if(doc?.parentProjectUuid!==project.uuid)throw Error("Wrong PCB context");
+const source=await eda.sys_FileManager.getDocumentSource();
+if(!source)throw Error("No PCB source");
+const base="D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/spark/design/easyeda/";
+const sourceSaved=await eda.sys_FileSystem.saveFileToFileSystem(base+"akizuki-pcb-source.txt",new Blob([source],{type:"text/plain"}),undefined,true);
+const file=await eda.sys_FileManager.getProjectFileByProjectUuid(project.uuid,"spark-akizuki-migration-review",undefined,"epro2");
+if(!file)throw Error("No project file");
+const saved=await eda.sys_FileSystem.saveFileToFileSystem(base+"spark-akizuki-migration-review.epro2",file,undefined,true);
+return {projectUuid:project.uuid,document:doc,sourceSaved,saved};

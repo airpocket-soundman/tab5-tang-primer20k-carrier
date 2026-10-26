@@ -1,0 +1,15 @@
+const project=await eda.dmt_Project.getCurrentProjectInfo();
+if(project?.uuid!=="1ffa3b3a485f75d1df8d986fa97422aeaf91ad0a1042e90c0f6f2b48301f0162")throw Error("Unexpected project");
+const pcb=project.data.find(item=>item.itemType==="PCB")||project.data.find(item=>item.itemType==="Board"&&item.pcb)?.pcb;
+if(!pcb)throw Error("No PCB");
+await eda.dmt_EditorControl.openDocument(pcb.uuid);
+const doc=await eda.dmt_SelectControl.getCurrentDocumentInfo();
+if(doc?.parentProjectUuid!==project.uuid)throw Error("Wrong PCB context");
+const source=await eda.sys_FileManager.getDocumentSource();
+if(!source)throw Error("No PCB source");
+const base="D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/spark/lcsc-priority/design/easyeda/";
+const sourceSaved=await eda.sys_FileSystem.saveFileToFileSystem(base+"akizuki-pcb-source.txt",new Blob([source],{type:"text/plain"}),undefined,true);
+const file=await eda.sys_FileManager.getProjectFileByProjectUuid(project.uuid,"spark-lcsc-priority-review",undefined,"epro2");
+if(!file)throw Error("No project file");
+const saved=await eda.sys_FileSystem.saveFileToFileSystem(base+"spark-lcsc-priority-review.epro2",file,undefined,true);
+return {projectUuid:project.uuid,document:doc,sourceSaved,saved};

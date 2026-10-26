@@ -1,0 +1,51 @@
+{
+  "ok": true,
+  "status": 0,
+  "summary": {
+    "signal": "D5",
+    "corner": "controlled_IBIS",
+    "direction": "read",
+    "samples": 15339,
+    "pin_extrema_V": {
+      "GPIO_receiver": {
+        "max": 3.46500120267103,
+        "min_rising": 0,
+        "min_falling_by_linearity": -0.0000012026710303203458
+      },
+      "GPIO_driver_pad": {
+        "max": 3.4649996781580152,
+        "min_rising": 0,
+        "min_falling_by_linearity": 0
+      },
+      "switch_host_pin": {
+        "max": 3.4650053747863767,
+        "min_rising": 0,
+        "min_falling_by_linearity": -0.000005374786376854956
+      },
+      "switch_core_pin": {
+        "max": 3.464995642735492,
+        "min_rising": 0,
+        "min_falling_by_linearity": 0
+      }
+    },
+    "settle_5percent_ns": 46.35649132211362,
+    "receiver_voltage_ok": true,
+    "source_voltage_ok": true,
+    "switch_design_envelope_ok": true
+  },
+  "logs": [],
+  "runtimeMs": 606.2999999821186,
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) EasyEDAPro/3.2.149.88089769 Chrome/146.0.7680.188 Electron/41.2.1-jlc-sa-win-x64.2 Safari/537.36",
+  "engine": "Official EasyEDA NGspice46 WASM; executed in EasyEDA API Gateway Worker",
+  "rawPath": "D:/tmp/easyeda-ngspice-wasm/raw/link-D5-controlled_IBIS-read.json",
+  "diagnostics": {
+    "errors": [],
+    "warnings": []
+  },
+  "caseName": "link-D5-controlled_IBIS-read",
+  "source": {
+    "netlist_sha256": "e6820ebe1c90e7da7c2294f0118825fbf4871f396bb5de64855d3853f126e031",
+    "pcb_normalized_sha256": "4af1f75cc07f49e4f9ced2dffbc1e195ff6774d5200efcff032f5ba6ebcb1aac",
+    "scope": "Identical run_final_selected.py model construction; no physical validation"
+  }
+}

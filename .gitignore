@@ -1,0 +1,27 @@
+__pycache__/
+*.py[cod]
+*.kicad_prl
+*.lck
+*.zip
+*.log
+# Vendor downloads and cached commerce pages may contain expiring signed URLs.
+spark/sources/*
+!spark/sources/preserved-design-hashes.json
+!spark/sources/preservation-check.json
+!spark/sources/main-power/
+spark/sources/main-power/*
+!spark/sources/main-power/C2653758.json
+!spark/sources/main-power/C692487.json
+!spark/sources/main-power/C5180135.json
+**/sources/
+# Obtain proprietary SPICE libraries separately from their vendor.
+*.LIB
+*.lib
+*.wasm
+**/easyeda-wasm/*-input.json
+**/easyeda-wasm/active-input.json
+**/easyeda-wasm/input.json
+**/easyeda-wasm/batches/
+# Import workspaces are regenerated; authoritative CAD and native exports are kept.
+**/import-compat/
+# Exclude unpublished archives from bulk source additions.

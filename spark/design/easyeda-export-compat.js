@@ -1,0 +1,15 @@
+const project=await eda.dmt_Project.getCurrentProjectInfo();
+if(project?.uuid!=="7dc07a0ab8c3d2dc2f01c2228e9cc794ad3520a1e82e747b5fc6f6671b8834cb")throw Error("Unexpected project");
+const pcb=project.data.find(item=>item.itemType==="PCB");
+if(!pcb)throw Error("No imported PCB");
+const tab=await eda.dmt_EditorControl.openDocument(pcb.uuid);
+const doc=await eda.dmt_SelectControl.getCurrentDocumentInfo();
+if(doc?.parentProjectUuid!==project.uuid||doc?.documentType!==3)throw Error("Wrong PCB context");
+const source=await eda.sys_FileManager.getDocumentSource();
+if(!source)throw Error("No PCB source");
+const sourceSaved=await eda.sys_FileSystem.saveFileToFileSystem("D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/spark/design/easyeda/compat-pcb-source.txt",new Blob([source],{type:"text/plain"}),undefined,false);
+const components=await eda.pcb_PrimitiveComponent.getAll();
+const file=await eda.sys_FileManager.getProjectFileByProjectUuid(project.uuid,"spark-pcb-migration-review",undefined,"epro2");
+if(!file)throw Error("No project file");
+const saved=await eda.sys_FileSystem.saveFileToFileSystem("D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/spark/design/easyeda/spark-pcb-migration-review.epro2",file,undefined,false);
+return {projectUuid:project.uuid,tab,document:doc,componentCount:components.length,sourceSaved,saved,eligibility:"KiCad-derived migration; not a100% native design claim"};
