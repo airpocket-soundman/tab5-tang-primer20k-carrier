@@ -1,0 +1,220 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PoC目的への独立評価・D1修正</title><style>
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --ink:#1b1f24; --muted:#5b6672; --line:#d9dee4;
+  --accent:#1f6feb; --ok:#1a7f37; --okbg:#e3f5e8; --warn:#9a6700; --warnbg:#fff4d1;
+  --bad:#cf222e; --badbg:#fde4e6; --info:#0a6aa1; --infobg:#e1f1fb;
+  --pcb:#1f7a4d; --pcb2:#2f9e68; --tab5:#c9ced6; --code:#eef1f5;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1318; --panel:#171c23; --ink:#e6eaef; --muted:#9aa5b1; --line:#2b333d;
+    --accent:#58a6ff; --ok:#56d364; --okbg:#10301a; --warn:#e3b341; --warnbg:#3a2d0b;
+    --bad:#ff7b72; --badbg:#3c1418; --info:#79c0ff; --infobg:#0d2c44;
+    --pcb:#1d6b45; --pcb2:#2b8a5c; --tab5:#3a424d; --code:#222a33;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1318; --panel:#171c23; --ink:#e6eaef; --muted:#9aa5b1; --line:#2b333d;
+  --accent:#58a6ff; --ok:#56d364; --okbg:#10301a; --warn:#e3b341; --warnbg:#3a2d0b;
+  --bad:#ff7b72; --badbg:#3c1418; --info:#79c0ff; --infobg:#0d2c44;
+  --pcb:#1d6b45; --pcb2:#2b8a5c; --tab5:#3a424d; --code:#222a33;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 "Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif}
+a{color:var(--accent)}
+header.top{background:var(--panel);border-bottom:1px solid var(--line);padding:28px 16px 20px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header.top .wrap{padding:0}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 6px}
+.sub{color:var(--muted);margin:0}
+.badge{display:inline-block;font-size:.78rem;padding:2px 10px;border-radius:999px;background:var(--warnbg);color:var(--warn);border:1px solid var(--warn);margin-right:6px;vertical-align:middle}
+nav.toc{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+nav.toc .wrap{display:flex;gap:4px;padding-top:6px;padding-bottom:6px}
+nav.toc a{padding:4px 12px;border-radius:6px;text-decoration:none;color:var(--ink);font-size:.9rem}
+nav.toc a:hover{background:var(--code)}
+section{padding:36px 0 8px}
+h2{font-size:1.35rem;margin:0 0 14px;padding-left:12px;border-left:5px solid var(--accent)}
+h3{font-size:1.08rem;margin:26px 0 8px}
+p{margin:.6em 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.callout{border-left:5px solid var(--info);background:var(--infobg);padding:10px 14px;border-radius:6px;margin:14px 0}
+.callout.warn{border-color:var(--warn);background:var(--warnbg)}
+.callout.bad{border-color:var(--bad);background:var(--badbg)}
+.callout.ok{border-color:var(--ok);background:var(--okbg)}
+.callout b.t{display:block;margin-bottom:2px}
+figure{margin:16px 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{color:var(--muted);font-size:.88rem;padding:6px 6px 2px}
+.tw{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:560px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--code);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.c,th.c{text-align:center}
+.t-ok{background:var(--okbg);color:var(--ok);font-weight:600}
+.t-warn{background:var(--warnbg);color:var(--warn);font-weight:600}
+.t-bad{background:var(--badbg);color:var(--bad);font-weight:600}
+.t-info{background:var(--infobg);color:var(--info);font-weight:600}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font-family:ui-monospace,Consolas,monospace;font-size:.88em}
+ul{padding-left:1.3em;margin:.5em 0}
+li{margin:.2em 0}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:14px 0}
+.kpi div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi b{display:block;font-size:1.25rem}
+.kpi span{color:var(--muted);font-size:.85rem}
+footer{color:var(--muted);font-size:.85rem;padding:32px 0 48px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.85rem;color:var(--muted);margin:6px 2px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+svg text{font-family:inherit;fill:var(--ink)}
+svg .mut{fill:var(--muted)}
+</style></head><body><header class="top"><div class="wrap"><p>2026-10-24・独立評価と設計修正</p></div></header><p id="pcb-report-link"><a href="pcb-report.html">最新：基板レポート（独立レビュー・シミュレーション・BOM・外観図、2026-10-25）</a></p><p id="poc-fabrication-link"><a href="poc-fabrication.html">発注準備：パラレル通信・電源の修正（M5-Bus向き確認・修正済み）</a></p><main class="wrap"><nav><a href="index.html">設計仕様</a> / <a href="hdmi-simulation-r3.html">更新シミュレーション</a> / <a href="hdmi-audit-handover.html">修正前851adf4の確認</a></nav><h1>PoC目的への独立評価とD1分岐の実修正</h1>
+<p>日付：2026-10-24。変更前：<code>f47f28fa714dfb23843b7516e887ca90acdd0f14</code>。この評価の変更後は固定コミット <code>047538febbbf98b8758caa1441b386347c2afe14</code>。当時のmanifestも同コミットから参照する。最新の電源・パラレル通信修正と発注準備は <a href="poc-fabrication.html">PoC発注準備</a> を参照。</p>
+<h2>結論</h2>
+<p><strong>720p60のHDMIを短いケーブル・限定モニタで試す少数PoCとして、較正済みの全Core 3D解析を発注前の必須条件にする必要はない。一方、現状をLinux/GPU共通キャリア全体の製作合格とは判断しない。</strong> 通信の実装、電源断時の信号隔離、実装部品・実物との機構照合が未完了だからである。HDMIの受動伝送推定の合否だけで、この基板の本来の目的は判定できない。</p>
+<p>先行作業の「再配置に失敗したのでD1Nの11.5mm分岐を残す」という判断には同意しなかった。配線そのものと隙間の寸法を調べ、<strong>R30/R31を0402に変更してESD後の配線間へ移し、P/Nとも0.585mmの表面分岐へ修正した。</strong> 主差動配線、ESD銅ストラップ、Tab5 GPIO、Coreピン割当は変更していない。</p>
+<h2>1. 基準にした要求と実装</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>対象</th>
+<th>確認した版・資料</th>
+<th>今回の判断への意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linux</td>
+<td><code>tab5-linux-fpga</code> <code>c1cd5e47f9f07a164bc070b8defe36bb05682c6b</code>。README、DEVELOPMENT_GOALS、Device Tree、tools/fpga-link</td>
+<td>主目的は128MB DDR3への明示的な外部データアクセス。物理通信バックエンドは未実装。mock成功を基板通信成功に数えない</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td><code>tab5-fpga-gpu</code> <code>3b1ace3d91c6305ec0e32378f8819fce208c2aa7</code>。README、Project_B、board_profile.h、link_bus_wrapper.v</td>
+<td>初期目標は640×360 RGB565 30FPSをTab5へ戻してLCD表示すること。13.8MB/sは必要な画素データ量。40MB/sは8bit×40MHzの理論値。FPGAバックエンドは未実装、基板設定は未検証のまま</td>
+</tr>
+<tr>
+<td>メモリ研究</td>
+<td><code>esp32p4-linux-fpga-memory</code> <code>e4aa69d09b2643d6f62fe686ef0f3284b109c541</code>。README・Project_A</td>
+<td>研究計画。透過的なLinuxメインRAM増設ではない</td>
+</tr>
+</tbody>
+</table></div>
+<p>Linux用とGPU用は別ソフト・別ビットストリーム。初期同時動作は要求しない。HDMIは独立した表示・確認経路であり、両用途のDDR3・通信・Tab5 LCD表示を代替しない。電源断やGPIO所有権を「MeOSだけの別作業」と分類した従来記述は不十分で、Linux/GPUにも共通する電気的条件である。</p>
+<h2>2. 自分で確認し、変更したこと</h2>
+<h3>D1の分岐を残す必要はなかった</h3>
+<p>ESD後のD2N/D1P間とD1N/D0P間には、中心線間1.17mmの隙間がある。標準0402ランドの高さ0.64mmなら、幅0.2mmの主配線に対する片側の銅間隔は約0.165mmとなり、設計ルール0.127mmを満たす。0603では同じ置き方が困難だった。</p>
+<p>R30を(110.3,16.75)、R31を(110.3,18.25)へ横向きに配置。信号パッドから同じ面の主配線へ0.585mmで分岐し、各GNDパッドから0.69mmの配線で0.6/0.3mmの貫通ビアへ接続した。ビアをはんだランド外に置き、穴埋めビアを不要にした。信号分岐のビア4本を除去した。0402の499Ω実装品番は発注時に選定が必要で、未確認のLCSC番号は記入していない。</p>
+<p>粗い格子の自動配線では最終配置の隙間を通せなかった。<code>shorten_d1_bias.py</code> で主配線を維持した局所修正を行い、<code>make_pcb.py</code> にも「従来位置で配線後に最終配置へ変更する」工程を組み込んだ。全体再生成も実行し113ネット配線・DRCゼロを確認した。GNDビアをランド外へ逃がした最終局所修正も、変更前コミットのPCBから再現してDRCゼロを確認した。採用PCBには、無関係な配線を変えない局所修正版を使用した。</p>
+<h3>同じモデルを使った前後比較</h3>
+<p>モデル式・Core100Ω・ESD差動0.35pF等を固定して比較したため、以下の差は今回の配置・分岐変更による。値は推定で、測定ではない。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>指標</th>
+<th style="text-align:right">変更前</th>
+<th style="text-align:right">変更後</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D1分岐 P/N</td>
+<td style="text-align:right">6.574 / 11.494mm</td>
+<td style="text-align:right">0.585 / 0.585mm</td>
+</tr>
+<tr>
+<td>D1 SDD11最悪、～1.5GHz</td>
+<td style="text-align:right">−12.863dB</td>
+<td style="text-align:right">約−17.3dB</td>
+</tr>
+<tr>
+<td>全4ペアのSDD11最悪、同帯域</td>
+<td style="text-align:right">−12.863dB</td>
+<td style="text-align:right">−16.061dB、D2</td>
+</tr>
+<tr>
+<td>全4ペアのSDD21最悪、740MHz計算点</td>
+<td style="text-align:right">約−0.880dB</td>
+<td style="text-align:right">約−0.880dB</td>
+</tr>
+<tr>
+<td>Core Z×ESD容量の9条件で−10dB自主目標を外れる数</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td>残る最悪条件</td>
+<td style="text-align:right">Core85Ω・ESD0.5pF、D1：約−7.944dB</td>
+<td style="text-align:right">同条件、D2：約−9.376dB</td>
+</tr>
+</tbody>
+</table></div>
+<p>D1のSCD21が数値床まで下がるのは、左右対称としたモデル内の結果である。実部品の容量差、Core内スキュー、ランド・ビア・近傍配線の結合等を含めてモード変換がゼロになった証明ではない。D0の9.1mm分岐等も残るため、「すべての499Ω分岐が数mm以下になった」とは言わない。</p>
+<h3>検査と実データの対応</h3>
+<ul>
+<li>最終PCBのDRC：違反0、未配線0。ESDランド検査127項目、8線の銅導通・期待ピン、全配線の分類・幅・ビア方針を再確認した。</li>
+<li>ESDストラップを各1本除く8ケースで、対象線だけの不連続を検出した。</li>
+<li>既存のESD・分類回帰24件を更新基板で再実行した。</li>
+<li>新たなD1検査は実PCBの短い信号分岐と近傍GNDビアを確認する。正常、信号分岐除去、近傍GNDビア除去、抵抗GNDの誤接続の4ケースで期待通り判定した。</li>
+<li>回路図とBOMも0402へ変更した。生成器と採用PCBの変更箇所が一致するようにした。</li>
+</ul>
+<h2>3. 2Dと3Dの扱いは、どこまで妥当か</h2>
+<p><strong>不一致を理由に3Dを誤りと決めて廃止することは妥当でない。較正未達の3Dを、今回の少数PoCの合否には使わず保留することは妥当である。</strong></p>
+<p>既存 <code>openems_lib.py</code> は全周MUR境界と垂直lumped portを使用し、<code>pml_cells</code> 引数は境界へ反映していない。差動ペアを単線の励振・測定から評価する場合は、ポート基準、差動換算、終端条件の一致を別途確かめる必要がある。<a href="https://docs.openems.de/en/latest/concepts/ports.html">openEMS公式のポート説明</a>も、複数導体の差動線路でlumped portの励振場が適さない場合を説明している。これは不一致の原因候補であり、原因特定済みという意味ではない。公式ページはオンラインで確認したが、HTMLのローカル保存はHTTP403で失敗したため、取得成功とは記録していない（<code>docs/reference/openems/sources.json</code>）。</p>
+<p>今回の主差動配線はF.Cuなので「全層を表面線路で近似」という制限が主配線の全区間を誤った層で扱うことを意味するわけではない。ただし残る内層分岐、ビア（今回のGND帰路を含む）、パッド遷移、接点、Coreの偶奇モードは十分に同定されていない。2Dを正解とした3D調整もしない。</p>
+<p>次に3Dを採用する条件は、同一断面の単線・均一差動対で、両端ポートの基準面、差動/単線インピーダンス、メッシュ細分化、終端・境界、残留エネルギーを揃え、自己収束を確認すること。全Core再構築より先にこの小さい問題を解く。既存スクリプトが指定するopenEMS実行環境はこのPCの指定パスに存在せず、今回は新たな3D計算を完了していない。</p>
+<p>720p60は742.5Mbps/線で、通常1080p60の1485Mbpsとは要求が異なる。640×480で表示確認後、720p60へ進める。一方、低解像度でも高速エッジの局所反射が消えるわけではなく、反射の観察帯域をNyquist一点へ縮めない。自主目標−10dBをHDMI認証の合格値とは呼ばない。</p>
+<h2>4. 目的に対して未満足な点と、こちらで修正できる範囲</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>私の判断</th>
+<th>修正可能性・進め方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D1の長い非対称分岐</td>
+<td>改善すべきで、放置理由は不十分だった</td>
+<td><strong>今回、PCB・生成器・回路図・BOM・解析まで修正済み</strong></td>
+</tr>
+<tr>
+<td>Core CLKの説明</td>
+<td>SODIMM80→K13/IOT36Aは一般I/O。GCLKT_1はK14。従来コメントは誤り</td>
+<td><strong>コメント訂正済み</strong>。ピン変更を即断する根拠はない。現行GPUの受信wrapperはsys_clkで取り込む例で、専用CLK入力の有無だけで成立を決められない。40MHzを達成したとは扱わず、実際のRTL・制約・STAで判断する</td>
+</tr>
+<tr>
+<td>片側電源断・独立FPGA電源スイッチ</td>
+<td><strong>未合格</strong>。15本の直結33Ω線に電源断時の隔離がない。Hi-Z指示や33ΩはIoff保証の代わりにならない</td>
+<td>回路・PCBへの隔離素子追加は対応可能。ただし8bit双方向とCLK/DIR/READY/AUXの方向、両電源の検出、既定OEをまとめて設計し直す必要がある。今回のHDMI局所修正で解決した扱いにしない</td>
+</tr>
+<tr>
+<td>電源保護・実装品番</td>
+<td>TVSが選定前、複数部品もgeneric。12～24V全域の安全性は未確認</td>
+<td>12V等へ試験入力を限定し、選定TVSの最大クランプと降圧IC・入力C定格を照合する作業は対応可能。未選定のまま24V可とは判定しない</td>
+</tr>
+<tr>
+<td>物理通信と性能</td>
+<td>Linux/GPUとも実配線の通信は未確認</td>
+<td>プロファイル・制約・試験RTLや低速CRC試験の準備は可能。実機なしに双方向通信、DMA、13.8MB/s、DDR3全域アクセスを合格にはできない</td>
+</tr>
+<tr>
+<td>HDMI送信RTL</td>
+<td>D2は赤、符号化後10bit全体の極性反転が必要。受動モデルだけでは送信器を確認できない</td>
+<td>RTL・シミュレーションの作成は可能だが、このキャリアには完成した対象トップがない。専用の送信トップ、制約、合成/STA、実機表示が必要</td>
+</tr>
+<tr>
+<td>実装・機構</td>
+<td>コネクタ向き、汎用スイッチ、ESDランド、0402品番を注文データで確認する余地が残る</td>
+<td>CAD/資料照合は可能。現物との嵌合・手持ちTab5との干渉の最終確認は現物が必要</td>
+</tr>
+</tbody>
+</table></div>
+<p>33Ωへ理想的に約3Vが加われば抵抗だけからは約90mAという桁になる。実電流は内部保護や電源回路にも依存するため、この値を実測電流とは扱わないが、33Ωを無電源入力の保護保証にできないことは明確である。</p>
+<p><strong>製作の判断</strong>：HDMIの3D未完了だけで少数試作を止める必要はない。まず、独立電源断を含む通常操作まで許す試作にするなら、信号隔離を設計してから発注する。隔離を省いた電源常時同時供給の限定実験にする場合も、起動・停止中の端子電圧/電流確認が必要で、独立電源スイッチを自由に操作できる製品状態とは区別する。今回の変更はこの残件を隠して製作承認を出すためのものではない。</p>
+<h2>5. 再現と引き継ぎ</h2>
+<p><code>kicad/README.md</code> の生成・抽出・検査手順に加え、KiCad Pythonで <code>kicad/sim/check_d1_bias.py</code>、<code>test_d1_bias_check.py</code> を実行する。数値は <code>tmds_sparam.json</code> と <code>report_matrix.json</code>、検査は <code>d1_bias_check.json</code>、<code>regression_d1_bias.json</code>、既存チェックJSON、入力版は <code>manifest_r3.json</code> を参照する。第3版レポートも今回の配線・数値で更新する。変更前の監査は固定対象851adf4の記録として保存する。</p>
+</main></body></html>

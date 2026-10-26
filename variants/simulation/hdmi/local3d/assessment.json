@@ -1,0 +1,42 @@
+{
+  "formal_S_parameters": false,
+  "apply_3d_correction_to_eye": false,
+  "status": "uncertain",
+  "reason": "MSL port modal diagnostics have nonzero output incident wave; branch energy/mesh convergence was not achieved within bounded runtime. No socket/Core 3D calibration claimed.",
+  "cases": {
+    "branch-m020": {
+      "termination": "operator_ABORT",
+      "use": "excluded from quantitative eye correction",
+      "modal_Zdiff_ohm": 97.66940842546398,
+      "output_backwave_ratio": 0.00011031347685076933,
+      "reason": "Pulse incomplete; even diagnostic transmission invalid"
+    },
+    "branch-m025": {
+      "termination": "operator_ABORT",
+      "use": "excluded from quantitative eye correction",
+      "modal_Zdiff_ohm": 93.20251279425517,
+      "output_backwave_ratio": 0.0322182195213512,
+      "reason": "Energy stalled around -23 dB; mesh convergence not shown"
+    },
+    "reference-m020": {
+      "termination": "normal",
+      "use": "uniform-line impedance cross-check only",
+      "modal_Zdiff_ohm": 95.8912136774446,
+      "output_backwave_ratio": 0.019556975631731307,
+      "reason": "Uniform reference completed"
+    },
+    "reference-m025": {
+      "termination": "normal",
+      "use": "uniform-line impedance cross-check only",
+      "modal_Zdiff_ohm": 93.14848877139758,
+      "output_backwave_ratio": 0.03377256051154116,
+      "reason": "Uniform reference completed"
+    }
+  },
+  "uniform_crosscheck": {
+    "fine_3d_ohm": 95.89121,
+    "prior_fine_3d_ohm": 96.53623,
+    "two_dimensional_cache_ohm": 103.41557,
+    "interpretation": "Independent 3D crosscheck agrees with earlier finite-thickness 3D within 0.67%; 2D differs by about 7.3%. Neither establishes absolute measured impedance. Eye sensitivity scales carrier impedances +/-10%."
+  }
+}

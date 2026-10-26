@@ -1,0 +1,626 @@
+{
+ "baseline_commit": "f47f28fa714dfb23843b7516e887ca90acdd0f14",
+ "checker_baseline_commit": "91dc3b4",
+ "files": {
+  "docs/PoC\u76ee\u7684\u9069\u5408\u6027_\u72ec\u7acb\u8a55\u4fa1\u3068D1\u4fee\u6b63_2026-10-24.md": {
+   "group": "purpose_review",
+   "sha256": "318c7ef0c609d61cc69d505f0d7df9ae91fd98040c519804c53efbf26639ffbd"
+  },
+  "kicad/sim/review_poc_purpose.py": {
+   "group": "purpose_review",
+   "sha256": "93da83d874f11ed11bb6fe0da1588a39b6b96452b8992de02369b08270838085"
+  },
+  "kicad/sim/poc_purpose_review.json": {
+   "group": "purpose_review",
+   "sha256": "3a5e094d5ed92f81b39c4e381c5514a9748f8019e0c2ae2b587818d2a9e49b54"
+  },
+  "kicad/sim/check_d1_bias.py": {
+   "group": "purpose_review",
+   "sha256": "56bc5826ab77393186f674e059ac6bc08ef76cf041b6d5b46c85f1d8ae944965"
+  },
+  "kicad/sim/test_d1_bias_check.py": {
+   "group": "purpose_review",
+   "sha256": "496fcb2b295accce8ecb37414dfe2a0d154996546ad8e2a17c43e02657c25b5d"
+  },
+  "kicad/sim/d1_bias_check.json": {
+   "group": "purpose_review",
+   "sha256": "40a2deb20d6f944917721c209f9754de14699641a6bd28ff6715f3ae7796f721"
+  },
+  "kicad/sim/regression_d1_bias.json": {
+   "group": "purpose_review",
+   "sha256": "bc1d4766afc1db6c72975f0fa1129a09efa6f043cd14c817423bb6bb42cf96eb"
+  },
+  "kicad/sim/make_poc_review_page.py": {
+   "group": "purpose_review",
+   "sha256": "3c49cbff4f8e0f01a01f95c03b5309e614b2efc788447c9ca04079582a26a92f"
+  },
+  "site/poc-purpose-review.html": {
+   "group": "purpose_review",
+   "sha256": "6c9e914df9b2292e1f9a114731e35966bd134ab271e2a32a9f2e98de0e9c1ede"
+  },
+  "kicad/sim/d1_finalizer_reproduction.json": {
+   "group": "purpose_review",
+   "sha256": "a7d30dd5f3a7d3f17cfb1a7abf3ad2d1a08466485b79fe7eb04ee24898c44a52"
+  },
+  "docs/reference/openems/sources.json": {
+   "group": "purpose_review",
+   "sha256": "3b8c6dbfa17ca49da455450a1c17a2d701cecaf7da00cef4f88275db5ade3629"
+  },
+  "docs/HDMI_R3_\u76e3\u67fb\u5f15\u7d99\u304e\u78ba\u8a8d_2026-10-24.md": {
+   "group": "handover",
+   "sha256": "b47be54b1355712e466a32bf874bfc1acb01439500ebdc988d26ba02837c3d93"
+  },
+  "kicad/sim/audit_handover.py": {
+   "group": "handover",
+   "sha256": "a772da7d17146435c39c198f9713468af381c2f9cbeefa6c7a5d2cdeceafc63f"
+  },
+  "kicad/sim/make_handover_page.py": {
+   "group": "handover",
+   "sha256": "1a99d58588a90d5419eb949847d6e0a6782beac8b78dc52b4424401d62cb64bf"
+  },
+  "kicad/sim/handover_851adf4_2026-10-24.json": {
+   "group": "handover",
+   "sha256": "3d28a4309d1de49268a2b34f2e26aee64e238b67efe064e3d1fc2c8bae10ddd4"
+  },
+  "site/hdmi-audit-handover.html": {
+   "group": "handover",
+   "sha256": "1a292d65a5e0832d4b241d77da544ad0e1154825d65427d97905158459ea48ae"
+  },
+  "site/audit-data/handover_851adf4_2026-10-24.json": {
+   "group": "handover",
+   "sha256": "3d28a4309d1de49268a2b34f2e26aee64e238b67efe064e3d1fc2c8bae10ddd4"
+  },
+  "kicad/gen/design.py": {
+   "group": "design",
+   "sha256": "5957024711c889caafea9924ed02eba54cc4cbdaf10b5e10c8c2607b00804b65"
+  },
+  "kicad/gen/route_pcb.py": {
+   "group": "design",
+   "sha256": "04784943ae1f0bd95e2535d1ed530e149f38a715a20550d94a8f93a74d75bf07"
+  },
+  "kicad/gen/make_pcb.py": {
+   "group": "design",
+   "sha256": "ec28461306b77324268d1f03dd5627ca22d1da5ba0eb6f46b59364aea82d747c"
+  },
+  "kicad/gen/finish_pcb.py": {
+   "group": "design",
+   "sha256": "947f4a9a43be20c36b4ad2a2ccdbbb06b55c9039b50e0bd090b54b5b0fc2c1b0"
+  },
+  "kicad/gen/shorten_d1_bias.py": {
+   "group": "design",
+   "sha256": "dd8bb1c7daa04b39bb38da2e661888ba1b4c8d750018ff7df3a98e22f0a89031"
+  },
+  "kicad/gen/make_bom.py": {
+   "group": "design",
+   "sha256": "200abbd3d2d74770627db6bfe33db2602759a53c50bbc8d603dc2259d4728a85"
+  },
+  "kicad/lib/carrier.pretty/DFN2510-10L_RCLAMP0524P.kicad_mod": {
+   "group": "design",
+   "sha256": "e4260680ff83a050b1f244c5ee6ebb234482aed9dec9317edcd382108b74d8ab"
+  },
+  "kicad/tab5-fpga-carrier.kicad_pcb": {
+   "group": "design",
+   "sha256": "504e7f908d2295b43914edb1df9449e365dc87b77c5a415ac059950e3cdf2fe4"
+  },
+  "kicad/tab5-fpga-carrier.kicad_pro": {
+   "group": "design",
+   "sha256": "832a254610287b922e913df3ae3e3a950a502da5eb9d2eaacc6ce6ce234100d8"
+  },
+  "kicad/tab5-fpga-carrier.kicad_sch": {
+   "group": "design",
+   "sha256": "bb8bced3660fa61e8ffd1cffcf59706265346c7b3d2aef6d0bb5a5828c655eda"
+  },
+  "kicad/bom.csv": {
+   "group": "design",
+   "sha256": "054ab89a9db10090316aedf5f6ff188c44f0399d0ee6f479d9ef36614b09e2cd"
+  },
+  "kicad/core_pin_assignment.csv": {
+   "group": "design",
+   "sha256": "40c2f5814b64798ccf03254eef415ca3d4cec649d2abf4bc5d24f90f8ca8be92"
+  },
+  "kicad/sim/tmds_roles.json": {
+   "group": "extracted",
+   "sha256": "6d28698c484e754377074ae005d3a114375448d6dc1ae2ca19f236a8bdb115ef"
+  },
+  "kicad/sim/tmds_geom.json": {
+   "group": "extracted",
+   "sha256": "f1f2eaf1fe007d6502955f079088ae429cc7c0a7e1915c9a275bd951256d32e9"
+  },
+  "kicad/sim/pair_lengths.json": {
+   "group": "extracted",
+   "sha256": "4b7c4979d893417827a1564a68046bc73f13285afcdf70cfdd7164b74b1b76a0"
+  },
+  "kicad/sim/zdiff_cache.json": {
+   "group": "extracted",
+   "sha256": "b6d5501d5d2e8ce8a5cfb3c68e9b8c6c474d75a086ef78676a0d69c770d8b42f"
+  },
+  "kicad/sim/tmds_via_policy.json": {
+   "group": "extracted",
+   "sha256": "f8492938afc33e8203de3d5e4e181ad755d82ca8ed4df8adf085c31c827b9eba"
+  },
+  "kicad/sim/microstrip2d.py": {
+   "group": "model",
+   "sha256": "ea78aff10f19a0ec810ad178ffe8360cdc031631679ac940f0eab40593752601"
+  },
+  "kicad/sim/tmds_channel.py": {
+   "group": "model",
+   "sha256": "ffd66808e7d2f572ae4329813bdc76538533c9c3ed96eb3d31aa3423b505b993"
+  },
+  "kicad/sim/tmds_sparam.py": {
+   "group": "model",
+   "sha256": "db46532cd9c21236ed0e3a4cc56e0d93837884ece974d774831b37bfd9a96b6c"
+  },
+  "kicad/sim/make_report_figs.py": {
+   "group": "model",
+   "sha256": "50c58b11661e64e5a6029cbb5209c48c239a1e9c1c80113a117ae973fe3b87ab"
+  },
+  "kicad/sim/make_report_page.py": {
+   "group": "model",
+   "sha256": "0de77f51574539293361acbe7f58c94d3ff9e7f2e4e2883e8dc92c763537e6af"
+  },
+  "kicad/sim/check_continuity.py": {
+   "group": "checks",
+   "sha256": "7a37ca361fbd07b478a6dd4f7c95d75bf0e74bb7fb23ef0a3b4d7d7f76848dd7"
+  },
+  "kicad/sim/check_negative.py": {
+   "group": "checks",
+   "sha256": "798c6737b4311fad59e4e79770a0f72ab0953303bc01613444bd4e2bf078c3af"
+  },
+  "kicad/sim/check_classification.py": {
+   "group": "checks",
+   "sha256": "fba1733db34bad2103e0f9b665517e11bc44d1a6ad4be31442919f6a4a8a7986"
+  },
+  "kicad/sim/check_esd_footprint.py": {
+   "group": "checks",
+   "sha256": "08ce5be0858820048f040dbd7c7f2b1278ff82651c2a3ec3b98e3a640666b006"
+  },
+  "kicad/sim/regression_common.py": {
+   "group": "checks",
+   "sha256": "de1e83e60ec8cc2b5d541934aab3a3f423e2d907812a42d612cc571a8272b725"
+  },
+  "kicad/sim/test_esd_check.py": {
+   "group": "checks",
+   "sha256": "98732daeaa2539a607178f5ac230af62338d6647693356419e82c75df42501db"
+  },
+  "kicad/sim/test_classification_check.py": {
+   "group": "checks",
+   "sha256": "52c4f3422546782e6b412a99aa964b20e95f7b88f3a9e3c61991a980b71ae46d"
+  },
+  "kicad/sim/make_audit_checks_page.py": {
+   "group": "checks",
+   "sha256": "b4da3b4fea5011e923837fe97b5861e0e28aced95d13e50aa7aab1ce3d286a72"
+  },
+  "kicad/sim/make_manifest.py": {
+   "group": "checks",
+   "sha256": "4eaea3815d806f28b995d1b3fc5f68058c828474344cfc94572ba5d16ebadd2f"
+  },
+  "kicad/sim/continuity_report.json": {
+   "group": "results",
+   "sha256": "0a2e03994a23d6466c5b05a8c64025c9440f55dfd26bcdf9da071b2bfd99efdd"
+  },
+  "kicad/sim/negative_report.json": {
+   "group": "results",
+   "sha256": "c43a4793152bcdb5787d1eefe98ceaa244ad95ce90521fd8ad78f624cdc24990"
+  },
+  "kicad/sim/classification_report.json": {
+   "group": "results",
+   "sha256": "95f323c24159db55008738cb7b9494f49a28885fd3f3a4260fd9456ab3cb6c26"
+  },
+  "kicad/sim/esd_footprint_check.json": {
+   "group": "results",
+   "sha256": "4395acde91c2ae89cc1a951cf295992987fb1340b3c3a1254dbbd01aa40b67ca"
+  },
+  "kicad/sim/drc_r3.json": {
+   "group": "results",
+   "sha256": "c214d954cd81df3aa95ced4262c8058ac1ae50a7c0c2dbbf5a1fc7d0048c6236"
+  },
+  "kicad/sim/tmds_summary.json": {
+   "group": "results",
+   "sha256": "3335ee9d671e1e9f8a9c02bbf9043af51fe412d7c42a39c9b329bc7bb226b361"
+  },
+  "kicad/sim/tmds_sparam.json": {
+   "group": "results",
+   "sha256": "07f3f5173b14ec6395faa3fb782922be0ce04d3d1260b587a2baae7e7051055f"
+  },
+  "kicad/sim/report_sparam.json": {
+   "group": "results",
+   "sha256": "0205b724063f5df9a8af7ffcd009df7713e3c689c1196fd44e74a87b8e692775"
+  },
+  "kicad/sim/report_variants.json": {
+   "group": "results",
+   "sha256": "5e9f95046f44647429d1c1f5bc921563a0380a969211ff8c5ba5a96199db70fc"
+  },
+  "kicad/sim/report_matrix.json": {
+   "group": "results",
+   "sha256": "f3e1cc104ebaaefadf66a12c401181d6eab06463328522fb8c66674bd15fbeef"
+  },
+  "kicad/sim/report_sensitivity.json": {
+   "group": "results",
+   "sha256": "2d6a7f0a7551d5f2660120c59494bf307288150fa95da50471b9dacafe1e0efe"
+  },
+  "kicad/sim/report_stub_effect.json": {
+   "group": "results",
+   "sha256": "51abea7287e982c86819c3f358490fb280583f080a96989d0d249d2307e9b12b"
+  },
+  "kicad/sim/baseline_r2_report_sparam.json": {
+   "group": "results",
+   "sha256": "935f36a64e6d573274f3022636b6bb3144ca3069a1141cf1529ec2e54ba0ff2c"
+  },
+  "kicad/sim/regression_esd.json": {
+   "group": "results",
+   "sha256": "94815145c6080f0949c607665a10a9904ce5e68714d9daee636609070e1a4d83"
+  },
+  "kicad/sim/regression_classification.json": {
+   "group": "results",
+   "sha256": "4369934af03df85cda9f52825ea8069b82c0e3699045a6a25fdc4aa9330aa30b"
+  },
+  "site/index.html": {
+   "group": "publication",
+   "sha256": "be2ee6ed6e4cb0a294b0ee3248b7fd5d49f55ae37bb0e61537cd73cad2aff3ba"
+  },
+  "site/hdmi-audit-checks.html": {
+   "group": "publication",
+   "sha256": "8b71a23c651089d01d6f7272ff2f2da4d7f84350fbe2ed75bbf7082ccb6a268d"
+  },
+  "docs/HDMI_R3_\u691c\u67fb\u4fee\u6b63_2026-10-24.md": {
+   "group": "publication",
+   "sha256": "a5ae505bb04e8244a4b5afbeb84ea27df1295bc78ca1dd117dea06e521f708df"
+  },
+  "docs/FPGA_HDMI\u8981\u6c42_D2\u53cd\u8ee2\u3068\u30d4\u30f3.md": {
+   "group": "publication",
+   "sha256": "e8d0328e42204e9a1430b5bbb547fafe7dd60e79e0570958d3708207039347b4"
+  },
+  "site/img/sim_zdiff_r3.png": {
+   "group": "figures",
+   "sha256": "2c8138435590ae089f71687dfce305dcb9f22e9f4c9578e674b13c2838b07e94"
+  },
+  "site/img/sim_compare_r3.png": {
+   "group": "figures",
+   "sha256": "e1af0314d577a82da6a3f98c0b7a445972ce6a7e1de9bfebb29851e85d5cb398"
+  },
+  "site/img/sim_route_r3.png": {
+   "group": "figures",
+   "sha256": "ec369b3c2e1218cfe33f8709e2dd1f77f62c179123b94a8ee589ec3dbc1d7dfe"
+  },
+  "site/img/sim_sparam_r3.png": {
+   "group": "figures",
+   "sha256": "c9807e5ea11d2834f415395775bc44034fbe7d465908a761be240a9717bc9d0d"
+  },
+  "site/img/sim_variants_r3.png": {
+   "group": "figures",
+   "sha256": "a2e1ab100884d962b14f8664408a97231c0ad33556c82070996bdead60a78eb5"
+  },
+  "site/img/sim_matrix_r3.png": {
+   "group": "figures",
+   "sha256": "8681c17ae86e1260a616b873ce98e9408d528bd2feb2d1c45f5f57b3c7b3ce5a"
+  },
+  "site/img/sim_sensitivity_r3.png": {
+   "group": "figures",
+   "sha256": "3ec7aa454dafd3508bbe5f9faccecb7649fac91a8e2b656fa3b44bdf49d3d3ca"
+  },
+  "site/img/render_top_r3.png": {
+   "group": "figures",
+   "sha256": "a1ce472f534986c1c3055f55fd88986bc40dae451d3c15e83aca2ac915063114"
+  },
+  "kicad/sim/review_pcb_report.py": {
+   "group": "pcb_report",
+   "sha256": "aec42966755db55116d5f973d68433bbf4dc6c3e8c7c8c23a36ce8f3cf2aa2d8"
+  },
+  "kicad/sim/make_pcb_report_page.py": {
+   "group": "pcb_report",
+   "sha256": "675c2be5657fa0c46e50a27e17fde33ce2e09624d3991701c049857139581165"
+  },
+  "manufacturing/poc-2026-10-24/assembly-bottom.svg": {
+   "group": "fabrication_revision",
+   "sha256": "d79d2cb9a6f37421313ee868f712cbc49ff03b026612407e1436af7522807e54"
+  },
+  "manufacturing/poc-2026-10-24/assembly-top.svg": {
+   "group": "fabrication_revision",
+   "sha256": "5d3b7e828538eb4918af328a074b131809e4da835d649cc7885c72e1b68609e2"
+  },
+  "manufacturing/poc-2026-10-24/connectivity.d356": {
+   "group": "fabrication_revision",
+   "sha256": "8158889315e4850aa70902562a49ed5e1db79847ddacf67296683e75cabb87bf"
+  },
+  "manufacturing/poc-2026-10-24/dnp.csv": {
+   "group": "fabrication_revision",
+   "sha256": "dea765e1ddbb494a665705c8921fe01501d308956abb621db87aedef66edf169"
+  },
+  "manufacturing/poc-2026-10-24/gerbers.zip": {
+   "group": "fabrication_revision",
+   "sha256": "3aa701b78a0b59b5ec9c0cc2b2968b0ef7be80a6f288fe18f1dd2a176a47da73"
+  },
+  "manufacturing/poc-2026-10-24/jlc-bom.csv": {
+   "group": "fabrication_revision",
+   "sha256": "78ad1549b1aa059eb614d28d15eb76267138efadc8f57c894deb20c7f7053476"
+  },
+  "manufacturing/poc-2026-10-24/jlc-cpl.csv": {
+   "group": "fabrication_revision",
+   "sha256": "704bc4165bed33210f17468f4357d9324d9405b58bf3a25e48bf3f8c27cba099"
+  },
+  "manufacturing/poc-2026-10-24/kicad-position.csv": {
+   "group": "fabrication_revision",
+   "sha256": "11e5767641fafefc3209218d47d6c2e1d0f0379303ec48aae4fac75ace4e3805"
+  },
+  "manufacturing/poc-2026-10-24/manual-assembly.csv": {
+   "group": "fabrication_revision",
+   "sha256": "2a1810cc2abbce8fcb14cf60907a6f5f0cac064bee52e0179b2c3e634149f03c"
+  },
+  "manufacturing/poc-2026-10-24/package-check.json": {
+   "group": "fabrication_revision",
+   "sha256": "3acc247099c80c2848d7f42fb015397fc004c4556abf8e3a13b9790852ea19fc"
+  },
+  "manufacturing/poc-2026-10-24/README.md": {
+   "group": "fabrication_revision",
+   "sha256": "6a64be3a07dceaa3a8fb39a3309e71735c444db57aa4e0c8823b3c0f2591ad7f"
+  },
+  "manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-B_Cu.gbl": {
+   "group": "fabrication_revision",
+   "sha256": "a2613fc9531e28495795b1ee02c8ce0e04347b3a4511801a6a91b035c8619d15"
+  },
+  "manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-B_Mask.gbs": {
+   "group": "fabrication_revision",
+   "sha256": "e6122d1619104e236c796927c53c67594cbfa9cb8b7297ece1e6f42dc40c39a2"
+  },
+  "manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-B_Paste.gbp": {
+   "group": "fabrication_revision",
+   "sha256": "3f96668c1d62362eddffb62ba83afcdc9973bebccb0fcb4e7a6fdeb1078c6f3c"
+  },
+  "manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-B_Silkscreen.gbo": {
+   "group": "fabrication_revision",
+   "sha256": "f6b92aada4b5ccd4cb23da9ec612e5be3e13f010fa22a731a7ec2d96cf010d70"
+  },
+  "manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-drill.rpt": {
+   "group": "fabrication_revision",
+   "sha256": "405da6a98a89d603aa594badf3751a50455c961c30d8f8cb1dcfb3dcca6d44de"
+  },
+  "manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-Edge_Cuts.gm1": {
+   "group": "fabrication_revision",
+   "sha256": "9f540584a2f25c8d78fcef8ccdaaaa8fbd18f4a8ce00c1829428b659225ac66a"
+  },
+  "manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-F_Cu.gtl": {
+   "group": "fabrication_revision",
+   "sha256": "95b9317766fff8ece2d285abc0c0b99e49d30bc763e9c0f7d79d579166cbf569"
+  },
+  "manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-F_Mask.gts": {
+   "group": "fabrication_revision",
+   "sha256": "0193bb7c854f3808cc7926854a46ba29325f8e5159b6dad3cd22b4271fafc7d9"
+  },
+  "manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-F_Paste.gtp": {
+   "group": "fabrication_revision",
+   "sha256": "733f111f496173a710de249e9e04bc52e009c0089a3fba96f3ac8fe91a17c523"
+  },
+  "manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-F_Silkscreen.gto": {
+   "group": "fabrication_revision",
+   "sha256": "939dec857cb020a6d9b53787542dfd6c34adcb87653e49e15e7ae9a27ddd3523"
+  },
+  "manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-In1_Cu.g1": {
+   "group": "fabrication_revision",
+   "sha256": "4014ff82a9f2dae02371f3b1b977fd52fea41c12b47012fd17a9c4f44bb3c77d"
+  },
+  "manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-In2_Cu.g2": {
+   "group": "fabrication_revision",
+   "sha256": "b3f5e152584d29474fc0a34325710dd95c133c3062e24a9dcf9096320288f017"
+  },
+  "manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-job.gbrjob": {
+   "group": "fabrication_revision",
+   "sha256": "36ec6939d2678283942bd177072b962c1362b5e845ccca14205a61cf73083285"
+  },
+  "manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-NPTH.drl": {
+   "group": "fabrication_revision",
+   "sha256": "3f33b896ce28a0b37cc9c14d99190afd854e50808342a79a7401bf82ec1daa26"
+  },
+  "manufacturing/poc-2026-10-24/gerbers/tab5-fpga-carrier-PTH.drl": {
+   "group": "fabrication_revision",
+   "sha256": "c2c8b8b1de09a757d66aaf4be4eb2c2f4d9e2e62cd6bd348d1f9951bfddd19c8"
+  },
+  "docs/reference/openems/calibration-2026-10-24/summary.json": {
+   "group": "fabrication_revision",
+   "sha256": "e9c05733b5d54ec3e029429c77dacfbf61d76a49ef08082eb795e3ddb681cd31"
+  },
+  "docs/reference/openems/calibration-2026-10-24/pair-015-z16-t035/model.xml": {
+   "group": "fabrication_revision",
+   "sha256": "faeeb63aa1f5cd74d6a528e73c4d330aad3e4f0bdbcf8c426ca1b0352d1d75bc"
+  },
+  "docs/reference/openems/calibration-2026-10-24/pair-015-z16-t035/port-traces.zip": {
+   "group": "fabrication_revision",
+   "sha256": "34af02e3a47abb8181b5acb0259ed9a9d7d73027a64e4b0844de97b5c22de695"
+  },
+  "docs/reference/openems/calibration-2026-10-24/pair-015-z16-t035/result.json": {
+   "group": "fabrication_revision",
+   "sha256": "2942a6474efdc1222fdbb7fb81b9d41eb45645b9a90efc73619fa6dde94f1aee"
+  },
+  "docs/reference/openems/calibration-2026-10-24/pair-020-z12/model.xml": {
+   "group": "fabrication_revision",
+   "sha256": "e6bdd77c73892277e348621f0b09be2a83b839948b169e9b2e5a15605ef8f92a"
+  },
+  "docs/reference/openems/calibration-2026-10-24/pair-020-z12/port-traces.zip": {
+   "group": "fabrication_revision",
+   "sha256": "ae8e0b4be6bd583d37575ec3b070065c3f53ad62b29ad358ee8e9e5105166f8f"
+  },
+  "docs/reference/openems/calibration-2026-10-24/pair-020-z12/result.json": {
+   "group": "fabrication_revision",
+   "sha256": "e175e24135250f7585f2476d416b508940d714600f6cfe72d35bd85a12536d85"
+  },
+  "docs/reference/openems/calibration-2026-10-24/pair-020-z12-t035/model.xml": {
+   "group": "fabrication_revision",
+   "sha256": "65ba39518d1050ab6a3a123de91a178cfa6ad4fa87cb53a09bc3470ef161c9ce"
+  },
+  "docs/reference/openems/calibration-2026-10-24/pair-020-z12-t035/port-traces.zip": {
+   "group": "fabrication_revision",
+   "sha256": "69dd0f52ee917c9f323617ca1f26516c7a6126c813f6bc3495d8cc7d4c07f5fa"
+  },
+  "docs/reference/openems/calibration-2026-10-24/pair-020-z12-t035/result.json": {
+   "group": "fabrication_revision",
+   "sha256": "fc2ceb291a21eb83da486de23d78eae45ac84548bd3981bbe6900b8f02aa8686"
+  },
+  "docs/reference/openems/calibration-2026-10-24/single-020-z12/model.xml": {
+   "group": "fabrication_revision",
+   "sha256": "f288fae1ded3eecf7f7545618fa6dc515b68b065a8db63d6c72c42bc38e1a14b"
+  },
+  "docs/reference/openems/calibration-2026-10-24/single-020-z12/port-traces.zip": {
+   "group": "fabrication_revision",
+   "sha256": "3064bfc25d25d110f750bf2eae6e7b7042d73f9b931fcbcfb67f7b4c28801769"
+  },
+  "docs/reference/openems/calibration-2026-10-24/single-020-z12/result.json": {
+   "group": "fabrication_revision",
+   "sha256": "c2661c50053433eeefa4d16e9f05292f768c937cb032e58fba3d5074115984b0"
+  },
+  "docs/PoC\u767a\u6ce8\u6e96\u5099_\u30d1\u30e9\u30ec\u30eb\u901a\u4fe1\u3068\u96fb\u6e90_2026-10-24.md": {
+   "group": "fabrication_revision",
+   "sha256": "74361def527272e5d20eb9cb21d344e5d01d10f2e7b1a3bd04e3b11aae5e8ab9"
+  },
+  "docs/3D\u5747\u4e00\u76f4\u7dda\u306e\u30dd\u30fc\u30c8\u6821\u6b63_2026-10-24.md": {
+   "group": "fabrication_revision",
+   "sha256": "4d4be384ec2b59c7fd607582ccd48cc7f35b13101e37dfd8ca3fef988b9c76ac"
+  },
+  "docs/reference/poc-power-sources-2026-10-24.json": {
+   "group": "fabrication_revision",
+   "sha256": "672197a7b77cfdd69c09135c384095dc22f31553186402ef54d2506c0cd7b344"
+  },
+  "kicad/gen/order_parts.json": {
+   "group": "fabrication_revision",
+   "sha256": "15f7ea76de4126e996bd839c8be3947c1824f180ee50d871d956c58cfb4c51ee"
+  },
+  "kicad/gen/export_poc_package.py": {
+   "group": "fabrication_revision",
+   "sha256": "30ef2fc15a67146c707962a6b7a1c0d1773035f75dcb9168d31cf266dd8bfe18"
+  },
+  "kicad/gen/prepare_manufacturing.py": {
+   "group": "fabrication_revision",
+   "sha256": "e3d948aa7c4f6023f1d98a6ccf4c4f337b47baf511d7abbba2f951b512aaa891"
+  },
+  "kicad/gen/make_sch.py": {
+   "group": "fabrication_revision",
+   "sha256": "6ef93b8097444e2fd4301df8a6e76feaade8fe392afcd36072e2b9a70dc77f85"
+  },
+  "kicad/gen/place_pcb.py": {
+   "group": "fabrication_revision",
+   "sha256": "1537f2ef0c8b00ea3ddf097eb3ece9c1aad0117ffe110f8b0aca3f410088961c"
+  },
+  "kicad/lib/carrier.kicad_sym": {
+   "group": "fabrication_revision",
+   "sha256": "134aa814168902c8d3d2c9d50c3e8606f710a6d35287da17b4c21b23212c2f12"
+  },
+  "kicad/sim/calibrate_uniform_msl.py": {
+   "group": "fabrication_revision",
+   "sha256": "519d39d7f7d2e399752c7116181ab5cd893d5a26f1ec1d5ee7576691162d3d2b"
+  },
+  "kicad/sim/check_ground_reference.py": {
+   "group": "fabrication_revision",
+   "sha256": "0fb8885a9390ec9ad829f17176cf6c1b5b1aef4027a69516b8064a604d944056"
+  },
+  "kicad/sim/ground_reference_check.json": {
+   "group": "fabrication_revision",
+   "sha256": "92bcd4d1aac739a427fba462ccdb44da6a595d2a248adcd62eb1f1fb768ff521"
+  },
+  "kicad/sim/check_parallel_power.py": {
+   "group": "fabrication_revision",
+   "sha256": "79e60a8b8a5410401720360994fa0faedcff8dafc3cd6219731c10ceb0b0161a"
+  },
+  "kicad/sim/parallel_power_check.json": {
+   "group": "fabrication_revision",
+   "sha256": "b122d33c50e8332c6f59defa8aec6fd78bc1681f21946a08b92e9c8258bb22e6"
+  },
+  "kicad/sim/test_parallel_power_check.py": {
+   "group": "fabrication_revision",
+   "sha256": "a388d21dbc42450073aa73f2c2bd9c6aeb141594923cb89e7c6b0d1ef79813b5"
+  },
+  "kicad/sim/regression_parallel_power.json": {
+   "group": "fabrication_revision",
+   "sha256": "a0c1f5355a700639c74187ec7c286e8435698bfdf510b9812926d6314173a015"
+  },
+  "kicad/sim/check_power_dc.py": {
+   "group": "fabrication_revision",
+   "sha256": "433d7e6e789eb60130b212d2dc7ab143da85eefb58e15354d52b73c0639e1780"
+  },
+  "kicad/sim/power_dc_check.json": {
+   "group": "fabrication_revision",
+   "sha256": "ab0a94f3f8270be69e2a2cdbc426e6cc519bfb200b3ea75c4ae629dc8752d2e2"
+  },
+  "kicad/sim/review_poc_fabrication.py": {
+   "group": "fabrication_revision",
+   "sha256": "f2a8c6b104625000f08509cae38cfe3361b7a57fee4d2daaacce18f7c990a5c6"
+  },
+  "kicad/sim/poc_fabrication_review.json": {
+   "group": "fabrication_revision",
+   "sha256": "6c0c2069dc45fd9b6bf64a39c586aaf0e4b3cd84423759f2eb51db7392287d49"
+  },
+  "kicad/sim/erc_poc.json": {
+   "group": "fabrication_revision",
+   "sha256": "69556e9b4d9f52b7d30e2508fd0b0b91f22fdd65630c3ce65ff60d90893be52d"
+  },
+  "kicad/sim/make_poc_fabrication_page.py": {
+   "group": "fabrication_revision",
+   "sha256": "793247caa8f585973eac589d5d35f4aca42fcb27f0539d83d85aea3a9e23a42b"
+  },
+  "site/poc-fabrication.html": {
+   "group": "fabrication_revision",
+   "sha256": "30d727bf5e63029ef8a0926b831053d4dc74001434065ab29bd0bbd78713d4be"
+  },
+  "site/uniform-line-calibration.html": {
+   "group": "fabrication_revision",
+   "sha256": "e2e28c46766b5e086c27ab8cb2731edd810e4a9da40476a186338ff4a8ea516e"
+  },
+  "site/audit-data/poc-manufacturing-candidate.zip": {
+   "group": "fabrication_revision",
+   "sha256": "9348b31defa16e960fd3e6f1fa405ad4810ff5fd0068178552dfb11efc3af9f5"
+  },
+  "site/audit-data/uniform-line-calibration.zip": {
+   "group": "fabrication_revision",
+   "sha256": "2d360d7f0db0691c359074e66d9572cc80c93c0fe5e2271af34d88dba6731773"
+  },
+  "site/audit-data/poc-assembly-top.svg": {
+   "group": "fabrication_revision",
+   "sha256": "5d3b7e828538eb4918af328a074b131809e4da835d649cc7885c72e1b68609e2"
+  },
+  "site/audit-data/poc-assembly-bottom.svg": {
+   "group": "fabrication_revision",
+   "sha256": "d79d2cb9a6f37421313ee868f712cbc49ff03b026612407e1436af7522807e54"
+  },
+  "kicad/sim/check_mbus_revision.py": {
+   "group": "fabrication_revision",
+   "sha256": "b7240f86a52cd30745f0f233cfc6adc719a9837e3df54387bb4c40b312162d46"
+  },
+  "kicad/sim/mbus_revision_check.json": {
+   "group": "fabrication_revision",
+   "sha256": "f90268502277954ef10b104cd7d0f1c1b1d5514c690f663393cf5bd293709b81"
+  },
+  ".gitattributes": {
+   "group": "fabrication_revision",
+   "sha256": "fa8037141b430293dad575c53d6fdbc3c3d3342b64b4642a4569fafdbaf9931f"
+  },
+  "kicad/lib/carrier.pretty/PinHeader_2x15_Tab5_Bottom.kicad_mod": {
+   "group": "fabrication_revision",
+   "sha256": "80dc7f9863e6b45d8b1cabcecd3d0ae1f74fada044e76c86b8ce3df828a2b62b"
+  },
+  "docs/reference/tab5/mbus_orientation_confirmation_2026-10-24.json": {
+   "group": "fabrication_revision",
+   "sha256": "15ed3a995cfed3cde9e270429985e3b734a69a2b6e14fb5fa760fee318df3695"
+  },
+  "docs/reference/parts/sn74cb3q3245_datasheet.pdf": {
+   "group": "fabrication_revision",
+   "sha256": "97c7177a3203d8eb431478e5b973256d51a3c68718ebe4d1acb81ac823731d23"
+  },
+  "docs/reference/parts/tps3839_datasheet.pdf": {
+   "group": "fabrication_revision",
+   "sha256": "a18940237afc63cf6d1a0bb5e1c8c0b2c3274e01c47fa5f27e470a005072621b"
+  },
+  "docs/reference/parts/TLV1117LV_datasheet.pdf": {
+   "group": "fabrication_revision",
+   "sha256": "84091b2a9521014cf80b72dca4cf6edf4dba2773d4aaec0d5716dbd1ff412bb8"
+  },
+  "docs/reference/parts/TPS5430_output_capacitor_SLVA237C.pdf": {
+   "group": "fabrication_revision",
+   "sha256": "85d785209d3189adddbae9adf81565ec3bcd387b6a4414232d891424d82dcf72"
+  },
+  "docs/reference/parts/Panasonic_TPB_catalog.pdf": {
+   "group": "fabrication_revision",
+   "sha256": "8ed39b194456c828d89b4b0424932cb577b351f4bb2dd0062692ba108d32a5a2"
+  },
+  "docs/reference/tab5/tab5_m5_bus_extension_01.jpg": {
+   "group": "fabrication_revision",
+   "sha256": "4ac97fdebe6c932d0925edcef88289bb526b501d6bad2cbd7bc0055c9ed361c8"
+  }
+ }
+}

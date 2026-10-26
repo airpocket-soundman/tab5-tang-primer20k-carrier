@@ -1,0 +1,56 @@
+calibration-average-minimal
+.func clamp(x,a,b) {min(max(x,a),b)}
+.func sel(a,b,c) {a?b:c}
+.include "D:/github/airpocket-soundman/tab5-tang-primer20k-carrier-audit-pages/variants/simulation/power/models/TPS5430_TRANS.LIB"
+.param temper=25
+Vsource src 0 PWL(0 0 10u 0 20u 12)
+Rsource src vin .1
+Cin vin 0 20u
+Rena vin en 100k
+Renb en 0 15k
+Rtop vout fb 10k
+Rbot fb 0 3246.43384
+Ienpull vin en 5u
+* Derived from TI TPS5430_TRANS compensation R/C and opamp parameters
+Veref eref 0 1.221
+Bss 0 ss I={sel(V(active)>.5,V(eref)*.001,-V(ss))}
+Css ss 0 8e-06
+Rss ss 0 1G
+Bref ref 0 V={min(max(V(ss),0),V(eref))}
+R_EA3 ea ea_r3 3.27Meg
+R_EA1 fb ea_r1 260k
+C_EA2 ea_r3 ea_in 30p
+C_EA1 ea_r1 ea_in 20p
+R_EA2 fb ea_in 2.75Meg
+C_EA3 ea ea_in 1p
+V_EA vdd 0 3.3
+Xea ref ea_in vdd 0 ea stdopamp GAIN=206.538K RIN=20MEG RINC=1E9 ROUT=1 SLEWRATE=1.5Meg FPOLE1=14.96 FPOLE2=10MEG VDROPOH=0 VDROPOL=0 VOFFS=0 IBIAS=0 IOFFS=0
+Venth enth 0 1.15
+Venhys enhys 0 .45
+Vvinth vinth 0 5.3
+Vvinhys vinhys 0 .33
+Xena en enth enhys enstate COMPHYS_BASIC_GEN
+Xvin vin vinth vinhys vinstate COMPHYS_BASIC_GEN
+Bactive active 0 V={sel((V(enstate)>.5)&&(V(vinstate)>.5),1,0)}
+B_duty dutycommand 0 V={sel((V(active)>.5)&&(V(fb)<1.125*V(eref)),clamp((V(ea)-.3)/max(.0375*V(vin),.05),0,.87)*clamp((4-I(L1))/.2,0,1),0)}
+R_duty dutycommand duty 1
+C_duty duty 0 250n
+B_ph phdrv 0 V={V(duty)*V(vin)-(1-V(duty))*.4}
+R_switch phdrv ph .1
+Dav ph li_block DAVG
+.model DAVG D(Is=1p Rs=.0001 N=.01 Eg=0 Xti=0 Tnom=25)
+Bin vin 0 I={max(0,V(duty)*I(L1))+.003*V(active)+15u*(1-V(active))}
+Rdcr li_block li .045
+L1 li vout 15u
+Resr vout capout .04
+Cout capout 0 220u
+Rload vout 0 10
+.model D54 D(Is=50u Rs=.02 N=1.2 Cjo=200p Tt=8n Bv=40 Ibv=1m)
+Rcore vout vcore .001
+Rcore_bleed vcore 0 1G
+R33dummy v33raw 0 1k
+Istep vout 0 PWL(0 0 9m 0 9.001m .5 10m .5 10.001m 0)
+.options reltol=.003 abstol=1n vntol=10u itl4=200 method=gear
+.save v(vout) v(vcore) v(v33raw) v(vin) v(en) v(active) i(L1) i(Vsource)
+.tran 1e-07 0.011 0 1e-07 uic
+.end

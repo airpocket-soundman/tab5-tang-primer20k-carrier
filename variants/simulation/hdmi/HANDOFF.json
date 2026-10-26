@@ -1,0 +1,62 @@
+{
+  "status": "CAD integrated; final eye uses adopted PCB raw hashes; conditional PoC engineering assessment only",
+  "minimum_success": "Power + Tab5 parallel + Core DDR3 use; HDMI is optional. C HDMI is DNP, no active HDMI pass claimed.",
+  "firmware_required": [
+    "F_HPD Core pad30 is ACTIVE LOW after NPN revision. Configure input only, invert in firmware and debounce >=10ms.",
+    "D2 Core TX5_N/P mapping intentionally swapped: invert D2 data bits, never invert TMDS clock.",
+    "Initial HDMI target 640x480, pixel clock25.175MHz, TMDS251.75Mbps. 720p742.5Mbps is optional sensitivity only.",
+    "Enable HDMI after stable power; HPD is not a guarantee of receiver termination power. No power-rail hotplug guarantee.",
+    "Parallel/controller firmware bring-up and physical DDR3 memory test remain required; simulation does not provide working FPGA bitstream."
+  ],
+  "source_calibration": {
+    "equation": "Vth_diff=VOD_100ohm*(1+Rs_diff/100ohm); per-leg Thevenin +/-Vth_diff/2; each leg Rs_diff/2",
+    "basis": "Gowin DS102E GW2A18 TLVDS VOD250/350/450mV at100ohm; official Sipeed HDMI constraints DRIVE3.5",
+    "scope": "Matches one resistive calibration load. Does not identify vendor IBIS/source impedance, nonlinear compliance or actual device edge."
+  },
+  "Core_model": {
+    "lengths": "Official Core3690 XLS per-pair P/N total38.288..38.396mm; max intra-pair difference0.076708mm; includes via length",
+    "revision_limit": "Core3690 net-length sheet and SOM3961 schematic are different revision names; verify actual module revision. Die-length zero in sheet is not measured zero package delay.",
+    "unknown": [
+      "Actual Core impedance/stackup/material dispersion",
+      "FPGA package pin/buffer IBIS and exact edge under AC-coupled bias",
+      "Socket5.2mm internal contact geometry/material and mutual coupling",
+      "Measured connector/cable/sink transfer or receiver PLL/noise tolerance"
+    ],
+    "socket": "Manufacturer drawing constrains lands/pegs/height, not guaranteed electrical L/C. Generic .5..3nH/.13..1pF cases are assumptions, not calibrated bounds."
+  },
+  "eye_limits": [
+    "4000 deterministic balanced PRBS bits,32samples/UI; actual forwarded5/5 clock also simulated for eye alignment.",
+    "Internal criteria center>=100mV,width>=.5UI at100mV,abs data-clock propagation skew<.2UI; not HDMI compliance mask.",
+    "Carrier 2D impedances scaled0.9..1.1 in sensitivity, Core85/100/115ohm, generic socket and ESD/source/load cases. Only five correlated combinations, not exhaustive corners.",
+    "Receiver terminations45/50/55ohm are correlated P/N; independent mismatch and its DC differential offset are not covered.",
+    "AC100nF caps include .7nH per-line ESL retained from former0603 model after0402 change as conservative approximate magnitude, not calibrated0402 model and not proof of monotonic worst-case eye.",
+    "Receiver powered DC common mode about3.005V for3.3V/50ohm/510ohm; startup source common-mode/clamp unknown. Wait stable power before output.",
+    "Cable loss margin is flat added loss, not actual cable S-parameters. No nonlinear clamps, jitter, crosstalk, PLL or full Core3D."
+  ],
+  "three_dimensional": "See local3d/assessment.json. Uniform fine3D95.891ohm matches prior3D96.536ohm within0.67%, differs2D103.416ohm by7.3%. Branch DUT energy/mesh convergence failed bounded runs; coarse branch and incomplete fine branch excluded. Diagnostic b/a ratios have nonzero output incident wave and are not formal Sparameters. No3D-derived correction applied to eye.",
+  "HPD": {
+    "circuit": "Q5MMBT3904C20526;R40=47kC25819;R41=100kC25803;R51=47kC25819;C24=100nC14663 at HPD_BUF;R52=10kC25804 between HPD_BUF and F_HPD",
+    "powered_result": "40 independentR52 DC cases pass: high>=2.656V low<=.15043V withGPIO+/-10uA andrail3.234..3.366V. Generic transistor model.",
+    "both_rails_off": "Earlier max18mV/near1nA applies only local3V3=0 and Corebank=0.",
+    "independent_rail_off": "Corebank falls1us whilelocal3V3=3.366V: assumed clamp model peak injection~.299mA andDC~53.6uA with10k. Without10k charged100nF model peaked~.313A. Vendor permitted injection unavailable: limited, not guaranteed safe for arbitrary hotplug.",
+    "ESD": "U6RCLAMP0524P independent4channels eliminates oldVCC-steering path; pins6/7/9/10 external copper strapped. VRWM5V; IR<=1uA onlyspecified@5V; leakage at5.5V not guaranteed."
+  },
+  "DDR3": {
+    "official": "Sipeed DDR-test gw2a18c-011/MEMORY_CLK400/1:4 factory example and GowinIPUG2812.6E obtained. Core H5TQ1G63EFR-PBC1.5V/VTT local rails remain on official Core.",
+    "incremental_check": "DDR_RST87,A11pin99,A5pin111 are carrierNC but socket/pad addsload;81 localL/C/sourceedge cases maximum incremental error6.659mV at1.25ns. This is not entire DDR3 timing/functional signoff.",
+    "not_done": [
+      "Exact Hynix behavior/IBIS and device-specific FPGA IBIS",
+      "FullCore DDR3 internal routing length extraction, command/data timing and controllerRTL simulation",
+      "Target Linux/GPU integrated working bitstream and hardware RAM fill/read test"
+    ]
+  },
+  "reproduce": [
+    "prepare_hdmi_cad.py VARIANT uses exact compressed reviewed pre-HDMI copper + roles and writes only D:/tmp/hdmi-cad-revision",
+    "adopt_hdmi_cad.py VARIANT checks currentrawSHA againstprototypeinput and requires allseverityDRC0/unconnected0 before copy; do not adopt stale prototype over edits",
+    "Each variant gen/rebuild_qualified_hdmi.py invokes local finalstage. A fulloldrouter run alone is not the qualified release; rerun finalstage andchecks.",
+    "check_hdmi_cad.py verifies all generated component pin-nets/value/DNP vs XML/PCB and preservation of all original essential power/parallel/TMDS copper",
+    "prepare_inputs.py reextracts finalactualgeometry+rawhash;eye_sim.py --variant VARIANT; add --tdr-only for approximateearlyTDR",
+    "hpd_npn_sim.py,hpd_offrail.py,hpd_series_powered.py;ddr_socket_load.py;local_branch_3d.py uses external openEMS setup"
+  ],
+  "raw_storage": "Full FDTD probes andsolverrawdata D:/tmp/carrier-hdmi-local3d; repo stores modelXML,frequencyCSV/resultsJSON only. Raw/LF-normalized PCB SHA are different conventions."
+}

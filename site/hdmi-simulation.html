@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HDMI信号品質 シミュレーション評価レポート</title>
+<meta name="description" content="Tab5 × Tang Primer 20K キャリア基板のHDMI（TMDS）配線のシミュレーション評価。方針、手法、結果、限界。">
+<style>
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --ink:#1b1f24; --muted:#5b6672; --line:#d9dee4;
+  --accent:#1f6feb; --ok:#1a7f37; --okbg:#e3f5e8; --warn:#9a6700; --warnbg:#fff4d1;
+  --bad:#cf222e; --badbg:#fde4e6; --info:#0a6aa1; --infobg:#e1f1fb;
+  --pcb:#1f7a4d; --pcb2:#2f9e68; --tab5:#c9ced6; --code:#eef1f5;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1318; --panel:#171c23; --ink:#e6eaef; --muted:#9aa5b1; --line:#2b333d;
+    --accent:#58a6ff; --ok:#56d364; --okbg:#10301a; --warn:#e3b341; --warnbg:#3a2d0b;
+    --bad:#ff7b72; --badbg:#3c1418; --info:#79c0ff; --infobg:#0d2c44;
+    --pcb:#1d6b45; --pcb2:#2b8a5c; --tab5:#3a424d; --code:#222a33;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1318; --panel:#171c23; --ink:#e6eaef; --muted:#9aa5b1; --line:#2b333d;
+  --accent:#58a6ff; --ok:#56d364; --okbg:#10301a; --warn:#e3b341; --warnbg:#3a2d0b;
+  --bad:#ff7b72; --badbg:#3c1418; --info:#79c0ff; --infobg:#0d2c44;
+  --pcb:#1d6b45; --pcb2:#2b8a5c; --tab5:#3a424d; --code:#222a33;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 "Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif}
+a{color:var(--accent)}
+header.top{background:var(--panel);border-bottom:1px solid var(--line);padding:28px 16px 20px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header.top .wrap{padding:0}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 6px}
+.sub{color:var(--muted);margin:0}
+.badge{display:inline-block;font-size:.78rem;padding:2px 10px;border-radius:999px;background:var(--warnbg);color:var(--warn);border:1px solid var(--warn);margin-right:6px;vertical-align:middle}
+nav.toc{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+nav.toc .wrap{display:flex;gap:4px;padding-top:6px;padding-bottom:6px}
+nav.toc a{padding:4px 12px;border-radius:6px;text-decoration:none;color:var(--ink);font-size:.9rem}
+nav.toc a:hover{background:var(--code)}
+section{padding:36px 0 8px}
+h2{font-size:1.35rem;margin:0 0 14px;padding-left:12px;border-left:5px solid var(--accent)}
+h3{font-size:1.08rem;margin:26px 0 8px}
+p{margin:.6em 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.callout{border-left:5px solid var(--info);background:var(--infobg);padding:10px 14px;border-radius:6px;margin:14px 0}
+.callout.warn{border-color:var(--warn);background:var(--warnbg)}
+.callout.bad{border-color:var(--bad);background:var(--badbg)}
+.callout.ok{border-color:var(--ok);background:var(--okbg)}
+.callout b.t{display:block;margin-bottom:2px}
+figure{margin:16px 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{color:var(--muted);font-size:.88rem;padding:6px 6px 2px}
+.tw{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:560px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--code);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.c,th.c{text-align:center}
+.t-ok{background:var(--okbg);color:var(--ok);font-weight:600}
+.t-warn{background:var(--warnbg);color:var(--warn);font-weight:600}
+.t-bad{background:var(--badbg);color:var(--bad);font-weight:600}
+.t-info{background:var(--infobg);color:var(--info);font-weight:600}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font-family:ui-monospace,Consolas,monospace;font-size:.88em}
+ul{padding-left:1.3em;margin:.5em 0}
+li{margin:.2em 0}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:14px 0}
+.kpi div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi b{display:block;font-size:1.25rem}
+.kpi span{color:var(--muted);font-size:.85rem}
+footer{color:var(--muted);font-size:.85rem;padding:32px 0 48px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.85rem;color:var(--muted);margin:6px 2px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+svg text{font-family:inherit;fill:var(--ink)}
+svg .mut{fill:var(--muted)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+ <p><span class="badge">シミュレーション評価レポート</span><span class="badge">推定値（3D解析は較正中）</span><span class="badge" style="background:var(--badbg);color:var(--bad);border-color:var(--bad)">試作前に是正が必要な事項あり</span></p>
+ <h1>HDMI信号品質 シミュレーション評価</h1>
+ <p class="sub">キャリア基板 v2.0（コミット 7a0a3c5）の TMDS 4 組を、実際の配線データから評価。更新：2026-10-24　／　<a href="index.html">← 企画・設計仕様に戻る</a></p>
+</div></header><p id="pcb-report-link"><a href="pcb-report.html">最新：基板レポート（独立レビュー・シミュレーション・BOM・外観図、2026-10-25）</a></p><p id="poc-fabrication-link"><a href="poc-fabrication.html">発注準備：パラレル通信・電源の修正（M5-Bus向き確認・修正済み）</a></p>
+<nav class="toc"><div class="wrap">
+ <a href="#summary">結論</a><a href="#issues">是正事項</a><a href="#scope">範囲</a><a href="#method">手法</a><a href="#valid">検証</a><a href="#result">配線結果</a><a href="#channel">チャネル推定</a><a href="#sens">感度解析</a><a href="#em3d">3D解析</a><a href="#limits">限界</a><a href="#repro">再現・記録</a>
+<a href="hdmi-audit.html">独立監査・開発引き継ぎ</a>
+</div></nav>
+<main class="wrap">
+
+<section id="summary">
+<div class="callout warn" id="audit-link"><b class="t">独立監査の結果</b>
+<a href="hdmi-audit.html">6450c42の再監査・開発引き継ぎ</a>を公開しました。
+保存数値は再現できましたが、監査対象版にはESDの導通想定と長い抵抗枝の問題が残ります。
+「26か所の不連続」は解析用リストの問題で、PCBの26か所の断線を意味しません。
+開発側ではTMDS連続配線・ESDシャント接続・499Ω抵抗の近接配置へ修正中です。修正版の是正完了は未判定です。</div>
+ <h2>結論</h2>
+ <div class="kpi">
+  <div><b>0.00 mm</b><span>ペア内スキュー（4組すべて。目標 5mm 未満）</span></div>
+  <div><b>約104 Ω</b><span>結合区間の差動インピーダンス（目標 100Ω ±15%）</span></div>
+  <div><b>≤ −14.4 dB</b><span>SDD11（〜1.65GHz、最悪の CK）</span></div>
+  <div><b>−0.9 dB 以内</b><span>SDD21 @1.65GHz（挿入損失）</span></div>
+ </div>
+ <div class="callout ok"><b class="t">改善できたこと</b>最初の配線（P/Nを個別に配線）は不合格（差動インピーダンス約160Ω、スキュー最大13mm）でした。P/Nを1本の太い線として引いて2本に分けるペア配線をルータに実装し、<b>配線方式としては4組すべてが目標内</b>に入りました（実配線から確認）。</div>
+ <div class="callout bad"><b class="t">ただし「合格」ではありません</b>独立レビューで、<b>ESD部品の端子導通の想定が誤っていた</b>こと、<b>499Ω抵抗の枝が長い</b>ことが判明しました。下の「是正事項」のとおり、試作前に是正します。以下のSパラメータは、これらを含まない推定です。</div>
+ <div class="callout warn"><b class="t">この結果の位置づけ</b>準静的モデルとチャネルのカスケード計算による<b>推定</b>です。実形状の3D電磁界解析（openEMS）は導入済みですが、<b>較正が済んでいないため結論には使っていません</b>（7章）。最終判断は試作基板の実測（TDR・アイ）で行います。</div>
+</section>
+
+<section id="issues">
+ <h2>設計レビューで判明した是正事項（試作前に必須）</h2>
+ <p>別セッションによる独立レビュー（2026-10-24）と、その指摘の確認（データシート・実配線の再計算）の結果、<b>次の2点は設計の欠陥</b>であり、このページの「推定」結果の前提を損ないます。試作に進む前に是正します。</p>
+ <div class="tw"><table>
+  <thead><tr><th class="c">#</th><th>事項</th><th>確認した内容</th><th>対応</th></tr></thead>
+  <tbody>
+   <tr><td class="c t-bad">1</td><td><b>TMDS用ESD（RCLAMP0524P）の端子導通の想定が誤り</b></td><td>設計は、10ピン品の「入力（1/2/4/5）と出力（10/9/7/6）が部品内部でつながる（素通し）」と仮定して配線した。採用部品 C293965 は<b>DOWO製（DFN2510-10L）</b>で、データシート（Rev.G1.00）は「I/Oは1・2・4・5、GNDは3・8」と記載し、6/7/9/10の内部導通を保証していない。回路図とDRCは内部導通を前提にするため、この誤りを検出しない。</td><td>信号線はPCB上で連続した銅配線にし、ESDは分岐（シャント）として接続する。または内部導通が仕様で保証された部品に変更する。変更後に再配線・再解析。</td></tr>
+   <tr><td class="c t-bad">2</td><td><b>499Ωバイアス抵抗の枝配線が長い</b></td><td>実配線を追跡すると、枝の長さは<b>21〜53mm</b>（CKNは53.5mm、P側29.2mmで非対称）。これまで「直流のみで影響しない」として解析から除外していたが、差動998Ωの並列負荷だけでSDD21が約−0.43dB・SDD11が約−26dB悪化し、53mmの枝は0.8GHz付近で1/4波長に相当する。</td><td>抵抗を信号線の分岐点の近く（数mm以下）に置き直し、P/Nを対称にする。枝は解析に含める。</td></tr>
+  </tbody></table></div>
+ <h3>その他の見直し</h3>
+ <ul>
+  <li><b>対象速度は720p60（0.74Gbps/レーン）に限定。</b>通常の1080p60（1.49Gbps/レーン）は、GW2Aの公開データシート（DS102 Table 3-17）の8:1/10:1シリアライザ上限1200Mbpsを超えるため、初版の保証条件に含めない。</li>
+  <li><b>ペア内・ペア間スキューの基準を訂正。</b>TI SLLA414A §2.3は、ペア内0.15×Tbit、ペア間0.20×Tcharacterを示す（720p60で約200ps／約2.7ns）。5mmは自主的な保守的目標で、規格値ではない。「ペア間規定なし」は誤り。</li>
+  <li><b>ESD容量の仮定を訂正。</b>差動0.15pFは根拠が弱い。DOWO資料は、I/O−GND 0.4pF（最大0.5pF）、I/O−I/O 0.2pF（最大0.3pF）。差動0.2〜0.5pFを仮定の感度範囲として使う。</li>
+  <li><b>差動インピーダンスの数値。</b>間隔0.13mmの直接解は約103〜104Ω（以前の107Ωは0.15mmの値で代用していた）。2Dソルバと概算式の一致をもって保証誤差とは言わない。</li>
+  <li><b>Coreの影響をゼロとは言わない。</b>Core側を85〜115Ωに振ると、720p帯でSDD11は−12〜−16dB程度まで悪化する（レビューの試算）。長さ一致だけでは100Ωの証明にならない。</li>
+  <li><b>公式の基板配線データは「非公開」ではなく「未取得・公開確認できず」</b>と表現する。</li>
+  <li><b>3D解析（openEMS）は未較正のため採用しない</b>（7章）。</li>
+ </ul>
+ <div class="callout warn"><b class="t">この結果の位置づけ（訂正）</b>ペア配線による<b>配線方式の改善</b>（スキュー0.00mm、結合区間約104Ω）は、実配線から確認できています。一方、<b>チャネル全体のS パラメータは上記2点を含まない推定</b>であり、「合格」とは言えません。是正後に再抽出して確認します。目標は<b>短いケーブル・限定したモニタでの720p60のPoC動作</b>で、動作保証・全機器互換・HDMI規格適合を意味しません。</div>
+</section>
+
+<section id="scope">
+ <h2>1. 評価の範囲と合否基準</h2>
+ <p>信号の全経路は「FPGA → Core基板内配線 → SODIMM接点 → <b>キャリア基板</b> → HDMIコネクタ →（ケーブル → シンク）」です。範囲は次のとおり決めました。</p>
+ <div class="tw"><table>
+  <thead><tr><th>区間</th><th>扱い</th><th>理由</th></tr></thead>
+  <tbody>
+   <tr><td>キャリア基板</td><td><b>実形状から解析</b>（主対象）</td><td>自分たちの設計物</td></tr>
+   <tr><td>Core基板内</td><td>理想100Ω線路（長さ38.4mm）</td><td>配線データは非公開。公式の配線長表のみ入手可。TX1/2/3/5は1510 mil ±5 mil、<b>TX4だけN側が1.9mm短い</b>ため不使用</td></tr>
+   <tr><td>SODIMM接点</td><td><b>集中定数の感度解析</b></td><td>公式に電気特性データなし（6章）</td></tr>
+   <tr><td>HDMIコネクタ</td><td>100Ω・11mmの理想線路</td><td>実形状モデルなし</td></tr>
+   <tr><td>ケーブル・シンク</td><td>対象外</td><td>HDMIの測定はコネクタ端子で行う規定</td></tr>
+  </tbody></table></div>
+ <p>公式 Tang Primer 20K Dock の回路図（HDMIの構成：100nF AC結合、499Ω、RCLAMP0524P、SRV05-4）は採用しましたが、<b>公式の基板配線データは未取得（公開を確認できず）</b>のため、配線品質の直接比較はできません。</p>
+ <h3>合否基準</h3>
+ <div class="tw"><table>
+  <thead><tr><th>項目</th><th>基準</th><th>根拠</th></tr></thead>
+  <tbody>
+   <tr><td>差動インピーダンス</td><td>100Ω ±15%（85〜115Ω）</td><td>HDMI 1.4 のTMDS線路の一般的な要求</td></tr>
+   <tr><td>ペア内スキュー</td><td>5mm未満（約30ps）。参考：720p60のペア内0.15×Tbit≒200ps</td><td>5mmは自主的な保守目標。TI SLLA414A §2.3：ペア内0.15×Tbit、ペア間0.20×Tcharacter</td></tr>
+   <tr><td>SDD11（反射）</td><td>−10dB以下（〜1.65GHz）</td><td>自主目標（規格値ではない）</td></tr>
+   <tr><td>SDD21（挿入損失）</td><td>1dB程度以内</td><td>自主目標</td></tr>
+   <tr><td>対象速度</td><td><b>720p60（0.74Gbps/レーン）</b>。1080p60（1.49Gbps/レーン）は保証対象外</td><td>GW2Aのシリアライザ上限1200Mbps（DS102 Table 3-17）を超える</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="method">
+ <h2>2. 手法とツール</h2>
+ <div class="tw"><table>
+  <thead><tr><th>層</th><th>手法</th><th>実装</th><th>状態</th></tr></thead>
+  <tbody>
+   <tr><td>(a) 解析式</td><td>IPC-2141／Hammerstad式</td><td>手計算</td><td>検証の基準値</td></tr>
+   <tr><td>(b) 2D準静的</td><td>有限差分でラプラス方程式を解き、容量行列から Z0／偶奇モード／εeff</td><td><code>kicad/sim/microstrip2d.py</code>（自作）</td><td class="t-ok">主力</td></tr>
+   <tr><td>(c) チャネル推定</td><td>配線を0.1mm刻みの区間に分け、局所の差動インピーダンスでABCD行列をカスケード。損失は tanδ 0.02 と表皮効果</td><td><code>kicad/sim/tmds_channel.py</code>, <code>tmds_sparam.py</code></td><td class="t-ok">主力</td></tr>
+   <tr><td>(d) 3D電磁界</td><td>FDTD（openEMS 0.37.0）</td><td><code>kicad/sim/openems_*.py</code></td><td class="t-warn">較正中（7章）</td></tr>
+  </tbody></table></div>
+ <h3>スタックアップ（想定）</h3>
+ <p>JLCPCB 4層 JLC04161H-7628（1.6mm）：L1 銅35µm／プリプレグ 0.2104mm（εr 4.4）／L2／コア 1.065mm／L3／プリプレグ 0.2104mm／L4。ソルダマスクは無視（差動インピーダンスを1〜3Ω下げる方向）。<b>発注時の積層指定が一致することの確認が必要</b>です。</p>
+ <h3>モデルの前提・簡略化</h3>
+ <ul>
+  <li>差動モードのみ（コモン⇔差動のモード変換は評価しない）。</li>
+  <li>F.Cuの区間だけ2Dで解く。In2.Cu・B.Cuの区間とビアは100Ωの線路として扱う（ビアの寄生は未考慮）。</li>
+  <li>AC結合キャップは ESL 1.4nH（差動）、ESDは差動0.15pF（<b>仮定。DOWO資料はI/O−GND 0.4〜0.5pF</b>。是正事項）。ESDは信号線の途中に素通しで入る形でモデル化（<b>誤り。是正事項1</b>）。</li>
+  <li>499Ωバイアス抵抗の枝配線は信号経路から除外（<b>誤り。枝が21〜53mmあり、並列負荷としても無視できない。是正事項2</b>）。</li>
+ </ul>
+</section>
+
+<section id="valid">
+ <h2>3. 2Dソルバの検証</h2>
+ <div class="tw"><table>
+  <thead><tr><th>ケース</th><th class="c">2Dソルバ</th><th class="c">解析式</th><th>参考</th></tr></thead>
+  <tbody>
+   <tr><td>単線 w=0.35mm</td><td class="c">51.7Ω</td><td class="c">IPC式 約50.0Ω</td><td>JLCPCB公表 50Ω用（0.35mm前後）と一致</td></tr>
+   <tr><td>単線 w=0.20mm</td><td class="c">66.2Ω</td><td class="c">IPC式 67.2Ω</td><td>—</td></tr>
+   <tr><td>差動 w=0.20／間隔0.13mm</td><td class="c">104Ω（直接解は約103Ω）</td><td class="c">IPC-2141差動式 約98.7Ω</td><td>式は概算（±10%程度）。以前の107Ωは0.15mmの値で代用していた</td></tr>
+  </tbody></table></div>
+ <p>単線は±3%で一致し、差動の差（5%）は式自体の精度の範囲です。<b>差動値は約±8%の不確かさ</b>を見込んでいます。</p>
+ <figure><img src="img/sim_zdiff.png" alt="差動インピーダンスと線幅・間隔" style="width:100%;height:auto;display:block;border-radius:6px">
+  <figcaption>図1　差動インピーダンスと線幅・ペア内間隔（2Dソルバ）。採用した線幅0.2mm・間隔0.13mmは100Ω付近。従来の最小幅0.127mmでは、結合させても120Ω超になる。</figcaption></figure>
+</section>
+
+<section id="result">
+ <h2>4. 配線の結果（ペア配線の導入前後）</h2>
+ <p>最初の配線は、P/Nを別々に引いていたため並走せず（結合区間5〜7%）、差動インピーダンスが約160Ω、ペア内スキューが最大13mmでした。ルータに<b>ペア配線</b>（P/Nを1本の太い線として引いて2本に分割）を実装しました。</p>
+ <figure><img src="img/sim_compare.png" alt="導入前後の比較" style="width:100%;height:auto;display:block;border-radius:6px">
+  <figcaption>図2　配線方式による改善。</figcaption></figure>
+ <div class="tw"><table>
+  <thead><tr><th>ペア</th><th class="c">P/N長 (mm)</th><th class="c">スキュー</th><th class="c">結合区間 Zdiff</th><th class="c">F.Cu上の結合割合</th></tr></thead>
+  <tbody>
+   <tr><td>D0（TX2）</td><td class="c">53.2 / 53.2</td><td class="c">0.00 mm</td><td class="c">約104Ω</td><td class="c">89%</td></tr>
+   <tr><td>D1（TX3）</td><td class="c">35.2 / 35.2</td><td class="c">0.00 mm</td><td class="c">約104Ω</td><td class="c">83%</td></tr>
+   <tr><td>D2（TX5、P/N入替）</td><td class="c">35.3 / 35.3</td><td class="c">0.00 mm</td><td class="c">約104Ω</td><td class="c">83%</td></tr>
+   <tr><td>CK（TX1）</td><td class="c">53.9 / 53.9</td><td class="c">0.00 mm</td><td class="c">約104Ω</td><td class="c">77%</td></tr>
+  </tbody></table></div>
+ <figure><img src="img/sim_route.png" alt="TMDS実配線" style="width:100%;height:auto;display:block;border-radius:6px">
+  <figcaption>図3　TMDS 4組の実配線。Core側は入れ子の縦レーン、キャップ→ESD→コネクタは直線レーン。D2・D1・D0・CKの順で、ペアが交差しない。</figcaption></figure>
+ <figure><img src="img/render_top.png" alt="基板3Dレンダリング" style="width:100%;height:auto;display:block;border-radius:6px">
+  <figcaption>図4　基板全体（右辺の上寄りがHDMI）。DRC違反0件、未接続0件。</figcaption></figure>
+</section>
+
+<section id="channel">
+ <h2>5. チャネル推定（Sパラメータ）— 是正前の推定</h2>
+ <div class="callout warn"><b class="t">注意</b>この節の値は、ESDの素通しと499Ω枝の除外を前提にした<b>是正前の推定</b>です。是正後に再計算します。</div>
+ <p>Core基板内（理想100Ω・38.4mm）、キャリア基板の実配線、AC結合キャップ、ESD、コネクタ（100Ω・11mm）をカスケードしました（差動モード、基準100Ω）。</p>
+ <div class="tw"><table>
+  <thead><tr><th>ペア</th><th class="c">キャリア長 Core側/C/K (mm)</th><th class="c">ペア内スキュー (mm)</th><th class="c">SDD11 0.825/1.65GHz</th><th class="c">SDD11 最大(〜3.3GHz)</th><th class="c">SDD21 0.825/1.65GHz</th></tr></thead>
+  <tbody>
+<tr><td>D0</td><td class="c">43.6 / 7.2 / 7.4</td><td class="c">0.00</td><td class="c">-23.7 / -18.0 dB</td><td class="c">-15.5 dB</td><td class="c">-0.37 / -0.74 dB</td></tr>
+<tr><td>D1</td><td class="c">25.6 / 7.2 / 7.4</td><td class="c">0.00</td><td class="c">-20.1 / -31.8 dB</td><td class="c">-14.5 dB</td><td class="c">-0.34 / -0.56 dB</td></tr>
+<tr><td>D2</td><td class="c">25.0 / 7.9 / 7.4</td><td class="c">0.00</td><td class="c">-20.1 / -31.5 dB</td><td class="c">-14.2 dB</td><td class="c">-0.34 / -0.56 dB</td></tr>
+<tr><td>CK</td><td class="c">43.6 / 7.9 / 7.4</td><td class="c">0.00</td><td class="c">-20.2 / -14.4 dB</td><td class="c">-12.8 dB</td><td class="c">-0.40 / -0.86 dB</td></tr>
+  </tbody></table></div>
+ <figure><img src="img/sim_sparam.png" alt="Sパラメータ推定" style="width:100%;height:auto;display:block;border-radius:6px">
+  <figcaption>図5　差動S11／S21の推定と、Core側配線の差動インピーダンスの分布。区間の先頭（Core側）の約2.4mmはパッド直後の細い単線スタブ（約150Ω）、その後が結合区間（約104Ω）。</figcaption></figure>
+ <p>反射は全帯域で−12.8dB以下、挿入損失は1.65GHzで−0.9dB以内でした。最悪はCKの1.65GHz付近（−14.4dB）で、Core側スタブとキャップのインダクタンスの影響です。</p>
+</section>
+
+<section id="sens">
+ <h2>6. 感度解析：コネクタ接点の反射への余裕</h2>
+ <p>SODIMM接点の寄生（直列L、並列C）は公式にデータが無いため、値を振って余裕を確認しました。<b>接点を理想とした場合</b>の最悪SDD11は−14.4dBです。</p>
+ <figure><img src="img/sim_sensitivity.png" alt="感度解析" style="width:100%;height:auto;display:block;border-radius:6px">
+  <figcaption>図6　SODIMM接点の直列L（差動）と並列C（差動）に対する、4組のうち悪い方の反射（左）と挿入損失（右）。</figcaption></figure>
+ <ul>
+  <li>反射−10dBを保てる並列Cは、直列Lが0のとき約<b>0.4pF</b>まで、3nHのとき約0.65pFまで。</li>
+  <li>並列Cが約1pFを超えると、挿入損失が1.65GHzで1.5dBを超える。</li>
+  <li>実機のソケット接点の寄生値は<b>確認できていない</b>。</li>
+ </ul>
+ <div class="callout warn"><b class="t">この感度解析の意味</b>接点の寄生が上の範囲を超えると、反射の目標を満たさなくなる可能性があります。公式Dockは同じCore・同じソケットで動作しているので、同等の構成であれば大きな問題は起きにくいと考えますが、<b>キャリア側のESD・キャップの付加容量が公式より多い可能性</b>があります。試作でのTDR測定で確認します。</div>
+</section>
+
+<section id="em3d">
+ <h2>7. 3D電磁界解析（openEMS）の状況</h2>
+ <p>実形状の評価のため、openEMS 0.37.0（公式配布のWindows版）を導入しました。専用の環境に置き、プロジェクトには含めていません。ただし<b>較正が済んでいないため、結論には使っていません</b>。</p>
+ <div class="tw"><table>
+  <thead><tr><th>ケース</th><th class="c">openEMS</th><th class="c">2D／解析式</th><th class="c">差</th></tr></thead>
+  <tbody>
+   <tr><td>単線 w=0.35mm、メッシュ0.1mm</td><td class="c">47.7Ω</td><td class="c">51.7／50.0Ω</td><td class="c">−8%</td></tr>
+   <tr><td>単線 w=0.35mm、メッシュ0.05mm</td><td class="c">47.9Ω</td><td class="c">同上</td><td class="c">−8%（収束済み）</td></tr>
+   <tr><td>差動 w=0.2／間隔0.13mm、メッシュ0.1mm</td><td class="c">75.3Ω</td><td class="c">104／98.7Ω</td><td class="c t-bad">−22〜24%</td></tr>
+  </tbody></table></div>
+ <p>3Dの値は、メッシュを細かくしても変わらず、2Dと解析式のどちらとも一致しません。<b>3D側の設定（ポート定義、境界条件、基準面、抽出式）に系統的な誤りがある可能性</b>があります。解決の手順は、①公式チュートリアルの既知例で再現確認、②導波管ポートへの変更、③境界のPML化、④抽出方法の見直しです。</p>
+</section>
+
+<section id="limits">
+ <h2>8. 限界と次の作業</h2>
+ <div class="tw"><table>
+  <thead><tr><th>未確認事項</th><th>対応</th></tr></thead>
+  <tbody>
+   <tr><td>3D電磁界解析の較正</td><td>7章の手順で解決後、ビア・ESD・コネクタ接続部を評価</td></tr>
+   <tr><td>SODIMM接点とCore基板内の実特性</td><td>感度解析で許容範囲を提示。試作でTDR測定</td></tr>
+   <tr><td>ビア・内層区間（100Ω近似）、モード変換</td><td>3D解析で確認</td></tr>
+   <tr><td>積層構成が発注と一致するか</td><td>発注時にJLC04161H-7628を指定し、層厚を確認</td></tr>
+   <tr><td>是正事項1・2（ESD端子導通、499Ω枝）</td><td><b>試作前に是正し、再配線・再抽出・再解析</b></td></tr>
+   <tr><td>最終判断</td><td>PoCでは<b>短いケーブル・限定モニタでの720p60の表示確認</b>（30分程度）。TDR・アイ測定は不調時の切り分けと次版の改善用</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="repro">
+ <h2>9. 再現手順と記録</h2>
+ <ul>
+  <li>方針・前提・判断の記録（監査用）：<a href="https://github.com/airpocket-soundman/tab5-tang-primer20k-carrier/blob/main/docs/%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E6%96%B9%E9%87%9D%E3%81%A8%E7%9B%A3%E6%9F%BB%E8%A8%98%E9%8C%B2.md">docs/シミュレーション方針と監査記録.md</a></li>
+  <li>調査と設計判断の経緯：<a href="https://github.com/airpocket-soundman/tab5-tang-primer20k-carrier/blob/main/docs/HDMI_%E4%BF%A1%E5%8F%B7%E5%93%81%E8%B3%AA_%E8%AA%BF%E6%9F%BB%E3%81%A8%E6%96%B9%E9%87%9D.md">docs/HDMI_信号品質_調査と方針.md</a></li>
+  <li>ソース：<a href="https://github.com/airpocket-soundman/tab5-tang-primer20k-carrier/tree/main/kicad/sim">kicad/sim/</a></li>
+ </ul>
+ <div class="tw"><table>
+  <thead><tr><th>コマンド</th><th>内容</th></tr></thead>
+  <tbody>
+   <tr><td><code>kicad python tmds_channel.py --extract</code></td><td>基板から配線を抽出</td></tr>
+   <tr><td><code>python tmds_channel.py</code></td><td>区間の差動インピーダンス・長さ・スキュー</td></tr>
+   <tr><td><code>python tmds_sparam.py</code></td><td>Sパラメータ推定</td></tr>
+   <tr><td><code>python make_report_figs.py</code></td><td>このページの図</td></tr>
+  </tbody></table></div>
+ <p>使用環境：KiCad 10.0.6、Python 3.12（numpy 2.5.3、scipy 1.18.1、matplotlib 3.11.2）、openEMS 0.37.0（専用のPython 3.13環境）。</p>
+ <h3>訂正記録</h3>
+ <ul>
+  <li>2026-10-24：独立レビューの指摘を反映。ESDの端子導通の想定誤り、499Ω枝の長さ、対象速度（720p60に限定）、スキュー基準の根拠、ESD容量の仮定を訂正・追記（是正事項の章）。</li>
+  <li>2026-10-24：結合区間の差動インピーダンスを107Ω→104Ωに訂正（2Dの解の格子に実際の間隔0.13mmを追加）。チャネル推定の区間の並びを信号経路順に修正。合否判断は変わらない。</li>
+ </ul>
+</section>
+
+</main>
+<footer><div class="wrap">Tab5 × Tang Primer 20K キャリア基板 ／ HDMIシミュレーション評価 ／ 2026-10-24</div></footer>
+</body>
+</html>

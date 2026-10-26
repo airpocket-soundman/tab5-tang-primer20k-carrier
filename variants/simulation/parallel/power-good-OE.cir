@@ -1,0 +1,16 @@
+OE supervisor/MOS chain transient, conservative high-Vth corner
+Vcc vcc 0 3.234
+Roe vcc oe 21780
+Coe oe 0 30p
+Vtab gt 0 PWL(0 0 0.4 0 0.400001 2.757 .65 2.757)
+Vcore gc 0 PWL(0 0 0.355 0 0.35500099999999996 3.871 .65 3.871)
+Rtab gt 0 100k
+Rcore gc 0 100k
+Mtop oe gt mid 0 weak
+Mbottom mid gc 0 0 weak
+Rleak1 oe mid 3.6Meg
+Rleak2 mid 0 3.6Meg
+.model weak NMOS(level=1 VTO=2.5 KP=.01 LAMBDA=.02 CGSO=1e-11 CGDO=1e-11)
+.tran 10u .65 0 10u
+.save v(oe) v(gt) v(gc)
+.end

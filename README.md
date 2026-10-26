@@ -8,6 +8,14 @@ M5Stack Tab5のM5-BusとTang Primer 20K Coreを接続する専用キャリア基
 
 **主電源仕様の訂正（2026-10-26）：** 必要なのは押すごとにON/OFFを保持する外部給電の主電源です。既存SW3のFPGA専用停止回路は要求と異なります。現行PCB・EasyEDAデータ・製造資料は旧回路の記録であり、新仕様の発注用データとして使用できません。[改訂状況](spark/main-power-r2/README.md)を参照してください。
 
+## 保持している従来版
+
+125×78mmの従来版と廉価版A/B/Cは保存しています。既存の製造・解析記録は各版のものです。Spark主電源改訂の検証結果ではありません。
+
+- [廉価版3案の一覧](variants/README.md)
+- [3案の共通設計仕様](variants/DESIGN_SPEC.md)
+- [廉価版レポート](site/lite-variants.html)
+
 ## 設計の起点
 
 [共通ハードウェア仕様・設計チェック項目](docs/ESP32P4_FPGA_共通ハード仕様.md)

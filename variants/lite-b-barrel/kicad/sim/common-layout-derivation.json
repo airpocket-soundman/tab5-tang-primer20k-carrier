@@ -1,0 +1,27 @@
+{
+  "source_variant": "lite-a-dual",
+  "source_pcb_sha256": "df2142026f3e9925fcd49b681d8596c5da76e8f41d11be3854517de441ee7876",
+  "removed_refs": [
+    "C2",
+    "D2",
+    "J2",
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "U1"
+  ],
+  "PD_exclusive_nets_copper_removed": [
+    "CC1",
+    "CC2",
+    "PD_CFG1",
+    "PD_CFG2",
+    "PD_CFG3",
+    "PD_PG",
+    "PD_VBUS_S",
+    "PD_VDD",
+    "VBUS_PD"
+  ],
+  "strategy": "preserve verified common placement and routing, then remove full PD-only branch; B requires independent revalidation"
+}

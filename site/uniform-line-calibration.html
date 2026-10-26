@@ -1,0 +1,125 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3D均一直線のポート校正とメッシュ確認</title><style>
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --ink:#1b1f24; --muted:#5b6672; --line:#d9dee4;
+  --accent:#1f6feb; --ok:#1a7f37; --okbg:#e3f5e8; --warn:#9a6700; --warnbg:#fff4d1;
+  --bad:#cf222e; --badbg:#fde4e6; --info:#0a6aa1; --infobg:#e1f1fb;
+  --pcb:#1f7a4d; --pcb2:#2f9e68; --tab5:#c9ced6; --code:#eef1f5;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1318; --panel:#171c23; --ink:#e6eaef; --muted:#9aa5b1; --line:#2b333d;
+    --accent:#58a6ff; --ok:#56d364; --okbg:#10301a; --warn:#e3b341; --warnbg:#3a2d0b;
+    --bad:#ff7b72; --badbg:#3c1418; --info:#79c0ff; --infobg:#0d2c44;
+    --pcb:#1d6b45; --pcb2:#2b8a5c; --tab5:#3a424d; --code:#222a33;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1318; --panel:#171c23; --ink:#e6eaef; --muted:#9aa5b1; --line:#2b333d;
+  --accent:#58a6ff; --ok:#56d364; --okbg:#10301a; --warn:#e3b341; --warnbg:#3a2d0b;
+  --bad:#ff7b72; --badbg:#3c1418; --info:#79c0ff; --infobg:#0d2c44;
+  --pcb:#1d6b45; --pcb2:#2b8a5c; --tab5:#3a424d; --code:#222a33;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 "Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif}
+a{color:var(--accent)}
+header.top{background:var(--panel);border-bottom:1px solid var(--line);padding:28px 16px 20px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header.top .wrap{padding:0}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 6px}
+.sub{color:var(--muted);margin:0}
+.badge{display:inline-block;font-size:.78rem;padding:2px 10px;border-radius:999px;background:var(--warnbg);color:var(--warn);border:1px solid var(--warn);margin-right:6px;vertical-align:middle}
+nav.toc{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+nav.toc .wrap{display:flex;gap:4px;padding-top:6px;padding-bottom:6px}
+nav.toc a{padding:4px 12px;border-radius:6px;text-decoration:none;color:var(--ink);font-size:.9rem}
+nav.toc a:hover{background:var(--code)}
+section{padding:36px 0 8px}
+h2{font-size:1.35rem;margin:0 0 14px;padding-left:12px;border-left:5px solid var(--accent)}
+h3{font-size:1.08rem;margin:26px 0 8px}
+p{margin:.6em 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.callout{border-left:5px solid var(--info);background:var(--infobg);padding:10px 14px;border-radius:6px;margin:14px 0}
+.callout.warn{border-color:var(--warn);background:var(--warnbg)}
+.callout.bad{border-color:var(--bad);background:var(--badbg)}
+.callout.ok{border-color:var(--ok);background:var(--okbg)}
+.callout b.t{display:block;margin-bottom:2px}
+figure{margin:16px 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{color:var(--muted);font-size:.88rem;padding:6px 6px 2px}
+.tw{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:560px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--code);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.c,th.c{text-align:center}
+.t-ok{background:var(--okbg);color:var(--ok);font-weight:600}
+.t-warn{background:var(--warnbg);color:var(--warn);font-weight:600}
+.t-bad{background:var(--badbg);color:var(--bad);font-weight:600}
+.t-info{background:var(--infobg);color:var(--info);font-weight:600}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font-family:ui-monospace,Consolas,monospace;font-size:.88em}
+ul{padding-left:1.3em;margin:.5em 0}
+li{margin:.2em 0}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:14px 0}
+.kpi div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi b{display:block;font-size:1.25rem}
+.kpi span{color:var(--muted);font-size:.85rem}
+footer{color:var(--muted);font-size:.85rem;padding:32px 0 48px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.85rem;color:var(--muted);margin:6px 2px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+svg text{font-family:inherit;fill:var(--ink)}
+svg .mut{fill:var(--muted)}
+</style></head><body><header class="top"><div class="wrap">2026-10-24 基板発注前の検証</div></header><p id="pcb-report-link"><a href="pcb-report.html">最新：基板レポート（独立レビュー・シミュレーション・BOM・外観図、2026-10-25）</a></p><main class="wrap"><nav><a href="index.html">設計仕様</a> / <a href="poc-fabrication.html">発注準備</a> / <a href="hdmi-simulation-r3.html">HDMI概算</a></nav><p><a href="audit-data/poc-manufacturing-candidate.zip">少数PoC用 製造データ一式 ZIP</a> / <a href="audit-data/poc-assembly-top.svg">上面実装図</a> / <a href="audit-data/poc-assembly-bottom.svg">下面実装図</a> / <a href="audit-data/uniform-line-calibration.zip">3Dモデルと生波形</a></p><h1>3D均一直線のポート校正とメッシュ確認</h1>
+<p>2026年10月24日。過去の2Dと3Dの差を理由に3D解析を終了する判断を見直し、保存済みopenEMS環境を使って均一直線の抽出を再検証した。<strong>以前の約53Ωにはポートの扱いによる偏りがあり、再抽出では単線約57.33Ω。銅厚35µmの差動直線は95.36〜96.54Ω、2つのメッシュの差1.23%となった。</strong> これは均一直線の数値的な確認で、基板全体の電磁界検証の完了ではない。</p>
+<h2>過去の抽出の問題</h2>
+<p>MSLポートは伝送線路のモードインピーダンスを基準とし、50Ωで終端した実回路そのものではない。以前の処理は <code>CalcPort(ref_impedance=50)</code> の後の反射・透過振幅を、そのまま出力側入射波が0である二端子対の式へ代入していた。今回の単線でも、50Ωへ再正規化した出力側入射波は入力側入射波の最大約7%あり、この仮定を満たさない。</p>
+<p><a href="https://github.com/thliebig/openEMS/blob/master/python/openEMS/ports.py">openEMSのポート実装</a>に従い、<code>ReadUIData()</code> が求める <code>Z_ref</code> を、任意の50Ω再正規化で上書きする前に保存する。今回の単線ではモード値57.329Ωに対し、従来式の見掛け値53.047Ωとなった。これは同じ計算波形から得られ、ソルバの収束不良だけでは説明できない。</p>
+<h2>条件と結果</h2>
+<p>openEMS 0.37.0、Python3.13。比誘電率4.4、信号とGND間0.2104mm、長さ30mm、PECの損失なし直線、MSLモードポート。端部PML、側面と上面MUR、底面PEC。有限厚の場合は導体を35µmの箱で表現し、電流積分領域を導体全厚の外側まで広げた。差動は同じ大きさの逆相励振とし、4ポートのモードインピーダンスを平均して2倍した。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>条件</th>
+<th>横メッシュ</th>
+<th>基板厚方向分割</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>単線 幅0.3mm 銅厚0</td>
+<td>0.020mm</td>
+<td>12</td>
+<td>単線57.329Ω</td>
+</tr>
+<tr>
+<td>差動 幅0.2mm 間隔0.13mm 銅厚0</td>
+<td>0.020mm</td>
+<td>12</td>
+<td>差動103.355Ω</td>
+</tr>
+<tr>
+<td>差動 同寸法 銅厚35µm</td>
+<td>0.020mm</td>
+<td>12</td>
+<td>差動95.361Ω</td>
+</tr>
+<tr>
+<td>差動 同寸法 銅厚35µm</td>
+<td>0.015mm</td>
+<td>16</td>
+<td>差動96.536Ω</td>
+</tr>
+</tbody>
+</table></div>
+<p>有限厚の2条件の相対差は1.2325%。エネルギー終了条件は1e-5、約−50dB。これはこの2段階間の収束確認であり、絶対誤差1.23%の証明ではない。導体厚による違いが大きいため、厚さ0の基準と35µmの基板を混同しない。</p>
+<h2>保存データと再現</h2>
+<p><code>docs/reference/openems/calibration-2026-10-24/</code> に各条件のmodel.xml、元のresult.json、電圧/電流プローブの生波形ZIP、ハッシュ付きsummary.jsonを保存した。実行コードは <code>kicad/sim/calibrate_uniform_msl.py</code>。元の一部result.jsonのmodel説明は旧表記のzero-thicknessのまま残るが、有限厚かどうかは <strong>thickness_mmとmodel.xml</strong> を正とする。初回単線のz_min/z_maxは旧見掛け値なので、結論にはmodal_port1/2とその平均を使う。</p>
+<p>例は次のとおり。既存の計算を上書きしないよう、新しい出力ディレクトリを使う。</p>
+<pre><code class="language-powershell">D:/tmp/meos-openems/venv/Scripts/python.exe kicad/sim/calibrate_uniform_msl.py --package D:/tmp/meos-openems/package/openEMS --work-dir D:/tmp/new-uniform-pair --width .2 --gap .13 --thickness .035 --mesh .015 --z-divisions 16
+</code></pre>
+<h2>PoCの判断に使う範囲</h2>
+<p>2Dとの差は完全には解消していない。2D側のメッシュ、導体厚の格子化、エネルギー評価にも差があり、2Dを校正標準として3Dを合わせ込むことはしない。完全な3D Sパラメータを得るには独立励振と適切なポート正規化も必要で、旧処理のuf_inc比をそのまま正規のS21とは呼ばない。保存したold_apparent_zやs21_db_meanは比較診断用で、合否には使わない。</p>
+<p>今回の値は100Ω付近の均一直線として矛盾が小さいことを支持する。一方、Core内部、コネクタ、抵抗分岐、ESD、近接配線、ケーブル、ドライバ、受信機を含まないため、HDMIの動作や規格適合を保証しない。既存2D線路接続モデルの感度解析は概算として残し、最低成功条件のパラレル通信・電源・DDR3の実機確認を優先する。</p>
+</main></body></html>

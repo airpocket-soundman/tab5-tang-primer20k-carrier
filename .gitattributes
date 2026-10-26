@@ -1,2 +1,13 @@
 # Preserve exact CAD, simulation and hash-manifest bytes.
 * -text
+
+# Preserve byte-identical manufacturing exports and calibration waveforms.
+manufacturing/** -text -whitespace
+variants/**/manufacturing/** -text -whitespace
+docs/reference/openems/calibration-2026-10-24/** -text
+site/audit-data/poc-assembly-*.svg -text -whitespace
+
+# Keep downloaded vendor/reference files and raw solver logs byte-identical.
+variants/simulation/**/reference/** -text -whitespace
+variants/simulation/power/models/** -text -whitespace
+variants/simulation/**/*.log -text -whitespace

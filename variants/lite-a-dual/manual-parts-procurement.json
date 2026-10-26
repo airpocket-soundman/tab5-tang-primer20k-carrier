@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-25",
+  "preference": "Akizuki first, mechanically compatible parts only; no replacement by matching appearance alone",
+  "HDMI_PCBA": {
+    "reference": "J5",
+    "mpn": "MOLEX2086581001",
+    "lcsc": "C916313",
+    "url": "https://jlcpcb.com/partdetail/2086581001/C916313",
+    "service": "SMT Assembly; Economic and Standard listed",
+    "scope": "19 signal terminals and all4 through-hole shell tabs; no customer HDMI soldering",
+    "limit": "Supplier order preview must include the shell-tab soldering; stock is not reserved"
+  },
+  "items": [
+    {
+      "refs": "J3",
+      "qty": "1",
+      "part": "2.54mm 2x15 male; PH-2x40SG cut to15 rows",
+      "supplier": "秋月",
+      "url": "https://akizukidenshi.com/catalog/g/g100082/",
+      "status": "販売・在庫表示確認",
+      "note": "基板裏面に実装。接点長6.1mmの標準品候補。Tab5との実物の間隔・差し込み深さは確認する。"
+    },
+    {
+      "refs": "JP1",
+      "qty": "2ピン分",
+      "part": "PH-1x40SGを2ピンに切断",
+      "supplier": "秋月",
+      "url": "https://akizukidenshi.com/catalog/g/g100167/",
+      "status": "販売・在庫表示確認",
+      "note": "BUS ARM用。ヘッダーだけでは有効にならず、確認後にショートピンを装着する。"
+    },
+    {
+      "refs": "JP1用ショートピン",
+      "qty": "1",
+      "part": "2228AG / 2.54mm",
+      "supplier": "秋月",
+      "url": "https://akizukidenshi.com/catalog/g/g103878/",
+      "status": "販売・在庫表示確認",
+      "note": "初期は外す。GPIO所有権・電源・ファーム設定を確認してから装着。"
+    },
+    {
+      "refs": "J6/J7（任意）",
+      "qty": "1x6を計4個",
+      "part": "FH-1x6SG/RHを1コネクタ当たり2列並べる",
+      "supplier": "秋月",
+      "url": "https://akizukidenshi.com/catalog/g/g103784/",
+      "status": "2.54mmピッチの候補・PCBA対象外",
+      "note": "一体2x6ソケットではない。2x6のオスで列をそろえてから手はんだする案。筐体・相手コネクタとの高さは確認。最小PoCでは購入不要。"
+    },
+    {
+      "refs": "J8（任意）",
+      "qty": "1",
+      "part": "FH-1x9SG/RH",
+      "supplier": "秋月",
+      "url": "https://akizukidenshi.com/catalog/g/g110100/",
+      "status": "販売確認・PCBA対象外",
+      "note": "2.54mm 1x9メス。最小PoCでは購入不要。"
+    },
+    {
+      "refs": "J1（バレル使用時）",
+      "qty": "1",
+      "part": "候補MJ-179PH、まだ購入確定しない",
+      "supplier": "秋月",
+      "url": "https://akizukidenshi.com/catalog/g/g106568/",
+      "status": "販売確認／無加工互換は未確定",
+      "note": "現基板の側端子Y=4.7mmとメーカー図4.9mmに差。見た目で代用しない。USB PD12V使用時はJ1を未実装で使える。"
+    },
+    {
+      "refs": "SW1/SW2",
+      "qty": "各1",
+      "part": "TS-06104 H=4.3mm（秋月115969）",
+      "supplier": "秋月",
+      "url": "https://akizukidenshi.com/catalog/g/g115969/",
+      "status": "販売・在庫確認／専用ランドへ設計変更済み",
+      "note": "各1個、計2個。メーカー図p8の推奨ランド1.8×1.0mm、中心X=±4.1/Y=±2.25mm。左2端子A/B同電位、右C/D同電位。通常開・押下で導通。Panasonic品をこの新基板へ実装しない。"
+    },
+    {
+      "refs": "SW3",
+      "qty": "1",
+      "part": "CTS206-1S",
+      "supplier": "DigiKey（秋月統一の例外）",
+      "url": "https://www.digikey.com/en/products/detail/cts-electrocomponents/206-1S/5223488",
+      "status": "販売・在庫表示確認",
+      "note": "1回路・7.62mm列間のDIPスイッチ。秋月の2回路品をそのまま差し替えない。"
+    },
+    {
+      "refs": "H3-H6",
+      "qty": "取付穴4か所",
+      "part": "M3ねじ／スペーサーは固定方法に合わせて選定",
+      "supplier": "秋月等",
+      "url": "https://akizukidenshi.com/catalog/g/g101861/",
+      "status": "長さ・固定方法未確定",
+      "note": "穴そのものは購入部品ではない。リンクは寸法未確定の参考セットで、指定長の推奨ではない。"
+    }
+  ],
+  "no_purchase": [
+    "R4",
+    "R17",
+    "R18",
+    "R25",
+    "C8",
+    "C9"
+  ],
+  "core": "User supplied Tang Primer20K Core; J4 socket remains PCBA mandatory",
+  "physical_design_change": "SW1/SW2 pads, positions and local button/reset routes revised; power and parallel/HDMI signal routing retained; see button-revision-review.json"
+}

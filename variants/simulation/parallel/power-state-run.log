@@ -1,0 +1,227 @@
+{
+ "dynamic_OE_cases": [
+  {
+   "case": "staggered",
+   "ok": true,
+   "Tab_PGOOD_s": 0.37,
+   "Core_PGOOD_s": 0.355,
+   "ARM_s": 0.4,
+   "first_OE_low_s": 0.4000013418014675,
+   "OE_final_V": 0.07873178879838147,
+   "OE_min_V": 0.054624288136283276
+  },
+  {
+   "case": "ARM_open",
+   "ok": true,
+   "Tab_PGOOD_s": 0.37,
+   "Core_PGOOD_s": 0.355,
+   "ARM_s": null,
+   "first_OE_low_s": null,
+   "OE_final_V": 3.2145522824890813,
+   "OE_min_V": 3.2145346143639952
+  },
+  {
+   "case": "Tab_absent",
+   "ok": true,
+   "Tab_PGOOD_s": null,
+   "Core_PGOOD_s": 0.355,
+   "ARM_s": 0,
+   "first_OE_low_s": null,
+   "OE_final_V": 3.2145522824890813,
+   "OE_min_V": 3.2145346143639952
+  },
+  {
+   "case": "Core_absent",
+   "ok": true,
+   "Tab_PGOOD_s": 0.37,
+   "Core_PGOOD_s": null,
+   "ARM_s": 0,
+   "first_OE_low_s": null,
+   "OE_final_V": 3.224246548419423,
+   "OE_min_V": 3.2242434212515296
+  }
+ ],
+ "power_down_sensitivity": [
+  {
+   "load_A": 0.5,
+   "Cout_uF": 176,
+   "supervisor_assert_delay_us": 20,
+   "Core_PGOOD_threshold_V": 4.271,
+   "assumed_Core_bank_collapse_5V_input_V": 3.6,
+   "isolation_after_fall_us": 277.408,
+   "bank_collapse_after_fall_us": 492.79999999999995,
+   "margin_us": 215.3919999999999,
+   "ok_under_assumptions": true,
+   "delay_status": "20us is TI typical, not guaranteed maximum; 100us is deliberately adverse sensitivity"
+  },
+  {
+   "load_A": 0.5,
+   "Cout_uF": 176,
+   "supervisor_assert_delay_us": 100,
+   "Core_PGOOD_threshold_V": 4.271,
+   "assumed_Core_bank_collapse_5V_input_V": 3.6,
+   "isolation_after_fall_us": 357.408,
+   "bank_collapse_after_fall_us": 492.79999999999995,
+   "margin_us": 135.3919999999999,
+   "ok_under_assumptions": true,
+   "delay_status": "20us is TI typical, not guaranteed maximum; 100us is deliberately adverse sensitivity"
+  },
+  {
+   "load_A": 0.5,
+   "Cout_uF": 220,
+   "supervisor_assert_delay_us": 20,
+   "Core_PGOOD_threshold_V": 4.271,
+   "assumed_Core_bank_collapse_5V_input_V": 3.6,
+   "isolation_after_fall_us": 341.56,
+   "bank_collapse_after_fall_us": 615.9999999999999,
+   "margin_us": 274.4399999999999,
+   "ok_under_assumptions": true,
+   "delay_status": "20us is TI typical, not guaranteed maximum; 100us is deliberately adverse sensitivity"
+  },
+  {
+   "load_A": 0.5,
+   "Cout_uF": 220,
+   "supervisor_assert_delay_us": 100,
+   "Core_PGOOD_threshold_V": 4.271,
+   "assumed_Core_bank_collapse_5V_input_V": 3.6,
+   "isolation_after_fall_us": 421.56,
+   "bank_collapse_after_fall_us": 615.9999999999999,
+   "margin_us": 194.43999999999988,
+   "ok_under_assumptions": true,
+   "delay_status": "20us is TI typical, not guaranteed maximum; 100us is deliberately adverse sensitivity"
+  },
+  {
+   "load_A": 0.5,
+   "Cout_uF": 264,
+   "supervisor_assert_delay_us": 20,
+   "Core_PGOOD_threshold_V": 4.271,
+   "assumed_Core_bank_collapse_5V_input_V": 3.6,
+   "isolation_after_fall_us": 405.71200000000005,
+   "bank_collapse_after_fall_us": 739.1999999999998,
+   "margin_us": 333.48799999999983,
+   "ok_under_assumptions": true,
+   "delay_status": "20us is TI typical, not guaranteed maximum; 100us is deliberately adverse sensitivity"
+  },
+  {
+   "load_A": 0.5,
+   "Cout_uF": 264,
+   "supervisor_assert_delay_us": 100,
+   "Core_PGOOD_threshold_V": 4.271,
+   "assumed_Core_bank_collapse_5V_input_V": 3.6,
+   "isolation_after_fall_us": 485.712,
+   "bank_collapse_after_fall_us": 739.1999999999998,
+   "margin_us": 253.48799999999986,
+   "ok_under_assumptions": true,
+   "delay_status": "20us is TI typical, not guaranteed maximum; 100us is deliberately adverse sensitivity"
+  },
+  {
+   "load_A": 2,
+   "Cout_uF": 176,
+   "supervisor_assert_delay_us": 20,
+   "Core_PGOOD_threshold_V": 4.271,
+   "assumed_Core_bank_collapse_5V_input_V": 3.6,
+   "isolation_after_fall_us": 84.95200000000001,
+   "bank_collapse_after_fall_us": 123.19999999999999,
+   "margin_us": 38.247999999999976,
+   "ok_under_assumptions": true,
+   "delay_status": "20us is TI typical, not guaranteed maximum; 100us is deliberately adverse sensitivity"
+  },
+  {
+   "load_A": 2,
+   "Cout_uF": 176,
+   "supervisor_assert_delay_us": 100,
+   "Core_PGOOD_threshold_V": 4.271,
+   "assumed_Core_bank_collapse_5V_input_V": 3.6,
+   "isolation_after_fall_us": 164.95199999999997,
+   "bank_collapse_after_fall_us": 123.19999999999999,
+   "margin_us": -41.75199999999999,
+   "ok_under_assumptions": false,
+   "delay_status": "20us is TI typical, not guaranteed maximum; 100us is deliberately adverse sensitivity"
+  },
+  {
+   "load_A": 2,
+   "Cout_uF": 220,
+   "supervisor_assert_delay_us": 20,
+   "Core_PGOOD_threshold_V": 4.271,
+   "assumed_Core_bank_collapse_5V_input_V": 3.6,
+   "isolation_after_fall_us": 100.99000000000001,
+   "bank_collapse_after_fall_us": 153.99999999999997,
+   "margin_us": 53.00999999999997,
+   "ok_under_assumptions": true,
+   "delay_status": "20us is TI typical, not guaranteed maximum; 100us is deliberately adverse sensitivity"
+  },
+  {
+   "load_A": 2,
+   "Cout_uF": 220,
+   "supervisor_assert_delay_us": 100,
+   "Core_PGOOD_threshold_V": 4.271,
+   "assumed_Core_bank_collapse_5V_input_V": 3.6,
+   "isolation_after_fall_us": 180.98999999999998,
+   "bank_collapse_after_fall_us": 153.99999999999997,
+   "margin_us": -26.990000000000013,
+   "ok_under_assumptions": false,
+   "delay_status": "20us is TI typical, not guaranteed maximum; 100us is deliberately adverse sensitivity"
+  },
+  {
+   "load_A": 2,
+   "Cout_uF": 264,
+   "supervisor_assert_delay_us": 20,
+   "Core_PGOOD_threshold_V": 4.271,
+   "assumed_Core_bank_collapse_5V_input_V": 3.6,
+   "isolation_after_fall_us": 117.028,
+   "bank_collapse_after_fall_us": 184.79999999999995,
+   "margin_us": 67.77199999999996,
+   "ok_under_assumptions": true,
+   "delay_status": "20us is TI typical, not guaranteed maximum; 100us is deliberately adverse sensitivity"
+  },
+  {
+   "load_A": 2,
+   "Cout_uF": 264,
+   "supervisor_assert_delay_us": 100,
+   "Core_PGOOD_threshold_V": 4.271,
+   "assumed_Core_bank_collapse_5V_input_V": 3.6,
+   "isolation_after_fall_us": 197.028,
+   "bank_collapse_after_fall_us": 184.79999999999995,
+   "margin_us": -12.228000000000034,
+   "ok_under_assumptions": false,
+   "delay_status": "20us is TI typical, not guaranteed maximum; 100us is deliberately adverse sensitivity"
+  }
+ ],
+ "power_off_feedthrough": [
+  {
+   "assumed_cross_port_feedthrough_pF": 0,
+   "max_receiver_with_45k_pulldown_V": 0.02924639883880349,
+   "DC_Ioff_bound_per_channel_uA": 1,
+   "15channel_DC_bound_uA": 15,
+   "capacitive_charge_per_edge_pC": 0.0,
+   "feedthrough_status": "Sensitivity assumption: off-port Cio5pF is NOT a specified cross-port capacitance; no full off-state transfer model was available"
+  },
+  {
+   "assumed_cross_port_feedthrough_pF": 0.1,
+   "max_receiver_with_45k_pulldown_V": 0.03757784107354954,
+   "DC_Ioff_bound_per_channel_uA": 1,
+   "15channel_DC_bound_uA": 15,
+   "capacitive_charge_per_edge_pC": 0.34650000000000003,
+   "feedthrough_status": "Sensitivity assumption: off-port Cio5pF is NOT a specified cross-port capacitance; no full off-state transfer model was available"
+  },
+  {
+   "assumed_cross_port_feedthrough_pF": 1,
+   "max_receiver_with_45k_pulldown_V": 0.24700727410342477,
+   "DC_Ioff_bound_per_channel_uA": 1,
+   "15channel_DC_bound_uA": 15,
+   "capacitive_charge_per_edge_pC": 3.465,
+   "feedthrough_status": "Sensitivity assumption: off-port Cio5pF is NOT a specified cross-port capacitance; no full off-state transfer model was available"
+  }
+ ],
+ "PoC_conditions": [
+  "Stop host clocks, drive control/data safe low or high-Z and wait >=300us before intentional Core power-off; do not hot-plug Core.",
+  "Wait >=350ms after both rails are stable before manual ARM; use both PGOOD indication and startup handshake.",
+  "Configure RDY/data input weak pull-downs when FPGA unpowered; do not interpret floating data as valid response."
+ ],
+ "limits": [
+  "TPS3839 assertion20us is typical only; no maximum was found, so abrupt rail collapse and fault/hotplug backpower immunity cannot be certified.",
+  "Core3V3 collapse at Core5V3.6V is an assumed buck/dropout envelope, not an extracted transient model of the complete Core.",
+  "MOS level1 high-Vth model is a sensitivity model, not manufacturer 2N7002 SPICE.",
+  "OE power-state checks do not constitute physical leakage measurements."
+ ]
+}

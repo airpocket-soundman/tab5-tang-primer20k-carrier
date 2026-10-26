@@ -1,0 +1,61 @@
+{
+  "solver": "openEMS 0.37.0, Python3.13, four threads",
+  "cases": [
+    {
+      "case": "single-020-z12",
+      "width_mm": 0.3,
+      "gap_mm": 0,
+      "thickness_mm": 0,
+      "mesh_mm": 0.02,
+      "z_divisions": 12,
+      "modal_single_line_ohm": 57.329398970099845,
+      "zdiff_ohm": null
+    },
+    {
+      "case": "pair-020-z12",
+      "width_mm": 0.2,
+      "gap_mm": 0.13,
+      "thickness_mm": 0,
+      "mesh_mm": 0.02,
+      "z_divisions": 12,
+      "modal_single_line_ohm": 51.677723876048454,
+      "zdiff_ohm": 103.35544775209691
+    },
+    {
+      "case": "pair-020-z12-t035",
+      "width_mm": 0.2,
+      "gap_mm": 0.13,
+      "thickness_mm": 0.035,
+      "mesh_mm": 0.02,
+      "z_divisions": 12,
+      "modal_single_line_ohm": 47.680440144351934,
+      "zdiff_ohm": 95.36088028870387
+    },
+    {
+      "case": "pair-015-z16-t035",
+      "width_mm": 0.2,
+      "gap_mm": 0.13,
+      "thickness_mm": 0.035,
+      "mesh_mm": 0.015,
+      "z_divisions": 16,
+      "modal_single_line_ohm": 48.268115347133445,
+      "zdiff_ohm": 96.53623069426689
+    }
+  ],
+  "finite_pair_mesh_delta_percent": 1.2325288965503,
+  "scope": "Uniform straight line modal-port calibration only. Not complete carrier/Core/cable EM or HDMI compliance.",
+  "files": {
+    "pair-015-z16-t035\\model.xml": "faeeb63aa1f5cd74d6a528e73c4d330aad3e4f0bdbcf8c426ca1b0352d1d75bc",
+    "pair-015-z16-t035\\port-traces.zip": "34af02e3a47abb8181b5acb0259ed9a9d7d73027a64e4b0844de97b5c22de695",
+    "pair-015-z16-t035\\result.json": "cedf94a250b8ea2a0d76a12c17f3d0e94f61c5e5d86ad72686eeb71b8d79bbbc",
+    "pair-020-z12\\model.xml": "e6bdd77c73892277e348621f0b09be2a83b839948b169e9b2e5a15605ef8f92a",
+    "pair-020-z12\\port-traces.zip": "ae8e0b4be6bd583d37575ec3b070065c3f53ad62b29ad358ee8e9e5105166f8f",
+    "pair-020-z12\\result.json": "0bd16f9bcc7676cc29e8cb170da8e338e14da3e066bf1607d3159a83ca212f3f",
+    "pair-020-z12-t035\\model.xml": "65ba39518d1050ab6a3a123de91a178cfa6ad4fa87cb53a09bc3470ef161c9ce",
+    "pair-020-z12-t035\\port-traces.zip": "69dd0f52ee917c9f323617ca1f26516c7a6126c813f6bc3495d8cc7d4c07f5fa",
+    "pair-020-z12-t035\\result.json": "a5dfd66f10ad60d679ecf600d7bbbb7c2bdfe51b14264cd5bec71c4ed7e9d3f8",
+    "single-020-z12\\model.xml": "f288fae1ded3eecf7f7545618fa6dc515b68b065a8db63d6c72c42bc38e1a14b",
+    "single-020-z12\\port-traces.zip": "3064bfc25d25d110f750bf2eae6e7b7042d73f9b931fcbcfb67f7b4c28801769",
+    "single-020-z12\\result.json": "3f1241ba27fe386441bad116c3138d6e1be3191f2cda094f140aa52af16f8dbd"
+  }
+}

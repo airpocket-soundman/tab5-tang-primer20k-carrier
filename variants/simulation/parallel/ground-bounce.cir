@@ -1,0 +1,8 @@
+Eight simultaneous outputs shared return envelope
+Ireturn 0 chipgnd PULSE(0 0.032 10n 3e-09 3e-09 40n 100n)
+Lreturn chipgnd g 3n
+Rreturn g 0 .05
+Cfringe chipgnd 0 20p
+.tran 10p 100n 0 10p
+.save v(chipgnd)
+.end

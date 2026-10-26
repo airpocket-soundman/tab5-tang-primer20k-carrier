@@ -1,0 +1,52 @@
+Refs,Value,Footprint,Qty,DNP,LCSC,JLC class,Note
+J1,DC 12V ONLY,Connector_BarrelJack:BarrelJack_Horizontal,1,,,THT/hand-solder or extended (select part),"DC barrel jack, centre positive (THT, hand assembly)"
+F1,PTC 3A hold,Fuse:Fuse_1812_4532Metric,1,,C47002391,selected (verify stock at order),
+"D1,D2,D4",SS54,Diode_SMD:D_SMA,3,,C22452,selected (verify stock at order),reverse-polarity + OR (DC jack)
+D3,SMBJ15A,Diode_SMD:D_SMB,1,,C699013,selected (verify stock at order),"YANGJIE 15V standoff, 24.4V specified clamp; regulated 12V PoC input only"
+C1,100u/35V,Capacitor_SMD:CP_Elec_6.3x7.7,1,,C2983388,selected (verify stock at order),
+J2,USB-C PD in,Connector_USB:USB_C_Receptacle_GCT_USB4125-xx-x-0190_6P_TopMnt_Horizontal,1,,C5246813,selected (verify stock at order),power-only USB-C 6P receptacle
+U1,CH224K,Package_SO:SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm,1,,C970725,selected (verify stock at order),"PD sink, 12V request: CFG1=0 CFG2=0 CFG3=1(internal PU)"
+"R1,R36,R37,R52,R6",10k,Resistor_SMD:R_0603_1608Metric,5,,C25804,selected (verify stock at order),
+C2,1u/50V,Capacitor_SMD:C_0603_1608Metric,1,,C15849,selected (verify stock at order),
+"R2,R42,R43,R44,R45",1k,Resistor_SMD:R_0603_1608Metric,5,,C21190,selected (verify stock at order),
+"R3,R5",0R,Resistor_SMD:R_0603_1608Metric,2,,C21189,selected (verify stock at order),CFG1 low (fit)
+"R17,R18,R25,R4",0R,Resistor_SMD:R_0603_1608Metric,4,DNP,C21189,selected (verify stock at order),Must remain DNP: CFG3 internal pull-up for 12V request
+U2,TPS5430DDAR,Package_SO:TI_SO-PowerPAD-8_ThermalVias,1,,C9864,selected (verify stock at order),
+C3,10n,Capacitor_SMD:C_0603_1608Metric,1,,C57112,selected (verify stock at order),
+L1,15u MS1040-150M,carrier:L_COILMX_MS1040,1,,C380054,selected (verify stock at order),
+R7,3.3k,Resistor_SMD:R_0603_1608Metric,1,,C22978,selected (verify stock at order),"3.3k parallel (100k+100k): Req 3246.433 ohm, nominal buck 4.982V"
+"R41,R47,R48,R49,R50,R8",100k,Resistor_SMD:R_0603_1608Metric,6,,C25803,selected (verify stock at order),
+R9,15k,Resistor_SMD:R_0603_1608Metric,1,,C22809,selected (verify stock at order),External EN divider ~9.4V threshold; stays off at default USB 5V/9V
+"C4,C5",10u/50V,Capacitor_SMD:C_1206_3216Metric,2,,C13585,selected (verify stock at order),
+C6,100n/50V,Capacitor_SMD:C_0603_1608Metric,1,,C14663,selected (verify stock at order),
+C7,220u/10V POSCAP,Capacitor_Tantalum_SMD:CP_EIA-7343-40_Kemet-Y,1,,C242173,selected (verify stock at order),"Panasonic 10TPB220M, 220uF 10V ESR max40mohm; TI reference output capacitor"
+"C8,C9",47u/10V,Capacitor_SMD:C_1206_3216Metric,2,DNP,C96123,selected (verify stock at order),
+U3,XC6206P332MR-G,Package_TO_SOT_SMD:SOT-23,1,,C5446,selected (verify stock at order),3.3V local logic only; no external 3V3 loads; design limit 50mA
+C10,10u/16V,Capacitor_SMD:C_1206_3216Metric,1,,C13585,selected (verify stock at order),
+C11,22u/10V,Capacitor_SMD:C_1206_3216Metric,1,,C12891,selected (verify stock at order),
+J3,M5-BUS (to Tab5),carrier:PinHeader_2x15_Tab5_Bottom,1,,,THT/hand-solder or extended (select part),"User confirmed 2026-10-24: rear view, battery left, pin1 GND on left; mirrored-column footprint"
+"R10,R11,R12,R13,R14,R15,R16,R19,R20,R21,R22,R23,R24,R26,R27",680R,Resistor_SMD:R_0603_1608Metric,15,,C23228,selected (verify stock at order),"PoC 1MHz, 680ohm series damping; >=250ns DATA setup/hold, weak drive/SLOW; qualified distributed-RLC sensitivity"
+J4,SOCKET XDAP-4042044-20401,carrier:DDR3_XDAP_4042044_20401,1,,C22471982,selected (verify stock at order),"PCBA required; socket only, user supplies Tang Primer 20K Core module"
+J5,HDMI OUT,Connector_Video:HDMI_A_Molex_208658-1001_Horizontal,1,,C916313,selected (verify stock at order),MOLEX 2086581001; PCBA required including four through-hole shell tabs; no customer HDMI soldering. Confirm full connector assembly in supplier preview.
+"C12,C13,C14,C15,C16,C17,C18,C19",100n,Capacitor_SMD:C_0402_1005Metric,8,,C1525,selected (verify stock at order),100nF AC coupling; low-profile 0402 under Core
+"R28,R29,R32,R33,R34,R35",510R,Resistor_SMD:R_0603_1608Metric,6,,C23193,selected (verify stock at order),Basic 510 ohm; +2.2% vs 499; unchanged HDMI branch geometry
+"R30,R31",510R,Resistor_SMD:R_0402_1005Metric,2,,C25123,selected (verify stock at order),Basic 510 ohm; +2.2% vs 499; unchanged HDMI branch geometry
+"U4,U5,U6",RCLAMP0524P,carrier:DFN2510-10L_RCLAMP0524P,3,,C293965,selected (verify stock at order),"TMDS ESD array (DOWO DFN2510-10L): I/O 1,2,4,5, GND 3,8; the line is routed as continuous copper through strapped pads"
+F2,PTC 500mA,Fuse:Fuse_1206_3216Metric,1,,C315893,selected (verify stock at order),
+"Q1,Q2,Q3,Q4",2N7002,Package_TO_SOT_SMD:SOT-23,4,,C8545,selected (verify stock at order),DDC level shifter (pin1=G pin2=S pin3=D)
+"R38,R39",2.2k,Resistor_SMD:R_0603_1608Metric,2,,C4190,selected (verify stock at order),
+"R40,R51",47k,Resistor_SMD:R_0603_1608Metric,2,,C25819,selected (verify stock at order),
+J6,PMOD1,Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical,1,DNP,,THT/hand-solder or extended (select part),"2x6 PMOD-style, 3.3V. Pads only: pin header is hand-fitted later (DNP)"
+J7,PMOD2,Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical,1,DNP,,THT/hand-solder or extended (select part),"2x6 PMOD-style, 3.3V. Pads only: pin header is hand-fitted later (DNP)"
+"D5,D6,D7,D8",LED,LED_SMD:LED_0603_1608Metric,4,,C2286,selected (verify stock at order),
+"SW1,SW2",TS-06104,carrier:SW_TS_06104_HandSolder,2,,,THT/hand-solder or extended (select part),Manual assembly; Akizuki115969; TS-06104 H4.3mm; dedicated manufacturer p8 lands; pads1=A/B and2=C/D
+SW3,FPGA ON/OFF,Button_Switch_THT:SW_DIP_SPSTx01_Slide_9.78x4.72mm_W7.62mm_P2.54mm,1,,,THT/hand-solder or extended (select part),"slide switch: ON = open (buck runs), OFF = short EN to GND (FPGA 5V off). Tab5 keeps its own power button. Sits in the switch row with the two tact switches, clear of the board edge"
+J8,GPIO pads,Connector_PinHeader_2.54mm:PinHeader_1x09_P2.54mm_Vertical,1,DNP,,THT/hand-solder or extended (select part),"spare FPGA I/O (3.3V, bank 7): pads only, hand-fit a header or wires later"
+"H3,H4,H5,H6",M3,MountingHole:MountingHole_3.2mm_M3,4,,,THT/hand-solder or extended (select part),
+"U7,U8",SN74CB3Q3245PWR,Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm,2,,C470961,selected (verify stock at order),Ioff protected 8-bit passive bus switch; OE pulled high by default
+"C20,C21,C22,C23,C24",100n,Capacitor_SMD:C_0603_1608Metric,5,,C14663,selected (verify stock at order),
+U9,TPS3839G33DBZR,Package_TO_SOT_SMD:SOT-23,1,,C485802,selected (verify stock at order),"3.08V / 4.38V supervisor, 200ms typical release delay"
+U10,TPS3839K50DBZR,Package_TO_SOT_SMD:SOT-23,1,,C702204,selected (verify stock at order),"3.08V / 4.38V supervisor, 200ms typical release delay"
+JP1,BUS ARM (open by default),Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical,1,,,THT/hand-solder or extended (select part),Fit shunt only after firmware GPIO ownership has been checked
+R46,22k,Resistor_SMD:R_0603_1608Metric,1,,C31850,selected (verify stock at order),
+Q5,MMBT3904,Package_TO_SOT_SMD:SOT-23,1,,C20526,selected (verify stock at order),"Active-low HPD; input only, invert and debounce >=10ms; R52 limits off-bank charge injection, no hotplug guarantee"

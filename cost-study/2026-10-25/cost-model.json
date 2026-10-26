@@ -1,0 +1,316 @@
+{
+  "date": "2026-10-25",
+  "currency": "USD",
+  "quantity": 5,
+  "baseline_screenshot": 151.98,
+  "baseline_parts": 54.881,
+  "extended_types": 17,
+  "loading_total": 52.53,
+  "loading_each_in_this_quote": 3.09,
+  "spreadsheet_raw_sum": 65.352,
+  "duplicate_sku_rows_not_additive": 4.113,
+  "removed_socket_historical_price": 6.358,
+  "hdmi": {
+    "parts_saving": 4.6743999999999994,
+    "loading_saving": 15.45,
+    "assembly_saving": 0.624,
+    "total_saving": 20.748399999999997
+  },
+  "pd_only": {
+    "parts_saving": 0.223,
+    "loading_saving": 0,
+    "assembly_saving": 0.016,
+    "total_saving": 0.239
+  },
+  "barrel_only": {
+    "parts_saving": 7.4895,
+    "loading_saving": 6.18,
+    "assembly_saving": 0.264,
+    "total_saving": 13.933499999999999
+  },
+  "basic_R7_saving": 3.046,
+  "basic_HDMI_bias_saving": 5.986,
+  "basic_LDO_saving": 4.2219999999999995,
+  "basic_resistors_only_saving": 9.032,
+  "basic_total_saving": 13.254,
+  "small_board_saving_range": [
+    1.2688000000000024,
+    29.1
+  ],
+  "L1_extended_alternative_saving": 5.692500000000001,
+  "assumptions": [
+    "Screenshot baseline includes 5 assembled boards, excludes J4 socket and Core module. Core module was never a purchased BOM item.",
+    "XC6206P332MR-G unit $.15 is a budget allowance; output load <=50mA and no PMOD power is assumed. LDO remains unverified until redesigned/tested.",
+    "R7 replacement3.3k unit $.0022 and new0402 1k unit $.0022 are budget allowances, not live quotes. Existing basic unit prices reused for other resistors.",
+    "Extended fees removed once per unique SKU, never once per component or board. HDMI/basic overlap removed.",
+    "PCB best case $2 promotional standard4-layer/5pcs <=100x100. Other end keeps $25 engineering plus area-proportional board charge. Neither is a new vendor quote.",
+    "No new schematic/layout, stock reservation, quote submission, coupon, shipping or tax included. No savings from deleting required power-off isolation.",
+    "Socket PCBA is mandatory; add S to every scenario. Current socket unavailable; substitute compatibility and PCBA charges unresolved."
+  ],
+  "scenarios": [
+    {
+      "basic_resistor_networks": false,
+      "hdmi_unpopulated": false,
+      "pcb_99x78": false,
+      "power": "dual",
+      "total_5boards_excluding_socket_low": 151.98,
+      "total_5boards_excluding_socket_high": 151.98,
+      "saving_low": 0.0,
+      "saving_high": 0.0,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": false,
+      "hdmi_unpopulated": false,
+      "pcb_99x78": false,
+      "power": "pd",
+      "total_5boards_excluding_socket_low": 151.74,
+      "total_5boards_excluding_socket_high": 151.74,
+      "saving_low": 0.24,
+      "saving_high": 0.24,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": false,
+      "hdmi_unpopulated": false,
+      "pcb_99x78": false,
+      "power": "barrel",
+      "total_5boards_excluding_socket_low": 138.05,
+      "total_5boards_excluding_socket_high": 138.05,
+      "saving_low": 13.93,
+      "saving_high": 13.93,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": false,
+      "hdmi_unpopulated": false,
+      "pcb_99x78": true,
+      "power": "dual",
+      "total_5boards_excluding_socket_low": 122.88,
+      "total_5boards_excluding_socket_high": 150.71,
+      "saving_low": 1.27,
+      "saving_high": 29.1,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": false,
+      "hdmi_unpopulated": false,
+      "pcb_99x78": true,
+      "power": "pd",
+      "total_5boards_excluding_socket_low": 122.64,
+      "total_5boards_excluding_socket_high": 150.47,
+      "saving_low": 1.51,
+      "saving_high": 29.34,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": false,
+      "hdmi_unpopulated": false,
+      "pcb_99x78": true,
+      "power": "barrel",
+      "total_5boards_excluding_socket_low": 108.95,
+      "total_5boards_excluding_socket_high": 136.78,
+      "saving_low": 15.2,
+      "saving_high": 43.03,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": false,
+      "hdmi_unpopulated": true,
+      "pcb_99x78": false,
+      "power": "dual",
+      "total_5boards_excluding_socket_low": 131.23,
+      "total_5boards_excluding_socket_high": 131.23,
+      "saving_low": 20.75,
+      "saving_high": 20.75,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": false,
+      "hdmi_unpopulated": true,
+      "pcb_99x78": false,
+      "power": "pd",
+      "total_5boards_excluding_socket_low": 130.99,
+      "total_5boards_excluding_socket_high": 130.99,
+      "saving_low": 20.99,
+      "saving_high": 20.99,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": false,
+      "hdmi_unpopulated": true,
+      "pcb_99x78": false,
+      "power": "barrel",
+      "total_5boards_excluding_socket_low": 117.3,
+      "total_5boards_excluding_socket_high": 117.3,
+      "saving_low": 34.68,
+      "saving_high": 34.68,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": false,
+      "hdmi_unpopulated": true,
+      "pcb_99x78": true,
+      "power": "dual",
+      "total_5boards_excluding_socket_low": 102.13,
+      "total_5boards_excluding_socket_high": 129.96,
+      "saving_low": 22.02,
+      "saving_high": 49.85,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": false,
+      "hdmi_unpopulated": true,
+      "pcb_99x78": true,
+      "power": "pd",
+      "total_5boards_excluding_socket_low": 101.89,
+      "total_5boards_excluding_socket_high": 129.72,
+      "saving_low": 22.26,
+      "saving_high": 50.09,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": false,
+      "hdmi_unpopulated": true,
+      "pcb_99x78": true,
+      "power": "barrel",
+      "total_5boards_excluding_socket_low": 88.2,
+      "total_5boards_excluding_socket_high": 116.03,
+      "saving_low": 35.95,
+      "saving_high": 63.78,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": true,
+      "hdmi_unpopulated": false,
+      "pcb_99x78": false,
+      "power": "dual",
+      "total_5boards_excluding_socket_low": 138.73,
+      "total_5boards_excluding_socket_high": 138.73,
+      "saving_low": 13.25,
+      "saving_high": 13.25,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": true,
+      "hdmi_unpopulated": false,
+      "pcb_99x78": false,
+      "power": "pd",
+      "total_5boards_excluding_socket_low": 138.49,
+      "total_5boards_excluding_socket_high": 138.49,
+      "saving_low": 13.49,
+      "saving_high": 13.49,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": true,
+      "hdmi_unpopulated": false,
+      "pcb_99x78": false,
+      "power": "barrel",
+      "total_5boards_excluding_socket_low": 124.79,
+      "total_5boards_excluding_socket_high": 124.79,
+      "saving_low": 27.19,
+      "saving_high": 27.19,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": true,
+      "hdmi_unpopulated": false,
+      "pcb_99x78": true,
+      "power": "dual",
+      "total_5boards_excluding_socket_low": 109.63,
+      "total_5boards_excluding_socket_high": 137.46,
+      "saving_low": 14.52,
+      "saving_high": 42.35,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": true,
+      "hdmi_unpopulated": false,
+      "pcb_99x78": true,
+      "power": "pd",
+      "total_5boards_excluding_socket_low": 109.39,
+      "total_5boards_excluding_socket_high": 137.22,
+      "saving_low": 14.76,
+      "saving_high": 42.59,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": true,
+      "hdmi_unpopulated": false,
+      "pcb_99x78": true,
+      "power": "barrel",
+      "total_5boards_excluding_socket_low": 95.69,
+      "total_5boards_excluding_socket_high": 123.52,
+      "saving_low": 28.46,
+      "saving_high": 56.29,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": true,
+      "hdmi_unpopulated": true,
+      "pcb_99x78": false,
+      "power": "dual",
+      "total_5boards_excluding_socket_low": 123.96,
+      "total_5boards_excluding_socket_high": 123.96,
+      "saving_low": 28.02,
+      "saving_high": 28.02,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": true,
+      "hdmi_unpopulated": true,
+      "pcb_99x78": false,
+      "power": "pd",
+      "total_5boards_excluding_socket_low": 123.72,
+      "total_5boards_excluding_socket_high": 123.72,
+      "saving_low": 28.26,
+      "saving_high": 28.26,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": true,
+      "hdmi_unpopulated": true,
+      "pcb_99x78": false,
+      "power": "barrel",
+      "total_5boards_excluding_socket_low": 110.03,
+      "total_5boards_excluding_socket_high": 110.03,
+      "saving_low": 41.95,
+      "saving_high": 41.95,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": true,
+      "hdmi_unpopulated": true,
+      "pcb_99x78": true,
+      "power": "dual",
+      "total_5boards_excluding_socket_low": 94.86,
+      "total_5boards_excluding_socket_high": 122.69,
+      "saving_low": 29.29,
+      "saving_high": 57.12,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": true,
+      "hdmi_unpopulated": true,
+      "pcb_99x78": true,
+      "power": "pd",
+      "total_5boards_excluding_socket_low": 94.62,
+      "total_5boards_excluding_socket_high": 122.46,
+      "saving_low": 29.52,
+      "saving_high": 57.36,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    },
+    {
+      "basic_resistor_networks": true,
+      "hdmi_unpopulated": true,
+      "pcb_99x78": true,
+      "power": "barrel",
+      "total_5boards_excluding_socket_low": 80.93,
+      "total_5boards_excluding_socket_high": 108.76,
+      "saving_low": 43.22,
+      "saving_high": 71.05,
+      "add_socket_pcba_cost": "S mandatory, unquoted; includes procurement, loading, soldering and any fixture/consignment cost"
+    }
+  ]
+}

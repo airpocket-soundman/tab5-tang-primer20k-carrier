@@ -1,0 +1,1908 @@
+{
+  "status": "CCM analytical sensitivity, not IC process-corner or measured Bode verification",
+  "model": "Exact TI macro error-amplifier network; average plant gain 1/.0375; Rseries=.1ohm; actual RFB network; PWM-delay sensitivity",
+  "cases": 144,
+  "minimum_phase_margin_case": {
+    "L_H": 1.2e-05,
+    "C_F": 0.000176,
+    "ESR_ohm": 0.002,
+    "total_load_A": 0.56,
+    "PWM_delay_s": 1.25e-06,
+    "crossings": [
+      {
+        "crossover_Hz": 24737.074503559674,
+        "phase_margin_deg": 6.575687689268307
+      }
+    ]
+  },
+  "EVM_typical_reference_comparison": {
+    "TI_published_crossover_Hz": 25000,
+    "TI_published_phase_margin_deg": 50,
+    "analytical_ESR20mohm": [
+      {
+        "crossover_Hz": 20163.974708564376,
+        "phase_margin_deg": 45.88949672319899
+      }
+    ]
+  },
+  "all_sampled_CCM_margins_positive": true,
+  "limitations": [
+    "Low-load DCM/burst operation excluded from CCM Bode interpretation.",
+    "ESR lower bound is not guaranteed by the capacitor maximum-only datasheet; 2mohm is an additional sensitivity, not a certified part corner.",
+    "Internal IC compensation process spread and full switching/hiccup dynamics not characterized by this analytical sensitivity."
+  ],
+  "results": [
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 24737.074503559674,
+          "phase_margin_deg": 15.48103451054979
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 24737.074503559674,
+          "phase_margin_deg": 6.575687689268307
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 24737.074503559674,
+          "phase_margin_deg": 15.695237334373758
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 24737.074503559674,
+          "phase_margin_deg": 6.789890513092274
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 25240.64944297988,
+          "phase_margin_deg": 27.125338653122498
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 25240.64944297988,
+          "phase_margin_deg": 18.038704853649705
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 25240.64944297988,
+          "phase_margin_deg": 27.33413930270501
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 25240.64944297988,
+          "phase_margin_deg": 18.247505503232247
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 26968.55731315352,
+          "phase_margin_deg": 39.031348640960914
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 26968.55731315352,
+          "phase_margin_deg": 29.322668008225634
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 26968.55731315352,
+          "phase_margin_deg": 39.224698551244614
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 26968.55731315352,
+          "phase_margin_deg": 29.516017918509334
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 34149.421092452765,
+          "phase_margin_deg": 51.4403699113943
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 34149.421092452765,
+          "phase_margin_deg": 39.146578318111295
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 34051.247964522416,
+          "phase_margin_deg": 51.6869096158531
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 34051.247964522416,
+          "phase_margin_deg": 39.42846034862504
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 21482.41097705106,
+          "phase_margin_deg": 22.73606369785989
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 21482.41097705106,
+          "phase_margin_deg": 15.002395746121493
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 21482.41097705106,
+          "phase_margin_deg": 22.933612982712873
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 21482.41097705106,
+          "phase_margin_deg": 15.199945030974504
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 22046.306146471234,
+          "phase_margin_deg": 35.32342182238159
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 22046.306146471234,
+          "phase_margin_deg": 27.386751609651952
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 22046.306146471234,
+          "phase_margin_deg": 35.514732432786246
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 22046.306146471234,
+          "phase_margin_deg": 27.57806222005658
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 24035.060037874828,
+          "phase_margin_deg": 47.959735036244524
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 24035.060037874828,
+          "phase_margin_deg": 39.3071134226096
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 23965.96378533445,
+          "phase_margin_deg": 48.20715834771866
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 23965.96378533445,
+          "phase_margin_deg": 39.57941138499825
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 32518.314874186228,
+          "phase_margin_deg": 58.7660304852065
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 32518.314874186228,
+          "phase_margin_deg": 47.059437130499475
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 32424.83086818852,
+          "phase_margin_deg": 58.99189940954952
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 32424.83086818852,
+          "phase_margin_deg": 47.31896029700164
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 18981.021446942403,
+          "phase_margin_deg": 28.45480384132233
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 18981.021446942403,
+          "phase_margin_deg": 21.621636120423062
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 18981.021446942403,
+          "phase_margin_deg": 28.641373248947218
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 18981.021446942403,
+          "phase_margin_deg": 21.80820552804795
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 19591.740432070663,
+          "phase_margin_deg": 41.803346652782125
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 19591.740432070663,
+          "phase_margin_deg": 34.75032009723671
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 19591.740432070663,
+          "phase_margin_deg": 41.98283532040486
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 19591.740432070663,
+          "phase_margin_deg": 34.929808764859416
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 21731.22813540532,
+          "phase_margin_deg": 55.163182966866785
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 21731.22813540532,
+          "phase_margin_deg": 47.33994083812087
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 21731.22813540532,
+          "phase_margin_deg": 55.32264524760549
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 21731.22813540532,
+          "phase_margin_deg": 47.49940311885956
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 31323.765821370744,
+          "phase_margin_deg": 64.35126673902036
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 31323.765821370744,
+          "phase_margin_deg": 53.074711043326886
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 31233.715918008736,
+          "phase_margin_deg": 64.563526036243
+        }
+      ]
+    },
+    {
+      "L_H": 1.2e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 31233.715918008736,
+          "phase_margin_deg": 53.31938830575986
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 21482.41097705106,
+          "phase_margin_deg": 21.378347447133024
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 21482.41097705106,
+          "phase_margin_deg": 13.644679495394683
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 21482.41097705106,
+          "phase_margin_deg": 21.62530765530849
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 21482.41097705106,
+          "phase_margin_deg": 13.89163970357015
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 21856.715346720895,
+          "phase_margin_deg": 31.65877981681615
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 21856.715346720895,
+          "phase_margin_deg": 23.790362291996644
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 21856.715346720895,
+          "phase_margin_deg": 31.900305699682633
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 21856.715346720895,
+          "phase_margin_deg": 24.0318881748631
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 23085.582392561006,
+          "phase_margin_deg": 42.724697087067995
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 23085.582392561006,
+          "phase_margin_deg": 34.413887425746054
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 23019.21570870311,
+          "phase_margin_deg": 43.02864111593871
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 23019.21570870311,
+          "phase_margin_deg": 34.741723460805616
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 28484.831411537507,
+          "phase_margin_deg": 56.473871431548034
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 28484.831411537507,
+          "phase_margin_deg": 46.21933212339454
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 28402.942907756715,
+          "phase_margin_deg": 56.73566959076145
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 28402.942907756715,
+          "phase_margin_deg": 46.51061014396902
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 18442.35825023697,
+          "phase_margin_deg": 28.159481258803766
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 18442.35825023697,
+          "phase_margin_deg": 21.52023228871846
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 18442.35825023697,
+          "phase_margin_deg": 28.390018403658672
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 18442.35825023697,
+          "phase_margin_deg": 21.750769433573367
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 18872.044621673216,
+          "phase_margin_deg": 39.18026518328142
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 18872.044621673216,
+          "phase_margin_deg": 32.386329119479086
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 18817.791062119897,
+          "phase_margin_deg": 39.484563310533105
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 18817.791062119897,
+          "phase_margin_deg": 32.710158528169956
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 20163.974708564376,
+          "phase_margin_deg": 51.15126936688847
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 20163.974708564376,
+          "phase_margin_deg": 43.89223847180526
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 20163.974708564376,
+          "phase_margin_deg": 51.358604045927734
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 20163.974708564376,
+          "phase_margin_deg": 44.09957315084455
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 26506.71075085571,
+          "phase_margin_deg": 64.56466994672257
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 26506.71075085571,
+          "phase_margin_deg": 55.02225407641453
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 26354.526254671906,
+          "phase_margin_deg": 64.87907687532216
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 26354.526254671906,
+          "phase_margin_deg": 55.39144742364027
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 16154.818219261257,
+          "phase_margin_deg": 33.22396152830828
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 16154.818219261257,
+          "phase_margin_deg": 27.408226969374255
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 16154.818219261257,
+          "phase_margin_deg": 33.443696360085085
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 16154.818219261257,
+          "phase_margin_deg": 27.62796180115106
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 16578.868572195755,
+          "phase_margin_deg": 44.91715187868871
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 16578.868572195755,
+          "phase_margin_deg": 38.94875919269825
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 16578.868572195755,
+          "phase_margin_deg": 45.129897962895086
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 16578.868572195755,
+          "phase_margin_deg": 39.16150527690462
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 17970.644002011784,
+          "phase_margin_deg": 57.63425958120993
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 17970.644002011784,
+          "phase_margin_deg": 51.16482774048566
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 17970.644002011784,
+          "phase_margin_deg": 57.82800822681786
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 17970.644002011784,
+          "phase_margin_deg": 51.358576386093574
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 25023.58836788098,
+          "phase_margin_deg": 70.87455692817463
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 25023.58836788098,
+          "phase_margin_deg": 61.86606511573747
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 24951.650283324132,
+          "phase_margin_deg": 71.08829648840381
+        }
+      ]
+    },
+    {
+      "L_H": 1.5e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 24951.650283324132,
+          "phase_margin_deg": 62.10570238640713
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 18981.021446942403,
+          "phase_margin_deg": 25.973203356628517
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 18981.021446942403,
+          "phase_margin_deg": 19.140035635729248
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 18981.021446942403,
+          "phase_margin_deg": 26.25311058732018
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 18981.021446942403,
+          "phase_margin_deg": 19.419942866420882
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 19256.224599209603,
+          "phase_margin_deg": 35.2075664699658
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 19256.224599209603,
+          "phase_margin_deg": 28.275325614250335
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 19256.224599209603,
+          "phase_margin_deg": 35.48218575587157
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 19256.224599209603,
+          "phase_margin_deg": 28.549944900156078
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 20163.974708564376,
+          "phase_margin_deg": 45.4979804781469
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 20163.974708564376,
+          "phase_margin_deg": 38.238949583063714
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 20106.007094317305,
+          "phase_margin_deg": 45.82435628397485
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 20106.007094317305,
+          "phase_margin_deg": 38.5861937300206
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 24243.546362665194,
+          "phase_margin_deg": 60.09667588773824
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 24243.546362665194,
+          "phase_margin_deg": 51.368999197178766
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 24173.850751366143,
+          "phase_margin_deg": 60.37389113711106
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000176,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 24173.850751366143,
+          "phase_margin_deg": 51.671304866619266
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 16201.394163772407,
+          "phase_margin_deg": 32.018573983083485
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 16201.394163772407,
+          "phase_margin_deg": 26.186072084125414
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 16154.818219261257,
+          "phase_margin_deg": 32.37318547441086
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 16154.818219261257,
+          "phase_margin_deg": 26.557450915476807
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 16436.295892188704,
+          "phase_margin_deg": 42.0083676939735
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 16436.295892188704,
+          "phase_margin_deg": 36.09130117278559
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 16436.295892188704,
+          "phase_margin_deg": 42.2661945088401
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 16436.295892188704,
+          "phase_margin_deg": 36.349127987652196
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 17410.45826940355,
+          "phase_margin_deg": 53.11318638123687
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 17410.45826940355,
+          "phase_margin_deg": 46.845421404251596
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 17360.406494224677,
+          "phase_margin_deg": 53.399339818185055
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 17360.406494224677,
+          "phase_margin_deg": 47.14959348026417
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 21982.927185292083,
+          "phase_margin_deg": 68.45655099005695
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 21982.927185292083,
+          "phase_margin_deg": 60.54269720335182
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 21919.730426641254,
+          "phase_margin_deg": 68.6990825500963
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.00022,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 21919.730426641254,
+          "phase_margin_deg": 60.80797959650546
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 14110.336939110779,
+          "phase_margin_deg": 36.36042606789974
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.002,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 14110.336939110779,
+          "phase_margin_deg": 31.280704769819863
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 14110.336939110779,
+          "phase_margin_deg": 36.61258559373181
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.002,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 14110.336939110779,
+          "phase_margin_deg": 31.532864295651933
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 14356.192061213493,
+          "phase_margin_deg": 46.87254246900261
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.01,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 14356.192061213493,
+          "phase_margin_deg": 41.70431332696572
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 14356.192061213493,
+          "phase_margin_deg": 47.11895850022097
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.01,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 14356.192061213493,
+          "phase_margin_deg": 41.950729358184105
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 15294.882203629964,
+          "phase_margin_deg": 58.78931079887343
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.02,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 15294.882203629964,
+          "phase_margin_deg": 53.28315320556665
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 15294.882203629964,
+          "phase_margin_deg": 59.017916577314196
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.02,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 15294.882203629964,
+          "phase_margin_deg": 53.51175898400743
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 20338.88223837836,
+          "phase_margin_deg": 74.92189299726391
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.04,
+      "total_load_A": 0.56,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 20338.88223837836,
+          "phase_margin_deg": 67.5998953914477
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 2.5e-07,
+      "crossings": [
+        {
+          "crossover_Hz": 20222.109449197396,
+          "phase_margin_deg": 75.18842486313586
+        }
+      ]
+    },
+    {
+      "L_H": 1.8e-05,
+      "C_F": 0.000264,
+      "ESR_ohm": 0.04,
+      "total_load_A": 1.06,
+      "PWM_delay_s": 1.25e-06,
+      "crossings": [
+        {
+          "crossover_Hz": 20222.109449197396,
+          "phase_margin_deg": 67.90846546142481
+        }
+      ]
+    }
+  ]
+}

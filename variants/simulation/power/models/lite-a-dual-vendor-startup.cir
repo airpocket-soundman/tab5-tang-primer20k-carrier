@@ -1,0 +1,65 @@
+lite-a-dual-vendor-startup
+.func clamp(x,a,b) {min(max(x,a),b)}
+.func sel(a,b,c) {a?b:c}
+.include "D:/github/airpocket-soundman/tab5-tang-primer20k-carrier-audit-pages/variants/simulation/power/models/TPS5430_TRANS.LIB"
+.param temper=25
+.temp 25
+Vsource supply 0 PWL(0 0 0.0002 12 45m 12)
+Rsource supply dc 0.2
+Rptc dc dc_protected 0.05
+Dinput dc_protected vin D54
+.model D54 D(Is=50u Rs=.02 N=1.2 Cjo=200p Tt=8n Bv=40 Ibv=1m)
+Dtvs 0 vin TVS15
+.model TVS15 D(Is=1n N=1.5 Rs=.1 Bv=18 Ibv=1m Cjo=1n)
+Rbulk vin cbulk .3
+Cbulk cbulk 0 0.0001
+Rceramic vin ccer .01
+Cceramic ccer 0 1.2e-05
+Rena vin en 100k
+Renb en 0 15k
+Vswitch swcontrol 0 0
+Soff en 0 swcontrol 0 SWOFF
+.model SWOFF SW(Ron=.1 Roff=1e12 Vt=.5 Vh=.1)
+Rtop vout fb 10000.0
+Rbot fb 0 3300
+Rtrim1 fb rtrim 100000.0
+Rtrim2 rtrim 0 100000.0
+XU boot en 0 nc nc1 0 ph vin fb TPS5430_TRANS MODE=0
+Cboot boot ph 10n
+Dcatch 0 ph D54
+Rl ph li 0.045
+L1 li vout 1.5e-05
+Resr vout capout 0.04
+Cout capout 0 0.00022
+Rpath vout vcore 0.18674453593189014
+Ccore vcore 0 1e-05
+Vload load0 0 PWL(0 0.05 0.009 0.05 0.009000999999999999 0.5 0.011 0.5 0.011000999999999999 0.05 .045 0.05)
+Bcore vcore 0 I={clamp(V(vcore),0,1)*V(load0)}
+Rbleed vout 0 10k
+Bhdmi vout 0 I={max(V(vout),0)*0.05/5}
+* XC6206 typical family load-transient fit, NOT vendor transistor model
+R_ldoin vout ldo_lin .008
+L_ldoin ldo_lin ldo_vin 6e-09
+R_c10 ldo_vin c10internal .01
+C_c10 c10internal 0 6.4e-06
+B_ldoref ldoref 0 V={min(3.3,max(0,V(ldo_vin)-.25))}
+B_pi_cmd icmd 0 V={0.04635*(V(ldoref)-V(v33raw))+V(integ)}
+R_passdriver icmd passcmd 1
+C_passdriver passcmd 0 200n
+C_ldo_pin v33raw 0 100p
+B_integ 0 integ I={1271.95*(V(ldoref)-V(v33raw))*clamp((V(ldo_vin)-1.8)/.1,0,1)+10000*(clamp(V(icmd),0,.2)-V(icmd))-(1-clamp((V(ldo_vin)-1.8)/.1,0,1))*V(integ)/.01}
+C_integ integ 0 1
+R_integ integ 0 1G
+B_pass ldo_vin v33raw I={clamp(V(passcmd),0,.2)*clamp((V(ldo_vin)-V(v33raw))/.25,0,1)}
+D_ldoreverse v33raw ldo_vin DREV
+.model DREV D(Is=1n N=1.2 Rs=1)
+R33trace v33raw v33lc 0.011
+L33trace v33lc c33in 6e-09
+R33esr c33in c33int .01
+C33 c33int 0 2.2e-05
+B33load v33raw 0 I={clamp(V(v33raw),0,1)*V(ldocurrent)}
+Vldocurrent ldocurrent 0 PWL(0 0.01 28m 0.01 28.001m 0.01 45m 0.01)
+.options reltol=.002 abstol=1n vntol=10u itl4=200 method=gear
+.save v(vout) v(vcore) v(v33raw) v(vin) v(en) i(L1) i(Vsource)
+.tran 1e-07 0.012 0 1e-07 uic
+.end

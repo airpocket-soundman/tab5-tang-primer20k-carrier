@@ -1,0 +1,230 @@
+{
+  "revision": "6450c421bee1b5b8a0f6b04c9ee91143e0416f34",
+  "date": "2026-10-24",
+  "inputs": {
+    "kicad/tab5-fpga-carrier.kicad_pcb": "bb57fd70db5565b33cced5265f9b72c962ecb0bf6a2da47c9a610c9823b3b887",
+    "kicad/gen/design.py": "b14c44706aae0e50ebcc1f760f171d6395f1ed8dfb31b9bb74e03b3dfeeb6ec9",
+    "kicad/sim/stub_tracks.json": "3da78a95ebefd6e5b611eddd4363420d82d86f6dbbcdf1519ba962ade8972460",
+    "kicad/sim/apply_review_updates.py": "76a518db74cfcb9dd15327852f22204465b8cb33dcb176594c7580111a88b01f",
+    "kicad/sim/dump_board.py": "329fae392eeaa5c3a17e37bb5b8c4c7587ba1ce025029405ece1c9799887d372",
+    "kicad/sim/make_report_figs.py": "dae1b97c3520fd2e5bd0a1b0c4f1cc05656247a8fcd699806e92f5e3d01dd4b5",
+    "kicad/sim/make_report_page.py": "a6d76b17067b9d1f1cfe69ffc3a996a23500cb2f2bb0b91f5d87047884ccd009",
+    "kicad/sim/microstrip2d.py": "ea78aff10f19a0ec810ad178ffe8360cdc031631679ac940f0eab40593752601",
+    "kicad/sim/openems_lib.py": "e4531048464e84b2c5eff9dc42fd21a21dce3a6b41e2fd1e9a228999efc931d5",
+    "kicad/sim/openems_test_pair.py": "4f48007acbeb00fd4cf4fa9837949e7cd97c1d8507d5dcd5f2f650ebe2c24982",
+    "kicad/sim/openems_test_single.py": "fac04049c794b272e7744a5d2abecdb18d8db89cb22930572319da74374c3267",
+    "kicad/sim/pair_lengths.json": "7ca4902bc897a2f4b72c39cd810a2af0bb81248ad9381ea2387d36251e009800",
+    "kicad/sim/plot_region.py": "8179cfd5999728b58aea18a7832f8fd53e1640f0a098023ed89ab7f6114c1171",
+    "kicad/sim/report_sensitivity.json": "fa8fef467ceabcd5d259543674f265ef3c234fb1f5f09bef87be0a98d698a1f6",
+    "kicad/sim/report_sparam.json": "dda0c732281f8495c8f905c2148ca127a1824f8d7eb3feec8caa6513df96c255",
+    "kicad/sim/tmds_channel.py": "836b534ad2b509da9a17fda9d8304cfe651bf06c20a47a25ff5edcebe32d3c6e",
+    "kicad/sim/tmds_geom.json": "5af69ee6c3cf5e0fe9ffbf36de688c0d004b8d109bfd888ce683972baf637586",
+    "kicad/sim/tmds_sparam.json": "d0062c5ef7118e95b03330f0fbe4e63dc2fa0312bf00aed1c6777f62b9551a91",
+    "kicad/sim/tmds_sparam.py": "fae9ec19d7ba72939b17723dc6b2dae919c428809d3ec3af404c853bf5c83b9a",
+    "kicad/sim/tmds_summary.json": "f1fbe724a188d64ae40d748e496311926fea9fd84a387d4d908891328deebe6a",
+    "kicad/sim/zdiff_cache.json": "6bb5023300c14d783cd4056cdd21cd6126894bbed9244f5557712b11b01968eb",
+    "kicad/sim/zdiff_sweep.json": "8a807112f1e7f82fba882bceb50b29ec72bc367552d7292c968e5d8a98f6ae7e"
+  },
+  "results": {
+    "pairs": {
+      "D0": {
+        "sdd11_825M": -23.731632041420518,
+        "sdd11_1650M": -17.974219716770538,
+        "sdd11_max_dB": -15.479667224258137,
+        "sdd21_825M": -0.37204645538615944,
+        "sdd21_1650M": -0.74130434505688,
+        "section_length_mm": {
+          "core": 43.63954123335668,
+          "C": 7.2396723591600285,
+          "K": 7.365493680505219
+        },
+        "ordering": {
+          "HDMI_D0P": {
+            "segments": 8,
+            "discontinuous_transitions": 0,
+            "planar_mm": 43.639541233356674
+          },
+          "HDMI_D0N": {
+            "segments": 8,
+            "discontinuous_transitions": 0,
+            "planar_mm": 43.639540616539996
+          },
+          "HDMI_D0P_C": {
+            "segments": 5,
+            "discontinuous_transitions": 0,
+            "planar_mm": 7.2396723591600285
+          },
+          "HDMI_D0N_C": {
+            "segments": 5,
+            "discontinuous_transitions": 0,
+            "planar_mm": 7.2396723591600285
+          },
+          "HDMI_D0P_K": {
+            "segments": 4,
+            "discontinuous_transitions": 0,
+            "planar_mm": 7.365493680505218
+          },
+          "HDMI_D0N_K": {
+            "segments": 4,
+            "discontinuous_transitions": 0,
+            "planar_mm": 7.365493680505218
+          }
+        },
+        "s11_worst_to_1650MHz_dB": -17.974219716770538,
+        "s11_worst_to_742_5MHz_dB": -22.329664201185174,
+        "s21_at_sampled_720p_nyquist_dB": -0.19503825106492
+      },
+      "D1": {
+        "sdd11_825M": -20.113999725446256,
+        "sdd11_1650M": -31.80139095379307,
+        "sdd11_max_dB": -14.509205080920442,
+        "sdd21_825M": -0.33957647270310115,
+        "sdd21_1650M": -0.5562874803505464,
+        "section_length_mm": {
+          "core": 25.63907523335668,
+          "C": 7.2396723591600285,
+          "K": 7.365493680505219
+        },
+        "ordering": {
+          "HDMI_D1P": {
+            "segments": 8,
+            "discontinuous_transitions": 0,
+            "planar_mm": 25.639075233356678
+          },
+          "HDMI_D1N": {
+            "segments": 8,
+            "discontinuous_transitions": 0,
+            "planar_mm": 25.639075233356678
+          },
+          "HDMI_D1P_C": {
+            "segments": 5,
+            "discontinuous_transitions": 0,
+            "planar_mm": 7.2396723591600285
+          },
+          "HDMI_D1N_C": {
+            "segments": 5,
+            "discontinuous_transitions": 0,
+            "planar_mm": 7.2396723591600285
+          },
+          "HDMI_D1P_K": {
+            "segments": 4,
+            "discontinuous_transitions": 0,
+            "planar_mm": 7.365493680505218
+          },
+          "HDMI_D1N_K": {
+            "segments": 4,
+            "discontinuous_transitions": 0,
+            "planar_mm": 7.365493680505218
+          }
+        },
+        "s11_worst_to_1650MHz_dB": -20.079385348597643,
+        "s11_worst_to_742_5MHz_dB": -20.312348798912797,
+        "s21_at_sampled_720p_nyquist_dB": -0.16546158100470132
+      },
+      "D2": {
+        "sdd11_825M": -20.07810840213997,
+        "sdd11_1650M": -31.539487836051077,
+        "sdd11_max_dB": -14.174875142000168,
+        "sdd21_825M": -0.3399940391334638,
+        "sdd21_1650M": -0.5562911040392053,
+        "section_length_mm": {
+          "core": 25.039641233356676,
+          "C": 7.860992702719671,
+          "K": 7.365493680505219
+        },
+        "ordering": {
+          "HDMI_D2P": {
+            "segments": 8,
+            "discontinuous_transitions": 0,
+            "planar_mm": 25.039641233356676
+          },
+          "HDMI_D2N": {
+            "segments": 8,
+            "discontinuous_transitions": 0,
+            "planar_mm": 25.039640616539998
+          },
+          "HDMI_D2P_C": {
+            "segments": 5,
+            "discontinuous_transitions": 0,
+            "planar_mm": 7.860992702719671
+          },
+          "HDMI_D2N_C": {
+            "segments": 5,
+            "discontinuous_transitions": 0,
+            "planar_mm": 7.860992702719671
+          },
+          "HDMI_D2P_K": {
+            "segments": 4,
+            "discontinuous_transitions": 0,
+            "planar_mm": 7.365493680505218
+          },
+          "HDMI_D2N_K": {
+            "segments": 4,
+            "discontinuous_transitions": 0,
+            "planar_mm": 7.365493680505218
+          }
+        },
+        "s11_worst_to_1650MHz_dB": -20.037094859880995,
+        "s11_worst_to_742_5MHz_dB": -20.28468268021536,
+        "s21_at_sampled_720p_nyquist_dB": -0.16552303728642745
+      },
+      "CK": {
+        "sdd11_825M": -20.246702383185585,
+        "sdd11_1650M": -14.445731542022699,
+        "sdd11_max_dB": -12.77373513062944,
+        "sdd21_825M": -0.4006939432454305,
+        "sdd21_1650M": -0.856560110179606,
+        "section_length_mm": {
+          "core": 43.63978843596091,
+          "C": 7.860992702719671,
+          "K": 7.365493680505219
+        },
+        "ordering": {
+          "HDMI_CKP": {
+            "segments": 8,
+            "discontinuous_transitions": 0,
+            "planar_mm": 43.63978843596091
+          },
+          "HDMI_CKN": {
+            "segments": 8,
+            "discontinuous_transitions": 0,
+            "planar_mm": 43.639788616539995
+          },
+          "HDMI_CKP_C": {
+            "segments": 5,
+            "discontinuous_transitions": 0,
+            "planar_mm": 7.860992702719671
+          },
+          "HDMI_CKN_C": {
+            "segments": 38,
+            "discontinuous_transitions": 26,
+            "planar_mm": 61.35706345359768
+          },
+          "HDMI_CKP_K": {
+            "segments": 4,
+            "discontinuous_transitions": 0,
+            "planar_mm": 7.365493680505218
+          },
+          "HDMI_CKN_K": {
+            "segments": 4,
+            "discontinuous_transitions": 0,
+            "planar_mm": 7.365493680505218
+          }
+        },
+        "s11_worst_to_1650MHz_dB": -14.445731542022697,
+        "s11_worst_to_742_5MHz_dB": -19.792295309074944,
+        "s21_at_sampled_720p_nyquist_dB": -0.20764227644506697
+      }
+    },
+    "sampled_label_825MHz_actual_MHz": 820.0,
+    "sampled_720p_nyquist_actual_MHz": 370.0,
+    "tmds_sparam_max_abs_error_dB": 3.552713678800501e-15,
+    "report_sparam_max_abs_error_dB": 0.0,
+    "sensitivity_max_abs_error_dB": 1.509903313490213e-13,
+    "sensitivity_insertion_max_abs_error_dB": 2.6201263381153694e-14,
+    "sensitivity_grid_cells": 169,
+    "sensitivity_cells_below_minus10dB": 84,
+    "sensitivity_mid_s11_dB": -10.201536133663293,
+    "sensitivity_max_s11_dB": -4.491404861326453
+  }
+}

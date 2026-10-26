@@ -1,0 +1,80 @@
+{
+  "status": "complete_for_adopted_CAD_conditional_PoC_scope",
+  "hash_kind": "raw-file SHA256, distinct from parent LF-normalized SHA256",
+  "variants": {
+    "lite-a-dual": {
+      "source_pcb_sha256": "5208730784123e225bc014cd0a544f2db74d444ff70435621ef3f7bc053143f6",
+      "HDMI": {
+        "480p": {
+          "status": "conditional_pass",
+          "rows": 20,
+          "minimum_signed_center_V": 0.16179267079291973,
+          "minimum_width_UI": 0.875,
+          "maximum_abs_data_clock_delay_ps": 117.49913688971606
+        },
+        "720p": {
+          "status": "conditional_pass",
+          "rows": 20,
+          "minimum_signed_center_V": 0.1297544236803663,
+          "minimum_width_UI": 0.640625,
+          "maximum_abs_data_clock_delay_ps": 117.49913688971606
+        }
+      },
+      "limits": [
+        "Not an HDMI compliance mask or measured receiver tolerance.",
+        "Core impedance/epsilon, source impedance/edge and socket L/C are sensitivity assumptions, not calibration or guaranteed bounds.",
+        "Actual cable, die/package, connector, nonlinear clamps, crosstalk, noise and receiver PLL are not characterized.",
+        "The common-mode DC estimate assumes the receiver termination is powered; AC startup transient is treated separately."
+      ],
+      "cad_crosscheck": true
+    },
+    "lite-b-barrel": {
+      "source_pcb_sha256": "0f193840ff2831ae682c8ed092ecff9aef78181d3b3bb460ed1c13dc222f12d5",
+      "HDMI": {
+        "480p": {
+          "status": "conditional_pass",
+          "rows": 20,
+          "minimum_signed_center_V": 0.16179267079291973,
+          "minimum_width_UI": 0.875,
+          "maximum_abs_data_clock_delay_ps": 117.49913688971606
+        },
+        "720p": {
+          "status": "conditional_pass",
+          "rows": 20,
+          "minimum_signed_center_V": 0.1297544236803663,
+          "minimum_width_UI": 0.640625,
+          "maximum_abs_data_clock_delay_ps": 117.49913688971606
+        }
+      },
+      "limits": [
+        "Not an HDMI compliance mask or measured receiver tolerance.",
+        "Core impedance/epsilon, source impedance/edge and socket L/C are sensitivity assumptions, not calibration or guaranteed bounds.",
+        "Actual cable, die/package, connector, nonlinear clamps, crosstalk, noise and receiver PLL are not characterized.",
+        "The common-mode DC estimate assumes the receiver termination is powered; AC startup transient is treated separately."
+      ],
+      "cad_crosscheck": true
+    },
+    "lite-c-dnp": {
+      "HDMI": "not_used_DNP",
+      "retained_copper": "A/B analysis is reference only; no active HDMI claim",
+      "source_pcb_sha256": "f5337c077c4c3d93ce2bbfa2f556f2ebf0fe779bc25d2dcb688d74c7619976f9",
+      "cad_crosscheck": true
+    }
+  },
+  "DDR3": "Incremental NC contact/pad loading only; full controller/physical DDR3 operation remains hardware bring-up gate",
+  "HPD": {
+    "powered_DC": "conditional_pass_40cases_with10k_R52_minHigh2.656V_maxLow0.15043V",
+    "core_local_both_off": "max18mV applies to bothrails0 only",
+    "independent_Core_off": "uncertain permissible injection;10k limits generic model peak0.299mA/DC53.6uA",
+    "firmware": "active-low/input-only/debounce>=10ms",
+    "details": "hpd/series10k_powered.json and offrail_sensitivity.json"
+  },
+  "three_dimensional": {
+    "uniform_crosscheck": "completed",
+    "branch_calibration": "uncertain_not_converged_excluded",
+    "formal_Sparameters": false,
+    "full_Core_socket": "not_calibrated",
+    "details": "local3d/assessment.json"
+  },
+  "reproducibility": "HANDOFF.json and scripts; exact reviewed pre-HDMI PCB gzip snapshot retained"
+}
