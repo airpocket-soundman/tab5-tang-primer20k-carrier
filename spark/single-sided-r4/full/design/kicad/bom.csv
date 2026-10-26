@@ -1,0 +1,51 @@
+Refs,Value,Footprint,Qty,DNP,LCSC,JLC class,Note
+J1,DC-005-5A-2.0,carrier:BarrelJack_XKB_C381116,1,,C381116,extended,LCSC/JLC wave-solder candidate; center-positive stabilized12V only; XKB drawing A1 2025-04-22. 5A connector rating is not board current rating. Verify actual power plug fit.
+F1,PTC 3A hold,Fuse:Fuse_1812_4532Metric,1,,C47002391,selected (verify stock at order),
+"D1,D2,D4",SS54,Diode_SMD:D_SMA,3,,C22452,selected (verify stock at order),reverse-polarity + OR (DC jack)
+D3,SMBJ15A,Diode_SMD:D_SMB,1,,C699013,selected (verify stock at order),"YANGJIE 15V standoff, 24.4V specified clamp; regulated 12V PoC input only"
+C1,100u/35V,Capacitor_SMD:CP_Elec_6.3x7.7,1,,C2983388,selected (verify stock at order),
+J2,USB-C PD in,Connector_USB:USB_C_Receptacle_GCT_USB4125-xx-x-0190_6P_TopMnt_Horizontal,1,,C5246813,selected (verify stock at order),power-only USB-C 6P receptacle
+U1,CH224K,Package_SO:SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm,1,,C970725,selected (verify stock at order),"PD sink, 12V request: CFG1=0 CFG2=0 CFG3=1(internal PU)"
+"R1,R36,R37,R52,R6",10k,Resistor_SMD:R_0603_1608Metric,5,,C25804,selected (verify stock at order),
+C2,1u/50V,Capacitor_SMD:C_0603_1608Metric,1,,C15849,selected (verify stock at order),
+"R2,R42,R43,R44,R45",1k,Resistor_SMD:R_0603_1608Metric,5,,C21190,selected (verify stock at order),
+"R3,R5",0R,Resistor_SMD:R_0603_1608Metric,2,,C21189,selected (verify stock at order),CFG1 low (fit)
+"R17,R18,R25,R4",0R,Resistor_SMD:R_0603_1608Metric,4,DNP,C21189,selected (verify stock at order),Must remain DNP: CFG3 internal pull-up for 12V request
+U2,TPS5430DDAR,Package_SO:TI_SO-PowerPAD-8_ThermalVias,1,,C9864,selected (verify stock at order),
+C3,10n,Capacitor_SMD:C_0603_1608Metric,1,,C57112,selected (verify stock at order),
+L1,15u/4A,Inductor_SMD:L_Bourns_SRR1260,1,,C2041333,selected (verify stock at order),
+R7,3.24k,Resistor_SMD:R_0603_1608Metric,1,,C22994,selected (verify stock at order),Vout = 1.221*(1+10k/3.24k) = 4.99V; R7 C22994 1%
+"R41,R47,R48,R8",100k,Resistor_SMD:R_0603_1608Metric,4,,C25803,selected (verify stock at order),
+R9,15k,Resistor_SMD:R_0603_1608Metric,1,,C22809,selected (verify stock at order),External EN divider ~9.4V threshold; stays off at default USB 5V/9V
+"C4,C5",10u/50V,Capacitor_SMD:C_1206_3216Metric,2,,C13585,selected (verify stock at order),
+C6,100n/50V,Capacitor_SMD:C_0603_1608Metric,1,,C14663,selected (verify stock at order),
+C7,220u/10V POSCAP,Capacitor_Tantalum_SMD:CP_EIA-7343-40_Kemet-Y,1,,C242173,selected (verify stock at order),"Panasonic 10TPB220M, 220uF 10V ESR max40mohm; TI reference output capacitor"
+"C8,C9",47u/10V,Capacitor_SMD:C_1206_3216Metric,2,DNP,C96123,selected (verify stock at order),
+U3,TLV1117LV33DCYR,Package_TO_SOT_SMD:SOT-223-3_TabPin2,1,,C15578,selected (verify stock at order),"TI TLV1117LV33: ceramic-output stable, pin-compatible SOT-223"
+C10,10u/16V,Capacitor_SMD:C_1206_3216Metric,1,,C13585,selected (verify stock at order),
+C11,22u/10V,Capacitor_SMD:C_1206_3216Metric,1,,C12891,selected (verify stock at order),
+J3,2.54-2*15P,carrier:PinHeader_2x15_Tab5_Bottom,1,,C56496,extended,"LCSC C56496 separately purchased; mandatory manual soldering, excluded from PCBA. Bottom mating direction retained."
+"R10,R11,R12,R13,R14,R15,R16,R19,R20,R21,R22,R23,R24,R26,R27",680R,Resistor_SMD:R_0603_1608Metric,15,,C23228,selected in Spark design model; verify stock and footprint,Initial PoC1MHz; DATA setup/hold>=250ns; DIR deadtime>=500ns; weak drive/SLOW. New full-size routing must be re-evaluated.
+J4,SOCKET XDAP-4042044-20401,carrier:DDR3_XDAP_4042044_20401,1,,C22471982,extended,"PCBA mandatory; socket only, Core module supplied by user; confirm stock/fixture"
+J5,HDMI OUT,Connector_Video:HDMI_A_Molex_208658-1001_Horizontal,1,,C916313,extended,MOLEX 2086581001; PCBA required including four through-hole shell tabs; no customer HDMI soldering. Confirm full connector assembly in supplier preview.
+"C12,C13,C14,C15,C16,C17,C18,C19",100n,Capacitor_SMD:C_0402_1005Metric,8,,C1525,extended,100nF AC coupling; low-profile 0402 under Core
+"R28,R29,R32,R33,R34,R35",499R,Resistor_SMD:R_0603_1608Metric,6,,C23065,selected (verify stock at order),
+"R30,R31",499R,Resistor_SMD:R_0402_1005Metric,2,,C4125,selected (verify stock at order),
+"U4,U5,U6",RCLAMP0524P,carrier:DFN2510-10L_RCLAMP0524P,3,,C293965,selected (verify stock at order),"TMDS ESD array (DOWO DFN2510-10L): I/O 1,2,4,5, GND 3,8; the line is routed as continuous copper through strapped pads"
+F2,PTC 500mA,Fuse:Fuse_1206_3216Metric,1,,C315893,selected (verify stock at order),
+"Q1,Q2,Q3,Q4",2N7002,Package_TO_SOT_SMD:SOT-23,4,,C8545,selected (verify stock at order),DDC level shifter (pin1=G pin2=S pin3=D)
+"R38,R39",2.2k,Resistor_SMD:R_0603_1608Metric,2,,C4190,selected (verify stock at order),
+"R40,R51",47k,Resistor_SMD:R_0603_1608Metric,2,,C25819,selected in Spark design model; verify stock and footprint,
+J6,PMOD1,Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical,1,DNP,,THT/hand-solder or extended (select part),"2x6 PMOD-style, 3.3V. Pads only: pin header is hand-fitted later (DNP)"
+J7,PMOD2,Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical,1,DNP,,THT/hand-solder or extended (select part),"2x6 PMOD-style, 3.3V. Pads only: pin header is hand-fitted later (DNP)"
+"D5,D6,D7,D8",LED,LED_SMD:LED_0603_1608Metric,4,,C2286,selected (verify stock at order),
+"SW1,SW2",TS-1102S-B-D-B,carrier:SW_XKB_TS1102S_C480272,2,,C480272,extended,PCBA SMT; XKB C480272 H5.5mm; manufacturer12x5.9mm lands; confirm contact grouping and mechanical fit in assembly preview
+J8,GPIO pads,Connector_PinHeader_2.54mm:PinHeader_1x09_P2.54mm_Vertical,1,DNP,,THT/hand-solder or extended (select part),"spare FPGA I/O (3.3V, bank 7): pads only, hand-fit a header or wires later"
+"H1,H2,H3,H4,H5,H6",M3,MountingHole:MountingHole_3.2mm_M3,6,,,THT/hand-solder or extended (select part),
+"U7,U8",SN74CB3Q3245PWR,Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm,2,,C470961,selected (verify stock at order),Ioff protected 8-bit passive bus switch; OE pulled high by default
+"C20,C21,C22,C23,C24",100n,Capacitor_SMD:C_0603_1608Metric,5,,C14663,selected (verify stock at order),
+U9,TPS3839G33DBZR,Package_TO_SOT_SMD:SOT-23,1,,C485802,selected (verify stock at order),"3.08V / 4.38V supervisor, 200ms typical release delay"
+U10,TPS3839K50DBZR,Package_TO_SOT_SMD:SOT-23,1,,C702204,selected (verify stock at order),"3.08V / 4.38V supervisor, 200ms typical release delay"
+JP1,B-2100S02P-A110,Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical,1,,C124375,extended,"LCSC/JLC wave-solder candidate; 1x2 male2.54mm,6mm mating pins,3mm solder tails; C5305 shunt supplied separately and initially absent."
+R46,22k,Resistor_SMD:R_0603_1608Metric,1,,C31850,selected (verify stock at order),
+Q5,MMBT3904,Package_TO_SOT_SMD:SOT-23,1,,C20526,extended,"Active-low HPD; input only, invert and debounce >=10ms; R52 limits off-bank charge injection, no hotplug guarantee"

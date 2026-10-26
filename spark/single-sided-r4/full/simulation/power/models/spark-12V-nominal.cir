@@ -1,0 +1,70 @@
+spark-12V-nominal
+.func clamp(x,a,b) {min(max(x,a),b)}
+.func sel(a,b,c) {a?b:c}
+.include "D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/spark/single-sided-r4/full/simulation/power/models/TPS5430_TRANS.LIB"
+.param temper=25
+.temp 25
+Vsource supply 0 PWL(0 0 0.0002 12 45m 12)
+Rsource supply dc 0.2
+Rptc dc dc_protected 0.05
+Dinput dc_protected vin D54
+.model D54 D(Is=50u Rs=.02 N=1.2 Cjo=200p Tt=8n Bv=40 Ibv=1m)
+Dtvs 0 vin TVS15
+.model TVS15 D(Is=1n N=1.5 Rs=.1 Bv=18 Ibv=1m Cjo=1n)
+Rbulk vin cbulk .3
+Cbulk cbulk 0 0.0001
+Rceramic vin ccer .01
+Cceramic ccer 0 1.2e-05
+Rena vin en 100k
+Renb en 0 15k
+Vswitch swcontrol 0 0
+Soff en 0 swcontrol 0 SWOFF
+.model SWOFF SW(Ron=.1 Roff=1e12 Vt=.5 Vh=.1)
+Rtop vout fb 10000.0
+Rbot fb 0 3240
+Benpull vin en I={5u*clamp(V(vin),0,1)}
+* Derived from TI TPS5430_TRANS compensation R/C and opamp parameters
+Veref eref 0 1.221
+Bss 0 ss I={sel(V(active)>.5,V(eref)*.001,-V(ss))}
+Css ss 0 8e-06
+Rss ss 0 1G
+Bref ref 0 V={min(max(V(ss),0),V(eref))}
+R_EA3 ea ea_r3 3.27Meg
+R_EA1 fb ea_r1 260k
+C_EA2 ea_r3 ea_in 30p
+C_EA1 ea_r1 ea_in 20p
+R_EA2 fb ea_in 2.75Meg
+C_EA3 ea ea_in 1p
+V_EA vdd 0 3.3
+Xea ref ea_in vdd 0 ea stdopamp GAIN=206.538K RIN=20MEG RINC=1E9 ROUT=1 SLEWRATE=1.5Meg FPOLE1=14.96 FPOLE2=10MEG VDROPOH=0 VDROPOL=0 VOFFS=0 IBIAS=0 IOFFS=0
+Venth enth 0 1.15
+Venhys enhys 0 0.45
+Vvinth vinth 0 5.3
+Vvinhys vinhys 0 .33
+Xena en enth enhys enstate COMPHYS_BASIC_GEN
+Xvin vin vinth vinhys vinstate COMPHYS_BASIC_GEN
+Bactive active 0 V={sel((V(enstate)>.5)&&(V(vinstate)>.5),1,0)}
+B_duty dutycommand 0 V={sel((V(active)>.5)&&(V(fb)<1.125*V(eref)),clamp((V(ea)-.3)/max(.0375*V(vin),.05),0,.87)*clamp((4-I(L1))/.2,0,1),0)}
+R_duty dutycommand duty 1
+C_duty duty 0 2.5e-07
+B_ph phdrv 0 V={V(duty)*V(vin)-(1-V(duty))*.4}
+R_switch phdrv ph .1
+Dav ph li_block DAVG
+.model DAVG D(Is=1p Rs=.0001 N=.01 Eg=0 Xti=0 Tnom=25)
+Bin vin 0 I={max(0,V(duty)*I(L1))+(.003*V(active)+15u*(1-V(active)))*clamp(V(vin),0,1)}
+Rl li_block li 0.027
+L1 li vout 1.5e-05
+Resr vout capout 0.04
+Cout capout 0 0.00022
+Rpath vout vcore 0.15294088579228776
+Ccore vcore 0 1e-05
+Vload load0 0 PWL(0 0.05 0.02 0.05 0.020001 0.5 0.035 0.5 0.035001000000000004 0.05 0.045000000000000005 0.05)
+Bcore vcore 0 I={clamp(V(vcore),0,1)*V(load0)}
+Rbleed vout 0 10k
+Bhdmi vout 0 I={max(V(vout),0)*0.06/5}
+R33dummy v33raw 0 1k
+.options reltol=.002 abstol=1n vntol=10u itl4=200 method=gear
+Btab vin 0 I={1*clamp((V(vin)-5.5)/.5,0,1)}
+.save v(vout) v(vcore) v(v33raw) v(vin) v(en) v(active) i(L1) i(Vsource)
+.tran 2e-06 0.045 0 2e-06 uic
+.end

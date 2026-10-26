@@ -1,0 +1,216 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "name": "M5Bus_confirmed_left_pin1",
+      "ok": true
+    },
+    {
+      "name": "parallel_D0",
+      "ok": true,
+      "mbus_pin": 7,
+      "core_pin": 77
+    },
+    {
+      "name": "parallel_D1",
+      "ok": true,
+      "mbus_pin": 9,
+      "core_pin": 83
+    },
+    {
+      "name": "parallel_D2",
+      "ok": true,
+      "mbus_pin": 11,
+      "core_pin": 85
+    },
+    {
+      "name": "parallel_D3",
+      "ok": true,
+      "mbus_pin": 19,
+      "core_pin": 103
+    },
+    {
+      "name": "parallel_D4",
+      "ok": true,
+      "mbus_pin": 20,
+      "core_pin": 101
+    },
+    {
+      "name": "parallel_D5",
+      "ok": true,
+      "mbus_pin": 21,
+      "core_pin": 109
+    },
+    {
+      "name": "parallel_D6",
+      "ok": true,
+      "mbus_pin": 22,
+      "core_pin": 107
+    },
+    {
+      "name": "parallel_D7",
+      "ok": true,
+      "mbus_pin": 23,
+      "core_pin": 115
+    },
+    {
+      "name": "parallel_CLK",
+      "ok": true,
+      "mbus_pin": 2,
+      "core_pin": 52
+    },
+    {
+      "name": "parallel_RDY",
+      "ok": true,
+      "mbus_pin": 8,
+      "core_pin": 75
+    },
+    {
+      "name": "parallel_DIR",
+      "ok": true,
+      "mbus_pin": 26,
+      "core_pin": 119
+    },
+    {
+      "name": "parallel_AUX0",
+      "ok": true,
+      "mbus_pin": 4,
+      "core_pin": 73
+    },
+    {
+      "name": "parallel_AUX1",
+      "ok": true,
+      "mbus_pin": 10,
+      "core_pin": 79
+    },
+    {
+      "name": "parallel_AUX2",
+      "ok": true,
+      "mbus_pin": 16,
+      "core_pin": 95
+    },
+    {
+      "name": "parallel_AUX3",
+      "ok": true,
+      "mbus_pin": 15,
+      "core_pin": 97
+    },
+    {
+      "name": "U7_power_isolation",
+      "ok": true
+    },
+    {
+      "name": "U8_power_isolation",
+      "ok": true
+    },
+    {
+      "name": "OE_default_high",
+      "ok": true
+    },
+    {
+      "name": "manual_arm_default_open",
+      "ok": true
+    },
+    {
+      "name": "OE_series_MOSFET_AND",
+      "ok": true
+    },
+    {
+      "name": "both_supplies_monitored",
+      "ok": true
+    },
+    {
+      "name": "Tab5_5V_and_BAT_not_tied",
+      "ok": true
+    },
+    {
+      "name": "shared_ground_returns",
+      "ok": true
+    },
+    {
+      "name": "Core_5V_pins",
+      "ok": true
+    },
+    {
+      "name": "Tab5_HVIN_pins",
+      "ok": true
+    },
+    {
+      "name": "PD_12V_only",
+      "ok": true
+    },
+    {
+      "name": "regulated_5V_parts",
+      "ok": true
+    },
+    {
+      "name": "ceramic_stable_bus_LDO",
+      "ok": true
+    },
+    {
+      "name": "initial_extension_unpopulated",
+      "ok": true
+    },
+    {
+      "name": "BUCK_PH_front_no_vias",
+      "ok": true,
+      "length_mm": 20.808562712960146
+    },
+    {
+      "name": "BUCK_BOOT_front_no_vias",
+      "ok": true,
+      "length_mm": 4.094712163465163
+    }
+  ],
+  "power_state_logic": [
+    {
+      "tab_power": false,
+      "core_power": false,
+      "arm": false,
+      "enabled": false
+    },
+    {
+      "tab_power": false,
+      "core_power": false,
+      "arm": true,
+      "enabled": false
+    },
+    {
+      "tab_power": false,
+      "core_power": true,
+      "arm": false,
+      "enabled": false
+    },
+    {
+      "tab_power": false,
+      "core_power": true,
+      "arm": true,
+      "enabled": false
+    },
+    {
+      "tab_power": true,
+      "core_power": false,
+      "arm": false,
+      "enabled": false
+    },
+    {
+      "tab_power": true,
+      "core_power": false,
+      "arm": true,
+      "enabled": false
+    },
+    {
+      "tab_power": true,
+      "core_power": true,
+      "arm": false,
+      "enabled": false
+    },
+    {
+      "tab_power": true,
+      "core_power": true,
+      "arm": true,
+      "enabled": true
+    }
+  ],
+  "note": "Power-state logic is a topology check, not measured leakage or transient behavior."
+}
