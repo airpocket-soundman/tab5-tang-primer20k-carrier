@@ -27,17 +27,22 @@ M5Stack Tab5のM5-BusとTang Primer 20K Coreを接続する専用キャリア基
 
 GPIO割り当て・コネクタ・電源条件は暫定です。一次資料との照合、I/O電圧・競合・起動状態・逆給電の確認を行い、仕様のチェック項目を完了してから製造に進みます。
 
-## 利用する2つの独立プロジェクト
+## FPGAデバイスと利用するホスト
 
-- [Tab5 Linux本体・FPGA通信ドライバ](https://github.com/airpocket-soundman/tab5-linux-fpga)（研究計画・FPGA回路・評価は [esp32p4-linux-fpga-memory](https://github.com/airpocket-soundman/esp32p4-linux-fpga-memory)）
-- [Tab5外付けGPU](https://github.com/airpocket-soundman/tab5-fpga-gpu)
+本リポジトリは、キャリア基板と、その上で動くFPGAデバイス（全ビットストリーム）を一元管理します。ホストOSの各リポジトリは本リポジトリの仕様を参照してホスト側を開発します。[リポジトリ分担と参照ルール](docs/リポジトリ分担と参照ルール.md)、[FPGAデバイス構成](docs/FPGAデバイス構成_ビットストリームと機能.md)、[fpga/](fpga/README.md)を参照してください。
 
-本プロジェクトの目的は、上記2プロジェクトの要求を満たす共通キャリア基板を設計・検証することです。作業開始時と仕様変更前には、両リポジトリの要求資料と関連実装を確認することを前提とします。
+| リポジトリ | ホスト側の役割 |
+|---|---|
+| [tab5-linux-fpga](https://github.com/airpocket-soundman/tab5-linux-fpga) | NOMMU Linux本体、FPGA通信ドライバ、Device Tree、ユーザ空間ツール |
+| [tab5-meos-fpga](https://github.com/airpocket-soundman/tab5-meos-fpga) | MeOSのFPGAドライバ（HAL/LL PARLIO）、GUI統合 |
+| [tab5-fpga-gpu](https://github.com/airpocket-soundman/tab5-fpga-gpu) | ESP-IDFのホスト実装、ベンチマーク（GPU LAB）、モデル評価 |
+| [esp32p4-linux-fpga-memory](https://github.com/airpocket-soundman/esp32p4-linux-fpga-memory) | Linux外部メモリ研究の計画・評価 |
 
-Linux側では双方向のコマンド・データ転送、128MB DDR3全域への分割読み書き、フロー制御・通知とエラー検出を支えます。GPU側では描画コマンド送信と完成フレーム受信を支え、640×360 RGB565・30FPSの目標に対して、フレーム本体だけで約13.8MB/sを要する受信経路を評価します。DMA対応と実効帯域は未検証であり、性能を保証するものではありません。
+FPGAの機能（GFX、NPU、HDMI、RAMdisk）はどのホストOSからも使う前提です。ビットストリームは機能別に分け、同時搭載は計測で問題がない組合せに限ります。
 
-本リポジトリは両者で使用する接続基板を扱います。ソフトウェアとFPGAビットストリームは各プロジェクトで管理し、同時動作は初期要件に含めません。
-共通仕様の更新は本リポジトリを起点とし、各プロジェクトに収録した仕様へ反映してください。
+Linux側では双方向のコマンド・データ転送、128MB DDR3全域への分割読み書き、フロー制御・通知とエラー検出を支えます。描画用途では描画コマンド送信と完成フレーム受信を支え、640×360 RGB565・30FPSの目標に対して、フレーム本体だけで約13.8MB/sを要する受信経路を評価します。DMA対応と実効帯域は未検証であり、性能を保証するものではありません。
+
+共通仕様・デバイス仕様の更新は本リポジトリを起点とし、ホスト側リポジトリに収録した仕様コピーへ反映してください。
 
 ## Spark応募用の独立フル機能版
 

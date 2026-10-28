@@ -1,11 +1,12 @@
 // Tab5 M5-Bus <-> Tang Primer 20K Dock jumper-wire bench, link test v0 (DRAFT)
 // Target : GW2A-LV18PG256C8/I7 on Tang Primer 20K Core, mounted on the official Dock (3713/3714 schematic)
-// Top    : wrapper around tab5-fpga-gpu bringup/rtl/link_bringup.v (ports below); not yet written
+// Top    : wrapper around link_bringup.v (now in tab5-fpga-gpu bringup/rtl/, to be moved to fpga/link/); not yet written
 // Status : balls and bank voltages checked against Dock_3714_Schematics.pdf p.1/6/8/9 and
 //          SOM-3961_Schematic.pdf only. Not synthesized, not placed, not tested on hardware.
-//          See ../Dockジャンパ試験_配線とFPGA構成_2026-10-28.md before use.
+//          See ../../../docs/Dockジャンパ試験_配線とFPGA構成_2026-10-28.md before use.
 // This file is for the Dock bench only. Do NOT reuse it for the carrier board
 // (carrier balls come from kicad/core_pin_assignment.csv; CLK is K14 there).
+// Repository roles: docs/リポジトリ分担と参照ルール.md
 
 // ---- board resources (same as Sipeed official dk_video.cst) ----
 IO_LOC  "sys_clk" H11;                       // 27 MHz oscillator on Core
