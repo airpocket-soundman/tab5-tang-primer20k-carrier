@@ -37,6 +37,8 @@ M5Stack Tab5（ESP32-P4）とTang Primer 20K Core（FPGA＋128MB DDR3）を、M5
 
 **注意：**これは会話中の仮割り当てであり、Tab5回路図上のネット、PARLIO送受信切替、FPGAバンク電圧、GPIO起動状態、Linuxドライバで未確定。PCB発注前に必ず照合する。
 
+**基板到着前のベンチ試験（2026-10-28追加）：**同じGPIO割当で、M5-Busと公式DockのJ12/J5/J14をジャンパ線でつなぐ構成と、Dock専用.cst案、段階試験、FPGA機能の分割方針を[Dockジャンパ試験](Dockジャンパ試験_配線とFPGA構成_2026-10-28.md)にまとめた。未合成・未実機。接続試験ビットストリームはESP-IDF・MeOS・Linuxで共通、アプリ用（GFX/NPU/MEM）は別とする。
+
 ## 共通FPGA基盤
 - P4↔FPGA通信層：コマンド、アドレス、長さ、ペイロード、要求ID、CRC、割り込み／READY
 - DDR3コントローラ：READ／WRITE／COPY／FILL、転送用FIFO

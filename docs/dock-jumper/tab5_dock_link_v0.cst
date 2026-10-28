@@ -1,0 +1,68 @@
+// Tab5 M5-Bus <-> Tang Primer 20K Dock jumper-wire bench, link test v0 (DRAFT)
+// Target : GW2A-LV18PG256C8/I7 on Tang Primer 20K Core, mounted on the official Dock (3713/3714 schematic)
+// Top    : wrapper around tab5-fpga-gpu bringup/rtl/link_bringup.v (ports below); not yet written
+// Status : balls and bank voltages checked against Dock_3714_Schematics.pdf p.1/6/8/9 and
+//          SOM-3961_Schematic.pdf only. Not synthesized, not placed, not tested on hardware.
+//          See ../Dockジャンパ試験_配線とFPGA構成_2026-10-28.md before use.
+// This file is for the Dock bench only. Do NOT reuse it for the carrier board
+// (carrier balls come from kicad/core_pin_assignment.csv; CLK is K14 there).
+
+// ---- board resources (same as Sipeed official dk_video.cst) ----
+IO_LOC  "sys_clk" H11;                       // 27 MHz oscillator on Core
+IO_PORT "sys_clk" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+IO_LOC  "reset_n" T10;                       // Dock Key_0 (FPGA_RST net), active low
+IO_PORT "reset_n" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// ARM: Dock DIP SW0. Bank4 = 1.5 V (DDR3 bank). OFF -> 0 (13k to GND), ON -> 1.
+// Bus outputs stay disabled until this switch is turned ON after both boards are powered.
+IO_LOC  "arm_sw" C7;
+IO_PORT "arm_sw" IO_TYPE=LVCMOS15 PULL_MODE=DOWN;
+
+// ---- parallel bus (all banks 3.3 V on the Dock) ----
+// CLK: Dock J14-10 MIC_DAT3 = IOR29A/T7 = GCLKT_3 (bank3, 3.3 V fixed on Core)
+IO_LOC  "bus_clk" T7;
+IO_PORT "bus_clk" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
+// DIR: Dock J5-6 RGB_LCD_R1 = IOR40A/N8 (bank3). 0 = Tab5 -> FPGA (default), 1 = FPGA -> Tab5
+IO_LOC  "dir" N8;
+IO_PORT "dir" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
+// READY: Dock J5-5 RGB_LCD_R0 = IOR40B/L9 (bank3). Driven by FPGA only.
+IO_LOC  "ready" L9;
+IO_PORT "ready" IO_TYPE=LVCMOS33 PULL_MODE=DOWN DRIVE=8;
+
+// D0..D7: Dock J12 (camera header) DVP_D0..D7, banks 2 / 1 / 0
+IO_LOC  "data[0]" T12;                       // J12-9  DVP_D0 IOR17B bank2
+IO_LOC  "data[1]" T11;                       // J12-11 DVP_D1 IOR24A bank2
+IO_LOC  "data[2]" P11;                       // J12-12 DVP_D2 IOR24B bank2
+IO_LOC  "data[3]" R11;                       // J12-10 DVP_D3 IOR17A bank2
+IO_LOC  "data[4]" M15;                       // J12-8  DVP_D4 IOT40B bank1
+IO_LOC  "data[5]" M14;                       // J12-7  DVP_D5 IOT40A bank1
+IO_LOC  "data[6]" J16;                       // J12-6  DVP_D6 IOT22A bank0
+IO_LOC  "data[7]" J14;                       // J12-5  DVP_D7 IOT22B bank0
+IO_PORT "data[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "data[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "data[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "data[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "data[4]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "data[5]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "data[6]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "data[7]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// AUX0..3: wired but unused by link v0 (inputs, pulled down). Roles decided later.
+IO_LOC  "aux[0]" N9;                         // J5-7  RGB_LCD_R2 IOR36B bank3
+IO_LOC  "aux[1]" N7;                         // J5-8  RGB_LCD_R3 IOR47B bank3
+IO_LOC  "aux[2]" N6;                         // J5-9  RGB_LCD_R4 IOR51A bank3
+IO_LOC  "aux[3]" P8;                         // J14-8 MIC_DAT0   IOR42A bank3
+IO_PORT "aux[0]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
+IO_PORT "aux[1]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
+IO_PORT "aux[2]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
+IO_PORT "aux[3]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
+
+// Status LEDs (Dock LED2..LED5 nets as in dk_video.cst): 0=armed 1=bus OE 2=CRC error 3=timeout
+IO_LOC  "led[0]" L16;
+IO_LOC  "led[1]" L14;
+IO_LOC  "led[2]" N14;
+IO_LOC  "led[3]" N16;
+IO_PORT "led[0]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_PORT "led[1]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_PORT "led[2]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+IO_PORT "led[3]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
