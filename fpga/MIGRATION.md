@@ -86,3 +86,5 @@ SHA-256は移管元blob（改行をLFに正規化）の先頭16桁。
 | `python tools/run_existing_rtl.py` | **未実行**：iverilog/vvpがなく、導入もしていない。RTLシミュレーション・合成は移管前と同じく未実施 |
 
 移管前の移管元でも `tests/rtl_game`、`tests/rtl_compute` の単体試験は成功している（同日確認）。
+
+移管元での後処理：tab5-fpga-gpu ブランチ`docs/fpga-device-ownership`の`d4d89e3`で移管済みファイルを削除し、ホストCIからRTL関連ステップを外した。同ブランチのホスト試験は56件成功（5件スキップ）。`bringup/tests/run_codec.py`はローカルにCコンパイラ`cc`がなく未実行。
