@@ -57,6 +57,7 @@ module tb_link_bringup;
         end
         send_request(2,1,2,1); read_response(); if(r[1]!==1) $fatal(1,"bad CRC accepted");
         send_request(99,1,2,0); read_response(); if(r[1]!==2) $fatal(1,"unknown op accepted");
+        send_request(8'h10,0,0,0); read_response(); if(r[1]!==2) $fatal(1,"GFX enabled by default");
         // Partial request followed by invalid direction: must not drive.
         host_oe=1; host_data=8'ha5; pulse(); host_oe=0; dir=1; #200;
         if(data_oe || ready) $fatal(1,"partial request response");

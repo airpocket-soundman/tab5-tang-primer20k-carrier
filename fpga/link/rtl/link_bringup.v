@@ -1,7 +1,8 @@
 // Portable link-test core only. No package pins or DDR3 controller assumed.
 // DIR=0: host writes on rising bus_clk. DIR=1: host samples then pulses.
 module link_bringup #(
-    parameter TIMEOUT_CYCLES = 2700000
+    parameter TIMEOUT_CYCLES = 2700000,
+    parameter GFX_ENABLE = 0
 )(input wire sys_clk, input wire reset_n, input wire arm,
   input wire bus_clk, input wire dir, input wire [7:0] data_i,
   output reg [7:0] data_o, output wire data_oe, output wire ready);
@@ -15,6 +16,21 @@ module link_bringup #(
     reg [15:0] rx_crc;
     reg [31:0] idle_count;
     reg [15:0] reply_crc;
+    reg gfx_start, gfx_pending;
+    wire gfx_done;
+    wire [7:0] gfx_status;
+    wire [15:0] gfx_result;
+    generate if(GFX_ENABLE) begin: gfx
+        // A timed-out operation must not keep mutating RAM or consume a later start.
+        wire renderer_reset_n = reset_n && arm;
+        wire renderer_abort = gfx_pending && idle_count >= TIMEOUT_CYCLES-1;
+        gfx_bench renderer(sys_clk, renderer_reset_n, renderer_abort, gfx_start,
+                           req[1], req[4], req[5], gfx_done, gfx_status, gfx_result);
+    end else begin: no_gfx
+        assign gfx_done=1'b0;
+        assign gfx_status=8'h02;
+        assign gfx_result=16'h0000;
+    end endgenerate
     integer j;
     function [15:0] crc_byte;
         input [15:0] c;
@@ -43,18 +59,26 @@ module link_bringup #(
         if(!reset_n) begin
             clk_sync<=0; dir_sync<=0; rx_index<=0; tx_index<=0;
             valid<=0; rx_crc<=16'hffff; idle_count<=0;
+            gfx_start<=0; gfx_pending<=0;
         end else begin
+            gfx_start<=0;
             clk_sync<={clk_sync[1:0],bus_clk}; dir_sync<={dir_sync[0],dir};
             if(!arm) begin
                 valid<=0; rx_index<=0; tx_index<=0; rx_crc<=16'hffff; idle_count<=0;
+                gfx_pending<=0;
             end else if(idle_count>=TIMEOUT_CYCLES-1) begin
                 valid<=0; rx_index<=0; tx_index<=0; rx_crc<=16'hffff; idle_count<=0;
+                gfx_pending<=0;
             end else begin
                 idle_count<=idle_count+1;
+                if(gfx_pending && gfx_done) begin
+                    reply[1]<=gfx_status; reply[4]<=gfx_result[7:0]; reply[5]<=gfx_result[15:8];
+                    valid<=1; gfx_pending<=0;
+                end
                 if(dir_sync[1] && rx_index!=0) begin rx_index<=0; rx_crc<=16'hffff; end
                 if(rise) begin
                     idle_count<=0;
-                    if(!dir_sync[1] && !dir && !valid) begin
+                    if(!dir_sync[1] && !dir && !valid && !gfx_pending) begin
                         if(rx_index<7) req[rx_index]<=data_i;
                         if(rx_index<6) rx_crc<=crc_byte(rx_crc,data_i);
                         if(rx_index==7) begin
@@ -66,6 +90,10 @@ module link_bringup #(
                                 1: begin reply[1]<=0; reply[4]<=8'h54; reply[5]<=8'h50; end
                                 2: begin reply[1]<=0; reply[4]<=req[4]; reply[5]<=req[5]; end
                                 3: begin reply[1]<=0; reply[4]<=~req[4]; reply[5]<=~req[5]; end
+                                8'h10,8'h11,8'h12,8'h13,8'h14,8'h15,8'h16:
+                                    if(GFX_ENABLE) begin
+                                        valid<=0; gfx_pending<=1; gfx_start<=1;
+                                    end else reply[1]<=2;
                                 default: reply[1]<=2;
                             endcase
                         end else rx_index<=rx_index+1'b1;

@@ -1,0 +1,570 @@
+{
+  "schema_version": 1,
+  "features": [
+    {
+      "id": "link.v0",
+      "name": "LINK v0 framing and recovery",
+      "readiness": "partial",
+      "checks": [
+        "rtl.bringup",
+        "host.codec",
+        "build.link",
+        "hardware.link"
+      ],
+      "requires": [
+        "Dock and Tab5, reviewed wiring",
+        "known LINK SRAM image"
+      ],
+      "acceptance": [
+        "ID, all echo/invert vectors and malformed CRC verified; timeout/disarm release",
+        "record real bus timing and all host results"
+      ],
+      "missing": [
+        "electrical and physical link validation"
+      ]
+    },
+    {
+      "id": "gfx.dock",
+      "name": "32x32 RGB565 fill, pixel, rect and readback",
+      "readiness": "partial",
+      "checks": [
+        "rtl.dock_gfx",
+        "host.gfx",
+        "host.codec",
+        "build.gfx",
+        "hardware.gfx"
+      ],
+      "requires": [
+        "Dock and Tab5, reviewed wiring",
+        "known GFX SRAM image"
+      ],
+      "acceptance": [
+        "all 1024 pixels match oracle; LCD readback independently observed",
+        "range/uninitialized/error and reset cases pass"
+      ],
+      "missing": [
+        "physical GPIO, LCD and synthesis-netlist simulation verification"
+      ]
+    },
+    {
+      "id": "gfx.coverage",
+      "name": "triangle coverage",
+      "readiness": "partial",
+      "checks": [
+        "rtl.coverage",
+        "host.gfx",
+        "hardware.triangle",
+        "synth.coverage"
+      ],
+      "requires": [
+        "integrated GFX pipeline and target memory"
+      ],
+      "acceptance": [
+        "edge, degeneracy, winding and clipping match reference"
+      ],
+      "missing": [
+        "integrate raster core with command, framebuffer and host"
+      ]
+    },
+    {
+      "id": "gfx.depth",
+      "name": "triangle depth and fragment",
+      "readiness": "partial",
+      "checks": [
+        "rtl.depth",
+        "rtl.fragment",
+        "host.gfx",
+        "hardware.depth",
+        "synth.depth",
+        "synth.fragment"
+      ],
+      "requires": [
+        "integrated GFX depth buffer"
+      ],
+      "acceptance": [
+        "occlusion and pixel/depth match reference including edges"
+      ],
+      "missing": [
+        "integrate and measure full framebuffer pipeline"
+      ]
+    },
+    {
+      "id": "gfx.2d",
+      "name": "2D line and dirty rectangles",
+      "readiness": "planned",
+      "checks": [
+        "hardware.gfx2d"
+      ],
+      "requires": [
+        "GFX command ABI",
+        "framebuffer"
+      ],
+      "acceptance": [
+        "compare line and dirty rectangle outputs against CPU reference"
+      ],
+      "missing": [
+        "define commands and implement"
+      ]
+    },
+    {
+      "id": "gfx.copy_blit_glyph",
+      "name": "copy, blit and glyph",
+      "readiness": "planned",
+      "checks": [
+        "hardware.blit"
+      ],
+      "requires": [
+        "memory and GFX command ABI"
+      ],
+      "acceptance": [
+        "overlap, clipping, color and glyph results equal reference"
+      ],
+      "missing": [
+        "define memory layout and implement operations"
+      ]
+    },
+    {
+      "id": "gfx.compute_shader",
+      "name": "compute drawing and shaders",
+      "readiness": "planned",
+      "checks": [
+        "hardware.compute"
+      ],
+      "requires": [
+        "compute job ABI",
+        "GFX framebuffer"
+      ],
+      "acceptance": [
+        "same inputs match reference within defined fixed-point tolerance",
+        "measure CPU/FPGA and transfer time"
+      ],
+      "missing": [
+        "define supported operations and precision; implement"
+      ]
+    },
+    {
+      "id": "gfx.compare",
+      "name": "CPU versus FPGA rendering and LCD",
+      "readiness": "planned",
+      "checks": [
+        "hardware.cpu_gpu_compare"
+      ],
+      "requires": [
+        "host framebuffer transport",
+        "LCD presentation",
+        "integrated GFX"
+      ],
+      "acceptance": [
+        "same scene, resolution and features; record rendering, transfer, display and frame timing"
+      ],
+      "missing": [
+        "host backend, synchronized measurements and physical LCD test"
+      ]
+    },
+    {
+      "id": "hdmi.output",
+      "name": "HDMI scanout",
+      "readiness": "planned",
+      "checks": [
+        "hardware.hdmi"
+      ],
+      "requires": [
+        "carrier HDMI routing and electrical validation",
+        "pixel clock and scanout",
+        "display"
+      ],
+      "acceptance": [
+        "verify patterns, timing and concurrent bandwidth/resource budget"
+      ],
+      "missing": [
+        "resolve HDMI board issues and implement scanout"
+      ]
+    },
+    {
+      "id": "memory.ddr3_bist",
+      "name": "DDR3 initialization and BIST",
+      "readiness": "planned",
+      "checks": [
+        "hardware.ddr3_bist"
+      ],
+      "requires": [
+        "Core DDR3 controller, constraints and board"
+      ],
+      "acceptance": [
+        "walking, address and full-range patterns verified; report errors and bandwidth"
+      ],
+      "missing": [
+        "implement and calibrate controller and BIST"
+      ]
+    },
+    {
+      "id": "memory.read_write",
+      "name": "DDR3 read/write and transfers",
+      "readiness": "planned",
+      "checks": [
+        "hardware.ddr3_transfer"
+      ],
+      "requires": [
+        "DDR3 controller",
+        "v1 memory protocol",
+        "host transport"
+      ],
+      "acceptance": [
+        "boundary and random patterns with CRC pass; measure latency and throughput"
+      ],
+      "missing": [
+        "define v1 ABI and implement transport"
+      ]
+    },
+    {
+      "id": "memory.ramdisk",
+      "name": "MEM block storage and RAMdisk",
+      "readiness": "planned",
+      "checks": [
+        "hardware.ramdisk"
+      ],
+      "requires": [
+        "DDR3 and block protocol",
+        "host block API"
+      ],
+      "acceptance": [
+        "block boundary, integrity, power-loss semantics and region isolation verified"
+      ],
+      "missing": [
+        "define block API and implement backend"
+      ]
+    },
+    {
+      "id": "memory.offload",
+      "name": "explicit memory offload and restoration",
+      "readiness": "planned",
+      "checks": [
+        "hardware.memory_offload"
+      ],
+      "requires": [
+        "Linux driver and memory API",
+        "DDR3 read/write"
+      ],
+      "acceptance": [
+        "large datasets processed in bounded buffers; compare output and time with CPU"
+      ],
+      "missing": [
+        "implement Linux API and reproducible workload"
+      ]
+    },
+    {
+      "id": "npu.mac",
+      "name": "INT8 MAC lane",
+      "readiness": "partial",
+      "checks": [
+        "rtl.mac",
+        "host.npu",
+        "hardware.npu_mac",
+        "synth.mac"
+      ],
+      "requires": [
+        "integrated NPU",
+        "host job transport"
+      ],
+      "acceptance": [
+        "signed extrema, accumulation and overflow match integer reference"
+      ],
+      "missing": [
+        "integrate into NPU job engine"
+      ]
+    },
+    {
+      "id": "npu.requant",
+      "name": "requantization",
+      "readiness": "partial",
+      "checks": [
+        "rtl.requant",
+        "host.npu",
+        "hardware.npu_requant",
+        "synth.requant"
+      ],
+      "requires": [
+        "integrated NPU"
+      ],
+      "acceptance": [
+        "rounding, saturation and zero point match reference"
+      ],
+      "missing": [
+        "integrate and confirm model precision"
+      ]
+    },
+    {
+      "id": "npu.dot",
+      "name": "INT8 dot product",
+      "readiness": "partial",
+      "checks": [
+        "rtl.dot",
+        "host.npu",
+        "hardware.npu_dot",
+        "synth.dot"
+      ],
+      "requires": [
+        "integrated NPU",
+        "memory and job control"
+      ],
+      "acceptance": [
+        "dot vectors and overflow behavior match reference"
+      ],
+      "missing": [
+        "integrate and measure full execution"
+      ]
+    },
+    {
+      "id": "npu.a",
+      "name": "NPU A general model",
+      "readiness": "planned",
+      "checks": [
+        "hardware.npu_a"
+      ],
+      "requires": [
+        "DDR3 weights",
+        "host job interface",
+        "NPU engine"
+      ],
+      "acceptance": [
+        "CPU and FPGA use same model and inputs; compare output, latency and resource usage"
+      ],
+      "missing": [
+        "define job ABI and integrate engine"
+      ]
+    },
+    {
+      "id": "npu.b",
+      "name": "NPU B model-specific sequencer",
+      "readiness": "planned",
+      "checks": [
+        "hardware.npu_b"
+      ],
+      "requires": [
+        "DDR3 weights",
+        "weight image loading",
+        "model sequencer"
+      ],
+      "acceptance": [
+        "model output and end-to-end latency compared to CPU; weight integrity verified"
+      ],
+      "missing": [
+        "define sequencer and weight format, validate flash access"
+      ]
+    },
+    {
+      "id": "npu.c",
+      "name": "NPU C embedded weights",
+      "readiness": "planned",
+      "checks": [
+        "hardware.npu_c"
+      ],
+      "requires": [
+        "model-specific RTL and BSRAM budget"
+      ],
+      "acceptance": [
+        "bitstream weights and model output match reference; resource/timing measured"
+      ],
+      "missing": [
+        "select fitting model and synthesize"
+      ]
+    },
+    {
+      "id": "npu.precision",
+      "name": "quantization and model precision",
+      "readiness": "planned",
+      "checks": [
+        "hardware.npu_precision"
+      ],
+      "requires": [
+        "reference dataset and model",
+        "CPU baseline",
+        "NPU implementations"
+      ],
+      "acceptance": [
+        "record INT8 and candidate 4/2-bit accuracy versus FP32 using identical dataset"
+      ],
+      "missing": [
+        "establish precision thresholds and model evaluation"
+      ]
+    },
+    {
+      "id": "host.espidf",
+      "name": "ESP-IDF host transport and display",
+      "readiness": "partial",
+      "checks": [
+        "host.codec",
+        "hardware.host_espidf"
+      ],
+      "requires": [
+        "Tab5 and Dock",
+        "verified profile"
+      ],
+      "acceptance": [
+        "physical link and full readback/LCD pass with firmware and image hashes"
+      ],
+      "missing": [
+        "hardware test and future ABI integration"
+      ]
+    },
+    {
+      "id": "host.meos",
+      "name": "MeOS host transport and display",
+      "readiness": "partial",
+      "checks": [
+        "hardware.host_meos"
+      ],
+      "requires": [
+        "MeOS build with IO ownership",
+        "Tab5 and Dock"
+      ],
+      "acceptance": [
+        "exclusive ownership, cancellation, cleanup and readback verified on hardware"
+      ],
+      "missing": [
+        "validate uncommitted GPIO/GFX implementation physically"
+      ]
+    },
+    {
+      "id": "host.linux",
+      "name": "NOMMU Linux host transport",
+      "readiness": "planned",
+      "checks": [
+        "hardware.host_linux"
+      ],
+      "requires": [
+        "Linux GPIO/transport driver",
+        "Tab5 and Dock"
+      ],
+      "acceptance": [
+        "exclusive GPIO ownership, timeout and frame readback pass on target"
+      ],
+      "missing": [
+        "implement FPGA physical transport; integrate host API"
+      ]
+    },
+    {
+      "id": "link.parlio_dma",
+      "name": "PARLIO DMA transport",
+      "readiness": "planned",
+      "checks": [
+        "hardware.parlio_dma"
+      ],
+      "requires": [
+        "validated bus timing and GPIO",
+        "DMA-compatible OS backend"
+      ],
+      "acceptance": [
+        "CRC, cancellation, direction turnaround and sustained rates verified per host"
+      ],
+      "missing": [
+        "define protocol and prove bidirectional hardware feasibility"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "repository": "carrier",
+      "path": "D:\\GitHub\\tab5-tang-primer20k-carrier",
+      "commit": "e5a386d263d8911a490922cc2770292699a87080",
+      "files": [
+        {
+          "path": "docs/FPGAデバイス構成_ビットストリームと機能.md",
+          "sha256": "939bbaa91223d8f8dee239dd645cba00a0e7bb3c8320502328b8cc3181a20142"
+        },
+        {
+          "path": "fpga/link/DOCK_GFX_V0.md",
+          "sha256": "6b6cbc2eca820e204ec40151c37cdc7a934e14b6647ec4ea15c739ecfd8982bb"
+        }
+      ]
+    },
+    {
+      "repository": "esp-idf",
+      "path": "D:\\github\\airpocket-soundman\\tab5-fpga-gpu",
+      "commit": "d4d89e308b4a8aa799199b20e7d47c96b536e3fd",
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "fd449b060798314a23457a78708242c499ce571af88662a9019485a56637125f"
+        },
+        {
+          "path": "docs/Project_B_Tab5_FPGA_GPU.md",
+          "sha256": "f5eb5a3d43a6a943ae740585074f223adf71ec74cad3928dc123486ebe1dd8d7"
+        },
+        {
+          "path": "bringup/tab5/main/main.c",
+          "sha256": "45bb9eddd824bb8300e47ac6747cd66cd5bfe1f2a07d97f8918bdd17d92a5444"
+        },
+        {
+          "path": "bringup/tab5/main/gfx_lcd.c",
+          "sha256": "9687e90d3668b465fe1420bdb72bfd0e58828c2cf4fe2ec5270b1dbf8ab75814"
+        }
+      ]
+    },
+    {
+      "repository": "linux",
+      "path": "D:\\GitHub\\tab5-linux-fpga",
+      "commit": "e599ec9e1c2b4eaadc6d493f2034ef748f1b26a3",
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "d2fb9a6a045ebe64a15b66a251cadbd14ab03ec0e166da2931ced18b3ded0288"
+        },
+        {
+          "path": "docs/DEVELOPMENT_GOALS.md",
+          "sha256": "887a6d1b9a50d61f54bfa5a9a760e1e68f2736de394c0838c7e3b985458900cc"
+        },
+        {
+          "path": "linux/dts/tab5-overrides.dtsi",
+          "sha256": "afa49e031cace24b71329ec08a49621e143410204821449bd23626762d2030a7"
+        },
+        {
+          "path": "linux/buildroot-external/package/tab5-tools/src/tab5-gpio.c",
+          "sha256": "74e0dfa2db2db1ead820ecd2e2abdbacc6d7e24a68ba3ae4f6f72d80c5fff3e9"
+        }
+      ]
+    },
+    {
+      "repository": "meos",
+      "path": "D:\\GitHub\\tab5-meos-fpga",
+      "commit": "760779313191a33f660c7b025d2a132d5b6d9382",
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "815d22446a7fdb2ed8513b4dc7831b35e43a3c24ae27aa1d5ea8ad6bb44014a7"
+        },
+        {
+          "path": "docs/FPGA_CARRIER_REQUIREMENTS.md",
+          "sha256": "7501dc0e92afba407e125494d02ac4fdb04d0913eebe4a628a98b7a2dd8a9779"
+        },
+        {
+          "path": "drivers/fpga/fpga_link.c",
+          "sha256": "652b79569e2a7b3b3b75926252c0aa9044a96ff7224356aa961cab4d64d9b0af"
+        },
+        {
+          "path": "drivers/fpga/fpga_gpio.c",
+          "sha256": "ccc3a49505609cdf5e3c4721aaf662cdae27d4da7e052587e0db311a7f3c6e90"
+        },
+        {
+          "path": "drivers/fpga/fpga_gfx.c",
+          "sha256": "5f7dbd7e00533612f5266b5a9406a5c155925ff19dda5b05a3b8d923c873783c"
+        }
+      ]
+    },
+    {
+      "repository": "memory-research",
+      "path": "D:\\GitHub\\esp32p4-linux-fpga-memory",
+      "commit": "e4aa69d09b2643d6f62fe686ef0f3284b109c541",
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "ea65f2d3a931881633fbfdc271a9aa1cb6855bcba5a1364f22cb41edd23e66a9"
+        },
+        {
+          "path": "docs/Project_A_P4_Linux_FPGA_Virtual_MMU.md",
+          "sha256": "f1f7de8e0734efc1ce3a582b521a250543dbd20a449e9af93061274ceb7e99da"
+        }
+      ]
+    }
+  ]
+}

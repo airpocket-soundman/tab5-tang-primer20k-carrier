@@ -42,5 +42,10 @@ If a Verilog simulator is available, compile `int8_mac_lane.v` and the generated
 every state and handshake against the Python reference-derived cycle vectors,
 including reset, stalls, empty jobs, signed extrema, both overflow directions,
 and error recovery. Host vector checks do **not** prove RTL simulation passed.
-No simulator is installed for this prototype; simulation and synthesis remain
-unexecuted. No clock frequency, device utilization, or speedup is claimed.
+2026-10-28: MAC, requantizer and dot-job RTL simulations passed, and each
+component synthesized for GW2A. Component synthesis excludes I/O pads and does
+not perform placement, routing, timing or board integration. These components
+are not yet a host-accessible NPU bitstream or a model graph executor.
+Use `python fpga/tools/test_features.py --rtl --synth` from the repository root;
+see [all-feature test plan](../../../docs/全機能テスト計画.md). No measured clock,
+device fit or speedup is claimed.
