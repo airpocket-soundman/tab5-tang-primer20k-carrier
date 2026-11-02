@@ -94,9 +94,9 @@ for j,(header,nets) in enumerate(dock_pins.items()):
 detail += [text(35,1270,'紫：AUX（今回未接続で可） / 緑：通信 / 灰：GND・未使用 / 赤：3.3V（接続禁止）',18),'</g></svg>']
 (ROOT/'site/img/dock-header-pinout.svg').write_text('\n'.join(detail),encoding='utf-8', newline='\n')
 # Photo orientation is corroborated by the official 3709 iBOM pin1 pads.
-layout = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1110" role="img" aria-labelledby="pt pd">',
+layout = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1180" role="img" aria-labelledby="pt pd">',
           '<title id="pt">旧版Dock写真上の1番ピン</title><desc id="pd">部品面、USB下。J5、J12、J14は左下が1番。上段偶数、下段奇数で左から右へ増える。公式3709配置データを根拠とし、3713や3714の実物確認とは区別する。</desc>',
-          '<rect width="1200" height="1110" fill="#f4f7fb"/><g font-family="Yu Gothic,Meiryo,sans-serif">',
+          '<rect width="1200" height="1180" fill="#f4f7fb"/><g font-family="Yu Gothic,Meiryo,sans-serif">',
           text(30,42,'掲載写真の1番は、各ヘッダの左下',28),
           text(30,77,'部品面・USB端子を下。公式3709 iBOMのpin1座標と写真の信号シルクを照合。',18),
           f'<image x="180" y="100" width="840" height="635.25" href="data:image/png;base64,{photo}"/>']
@@ -112,10 +112,20 @@ for j,name in enumerate(['J5','J12','J14']):
     for col in range(6):
         for row in range(2):
             n=col*2+(2 if row==0 else 1);x=x0+col*52;y=885+row*48
-            layout += [f'<rect x="{x}" y="{y}" width="40" height="36" rx="{0 if n==1 else 8}" fill="{"#bd2417" if n==1 else "#19324a"}"/>',text(x+20,y+25,str(n),21,'white','text-anchor="middle"')]
+            signal = assigned.get(f'{name}-{n}')
+            used = signal is not None and not signal[0].startswith('AUX')
+            ground = n in (3,4)
+            fill = '#137a62' if used else '#2563eb' if ground else '#bd2417' if n in (1,2) else '#b8c2ce'
+            layout += [f'<rect x="{x}" y="{y}" width="40" height="36" rx="{0 if n==1 else 8}" fill="{fill}"/>',text(x+20,y+25,str(n),21,'white','text-anchor="middle"')]
+            if used or ground:
+                layout += [f'<rect x="{x-3}" y="{y-3}" width="46" height="42" rx="9" fill="none" stroke="{fill}" stroke-width="2"/>',
+                           text(x+39,y+7,'●' if used else '◆',11,'#102a43')]
+
     layout += [text(x0,1005,'下：Core・USB側',16)]
-layout += [text(40,1050,'旧版写真のJ5：1/2＝3V3、3/4＝GND。3713系回路図のJ5は電源が逆。',20,'#ad3c16'),
-           text(40,1085,'この番号方向は掲載写真・3709資料についての特定。手元の3713/3714は版と電源を照合。',18),'</g></svg>']
+layout += [text(40,1040,'● 緑：使う信号11本 / ◆ 青：GND候補（3・4のどちらか、各ヘッダに1本以上）',19),
+           text(40,1072,'赤：電源・接続禁止 / 灰：今回未使用（AUXを含む）。GNDは合計3本以上。',18),
+           text(40,1110,'旧版写真のJ5：1/2＝3V3、3/4＝GND。3713系回路図のJ5は電源が逆。',20,'#ad3c16'),
+           text(40,1145,'この番号方向は掲載写真・3709資料についての特定。手元の3713/3714は版と電源を照合。',18),'</g></svg>']
 (ROOT/'site/img/dock-photo-pin1.svg').write_text('\n'.join(layout),encoding='utf-8',newline='\n')
 
 table=''.join('<tr>'+''.join('<td>'+html.escape(c.replace('**',''))+'</td>' for c in r)+'</tr>' for r in rows)
