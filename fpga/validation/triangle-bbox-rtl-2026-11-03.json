@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-03",
+  "scope": "PC-only bounded traversal verification; hardware performance separately measured",
+  "hardware_access": false,
+  "previous_programmed_fs_sha256": "8d683ddd297b6bd2dbc9d7fa3014f2e37aeb7a4ee90df08ddf47a5bce2ab4ee2",
+  "changes": "Signed floor of vertex bounds, clip to0..31 before address narrowing; stop degenerate after first sample; command/CRC/pixel semantics unchanged",
+  "tests": {
+    "bounding_box": {
+      "passed": true,
+      "triangles": 32,
+      "wire_transactions": 2432,
+      "color_depth_pixels": 65536,
+      "candidate_upper_bound_sum": 1166,
+      "previous_full_tile_candidates": 32768
+    },
+    "old_scalar_triangles": {
+      "passed": true,
+      "wire_transactions": 10334
+    },
+    "old_triangle_rows": {
+      "passed": true,
+      "wire_transactions": 410
+    },
+    "fractal_regression": {
+      "passed": true,
+      "wire_transactions": 413,
+      "color_depth_pixels": 10240
+    }
+  },
+  "source_sha256": {
+    "fpga/gfx/rtl/triangle_tile.v": "5d3ab95c3f1cf0f9bf9b9d0235ea23bfe4e833745f4d74e3441eec1504254da5",
+    "fpga/link/rtl/link_bringup.v": "c3f7824ac40a8cd550b8514070b74e3984963c082e058cbab5e29b97f436a8bf",
+    "fpga/gfx/tests/run_triangle_bbox.py": "8f3e17086b23561ff8ac02860f6865169847962358d0965c11929abbdafa6072",
+    "fpga/gfx/tests/tb_triangle_bbox.v": "ea2753c49609eabb6cae8442c9e241ae2d5c5ec9d8e9708cf2efd4fadd13c87e"
+  },
+  "performance_claim": "Candidate reduction only; no hardware speedup claimed by this record"
+}

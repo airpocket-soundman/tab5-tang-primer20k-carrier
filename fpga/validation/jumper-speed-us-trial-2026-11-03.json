@@ -1,0 +1,2757 @@
+{
+  "schema": 1,
+  "started_utc": "2026-11-03T09:36:16.295296+00:00",
+  "port": "COM4",
+  "note": "Initial previous invocation failed before any timingpoint due bootlog prefix. This is new explicit trial after consumed log; no retry of failed wire transfer.",
+  "operator_asserted_installed_files": {
+    "firmware": {
+      "path": "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-demo\\build\\transport-idf\\tab5_link_bringup.bin",
+      "sha256": "8359e9fb8915c4cb13aa2fb54c4c444055b2f99bc3a6fdfe99a00d03b7eafcc1"
+    },
+    "bitstream": {
+      "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-triangle\\runs\\20261103T092845Z-1ce99d22e643\\output.fs",
+      "sha256": "8d683ddd297b6bd2dbc9d7fa3014f2e37aeb7a4ee90df08ddf47a5bce2ab4ee2"
+    }
+  },
+  "repo_sha": "f8e978f3127e15200942305dc6b5f2aa8bc4f937",
+  "source_sha256": {
+    "bringup\\tab5\\main\\main.c": "eebb65c7044fd455e147129a4fe109180f120b59463d68c5155ad9c04b915cec",
+    "bringup\\tab5\\main\\link_timing.h": "b8a8286e1be6928e690c3fb3b870321e188ab52a922f44e1ad44028ee04ea57b",
+    "bringup\\tab5\\main\\link_protocol.h": "6111f6c0360c783fb0276ced5680c67ea7273f12c905198ebf4edd0f8c7f3803",
+    "bringup\\tab5\\main\\triangle_row.h": "fb06f843b560dace0d2d60b12c1a0de0271b27a37caa1a9eb175d3081c3124f3",
+    "bringup\\tab5\\main\\triangle_reference.h": "76323da594b9cd1d1e3e5da32fb3c3e95f50628db21afd64cd3315500a9c7495",
+    "tools\\jumper_speed_sweep.py": "d78dd3c997b0757f3e30d08ade98e9926f92e2269a30f3e2d5bfedebd179e97d"
+  },
+  "passed": true,
+  "points": [
+    {
+      "half_us": 100,
+      "passed": true,
+      "setup_us": 100,
+      "guard_us": 200,
+      "nominal_clock_ceiling_hz": 5000.0,
+      "experimental_timing": false,
+      "trials": [
+        {
+          "repeat": 1,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 3039823,
+            "half_us": 100,
+            "setup_us": 100,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2620,
+            "setup_transfer_us": 286074,
+            "draw_roundtrip_us": 29530,
+            "readback_us": 3829878,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 100,
+            "setup_us": 100,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 5000,
+            "experimental_timing": false
+          },
+          "verified_payload_bytes_per_s": 2138.9715285969946
+        },
+        {
+          "repeat": 2,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 3039820,
+            "half_us": 100,
+            "setup_us": 100,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2645,
+            "setup_transfer_us": 286211,
+            "draw_roundtrip_us": 29530,
+            "readback_us": 3829689,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 100,
+            "setup_us": 100,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 5000,
+            "experimental_timing": false
+          },
+          "verified_payload_bytes_per_s": 2139.0770895495693
+        },
+        {
+          "repeat": 3,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 3039838,
+            "half_us": 100,
+            "setup_us": 100,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2570,
+            "setup_transfer_us": 286241,
+            "draw_roundtrip_us": 29563,
+            "readback_us": 3829745,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 100,
+            "setup_us": 100,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 5000,
+            "experimental_timing": false
+          },
+          "verified_payload_bytes_per_s": 2139.045811144084
+        }
+      ]
+    },
+    {
+      "half_us": 50,
+      "passed": true,
+      "setup_us": 50,
+      "guard_us": 200,
+      "nominal_clock_ceiling_hz": 10000.0,
+      "experimental_timing": true,
+      "trials": [
+        {
+          "repeat": 1,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 1769838,
+            "half_us": 50,
+            "setup_us": 50,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2595,
+            "setup_transfer_us": 166393,
+            "draw_roundtrip_us": 17804,
+            "readback_us": 1926100,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 50,
+            "setup_us": 50,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 10000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 4253.154041846217
+        },
+        {
+          "repeat": 2,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 1769838,
+            "half_us": 50,
+            "setup_us": 50,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2600,
+            "setup_transfer_us": 166372,
+            "draw_roundtrip_us": 17808,
+            "readback_us": 1926146,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 50,
+            "setup_us": 50,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 10000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 4253.052468504465
+        },
+        {
+          "repeat": 3,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 1769839,
+            "half_us": 50,
+            "setup_us": 50,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2599,
+            "setup_transfer_us": 166402,
+            "draw_roundtrip_us": 17803,
+            "readback_us": 1926096,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 50,
+            "setup_us": 50,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 10000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 4253.162874540002
+        }
+      ]
+    },
+    {
+      "half_us": 20,
+      "passed": true,
+      "setup_us": 20,
+      "guard_us": 200,
+      "nominal_clock_ceiling_hz": 25000.0,
+      "experimental_timing": true,
+      "trials": [
+        {
+          "repeat": 1,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 1119839,
+            "half_us": 20,
+            "setup_us": 20,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2575,
+            "setup_transfer_us": 94313,
+            "draw_roundtrip_us": 10790,
+            "readback_us": 1268125,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 20,
+            "setup_us": 20,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 25000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 6459.931000492854
+        },
+        {
+          "repeat": 2,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 1119839,
+            "half_us": 20,
+            "setup_us": 20,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2575,
+            "setup_transfer_us": 94292,
+            "draw_roundtrip_us": 10796,
+            "readback_us": 1268121,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 20,
+            "setup_us": 20,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 25000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 6459.951376879651
+        },
+        {
+          "repeat": 3,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 1119840,
+            "half_us": 20,
+            "setup_us": 20,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2575,
+            "setup_transfer_us": 94322,
+            "draw_roundtrip_us": 10792,
+            "readback_us": 1268082,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 20,
+            "setup_us": 20,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 25000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 6460.150053387714
+        }
+      ]
+    },
+    {
+      "half_us": 10,
+      "passed": true,
+      "setup_us": 10,
+      "guard_us": 200,
+      "nominal_clock_ceiling_hz": 50000.0,
+      "experimental_timing": true,
+      "trials": [
+        {
+          "repeat": 1,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 799839,
+            "half_us": 10,
+            "setup_us": 10,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2576,
+            "setup_transfer_us": 70117,
+            "draw_roundtrip_us": 8411,
+            "readback_us": 645632,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 10,
+            "setup_us": 10,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 50000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 12688.342585249802
+        },
+        {
+          "repeat": 2,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 799839,
+            "half_us": 10,
+            "setup_us": 10,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2570,
+            "setup_transfer_us": 70128,
+            "draw_roundtrip_us": 8411,
+            "readback_us": 645632,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 10,
+            "setup_us": 10,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 50000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 12688.342585249802
+        },
+        {
+          "repeat": 3,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 799840,
+            "half_us": 10,
+            "setup_us": 10,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2575,
+            "setup_transfer_us": 70125,
+            "draw_roundtrip_us": 8413,
+            "readback_us": 645613,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 10,
+            "setup_us": 10,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 50000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 12688.715995495753
+        }
+      ]
+    },
+    {
+      "half_us": 5,
+      "passed": true,
+      "setup_us": 5,
+      "guard_us": 200,
+      "nominal_clock_ceiling_hz": 100000.0,
+      "experimental_timing": true,
+      "trials": [
+        {
+          "repeat": 1,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 639838,
+            "half_us": 5,
+            "setup_us": 5,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2571,
+            "setup_transfer_us": 58118,
+            "draw_roundtrip_us": 7251,
+            "readback_us": 639297,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 5,
+            "setup_us": 5,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 100000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 12814.075461014208
+        },
+        {
+          "repeat": 2,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 639838,
+            "half_us": 5,
+            "setup_us": 5,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2572,
+            "setup_transfer_us": 58149,
+            "draw_roundtrip_us": 7245,
+            "readback_us": 639298,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 5,
+            "setup_us": 5,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 100000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 12814.05541703556
+        },
+        {
+          "repeat": 3,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 639839,
+            "half_us": 5,
+            "setup_us": 5,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2572,
+            "setup_transfer_us": 58126,
+            "draw_roundtrip_us": 7254,
+            "readback_us": 639290,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 5,
+            "setup_us": 5,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 100000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 12814.215770620533
+        }
+      ]
+    },
+    {
+      "half_us": 2,
+      "passed": true,
+      "setup_us": 2,
+      "guard_us": 200,
+      "nominal_clock_ceiling_hz": 250000.0,
+      "experimental_timing": true,
+      "trials": [
+        {
+          "repeat": 1,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 639838,
+            "half_us": 2,
+            "setup_us": 2,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2573,
+            "setup_transfer_us": 51014,
+            "draw_roundtrip_us": 6542,
+            "readback_us": 637417,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 2,
+            "setup_us": 2,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 250000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 12851.869341420137
+        },
+        {
+          "repeat": 2,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 639838,
+            "half_us": 2,
+            "setup_us": 2,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2573,
+            "setup_transfer_us": 50993,
+            "draw_roundtrip_us": 6544,
+            "readback_us": 637418,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 2,
+            "setup_us": 2,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 250000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 12851.849179031657
+        },
+        {
+          "repeat": 3,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 639838,
+            "half_us": 2,
+            "setup_us": 2,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2572,
+            "setup_transfer_us": 50983,
+            "draw_roundtrip_us": 6545,
+            "readback_us": 637412,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 2,
+            "setup_us": 2,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 250000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 12851.970154311497
+        }
+      ]
+    },
+    {
+      "half_us": 1,
+      "passed": true,
+      "setup_us": 1,
+      "guard_us": 200,
+      "nominal_clock_ceiling_hz": 500000.0,
+      "experimental_timing": true,
+      "trials": [
+        {
+          "repeat": 1,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 639838,
+            "half_us": 1,
+            "setup_us": 1,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2569,
+            "setup_transfer_us": 48479,
+            "draw_roundtrip_us": 6311,
+            "readback_us": 630239,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 1,
+            "setup_us": 1,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 500000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 12998.243523488709
+        },
+        {
+          "repeat": 2,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 639837,
+            "half_us": 1,
+            "setup_us": 1,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2571,
+            "setup_transfer_us": 48468,
+            "draw_roundtrip_us": 6310,
+            "readback_us": 630231,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 1,
+            "setup_us": 1,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 500000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 12998.408520050585
+        },
+        {
+          "repeat": 3,
+          "link": {
+            "suite_pass": true,
+            "armed": false,
+            "exchanges": 513,
+            "elapsed_us": 639840,
+            "half_us": 1,
+            "setup_us": 1,
+            "guard_us": 200
+          },
+          "triangle": {
+            "triangle_pass": true,
+            "readback_mode": "row32",
+            "draws": 5,
+            "cpu_reference_us": 2570,
+            "setup_transfer_us": 48484,
+            "draw_roundtrip_us": 6309,
+            "readback_us": 630239,
+            "lcd_submitted": true,
+            "speedup_claimed": false
+          },
+          "status": {
+            "armed": false,
+            "profile": "dock-jumper-v0",
+            "verified": true,
+            "triangle_available": true,
+            "triangle_bulk_available": true,
+            "half_us": 1,
+            "setup_us": 1,
+            "guard_us": 200,
+            "nominal_clock_ceiling_hz": 500000,
+            "experimental_timing": true
+          },
+          "verified_payload_bytes_per_s": 12998.243523488709
+        }
+      ]
+    }
+  ],
+  "trace": [
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 100,
+          "setup_us": 100,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 5000,
+          "experimental_timing": false
+        }
+      ],
+      "elapsed_host_s": 0.030999999959021807
+    },
+    {
+      "command": "disarm",
+      "responses": [
+        {
+          "armed": false
+        }
+      ],
+      "elapsed_host_s": 0.01600000000325963
+    },
+    {
+      "command": "timing 100 100 200",
+      "responses": [
+        {
+          "timing_set": true,
+          "half_us": 100,
+          "setup_us": 100,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.015000000013969839
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.18800000002374873
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 3039823,
+          "half_us": 100,
+          "setup_us": 100,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 3.0469999999622814
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.18700000003445894
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "console": "I (91328) LVGL: Starting LVGL task"
+        },
+        {
+          "console": "I (91828) M5Stack Tab5: Discovered board version 2 (LCD ST7123, Touch ST7123, FW 3)"
+        },
+        {
+          "console": "I (91828) M5Stack Tab5: MIPI DSI PHY Powered on"
+        },
+        {
+          "console": "I (91828) M5Stack Tab5: Install MIPI DSI LCD control panel"
+        },
+        {
+          "console": "I (91828) st7123: version: 1.0.2"
+        },
+        {
+          "console": "W (91968) st7123: The 36h command has been used and will be overwritten by external initialization sequence"
+        },
+        {
+          "console": "I (92138) M5Stack Tab5: Display initialized with resolution 720x1280"
+        },
+        {
+          "console": "I (92138) ST7123: Firmware version: 3(1.71.1.3), Max.X: 720, Max.Y: 1280, Max.Touchs: 10"
+        },
+        {
+          "console": "I (92138) ST7123: Touch panel create success, version: 1.0.2"
+        },
+        {
+          "console": "I (92138) M5Stack Tab5: Setting LCD backlight: 100%"
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2620,
+          "setup_transfer_us": 286074,
+          "draw_roundtrip_us": 29530,
+          "readback_us": 3829878,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 5.10999999998603
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 100,
+          "setup_us": 100,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 5000,
+          "experimental_timing": false
+        }
+      ],
+      "elapsed_host_s": 0.015000000013969839
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.17199999996228144
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 3039820,
+          "half_us": 100,
+          "setup_us": 100,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 3.0630000000237487
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.17099999997299165
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2645,
+          "setup_transfer_us": 286211,
+          "draw_roundtrip_us": 29530,
+          "readback_us": 3829689,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 4.26600000000326
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 100,
+          "setup_us": 100,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 5000,
+          "experimental_timing": false
+        }
+      ],
+      "elapsed_host_s": 0.01600000000325963
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.1720000000204891
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 3039838,
+          "half_us": 100,
+          "setup_us": 100,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 3.0619999999762513
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.1720000000204891
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2570,
+          "setup_transfer_us": 286241,
+          "draw_roundtrip_us": 29563,
+          "readback_us": 3829745,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 4.26600000000326
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 100,
+          "setup_us": 100,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 5000,
+          "experimental_timing": false
+        }
+      ],
+      "elapsed_host_s": 0.015000000013969839
+    },
+    {
+      "command": "disarm",
+      "responses": [
+        {
+          "armed": false
+        }
+      ],
+      "elapsed_host_s": 0.01600000000325963
+    },
+    {
+      "command": "timing 50 50 200",
+      "responses": [
+        {
+          "timing_set": true,
+          "half_us": 50,
+          "setup_us": 50,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.014999999955762178
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.18800000002374873
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 1769838,
+          "half_us": 50,
+          "setup_us": 50,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 1.7810000000172295
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.18799999996554106
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2595,
+          "setup_transfer_us": 166393,
+          "draw_roundtrip_us": 17804,
+          "readback_us": 1926100,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 2.2179999999934807
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 50,
+          "setup_us": 50,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 10000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.01600000000325963
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.1720000000204891
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 1769838,
+          "half_us": 50,
+          "setup_us": 50,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 1.797000000020489
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.17199999996228144
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2600,
+          "setup_transfer_us": 166372,
+          "draw_roundtrip_us": 17808,
+          "readback_us": 1926146,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 2.2179999999934807
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 50,
+          "setup_us": 50,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 10000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.01600000000325963
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.1720000000204891
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 1769839,
+          "half_us": 50,
+          "setup_us": 50,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 1.797000000020489
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.18699999997625127
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2599,
+          "setup_transfer_us": 166402,
+          "draw_roundtrip_us": 17803,
+          "readback_us": 1926096,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 2.202999999979511
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 50,
+          "setup_us": 50,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 10000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.03200000000651926
+    },
+    {
+      "command": "disarm",
+      "responses": [
+        {
+          "armed": false
+        }
+      ],
+      "elapsed_host_s": 0.015000000013969839
+    },
+    {
+      "command": "timing 20 20 200",
+      "responses": [
+        {
+          "timing_set": true,
+          "half_us": 20,
+          "setup_us": 20,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.01600000000325963
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.1720000000204891
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 1119839,
+          "half_us": 20,
+          "setup_us": 20,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 1.1399999999557622
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.18800000002374873
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2575,
+          "setup_transfer_us": 94313,
+          "draw_roundtrip_us": 10790,
+          "readback_us": 1268125,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 1.4689999999827705
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 20,
+          "setup_us": 20,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 25000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.015000000013969839
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.18800000002374873
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 1119839,
+          "half_us": 20,
+          "setup_us": 20,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 1.1399999999557622
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.1720000000204891
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2575,
+          "setup_transfer_us": 94292,
+          "draw_roundtrip_us": 10796,
+          "readback_us": 1268121,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 1.4689999999827705
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 20,
+          "setup_us": 20,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 25000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.031000000017229468
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.1720000000204891
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 1119840,
+          "half_us": 20,
+          "setup_us": 20,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 1.1410000000032596
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.17199999996228144
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2575,
+          "setup_transfer_us": 94322,
+          "draw_roundtrip_us": 10792,
+          "readback_us": 1268082,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 1.4839999999967404
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 20,
+          "setup_us": 20,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 25000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.01600000000325963
+    },
+    {
+      "command": "disarm",
+      "responses": [
+        {
+          "armed": false
+        }
+      ],
+      "elapsed_host_s": 0.015000000013969839
+    },
+    {
+      "command": "timing 10 10 200",
+      "responses": [
+        {
+          "timing_set": true,
+          "half_us": 10,
+          "setup_us": 10,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.01600000000325963
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.18699999997625127
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 799839,
+          "half_us": 10,
+          "setup_us": 10,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.8130000000237487
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.18699999997625127
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2576,
+          "setup_transfer_us": 70117,
+          "draw_roundtrip_us": 8411,
+          "readback_us": 645632,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 0.8290000000270084
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 10,
+          "setup_us": 10,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 50000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.015000000013969839
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.17199999996228144
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 799839,
+          "half_us": 10,
+          "setup_us": 10,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.8280000000377186
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.17199999996228144
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2570,
+          "setup_transfer_us": 70128,
+          "draw_roundtrip_us": 8411,
+          "readback_us": 645632,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 0.8280000000377186
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 10,
+          "setup_us": 10,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 50000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.01600000000325963
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.17199999996228144
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 799840,
+          "half_us": 10,
+          "setup_us": 10,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.8280000000377186
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.17199999996228144
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2575,
+          "setup_transfer_us": 70125,
+          "draw_roundtrip_us": 8413,
+          "readback_us": 645613,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 0.8280000000377186
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 10,
+          "setup_us": 10,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 50000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.014999999955762178
+    },
+    {
+      "command": "disarm",
+      "responses": [
+        {
+          "armed": false
+        }
+      ],
+      "elapsed_host_s": 0.03200000000651926
+    },
+    {
+      "command": "timing 5 5 200",
+      "responses": [
+        {
+          "timing_set": true,
+          "half_us": 5,
+          "setup_us": 5,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.015000000013969839
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.1720000000204891
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 639838,
+          "half_us": 5,
+          "setup_us": 5,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.6719999999622814
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.1720000000204891
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2571,
+          "setup_transfer_us": 58118,
+          "draw_roundtrip_us": 7251,
+          "readback_us": 639297,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 0.7970000000204891
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 5,
+          "setup_us": 5,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 100000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.030999999959021807
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.1720000000204891
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 639838,
+          "half_us": 5,
+          "setup_us": 5,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.6560000000172295
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.18799999996554106
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2572,
+          "setup_transfer_us": 58149,
+          "draw_roundtrip_us": 7245,
+          "readback_us": 639298,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 0.7970000000204891
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 5,
+          "setup_us": 5,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 100000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.015000000013969839
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.18799999996554106
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 639839,
+          "half_us": 5,
+          "setup_us": 5,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.6560000000172295
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.18699999997625127
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2572,
+          "setup_transfer_us": 58126,
+          "draw_roundtrip_us": 7254,
+          "readback_us": 639290,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 0.7970000000204891
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 5,
+          "setup_us": 5,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 100000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.01600000000325963
+    },
+    {
+      "command": "disarm",
+      "responses": [
+        {
+          "armed": false
+        }
+      ],
+      "elapsed_host_s": 0.01600000000325963
+    },
+    {
+      "command": "timing 2 2 200",
+      "responses": [
+        {
+          "timing_set": true,
+          "half_us": 2,
+          "setup_us": 2,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.031000000017229468
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.17199999996228144
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 639838,
+          "half_us": 2,
+          "setup_us": 2,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.6560000000172295
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.18699999997625127
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2573,
+          "setup_transfer_us": 51014,
+          "draw_roundtrip_us": 6542,
+          "readback_us": 637417,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 0.7970000000204891
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 2,
+          "setup_us": 2,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 250000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.01600000000325963
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.1720000000204891
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 639838,
+          "half_us": 2,
+          "setup_us": 2,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.6719999999622814
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.1720000000204891
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2573,
+          "setup_transfer_us": 50993,
+          "draw_roundtrip_us": 6544,
+          "readback_us": 637418,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 0.7959999999729916
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 2,
+          "setup_us": 2,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 250000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.01600000000325963
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.1720000000204891
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 639838,
+          "half_us": 2,
+          "setup_us": 2,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.6720000000204891
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.17199999996228144
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2572,
+          "setup_transfer_us": 50983,
+          "draw_roundtrip_us": 6545,
+          "readback_us": 637412,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 0.7970000000204891
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 2,
+          "setup_us": 2,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 250000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.015000000013969839
+    },
+    {
+      "command": "disarm",
+      "responses": [
+        {
+          "armed": false
+        }
+      ],
+      "elapsed_host_s": 0.0
+    },
+    {
+      "command": "timing 1 1 200",
+      "responses": [
+        {
+          "timing_set": true,
+          "half_us": 1,
+          "setup_us": 1,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.030999999959021807
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.1720000000204891
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 639838,
+          "half_us": 1,
+          "setup_us": 1,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.6560000000172295
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.18799999996554106
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2569,
+          "setup_transfer_us": 48479,
+          "draw_roundtrip_us": 6311,
+          "readback_us": 630239,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 0.7810000000172295
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 1,
+          "setup_us": 1,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 500000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.01600000000325963
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.17099999997299165
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 639837,
+          "half_us": 1,
+          "setup_us": 1,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.6720000000204891
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.1720000000204891
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2571,
+          "setup_transfer_us": 48468,
+          "draw_roundtrip_us": 6310,
+          "readback_us": 630231,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 0.7809999999590218
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 1,
+          "setup_us": 1,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 500000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.03200000000651926
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.1720000000204891
+    },
+    {
+      "command": "test-quiet",
+      "responses": [
+        {
+          "suite_pass": true,
+          "armed": false,
+          "exchanges": 513,
+          "elapsed_us": 639840,
+          "half_us": 1,
+          "setup_us": 1,
+          "guard_us": 200
+        }
+      ],
+      "elapsed_host_s": 0.6560000000172295
+    },
+    {
+      "command": "arm dock-jumper-v0",
+      "responses": [
+        {
+          "armed": true
+        }
+      ],
+      "elapsed_host_s": 0.18699999997625127
+    },
+    {
+      "command": "triangle-bulk",
+      "responses": [
+        {
+          "triangle_stage_pass": true,
+          "draw": 0,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_stage_pass": true,
+          "draw": 4,
+          "color_pixels": 1024,
+          "depth_pixels": 1024
+        },
+        {
+          "triangle_pass": true,
+          "readback_mode": "row32",
+          "draws": 5,
+          "cpu_reference_us": 2570,
+          "setup_transfer_us": 48484,
+          "draw_roundtrip_us": 6309,
+          "readback_us": 630239,
+          "lcd_submitted": true,
+          "speedup_claimed": false
+        }
+      ],
+      "elapsed_host_s": 0.7820000000065193
+    },
+    {
+      "command": "status",
+      "responses": [
+        {
+          "armed": false,
+          "profile": "dock-jumper-v0",
+          "verified": true,
+          "triangle_available": true,
+          "triangle_bulk_available": true,
+          "half_us": 1,
+          "setup_us": 1,
+          "guard_us": 200,
+          "nominal_clock_ceiling_hz": 500000,
+          "experimental_timing": true
+        }
+      ],
+      "elapsed_host_s": 0.015000000013969839
+    },
+    {
+      "command": "disarm",
+      "responses": [
+        {
+          "armed": false
+        }
+      ],
+      "elapsed_host_s": 0.01600000000325963
+    }
+  ],
+  "scope": "Observed CRC and color/depth correctness for this wiring and these samples. Nominal clock is a delay setting, not an oscilloscope measurement. No electrical or absolute maximum guarantee.",
+  "initial_status": {
+    "armed": false,
+    "profile": "dock-jumper-v0",
+    "verified": true,
+    "triangle_available": true,
+    "triangle_bulk_available": true,
+    "half_us": 100,
+    "setup_us": 100,
+    "guard_us": 200,
+    "nominal_clock_ceiling_hz": 5000,
+    "experimental_timing": false
+  },
+  "final_disarm": {
+    "armed": false
+  },
+  "finished_utc": "2026-11-03T09:37:25.207692+00:00"
+}

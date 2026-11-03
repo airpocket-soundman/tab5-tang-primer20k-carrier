@@ -1,0 +1,74 @@
+{
+  "date": "2026-11-03",
+  "hardware_access": false,
+  "palette": {
+    "legacy_modes": [
+      0,
+      1
+    ],
+    "vivid_modes": [
+      2,
+      3
+    ],
+    "interior_rgb565": "0000",
+    "index": "iterations &31",
+    "rgb565": [
+      "000a",
+      "0010",
+      "0018",
+      "011f",
+      "031f",
+      "051f",
+      "071f",
+      "07ff",
+      "47fc",
+      "87f4",
+      "c7ec",
+      "f7e4",
+      "ffe0",
+      "ff00",
+      "fe00",
+      "fd00",
+      "fc00",
+      "fb00",
+      "fa00",
+      "f880",
+      "f800",
+      "f808",
+      "f810",
+      "f818",
+      "f81f",
+      "d01f",
+      "a01f",
+      "701f",
+      "501c",
+      "3016",
+      "1810",
+      "080c"
+    ]
+  },
+  "capabilities": {
+    "27MHz_INFO": "0117",
+    "54MHz_INFO_planned": "021f",
+    "required_palette_flag": "10"
+  },
+  "tests": {
+    "host_unittest_passed": 12,
+    "C_pixel_tiles": 34,
+    "legacy_pixel_SHA256_goldens_unchanged": 5,
+    "RTL_palette_LUT_entries": 32,
+    "RTL_fractal_wire_transactions": 991,
+    "RTL_fractal_color_depth_pixels": 24576,
+    "RTL_legacy_ROW": 410,
+    "RTL_legacy_bbox": 2432,
+    "RTL_legacy_scalar": 10334,
+    "RTL_sync_tile": 196
+  },
+  "synthesis_and_resources": "not_run_source_has_no_new_multiply",
+  "source_sha256": {
+    "fpga/gfx/rtl/triangle_tile.v": "699933ca5fdaac85f8507330121cc134bbdf021ffc1879882e71229c92979e12",
+    "fpga/host/fractal_reference.h": "102bbc1ebc3febf0b7d4d6391e4a4fbefda92584ff40de6a8eded7403db84710",
+    "fpga/host/link_protocol.h": "bd2d3cf6e53caafe417ba6f007679af0d785b182f4f62866426b3e9e101e7177",
+    "fpga/reference/triangle_tile.py": "e51b5698bbea84eba7f05666752334599c71bc599535018ee48c9eedb41842b4"
+  }
+}

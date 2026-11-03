@@ -4,6 +4,33 @@ from reference.game_gpu_reference import Frame, Vertex
 
 INFO, CLEAR, DRAW, READ_COLOR, READ_DEPTH = 0x20, 0x2b, 0x2c, 0x2d, 0x2e
 ROW = 0x2f
+FRACTAL_INFO, FRACTAL_DRAW = 0x30, 0x38
+
+
+VIVID_PALETTE=(10, 16, 24, 287, 799, 1311, 1823, 2047, 18428, 34804, 51180, 63460, 65504, 65280, 65024, 64768, 64512, 64256, 64000, 63616, 63488, 63496, 63504, 63512, 63519, 53279, 40991, 28703, 20508, 12310, 6160, 2060)
+
+
+def fractal_sample(params, x, y):
+    def signed(v): return v if v<32768 else v-65536
+    px=signed(params[0])+x*params[2]
+    py=signed(params[1])+y*params[3]
+    limit, mode=params[6]&255, params[6]>>8
+    zx,zy=(px,py) if mode&1 else (0,0)
+    cx,cy=(signed(params[4]),signed(params[5])) if mode&1 else (px,py)
+    iterations=0
+    while zx*zx+zy*zy<4*4096*4096 and iterations<limit:
+        zx,zy=((zx*zx-zy*zy)//4096+cx, (2*zx*zy)//4096+cy)
+        iterations+=1
+    if iterations==limit: return (0 if mode&2 else 0x0042),iterations
+    if mode&2: return VIVID_PALETTE[iterations&31],iterations
+    n=iterations*3
+    r,g,b=32+(n*9%224),60+(n*5%196),100+(n*3%156)
+    return ((r&248)<<8)|((g&252)<<3)|(b>>3),iterations
+
+
+def fractal_pixel(params,x,y):
+    return fractal_sample(params,x,y)[0]
+
 
 
 class TriangleTile:
@@ -12,6 +39,8 @@ class TriangleTile:
 
     def abort(self):
         self.params = {}
+        self.fractal_params = {}
+        self.fractal_cycles = 0
         self.frame = None
 
     def exchange(self, frame):
@@ -30,6 +59,34 @@ class TriangleTile:
             self.frame = Frame(32, 32)
             self.frame.clear(value, 0)
             value = 0
+        elif op == FRACTAL_INFO:
+            value=0x0117
+        elif 0x31 <= op <= 0x36:
+            self.fractal_params[op-0x31]=value
+        elif op == 0x37:
+            if not 1<=a<=128 or b>3: status,value=3,0
+            else: self.fractal_params[6]=value
+        elif op in (0x39,0x3a):
+            value=0
+            if a or b: status=3
+            elif not self.fractal_cycles: status=5
+            else: value=(self.fractal_cycles>>(16*(op-0x39)))&65535
+        elif op == FRACTAL_DRAW:
+            value=0
+            if a or b: status=3
+            elif len(self.fractal_params)!=7: status=5
+            else:
+                params=self.fractal_params
+                def signed(v): return v if v<32768 else v-65536
+                if not (1<=params[2]<=32767 and 1<=params[3]<=32767 and
+                        signed(params[0])+31*params[2]<=32767 and
+                        signed(params[1])+31*params[3]<=32767): status=3
+                else:
+                    self.frame=Frame(32,32)
+                    samples=[fractal_sample(params,x,y) for y in range(32) for x in range(32)]
+                    self.frame.color[:]=[color for color,_ in samples]
+                    self.fractal_cycles=sum(iterations for _,iterations in samples)+2049
+                    value=1024
         elif op == DRAW:
             value = 0
             if a or b:
@@ -43,6 +100,16 @@ class TriangleTile:
                 old = self.frame.depth[:]
                 self.frame.triangle(*vertices, self.params[9])
                 value = sum(x != y for x, y in zip(old, self.frame.depth))
+        elif op == 0x3c:
+            status,value=(3,0) if a or b else (0,0x0103)
+        elif op == 0x3b:
+            if a or b>1: status,value=3,0
+            elif self.frame is None: status,value=5,0
+            else:
+                prefix=bytes([0x5a,0,frame[2],2,0,b])
+                plane=self.frame.color if b==0 else self.frame.depth
+                payload=b''.join(v.to_bytes(2,'little') for v in plane)
+                return seal(prefix)+payload+crc16(prefix+payload).to_bytes(2,'little')
         elif op == ROW:
             if a >= 32 or b >= 2:
                 status, value = 3, 0

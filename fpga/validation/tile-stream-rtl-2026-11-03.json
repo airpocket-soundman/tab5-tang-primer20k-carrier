@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-03",
+  "hardware_access": false,
+  "new_feature": "optional TILE_READ3b and TILE_CAPS3c0103",
+  "wire_prefix_unchanged": 8,
+  "tile_body_bytes": 2058,
+  "dma_capture_bytes": 2074,
+  "full_tile_response_copy": false,
+  "rtl_pin_transactions": {
+    "tagged_untagged_tile_and_legacy_sync": 196,
+    "legacy_rows": 410,
+    "legacy_fractal": 523,
+    "legacy_bbox": 2432,
+    "legacy_scalar": 10334
+  },
+  "digital27MHz5MHz_phase_delay_cases": {
+    "passed": 72,
+    "total": 72,
+    "assumed_one_way_delay_ns": [
+      0,
+      5,
+      10
+    ],
+    "phases_ns": [
+      0,
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35
+    ],
+    "electrical_measurement": false
+  },
+  "host_tests": {
+    "unittest_tests_passed": 10,
+    "unique_capture_C_vectors": 12193,
+    "includes": [
+      "color/depth fullbody CRC",
+      "every tilebody byte corrupted",
+      "CRC-correct wrongplane",
+      "overlapping dualvalidtile rejection",
+      "old16/82 and new24/90 captures",
+      "tilebody+8/+16 captures"
+    ]
+  },
+  "source_sha256": {
+    "fpga/gfx/rtl/triangle_tile.v": "06ee90f5566468770645399285da97842739015c4fac54dde7f3fcb7872e269d",
+    "fpga/link/rtl/link_bringup.v": "9b06c5a76bdac6b11664cb26d32fd3379b22d01daa08dfb0abb507409e76bc73",
+    "fpga/host/link_protocol.h": "1b6a8e8bf995388c0e683a7c249fd3d4c177686dbf97cabf52c644d90e44937e",
+    "fpga/host/link_sync.h": "c0b5ab1c5bb57f97e1acf09316de2b674c5a8ebf58e36ec9270f0b68991f805e"
+  }
+}

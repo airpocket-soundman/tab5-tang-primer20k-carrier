@@ -1,0 +1,85 @@
+{
+  "date": "2026-11-03",
+  "base_commit": "84eaa6181f4e37844bc43954580823a2c8af9385",
+  "scope": "PC-only tagged training-prefix protocol/codec validation; synthesis/programming/physical DMA measured separately",
+  "hardware_access": false,
+  "capability": {
+    "opcode": 4,
+    "prefix_bytes": 8,
+    "version": 1
+  },
+  "tag_bit": 128,
+  "prefix_byte": 195,
+  "framing": {
+    "normal": 8,
+    "row_success": 74,
+    "tagged_normal": 16,
+    "tagged_row_success": 82,
+    "malformed_request": "ordinary8-byteerror; invalid request cannot authenticate tag"
+  },
+  "tests": {
+    "tagged_pin_level": {
+      "passed": true,
+      "wire_transactions": 178
+    },
+    "unique_frame_C": {
+      "passed": true,
+      "cases": 3162,
+      "training_bytes_lost": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "reject_multiple_candidates": [
+        "twoordinaryframes",
+        "twooverlappingROWframes"
+      ]
+    },
+    "ordinary_LINK": {
+      "passed": true,
+      "golden_vectors": 583,
+      "pattern_suite": "ID+512echo/invert,CRC/unknownop/partialDIR/timeout/ARM/reset/OE"
+    },
+    "ordinary_scalar_triangles": {
+      "passed": true,
+      "wire_transactions": 10334
+    },
+    "ordinary_triangle_rows": {
+      "passed": true,
+      "wire_transactions": 410
+    },
+    "ordinary_fractal": {
+      "passed": true,
+      "wire_transactions": 523,
+      "color_depth_pixels": 12288
+    },
+    "ordinary_bbox": {
+      "passed": true,
+      "wire_transactions": 2432,
+      "color_depth_pixels": 65536
+    },
+    "old_C_codec": {
+      "passed": true,
+      "unittests": 4
+    }
+  },
+  "source_sha256": {
+    "fpga/link/rtl/link_bringup.v": "b240ecfa1ed258ab19d95dc2558ea034f9d96c282a3c94a7c6f564c0709018d0",
+    "fpga/host/link_protocol.h": "9a66637a86a491d39a13209a7dba70ddf8685923ca7832a1fd7f938714f05fb6",
+    "fpga/host/link_sync.h": "29c6bd174148ce0f5df71a21236f0270986f545bbeb26f09db0da51a12000dc4",
+    "fpga/reference/link_protocol.py": "5905b97e0e80cfeefe01253d65ba308a9959a85f68d02d7970063ffe802ed4ba",
+    "fpga/reference/link_sync.py": "79abff96ae2774f63b25c4750be7fe5cb32a17d03da7688f034157de015a048d",
+    "fpga/link/tests/run_sync_prefix.py": "3191ec0c4ee6035de3f90a28566e7dfbe751a45f28fa6e60b3341f3ce5e68c1b",
+    "fpga/link/tests/tb_link_sync.v": "08abcf0fc1be908a63871fefffde7f4c280f3ee7169579544df141b1ad48ebad",
+    "fpga/host/tests/test_link_sync.py": "77fe321468d283e70d81e4d41bcd72e104b01c2fa09a27a7573848a47364edc1",
+    "fpga/link/tests/link_vectors.json": "ba24a98ef38c014720ce91207ad1d9e142dd6ddf70241acc9a364878f448be63",
+    "fpga/link/tests/link_vectors.mem": "18eef554c66c1a4f7079eb3e9021ea6c14765172c38e8a8896a3a3a965e3fb97"
+  },
+  "physical_success_claimed": false
+}

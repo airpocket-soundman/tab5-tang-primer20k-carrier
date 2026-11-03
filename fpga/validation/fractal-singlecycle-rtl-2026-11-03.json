@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-03",
+  "scope": "PC-only single-cycle fractal and cycle telemetry verification; timing/programming and physical results are separate",
+  "hardware_access": false,
+  "capability_info": "0x0107",
+  "telemetry": {
+    "low_opcode": "0x39",
+    "high_opcode": "0x3a",
+    "clock_hz": 27000000,
+    "scope": "accepted valid FRACTAL_DRAW edge through final color/depth RAM write edge, excludes request/reply, ROW snapshot/readback, CLEAR, CPU/LCD; already included inside DRAW roundtrip",
+    "cycle_formula": "sum of tile pixel iterations + 2049",
+    "invalidated_by": [
+      "valid new FRACTAL_DRAW start",
+      "reset",
+      "ARM deassertion",
+      "renderer abort"
+    ],
+    "stable_across": [
+      "LO/HI queries",
+      "CLEAR",
+      "triangle commands"
+    ]
+  },
+  "tests": {
+    "fractal_pin_level": {
+      "passed": true,
+      "wire_transactions": 523,
+      "viewports": 6,
+      "color_depth_pixels": 12288,
+      "coverage": [
+        "exact low/high counter",
+        "stable repeated LO/HI",
+        "invalid telemetry arguments",
+        "counter invalidated after abort",
+        "all128-iteration interior tile133121cycles",
+        "immediate-escape tile2049cycles",
+        "fixed-point/palette/ROW regression"
+      ]
+    },
+    "bbox_regression": {
+      "passed": true,
+      "wire_transactions": 2432,
+      "triangles": 32,
+      "color_depth_pixels": 65536
+    },
+    "C_reference_and_codec": {
+      "passed": true,
+      "viewports": 29,
+      "color_pixels": 29696,
+      "wire_codec_cases": 104,
+      "capability_compatibility": [
+        "accept0103",
+        "accept0107",
+        "rejectmissingJulia",
+        "rejectunknowncaps",
+        "rejectunknownversion"
+      ]
+    }
+  },
+  "source_sha256": {
+    "fpga/gfx/rtl/triangle_tile.v": "cb816644929502f0f121646c2e6dc084bc7cacac2684f62f854a7525d36684d0",
+    "fpga/link/rtl/link_bringup.v": "cdad586bf7563ce0e2e3d82f3b72fc1bc37e799ee7161c9ae05b7b004de41dc3",
+    "fpga/host/link_protocol.h": "a86e549bf2ebce6b19223d21f74ffe9e0c1a468c05fc5211fbe1242495fd2e65",
+    "fpga/reference/triangle_tile.py": "a1437f6b22c5c76a84085dce45d5c8161eb2123735ce9d2ec2680a9b73f6f69f",
+    "fpga/gfx/tests/run_fractal_tile.py": "cd0000914fa2a0d871d9d845bf43e50cf00c79924535fcfffb696df61cc2a4ce",
+    "fpga/gfx/tests/tb_fractal_tile.v": "c20e3d3e19436d94947c7ae577a5be62254adb9c1018e68bc512779048995e90",
+    "fpga/host/tests/test_fractal_reference.py": "6e909f0317d16c1395d7716033839d1605c42fc520371188a55d59882544b1f3"
+  },
+  "performance_claim": "Only PC numeric/counter correctness; target27MHz placement/routing and actual application timings recorded by integration owner"
+}

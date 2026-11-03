@@ -27,7 +27,7 @@ Tab5側のドライバ・描画ソフトを実装する場合は[ホストソフ
 | `constraints/dock/` | 公式Dockジャンパ試験用.cst | [tab5_dock_link_v0.cst](constraints/dock/tab5_dock_link_v0.cst)（案） |
 | `platform/` | 基板別top、クロック・リセット、ARM、DDR3コントローラ設定 | DockのLINK/GFX topあり。DDR3未作成 |
 | `link/` | リンク物理層（DIR/READY/OE）、v0/v1プロトコル、CRC | v0 RTL・試験を移管済み |
-| `gfx/` | 2D命令、三角形ラスタライズ、Zバッファ、計算描画 | 三角形部品＋32×32描画診断。統合GPUは未実装 |
+| `gfx/` | 2D命令、三角形ラスタライズ、Zバッファ、計算描画 | 32×32三角形/Z・Q4.12 Mandelbrot/Julia・完全タイル読出し。Tab5実機検証済み。HDMI/DDR3は未実装 |
 | `hdmi/` | DVI/HDMIスキャンアウト（GFXのオプション） | 未作成。参考：`docs/reference/tang-primer-20k/official-hdmi/` |
 | `npu/` | INT8 MAC、requant、dot job、構成A/B/C | MAC lane、requant、dot jobのRTL・試験を移管済み |
 | `reference/` | RTL期待値用の参照モデル（Python） | 移管済み |
@@ -37,3 +37,9 @@ Tab5側のドライバ・描画ソフトを実装する場合は[ホストソフ
 | `builds/` | ビットストリーム別のプロジェクト（LINK、GFX、NPU、MEM）と合成レポート | Dock LINK/GFXはOSSランナーで生成成功。Gowin用Tclは未実行 |
 
 移管時は移管元のコミットSHA、ライセンス表記、テストの実行結果を記録する。試験は`fpga/`をカレントディレクトリとして実行する。参照モデル（C++/Python）のうちRTLの期待値生成に使うものは本リポジトリへ移し、ホスト側のベンチマークやモデル評価は元のリポジトリに残す。
+
+2026-11-03のGPU LAB実機開発は[開発記録](../docs/GPU_LAB開発_2026-11-03.md)と
+[最終検証JSON](validation/gpu-lab-final-2026-11-03.json)を参照。
+ジャンパ8bitの画像受信はPARLIO DMA8MHzで比較試験を通過したが、配線の絶対上限ではない。
+既存コマンドは維持し、完全タイル読出しは能力確認を伴うオプション。
+全ホストでの高速DMA実装、NPU/MEMとの同時搭載、DDR3動作を実証したものではない。
