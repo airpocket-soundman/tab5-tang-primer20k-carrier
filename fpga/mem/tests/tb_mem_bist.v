@@ -45,6 +45,7 @@ always @(negedge clk) begin
  end
 end
 always @(posedge clk) if(rst) begin
+ if((ce&&!cr)||(we&&!wr))$fatal(1,"enable without native ready");
  if(ce&&cr)begin
  if(cmd==0&&base==32'h3ff0&&writes==0&&addr!=27'h38003f8)$fatal(1,"row-boundary first native address");
  if(cmd==0&&base==32'h3ff0&&writes==1&&addr!=27'h400)$fatal(1,"row-boundary next native address");
@@ -88,11 +89,11 @@ initial begin
  reset;mode=1;launch;finish;if(error!=3||!fault)$fatal(1,"write timeout");
  launch;repeat(5)@(negedge clk);if(busy)$fatal(1,"fault rearmed without reset");
  reset;base=0;count=17;mode=5;launch;finish;
- if(error!=3||debug[15:12]!=3||!debug[11]||!debug[4]||debug[5]||debug[0]||!debug[2]||debug[79:48]!=1||debug[111:80]!=0||debug[47:16]!=0)$fatal(1,"command-only stall evidence");
+ if(error!=3||debug[15:12]!=3||!debug[11]||!debug[4]||debug[5]||debug[0]||debug[2]||debug[79:48]!=1||debug[111:80]!=0||debug[47:16]!=0)$fatal(1,"command-only stall evidence");
  saved_debug=debug;cancel=1;@(negedge clk);cancel=0;@(negedge clk);
  if(error!=7||debug!==saved_debug)$fatal(1,"cleanup CANCEL overwrote first fault");
  reset;mode=6;launch;finish;
- if(error!=3||debug[15:12]!=3||debug[4]||!debug[5]||!debug[0]||debug[2]||debug[79:48]!=0||debug[111:80]!=1)$fatal(1,"data-only stall evidence");
+ if(error!=3||debug[15:12]!=3||debug[4]||!debug[5]||debug[0]||debug[2]||debug[79:48]!=0||debug[111:80]!=1)$fatal(1,"data-only stall evidence");
  reset;mode=7;launch;finish;
  if(error!=3||debug[47:16]!=8||debug[79:48]!=8||debug[111:80]!=8||debug[175:144]!=56)$fatal(1,"eight-beat stall evidence");
  reset;mode=2;launch;finish;if(error!=4||!fault)$fatal(1,"read timeout");
