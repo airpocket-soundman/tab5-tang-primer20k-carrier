@@ -1,0 +1,143 @@
+{
+  "scope": "standalone MEM diagnostic; NOT hardware-approved; physical DDR unverified",
+  "tool": "Gowin V1.9.11.03 Education; official CLI, no hardware programming",
+  "part": "GW2A-LV18PG256C8/I7",
+  "device_version": "C",
+  "configured_bytes": 134217728,
+  "physical_capacity_known": false,
+  "memory_hz": 324000000,
+  "user_hz": 81000000,
+  "synthesis_completed": true,
+  "placement_routing_completed": true,
+  "bitstream_generated": true,
+  "timing_qualified": false,
+  "hardware_approved": false,
+  "setup_violated_endpoints": 80,
+  "hold_violated_endpoints": 431,
+  "remaining_review": "vendor DDR calibration/gating cross-domain setup and held-bundle CDC hold; no blanket waiver applied",
+  "fmax_mhz": {
+    "sys27": 83.816,
+    "memory324": 2016.128,
+    "user81": 89.493
+  },
+  "worst_setup": {
+    "slack_ns": -4.599,
+    "from": "controller/gw3_top_u_ddr_phy_top_stop_reg_2_s0/Q",
+    "to": "controller/gw3_top_u_ddr_phy_top_fclk_dhcen/CE",
+    "from_clock": "sys27:[R]",
+    "to_clock": "memory324:[F]"
+  },
+  "worst_hold": {
+    "slack_ns": -0.976,
+    "from": "control/user_snapshot_54_s0/Q",
+    "to": "control/sys_snapshot_54_s0/D",
+    "from_clock": "user81:[R]",
+    "to_clock": "sys27:[R]"
+  },
+  "fmax_note": "same-domain summary does not qualify cross-domain or external DDR IO timing",
+  "logic_used": 5112,
+  "registers_used": 5280,
+  "inputs": [
+    {
+      "path": "mem\\rtl\\mem_bist.v",
+      "sha256": "92b127a1fedbee0e3335c9908e680d6d76a524ca77433adb4792d3f8ccf30d6c",
+      "bytes": 6084
+    },
+    {
+      "path": "mem\\rtl\\mem_link.v",
+      "sha256": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+      "bytes": 3078
+    },
+    {
+      "path": "mem\\rtl\\mem_mailbox.v",
+      "sha256": "36e732c4b3f624e908b9f200989480876d670311bd81adf5613bd3e0e14fcef4",
+      "bytes": 5625
+    },
+    {
+      "path": "mem\\rtl\\mem_pll.v",
+      "sha256": "e1f4fe7715d8ddf1487938dd85db939b22222c5a03c82b13dc74835d1458aa2a",
+      "bytes": 925
+    },
+    {
+      "path": "mem\\rtl\\mem_top.v",
+      "sha256": "eeae4e7040007703b3c5d8871bc224684d05cfc18b51d14cd82ebceccf303cc1",
+      "bytes": 3449
+    },
+    {
+      "path": "mem\\config\\build.tcl",
+      "sha256": "eafac933ee34d847f0b98d5dc61d51df0de8ad9824d48acb0792ac81dc525e79",
+      "bytes": 894
+    },
+    {
+      "path": "mem\\config\\generate_ip.tcl",
+      "sha256": "0df82111461da67c4ea319aa3e7e59c9dd76e6e03b4113cd884f3665d50e8d7b",
+      "bytes": 1355
+    },
+    {
+      "path": "mem\\config\\mem_bist.cst",
+      "sha256": "30ad69d4444572557d1b6e5b4d24261945c965694876f50c1d71eb2c676e4916",
+      "bytes": 9358
+    },
+    {
+      "path": "mem\\config\\mem_bist.sdc",
+      "sha256": "5281c00fe68b9d88b1c33142682efba0b7c47c80c1bb9a2e3a4ed03d80f40316",
+      "bytes": 499
+    },
+    {
+      "path": "build\\mem-bist-ip\\generated\\MemDDR3\\MemDDR3.vo",
+      "sha256": "4d37c875c609a5fa849033d8fbea3e63d3da8270322a663deff01f44874719ed",
+      "bytes": 2375452
+    }
+  ],
+  "outputs": [
+    {
+      "path": "build\\mem-bist-official\\mem_bist\\impl\\pnr\\mem_bist.fs",
+      "sha256": "fc60d7c00b72da0bbb088cf581a869cfd279ca3270f58c65e73a17540e3726a4",
+      "bytes": 4620698
+    },
+    {
+      "path": "build\\mem-bist-official\\mem_bist\\impl\\pnr\\mem_bist.rpt.txt",
+      "sha256": "8f5979944426abee05ea2e86db5f896b591237ea9c32d47923cfa179e6015f8a",
+      "bytes": 61076
+    },
+    {
+      "path": "build\\mem-bist-official\\mem_bist\\impl\\pnr\\mem_bist_tr_content.html",
+      "sha256": "7de170818f405542e73fc3b74ec49a04d72f347e310c3e162cb8fba0abab6154",
+      "bytes": 505140
+    },
+    {
+      "path": "build\\mem-bist-official\\mem_bist\\impl\\pnr\\mem_bist.pin.html",
+      "sha256": "0db1c5d0cb9d9d8c021ee459c7d1878813af3766427bed895407f7e8fdf1dc04",
+      "bytes": 72404
+    }
+  ],
+  "simulation": {
+    "scope": "RTL simulations, not physical DDR proof",
+    "tests": [
+      {
+        "name": "mem_bist",
+        "output": "PASS mem_bist 14 scenarios: independent backpressure, native mapping, masks, mismatch, range, timeout, cancel/reset\nD:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-mem-bist\\fpga\\mem\\tests\\tb_mem_bist.v:81: $finish called at 19291000 (1ps)",
+        "sources": {
+          "mem\\rtl\\mem_bist.v": "92b127a1fedbee0e3335c9908e680d6d76a524ca77433adb4792d3f8ccf30d6c",
+          "mem\\tests\\tb_mem_bist.v": "1ae1242a93cd00f1e28688a060159147fc7eea091c0f2bfd5e9fcc3d1685a4cf"
+        }
+      },
+      {
+        "name": "mem_mailbox",
+        "output": "PASS mem_mailbox 33 commands: CDC held payload, coherent snapshot, stopped-clock deadline, reset\nD:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-mem-bist\\fpga\\mem\\tests\\tb_mem_mailbox.v:54: $finish called at 2660000 (1ps)",
+        "sources": {
+          "mem\\rtl\\mem_mailbox.v": "36e732c4b3f624e908b9f200989480876d670311bd81adf5613bd3e0e14fcef4",
+          "mem\\tests\\tb_mem_mailbox.v": "2564503828f05aa1f75ac7bdb6e958fd0f3e7f314ffba1d492f634e46ba1ec13"
+        }
+      },
+      {
+        "name": "mem_link",
+        "output": "PASS mem_link 7 packets: legacy/tagged CRC, dispatch, bad CRC, partial DIR, raw ARM\nD:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-mem-bist\\fpga\\mem\\tests\\tb_mem_link.v:40: $finish called at 158001000 (1ps)",
+        "sources": {
+          "mem\\rtl\\mem_link.v": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+          "mem\\tests\\tb_mem_link.v": "ef371e0801940cb6387d1af48dafd052a97ac5fb6c830eeaa9bde66214a5f188"
+        }
+      }
+    ]
+  }
+}
