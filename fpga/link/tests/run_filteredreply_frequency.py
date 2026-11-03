@@ -16,6 +16,7 @@ def main():
         if not a.aperture:p.error('Vendor fixture uses --aperture')
         files[files.index('gfx/rtl/triangle_tile.v')]='gfx/rtl/triangle_tile_vendor.v'
         files[-1]='link/tests/tb_filteredreply_vendor.v';files +=['gfx/rtl/tile_dpram_vendor.v']
+    files +=['link/rtl/triangle_batch.v']
     frozen={f:(ROOT/f).read_bytes()for f in files}
     if a.vendor_primitive_lib:frozen['installed_prim_sim.v']=a.vendor_primitive_lib.read_bytes()
     cases=[]

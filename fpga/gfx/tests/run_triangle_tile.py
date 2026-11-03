@@ -53,6 +53,7 @@ def main():
             paths[1]=str(ROOT/'gfx/rtl/triangle_tile_vendor.v')
             bench=tmp/'vendor_bench.v';text=(ROOT/sources[-1]).read_text();text=text.replace('    reg clk=0,',"    GSR GSR(1'b1);\n    reg clk=0,",1);bench.write_text(text)
             paths[-1]=str(bench);paths +=[str(ROOT/'gfx/rtl/tile_dpram_vendor.v'),str(args.vendor_primitive_lib)]
+        paths +=[str(ROOT/'link/rtl/triangle_batch.v')]
         subprocess.run([args.iverilog,'-g2012','-Wall','-s','tb_triangle_tile_dock','-o',str(exe),*paths],check=True)
         subprocess.run([args.vvp,str(exe),'+vectors='+str(vf)],check=True,timeout=180)
     print(f'PASS {len(vectors)} wire transactions; {report}; no hardware access')

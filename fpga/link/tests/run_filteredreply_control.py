@@ -8,6 +8,7 @@ def main():
     files=['link/rtl/reply_clock_filter.v','link/rtl/link_reply_raw.v','link/rtl/link_bringup_filtered.v','gfx/rtl/gfx_bench.v','gfx/rtl/triangle_tile.v','gfx/rtl/triangle_fragment.v','gfx/rtl/triangle_coverage.v','gfx/rtl/triangle_depth.v','link/tests/tb_filteredreply_control.v']
     if a.pipeline_coverage:files[files.index('gfx/rtl/triangle_coverage.v')]='gfx/rtl/triangle_coverage_pipeline.v'
     if a.vendor_primitive_lib:files[files.index('gfx/rtl/triangle_tile.v')]='gfx/rtl/triangle_tile_vendor.v';files+=['gfx/rtl/tile_dpram_vendor.v']
+    files +=['link/rtl/triangle_batch.v']
     frozen={f:(ROOT/f).read_bytes()for f in files}
     if a.vendor_primitive_lib:
         key='link/tests/tb_filteredreply_control.v';text=frozen[key].decode();text=text.replace('    reg filter_clk=0;',"    GSR GSR(1'b1);\n    reg filter_clk=0;",1);frozen[key]=text.encode();frozen['installed_prim_sim.v']=a.vendor_primitive_lib.read_bytes()
