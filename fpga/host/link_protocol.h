@@ -13,7 +13,7 @@ enum { LINK_ID=1, LINK_ECHO=2, LINK_INVERT=3, LINK_CAPS=4,
        FRACTAL_INFO=0x30, FRACTAL_X0=0x31, FRACTAL_Y0=0x32,
        FRACTAL_DX=0x33, FRACTAL_DY=0x34, FRACTAL_CX=0x35, FRACTAL_CY=0x36,
        FRACTAL_CONFIG=0x37, FRACTAL_DRAW=0x38,
-       FRACTAL_CYCLES_LO=0x39, FRACTAL_CYCLES_HI=0x3a, TRI_TILE_READ=0x3b, TRI_TILE_CAPS=0x3c, TILE_READ=TRI_TILE_READ, TILE_CAPS=TRI_TILE_CAPS, CORE_CLOCK=0x3d, FRACTAL_CLOCK_MHZ=CORE_CLOCK, TRI_BATCH_CAPS=0x40, TRI_BATCH=0x41 };
+       FRACTAL_CYCLES_LO=0x39, FRACTAL_CYCLES_HI=0x3a, TRI_TILE_READ=0x3b, TRI_TILE_CAPS=0x3c, TILE_READ=TRI_TILE_READ, TILE_CAPS=TRI_TILE_CAPS, CORE_CLOCK=0x3d, FRACTAL_CLOCK_MHZ=CORE_CLOCK, TRI_BATCH_CAPS=0x40, TRI_BATCH=0x41, LINK_TX_CAPTURE_CAPS=0x42, LINK_TX_BAD_WORD=0x43, LINK_TX_BAD_META=0x44 };
 enum { TRI_ROW_WORDS=32, TRI_ROW_RESPONSE_BYTES=74, TRI_TILE_WORDS=1024, TRI_TILE_RESPONSE_BYTES=2058 };
 static inline uint16_t link_crc16_extend(uint16_t c, const uint8_t *p, unsigned n) {
     // CRC-16/CCITT-FALSE, identical polynomial/seed/wire bytes. A 512-byte
@@ -66,6 +66,9 @@ static inline bool link_validate_response(const uint8_t r[8], const uint8_t q[8]
     uint16_t c=link_crc16(r,6);
     if(r[0]!=0x5a || r[1]!=0 || r[2]!=q[2] || r[3]!=2 || r[6]!=(uint8_t)c || r[7]!=(uint8_t)(c>>8)) return false;
     switch(q[1]&0x7f) {
+        case LINK_TX_CAPTURE_CAPS: return q[4]==0 && q[5]==0 && r[4]==3 && r[5]==1;
+        case LINK_TX_BAD_WORD: return q[4]<4 && q[5]==0;
+        case LINK_TX_BAD_META: return q[4]<3 && q[5]==0 && (q[4]!=1 || ((r[4]&~7)==0 && (r[4]&1) && r[5]==8));
         case TRI_BATCH_CAPS: return q[4]==0 && q[5]==0 && r[4]==64 && r[5]==1;
         case TRI_BATCH: return q[4]>=1 && q[4]<=64 && q[5]==1 && r[4]==q[4] && r[5]==1;
         case LINK_ID: return r[4]=='T' && r[5]=='P';

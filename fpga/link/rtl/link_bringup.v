@@ -5,10 +5,14 @@ module link_bringup #(
     parameter GFX_ENABLE = 0,
     parameter CORE_CLOCK_MHZ = 27,
     parameter CLOCK_QUERY_ENABLE = 0,
-    parameter FAST_REPLY_ENABLE = 0
+    parameter FAST_REPLY_ENABLE = 0,
+    parameter TX_CAPTURE_ENABLE = 0
 )(input wire sys_clk, input wire reset_n, input wire arm,
   input wire bus_clk, input wire dir, input wire [7:0] data_i,
   output reg [7:0] data_o, output wire data_oe, output wire ready);
+    reg [63:0] last_bad_request;
+    reg bad_valid,bad_pending,bad_count_latched,bad_count_overflow,dir_count_overflow,diag_dir_prev;
+    reg [15:0] dir_edges,bad_edges,bad_generation;
     reg [2:0] clk_sync;
     reg [1:0] dir_sync;
     wire rise = clk_sync[1] & ~clk_sync[2];
@@ -119,6 +123,39 @@ module link_bringup #(
         else if(bulk_mode && logical_tx_index==payload_end+1'b1) data_o=stream_crc[15:8];
         else data_o=8'h00;
     end
+    // Diagnostic counts are SYS-observed synchronized rising edges, not a
+    // physical clock meter. Intended low-speed500kHz experiments only.
+    always @(posedge sys_clk or negedge reset_n) begin
+        if(!reset_n) begin
+            last_bad_request<=0;bad_valid<=0;bad_pending<=0;bad_count_latched<=0;
+            bad_count_overflow<=0;dir_count_overflow<=0;diag_dir_prev<=0;
+            dir_edges<=0;bad_edges<=0;bad_generation<=0;
+        end else if(!arm) begin
+            last_bad_request<=0;bad_valid<=0;bad_pending<=0;bad_count_latched<=0;
+            bad_count_overflow<=0;dir_count_overflow<=0;diag_dir_prev<=0;
+            dir_edges<=0;bad_edges<=0;bad_generation<=0;
+        end else if(TX_CAPTURE_ENABLE) begin
+            diag_dir_prev<=dir_sync[1];
+            if(!dir_sync[1] && diag_dir_prev) begin dir_edges<=0;dir_count_overflow<=0;end
+            if(rise && !dir_sync[1] && !dir) begin
+                if(dir_edges!=16'hffff)dir_edges<=dir_edges+1'b1;
+                else dir_count_overflow<=1;
+            end
+            if(dir_sync[1] && !diag_dir_prev && bad_pending) begin
+                bad_edges<=dir_edges;bad_count_overflow<=dir_count_overflow;
+                bad_count_latched<=1;bad_pending<=0;
+            end
+            if(idle_count>=TIMEOUT_CYCLES-1) bad_pending<=0;
+            // The eighth byte is the CURRENT sampled data_i. req[] only
+            // stores bytes0..6; no stale/uninitialized eighth array byte.
+            if(rise && !dir_sync[1] && !dir && !valid && !gfx_pending && !batch_pending && rx_index==7 &&
+               (req[0]!=8'ha5 || req[3]!=2 || req[6]!=rx_crc[7:0] || data_i!=rx_crc[15:8])) begin
+                last_bad_request<={data_i,req[6],req[5],req[4],req[3],req[2],req[1],req[0]};
+                bad_valid<=1;bad_pending<=1;bad_count_latched<=0;bad_count_overflow<=0;bad_edges<=0;
+                bad_generation<=bad_generation+1'b1;
+            end
+        end
+    end
     always @(posedge sys_clk or negedge reset_n) begin
         if(!reset_n) begin
             clk_sync<=0; dir_sync<=0; rx_index<=0; tx_index<=0;
@@ -190,6 +227,28 @@ module link_bringup #(
                                       req[6]==rx_crc[7:0] && data_i==rx_crc[15:8];
                             if(req[0]!=8'ha5 || req[3]!=2 || req[6]!=rx_crc[7:0] || data_i!=rx_crc[15:8]) reply[1]<=1;
                             else case(logical_opcode)
+                                8'h42: if(TX_CAPTURE_ENABLE) begin
+                                    if(req[4]!=0 || req[5]!=0)reply[1]<=3;
+                                    else begin reply[1]<=0;reply[4]<=3;reply[5]<=1;end
+                                end else reply[1]<=2;
+                                8'h43: if(TX_CAPTURE_ENABLE) begin
+                                    if(req[4]>3 || req[5]!=0)reply[1]<=3;
+                                    else if(!bad_valid)reply[1]<=5;
+                                    else begin reply[1]<=0;
+                                        reply[4]<=last_bad_request[req[4]*16+:8];
+                                        reply[5]<=last_bad_request[req[4]*16+8+:8];end
+                                end else reply[1]<=2;
+                                8'h44: if(TX_CAPTURE_ENABLE) begin
+                                    if(req[4]>2 || req[5]!=0)reply[1]<=3;
+                                    else if(!bad_valid)reply[1]<=5;
+                                    else begin reply[1]<=0;
+                                        case(req[4])
+                                        0:begin reply[4]<=bad_edges[7:0];reply[5]<=bad_edges[15:8];end
+                                        1:begin reply[4]<={5'b0,bad_count_latched,bad_count_overflow,bad_valid};reply[5]<=8;end
+                                        2:begin reply[4]<=bad_generation[7:0];reply[5]<=bad_generation[15:8];end
+                                        endcase
+                                    end
+                                end else reply[1]<=2;
                                 8'h40: if(GFX_ENABLE==2) begin
                                     if(req[4]!=0 || req[5]!=0) reply[1]<=3;
                                     else begin reply[1]<=0;reply[4]<=64;reply[5]<=1;end
