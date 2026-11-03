@@ -7,7 +7,7 @@ import sys
 import tempfile
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT))
-from reference.triangle_tile import TriangleTile
+from reference.triangle_tile import TriangleTile, VIVID_PALETTE
 from reference.link_protocol import request
 
 
@@ -24,7 +24,7 @@ def main():
     exchange(0x30)
     exchange(0x39);exchange(0x3a) # no completed DRAW yet
     exchange(0x38) # missing configuration
-    for limit,mode in [(0,0),(129,0),(128,2),(255,255)]: exchange(0x37,limit,mode)
+    for limit,mode in [(0,0),(129,0),(128,4),(255,255)]: exchange(0x37,limit,mode)
     def configure(params):
         for i,value in enumerate(params): exchange(0x31+i,value&255,(value>>8)&255)
     # Main set, exterior, Julia, high iteration boundary, negative floor rounding,
@@ -35,6 +35,7 @@ def main():
            (-32768,-32768,1,1,32767,-32768,0x0180),
            (-1024,-1024,64,64,-2579,-693,0x0180),
            (0,0,1,1,0,0,128)]
+    views += [(*v[:6],v[6]|0x0200) for v in views]
     pixel_count=0
     for params in views:
         configure(params); exchange(0x38)
@@ -51,12 +52,13 @@ def main():
     q=bytearray(request(0x38,0,0,0));q[6]^=1
     vectors.append((q,model.exchange(q)))
     with tempfile.TemporaryDirectory(prefix='fractal-tile-') as td:
-        td=Path(td); vf=td/'vectors.txt';exe=td/'test.vvp'
+        td=Path(td); vf=td/'vectors.txt';exe=td/'test.vvp';palette_file=td/'palette.hex'
+        palette_file.write_text(''.join(f'{v:04x}\n' for v in VIVID_PALETTE),encoding='ascii')
         vf.write_text(''.join(str(len(r))+' '+' '.join(f'{b:02x}' for b in bytes(q)+r)+'\n' for q,r in vectors),encoding='ascii')
         sources=['link/rtl/link_bringup.v','gfx/rtl/gfx_bench.v','gfx/rtl/triangle_tile.v','gfx/rtl/triangle_fragment.v',
                  'gfx/rtl/triangle_coverage.v','gfx/rtl/triangle_depth.v',
                  'platform/dock/tab5_dock_top.v','gfx/tests/tb_fractal_tile.v']
         subprocess.run([args.iverilog,'-g2012','-Wall','-s','tb_fractal_tile','-o',str(exe),*[str(ROOT/s) for s in sources]],check=True)
-        subprocess.run([args.vvp,str(exe),'+vectors='+str(vf)],check=True,timeout=180)
-    print(f'PASS fractal {len(vectors)} oracle transactions, {pixel_count} color/depth pixels, 6 viewports with exact stable DRAW cycles; no hardware access')
+        subprocess.run([args.vvp,str(exe),'+vectors='+str(vf),'+palette='+str(palette_file)],check=True,timeout=180)
+    print(f'PASS fractal {len(vectors)} oracle transactions, {pixel_count} color/depth pixels, 12 legacy/vivid viewports with exact stable DRAW cycles; no hardware access')
 if __name__=='__main__':main()

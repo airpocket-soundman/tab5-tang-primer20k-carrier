@@ -1,4 +1,5 @@
 """C fixed-point arithmetic and codec against independent Python wire/pixel oracle."""
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -12,6 +13,20 @@ from reference.link_protocol import request, seal
 ROOT=Path(__file__).resolve().parents[2]
 
 class FractalReference(unittest.TestCase):
+    def test_legacy_pixel_golden_unchanged(self):
+        views=[[-10035,-4096,280,264,-2949,819,64],[-4096,-2048,132,132,-2949,819,0x0140],
+               [-3200,-1200,32,32,-2949,819,128],[-32768,-32768,1,1,32767,-32768,0x0180],
+               [-1024,-1024,64,64,-2579,-693,0x0180]]
+        golden=['f038c77328fb0719599519b1de21b6948611d28eff00221c88c70bf05e756934',
+                'e9013d7be28e0d577fbc520410bcc01d801826e4cb98efe8334ea6e23135c88b',
+                'baf02647a0910d042ce17a54f99af5af5179013d2466eb8b0c0bf2abb3349316',
+                'c70f38e98a7cfbea399006fe5b15d6e154ca48edf885f23b12a922dd04762ae3',
+                'b39dcef9145c7192cda0c9fa5a62a2f02dbb8a5a9fe874270f550569929e9bca']
+        for v,expected in zip(views,golden):
+            params={i:n&65535 for i,n in enumerate(v)}
+            raw=b''.join(fractal_pixel(params,x,y).to_bytes(2,'little') for y in range(32) for x in range(32))
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),expected)
+
     def test_c_pixels_and_protocol(self):
         configured=os.environ.get('CARRIER_CC_JSON')
         compiler=json.loads(configured) if configured else [shutil.which('cc') or shutil.which('gcc')]
@@ -33,6 +48,7 @@ int main(void) {
     if(fractal_config_valid(&bad)) return 4;
     bad.dx=1;bad.x0=32767;if(fractal_config_valid(&bad))return 5;
     bad.x0=0;bad.limit=0;if(fractal_config_valid(&bad))return 6;
+    bad.x0=0;bad.limit=128;bad.julia=4;if(fractal_config_valid(&bad))return 8;
     if(fractal_floor12(-1)!=-1 || fractal_floor12(-4096)!=-1 || fractal_floor12(-4097)!=-2) return 7;
     return 0;
 }
@@ -43,7 +59,8 @@ int main(void) {
         rng=random.Random(20261103)
         for _ in range(24):
             views.append([rng.randint(-12000,1000),rng.randint(-10000,1000),rng.randint(1,400),rng.randint(1,400),
-                          rng.randint(-4096,4096),rng.randint(-4096,4096),rng.choice([1,24,64,128])|rng.randrange(2)<<8])
+                          rng.randint(-4096,4096),rng.randint(-4096,4096),rng.choice([1,24,64,128])|rng.randrange(4)<<8])
+        views += [v[:6]+[v[6]|0x0200] for v in views[:5]]
         with tempfile.TemporaryDirectory(prefix='fractal-reference-') as td:
             td=Path(td);src=td/'main.c';exe=td/('test.exe' if os.name=='nt' else 'test')
             src.write_text(source,encoding='ascii')
@@ -68,7 +85,7 @@ int main(void) {unsigned x;uint8_t q[8],r[8];while(scanf("%u",&x)==1){q[0]=(uint
                 for byte in range(8):
                     bad=bytearray(r);bad[byte]^=1;cases.append((q,bad,0))
             q=request(0x30,17,0,0)
-            for capability,version,valid in [(3,1,1),(7,1,1),(1,1,0),(15,1,0),(7,2,0)]:
+            for capability,version,valid in [(3,1,1),(7,1,1),(23,1,1),(1,1,0),(15,1,0),(7,2,0)]:
                 cases.append((q,seal(bytes([0x5a,0,17,2,capability,version])),valid))
             payload=''.join(' '.join(str(b) for b in bytes(q)+bytes(r))+'\n' for q,r,_ in cases)
             result=subprocess.run([str(exe)],input=payload,text=True,capture_output=True,check=True)

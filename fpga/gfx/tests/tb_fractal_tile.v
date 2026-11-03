@@ -8,7 +8,8 @@ module tb_fractal_tile;
     wire link_ready,gfx_ready,link_oe,gfx_oe;
     wire [7:0] link_data,gfx_data;
     reg [7:0] q[0:7],expected[0:73],got[0:73];
-    reg [1023:0] path;
+    reg [1023:0] path,palette_path;
+    reg [15:0] palette_expected[0:31];
     integer fd,n,i,count,length,cycles;
     always #5 clk=~clk;
     assign data=host_oe?host_data:8'hzz;
@@ -62,6 +63,11 @@ module tb_fractal_tile;
         end
     endtask
     initial begin
+        if(!$value$plusargs("palette=%s",palette_path))$fatal(1,"missing palette oracle");
+        $readmemh(palette_path,palette_expected);
+        for(i=0;i<32;i=i+1)
+            if(dut.core.triangle.renderer.fractal_vivid_palette(i[4:0])!==palette_expected[i])
+                $fatal(1,"vivid LUT mismatch index=%0d",i);
         #100;reset_n=1;#100;arm=1;#100;
         if(!$value$plusargs("vectors=%s",path))$fatal(1,"missing vectors");
         fd=$fopen(path,"r");if(!fd)$fatal(1,"cannot open vectors");count=0;
