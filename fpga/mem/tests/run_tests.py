@@ -20,7 +20,7 @@ env=os.environ.copy()
 tool=Path(args.iverilog).resolve().parent
 env['PATH']=str(tool)+os.pathsep+str(tool.parent/'lib')+os.pathsep+env['PATH']
 results=[]
-cases={'mem_bist':['mem_bist'],'mem_mailbox':['mem_mailbox'],'mem_link':['mem_link'],
+cases={'mem_deep_monitor':['mem_deep_monitor'],'mem_bist':['mem_bist'],'mem_mailbox':['mem_mailbox'],'mem_link':['mem_link'],
        'mem_heartbeat_abort':['mem_bist','mem_mailbox']}
 for name,modules in cases.items():
     sources=[root/f'mem/rtl/{module}.v' for module in modules]+[root/f'mem/tests/tb_{name}.v']
@@ -37,7 +37,7 @@ if args.zig:
     source=root/'mem/tests/test_mem_protocol.c'
     subprocess.run([args.zig,'cc','-std=c99','-Wall','-Wextra','-Werror',str(source),'-o',str(executable)],check=True,timeout=60)
     completed=subprocess.run([str(executable)],capture_output=True,text=True,check=True,timeout=10)
-    if 'PASS mem_protocol 604 checks' not in completed.stdout:raise RuntimeError(completed.stdout)
+    if 'PASS mem_protocol 621 checks' not in completed.stdout:raise RuntimeError(completed.stdout)
     print(completed.stdout.strip())
     sources=[source,root/'host/mem_protocol.h',root/'host/link_protocol.h']
     results.append({'name':'mem_protocol_c','output':completed.stdout.strip(),
@@ -56,3 +56,4 @@ if args.primitive_lib:
                     'sources':{str(s):hashlib.sha256(s.read_bytes()).hexdigest() for s in sources}})
 report={'scope':'RTL simulations, not physical DDR proof','tests':results}
 (build/'results.json').write_text(json.dumps(report,indent=2)+'\n')
+

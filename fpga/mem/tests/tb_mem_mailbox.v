@@ -9,9 +9,9 @@ reg[127:0] expected=128'h0123456789abcdef1122334455667788,actual=128'h9999999988
 reg[63:0] elapsed=64'hfedcba9876543210;
 wire bs,bc;wire[31:0] base,count,seed,job;
 wire abort_user;
-reg[175:0] diagnostic=0;integer diag_i;
+reg[255:0] deep_diagnostic=256'h123456789abcdef;reg[175:0] diagnostic=0;integer diag_i;
 mem_mailbox #(.DEADLINE(40)) dut(sys,reset,user,reset&&!abort_user&&!force_user_reset,cs,op,a,b,cd,status,result,recal,
-cal,busy,done,fault,error,phase,verified,errors,first,accepted,expected,actual,elapsed,bs,bc,base,count,seed,job,abort_user,diagnostic);
+cal,busy,done,fault,error,phase,verified,errors,first,accepted,expected,actual,elapsed,bs,bc,base,count,seed,job,abort_user,diagnostic,deep_diagnostic);
 integer starts=0,cancels=0,checks=0,saved_starts=0;
 realtime request_time=0,snapshot_time=0;
 reg[511:0] previous_bundle=0;reg[15:0] previous_generation=0;
@@ -63,7 +63,9 @@ command(8'h5c,9+diag_i,0);
 if(result!=(diag_i==0?16'h0600:16'h0100+diag_i))$fatal(1,"torn diagnostic word%0d",diag_i);
 end
 command(8'h5c,7,0);if(result!=1)$fatal(1,"diag bank generation mismatch");
-command(8'h5c,20,3);command(8'h5c,16'h0109,3);
+command(8'h5c,20,0);if(result!=16'h014f)$fatal(1,"deep cap");
+for(diag_i=0;diag_i<16;diag_i=diag_i+1)begin command(8'h5c,21+diag_i,0);if(result!=deep_diagnostic[diag_i*16+:16])$fatal(1,"deep bank");end
+command(8'h5c,37,3);command(8'h5c,16'h0109,3);
 command(8'h59,4,0);if(result!=16'h5678)$fatal(1,"torn verified low");
 command(8'h59,5,0);if(result!=16'h1234)$fatal(1,"torn verified high");
 command(8'h59,10,0);if(result!=16'h7788)$fatal(1,"expected endian");

@@ -26,3 +26,8 @@ report_timing -removal -max_paths 25
 report_timing -setup -from [get_regs {control/user_snapshot*}] -to [get_regs {control/sys_snapshot*}] -max_paths 512
 report_timing -setup -from [get_regs {control/user_debug_snapshot*}] -to [get_regs {control/sys_debug_snapshot*}] -max_paths 176
 report_timing -setup -from [get_regs {control/held_base* control/held_count* control/held_seed* control/held_job*}] -to [get_regs {control/job_base* control/job_count* control/job_seed* control/job_id*}] -max_paths 128
+
+// Output-only deep observation shares the same held snapshot handshake.
+set_max_delay -from [get_regs {control/user_deep_snapshot*}] -to [get_regs {control/sys_deep_snapshot*}] 60
+set_false_path -hold -from [get_regs {control/user_deep_snapshot*}] -to [get_regs {control/sys_deep_snapshot*}]
+report_timing -setup -from [get_regs {control/user_deep_snapshot*}] -to [get_regs {control/sys_deep_snapshot*}] -max_paths 256

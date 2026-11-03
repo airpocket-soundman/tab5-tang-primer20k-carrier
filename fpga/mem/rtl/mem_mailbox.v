@@ -12,7 +12,8 @@ module mem_mailbox # (parameter DEADLINE=2700000,parameter CAL_GUARD_CYCLES=256,
  output reg bist_start,bist_cancel,
  output reg[31:0] job_base,job_count,job_seed,job_id,
  output wire user_abort,
- input wire [175:0] native_debug
+ input wire [175:0] native_debug,
+ input wire [255:0] deep_debug
 );
  reg[31:0] cfg_base,cfg_count,cfg_seed,next_job;
  reg[5:0] cfg_written;
@@ -37,6 +38,7 @@ module mem_mailbox # (parameter DEADLINE=2700000,parameter CAL_GUARD_CYCLES=256,
  reg[31:0] held_base,held_count,held_seed,held_job;
  reg[511:0] user_snapshot,sys_snapshot;
  reg[175:0] user_debug_snapshot,sys_debug_snapshot;
+ reg[255:0] user_deep_snapshot,sys_deep_snapshot;
  reg pending_user,pending_sys,settle;
  reg[31:0] deadline;
  reg snapshot_valid,snapshot_stale,mailbox_timeout;
@@ -64,7 +66,7 @@ module mem_mailbox # (parameter DEADLINE=2700000,parameter CAL_GUARD_CYCLES=256,
  // USER half: first cycle accepts stable payload, following cycle acknowledges.
  always @(posedge user_clk or negedge user_reset_n)begin
  if(!user_reset_n)begin request_sync<=0;ack_toggle<=0;pending_user<=0;
- bist_start<=0;bist_cancel<=0;job_base<=0;job_count<=0;job_seed<=0;job_id<=0;user_snapshot<=0;user_debug_snapshot<=0;
+ bist_start<=0;bist_cancel<=0;job_base<=0;job_count<=0;job_seed<=0;job_id<=0;user_snapshot<=0;user_debug_snapshot<=0;user_deep_snapshot<=0;
  heartbeat_counter<=0;heartbeat_toggle<=0;user_mailbox_ready<=0;bootstrap_count<=0;end
  else begin
  request_sync<={request_sync[0],request_toggle};bist_start<=0;bist_cancel<=0;
@@ -79,7 +81,7 @@ module mem_mailbox # (parameter DEADLINE=2700000,parameter CAL_GUARD_CYCLES=256,
  if(held_op==8'h57)begin job_base<=held_base;job_count<=held_count;
  job_seed<=held_seed;job_id<=held_job;bist_start<=1;end
  else if(held_op==8'h5a)bist_cancel<=1;
- else if(held_op==8'h58)begin user_snapshot<=snapshot_bundle;user_debug_snapshot<=native_debug;end
+ else if(held_op==8'h58)begin user_snapshot<=snapshot_bundle;user_debug_snapshot<=native_debug;user_deep_snapshot<=deep_debug;end
  end
  end end
  always @(posedge sys_clk or negedge sys_reset_n)begin
@@ -90,7 +92,7 @@ module mem_mailbox # (parameter DEADLINE=2700000,parameter CAL_GUARD_CYCLES=256,
  heartbeat_sync<=0;heartbeat_previous<=0;heartbeat_fresh<=0;heartbeat_age<=0;loss_reasons<=0;
  held_op<=0;held_base<=0;held_count<=0;held_seed<=0;held_job<=0;
  pending_sys<=0;settle<=0;deadline<=0;command_done<=0;status<=0;result<=0;
- recalibrate<=0;sys_snapshot<=0;sys_debug_snapshot<=0;snapshot_valid<=0;snapshot_stale<=1;
+ recalibrate<=0;sys_snapshot<=0;sys_debug_snapshot<=0;sys_deep_snapshot<=0;snapshot_valid<=0;snapshot_stale<=1;
  mailbox_timeout<=0;generation<=0;
  end else begin
  command_done<=0;recalibrate<=0;
@@ -123,7 +125,7 @@ module mem_mailbox # (parameter DEADLINE=2700000,parameter CAL_GUARD_CYCLES=256,
  // One extra SYS cycle after synchronized ack allows held snapshot settling.
  if(!settle)settle<=1;
  else begin pending_sys<=0;settle<=0;command_done<=1;status<=0;accepted_epoch<=1;
- if(held_op==8'h58)begin sys_snapshot<=user_snapshot;sys_debug_snapshot<=user_debug_snapshot;generation<=generation+1;
+ if(held_op==8'h58)begin sys_snapshot<=user_snapshot;sys_debug_snapshot<=user_debug_snapshot;sys_deep_snapshot<=user_deep_snapshot;generation<=generation+1;
  result<=generation+1;snapshot_valid<=1;snapshot_stale<=0;end
  else if(held_op==8'h57)begin result<=held_job[15:0];accepted_epoch<=1;end
  else result<=0;
@@ -164,6 +166,8 @@ module mem_mailbox # (parameter DEADLINE=2700000,parameter CAL_GUARD_CYCLES=256,
  0:result<=16'h014d;1:result<=2048;2:result<=16'h0d0a;3:result<=16'h0310;
  4:result<=324;5:result<=81;6:result<={2'b0,loss_reasons,heartbeat_fresh,user_ready_sync[1],(calibration_guard>=CAL_GUARD_CYCLES),reset_loss,mailbox_timeout,snapshot_stale,snapshot_valid,fault_sync[1],busy_sync[1],cal_sync[1]};
  7:result<=generation;8:result<=16'h014e;
+ 20:result<=16'h014f;
+ 21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36:if(!snapshot_valid)status<=5;else result<=sys_deep_snapshot[(a-21)*16+:16];
  9,10,11,12,13,14,15,16,17,18,19:if(!snapshot_valid)status<=5;else result<=sys_debug_snapshot[(a-9)*16+:16];
  default:status<=3;endcase
  default:status<=2;
