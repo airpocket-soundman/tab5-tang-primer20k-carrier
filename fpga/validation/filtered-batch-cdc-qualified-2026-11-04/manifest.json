@@ -1,0 +1,709 @@
+{
+  "hardware_access": false,
+  "source_commit": "88d15cd30a54cba17157436352927f92df5ccd46",
+  "qualification": "Offline CDC-qualified and routing-closed ONLY; root peer review and physical trial still required",
+  "sta_counts": {
+    "Numbers of Paths Analyzed": 19396,
+    "Numbers of Endpoints Analyzed": 6179,
+    "Numbers of Setup Violated Endpoints": 0,
+    "Numbers of Hold Violated Endpoints": 0
+  },
+  "actual_clock_domains": {
+    "conditioned_reply54": {
+      "target_mhz": 54.0,
+      "fmax_mhz": 80.261
+    },
+    "core54": {
+      "target_mhz": 54.0,
+      "fmax_mhz": 69.593
+    },
+    "sampler216": {
+      "target_mhz": 216.0,
+      "fmax_mhz": 293.532
+    }
+  },
+  "min_slack_ns": {
+    "Setup Paths Table": 1.155,
+    "Hold Paths Table": 0.126,
+    "Recovery Paths Table": 2.615,
+    "Removal Paths Table": 1.106
+  },
+  "cdc_exceptions": {
+    "count": 30,
+    "exact_source_Q_to_stage0_D": [
+      {
+        "bit": 10,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_10_s0/D",
+        "source_Q": "core/fast_metadata_10_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_10_s0/D",
+        "stage01_interconnect_ns": "0.349:0.437:0.524"
+      },
+      {
+        "bit": 16,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_16_s0/D",
+        "source_Q": "core/fast_metadata_16_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_16_s0/D",
+        "stage01_interconnect_ns": "0.484:0.626:0.767"
+      },
+      {
+        "bit": 17,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_17_s0/D",
+        "source_Q": "core/fast_metadata_17_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_17_s0/D",
+        "stage01_interconnect_ns": "0.354:0.447:0.540"
+      },
+      {
+        "bit": 18,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_18_s0/D",
+        "source_Q": "core/fast_metadata_18_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_18_s0/D",
+        "stage01_interconnect_ns": "0.495:0.639:0.783"
+      },
+      {
+        "bit": 19,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_19_s0/D",
+        "source_Q": "core/fast_metadata_19_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_19_s0/D",
+        "stage01_interconnect_ns": "0.354:0.447:0.540"
+      },
+      {
+        "bit": 20,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_20_s0/D",
+        "source_Q": "core/fast_metadata_20_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_20_s0/D",
+        "stage01_interconnect_ns": "0.354:0.447:0.540"
+      },
+      {
+        "bit": 21,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_21_s0/D",
+        "source_Q": "core/fast_metadata_21_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_21_s0/D",
+        "stage01_interconnect_ns": "0.354:0.447:0.540"
+      },
+      {
+        "bit": 22,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_22_s0/D",
+        "source_Q": "core/fast_metadata_22_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_22_s0/D",
+        "stage01_interconnect_ns": "0.354:0.447:0.540"
+      },
+      {
+        "bit": 23,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_23_s0/D",
+        "source_Q": "core/fast_metadata_23_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_23_s0/D",
+        "stage01_interconnect_ns": "0.354:0.447:0.540"
+      },
+      {
+        "bit": 25,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_25_s0/D",
+        "source_Q": "core/fast_metadata_25_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_25_s0/D",
+        "stage01_interconnect_ns": "0.354:0.447:0.540"
+      },
+      {
+        "bit": 32,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_32_s0/D",
+        "source_Q": "core/fast_metadata_32_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_32_s0/D",
+        "stage01_interconnect_ns": "0.358:0.488:0.617"
+      },
+      {
+        "bit": 33,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_33_s0/D",
+        "source_Q": "core/fast_metadata_33_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_33_s0/D",
+        "stage01_interconnect_ns": "0.349:0.437:0.524"
+      },
+      {
+        "bit": 34,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_34_s0/D",
+        "source_Q": "core/fast_metadata_34_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_34_s0/D",
+        "stage01_interconnect_ns": "0.523:0.667:0.811"
+      },
+      {
+        "bit": 35,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_35_s0/D",
+        "source_Q": "core/fast_metadata_35_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_35_s0/D",
+        "stage01_interconnect_ns": "0.354:0.447:0.540"
+      },
+      {
+        "bit": 36,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_36_s0/D",
+        "source_Q": "core/fast_metadata_36_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_36_s0/D",
+        "stage01_interconnect_ns": "0.354:0.447:0.540"
+      },
+      {
+        "bit": 37,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_37_s0/D",
+        "source_Q": "core/fast_metadata_37_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_37_s0/D",
+        "stage01_interconnect_ns": "0.349:0.437:0.524"
+      },
+      {
+        "bit": 38,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_38_s0/D",
+        "source_Q": "core/fast_metadata_38_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_38_s0/D",
+        "stage01_interconnect_ns": "0.354:0.447:0.540"
+      },
+      {
+        "bit": 39,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_39_s0/D",
+        "source_Q": "core/fast_metadata_39_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_39_s0/D",
+        "stage01_interconnect_ns": "0.349:0.437:0.524"
+      },
+      {
+        "bit": 40,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_40_s0/D",
+        "source_Q": "core/fast_metadata_40_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_40_s0/D",
+        "stage01_interconnect_ns": "0.354:0.447:0.540"
+      },
+      {
+        "bit": 41,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_41_s0/D",
+        "source_Q": "core/fast_metadata_41_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_41_s0/D",
+        "stage01_interconnect_ns": "0.349:0.437:0.524"
+      },
+      {
+        "bit": 42,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_42_s0/D",
+        "source_Q": "core/fast_metadata_42_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_42_s0/D",
+        "stage01_interconnect_ns": "0.495:0.639:0.783"
+      },
+      {
+        "bit": 43,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_43_s0/D",
+        "source_Q": "core/fast_metadata_43_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_43_s0/D",
+        "stage01_interconnect_ns": "0.495:0.639:0.783"
+      },
+      {
+        "bit": 44,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_44_s0/D",
+        "source_Q": "core/fast_metadata_44_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_44_s0/D",
+        "stage01_interconnect_ns": "0.349:0.437:0.524"
+      },
+      {
+        "bit": 45,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_45_s0/D",
+        "source_Q": "core/fast_metadata_45_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_45_s0/D",
+        "stage01_interconnect_ns": "0.354:0.447:0.540"
+      },
+      {
+        "bit": 46,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_46_s0/D",
+        "source_Q": "core/fast_metadata_46_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_46_s0/D",
+        "stage01_interconnect_ns": "0.349:0.437:0.524"
+      },
+      {
+        "bit": 47,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_47_s0/D",
+        "source_Q": "core/fast_metadata_47_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_47_s0/D",
+        "stage01_interconnect_ns": "0.354:0.447:0.540"
+      },
+      {
+        "bit": 48,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_48_s0/D",
+        "source_Q": "core/fast_metadata_48_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_48_s0/D",
+        "stage01_interconnect_ns": "0.349:0.437:0.524"
+      },
+      {
+        "bit": 49,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_49_s0/D",
+        "source_Q": "core/fast_metadata_49_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_49_s0/D",
+        "stage01_interconnect_ns": "0.920:1.197:1.475"
+      },
+      {
+        "bit": 8,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_8_s0/D",
+        "source_Q": "core/fast_metadata_8_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_8_s0/D",
+        "stage01_interconnect_ns": "0.354:0.447:0.540"
+      },
+      {
+        "bit": 9,
+        "first_stage_D": "core/fast_serializer.serializer/metadata_meta_9_s0/D",
+        "source_Q": "core/fast_metadata_9_s0/Q",
+        "only_Q_consumer": "core/fast_serializer.serializer/metadata_bus_9_s0/D",
+        "stage01_interconnect_ns": "0.354:0.447:0.540"
+      }
+    ],
+    "no_stage1_or_clear_or_clock_group_exception": true,
+    "source_held_before_offer_through_done": true
+  },
+  "all30_stage01_setup_and_hold_paths": {
+    "Setup Paths Table": [
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_49_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_49_s0/D",
+        "slack_ns": 16.777
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_34_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_34_s0/D",
+        "slack_ns": 17.44
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_42_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_42_s0/D",
+        "slack_ns": 17.468
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_43_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_43_s0/D",
+        "slack_ns": 17.468
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_18_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_18_s0/D",
+        "slack_ns": 17.468
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_16_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_16_s0/D",
+        "slack_ns": 17.485
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_32_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_32_s0/D",
+        "slack_ns": 17.635
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_40_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_40_s0/D",
+        "slack_ns": 17.711
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_47_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_47_s0/D",
+        "slack_ns": 17.711
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_45_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_45_s0/D",
+        "slack_ns": 17.711
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_38_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_38_s0/D",
+        "slack_ns": 17.711
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_20_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_20_s0/D",
+        "slack_ns": 17.711
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_25_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_25_s0/D",
+        "slack_ns": 17.711
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_36_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_36_s0/D",
+        "slack_ns": 17.711
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_35_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_35_s0/D",
+        "slack_ns": 17.711
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_21_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_21_s0/D",
+        "slack_ns": 17.711
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_22_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_22_s0/D",
+        "slack_ns": 17.711
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_23_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_23_s0/D",
+        "slack_ns": 17.711
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_19_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_19_s0/D",
+        "slack_ns": 17.711
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_9_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_9_s0/D",
+        "slack_ns": 17.711
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_17_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_17_s0/D",
+        "slack_ns": 17.711
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_8_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_8_s0/D",
+        "slack_ns": 17.711
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_39_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_39_s0/D",
+        "slack_ns": 17.727
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_44_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_44_s0/D",
+        "slack_ns": 17.727
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_41_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_41_s0/D",
+        "slack_ns": 17.727
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_46_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_46_s0/D",
+        "slack_ns": 17.727
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_48_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_48_s0/D",
+        "slack_ns": 17.727
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_33_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_33_s0/D",
+        "slack_ns": 17.727
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_37_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_37_s0/D",
+        "slack_ns": 17.727
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_10_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_10_s0/D",
+        "slack_ns": 17.727
+      }
+    ],
+    "Hold Paths Table": [
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_39_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_39_s0/D",
+        "slack_ns": 0.539
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_44_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_44_s0/D",
+        "slack_ns": 0.539
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_41_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_41_s0/D",
+        "slack_ns": 0.539
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_46_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_46_s0/D",
+        "slack_ns": 0.539
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_48_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_48_s0/D",
+        "slack_ns": 0.539
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_33_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_33_s0/D",
+        "slack_ns": 0.539
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_37_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_37_s0/D",
+        "slack_ns": 0.539
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_10_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_10_s0/D",
+        "slack_ns": 0.539
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_40_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_40_s0/D",
+        "slack_ns": 0.544
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_47_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_47_s0/D",
+        "slack_ns": 0.544
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_45_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_45_s0/D",
+        "slack_ns": 0.544
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_38_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_38_s0/D",
+        "slack_ns": 0.544
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_20_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_20_s0/D",
+        "slack_ns": 0.544
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_25_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_25_s0/D",
+        "slack_ns": 0.544
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_36_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_36_s0/D",
+        "slack_ns": 0.544
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_35_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_35_s0/D",
+        "slack_ns": 0.544
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_21_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_21_s0/D",
+        "slack_ns": 0.544
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_22_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_22_s0/D",
+        "slack_ns": 0.544
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_23_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_23_s0/D",
+        "slack_ns": 0.544
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_19_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_19_s0/D",
+        "slack_ns": 0.544
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_9_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_9_s0/D",
+        "slack_ns": 0.544
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_17_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_17_s0/D",
+        "slack_ns": 0.544
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_8_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_8_s0/D",
+        "slack_ns": 0.544
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_32_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_32_s0/D",
+        "slack_ns": 0.549
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_16_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_16_s0/D",
+        "slack_ns": 0.675
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_42_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_42_s0/D",
+        "slack_ns": 0.686
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_43_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_43_s0/D",
+        "slack_ns": 0.686
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_18_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_18_s0/D",
+        "slack_ns": 0.686
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_34_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_34_s0/D",
+        "slack_ns": 0.714
+      },
+      {
+        "source": "core/fast_serializer.serializer/metadata_meta_49_s0/Q",
+        "endpoint": "core/fast_serializer.serializer/metadata_bus_49_s0/D",
+        "slack_ns": 1.111
+      }
+    ]
+  },
+  "sampler_explicit_stage01_paths": [
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 3.822,
+      "source": "core/clock_conditioner/meta_s0/Q",
+      "endpoint": "core/clock_conditioner/sampled_s0/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 3.822,
+      "source": "core/clock_conditioner/meta_s0/Q",
+      "endpoint": "core/clock_conditioner/sampled_s0/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.544,
+      "source": "core/clock_conditioner/meta_s0/Q",
+      "endpoint": "core/clock_conditioner/sampled_s0/D"
+    }
+  ],
+  "identity_audit": {
+    "source_sha256": "47b020e831f797bb572cf6886d374a38b2f2f1be768789a4b03a618a8c920aeb",
+    "baseline_commit": "43137e7",
+    "only_change_identity_on_serializer_offer": true,
+    "truth_table": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "original_immediate_oe_ready_and_metadata_lifecycle_unchanged": true,
+    "mapped_independent_identity_lut": false,
+    "interpretation": "Identity-equivalent source and routing-closed candidate; no claim that an independent buffer caused delay",
+    "vo_sha256": "f86f3819af650f51580c9070e7d8359f7c5befe8bb1d1101b1198678024dd4b4",
+    "limitations": [
+      "Source identity plus compiler mapping and regression tests; not full-netlist formal equivalence",
+      "External capture phase and physical maximum remain independent"
+    ]
+  },
+  "source_sha256": {
+    "link/rtl/triangle_batch.v": "08a1ad4a5c623b8fb5b057cadca98950a5b61a1241b88af975b1777a0c91ec26",
+    "link/rtl/reply_clock_filter.v": "dd9d4f92f6dbeb0b3d8601ab77ac94aab86f410753112a9fa6dde529e6575cb1",
+    "link/rtl/link_reply_raw.v": "c1df039c17f5ca8b6708f2455c1d52c1727feb8dfaac2fe401d5ab2f660094a8",
+    "link/rtl/link_bringup_filtered.v": "47b020e831f797bb572cf6886d374a38b2f2f1be768789a4b03a618a8c920aeb",
+    "gfx/rtl/gfx_bench.v": "841a4f50baa9e3200bbda1cd61bc9511db36909f76e854a9b66b331ebda2c392",
+    "gfx/rtl/triangle_tile_vendor.v": "0e6b472f55775b2071f2832bcc1514bff0e8db141ac0e42784e31c64c3933369",
+    "gfx/rtl/tile_dpram_vendor.v": "b133181cd254c9059c54e19fc03f06b506ca280d374dd6fa6ae321bc0159135e",
+    "gfx/rtl/triangle_fragment.v": "164a23321804c2109fdc963de7e18f1ad13270671e73feadef46a621d9077c4e",
+    "gfx/rtl/triangle_coverage_pipeline.v": "612d9f92858e0f3a58d0b20471c05d3c1d5a98005a145b450b55b5ae70935e1b",
+    "gfx/rtl/triangle_depth.v": "de970c1412f827a1bac67d840b7f0345128ad669a67cd3d3e66029c2b5ffe06f",
+    "platform/dock/dock_pll54.v": "a39b06768797c12ac8e72a58e1ff1bbfbf01a24c079309982cd8c89a9adc7879",
+    "platform/dock/dock_pll216.v": "7a6b8e3421955bb4f22b08594f900e86b3051f1e9a33d1ff3c742bf84aac2456",
+    "platform/dock/tab5_dock_triangle54_filtered_top.v": "144ade85cd2604caad23437e267cfd7626570055601ff3c7869c043423faf0d8",
+    "constraints/dock/tab5_dock_link_v0.cst": "ebc2cc10587f201c489b14703ac7843a24476481103e6566ff1aec02f6036c61",
+    "constraints/dock/triangle54filtered_batch_cdc.sdc": "5f653482f1f818ba79259dc6cf9e0a870679c38d9361ec4120a77e20dbf21e2e",
+    "builds/dock/build_filtered_batch_cdc_qualified.tcl": "1c6003509b42aed920153221649894a21b788ae4e7684de0f80a64bace8a2c49",
+    "host/triangle_batch.h": "c840db9817ceef6b974a6aa8d19c05ebdaff46505f8057f18cace5aa0e098097",
+    "host/link_protocol.h": "3c40a5a938df6260b9d21b77cd6eaab29cda3c690bd269dd32ab38f04de6e5b2"
+  },
+  "artifacts": [
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch-hold\\fpga\\build\\filtered-batch-cdc-qualified\\filtered_reply\\impl\\pnr\\filtered_reply_tr_content.html",
+      "archived": "filtered_reply_tr_content.html.gz",
+      "sha256": "9eb1148b6de08a15c97f38bf33c713420310d200ca2b7cab4347c012c544f54b",
+      "gzip_sha256": "0c623a94e5258478b0a78daecefa2e6f49baf6bae34af4660e4cf9ad50e35c48",
+      "bytes": 2125574
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch-hold\\fpga\\build\\filtered-batch-cdc-qualified\\filtered_reply\\impl\\pnr\\filtered_reply.rpt.txt",
+      "archived": "filtered_reply.rpt.txt.gz",
+      "sha256": "b9cb4d319a1f5a0a93caf766a36f9b6fdb020fd952f54d3618805f7945aaefbc",
+      "gzip_sha256": "1db56a5e20ef6fa5aa00706a839c6203099929715d596173542712c6e73d2529",
+      "bytes": 50407
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch-hold\\fpga\\build\\filtered-batch-cdc-qualified\\filtered_reply\\impl\\pnr\\filtered_reply.pin.html",
+      "archived": "filtered_reply.pin.html.gz",
+      "sha256": "9eb8347b4fe7a6250e04127d5519159cedbbd841e41a2b71eba9b1ab235a2978",
+      "gzip_sha256": "d71d00cc3f657c3d999d511b21bd1a88df7a6eae53ee388fa0a743a6ae736ce6",
+      "bytes": 60178
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch-hold\\fpga\\build\\filtered-batch-cdc-qualified\\filtered_reply\\impl\\pnr\\filtered_reply.fs",
+      "archived": "filtered_reply.fs.gz",
+      "sha256": "85bac22420a81bbaaef26a2edff81a3deb0e2bb114a97f106c1deede8062d717",
+      "gzip_sha256": "d4b8f5829bbc50b2c770de3e82daf5bfddbe5432cdb4d5520647b54e92550b53",
+      "bytes": 7264154
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch-hold\\fpga\\build\\filtered-batch-cdc-qualified\\filtered_reply\\impl\\pnr\\filtered_reply.sdf",
+      "archived": "filtered_reply.sdf.gz",
+      "sha256": "c7f6b6b523d7cc1c9d487b2d50618e376ac6a5bbc245fad544d50a4a8f2f4d4f",
+      "gzip_sha256": "e3efd2e41d89fd3cd5e693f4b927f6273adedd3bf510858a91e92d1a808d574c",
+      "bytes": 7538146
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch-hold\\fpga\\build\\filtered-batch-cdc-qualified\\filtered_reply\\impl\\pnr\\filtered_reply.vo",
+      "archived": "filtered_reply.vo.gz",
+      "sha256": "f86f3819af650f51580c9070e7d8359f7c5befe8bb1d1101b1198678024dd4b4",
+      "gzip_sha256": "df066a818c0e2b9ddb57e20413d5816ffab84d8db4a309b20941f556bcea02b6",
+      "bytes": 2263134
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch-hold\\fpga\\build\\batch-fractal-regression.log",
+      "archived": "batch-fractal-regression.log.gz",
+      "sha256": "8f17bfc523d754d26609f85e88deaa8a24599049d3f1c70837b76a60b7b939f2",
+      "gzip_sha256": "614ed62af3b07931cf0cbc379c669f4f14a65c9a016dae15bf0744de02059c5d",
+      "bytes": 4953
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch-hold\\fpga\\build\\batch-triangle-regression.log",
+      "archived": "batch-triangle-regression.log.gz",
+      "sha256": "de41ea192ef971218a7b055d8f68802b1af80f02890e01357bc4b5f38fd81863",
+      "gzip_sha256": "fa1fdf1a5041ec0d01a9c99a6b861f5aaead980973834999e04e83fbdbe3768a",
+      "bytes": 4137
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch-hold\\fpga\\build\\filtered-batch-regression.log",
+      "archived": "filtered-batch-regression.log.gz",
+      "sha256": "f67b6c40680929c2c4b9d1d6cdfabd19e4c17a43eb08fa5963e7aff0928beaf4",
+      "gzip_sha256": "df129e44f0a1c920275ce12ced81de421135f943665e1d8b614a7e6dbb2a0a32",
+      "bytes": 4193
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch-hold\\fpga\\build\\filtered-batch-cdc-qualified.log",
+      "archived": "filtered-batch-cdc-qualified.log.gz",
+      "sha256": "dc656ea4ee97f5072a183b943a48a7cb32aef676726298f3b0eb84d08581d065",
+      "gzip_sha256": "21ada4b98ca83cdfce5c66a9e77fdc92eb2d470f86d5fd6987b7ef6b8fe02dc1",
+      "bytes": 13379
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch-hold\\fpga\\build\\batch-filtered-cdc-control.json",
+      "archived": "batch-filtered-cdc-control.json.gz",
+      "sha256": "42844181964d698bc68b120a2637fd2bb82ab8695af732fe7b5abe7594948731",
+      "gzip_sha256": "59c79808d38539e1733404cf15363b35fdbc09a02c3a926715b7278236f4235d",
+      "bytes": 1784
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch-hold\\fpga\\build\\offer-identity-audit.json",
+      "archived": "offer-identity-audit.json.gz",
+      "sha256": "5ee838323d1b5bad72c33aa930235f54bc87397756d829f65d7f5ebd0f1bc013",
+      "gzip_sha256": "b153cd9d4bfe8ca711f3a563a10e3b6547dceffd3ce0849b37865e545cba96ca",
+      "bytes": 804
+    }
+  ],
+  "limitations": [
+    "Exact30 legitimate asynchronous first-stage exceptions explicitly present; NOT a no-exceptions design",
+    "Source identity and mapped regression, not full-netlist formal equivalence",
+    "No metastability MTBF, measured external IO timing or physical cable ceiling guarantee",
+    "Original6c5a negative8MHz CRC failure retained; SDK-positive physical tests use a different source/bitstream until root trials this candidate"
+  ]
+}

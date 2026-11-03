@@ -30,6 +30,15 @@ module link_bringup_filtered #(
     reg [31:0] idle_count;
     reg [15:0] reply_crc;
     reg gfx_start, gfx_pending;
+    reg batch_start,batch_pending;
+    reg [15:0] batch_header_crc;
+    wire batch_receiving,batch_busy,batch_done,batch_cmd_start;
+    wire [7:0] batch_status,batch_cmd_opcode,batch_cmd_a,batch_cmd_b;
+    wire batch_abort=!arm || idle_count>=TIMEOUT_CYCLES-1 || (batch_receiving && dir_sync[1]);
+    wire batch_byte_valid=rise && !dir && !dir_sync[1] && batch_receiving;
+    wire [7:0] renderer_opcode=batch_pending?batch_cmd_opcode:logical_opcode;
+    wire [7:0] renderer_a=batch_pending?batch_cmd_a:req[4];
+    wire [7:0] renderer_b=batch_pending?batch_cmd_b:req[5];
     wire gfx_done;
     wire [7:0] gfx_status;
     wire [15:0] gfx_result;
@@ -53,7 +62,11 @@ module link_bringup_filtered #(
     wire use_raw=FAST_REPLY_ENABLE && prefixed;
     wire raw_valid=fast_offer && !raw_done && (!raw_started || dir);
     generate if(FAST_REPLY_ENABLE) begin: fast_serializer
-        link_reply_raw serializer(clean_reply_clk,reset_n,arm,dir,fast_offer,fast_metadata,
+        // Physical hold repair on this one serializer input only. The original
+        // fast_offer still owns immediate OE/READY kill and SYS lifecycle.
+        (* keep = "true" *) wire serializer_offer;
+        (* keep = "true" *) LUT1 #(.INIT(2'h2)) offer_hold_buffer(.F(serializer_offer),.I0(fast_offer));
+        link_reply_raw serializer(clean_reply_clk,reset_n,arm,dir,serializer_offer,fast_metadata,
             row_byte,raw_ram_color,raw_ram_depth,raw_data,raw_done,raw_started,raw_error,raw_progress,
             raw_row_index,raw_ram_address,raw_ram_enable);
     end else begin: no_fast_serializer
@@ -67,18 +80,25 @@ module link_bringup_filtered #(
                             logical_tx_index-12'd8;
     wire [10:0] row_index=use_raw ? (tile_mode?11'd0:{5'b0,raw_row_index}):legacy_row_index;
     generate if(GFX_ENABLE==2) begin: triangle
-        wire renderer_abort = gfx_pending && idle_count >= TIMEOUT_CYCLES-1;
-        triangle_tile #(.CORE_CLOCK_MHZ(CORE_CLOCK_MHZ),.CLOCK_QUERY_ENABLE(CLOCK_QUERY_ENABLE),.RAW_READ_ENABLE(FAST_REPLY_ENABLE)) renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start,
-                              logical_opcode, req[4], req[5], gfx_done, gfx_status, gfx_result,
+        wire renderer_abort = (gfx_pending || batch_pending) && idle_count >= TIMEOUT_CYCLES-1;
+        triangle_batch staging(sys_clk,reset_n,batch_abort,batch_start,{1'b0,req[4][5:0]}+(req[4]==64?7'd64:7'd0),
+            batch_header_crc,batch_byte_valid,data_i,batch_receiving,batch_busy,batch_done,batch_status,
+            batch_cmd_start,batch_cmd_opcode,batch_cmd_a,batch_cmd_b,gfx_done,gfx_status);
+        triangle_tile #(.CORE_CLOCK_MHZ(CORE_CLOCK_MHZ),.CLOCK_QUERY_ENABLE(CLOCK_QUERY_ENABLE),.RAW_READ_ENABLE(FAST_REPLY_ENABLE)) renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start || batch_cmd_start,
+                              renderer_opcode, renderer_a, renderer_b, gfx_done, gfx_status, gfx_result,
                               row_index, row_byte,clean_reply_clk,raw_ram_enable,raw_ram_address,raw_ram_color,raw_ram_depth);
     end else if(GFX_ENABLE) begin: gfx
+        assign batch_receiving=0;assign batch_busy=0;assign batch_done=0;assign batch_status=0;
+        assign batch_cmd_start=0;assign batch_cmd_opcode=0;assign batch_cmd_a=0;assign batch_cmd_b=0;
         // A timed-out operation must not keep mutating RAM or consume a later start.
         wire renderer_reset_n = reset_n && arm;
-        wire renderer_abort = gfx_pending && idle_count >= TIMEOUT_CYCLES-1;
+        wire renderer_abort = (gfx_pending || batch_pending) && idle_count >= TIMEOUT_CYCLES-1;
         gfx_bench renderer(sys_clk, renderer_reset_n, renderer_abort, gfx_start,
                            logical_opcode, req[4], req[5], gfx_done, gfx_status, gfx_result);
         assign row_byte=8'h00;assign raw_ram_color=0;assign raw_ram_depth=0;
     end else begin: no_gfx
+        assign batch_receiving=0;assign batch_busy=0;assign batch_done=0;assign batch_status=0;
+        assign batch_cmd_start=0;assign batch_cmd_opcode=0;assign batch_cmd_a=0;assign batch_cmd_b=0;
         assign gfx_done=1'b0;
         assign gfx_status=8'h02;
         assign gfx_result=16'h0000;
@@ -118,10 +138,10 @@ module link_bringup_filtered #(
             fast_inflight<=0;fast_offer<=0;fast_prepare<=0;fast_metadata<=0;
             raw_done_sync<=0;raw_started_sync<=0;raw_progress_sync<=0;raw_progress_last<=0;
             valid<=0; rx_crc<=16'hffff; idle_count<=0;
-            gfx_start<=0; gfx_pending<=0;
+            gfx_start<=0; gfx_pending<=0;batch_start<=0;batch_pending<=0;
             bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff;
         end else begin
-            gfx_start<=0;
+            gfx_start<=0;batch_start<=0;
             raw_done_sync<={raw_done_sync[0],raw_done};
             raw_started_sync<={raw_started_sync[0],raw_started};
             raw_progress_sync<={raw_progress_sync[0],raw_progress};
@@ -129,11 +149,11 @@ module link_bringup_filtered #(
             clk_sync<={clk_sync[1:0],bus_clk}; dir_sync<={dir_sync[0],dir};
             if(!arm) begin
                 valid<=0; rx_index<=0; tx_index<=0; rx_crc<=16'hffff; idle_count<=0;
-                gfx_pending<=0;fast_offer<=0;fast_inflight<=0;fast_prepare<=0;
+                gfx_pending<=0;batch_pending<=0;fast_offer<=0;fast_inflight<=0;fast_prepare<=0;
                 bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff;
             end else if(idle_count>=TIMEOUT_CYCLES-1) begin
                 valid<=0; rx_index<=0; tx_index<=0; rx_crc<=16'hffff; idle_count<=0;
-                gfx_pending<=0;fast_offer<=0;fast_inflight<=0;fast_prepare<=0;
+                gfx_pending<=0;batch_pending<=0;fast_offer<=0;fast_inflight<=0;fast_prepare<=0;
                 bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff;
             end else begin
                 idle_count<=idle_count+1;
@@ -153,6 +173,14 @@ module link_bringup_filtered #(
                         bulk_mode<=0;tile_mode<=0;prefixed<=0;tx_index<=0;idle_count<=0;
                     end
                 end
+                if(batch_pending && gfx_done) idle_count<=0;
+                if(batch_pending && batch_done) begin
+                    reply[1]<=batch_status;reply[4]<=req[4];reply[5]<=1;
+                    valid<=1;batch_pending<=0;
+                end
+                if(batch_pending && batch_receiving && dir_sync[1]) begin
+                    batch_pending<=0;rx_index<=0;rx_crc<=16'hffff;
+                end
                 if(gfx_pending && gfx_done) begin
                     reply[1]<=gfx_status; reply[4]<=gfx_result[7:0]; reply[5]<=gfx_result[15:8];
                     valid<=1; gfx_pending<=0;
@@ -162,7 +190,7 @@ module link_bringup_filtered #(
                 if(dir_sync[1] && rx_index!=0) begin rx_index<=0; rx_crc<=16'hffff; end
                 if(rise) begin
                     idle_count<=0;
-                    if(!dir_sync[1] && !dir && !valid && !gfx_pending) begin
+                    if(!dir_sync[1] && !dir && !valid && !gfx_pending && !batch_pending) begin
                         if(rx_index==0) begin bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff; end
                         if(rx_index<7) req[rx_index]<=data_i;
                         if(rx_index<6) rx_crc<=crc_byte(rx_crc,data_i);
@@ -175,6 +203,14 @@ module link_bringup_filtered #(
                                       req[6]==rx_crc[7:0] && data_i==rx_crc[15:8];
                             if(req[0]!=8'ha5 || req[3]!=2 || req[6]!=rx_crc[7:0] || data_i!=rx_crc[15:8]) reply[1]<=1;
                             else case(logical_opcode)
+                                8'h40: if(GFX_ENABLE==2) begin
+                                    if(req[4]!=0 || req[5]!=0) reply[1]<=3;
+                                    else begin reply[1]<=0;reply[4]<=64;reply[5]<=1;end
+                                end else reply[1]<=2;
+                                8'h41: if(GFX_ENABLE==2) begin
+                                    if(req[4]<1 || req[4]>64 || req[5]!=1) reply[1]<=3;
+                                    else begin valid<=0;batch_pending<=1;batch_start<=1;batch_header_crc<=rx_crc;end
+                                end else reply[1]<=2;
                                 1: begin reply[1]<=0; reply[4]<=8'h54; reply[5]<=8'h50; end
                                 2: begin reply[1]<=0; reply[4]<=req[4]; reply[5]<=req[5]; end
                                 3: begin reply[1]<=0; reply[4]<=~req[4]; reply[5]<=~req[5]; end
