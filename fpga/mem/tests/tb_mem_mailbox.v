@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 module tb_mem_mailbox;
-reg sys=0,user=0,run_user=1;always #7 sys=~sys;always #3 if(run_user)user=~user;
+reg sys=0,user=0,run_user=1;always #18.5185 sys=~sys;always #6.17284 if(run_user)user=~user;
 reg reset=0,cs=0;reg[7:0] op=0,a=0,b=0;wire cd;wire[7:0] status;wire[15:0] result;wire recal;
 reg cal=1,busy=0,done=0,fault=0;reg[7:0] error=0;reg[2:0] phase=0;
 reg[31:0] verified=32'h12345678,errors=32'h87654321,first=32'h1234560,accepted=32'hbeef1234;
@@ -11,6 +11,20 @@ wire abort_user;
 mem_mailbox #(.DEADLINE(40)) dut(sys,reset,user,reset&&!abort_user,cs,op,a,b,cd,status,result,recal,
 cal,busy,done,fault,error,phase,verified,errors,first,accepted,expected,actual,elapsed,bs,bc,base,count,seed,job,abort_user);
 integer starts=0,cancels=0,checks=0;
+realtime request_time=0,snapshot_time=0;
+reg[511:0] previous_bundle=0;reg[15:0] previous_generation=0;
+always @(posedge sys)begin
+ if(cs&&op==8'h57)request_time=$realtime;
+ #0.1;
+ if(dut.generation!=previous_generation&&dut.generation!=0)begin
+ if($realtime-snapshot_time<123.45)$fatal(1,"snapshot ack+settle bound");end
+ previous_generation=dut.generation;
+end
+always @(posedge user)begin
+ #0.1;
+ if(bs&&$realtime-request_time<24.68)$fatal(1,"request bundle settle bound");
+ if(dut.user_snapshot!=previous_bundle)begin snapshot_time=$realtime;previous_bundle=dut.user_snapshot;end
+end
 always @(posedge user)begin if(bs)starts=starts+1;if(bc)cancels=cancels+1;end
 task command;input[7:0] opcode;input[15:0] arg;input[7:0] want;integer n;
 begin @(negedge sys);op=opcode;a=arg[7:0];b=arg[15:8];cs=1;

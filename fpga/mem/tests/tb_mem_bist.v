@@ -10,6 +10,12 @@ reg cr=0,wr=0,rv=0,re=1;reg[127:0] rd=0;
 mem_bist #(.TIMEOUT_CYCLES(60),.TOTAL_TIMEOUT_CYCLES(50000)) dut(
 clk,rst,cal,start,cancel,base,count,seed,job,busy,done,fault,error,phase,
 verified,errors,first,accepted,expected,actual,cycles,cmd,ce,addr,cr,wd,we,wend,mask,wr,rd,rv,re);
+reg deadline_start=0;wire deadline_done;wire[7:0] deadline_error;
+mem_bist #(.TIMEOUT_CYCLES(100),.TOTAL_TIMEOUT_CYCLES(5)) deadline_dut(
+.clk(clk),.reset_n(rst),.calibrated(1'b1),.start(deadline_start),.cancel(1'b0),
+.base_byte(32'b0),.beat_count(32'd1),.seed(32'b0),.job_id(32'd9),
+.app_cmd_ready(1'b0),.app_write_ready(1'b0),.app_read_data(128'b0),.app_read_valid(1'b0),.app_read_end(1'b0),
+.done(deadline_done),.error_code(deadline_error));
 reg [127:0] memory[0:63];
 reg pending_cmd=0,pending_data=0,pending_read=0;
 reg[26:0] saved_addr;reg[127:0] saved_data;reg[15:0] saved_mask;
@@ -23,6 +29,7 @@ function integer decode;input[26:0] a;reg[25:0] linear;
 begin linear={a[22:10],a[25:23],a[9:0]};decode=(linear*2-base)/16;end endfunction
 always @(negedge clk) begin
  tick=tick+1;rv=0;cr=mode!=1 && tick%5!=0;wr=mode!=1 && tick%7<3;
+ if(mode==4&&busy&&phase==1)rv=1;
  if(!rst)begin pending_cmd=0;pending_data=0;pending_read=0;writes=0;reads=0;end
  else begin
  if(pending_read)begin
@@ -66,6 +73,7 @@ initial begin
  if(fault||error!=6||errors!=2||first!=base+48||expected==actual)$fatal(1,"first mismatch accounting");corrupt=0;
  reset;base=1;launch;finish;if(error!=2||busy||writes)$fatal(1,"alignment");
  reset;base=32'h7fffff0;count=2;launch;finish;if(error!=2||writes)$fatal(1,"end bound");
+ reset;count=1;launch;finish;if(error||verified!=2)$fatal(1,"last aligned beat");
  reset;base=0;count=32'hffffffff;launch;finish;if(error!=2)$fatal(1,"overflow bound");
  reset;count=0;launch;finish;if(error!=2)$fatal(1,"zero count");
  reset;count=1;cal=0;launch;finish;if(error!=1||writes)$fatal(1,"uncalibrated");cal=1;
@@ -74,10 +82,13 @@ initial begin
  reset;mode=2;launch;finish;if(error!=4||!fault)$fatal(1,"read timeout");
  reset;mode=3;count=17;launch;finish;if(error!=6||errors==0||fault)$fatal(1,"alias fault not detected");
  reset;mode=0;re=0;count=1;launch;finish;if(error!=5||!fault)$fatal(1,"read end ordering");re=1;
+ reset;mode=4;launch;finish;if(error!=5||!fault)$fatal(1,"unsolicited read");
  reset;mode=0;count=17;launch;repeat(10)@(negedge clk);cancel=1;@(negedge clk);cancel=0;
  finish;if(error!=7||!fault||ce||we)$fatal(1,"cancel");
  reset;launch;repeat(10)@(negedge clk);cal=0;finish;if(error!=8||!fault)$fatal(1,"calibration loss");cal=1;
  reset;launch;repeat(5)@(negedge clk);rst=0;#1;if(ce||we)$fatal(1,"reset outputs");
+ reset;mode=0;@(negedge clk);deadline_start=1;@(negedge clk);deadline_start=0;
+ repeat(8)@(negedge clk);if(!deadline_done||deadline_error!=9)$fatal(1,"total deadline classification");checks=checks+1;
  $display("PASS mem_bist %0d scenarios: independent backpressure, native mapping, masks, mismatch, range, timeout, cancel/reset",checks);$finish;
 end
 endmodule
