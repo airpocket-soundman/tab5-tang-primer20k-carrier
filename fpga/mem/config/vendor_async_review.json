@@ -1,0 +1,96 @@
+{
+  "active": false,
+  "scope": "review-only finite vendor asynchronous-input proposal, no blanket clock groups",
+  "basis": {
+    "primitive_model": "D:\\Gowin\\Gowin_V1.9.11.03_Education_x64\\IDE\\simlib\\gw2a\\prim_sim.v",
+    "primitive_model_sha256": "797e52271b149b650f4ed6ae0ef2794a853c6ef19973f957abc4f576fa48b7a1",
+    "clock_guide": "D:\\Gowin\\Gowin_V1.9.11.03_Education_x64\\IDE\\doc\\EN\\UG286-1.9.9E_Gowin Clock User Guide.pdf",
+    "clock_guide_sha256": "5780d6be825ae3564d7660a168cafb4e00641943c8fe390f57880670c106d14e"
+  },
+  "exceptions": [
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_fclk_dhcen/CE",
+      "reason": "public model DHCEN line13655 has four negedge CLKIN synchronization registers; UG286 PDF28 active-low gate"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_ddr_sync_recalib_s_0_s0/D",
+      "reason": "generated VO lines45079..45092 shows recalib_s[0] feeding recalib_s[1] on clk reference; first stage only"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[0].u_ddr_phy_data_lane_u_ddr_phy_data_io_u_dqs/HOLD",
+      "reason": "public DQS model line13760 three negedge FCLK registers; UG286 PDF99 stop/write and read-FIFO reset"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[0].u_ddr_phy_data_lane_u_ddr_phy_data_io_iserdes_gen[0].u_ides8_mem/CALIB",
+      "reason": "public IDES8_MEM model line2412 has three FCLK CALIBdata registers before edge detector"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[0].u_ddr_phy_data_lane_u_ddr_phy_data_io_iserdes_gen[1].u_ides8_mem/CALIB",
+      "reason": "public IDES8_MEM model line2412 has three FCLK CALIBdata registers before edge detector"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[0].u_ddr_phy_data_lane_u_ddr_phy_data_io_iserdes_gen[2].u_ides8_mem/CALIB",
+      "reason": "public IDES8_MEM model line2412 has three FCLK CALIBdata registers before edge detector"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[0].u_ddr_phy_data_lane_u_ddr_phy_data_io_iserdes_gen[3].u_ides8_mem/CALIB",
+      "reason": "public IDES8_MEM model line2412 has three FCLK CALIBdata registers before edge detector"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[0].u_ddr_phy_data_lane_u_ddr_phy_data_io_iserdes_gen[4].u_ides8_mem/CALIB",
+      "reason": "public IDES8_MEM model line2412 has three FCLK CALIBdata registers before edge detector"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[0].u_ddr_phy_data_lane_u_ddr_phy_data_io_iserdes_gen[5].u_ides8_mem/CALIB",
+      "reason": "public IDES8_MEM model line2412 has three FCLK CALIBdata registers before edge detector"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[0].u_ddr_phy_data_lane_u_ddr_phy_data_io_iserdes_gen[6].u_ides8_mem/CALIB",
+      "reason": "public IDES8_MEM model line2412 has three FCLK CALIBdata registers before edge detector"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[0].u_ddr_phy_data_lane_u_ddr_phy_data_io_iserdes_gen[7].u_ides8_mem/CALIB",
+      "reason": "public IDES8_MEM model line2412 has three FCLK CALIBdata registers before edge detector"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[1].u_ddr_phy_data_lane_u_ddr_phy_data_io_u_dqs/HOLD",
+      "reason": "public DQS model line13760 three negedge FCLK registers; UG286 PDF99 stop/write and read-FIFO reset"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[1].u_ddr_phy_data_lane_u_ddr_phy_data_io_iserdes_gen[0].u_ides8_mem/CALIB",
+      "reason": "public IDES8_MEM model line2412 has three FCLK CALIBdata registers before edge detector"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[1].u_ddr_phy_data_lane_u_ddr_phy_data_io_iserdes_gen[1].u_ides8_mem/CALIB",
+      "reason": "public IDES8_MEM model line2412 has three FCLK CALIBdata registers before edge detector"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[1].u_ddr_phy_data_lane_u_ddr_phy_data_io_iserdes_gen[2].u_ides8_mem/CALIB",
+      "reason": "public IDES8_MEM model line2412 has three FCLK CALIBdata registers before edge detector"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[1].u_ddr_phy_data_lane_u_ddr_phy_data_io_iserdes_gen[3].u_ides8_mem/CALIB",
+      "reason": "public IDES8_MEM model line2412 has three FCLK CALIBdata registers before edge detector"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[1].u_ddr_phy_data_lane_u_ddr_phy_data_io_iserdes_gen[4].u_ides8_mem/CALIB",
+      "reason": "public IDES8_MEM model line2412 has three FCLK CALIBdata registers before edge detector"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[1].u_ddr_phy_data_lane_u_ddr_phy_data_io_iserdes_gen[5].u_ides8_mem/CALIB",
+      "reason": "public IDES8_MEM model line2412 has three FCLK CALIBdata registers before edge detector"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[1].u_ddr_phy_data_lane_u_ddr_phy_data_io_iserdes_gen[6].u_ides8_mem/CALIB",
+      "reason": "public IDES8_MEM model line2412 has three FCLK CALIBdata registers before edge detector"
+    },
+    {
+      "pin": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_data_lane_gen[1].u_ddr_phy_data_lane_u_ddr_phy_data_io_iserdes_gen[7].u_ides8_mem/CALIB",
+      "reason": "public IDES8_MEM model line2412 has three FCLK CALIBdata registers before edge detector"
+    }
+  ],
+  "not_waived": [
+    "vendor wloadn_1_s0/D USER81 to SYS27 single-stage initialization crossing: contract not yet qualified",
+    "external DDR timing/board signal integrity: not proven by functional model"
+  ]
+}
