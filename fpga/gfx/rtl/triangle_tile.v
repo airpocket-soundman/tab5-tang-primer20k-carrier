@@ -1,13 +1,16 @@
 // Diagnostic 32x32 color/depth tile. Exact G0 fragment unit, one pixel in flight.
 // No DDR3, no performance claim. Abort invalidates RAM until a complete clear.
-module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE=0)(
+module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE=0, parameter RAW_READ_ENABLE=0)(
     input wire clk, reset_n, abort, start,
     input wire [7:0] opcode, a, b,
     output reg done,
     output reg [7:0] status,
     output reg [15:0] result,
     input wire [10:0] row_index,
-    output wire [7:0] row_byte
+    output wire [7:0] row_byte,
+    input wire raw_clk,raw_enable,
+    input wire [9:0] raw_address,
+    output wire [15:0] raw_color,raw_depth
 );
     localparam IDLE=0, CLEAR=1, READ_WAIT=2, READ_DONE=3,
                SCAN_WAIT=4, SUBMIT=5, WAIT_RESULT=6, COMPLETE=7,
@@ -45,6 +48,18 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
     wire [4:0] clipped_y1 = bbox_y1>31 ? 5'd31 : bbox_y1[4:0];
     reg [15:0] colors[0:1023], depths[0:1023];
     reg [15:0] color_q, depth_q, clear_color;
+    // Port A read/write share one address in the experimental dual-clock map.
+    // When a RAM write is possible tile_stream is false, so this equals address.
+    wire [9:0] write_address=RAW_READ_ENABLE?ram_read_address:address;
+    generate if(RAW_READ_ENABLE) begin: raw_read_port
+        reg [15:0] color_bus,depth_bus;
+        always @(posedge raw_clk) if(raw_enable) begin
+            color_bus<=colors[raw_address];depth_bus<=depths[raw_address];
+        end
+        assign raw_color=color_bus;assign raw_depth=depth_bus;
+    end else begin: no_raw_read
+        assign raw_color=0;assign raw_depth=0;
+    end endgenerate
     reg [15:0] written;
     reg [15:0] row_cache[0:31];
     reg [15:0] fractal_params[0:6];
@@ -266,16 +281,22 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
         .depth_pass(depth_pass), .write_enable(fragment_write),
         .new_depth(new_depth), .out_color(out_color), .out_x(out_x), .out_y(out_y)
     );
-    // Synchronous RAM reads. No array reset, so block RAM can be inferred.
+    wire sys_writing=active && (state==CLEAR || (state==WAIT_RESULT && fragment_write) || state==FRACTAL_WRITE);
+    // Gowin true dual-port mode supports NO_CHANGE, not read-before-write.
+    // The renderer never consumes q on a write edge; wait/read states refresh it.
+    // Keep the original read-on-write behavior when RAW read port is disabled.
+    // No array reset, so both SYS and RAW ports can map to block RAM.
     always @(posedge clk) begin
         if(active && state==CLEAR) begin
-            colors[address]<=clear_color; depths[address]<=0;
+            colors[write_address]<=clear_color; depths[write_address]<=0;
         end else if(active && state==WAIT_RESULT && fragment_write) begin
-            colors[address]<=out_color; depths[address]<=new_depth;
+            colors[write_address]<=out_color; depths[write_address]<=new_depth;
         end else if(active && state==FRACTAL_WRITE) begin
-            colors[address]<=fractal_color; depths[address]<=0;
+            colors[write_address]<=fractal_color; depths[write_address]<=0;
         end
-        color_q<=colors[ram_read_address]; depth_q<=depths[ram_read_address];
+        if(!RAW_READ_ENABLE || !sys_writing) begin
+            color_q<=colors[ram_read_address]; depth_q<=depths[ram_read_address];
+        end
     end
     always @(posedge clk or negedge reset_n) begin
         if(!reset_n) begin

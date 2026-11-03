@@ -1,5 +1,5 @@
 `timescale 1ns/1ps
-module tb_triangle_bbox;
+module tb_triangle_bbox #(parameter FAST_REPLY_ENABLE=0);
     reg clk=0, reset_n=0, arm=0, bus_clk=0, dir=0, host_oe=0;
     reg [7:0] host_data=0;
     tri [7:0] data;
@@ -13,7 +13,7 @@ module tb_triangle_bbox;
     always @(posedge clk) if(dut.core.triangle.renderer.state==5 && dut.core.triangle.renderer.fragment_ready) triangle_candidates=triangle_candidates+1;
     always #5 clk=~clk;
     assign data=host_oe?host_data:8'hzz;
-    tab5_dock_top #(.GFX_ENABLE(2),.TIMEOUT_CYCLES(200000)) dut(
+    tab5_dock_top #(.GFX_ENABLE(2),.TIMEOUT_CYCLES(200000),.FAST_REPLY_ENABLE(FAST_REPLY_ENABLE)) dut(
         clk,reset_n,arm,bus_clk,dir,4'b0,data,ready,led);
     link_bringup #(.GFX_ENABLE(0),.TIMEOUT_CYCLES(200000)) link_only(
         clk,reset_n,variant_arm,bus_clk,dir,host_data,link_data,link_oe,link_ready);
