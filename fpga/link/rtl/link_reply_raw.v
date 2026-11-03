@@ -10,7 +10,11 @@ module link_reply_raw(
     output reg done,started,error,progress,
     output wire [5:0] row_index,
     output reg [9:0] ram_address,
-    output wire ram_enable
+    output wire ram_enable,
+    // Diagnostic only: serializer byte index captured when done rose. Stable from
+    // that edge until the offer drops; read by reply_edge_monitor after a
+    // synchronized done flag. Does not feed any pre-existing output.
+    output reg [11:0] done_index
 );
     wire active_reset_n=reset_n && arm;
     (* ASYNC_REG="TRUE" *) reg [49:0] metadata_meta,metadata_bus;
@@ -47,7 +51,7 @@ module link_reply_raw(
             metadata_meta<=0;metadata_bus<=0;index<=0;crc<=16'hffff;
             done<=0;started<=0;error<=0;progress<=0;
             current_word<=0;current_tag<=0;current_valid<=0;
-            ram_address<=0;ram_tag<=0;ram_valid<=0;
+            ram_address<=0;ram_tag<=0;ram_valid<=0;done_index<=0;
         end else begin
             metadata_meta<=metadata;metadata_bus<=metadata_meta;
             if(!offer) begin
@@ -57,7 +61,7 @@ module link_reply_raw(
                 // DIR may be LOW while READY is offered, before the first byte.
                 // Once started, its falling edge cancels via the SYS handshake;
                 // a clock arriving in that phase also latches a local abort.
-                if(started && !done) begin done<=1;error<=1;end
+                if(started && !done) begin done<=1;error<=1;done_index<=index;end
             end else if(!done) begin
                 started<=1;
                 ram_tag<=ram_address;ram_valid<=1;
@@ -71,7 +75,7 @@ module link_reply_raw(
                 if(payload && tile && (!current_valid || current_tag!=payload_index[10:1] ||
                    (index[0] && payload_index[10:1]!=1023 &&
                     (!ram_valid || ram_tag!=payload_index[10:1]+1'b1)))) begin
-                    error<=1;done<=1;
+                    error<=1;done<=1;done_index<=index;
                 end else begin
                     if(payload && tile) begin
                         if(!index[0]) ram_address<=payload_index[10:1]>=1022?10'd1023:payload_index[10:1]+2'd2;
@@ -80,7 +84,7 @@ module link_reply_raw(
                         end
                     end
                     if((index>=8 && index<14) || payload) crc<=crc_byte(crc,data_o);
-                    if(index==last_index) done<=1;
+                    if(index==last_index) begin done<=1;done_index<=index;end
                     else index<=index+1'b1;
                 end
             end

@@ -6,12 +6,17 @@ module link_bringup_filtered #(
     parameter GFX_ENABLE = 0,
     parameter CORE_CLOCK_MHZ = 27,
     parameter CLOCK_QUERY_ENABLE = 0,
-    parameter FAST_REPLY_ENABLE = 0
+    parameter FAST_REPLY_ENABLE = 0,
+    // Diagnostic-only edge counters (opcodes 0x4c/0x4d). 0 = original behaviour,
+    // new opcodes answer status 2 (unsupported) exactly like any unknown opcode.
+    parameter EDGE_MONITOR_ENABLE = 0
 )(input wire sys_clk, input wire reset_n, input wire arm,
   input wire bus_clk, input wire dir, input wire [7:0] data_i,
   output reg [7:0] data_o, output wire data_oe, output wire ready, input wire filter_clk,filter_reset_async_n);
     (* keep *) wire clean_reply_clk;
     wire clock_filter_fault;
+    wire ev_accept,ev_reject,ev_drop,ev_runt,ev_fall,qualified_diag;
+    wire [11:0] raw_done_index;
     reg [2:0] clk_sync;
     reg [1:0] dir_sync;
     wire rise = clk_sync[1] & ~clk_sync[2];
@@ -54,7 +59,8 @@ module link_bringup_filtered #(
         if(!filter_reset_async_n)filter_reset_release<=0;
         else filter_reset_release<={filter_reset_release[0],1'b1};
     wire filter_running=filter_reset_async_n && filter_reset_release[1];
-    reply_clock_filter clock_conditioner(filter_clk,filter_running,bus_clk,fast_offer && dir,clean_reply_clk,clock_filter_fault);
+    reply_clock_filter clock_conditioner(filter_clk,filter_running,bus_clk,fast_offer && dir,clean_reply_clk,clock_filter_fault,
+        ev_accept,ev_reject,ev_drop,ev_runt,ev_fall,qualified_diag);
     reg [1:0] fast_prepare;
     reg [49:0] fast_metadata;
     (* ASYNC_REG="TRUE" *) reg [1:0] raw_done_sync,raw_started_sync,raw_progress_sync;
@@ -68,10 +74,90 @@ module link_bringup_filtered #(
         (* keep = "true" *) LUT1 #(.INIT(2'h2)) offer_hold_buffer(.F(serializer_offer),.I0(fast_offer));
         link_reply_raw serializer(clean_reply_clk,reset_n,arm,dir,serializer_offer,fast_metadata,
             row_byte,raw_ram_color,raw_ram_depth,raw_data,raw_done,raw_started,raw_error,raw_progress,
-            raw_row_index,raw_ram_address,raw_ram_enable);
+            raw_row_index,raw_ram_address,raw_ram_enable,raw_done_index);
     end else begin: no_fast_serializer
         assign raw_data=0;assign raw_done=0;assign raw_started=0;assign raw_error=0;assign raw_progress=0;
-        assign raw_row_index=0;assign raw_ram_address=0;assign raw_ram_enable=0;
+        assign raw_row_index=0;assign raw_ram_address=0;assign raw_ram_enable=0;assign raw_done_index=0;
+    end endgenerate
+    wire [15:0] edge_value;
+    reg edge_clear_tog;
+    generate if(EDGE_MONITOR_ENABLE && FAST_REPLY_ENABLE) begin: edge_diag
+        // Diagnostic readout of the conditioned reply clock (docs/CLK_edge_monitor.md).
+        wire [11:0] e_pre,e_post,e_fall,e_expect,e_didx;
+        wire [7:0] e_rej,e_drp,e_rnt,e_minh,e_minl,e_flags;
+        wire e_tog;
+        wire [11:0] expect_edges=fast_metadata[49]?12'd2066:(fast_metadata[48]?12'd82:12'd16);
+        reply_edge_monitor monitor(filter_clk,filter_running,fast_offer && dir,dir,expect_edges,
+            ev_accept,ev_reject,ev_drop,ev_runt,ev_fall,clock_filter_fault,raw_done,raw_error,raw_done_index,
+            e_tog,e_pre,e_post,e_fall,e_expect,e_didx,e_rej,e_drp,e_rnt,e_minh,e_minl,e_flags);
+        // Toggle-synchronized bundled-data copy. The snapshot registers are written
+        // together with e_tog and then stay constant until the next reply window
+        // closes, many SYS cycles later; they are sampled only after the toggle
+        // has crossed a 2FF synchronizer.
+        (* ASYNC_REG="TRUE" *) reg [1:0] tog_sync;
+        reg tog_seen,hist_pending,clear_seen;
+        reg [15:0] windows,bad_windows,seq;
+        reg [11:0] l_pre,l_post,l_fall,l_expect,l_didx;
+        reg [7:0] l_rej,l_drp,l_rnt,l_minh,l_minl,l_flags,w_rej,w_rnt,ever_minh,ever_minl;
+        always @(posedge sys_clk or negedge reset_n) begin
+            if(!reset_n) begin
+                tog_sync<=0;tog_seen<=0;hist_pending<=0;clear_seen<=0;
+                windows<=0;bad_windows<=0;seq<=0;
+                l_pre<=0;l_post<=0;l_fall<=0;l_expect<=0;l_didx<=0;
+                l_rej<=0;l_drp<=0;l_rnt<=0;l_minh<=8'hff;l_minl<=8'hff;l_flags<=0;
+                w_rej<=0;w_rnt<=0;ever_minh<=8'hff;ever_minl<=8'hff;
+            end else begin
+                tog_sync<={tog_sync[0],e_tog};tog_seen<=tog_sync[1];
+                hist_pending<=0;
+                if(tog_sync[1]!=tog_seen) begin
+                    l_pre<=e_pre;l_post<=e_post;l_fall<=e_fall;l_expect<=e_expect;l_didx<=e_didx;
+                    l_rej<=e_rej;l_drp<=e_drp;l_rnt<=e_rnt;l_minh<=e_minh;l_minl<=e_minl;l_flags<=e_flags;
+                    hist_pending<=1;
+                end
+                if(hist_pending && l_flags[7]) begin
+                    seq<=seq+1'b1;
+                    if(windows!=16'hffff) windows<=windows+1'b1;
+                    if((l_rej!=0 || l_drp!=0 || l_rnt!=0 || l_flags[4] || l_flags[3] || l_flags[2] || l_flags[1] || !l_flags[0]) && bad_windows!=16'hffff)
+                        bad_windows<=bad_windows+1'b1;
+                    if(l_rej>w_rej) w_rej<=l_rej;
+                    if(l_rnt>w_rnt) w_rnt<=l_rnt;
+                    if(l_minh<ever_minh) ever_minh<=l_minh;
+                    if(l_minl<ever_minl) ever_minl<=l_minl;
+                end
+                if(edge_clear_tog!=clear_seen) begin
+                    clear_seen<=edge_clear_tog;
+                    windows<=0;bad_windows<=0;w_rej<=0;w_rnt<=0;ever_minh<=8'hff;ever_minl<=8'hff;
+                end
+            end
+        end
+        reg [15:0] ev;
+        always @* begin
+            case(req[4])
+                8'd0: ev=16'hed01;
+                8'd1: ev=windows;
+                8'd2: ev=bad_windows;
+                8'd3: ev=seq;
+                8'd4: ev={4'd0,l_pre};
+                8'd5: ev={4'd0,l_post};
+                8'd6: ev={8'd0,l_rej};
+                8'd7: ev={8'd0,l_drp};
+                8'd8: ev={8'd0,l_rnt};
+                8'd9: ev={4'd0,l_fall};
+                8'd10: ev={8'd0,l_minh};
+                8'd11: ev={8'd0,l_minl};
+                8'd12: ev={4'd0,l_expect};
+                8'd13: ev={4'd0,l_didx};
+                8'd14: ev={8'd0,l_flags};
+                8'd15: ev={8'd0,w_rej};
+                8'd16: ev={8'd0,w_rnt};
+                8'd17: ev={8'd0,ever_minh};
+                8'd18: ev={8'd0,ever_minl};
+                default: ev=16'h0000;
+            endcase
+        end
+        assign edge_value=ev;
+    end else begin: no_edge_diag
+        assign edge_value=16'h0000;
     end endgenerate
     // Clamp preamble/CRC to valid endpoints so the tile prefetcher sees
     // only real payload word advances, never unsigned header underflow.
@@ -140,6 +226,7 @@ module link_bringup_filtered #(
             valid<=0; rx_crc<=16'hffff; idle_count<=0;
             gfx_start<=0; gfx_pending<=0;batch_start<=0;batch_pending<=0;
             bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff;
+            edge_clear_tog<=0;
         end else begin
             gfx_start<=0;batch_start<=0;
             raw_done_sync<={raw_done_sync[0],raw_done};
@@ -225,6 +312,14 @@ module link_bringup_filtered #(
                                     if(GFX_ENABLE==2) begin
                                         valid<=0; gfx_pending<=1; gfx_start<=1;
                                     end else reply[1]<=2;
+                                8'h4c: if(EDGE_MONITOR_ENABLE && FAST_REPLY_ENABLE) begin
+                                    if(req[5]!=0 || req[4]>8'd18) reply[1]<=3;
+                                    else begin reply[1]<=0;reply[4]<=edge_value[7:0];reply[5]<=edge_value[15:8];end
+                                end else reply[1]<=2;
+                                8'h4d: if(EDGE_MONITOR_ENABLE && FAST_REPLY_ENABLE) begin
+                                    if(req[4]!=8'h5a || req[5]!=8'ha5) reply[1]<=3;
+                                    else begin reply[1]<=0;edge_clear_tog<=~edge_clear_tog;end
+                                end else reply[1]<=2;
                                 default: reply[1]<=2;
                             endcase
                         end else rx_index<=rx_index+1'b1;
