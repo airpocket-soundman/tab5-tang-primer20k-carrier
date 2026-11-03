@@ -59,7 +59,7 @@ static inline bool mem_validate_response(const uint8_t r[8],const uint8_t q[8]) 
    case 4:return value==324;case 5:return value==81;
    case 6:return !(value&0xc000);case 7:return true;
    case 8:return value==MEM_DIAG_FORMAT;
-   case 20:return value==0x014f;
+   case 20:return value==0x024f;
    case 21:case 22:case 23:case 24:case 25:case 26:case 27:case 28:
    case 29:case 30:case 31:case 32:case 33:case 34:case 35:case 36:return true;
    case 9:case 10:case 11:case 12:case 13:case 14:case 15:case 16:case 17:case 18:case 19:return true;

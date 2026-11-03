@@ -63,7 +63,7 @@ command(8'h5c,9+diag_i,0);
 if(result!=(diag_i==0?16'h0600:16'h0100+diag_i))$fatal(1,"torn diagnostic word%0d",diag_i);
 end
 command(8'h5c,7,0);if(result!=1)$fatal(1,"diag bank generation mismatch");
-command(8'h5c,20,0);if(result!=16'h014f)$fatal(1,"deep cap");
+command(8'h5c,20,0);if(result!=16'h024f)$fatal(1,"deep cap");
 for(diag_i=0;diag_i<16;diag_i=diag_i+1)begin command(8'h5c,21+diag_i,0);if(result!=deep_diagnostic[diag_i*16+:16])$fatal(1,"deep bank");end
 command(8'h5c,37,3);command(8'h5c,16'h0109,3);
 command(8'h59,4,0);if(result!=16'h5678)$fatal(1,"torn verified low");

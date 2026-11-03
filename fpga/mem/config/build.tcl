@@ -8,8 +8,8 @@ if {[info exists env(MEM_BIST_SCOPED)] && $env(MEM_BIST_SCOPED) eq "1"} {
  set timing_file [file join $fpga_root build mem-bist-scoped-input mem_bist.sdc]
 }
 if {[info exists env(MEM_BIST_GUARDED)] && $env(MEM_BIST_GUARDED) eq "1"} {
- set output [file join $fpga_root build mem-ready-strobe]
- set timing_file [file join $fpga_root build mem-ready-strobe-input mem_bist.sdc]
+ set output [file join $fpga_root build mem-scheduler-diag]
+ set timing_file [file join $fpga_root build mem-scheduler-diag-input mem_bist.sdc]
 }
 create_project -name mem_bist -dir $output -pn GW2A-LV18PG256C8/I7 -device_version C -force
 foreach name {mem_deep_monitor mem_pll mem_bist mem_mailbox mem_link mem_top} {
