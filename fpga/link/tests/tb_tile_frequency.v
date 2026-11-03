@@ -25,6 +25,11 @@ module tb_tile_frequency;
         reg [15:0] v;integer k;
         begin v=c^{b,8'h00};for(k=0;k<8;k=k+1)v=v[15]?(v<<1)^16'h1021:v<<1;crc_byte=v;end
     endfunction
+    // Independent address-varying RAM fixture catches stale next-word data;
+    // no full response array is added to the synthesized RTL.
+    function [15:0] tile_pattern(input integer word_address,input integer depth_plane);
+        begin tile_pattern=(word_address*257)^16'h5a3c^(depth_plane?16'hffff:16'h0000);end
+    endfunction
     task make_request(input [7:0] op,input [7:0] seq_byte,input [7:0] a,input [7:0] b);
         integer k;reg [15:0] v;
         begin q[0]=8'ha5;q[1]=op;q[2]=seq_byte;q[3]=2;q[4]=a;q[5]=b;
@@ -52,7 +57,7 @@ module tb_tile_frequency;
         end
     endtask
     initial begin
-        for(f=0;f<1;f=f+1) begin
+        for(f=0;f<3;f=f+1) begin
             case(f)0:begin frequency=5000000;period_ps=200000;end
                 1:begin frequency=8000000;period_ps=125000;end
                 2:begin frequency=10000000;period_ps=100000;end
@@ -62,6 +67,12 @@ module tb_tile_frequency;
                 host_clk=0;host_dir=0;host_data=0;arm=0;reset_n=0;#2000000;
                 reset_n=1;arm=1;#2000000;
                 if(kind!=0)clear_tile();
+                if(kind==2)begin
+                    for(j=0;j<1024;j=j+1)begin
+                        dut.triangle.renderer.colors[j]=tile_pattern(j,0);
+                        dut.triangle.renderer.depths[j]=tile_pattern(j,1);
+                    end
+                end
                 sequence_id=case_id;row=case_id%32;plane=(case_id/2)%2;
                 if(kind==0)make_request(8'h81,sequence_id,0,0);
                 else if(kind==1)make_request(8'haf,sequence_id,row,plane);
@@ -77,7 +88,10 @@ module tb_tile_frequency;
                     // remain independently checked even for repeated words.
                     stream=crc;
                     for(i=16;i<(kind==1?80:2064);i=i+1)begin
-                        expected[i]=plane==1?0:(i%2==0?8'h34:8'h12);
+                        if(kind==2)begin
+                            crc=tile_pattern((i-16)/2,plane);
+                            expected[i]=i%2==0?crc[7:0]:crc[15:8];
+                        end else expected[i]=plane==1?0:(i%2==0?8'h34:8'h12);
                         stream=crc_byte(stream,expected[i]);
                     end
                     expected[kind==1?80:2064]=stream[7:0];expected[kind==1?81:2065]=stream[15:8];length=kind==1?82:2066;
