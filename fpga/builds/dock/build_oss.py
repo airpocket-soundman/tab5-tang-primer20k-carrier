@@ -70,7 +70,7 @@ def build(variant, yosys, nextpnr, pack, output):
             ('synthesis', [executables['yosys'], '-p', script], netlist),
             ('pnr', [executables['nextpnr'], '--json', netlist.as_posix(), '--write', routed.as_posix(),
                      '--device', DEVICE, '--vopt', 'family='+FAMILY, '--vopt', 'cst='+CST.as_posix(), '--freq', str(manifest['target_mhz']),
-                     *(['--sdc',str(ROOT/'constraints/dock/triangle54.sdc')] if variant=='triangle54' else [])], routed),
+                     *(['--sdc',(ROOT/'constraints/dock/triangle54.sdc').as_posix()] if variant=='triangle54' else [])], routed),
             # Key_0/T10 is SI/D2: release SSPI pins to user GPIO after config.
             # Keep JTAG, MSPI and RECONFIG dedicated for programming/recovery.
             ('pack', [executables['pack'], '-d', FAMILY, '--sspi_as_gpio', str(routed), '-o', str(image)], image),
