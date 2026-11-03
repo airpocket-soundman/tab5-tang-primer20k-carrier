@@ -1,0 +1,198 @@
+{
+  "qualified": true,
+  "baseline_repack_byte_equal": true,
+  "hardware_access": false,
+  "scope": "Pack only; exactly one copied IBUF attribute, no synthesis/place/route/RTL/CST/pin/command changes.",
+  "cell": "platform.bus_clk_IBUF_O",
+  "bel": "X55Y28/IOBA",
+  "bank": 3,
+  "tile_type": 58,
+  "attribute": "&HYSTERESIS=HIGH",
+  "tile_origin_global": [
+    684,
+    3308
+  ],
+  "fuses_local": [
+    [
+      8,
+      60
+    ],
+    [
+      14,
+      62
+    ]
+  ],
+  "configuration_diff_global": [
+    [
+      692,
+      3368,
+      0,
+      1
+    ],
+    [
+      698,
+      3370,
+      0,
+      1
+    ]
+  ],
+  "all_frame_crcs_verified_by_bslib": true,
+  "headers_and_extra_slots_equal": true,
+  "only_footer_change": "0x0A checksum independently recomputed from regular grid; format frame CRCs validated",
+  "configuration_checksums_hex": [
+    "9B72",
+    "A072"
+  ],
+  "apycula_version": "0.32",
+  "files": {
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\build\\dock-oss-triangle54fast-bram\\runs\\20261103T150044Z-13773e4a3717\\output.pnr.json": {
+      "sha256": "fb309d66995683862fafdeb1c17999c842925216b578c66075131628ee9e163d",
+      "bytes": 19967420
+    },
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\build\\dock-oss-triangle54fast-bram\\runs\\20261103T150044Z-13773e4a3717\\output.fs": {
+      "sha256": "5b93ac88ffd9d45ad959e19da50e8af433dd8ca3fbc8ccb8f4e80ff1a1c391cb",
+      "bytes": 7263596
+    },
+    "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-hysteresis\\fpga\\build\\hysteresis-reproduced\\baseline-repack.fs": {
+      "sha256": "5b93ac88ffd9d45ad959e19da50e8af433dd8ca3fbc8ccb8f4e80ff1a1c391cb",
+      "bytes": 7263596
+    },
+    "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-hysteresis\\fpga\\build\\hysteresis-reproduced\\high.pnr.json": {
+      "sha256": "152ec9db5a2217ec9ab78d394efe46047df7321c0b0b111bb8d744444f43875f",
+      "bytes": 15500557
+    },
+    "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-hysteresis\\fpga\\build\\hysteresis-reproduced\\hysteresis-high.fs": {
+      "sha256": "fdba97f3219e5dbbff70e8437143affa093bca0b7f98c790073db49fb555d681",
+      "bytes": 7263596
+    }
+  },
+  "packer_source_sha256": {
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Lib\\site-packages\\apycula\\gowin_pack.py": "176cf71a8b17ce8e2e36809cdf5ab1c429acdb54538b9f7725ffc83df145a529",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Lib\\site-packages\\apycula\\bslib.py": "4510a6fbdf65b6ba86b58840e8127715b48446fb4a91789f34aab9eb4358c708",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Lib\\site-packages\\apycula\\chipdb.py": "1c608811689a90ddd2e3fc18027149d26d55bd9a39d0c30d080e3e1c8c821098",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Lib\\site-packages\\apycula\\attrids.py": "597822bc9e70098fc1d52e5ec2f81f4da6ff8965fedd7b919d9a7a218a08e2ea",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Lib\\site-packages\\apycula\\GW2A-18.msgpack.xz": "43a06ab227fb5d9332a2645f975673b1c1f14149ccc667de3ddd7be7e4392851"
+  },
+  "commands": [
+    {
+      "command": [
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\gowin_pack.exe",
+        "-d",
+        "GW2A-18",
+        "--sspi_as_gpio",
+        "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\build\\dock-oss-triangle54fast-bram\\runs\\20261103T150044Z-13773e4a3717\\output.pnr.json",
+        "-o",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-hysteresis\\fpga\\build\\hysteresis-reproduced\\baseline-repack.fs"
+      ],
+      "execution": "executed",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\gowin_pack.exe",
+        "-d",
+        "GW2A-18",
+        "--sspi_as_gpio",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-hysteresis\\fpga\\build\\hysteresis-reproduced\\high.pnr.json",
+        "-o",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-hysteresis\\fpga\\build\\hysteresis-reproduced\\hysteresis-high.fs"
+      ],
+      "execution": "executed",
+      "exit_code": 0
+    }
+  ],
+  "tool_sha256": "139085730beee093846bddcb6ae225360f5d338f3af70d261d082efd3ad53e8b",
+  "physical_validation": "Not performed by this tool",
+  "source_base_commit": "9c314f3",
+  "worktree_branch": "codex/clock-hysteresis",
+  "official_docs": [
+    {
+      "url": "https://cdn.gowinsemi.com.cn/DS102E.pdf?download=1",
+      "version": "DS102-2.7.8E",
+      "sha256": "33249041ce2b2200ebe770d5607a066cfc156db22b8628d7e34772513b25dc9d",
+      "scope": "HYST typ only; not guaranteed switching threshold"
+    },
+    {
+      "url": "https://www.gowinsemi.com/upload/database_doc/10/document/5b5af19f42f42.pdf?_file=database_doc/10/document/5b5af19f42f42.pdf",
+      "version": "UG289-1.3E",
+      "sha256": "872486e99232ce9f6b6044e059500c3a9315cdd6259cf744210f90958c6808dc"
+    }
+  ],
+  "archives": [
+    {
+      "file": "baseline.pnr.json.gz",
+      "uncompressed_sha256": "fb309d66995683862fafdeb1c17999c842925216b578c66075131628ee9e163d",
+      "gzip_sha256": "472aec98d71bcecb3d5b1b2c80d4467d27b973bc377de573b04cda2d636900ac",
+      "uncompressed_bytes": 19967420
+    },
+    {
+      "file": "baseline.fs.gz",
+      "uncompressed_sha256": "5b93ac88ffd9d45ad959e19da50e8af433dd8ca3fbc8ccb8f4e80ff1a1c391cb",
+      "gzip_sha256": "c6c9f72ec980d6d5ca765366c4553f5696f71c1fe6628f52ed4f47c60276f930",
+      "uncompressed_bytes": 7263596
+    },
+    {
+      "file": "high.pnr.json.gz",
+      "uncompressed_sha256": "152ec9db5a2217ec9ab78d394efe46047df7321c0b0b111bb8d744444f43875f",
+      "gzip_sha256": "64f4df9f2b4e142731c124292e32d7678ec5287261d0d001975f8c36dcaf19e0",
+      "uncompressed_bytes": 15500557
+    },
+    {
+      "file": "high.fs.gz",
+      "uncompressed_sha256": "fdba97f3219e5dbbff70e8437143affa093bca0b7f98c790073db49fb555d681",
+      "gzip_sha256": "062216f148f601f9c97a728c1723d8f2e364d5b21fd48837aaee8ee5d5d4bd91",
+      "uncompressed_bytes": 7263596
+    }
+  ],
+  "host_references": [
+    {
+      "repo": "D:\\GitHub\\tab5-linux-fpga",
+      "head": "cfc9a6ecf7daa4c5e3decbe3885b22c2bd2f4cd1",
+      "files": {
+        "README.md": "7a30f9ef6fe5a29604ced460d524352f028d09c6fe792e5db6e290973d303ac5",
+        "docs/DEVELOPMENT_GOALS.md": "d0770581cfceb6638737d482ce94ab5e09543c14091fa4f3617368bc590b3525",
+        "linux/dts/tab5-overrides.dtsi": "afa49e031cace24b71329ec08a49621e143410204821449bd23626762d2030a7",
+        "linux/dts/easystick-stamp-p4.dts": "1e0b779e03036a0384c1b2cd350e92d70211c07c1fbb5bb1f60143e350179d15"
+      }
+    },
+    {
+      "repo": "D:\\GitHub\\tab5-meos-fpga",
+      "head": "26c8082961b1152901475fb56bbb2e8be192a4da",
+      "files": {
+        "README.md": "a9b3c7e7fd4d12220fdc3a6474aa6301d519d51669287626808d07ffa5af0374",
+        "docs/FPGA_CARRIER_REQUIREMENTS.md": "4c4483d2732a67148917539e40c17a197e4869a81dd3dd8998815f7f6674e345",
+        "drivers/io/io.c": "4a513da240d4616740a98b91c11cb49370f3a9b54a5cfd25383dd8bd26022502",
+        "docs/IO_IMPLEMENTATION_PLAN.md": "9dd1d3facc7623a8796e54660ab926bef3c909163c5640a9af535dff6b371335"
+      }
+    },
+    {
+      "repo": "D:\\GitHub\\esp32p4-linux-fpga-memory",
+      "head": "e4aa69d09b2643d6f62fe686ef0f3284b109c541",
+      "files": {
+        "README.md": "ea65f2d3a931881633fbfdc271a9aa1cb6855bcba5a1364f22cb41edd23e66a9",
+        "docs/Project_A_P4_Linux_FPGA_Virtual_MMU.md": "f1f7de8e0734efc1ce3a582b521a250543dbd20a449e9af93061274ceb7e99da"
+      }
+    },
+    {
+      "repo": "D:\\github\\airpocket-soundman\\tab5-fpga-gpu",
+      "head": "d4d89e308b4a8aa799199b20e7d47c96b536e3fd",
+      "files": {
+        "README.md": "fd449b060798314a23457a78708242c499ce571af88662a9019485a56637125f",
+        "docs/Project_B_Tab5_FPGA_GPU.md": "f5eb5a3d43a6a943ae740585074f223adf71ec74cad3928dc123486ebe1dd8d7"
+      }
+    }
+  ],
+  "host_compatibility_scope": "Same P4 3.3V GPIO across OS; normal LVCMOS33 limits consistent, HYST typ has no guaranteed max. Linux/MeOS link implementations/hardware not established in reviewed sources. Candidate electrical specification remains experimental.",
+  "tool_archive": {
+    "file": "repack-tool.py.gz",
+    "source_sha256": "139085730beee093846bddcb6ae225360f5d338f3af70d261d082efd3ad53e8b",
+    "gzip_sha256": "b6861159f8e263fe9105e5e4608fdb3664a00c4c9d1a338b3452f7e3a8438a8e"
+  },
+  "validation_tests": {
+    "baseline_repack_byte_exact": true,
+    "full_config_two_fuses_only": true,
+    "all_frame_crc_and_config_checksum": true,
+    "unrelated_BEL_change_rejected": true,
+    "independent_full_repack_repeated_same_candidate_sha": true
+  }
+}
