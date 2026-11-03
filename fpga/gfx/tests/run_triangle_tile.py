@@ -42,7 +42,7 @@ def main():
         vf=tmp/'vectors.txt'
         vf.write_text(''.join(' '.join(f'{b:02x}' for b in q+r)+'\n' for q,r in vectors),encoding='ascii')
         exe=tmp/'test.vvp'
-        sources=['link/rtl/link_bringup.v','gfx/rtl/triangle_tile.v',
+        sources=['link/rtl/triangle_batch.v','link/rtl/link_bringup.v','gfx/rtl/triangle_tile.v',
                  'gfx/rtl/triangle_fragment.v','gfx/rtl/triangle_coverage.v','gfx/rtl/triangle_depth.v',
                  'platform/dock/tab5_dock_top.v','gfx/tests/tb_triangle_tile_dock.v']
         subprocess.run([args.iverilog,'-g2012','-Wall','-s','tb_triangle_tile_dock','-o',str(exe),

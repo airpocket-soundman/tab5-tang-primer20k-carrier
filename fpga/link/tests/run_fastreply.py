@@ -56,7 +56,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='link-sync-') as td:
         td=Path(td);vf=td/'vectors.txt';exe=td/'test.vvp'
         vf.write_text(''.join(str(len(r))+' '+' '.join(f'{b:02x}' for b in bytes(q)+r)+'\n' for q,r in vectors),encoding='ascii')
-        sources=['link/rtl/link_reply_raw.v','link/rtl/link_bringup.v','gfx/rtl/gfx_bench.v','gfx/rtl/triangle_tile.v','gfx/rtl/triangle_fragment.v',
+        sources=['link/rtl/link_reply_raw.v','link/rtl/triangle_batch.v','link/rtl/link_bringup.v','gfx/rtl/gfx_bench.v','gfx/rtl/triangle_tile.v','gfx/rtl/triangle_fragment.v',
                  'gfx/rtl/triangle_coverage.v','gfx/rtl/triangle_depth.v','platform/dock/tab5_dock_top.v','link/tests/tb_link_sync.v']
         subprocess.run([args.iverilog,'-g2012','-Wall','-s','tb_link_sync','-Ptb_link_sync.FAST_REPLY_ENABLE=1','-o',str(exe),*[str(ROOT/s) for s in sources]],check=True)
         subprocess.run([args.vvp,str(exe),'+vectors='+str(vf)],check=True,timeout=180)

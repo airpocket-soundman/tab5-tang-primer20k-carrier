@@ -7,7 +7,7 @@ def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--iverilog',default='iverilog');p.add_argument('--vvp',default='vvp')
  p.add_argument('--output',type=Path,default=ROOT/'validation/fastreply-frequency-model-2026-11-03.json');p.add_argument('--ideal-only',action='store_true');a=p.parse_args()
  if not shutil.which(a.iverilog) or not shutil.which(a.vvp):p.error('existing Icarus/vvp required')
- sources=['link/rtl/link_reply_raw.v','link/rtl/link_bringup.v','gfx/rtl/gfx_bench.v','gfx/rtl/triangle_tile.v','gfx/rtl/triangle_fragment.v','gfx/rtl/triangle_coverage.v','gfx/rtl/triangle_depth.v','link/tests/tb_fastreply_frequency.v']
+ sources=['link/rtl/link_reply_raw.v','link/rtl/triangle_batch.v','link/rtl/link_bringup.v','gfx/rtl/gfx_bench.v','gfx/rtl/triangle_tile.v','gfx/rtl/triangle_fragment.v','gfx/rtl/triangle_coverage.v','gfx/rtl/triangle_depth.v','link/tests/tb_fastreply_frequency.v']
  configs=[(wire,0,0,0) for wire in (0,5,10)]
  if not a.ideal_only:configs += [(wire,tco,1,pattern) for wire in (0,5,10) for tco in (2,5) for pattern in (1,2)]
  cases=[]
