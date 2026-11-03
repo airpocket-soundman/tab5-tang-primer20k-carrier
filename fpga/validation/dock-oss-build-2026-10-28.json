@@ -1,0 +1,303 @@
+{
+  "date": "2026-10-28",
+  "hardware_access": "none",
+  "vendor_gowin": "not_run",
+  "external_io_timing": "not_verified",
+  "synthesized_netlist_simulation": "blocked_model_unavailable",
+  "fpga": {
+    "link": {
+      "image": "dock-link.fs",
+      "sha256": "96f6f7e8369d76dbd15d68a9fa8fd8da9af418e149557e70d207e14eaecbf14c",
+      "bytes": 4620140,
+      "manifest": {
+        "variant": "link",
+        "device": "GW2A-LV18PG256C8/I7",
+        "family": "GW2A-18",
+        "target_mhz": 27,
+        "hardware_access": "none",
+        "status": "passed",
+        "run_dir": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T044042Z-90a8491610ad",
+        "sources": {
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\link\\rtl\\link_bringup.v": "4e596ab00e367810cff836da79994012df3b081f6b69b2b4002f2d92b1b25e9b",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\gfx_bench.v": "841a4f50baa9e3200bbda1cd61bc9511db36909f76e854a9b66b331ebda2c392",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\platform\\dock\\tab5_dock_top.v": "b52dbad29c4a262f31f2d63e94cba169f3fcb9a2f031f7dac43bca670aada021",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\platform\\dock\\tab5_dock_gfx_top.v": "9e2124a302b0931c6bd867aeda59e47c08cc65140bbac8713c809d8dd1dc7440",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\constraints\\dock\\tab5_dock_link_v0.cst": "28a29f6cf24815e0f021d0f10078fa819e49e083365a7cacc32f40c707ec14e2",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\builds\\dock\\build_oss.py": "8dc4ee827307fb874f88db563da6e5e982629f8cd7ff9265bb65955cc6ade17e"
+        },
+        "tools": {
+          "yosys": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+            "sha256": "ab48126088d64e9a9de48acf5060b25b4e5d71618eef46a134e388fff8780046",
+            "version": "Yosys 0.70 (git sha1 28ba3cb92, Release, Clang /workspace/YoWASP/yosys/wasi-sdk-33.0-x86_64-linux/share/cmake/../..//bin/clang++ 22.1.0)",
+            "version_exit_code": 0
+          },
+          "nextpnr": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-nextpnr-himbaechel-gowin.exe",
+            "sha256": "94cc73465631a8e9027d0f7fe4a747fde0a7e60b5d3b990433ab0201204e0fa3",
+            "version": "\"yowasp-nextpnr-himbaechel-gowin\" -- Next Generation Place and Route (Version nextpnr-0.11.1)",
+            "version_exit_code": 0
+          },
+          "pack": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\gowin_pack.exe",
+            "sha256": "52831e9dde9c181af21e420bfa216822614ea97ff0352e3c29ce37846b5bf724",
+            "version": "usage: gowin_pack [-h] [-d DEVICE] [-o OUTPUT] [-c] [-s CST] [--jtag_as_gpio]\n                  [--sspi_as_gpio] [--mspi_as_gpio] [--ready_as_gpio]\n                  [--done_as_gpio] [--reconfign_as_gpio] [--cpu_as_gpio]\n                  [--i2c_as_gpio]\n                  netlist\ngowin_pack: error: the following arguments are required: netlist",
+            "version_exit_code": 2
+          }
+        },
+        "stages": {
+          "synthesis": {
+            "status": "passed",
+            "command": [
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+              "-p",
+              "read_verilog \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/link/rtl/link_bringup.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/rtl/gfx_bench.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/platform/dock/tab5_dock_top.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/platform/dock/tab5_dock_gfx_top.v\"; synth_gowin -family gw2a -top tab5_dock_top -json \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/dock-oss-link/runs/20261028T044042Z-90a8491610ad/synth.json\""
+            ],
+            "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T044042Z-90a8491610ad\\synthesis.log",
+            "exit_code": 0
+          },
+          "pnr": {
+            "status": "passed",
+            "command": [
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-nextpnr-himbaechel-gowin.exe",
+              "--json",
+              "D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/dock-oss-link/runs/20261028T044042Z-90a8491610ad/synth.json",
+              "--write",
+              "D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/dock-oss-link/runs/20261028T044042Z-90a8491610ad/output.pnr.json",
+              "--device",
+              "GW2A-LV18PG256C8/I7",
+              "--vopt",
+              "family=GW2A-18",
+              "--vopt",
+              "cst=D:/GitHub/tab5-tang-primer20k-carrier/fpga/constraints/dock/tab5_dock_link_v0.cst",
+              "--freq",
+              "27"
+            ],
+            "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T044042Z-90a8491610ad\\pnr.log",
+            "exit_code": 0
+          },
+          "pack": {
+            "status": "passed",
+            "command": [
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\gowin_pack.exe",
+              "-d",
+              "GW2A-18",
+              "--sspi_as_gpio",
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T044042Z-90a8491610ad\\output.pnr.json",
+              "-o",
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T044042Z-90a8491610ad\\output.fs"
+            ],
+            "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T044042Z-90a8491610ad\\pack.log",
+            "exit_code": 0
+          }
+        },
+        "artifacts": {
+          "synthesis": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T044042Z-90a8491610ad\\synth.json",
+            "sha256": "bb8e6c769499b08fced1dc4b168ffeb07027220fce1a2819c895d5a0c8fe6c4c"
+          },
+          "pnr": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T044042Z-90a8491610ad\\output.pnr.json",
+            "sha256": "d0a580cf1eb44127fb129a7507c768f8200fad8ea19e9181457d5fa67b2965d0"
+          },
+          "pack": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T044042Z-90a8491610ad\\output.fs",
+            "sha256": "96f6f7e8369d76dbd15d68a9fa8fd8da9af418e149557e70d207e14eaecbf14c"
+          }
+        }
+      },
+      "post_route_mhz": 189.54,
+      "resources": {
+        "LUT4": 421,
+        "DFF": 172,
+        "BSRAM": 0
+      },
+      "warnings": [
+        "Warning: Failed to route net 'core.bus_clk' from X55Y28/F6 to X48Y6/D2 using dedicated routing."
+      ]
+    },
+    "gfx": {
+      "image": "dock-gfx.fs",
+      "sha256": "b422604b0735a56cb9f273ec70c6044645741ea81c1d4b7d41b5fb339930add8",
+      "bytes": 7263596,
+      "manifest": {
+        "variant": "gfx",
+        "device": "GW2A-LV18PG256C8/I7",
+        "family": "GW2A-18",
+        "target_mhz": 27,
+        "hardware_access": "none",
+        "status": "passed",
+        "run_dir": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T044048Z-7e84f7c38a17",
+        "sources": {
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\link\\rtl\\link_bringup.v": "4e596ab00e367810cff836da79994012df3b081f6b69b2b4002f2d92b1b25e9b",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\gfx_bench.v": "841a4f50baa9e3200bbda1cd61bc9511db36909f76e854a9b66b331ebda2c392",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\platform\\dock\\tab5_dock_top.v": "b52dbad29c4a262f31f2d63e94cba169f3fcb9a2f031f7dac43bca670aada021",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\platform\\dock\\tab5_dock_gfx_top.v": "9e2124a302b0931c6bd867aeda59e47c08cc65140bbac8713c809d8dd1dc7440",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\constraints\\dock\\tab5_dock_link_v0.cst": "28a29f6cf24815e0f021d0f10078fa819e49e083365a7cacc32f40c707ec14e2",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\builds\\dock\\build_oss.py": "8dc4ee827307fb874f88db563da6e5e982629f8cd7ff9265bb65955cc6ade17e"
+        },
+        "tools": {
+          "yosys": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+            "sha256": "ab48126088d64e9a9de48acf5060b25b4e5d71618eef46a134e388fff8780046",
+            "version": "Yosys 0.70 (git sha1 28ba3cb92, Release, Clang /workspace/YoWASP/yosys/wasi-sdk-33.0-x86_64-linux/share/cmake/../..//bin/clang++ 22.1.0)",
+            "version_exit_code": 0
+          },
+          "nextpnr": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-nextpnr-himbaechel-gowin.exe",
+            "sha256": "94cc73465631a8e9027d0f7fe4a747fde0a7e60b5d3b990433ab0201204e0fa3",
+            "version": "\"yowasp-nextpnr-himbaechel-gowin\" -- Next Generation Place and Route (Version nextpnr-0.11.1)",
+            "version_exit_code": 0
+          },
+          "pack": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\gowin_pack.exe",
+            "sha256": "52831e9dde9c181af21e420bfa216822614ea97ff0352e3c29ce37846b5bf724",
+            "version": "usage: gowin_pack [-h] [-d DEVICE] [-o OUTPUT] [-c] [-s CST] [--jtag_as_gpio]\n                  [--sspi_as_gpio] [--mspi_as_gpio] [--ready_as_gpio]\n                  [--done_as_gpio] [--reconfign_as_gpio] [--cpu_as_gpio]\n                  [--i2c_as_gpio]\n                  netlist\ngowin_pack: error: the following arguments are required: netlist",
+            "version_exit_code": 2
+          }
+        },
+        "stages": {
+          "synthesis": {
+            "status": "passed",
+            "command": [
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+              "-p",
+              "read_verilog \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/link/rtl/link_bringup.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/rtl/gfx_bench.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/platform/dock/tab5_dock_top.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/platform/dock/tab5_dock_gfx_top.v\"; synth_gowin -family gw2a -top tab5_dock_gfx_top -json \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/dock-oss-gfx/runs/20261028T044048Z-7e84f7c38a17/synth.json\""
+            ],
+            "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T044048Z-7e84f7c38a17\\synthesis.log",
+            "exit_code": 0
+          },
+          "pnr": {
+            "status": "passed",
+            "command": [
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-nextpnr-himbaechel-gowin.exe",
+              "--json",
+              "D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/dock-oss-gfx/runs/20261028T044048Z-7e84f7c38a17/synth.json",
+              "--write",
+              "D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/dock-oss-gfx/runs/20261028T044048Z-7e84f7c38a17/output.pnr.json",
+              "--device",
+              "GW2A-LV18PG256C8/I7",
+              "--vopt",
+              "family=GW2A-18",
+              "--vopt",
+              "cst=D:/GitHub/tab5-tang-primer20k-carrier/fpga/constraints/dock/tab5_dock_link_v0.cst",
+              "--freq",
+              "27"
+            ],
+            "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T044048Z-7e84f7c38a17\\pnr.log",
+            "exit_code": 0
+          },
+          "pack": {
+            "status": "passed",
+            "command": [
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\gowin_pack.exe",
+              "-d",
+              "GW2A-18",
+              "--sspi_as_gpio",
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T044048Z-7e84f7c38a17\\output.pnr.json",
+              "-o",
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T044048Z-7e84f7c38a17\\output.fs"
+            ],
+            "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T044048Z-7e84f7c38a17\\pack.log",
+            "exit_code": 0
+          }
+        },
+        "artifacts": {
+          "synthesis": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T044048Z-7e84f7c38a17\\synth.json",
+            "sha256": "4f41103b48060fbd2e687bfde7db081f0a21f66d3fd3796780c2aae471756578"
+          },
+          "pnr": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T044048Z-7e84f7c38a17\\output.pnr.json",
+            "sha256": "f4d4a56f81bb5f090918e78aaca116de835bd2daa9e4ed7afcc53e33fae17bc1"
+          },
+          "pack": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T044048Z-7e84f7c38a17\\output.fs",
+            "sha256": "b422604b0735a56cb9f273ec70c6044645741ea81c1d4b7d41b5fb339930add8"
+          }
+        }
+      },
+      "post_route_mhz": 166.25,
+      "resources": {
+        "LUT4": 773,
+        "DFF": 280,
+        "BSRAM": 1
+      },
+      "warnings": [
+        "Warning: Failed to route net 'platform.bus_clk' from X55Y28/F6 to X42Y21/D5 using dedicated routing."
+      ]
+    }
+  },
+  "host": {
+    "default-unarmed.bin": {
+      "sha256": "e2cd2f6307b41a97d33bd3a261f0c4763f57d7441fff2611521c5979c2640bcd",
+      "bytes": 683072
+    },
+    "dock-profile-enabled.bin": {
+      "sha256": "a38df352482a15f481d5643f53b4f499ff17f2625b2f5ddc80e18f936560732a",
+      "bytes": 684320
+    },
+    "bootloader.bin": {
+      "sha256": "a519d7273726689e70f68077202d54649a6210c44b5b46520a961c61ba3b2d40",
+      "bytes": 23168
+    },
+    "partition-table.bin": {
+      "sha256": "fd8026bff850ca0dee41c41305160317fffe604dda30a9bd5a701ac82d96fa17",
+      "bytes": 3072
+    }
+  },
+  "host_builds": {
+    "default": "passed",
+    "dock_profile": "passed",
+    "recovery_helper_test": "passed",
+    "recovery_idle_us": 150000,
+    "ready_low_timeout_us": 100000
+  },
+  "pin_audit": {
+    "sha256": "b6361fd6cd375e0150a1cc72bad0f0351c823e9c2d303bf1042dd42dbb915dfa",
+    "ports_per_variant": 22,
+    "all_match": true
+  },
+  "source_hashes": {
+    "fpga\\builds\\dock\\build_oss.py": "8dc4ee827307fb874f88db563da6e5e982629f8cd7ff9265bb65955cc6ade17e",
+    "fpga\\constraints\\dock\\tab5_dock_link_v0.cst": "28a29f6cf24815e0f021d0f10078fa819e49e083365a7cacc32f40c707ec14e2"
+  },
+  "host_source_hashes": {
+    "bringup/tab5/main/main.c": "45bb9eddd824bb8300e47ac6747cd66cd5bfe1f2a07d97f8918bdd17d92a5444",
+    "bringup/tab5/main/link_recovery.h": "cb2635d80c9e49a4b65311c473d5cc6017289e75531a211e07d02ea326007333",
+    "bringup/tab5/main/gfx_lcd.c": "9687e90d3668b465fe1420bdb72bfd0e58828c2cf4fe2ec5270b1dbf8ab75814",
+    "bringup/tab5/main/link_protocol.h": "bfc5a9a6970789f84b07864ad74acf30242b399d607ae02cb7901f901349eb57",
+    "bringup/tab5/dependencies.lock": "4692cd7aa0a2b0d3e2d943a782dbbe86b367afb188e628718657b6974490f5ef"
+  },
+  "carrier_base": "e5a386d",
+  "host_base": "d4d89e3",
+  "branch": "codex/dock-jumper-gfx",
+  "working_tree": "uncommitted; content identified by hashes",
+  "tests": {
+    "rtl_suites": 8,
+    "rtl_result": "passed (RTL unchanged since prior recorded run)",
+    "wsl_gfx_tests": 17,
+    "wsl_npu_tests": 9,
+    "wsl_host_tests": 4,
+    "oss_runner_tests": 4,
+    "recovery_c_helper": "passed",
+    "host_builds": "both profile configurations passed"
+  },
+  "toolchain_packages": {
+    "yowasp-yosys": "0.70.0.0.post1259",
+    "yowasp-nextpnr-himbaechel-gowin": "0.11.1.0.post826",
+    "apycula": "0.32",
+    "yowasp-runtime": "1.96",
+    "wasmtime": "47.0.1"
+  },
+  "reference_audit": {
+    "sources": {
+      "docs/reference/tang-primer-20k/SOM-3961_Schematic.pdf": "b5110caa0508d1d80513ca28978b0836e9b2aec92fc889f850a5a43ec03e6ce8",
+      "docs/reference/tang-primer-20k/Dock_3714_Schematics.pdf": "284aed9a243dcbe4cf5e6dbb2366faa17936a62c922f378cbda347c285925188"
+    },
+    "core_bank": "Core main FPGA symbol confirms C7/IOL40B in IOBANK6 and VCCO6 tied to +1V5; connector label 4/IOL40B/C7 is stale",
+    "switch_voltage": "Dock p9 SW0: +1V5 via R93 1.5k, pulldown R98 13k",
+    "configuration": "T10 is SI/D2, SSPI GPIO reuse explicitly enabled; JTAG/MSPI/RECONFIG not requested as GPIO"
+  },
+  "synth_simulation_report_sha256": "1ad5c11d08ff42950ea9b0a93cd307b181776a2fce7c695be0d6c44952dbb516"
+}

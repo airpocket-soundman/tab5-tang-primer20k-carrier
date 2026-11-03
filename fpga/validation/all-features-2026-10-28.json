@@ -1,0 +1,1179 @@
+{
+  "status": "completed",
+  "hardware_access": "none",
+  "run_dir": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\feature-tests\\runs\\20261028T070726Z-60271fed30",
+  "matrix_sha256": "425a24b3713891d07bc3978caea5808b663d32dcda9ae66538a76516c6b76d7b",
+  "checks": {
+    "rtl.bringup": {
+      "name": "bringup",
+      "status": "passed",
+      "output": "PASS link-bringup: ID, 512 patterns, CRC/op rejection, partial DIR, timeout, arm/reset/OE\nD:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\link\\tests\\tb_link_bringup.v:74: $finish called at 2911203000 (1ps)\nPASS Python golden vectors: 583\nD:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\link\\tests\\tb_link_vectors.v:37: $finish called at 3206700000 (1ps)"
+    },
+    "host.codec": {
+      "status": "passed",
+      "command": [
+        "C:\\ProgramData\\anaconda3\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "host/tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\feature-tests\\runs\\20261028T070726Z-60271fed30\\host.codec.log",
+      "returncode": 0,
+      "log_sha256": "ce526f68b3cc3b3af43b77106e6967f7c8ba782c750333cc8632b28df4e6349e"
+    },
+    "build.link": {
+      "status": "passed",
+      "command": [
+        "C:\\ProgramData\\anaconda3\\python.exe",
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\tools\\dock_dev.py",
+        "build",
+        "link"
+      ],
+      "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\feature-tests\\runs\\20261028T070726Z-60271fed30\\build.link.log",
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "manifest": {
+        "variant": "link",
+        "device": "GW2A-LV18PG256C8/I7",
+        "family": "GW2A-18",
+        "target_mhz": 27,
+        "hardware_access": "none",
+        "status": "passed",
+        "run_dir": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T070748Z-6342b79b79bb",
+        "sources": {
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\link\\rtl\\link_bringup.v": "4e596ab00e367810cff836da79994012df3b081f6b69b2b4002f2d92b1b25e9b",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\gfx_bench.v": "841a4f50baa9e3200bbda1cd61bc9511db36909f76e854a9b66b331ebda2c392",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\platform\\dock\\tab5_dock_top.v": "b52dbad29c4a262f31f2d63e94cba169f3fcb9a2f031f7dac43bca670aada021",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\platform\\dock\\tab5_dock_gfx_top.v": "9e2124a302b0931c6bd867aeda59e47c08cc65140bbac8713c809d8dd1dc7440",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\constraints\\dock\\tab5_dock_link_v0.cst": "28a29f6cf24815e0f021d0f10078fa819e49e083365a7cacc32f40c707ec14e2",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\builds\\dock\\build_oss.py": "8dc4ee827307fb874f88db563da6e5e982629f8cd7ff9265bb65955cc6ade17e"
+        },
+        "tools": {
+          "yosys": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+            "sha256": "ab48126088d64e9a9de48acf5060b25b4e5d71618eef46a134e388fff8780046",
+            "version": "Yosys 0.70 (git sha1 28ba3cb92, Release, Clang /workspace/YoWASP/yosys/wasi-sdk-33.0-x86_64-linux/share/cmake/../..//bin/clang++ 22.1.0)",
+            "version_exit_code": 0
+          },
+          "nextpnr": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-nextpnr-himbaechel-gowin.exe",
+            "sha256": "94cc73465631a8e9027d0f7fe4a747fde0a7e60b5d3b990433ab0201204e0fa3",
+            "version": "\"yowasp-nextpnr-himbaechel-gowin\" -- Next Generation Place and Route (Version nextpnr-0.11.1)",
+            "version_exit_code": 0
+          },
+          "pack": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\gowin_pack.exe",
+            "sha256": "52831e9dde9c181af21e420bfa216822614ea97ff0352e3c29ce37846b5bf724",
+            "version": "usage: gowin_pack [-h] [-d DEVICE] [-o OUTPUT] [-c] [-s CST] [--jtag_as_gpio]\n                  [--sspi_as_gpio] [--mspi_as_gpio] [--ready_as_gpio]\n                  [--done_as_gpio] [--reconfign_as_gpio] [--cpu_as_gpio]\n                  [--i2c_as_gpio]\n                  netlist\ngowin_pack: error: the following arguments are required: netlist",
+            "version_exit_code": 2
+          }
+        },
+        "stages": {
+          "synthesis": {
+            "status": "passed",
+            "command": [
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+              "-p",
+              "read_verilog \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/link/rtl/link_bringup.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/rtl/gfx_bench.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/platform/dock/tab5_dock_top.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/platform/dock/tab5_dock_gfx_top.v\"; synth_gowin -family gw2a -top tab5_dock_top -json \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/dock-oss-link/runs/20261028T070748Z-6342b79b79bb/synth.json\""
+            ],
+            "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T070748Z-6342b79b79bb\\synthesis.log",
+            "exit_code": 0
+          },
+          "pnr": {
+            "status": "passed",
+            "command": [
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-nextpnr-himbaechel-gowin.exe",
+              "--json",
+              "D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/dock-oss-link/runs/20261028T070748Z-6342b79b79bb/synth.json",
+              "--write",
+              "D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/dock-oss-link/runs/20261028T070748Z-6342b79b79bb/output.pnr.json",
+              "--device",
+              "GW2A-LV18PG256C8/I7",
+              "--vopt",
+              "family=GW2A-18",
+              "--vopt",
+              "cst=D:/GitHub/tab5-tang-primer20k-carrier/fpga/constraints/dock/tab5_dock_link_v0.cst",
+              "--freq",
+              "27"
+            ],
+            "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T070748Z-6342b79b79bb\\pnr.log",
+            "exit_code": 0
+          },
+          "pack": {
+            "status": "passed",
+            "command": [
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\gowin_pack.exe",
+              "-d",
+              "GW2A-18",
+              "--sspi_as_gpio",
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T070748Z-6342b79b79bb\\output.pnr.json",
+              "-o",
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T070748Z-6342b79b79bb\\output.fs"
+            ],
+            "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T070748Z-6342b79b79bb\\pack.log",
+            "exit_code": 0
+          }
+        },
+        "artifacts": {
+          "synthesis": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T070748Z-6342b79b79bb\\synth.json",
+            "sha256": "bb8e6c769499b08fced1dc4b168ffeb07027220fce1a2819c895d5a0c8fe6c4c"
+          },
+          "pnr": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T070748Z-6342b79b79bb\\output.pnr.json",
+            "sha256": "d0a580cf1eb44127fb129a7507c768f8200fad8ea19e9181457d5fa67b2965d0"
+          },
+          "pack": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-link\\runs\\20261028T070748Z-6342b79b79bb\\output.fs",
+            "sha256": "96f6f7e8369d76dbd15d68a9fa8fd8da9af418e149557e70d207e14eaecbf14c"
+          }
+        }
+      }
+    },
+    "hardware.link": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "rtl.dock_gfx": {
+      "name": "dock_gfx",
+      "status": "passed",
+      "output": "PASS dock pin-level oracle vectors=1572, timeout/disarm/reset\nD:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\tb_bench_dock.v:91: $finish called at 5054783000 (1ps)\nPASS dock GFX: 1572 oracle transactions, 1024 image pixels; no hardware access"
+    },
+    "host.gfx": {
+      "status": "passed",
+      "command": [
+        "C:\\ProgramData\\anaconda3\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "gfx/tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\feature-tests\\runs\\20261028T070726Z-60271fed30\\host.gfx.log",
+      "returncode": 0,
+      "log_sha256": "0b45056521c0374a0763a0ae0233e00928bc50c94c2404251c693fd60b2b9d36"
+    },
+    "build.gfx": {
+      "status": "passed",
+      "command": [
+        "C:\\ProgramData\\anaconda3\\python.exe",
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\tools\\dock_dev.py",
+        "build",
+        "gfx"
+      ],
+      "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\feature-tests\\runs\\20261028T070726Z-60271fed30\\build.gfx.log",
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "manifest": {
+        "variant": "gfx",
+        "device": "GW2A-LV18PG256C8/I7",
+        "family": "GW2A-18",
+        "target_mhz": 27,
+        "hardware_access": "none",
+        "status": "passed",
+        "run_dir": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T070755Z-d0260c80b26d",
+        "sources": {
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\link\\rtl\\link_bringup.v": "4e596ab00e367810cff836da79994012df3b081f6b69b2b4002f2d92b1b25e9b",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\gfx_bench.v": "841a4f50baa9e3200bbda1cd61bc9511db36909f76e854a9b66b331ebda2c392",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\platform\\dock\\tab5_dock_top.v": "b52dbad29c4a262f31f2d63e94cba169f3fcb9a2f031f7dac43bca670aada021",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\platform\\dock\\tab5_dock_gfx_top.v": "9e2124a302b0931c6bd867aeda59e47c08cc65140bbac8713c809d8dd1dc7440",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\constraints\\dock\\tab5_dock_link_v0.cst": "28a29f6cf24815e0f021d0f10078fa819e49e083365a7cacc32f40c707ec14e2",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\builds\\dock\\build_oss.py": "8dc4ee827307fb874f88db563da6e5e982629f8cd7ff9265bb65955cc6ade17e"
+        },
+        "tools": {
+          "yosys": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+            "sha256": "ab48126088d64e9a9de48acf5060b25b4e5d71618eef46a134e388fff8780046",
+            "version": "Yosys 0.70 (git sha1 28ba3cb92, Release, Clang /workspace/YoWASP/yosys/wasi-sdk-33.0-x86_64-linux/share/cmake/../..//bin/clang++ 22.1.0)",
+            "version_exit_code": 0
+          },
+          "nextpnr": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-nextpnr-himbaechel-gowin.exe",
+            "sha256": "94cc73465631a8e9027d0f7fe4a747fde0a7e60b5d3b990433ab0201204e0fa3",
+            "version": "\"yowasp-nextpnr-himbaechel-gowin\" -- Next Generation Place and Route (Version nextpnr-0.11.1)",
+            "version_exit_code": 0
+          },
+          "pack": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\gowin_pack.exe",
+            "sha256": "52831e9dde9c181af21e420bfa216822614ea97ff0352e3c29ce37846b5bf724",
+            "version": "usage: gowin_pack [-h] [-d DEVICE] [-o OUTPUT] [-c] [-s CST] [--jtag_as_gpio]\n                  [--sspi_as_gpio] [--mspi_as_gpio] [--ready_as_gpio]\n                  [--done_as_gpio] [--reconfign_as_gpio] [--cpu_as_gpio]\n                  [--i2c_as_gpio]\n                  netlist\ngowin_pack: error: the following arguments are required: netlist",
+            "version_exit_code": 2
+          }
+        },
+        "stages": {
+          "synthesis": {
+            "status": "passed",
+            "command": [
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+              "-p",
+              "read_verilog \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/link/rtl/link_bringup.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/rtl/gfx_bench.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/platform/dock/tab5_dock_top.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/platform/dock/tab5_dock_gfx_top.v\"; synth_gowin -family gw2a -top tab5_dock_gfx_top -json \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/dock-oss-gfx/runs/20261028T070755Z-d0260c80b26d/synth.json\""
+            ],
+            "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T070755Z-d0260c80b26d\\synthesis.log",
+            "exit_code": 0
+          },
+          "pnr": {
+            "status": "passed",
+            "command": [
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-nextpnr-himbaechel-gowin.exe",
+              "--json",
+              "D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/dock-oss-gfx/runs/20261028T070755Z-d0260c80b26d/synth.json",
+              "--write",
+              "D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/dock-oss-gfx/runs/20261028T070755Z-d0260c80b26d/output.pnr.json",
+              "--device",
+              "GW2A-LV18PG256C8/I7",
+              "--vopt",
+              "family=GW2A-18",
+              "--vopt",
+              "cst=D:/GitHub/tab5-tang-primer20k-carrier/fpga/constraints/dock/tab5_dock_link_v0.cst",
+              "--freq",
+              "27"
+            ],
+            "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T070755Z-d0260c80b26d\\pnr.log",
+            "exit_code": 0
+          },
+          "pack": {
+            "status": "passed",
+            "command": [
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\gowin_pack.exe",
+              "-d",
+              "GW2A-18",
+              "--sspi_as_gpio",
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T070755Z-d0260c80b26d\\output.pnr.json",
+              "-o",
+              "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T070755Z-d0260c80b26d\\output.fs"
+            ],
+            "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T070755Z-d0260c80b26d\\pack.log",
+            "exit_code": 0
+          }
+        },
+        "artifacts": {
+          "synthesis": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T070755Z-d0260c80b26d\\synth.json",
+            "sha256": "4f41103b48060fbd2e687bfde7db081f0a21f66d3fd3796780c2aae471756578"
+          },
+          "pnr": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T070755Z-d0260c80b26d\\output.pnr.json",
+            "sha256": "f4d4a56f81bb5f090918e78aaca116de835bd2daa9e4ed7afcc53e33fae17bc1"
+          },
+          "pack": {
+            "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\dock-oss-gfx\\runs\\20261028T070755Z-d0260c80b26d\\output.fs",
+            "sha256": "b422604b0735a56cb9f273ec70c6044645741ea81c1d4b7d41b5fb339930add8"
+          }
+        }
+      }
+    },
+    "hardware.gfx": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "rtl.coverage": {
+      "name": "coverage",
+      "status": "passed",
+      "output": "3328 coverage vectors verified\nPASS triangle_coverage: 3328 vectors, back-to-back, bubbles, reset\nD:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\tb_triangle_coverage.v:42: $finish called at 34376000 (1ps)"
+    },
+    "hardware.triangle": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "synth.coverage": {
+      "status": "passed",
+      "command": [
+        "C:\\ProgramData\\anaconda3\\python.exe",
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\builds\\components\\build.py",
+        "coverage"
+      ],
+      "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\feature-tests\\runs\\20261028T070726Z-60271fed30\\synth.coverage.log",
+      "returncode": 0,
+      "log_sha256": "4424ae71a6dca8f17541bb3dc25e7d53f412c6126fca7e69b78a2bcf9d5a0c18",
+      "manifest": {
+        "feature": "coverage",
+        "top": "triangle_coverage",
+        "status": "passed",
+        "started_utc": "2026-10-28T07:07:38.965840+00:00",
+        "run_dir": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-coverage\\runs\\5470789c77724af889fe18e418e25258",
+        "scope": "component synthesis only; no IO, constraints, placement, routing, timing or bitstream",
+        "sources": {
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_coverage.v": "229e996701d7fcd28698fd18f2df874165f80d13594770a299a243c3c3354cf7",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_depth.v": "de970c1412f827a1bac67d840b7f0345128ad669a67cd3d3e66029c2b5ffe06f",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_fragment.v": "164a23321804c2109fdc963de7e18f1ad13270671e73feadef46a621d9077c4e"
+        },
+        "tool": {
+          "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+          "sha256": "ab48126088d64e9a9de48acf5060b25b4e5d71618eef46a134e388fff8780046"
+        },
+        "command": [
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+          "-Q",
+          "-T",
+          "-p",
+          "read_verilog \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/rtl/triangle_coverage.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/rtl/triangle_depth.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/rtl/triangle_fragment.v\"; synth_gowin -family gw2a -noiopads -top triangle_coverage -json \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/component-coverage/runs/5470789c77724af889fe18e418e25258/synth.json\""
+        ],
+        "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-coverage\\runs\\5470789c77724af889fe18e418e25258\\synthesis.log",
+        "exit_code": 0,
+        "resources": {
+          "ALU": 757,
+          "DFFC": 1,
+          "DFFCE": 259,
+          "GND": 1,
+          "LUT1": 117,
+          "LUT2": 161,
+          "LUT3": 191,
+          "LUT4": 952,
+          "MULT18X18": 10,
+          "MULT36X36": 12,
+          "MUX2_LUT5": 349,
+          "MUX2_LUT6": 104,
+          "MUX2_LUT7": 39,
+          "MUX2_LUT8": 18,
+          "VCC": 1
+        },
+        "artifact": {
+          "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-coverage\\runs\\5470789c77724af889fe18e418e25258\\synth.json",
+          "sha256": "e313e7c25daa8619e1907c8516a60d15d3a6d12fbe4494b2c9df1ebf1db8c610"
+        },
+        "finished_utc": "2026-10-28T07:07:41.749151+00:00"
+      }
+    },
+    "rtl.depth": {
+      "name": "depth",
+      "status": "passed",
+      "output": "1154 depth vectors verified\nPASS triangle_depth: 1154 vectors, 49-step exact divide, stall, reset\nD:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\tb_triangle_depth.v:58: $finish called at 357666000 (1ps)"
+    },
+    "rtl.fragment": {
+      "name": "fragment",
+      "status": "passed",
+      "output": "436 fragment vectors checked\nPASS triangle_fragment 436 candidates, metadata, stalls, reset\nD:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\tb_triangle_fragment.v:61: $finish called at 106036000 (1ps)"
+    },
+    "hardware.depth": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "synth.depth": {
+      "status": "passed",
+      "command": [
+        "C:\\ProgramData\\anaconda3\\python.exe",
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\builds\\components\\build.py",
+        "depth"
+      ],
+      "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\feature-tests\\runs\\20261028T070726Z-60271fed30\\synth.depth.log",
+      "returncode": 0,
+      "log_sha256": "91aa77477c114762b133ed1d184bb8069b43b1eedf5532ea3e984a38e33b0389",
+      "manifest": {
+        "feature": "depth",
+        "top": "triangle_depth",
+        "status": "passed",
+        "started_utc": "2026-10-28T07:07:41.845814+00:00",
+        "run_dir": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-depth\\runs\\8cdf28c1e98b4fb386363a4fda30be92",
+        "scope": "component synthesis only; no IO, constraints, placement, routing, timing or bitstream",
+        "sources": {
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_coverage.v": "229e996701d7fcd28698fd18f2df874165f80d13594770a299a243c3c3354cf7",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_depth.v": "de970c1412f827a1bac67d840b7f0345128ad669a67cd3d3e66029c2b5ffe06f",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_fragment.v": "164a23321804c2109fdc963de7e18f1ad13270671e73feadef46a621d9077c4e"
+        },
+        "tool": {
+          "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+          "sha256": "ab48126088d64e9a9de48acf5060b25b4e5d71618eef46a134e388fff8780046"
+        },
+        "command": [
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+          "-Q",
+          "-T",
+          "-p",
+          "read_verilog \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/rtl/triangle_coverage.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/rtl/triangle_depth.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/rtl/triangle_fragment.v\"; synth_gowin -family gw2a -noiopads -top triangle_depth -json \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/component-depth/runs/8cdf28c1e98b4fb386363a4fda30be92/synth.json\""
+        ],
+        "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-depth\\runs\\8cdf28c1e98b4fb386363a4fda30be92\\synthesis.log",
+        "exit_code": 0,
+        "resources": {
+          "ALU": 234,
+          "DFFC": 20,
+          "DFFCE": 152,
+          "GND": 1,
+          "LUT1": 73,
+          "LUT2": 137,
+          "LUT3": 274,
+          "LUT4": 236,
+          "MULT18X18": 6,
+          "MUX2_LUT5": 81,
+          "MUX2_LUT6": 17,
+          "MUX2_LUT7": 7,
+          "MUX2_LUT8": 3,
+          "VCC": 1
+        },
+        "artifact": {
+          "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-depth\\runs\\8cdf28c1e98b4fb386363a4fda30be92\\synth.json",
+          "sha256": "97d7fc8fe51562ca9e952e9a36ad324e20ed206bb5105e6112654300f06d8d89"
+        },
+        "finished_utc": "2026-10-28T07:07:44.104463+00:00"
+      }
+    },
+    "synth.fragment": {
+      "status": "passed",
+      "command": [
+        "C:\\ProgramData\\anaconda3\\python.exe",
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\builds\\components\\build.py",
+        "fragment"
+      ],
+      "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\feature-tests\\runs\\20261028T070726Z-60271fed30\\synth.fragment.log",
+      "returncode": 0,
+      "log_sha256": "46a163f95ef28a1f1bce7d3ea326c188cde87fea68f7bf46cd21785bf6615cdc",
+      "manifest": {
+        "feature": "fragment",
+        "top": "triangle_fragment",
+        "status": "passed",
+        "started_utc": "2026-10-28T07:07:44.197121+00:00",
+        "run_dir": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-fragment\\runs\\c5b377da3e1d477f81d90e9de44ece23",
+        "scope": "component synthesis only; no IO, constraints, placement, routing, timing or bitstream",
+        "sources": {
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_coverage.v": "229e996701d7fcd28698fd18f2df874165f80d13594770a299a243c3c3354cf7",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_depth.v": "de970c1412f827a1bac67d840b7f0345128ad669a67cd3d3e66029c2b5ffe06f",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_fragment.v": "164a23321804c2109fdc963de7e18f1ad13270671e73feadef46a621d9077c4e"
+        },
+        "tool": {
+          "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+          "sha256": "ab48126088d64e9a9de48acf5060b25b4e5d71618eef46a134e388fff8780046"
+        },
+        "command": [
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+          "-Q",
+          "-T",
+          "-p",
+          "read_verilog \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/rtl/triangle_coverage.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/rtl/triangle_depth.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/rtl/triangle_fragment.v\"; synth_gowin -family gw2a -noiopads -top triangle_fragment -json \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/component-fragment/runs/c5b377da3e1d477f81d90e9de44ece23/synth.json\""
+        ],
+        "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-fragment\\runs\\c5b377da3e1d477f81d90e9de44ece23\\synthesis.log",
+        "exit_code": 0,
+        "resources": {
+          "ALU": 1339,
+          "DFFC": 25,
+          "DFFCE": 785,
+          "DFFP": 1,
+          "GND": 1,
+          "LUT1": 225,
+          "LUT2": 197,
+          "LUT3": 319,
+          "LUT4": 504,
+          "MULT18X18": 6,
+          "MULT36X36": 24,
+          "MUX2_LUT5": 173,
+          "MUX2_LUT6": 55,
+          "MUX2_LUT7": 27,
+          "MUX2_LUT8": 13,
+          "VCC": 1
+        },
+        "artifact": {
+          "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-fragment\\runs\\c5b377da3e1d477f81d90e9de44ece23\\synth.json",
+          "sha256": "a3ead2bc418f6dcb91523b4eba5b75ae0f739e2433bb853f6a2651e403e1d4f8"
+        },
+        "finished_utc": "2026-10-28T07:07:48.180061+00:00"
+      }
+    },
+    "hardware.gfx2d": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "hardware.blit": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "hardware.compute": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "hardware.cpu_gpu_compare": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "hardware.hdmi": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "hardware.ddr3_bist": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "hardware.ddr3_transfer": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "hardware.ramdisk": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "hardware.memory_offload": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "rtl.mac": {
+      "name": "mac",
+      "status": "passed",
+      "output": "PASS int8_mac_lane reference cycles\nD:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\rtl-check\\compute\\tb_int8_mac_lane.v:5062: $finish called at 2526000 (1ps)"
+    },
+    "host.npu": {
+      "status": "passed",
+      "command": [
+        "C:\\ProgramData\\anaconda3\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "npu/tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\feature-tests\\runs\\20261028T070726Z-60271fed30\\host.npu.log",
+      "returncode": 0,
+      "log_sha256": "67d32a98f501d3aa0d0392635999628df57be997884e7a6720ec71ae9257fe15"
+    },
+    "hardware.npu_mac": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "synth.mac": {
+      "status": "passed",
+      "command": [
+        "C:\\ProgramData\\anaconda3\\python.exe",
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\builds\\components\\build.py",
+        "mac"
+      ],
+      "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\feature-tests\\runs\\20261028T070726Z-60271fed30\\synth.mac.log",
+      "returncode": 0,
+      "log_sha256": "b6c9f2d34475e5781377bd1890659e665f7347ff19724a65717df7813434203b",
+      "manifest": {
+        "feature": "mac",
+        "top": "int8_mac_lane",
+        "status": "passed",
+        "started_utc": "2026-10-28T07:07:33.580908+00:00",
+        "run_dir": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-mac\\runs\\cfb61152a76748d3b949a7d6f98652fc",
+        "scope": "component synthesis only; no IO, constraints, placement, routing, timing or bitstream",
+        "sources": {
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\rtl\\int8_dot_job.v": "0f985e2b1d8a1e41d2be5bab588fb581900e1a218f0b78ba82e4889f1fef4dc7",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\rtl\\int8_mac_lane.v": "07199c3a6c4354c598ab3847ba23c17215d7d84e1d5deb950204dea1fad47c2d",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\rtl\\int8_requantize.v": "12873790ccdc313a3052428f0efec893128f9fddd52f02b319a97e9d31050209"
+        },
+        "tool": {
+          "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+          "sha256": "ab48126088d64e9a9de48acf5060b25b4e5d71618eef46a134e388fff8780046"
+        },
+        "command": [
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+          "-Q",
+          "-T",
+          "-p",
+          "read_verilog \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/npu/rtl/int8_dot_job.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/npu/rtl/int8_mac_lane.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/npu/rtl/int8_requantize.v\"; synth_gowin -family gw2a -noiopads -top int8_mac_lane -json \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/component-mac/runs/cfb61152a76748d3b949a7d6f98652fc/synth.json\""
+        ],
+        "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-mac\\runs\\cfb61152a76748d3b949a7d6f98652fc\\synthesis.log",
+        "exit_code": 0,
+        "resources": {
+          "ALU": 42,
+          "DFFR": 1,
+          "DFFRE": 66,
+          "GND": 1,
+          "LUT2": 6,
+          "LUT3": 32,
+          "LUT4": 9,
+          "MULT9X9": 1,
+          "MUX2_LUT5": 4,
+          "VCC": 1
+        },
+        "artifact": {
+          "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-mac\\runs\\cfb61152a76748d3b949a7d6f98652fc\\synth.json",
+          "sha256": "f52f1fe0ef4880f3ad5555f82de343faf7fcd67eb47d95a5cf0cffe7f504472b"
+        },
+        "finished_utc": "2026-10-28T07:07:34.200772+00:00"
+      }
+    },
+    "rtl.requant": {
+      "name": "requant",
+      "status": "passed",
+      "output": "PASS int8_requantize golden cycles\nD:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\rtl-check\\compute\\tb_int8_requantize.v:17012: $finish called at 10626000 (1ps)"
+    },
+    "hardware.npu_requant": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "synth.requant": {
+      "status": "passed",
+      "command": [
+        "C:\\ProgramData\\anaconda3\\python.exe",
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\builds\\components\\build.py",
+        "requant"
+      ],
+      "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\feature-tests\\runs\\20261028T070726Z-60271fed30\\synth.requant.log",
+      "returncode": 0,
+      "log_sha256": "1808aeb5436f742c35a2717057100d3514287ed6724978dc326bc8b042db5d56",
+      "manifest": {
+        "feature": "requant",
+        "top": "int8_requantize",
+        "status": "passed",
+        "started_utc": "2026-10-28T07:07:34.291399+00:00",
+        "run_dir": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-requant\\runs\\fad039b9157e4c15a6e59e553859b34c",
+        "scope": "component synthesis only; no IO, constraints, placement, routing, timing or bitstream",
+        "sources": {
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\rtl\\int8_dot_job.v": "0f985e2b1d8a1e41d2be5bab588fb581900e1a218f0b78ba82e4889f1fef4dc7",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\rtl\\int8_mac_lane.v": "07199c3a6c4354c598ab3847ba23c17215d7d84e1d5deb950204dea1fad47c2d",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\rtl\\int8_requantize.v": "12873790ccdc313a3052428f0efec893128f9fddd52f02b319a97e9d31050209"
+        },
+        "tool": {
+          "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+          "sha256": "ab48126088d64e9a9de48acf5060b25b4e5d71618eef46a134e388fff8780046"
+        },
+        "command": [
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+          "-Q",
+          "-T",
+          "-p",
+          "read_verilog \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/npu/rtl/int8_dot_job.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/npu/rtl/int8_mac_lane.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/npu/rtl/int8_requantize.v\"; synth_gowin -family gw2a -noiopads -top int8_requantize -json \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/component-requant/runs/fad039b9157e4c15a6e59e553859b34c/synth.json\""
+        ],
+        "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-requant\\runs\\fad039b9157e4c15a6e59e553859b34c\\synthesis.log",
+        "exit_code": 0,
+        "resources": {
+          "ALU": 428,
+          "DFFR": 1,
+          "DFFRE": 9,
+          "GND": 1,
+          "LUT1": 257,
+          "LUT2": 55,
+          "LUT3": 402,
+          "LUT4": 534,
+          "MULT36X36": 1,
+          "MUX2_LUT5": 388,
+          "MUX2_LUT6": 157,
+          "MUX2_LUT7": 63,
+          "MUX2_LUT8": 16,
+          "VCC": 1
+        },
+        "artifact": {
+          "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-requant\\runs\\fad039b9157e4c15a6e59e553859b34c\\synth.json",
+          "sha256": "e4ddc376b2a016dc11414109ecd4cf3f9cc61b6d02b44e73ba7d91a657e2a9a9"
+        },
+        "finished_utc": "2026-10-28T07:07:36.486813+00:00"
+      }
+    },
+    "rtl.dot": {
+      "name": "dot",
+      "status": "passed",
+      "output": "PASS dot job golden cycles\nD:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\rtl-check\\compute\\tb_int8_dot_job.v:45305: $finish called at 16776000 (1ps)"
+    },
+    "hardware.npu_dot": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "synth.dot": {
+      "status": "passed",
+      "command": [
+        "C:\\ProgramData\\anaconda3\\python.exe",
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\builds\\components\\build.py",
+        "dot"
+      ],
+      "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\feature-tests\\runs\\20261028T070726Z-60271fed30\\synth.dot.log",
+      "returncode": 0,
+      "log_sha256": "1453962c074760f170050ee720accd77ad3b67af82a42b8c44cf69fac990bf51",
+      "manifest": {
+        "feature": "dot",
+        "top": "int8_dot_job",
+        "status": "passed",
+        "started_utc": "2026-10-28T07:07:36.573484+00:00",
+        "run_dir": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-dot\\runs\\4d216aded93b45909b7775372dc64005",
+        "scope": "component synthesis only; no IO, constraints, placement, routing, timing or bitstream",
+        "sources": {
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\rtl\\int8_dot_job.v": "0f985e2b1d8a1e41d2be5bab588fb581900e1a218f0b78ba82e4889f1fef4dc7",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\rtl\\int8_mac_lane.v": "07199c3a6c4354c598ab3847ba23c17215d7d84e1d5deb950204dea1fad47c2d",
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\rtl\\int8_requantize.v": "12873790ccdc313a3052428f0efec893128f9fddd52f02b319a97e9d31050209"
+        },
+        "tool": {
+          "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+          "sha256": "ab48126088d64e9a9de48acf5060b25b4e5d71618eef46a134e388fff8780046"
+        },
+        "command": [
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+          "-Q",
+          "-T",
+          "-p",
+          "read_verilog \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/npu/rtl/int8_dot_job.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/npu/rtl/int8_mac_lane.v\" \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/npu/rtl/int8_requantize.v\"; synth_gowin -family gw2a -noiopads -top int8_dot_job -json \"D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/component-dot/runs/4d216aded93b45909b7775372dc64005/synth.json\""
+        ],
+        "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-dot\\runs\\4d216aded93b45909b7775372dc64005\\synthesis.log",
+        "exit_code": 0,
+        "resources": {
+          "ALU": 547,
+          "DFFR": 2,
+          "DFFRE": 239,
+          "GND": 1,
+          "LUT1": 251,
+          "LUT2": 61,
+          "LUT3": 488,
+          "LUT4": 541,
+          "MULT36X36": 1,
+          "MULT9X9": 1,
+          "MUX2_LUT5": 373,
+          "MUX2_LUT6": 140,
+          "MUX2_LUT7": 50,
+          "MUX2_LUT8": 16,
+          "VCC": 1
+        },
+        "artifact": {
+          "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\component-dot\\runs\\4d216aded93b45909b7775372dc64005\\synth.json",
+          "sha256": "36286829ffcb1dce4ad683e19f48280a531fc115cdc89093d334ba60e95b93da"
+        },
+        "finished_utc": "2026-10-28T07:07:38.870373+00:00"
+      }
+    },
+    "hardware.npu_a": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "hardware.npu_b": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "hardware.npu_c": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "hardware.npu_precision": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "hardware.host_espidf": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "hardware.host_meos": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "hardware.host_linux": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "hardware.parlio_dma": {
+      "status": "not_run",
+      "reason": "Hardware checks require a separate physical test"
+    },
+    "rtl.group": {
+      "status": "passed",
+      "command": [
+        "C:\\ProgramData\\anaconda3\\python.exe",
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\tools\\run_existing_rtl.py",
+        "--require",
+        "--output",
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\feature-tests\\runs\\20261028T070726Z-60271fed30\\rtl.json",
+        "--iverilog",
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\iverilog.exe",
+        "--vvp",
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\vvp.exe"
+      ],
+      "log": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\feature-tests\\runs\\20261028T070726Z-60271fed30\\rtl.group.log",
+      "returncode": 0,
+      "log_sha256": "6a0e4e6fe9616468741ba23f7ca1e7ccbb88e694e20bceb9823fb8760a82c303"
+    }
+  },
+  "sources": {
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\gfx_bench.v": "841a4f50baa9e3200bbda1cd61bc9511db36909f76e854a9b66b331ebda2c392",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_coverage.v": "229e996701d7fcd28698fd18f2df874165f80d13594770a299a243c3c3354cf7",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_depth.v": "de970c1412f827a1bac67d840b7f0345128ad669a67cd3d3e66029c2b5ffe06f",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_fragment.v": "164a23321804c2109fdc963de7e18f1ad13270671e73feadef46a621d9077c4e",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\depth_manifest.json": "7edf41a5fed0afceca1808ddfa65ce2c61c3e1a52809721eab7d7055435b7b88",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\fragment_manifest.json": "08bd5e65a3b576a7f489dc6ae14fefa5df08404c13b7ad192eb42c04a04fcc23",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\generate_depth_vectors.py": "e88b5c298d69a25492030979b3787daa53b213786967e77280b10885a2afdc8a",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\generate_fragment_vectors.py": "ba33035e35d8c917df323eda1e188d66da625c8d40ba0a3601b8252dd5c8871b",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\generate_vectors.py": "70c9a8f460861551526ee5323004769757478dbd8331c3c383c2317e39ae32e3",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\manifest.json": "fb0e69473ee206b9ecfb78c4106eff16a2ebad3dde13546f595722e946be7341",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\run.py": "aae790b734ba0e9b3c408668c00aaff09bca4b41c79e375c49144eb977689fc7",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\run_bench.py": "2d0161bd0dd543f23ef238c926d9b369baf5b4ffe6eac70b62225d19b8538acd",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\run_depth.py": "60c87bce53557b01ab32ca656599329f81273d44756c6275f11f72f70e78c507",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\run_fragment.py": "5db8956d1b04a6c10bb6c051015d3fe86079416cca2be3b4d066f51896574795",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\run_synth_bench.py": "15d75358038b520fe8c02fd531cb87b50c8808858994971fa0d4716b5c9b02ea",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\tb_bench_dock.v": "28d2032c7e2ebdf823f0b63a87db78fa330433ffedd994696e9d4bfd726e723d",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\tb_synth_bench.v": "98a257ad19d2dcad35aae0d999cd2ba408f0386260def1207c5f2386ad342939",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\tb_triangle_coverage.v": "8df7f462fb12af955d06dc724bee3ee7d0b6182ee5060c5492678b26df5eef3a",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\tb_triangle_depth.v": "5845279c90ab23a47d529f743369b959471b3c7bb8b57763a4911e8bf11c9e7f",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\tb_triangle_fragment.v": "406f6339c99917e0c77a7cf6748f9a04c79cd0520e1c0f7d576f00d19a2342af",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\test_bench_protocol.py": "29dde36b4b2d59713f1ad9d7326adfc887b36118d3510ac5c24d297a870b963c",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\test_depth_vectors.py": "0ac6560b2273001b1e5e630ec0cfbd71aa6b4ded4e6269c1f0d5aba9c675e615",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\test_fragment_vectors.py": "309c33db8ebb72cbb591af7322aa677a2cd6b32246476267933f1174705ff5f0",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\test_synth_bench.py": "b0d1633b29a98d53d6cf266dc8690d1fb39257162d97ab7f3a9b889bd12dbe8c",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\test_vectors.py": "ae470a673ef43322047ca58938fe2da58e006ebed060159465a3ee1e1eb105bd",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\rtl\\int8_dot_job.v": "0f985e2b1d8a1e41d2be5bab588fb581900e1a218f0b78ba82e4889f1fef4dc7",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\rtl\\int8_mac_lane.v": "07199c3a6c4354c598ab3847ba23c17215d7d84e1d5deb950204dea1fad47c2d",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\rtl\\int8_requantize.v": "12873790ccdc313a3052428f0efec893128f9fddd52f02b319a97e9d31050209",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\tests\\generate_dot_vectors.py": "9e6e7f8a40a0fc8595344f8f685db44d0b08f5fef4a07c680fd33fe738f5137d",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\tests\\generate_requant_vectors.py": "be4c7e96f4f38ac1bc73fef48d8a41d42ea7ac270f2e5b2ca568ff60a7123f82",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\tests\\generate_vectors.py": "435b6c1b3610cc2a2694a8c2947ac6a506ff795f22876231956214bba1de6302",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\tests\\test_dot_vectors.py": "970f60df749c0faa0c75ba48870dc52ef6e660930b5547e31f6841027557a25f",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\tests\\test_requant_vectors.py": "480247336b94de91197e15e5639bd355671e8247135212a3b58392f661cffb2e",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\npu\\tests\\test_vectors.py": "50615d32dae18477f632be61f83c41bc0a97b7715e58e7892269005247463e7f",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\link\\rtl\\link_bringup.v": "4e596ab00e367810cff836da79994012df3b081f6b69b2b4002f2d92b1b25e9b",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\link\\rtl\\link_bus_wrapper.v": "8c29203720c5763f055d68f5ccf43d2341d0757c2228eb63433bb56335c84f1e",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\link\\tests\\generate_vectors.py": "5d9da101cd96d6095f62dc79175e400c508a5950ab861b1bc55bbe8b1b73b2e4",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\link\\tests\\link_vectors.json": "20993e7583dcf60ffb5934956972c821985072674ada5646ad417fd742520356",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\link\\tests\\run_rtl.py": "af55cb107a7aefb0bf3dc792eb34409752b49e5edaf3726479a620a31a5c9a07",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\link\\tests\\tb_link_bringup.v": "62bf58e63d80fc8771bdb930e56adc734980a609a518fd19845150385d444bbc",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\link\\tests\\tb_link_vectors.v": "4eb43887ecfc0d25c4aadf9b348566c38b16215f8495bafce89440f19ea334c2",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\host\\link_protocol.h": "bfc5a9a6970789f84b07864ad74acf30242b399d607ae02cb7901f901349eb57",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\host\\tests\\codec_harness.c": "012bfcdef858abb02c2541907a735801d328461f15cb241b7806552b70e94d13",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\host\\tests\\test_codec.py": "6aa0ab872d41a5662d42577141c01f1d675898c4ea635d3d872d58375a15edc9",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\host\\tests\\test_serial_bridge.py": "f806104f885335977cc5ade5555a8a67fced28799b2671db87267a696c02094a",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\reference\\compute_reference.py": "23d48e8b2959db7b31eb807b522d414202e1268c32912b257b3dbd467ee67588",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\reference\\game_gpu_reference.py": "67bd5d81aba5b98239a995a8914363f8d5439e4577db52e8e43b6edf99112682",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\reference\\gfx_bench.py": "fd9d25c688d675ec1737aed2598d0e7aa5ebf2711c1615d157f049903a63f3a7",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\reference\\link_protocol.py": "235f503d053a275e8d4f9922ca046ccd1bb3987ac99d574c17f7e3aee2a3c06b",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\tools\\dock_dev.py": "a2aa19dc2a6ff0da4aebbb6588ac82fa2471050a0eb5e4404fd808f338da4b7e",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\tools\\dock_gfx_demo.py": "15d8c53e50f70ca3a13d12697be28c40b42488669aef915802cdbf3dacdf16be",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\tools\\dock_program.py": "8ecb4306be4aea1708793e49c169f8533fc54d8db390c67fb46b47ad1271497a",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\tools\\run_existing_rtl.py": "e2a1ee52f8a3153a175a3e1ad6f970a7059902272925cb72dfd2bcb1b927b98e",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\tools\\setup_dock_windows.py": "195935b7be5d45cdd971c5883891df25844fa035b347e28ec9858c1a8aad8ebc",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\tools\\test_features.py": "d20c057fb8182aab0c59168e07b4c32fcfae380a3657b324351bf60253dd184d",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\tools\\tests\\test_dock_program.py": "b496dc4374e54d9ad3e48fb39b4cce47e7ed7b63a7778cea13e43ba15765fb9a",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\tools\\tests\\test_features_report.py": "354eec26ceede564aa52babec857dba2bf7fab659eb1da3ff2534913301d8abe",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\tools\\tests\\test_setup_dock_windows.py": "37ec57e352051e045b915a48d34be5b35d0d55462e7f817629fccabb5fdee909",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\simulation\\gowin_bench_models.v": "1c29664d1dcf1b45e15740fb5ec540e96ad52174c3be08f4f2f753309e092af4",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\simulation\\tests\\run.py": "bbeb46b30f1ed28a4259c99332f135c7dd08307e64c5c3c4cd08396b6a13e683",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\simulation\\tests\\run_alu.py": "3b6115a072f0bc5592fb83b191c72c95bf20cf5b4d2c148da46a80732c67e4e3",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\simulation\\tests\\tb_alu_table.v": "364e065f89ad315e14727456334ccdc966e984b5c606e9425492169d1635e07b",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\simulation\\tests\\tb_gowin_bench_models.v": "1a738f92622fcba520a1a6b140ee2e839b951e84de42749bdad7f912e809d116",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\builds\\components\\build.py": "65d618fdcbecf6a87d3cbd2ac8144bfe022507ee32176d3ade20066b67330399",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\builds\\components\\test_build.py": "756a79f91b4c8a6658666262fed40bb2476c706880e9714a20027696e0520fd4",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\builds\\dock\\build.tcl": "bcda43c7126020442794c508002f74dc3428ce4c148e8576dab0b74e474a0bcd",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\builds\\dock\\build_oss.py": "8dc4ee827307fb874f88db563da6e5e982629f8cd7ff9265bb65955cc6ade17e",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\builds\\dock\\tests\\test_build_oss.py": "748c8e9b7119c4900a65a5a8c7df46bb6bb874835282475e3fd8abbe03f00a55",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\platform\\dock\\tab5_dock_gfx_top.v": "9e2124a302b0931c6bd867aeda59e47c08cc65140bbac8713c809d8dd1dc7440",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\platform\\dock\\tab5_dock_top.v": "b52dbad29c4a262f31f2d63e94cba169f3fcb9a2f031f7dac43bca670aada021",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\constraints\\dock\\tab5_dock.sdc": "1808bc5510d872c203f133252baf94f7888fb85ac0f0f1334eebb252dd1c8da1",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\constraints\\dock\\tab5_dock_link_v0.cst": "28a29f6cf24815e0f021d0f10078fa819e49e083365a7cacc32f40c707ec14e2"
+  },
+  "c_compiler": {
+    "path": "C:\\Users\\yamas\\AppData\\Roaming\\Python\\Python313\\site-packages\\ziglang\\zig.exe",
+    "sha256": "086ce9d47ba42f33a514e1a6e04eb1d4a8fa1d75e0868e0213caad447c91e864"
+  },
+  "features": [
+    {
+      "id": "link.v0",
+      "name": "LINK v0 framing and recovery",
+      "readiness": "partial",
+      "verification": "partial",
+      "checks": {
+        "rtl.bringup": "passed",
+        "host.codec": "passed",
+        "build.link": "passed",
+        "hardware.link": "not_run"
+      },
+      "missing": [
+        "electrical and physical link validation"
+      ]
+    },
+    {
+      "id": "gfx.dock",
+      "name": "32x32 RGB565 fill, pixel, rect and readback",
+      "readiness": "partial",
+      "verification": "partial",
+      "checks": {
+        "rtl.dock_gfx": "passed",
+        "host.gfx": "passed",
+        "host.codec": "passed",
+        "build.gfx": "passed",
+        "hardware.gfx": "not_run"
+      },
+      "missing": [
+        "physical GPIO, LCD and synthesis-netlist simulation verification"
+      ]
+    },
+    {
+      "id": "gfx.coverage",
+      "name": "triangle coverage",
+      "readiness": "partial",
+      "verification": "partial",
+      "checks": {
+        "rtl.coverage": "passed",
+        "host.gfx": "passed",
+        "hardware.triangle": "not_run",
+        "synth.coverage": "passed"
+      },
+      "missing": [
+        "integrate raster core with command, framebuffer and host"
+      ]
+    },
+    {
+      "id": "gfx.depth",
+      "name": "triangle depth and fragment",
+      "readiness": "partial",
+      "verification": "partial",
+      "checks": {
+        "rtl.depth": "passed",
+        "rtl.fragment": "passed",
+        "host.gfx": "passed",
+        "hardware.depth": "not_run",
+        "synth.depth": "passed",
+        "synth.fragment": "passed"
+      },
+      "missing": [
+        "integrate and measure full framebuffer pipeline"
+      ]
+    },
+    {
+      "id": "gfx.2d",
+      "name": "2D line and dirty rectangles",
+      "readiness": "planned",
+      "verification": "not_ready",
+      "checks": {
+        "hardware.gfx2d": "not_run"
+      },
+      "missing": [
+        "define commands and implement"
+      ]
+    },
+    {
+      "id": "gfx.copy_blit_glyph",
+      "name": "copy, blit and glyph",
+      "readiness": "planned",
+      "verification": "not_ready",
+      "checks": {
+        "hardware.blit": "not_run"
+      },
+      "missing": [
+        "define memory layout and implement operations"
+      ]
+    },
+    {
+      "id": "gfx.compute_shader",
+      "name": "compute drawing and shaders",
+      "readiness": "planned",
+      "verification": "not_ready",
+      "checks": {
+        "hardware.compute": "not_run"
+      },
+      "missing": [
+        "define supported operations and precision; implement"
+      ]
+    },
+    {
+      "id": "gfx.compare",
+      "name": "CPU versus FPGA rendering and LCD",
+      "readiness": "planned",
+      "verification": "not_ready",
+      "checks": {
+        "hardware.cpu_gpu_compare": "not_run"
+      },
+      "missing": [
+        "host backend, synchronized measurements and physical LCD test"
+      ]
+    },
+    {
+      "id": "hdmi.output",
+      "name": "HDMI scanout",
+      "readiness": "planned",
+      "verification": "not_ready",
+      "checks": {
+        "hardware.hdmi": "not_run"
+      },
+      "missing": [
+        "resolve HDMI board issues and implement scanout"
+      ]
+    },
+    {
+      "id": "memory.ddr3_bist",
+      "name": "DDR3 initialization and BIST",
+      "readiness": "planned",
+      "verification": "not_ready",
+      "checks": {
+        "hardware.ddr3_bist": "not_run"
+      },
+      "missing": [
+        "implement and calibrate controller and BIST"
+      ]
+    },
+    {
+      "id": "memory.read_write",
+      "name": "DDR3 read/write and transfers",
+      "readiness": "planned",
+      "verification": "not_ready",
+      "checks": {
+        "hardware.ddr3_transfer": "not_run"
+      },
+      "missing": [
+        "define v1 ABI and implement transport"
+      ]
+    },
+    {
+      "id": "memory.ramdisk",
+      "name": "MEM block storage and RAMdisk",
+      "readiness": "planned",
+      "verification": "not_ready",
+      "checks": {
+        "hardware.ramdisk": "not_run"
+      },
+      "missing": [
+        "define block API and implement backend"
+      ]
+    },
+    {
+      "id": "memory.offload",
+      "name": "explicit memory offload and restoration",
+      "readiness": "planned",
+      "verification": "not_ready",
+      "checks": {
+        "hardware.memory_offload": "not_run"
+      },
+      "missing": [
+        "implement Linux API and reproducible workload"
+      ]
+    },
+    {
+      "id": "npu.mac",
+      "name": "INT8 MAC lane",
+      "readiness": "partial",
+      "verification": "partial",
+      "checks": {
+        "rtl.mac": "passed",
+        "host.npu": "passed",
+        "hardware.npu_mac": "not_run",
+        "synth.mac": "passed"
+      },
+      "missing": [
+        "integrate into NPU job engine"
+      ]
+    },
+    {
+      "id": "npu.requant",
+      "name": "requantization",
+      "readiness": "partial",
+      "verification": "partial",
+      "checks": {
+        "rtl.requant": "passed",
+        "host.npu": "passed",
+        "hardware.npu_requant": "not_run",
+        "synth.requant": "passed"
+      },
+      "missing": [
+        "integrate and confirm model precision"
+      ]
+    },
+    {
+      "id": "npu.dot",
+      "name": "INT8 dot product",
+      "readiness": "partial",
+      "verification": "partial",
+      "checks": {
+        "rtl.dot": "passed",
+        "host.npu": "passed",
+        "hardware.npu_dot": "not_run",
+        "synth.dot": "passed"
+      },
+      "missing": [
+        "integrate and measure full execution"
+      ]
+    },
+    {
+      "id": "npu.a",
+      "name": "NPU A general model",
+      "readiness": "planned",
+      "verification": "not_ready",
+      "checks": {
+        "hardware.npu_a": "not_run"
+      },
+      "missing": [
+        "define job ABI and integrate engine"
+      ]
+    },
+    {
+      "id": "npu.b",
+      "name": "NPU B model-specific sequencer",
+      "readiness": "planned",
+      "verification": "not_ready",
+      "checks": {
+        "hardware.npu_b": "not_run"
+      },
+      "missing": [
+        "define sequencer and weight format, validate flash access"
+      ]
+    },
+    {
+      "id": "npu.c",
+      "name": "NPU C embedded weights",
+      "readiness": "planned",
+      "verification": "not_ready",
+      "checks": {
+        "hardware.npu_c": "not_run"
+      },
+      "missing": [
+        "select fitting model and synthesize"
+      ]
+    },
+    {
+      "id": "npu.precision",
+      "name": "quantization and model precision",
+      "readiness": "planned",
+      "verification": "not_ready",
+      "checks": {
+        "hardware.npu_precision": "not_run"
+      },
+      "missing": [
+        "establish precision thresholds and model evaluation"
+      ]
+    },
+    {
+      "id": "host.espidf",
+      "name": "ESP-IDF host transport and display",
+      "readiness": "partial",
+      "verification": "partial",
+      "checks": {
+        "host.codec": "passed",
+        "hardware.host_espidf": "not_run"
+      },
+      "missing": [
+        "hardware test and future ABI integration"
+      ]
+    },
+    {
+      "id": "host.meos",
+      "name": "MeOS host transport and display",
+      "readiness": "partial",
+      "verification": "partial",
+      "checks": {
+        "hardware.host_meos": "not_run"
+      },
+      "missing": [
+        "validate uncommitted GPIO/GFX implementation physically"
+      ]
+    },
+    {
+      "id": "host.linux",
+      "name": "NOMMU Linux host transport",
+      "readiness": "planned",
+      "verification": "not_ready",
+      "checks": {
+        "hardware.host_linux": "not_run"
+      },
+      "missing": [
+        "implement FPGA physical transport; integrate host API"
+      ]
+    },
+    {
+      "id": "link.parlio_dma",
+      "name": "PARLIO DMA transport",
+      "readiness": "planned",
+      "verification": "not_ready",
+      "checks": {
+        "hardware.parlio_dma": "not_run"
+      },
+      "missing": [
+        "define protocol and prove bidirectional hardware feasibility"
+      ]
+    }
+  ],
+  "summary": {
+    "partial": 9,
+    "not_ready": 15
+  },
+  "rtl_tools": {
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\iverilog.exe": "ce8ed01dd1afa51e531b8647ac3eb406395878a563d62ba9cdb51e1594909080",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\vvp.exe": "0bb848c9a47c9729b94cafd7bb1875404af4eed3a675f65b59683ea99f1937d3"
+  }
+}

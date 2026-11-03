@@ -1,0 +1,190 @@
+{
+  "date": "2026-10-28",
+  "carrier_base": "e5a386d",
+  "host_base": "d4d89e3",
+  "branch": "codex/dock-jumper-gfx",
+  "working_tree": "uncommitted development; hashes identify reviewed contents",
+  "hardware_access": "none",
+  "gowin_synthesis": "not_run",
+  "place_route_timing": "not_run",
+  "rtl": {
+    "status": "passed",
+    "suites": [
+      {
+        "name": "bringup",
+        "status": "passed",
+        "output": "PASS link-bringup: ID, 512 patterns, CRC/op rejection, partial DIR, timeout, arm/reset/OE\n/mnt/d/GitHub/tab5-tang-primer20k-carrier/fpga/link/tests/tb_link_bringup.v:74: $finish called at 2911203000 (1ps)\nPASS Python golden vectors: 583\n/mnt/d/GitHub/tab5-tang-primer20k-carrier/fpga/link/tests/tb_link_vectors.v:37: $finish called at 3206700000 (1ps)"
+      },
+      {
+        "name": "dock_gfx",
+        "status": "passed",
+        "output": "PASS dock pin-level oracle vectors=1572, timeout/disarm/reset\n/mnt/d/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/tests/tb_bench_dock.v:91: $finish called at 5054783000 (1ps)\nPASS dock GFX: 1572 oracle transactions, 1024 image pixels; no hardware access"
+      },
+      {
+        "name": "coverage",
+        "status": "passed",
+        "output": "3328 coverage vectors verified\nPASS triangle_coverage: 3328 vectors, back-to-back, bubbles, reset\n/mnt/d/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/tests/tb_triangle_coverage.v:42: $finish called at 34376000 (1ps)"
+      },
+      {
+        "name": "depth",
+        "status": "passed",
+        "output": "1154 depth vectors verified\nPASS triangle_depth: 1154 vectors, 49-step exact divide, stall, reset\n/mnt/d/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/tests/tb_triangle_depth.v:58: $finish called at 357666000 (1ps)"
+      },
+      {
+        "name": "fragment",
+        "status": "passed",
+        "output": "436 fragment vectors checked\nPASS triangle_fragment 436 candidates, metadata, stalls, reset\n/mnt/d/GitHub/tab5-tang-primer20k-carrier/fpga/gfx/tests/tb_triangle_fragment.v:61: $finish called at 106036000 (1ps)"
+      },
+      {
+        "name": "mac",
+        "status": "passed",
+        "output": "PASS int8_mac_lane reference cycles\n/mnt/d/GitHub/tab5-tang-primer20k-carrier/fpga/build/rtl-check/compute/tb_int8_mac_lane.v:5062: $finish called at 2526000 (1ps)"
+      },
+      {
+        "name": "requant",
+        "status": "passed",
+        "output": "PASS int8_requantize golden cycles\n/mnt/d/GitHub/tab5-tang-primer20k-carrier/fpga/build/rtl-check/compute/tb_int8_requantize.v:17012: $finish called at 10626000 (1ps)"
+      },
+      {
+        "name": "dot",
+        "status": "passed",
+        "output": "PASS dot job golden cycles\n/mnt/d/GitHub/tab5-tang-primer20k-carrier/fpga/build/rtl-check/compute/tb_int8_dot_job.v:45305: $finish called at 16776000 (1ps)"
+      }
+    ],
+    "oracle_transactions": 1572,
+    "image_pixels": 1024,
+    "environment": "WSL Ubuntu-24.04 / Icarus 12.0 locally extracted; no system package installed"
+  },
+  "pc_tests": {
+    "environment": "WSL Ubuntu-24.04 / Python3 / GCC",
+    "gfx": 14,
+    "npu": 9,
+    "host": 4,
+    "status": "passed",
+    "host_legacy_codec_vectors": 793
+  },
+  "idf": {
+    "version": "5.5.2",
+    "component_manager": "2.4.5 isolated virtual environment",
+    "bsp": "1.3.2",
+    "lvgl": "9.2.2",
+    "esp_lvgl_port": "2.6.2",
+    "flash_size": "16MiB",
+    "app_partition": "4MiB",
+    "profiles": {
+      "default_disabled": "passed",
+      "dock_profile_enabled": "passed"
+    },
+    "startup": "Both builds start disarmed; enabling the profile is not hardware verification",
+    "artifacts": {
+      "bootloader.bin": {
+        "bytes": 23168,
+        "sha256": "a519d7273726689e70f68077202d54649a6210c44b5b46520a961c61ba3b2d40"
+      },
+      "default-unarmed.bin": {
+        "bytes": 683056,
+        "sha256": "6a07ef2a87ef070edd7a622383ec5b1c2f963a07bcc42b24bf90f03db00b8f12"
+      },
+      "dock-profile-enabled.bin": {
+        "bytes": 683952,
+        "sha256": "0b5371a2da784689689ef8a76930e7a582ddf35704edd1973960c93eda5ba509"
+      },
+      "partition-table.bin": {
+        "bytes": 3072,
+        "sha256": "fd8026bff850ca0dee41c41305160317fffe604dda30a9bd5a701ac82d96fa17"
+      }
+    }
+  },
+  "sources": {
+    "fpga/link/rtl/link_bringup.v": {
+      "bytes": 4877,
+      "sha256": "4e596ab00e367810cff836da79994012df3b081f6b69b2b4002f2d92b1b25e9b"
+    },
+    "fpga/gfx/rtl/gfx_bench.v": {
+      "bytes": 4127,
+      "sha256": "841a4f50baa9e3200bbda1cd61bc9511db36909f76e854a9b66b331ebda2c392"
+    },
+    "fpga/platform/dock/tab5_dock_top.v": {
+      "bytes": 1403,
+      "sha256": "b52dbad29c4a262f31f2d63e94cba169f3fcb9a2f031f7dac43bca670aada021"
+    },
+    "fpga/platform/dock/tab5_dock_gfx_top.v": {
+      "bytes": 306,
+      "sha256": "9e2124a302b0931c6bd867aeda59e47c08cc65140bbac8713c809d8dd1dc7440"
+    },
+    "fpga/host/link_protocol.h": {
+      "bytes": 1529,
+      "sha256": "bfc5a9a6970789f84b07864ad74acf30242b399d607ae02cb7901f901349eb57"
+    },
+    "fpga/link/DOCK_GFX_V0.md": {
+      "bytes": 4033,
+      "sha256": "6b6cbc2eca820e204ec40151c37cdc7a934e14b6647ec4ea15c739ecfd8982bb"
+    },
+    "fpga/constraints/dock/tab5_dock_link_v0.cst": {
+      "bytes": 4013,
+      "sha256": "b3667250338127236a4e9e79cbde460a67ad3b0b2842c7bbebff9991b4659ed7"
+    },
+    "fpga/constraints/dock/tab5_dock.sdc": {
+      "bytes": 303,
+      "sha256": "1808bc5510d872c203f133252baf94f7888fb85ac0f0f1334eebb252dd1c8da1"
+    },
+    "fpga/reference/gfx_bench.py": {
+      "bytes": 1853,
+      "sha256": "fd9d25c688d675ec1737aed2598d0e7aa5ebf2711c1615d157f049903a63f3a7"
+    },
+    "fpga/tools/dock_gfx_demo.py": {
+      "bytes": 6704,
+      "sha256": "15d8c53e50f70ca3a13d12697be28c40b42488669aef915802cdbf3dacdf16be"
+    }
+  },
+  "host_sources": {
+    "bringup/tab5/main/main.c": {
+      "bytes": 7668,
+      "sha256": "ed5be929af430d8465b14298a77fd957ed47c0d12d7938d8f552bec4c2cc5ce2"
+    },
+    "bringup/tab5/main/gfx_lcd.c": {
+      "bytes": 2013,
+      "sha256": "9687e90d3668b465fe1420bdb72bfd0e58828c2cf4fe2ec5270b1dbf8ab75814"
+    },
+    "bringup/tab5/main/gfx_lcd.h": {
+      "bytes": 129,
+      "sha256": "a8c70548b23f9a7a25dfebc5a0b4cead83b930a6a2ea7f28a4065625226daf2a"
+    },
+    "bringup/tab5/main/board_profile.h": {
+      "bytes": 441,
+      "sha256": "18b056f6c373446d6bf5388216867e0abb792ca3c143f92e64152ac3a0bf4425"
+    },
+    "bringup/tab5/main/link_protocol.h": {
+      "bytes": 1529,
+      "sha256": "bfc5a9a6970789f84b07864ad74acf30242b399d607ae02cb7901f901349eb57"
+    },
+    "bringup/tab5/main/Kconfig.projbuild": {
+      "bytes": 452,
+      "sha256": "c0756f39ae6975e09ddeeab5aae099fe0f4f2867b8ae772113e4e6c17a73bd0c"
+    },
+    "bringup/tab5/main/idf_component.yml": {
+      "bytes": 124,
+      "sha256": "dc1425ccc3083927302af34fa9d3be609621844b11b94de3902df77e5c1d149c"
+    },
+    "bringup/tab5/main/CMakeLists.txt": {
+      "bytes": 129,
+      "sha256": "40713447823be0514ba58969f2c07548fe70126a74fdbf8772613edd91002836"
+    },
+    "bringup/tab5/sdkconfig.defaults": {
+      "bytes": 424,
+      "sha256": "10b7c894f341114dd26b5ec53e9e2cf84232d9fcc175901ece4d2ea27a1ccc4d"
+    },
+    "bringup/tab5/partitions.csv": {
+      "bytes": 148,
+      "sha256": "ae58b7c2c24002d5cd09906cde9647f6c1d366927bb6093bc98e864fe87332f7"
+    },
+    "bringup/tab5/dependencies.lock": {
+      "bytes": 11742,
+      "sha256": "4692cd7aa0a2b0d3e2d943a782dbbe86b367afb188e628718657b6974490f5ef"
+    },
+    "bringup/carrier-codec.json": {
+      "bytes": 216,
+      "sha256": "ac47375692484ba32a6b4416d38ff627f6ab509f92864fb1f4b5b7573dd89015"
+    }
+  }
+}
