@@ -6,7 +6,8 @@ module link_bringup_filtered #(
     parameter GFX_ENABLE = 0,
     parameter CORE_CLOCK_MHZ = 27,
     parameter CLOCK_QUERY_ENABLE = 0,
-    parameter FAST_REPLY_ENABLE = 0
+    parameter FAST_REPLY_ENABLE = 0,
+    parameter MODEL_ENABLE = 0
 )(input wire sys_clk, input wire reset_n, input wire arm,
   input wire bus_clk, input wire dir, input wire [7:0] data_i,
   output reg [7:0] data_o, output wire data_oe, output wire ready, input wire filter_clk,filter_reset_async_n);
@@ -36,9 +37,16 @@ module link_bringup_filtered #(
     wire [7:0] batch_status,batch_cmd_opcode,batch_cmd_a,batch_cmd_b;
     wire batch_abort=!arm || idle_count>=TIMEOUT_CYCLES-1 || (batch_receiving && dir_sync[1]);
     wire batch_byte_valid=rise && !dir && !dir_sync[1] && batch_receiving;
-    wire [7:0] renderer_opcode=batch_pending?batch_cmd_opcode:logical_opcode;
-    wire [7:0] renderer_a=batch_pending?batch_cmd_a:req[4];
-    wire [7:0] renderer_b=batch_pending?batch_cmd_b:req[5];
+    // Resident model (MODEL_ENABLE): shares the renderer command port with batch.
+    reg model_start_load,model_start_pose,model_start_draw,model_pending;
+    reg [15:0] model_header_crc;
+    wire model_receiving,model_busy,model_done,model_cmd_start;
+    wire [7:0] model_status,model_result_a,model_result_b,model_cmd_opcode,model_cmd_a,model_cmd_b;
+    wire model_abort=!arm || idle_count>=TIMEOUT_CYCLES-1 || (model_receiving && dir_sync[1]);
+    wire model_byte_valid=rise && !dir && !dir_sync[1] && model_receiving;
+    wire [7:0] renderer_opcode=model_pending?model_cmd_opcode:(batch_pending?batch_cmd_opcode:logical_opcode);
+    wire [7:0] renderer_a=model_pending?model_cmd_a:(batch_pending?batch_cmd_a:req[4]);
+    wire [7:0] renderer_b=model_pending?model_cmd_b:(batch_pending?batch_cmd_b:req[5]);
     wire gfx_done;
     wire [7:0] gfx_status;
     wire [15:0] gfx_result;
@@ -80,25 +88,41 @@ module link_bringup_filtered #(
                             logical_tx_index-12'd8;
     wire [10:0] row_index=use_raw ? (tile_mode?11'd0:{5'b0,raw_row_index}):legacy_row_index;
     generate if(GFX_ENABLE==2) begin: triangle
-        wire renderer_abort = (gfx_pending || batch_pending) && idle_count >= TIMEOUT_CYCLES-1;
+        wire renderer_abort = (gfx_pending || batch_pending || model_pending) && idle_count >= TIMEOUT_CYCLES-1;
         triangle_batch staging(sys_clk,reset_n,batch_abort,batch_start,{1'b0,req[4][5:0]}+(req[4]==64?7'd64:7'd0),
             batch_header_crc,batch_byte_valid,data_i,batch_receiving,batch_busy,batch_done,batch_status,
             batch_cmd_start,batch_cmd_opcode,batch_cmd_a,batch_cmd_b,gfx_done,gfx_status);
-        triangle_tile #(.CORE_CLOCK_MHZ(CORE_CLOCK_MHZ),.CLOCK_QUERY_ENABLE(CLOCK_QUERY_ENABLE),.RAW_READ_ENABLE(FAST_REPLY_ENABLE)) renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start || batch_cmd_start,
+        if(MODEL_ENABLE) begin: model
+            triangle_model resident(sys_clk,reset_n,model_abort,model_start_load,model_start_pose,model_start_draw,
+                req[4],req[5],model_header_crc,model_byte_valid,data_i,model_receiving,model_busy,model_done,
+                model_status,model_result_a,model_result_b,model_cmd_start,model_cmd_opcode,model_cmd_a,model_cmd_b,
+                gfx_done,gfx_status);
+        end else begin: no_model
+            assign model_receiving=0;assign model_busy=0;assign model_done=0;assign model_status=0;
+            assign model_result_a=0;assign model_result_b=0;assign model_cmd_start=0;
+            assign model_cmd_opcode=0;assign model_cmd_a=0;assign model_cmd_b=0;
+        end
+        triangle_tile #(.CORE_CLOCK_MHZ(CORE_CLOCK_MHZ),.CLOCK_QUERY_ENABLE(CLOCK_QUERY_ENABLE),.RAW_READ_ENABLE(FAST_REPLY_ENABLE)) renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start || batch_cmd_start || model_cmd_start,
                               renderer_opcode, renderer_a, renderer_b, gfx_done, gfx_status, gfx_result,
                               row_index, row_byte,clean_reply_clk,raw_ram_enable,raw_ram_address,raw_ram_color,raw_ram_depth);
     end else if(GFX_ENABLE) begin: gfx
         assign batch_receiving=0;assign batch_busy=0;assign batch_done=0;assign batch_status=0;
         assign batch_cmd_start=0;assign batch_cmd_opcode=0;assign batch_cmd_a=0;assign batch_cmd_b=0;
+        assign model_receiving=0;assign model_busy=0;assign model_done=0;assign model_status=0;
+        assign model_result_a=0;assign model_result_b=0;assign model_cmd_start=0;
+        assign model_cmd_opcode=0;assign model_cmd_a=0;assign model_cmd_b=0;
         // A timed-out operation must not keep mutating RAM or consume a later start.
         wire renderer_reset_n = reset_n && arm;
-        wire renderer_abort = (gfx_pending || batch_pending) && idle_count >= TIMEOUT_CYCLES-1;
+        wire renderer_abort = (gfx_pending || batch_pending || model_pending) && idle_count >= TIMEOUT_CYCLES-1;
         gfx_bench renderer(sys_clk, renderer_reset_n, renderer_abort, gfx_start,
                            logical_opcode, req[4], req[5], gfx_done, gfx_status, gfx_result);
         assign row_byte=8'h00;assign raw_ram_color=0;assign raw_ram_depth=0;
     end else begin: no_gfx
         assign batch_receiving=0;assign batch_busy=0;assign batch_done=0;assign batch_status=0;
         assign batch_cmd_start=0;assign batch_cmd_opcode=0;assign batch_cmd_a=0;assign batch_cmd_b=0;
+        assign model_receiving=0;assign model_busy=0;assign model_done=0;assign model_status=0;
+        assign model_result_a=0;assign model_result_b=0;assign model_cmd_start=0;
+        assign model_cmd_opcode=0;assign model_cmd_a=0;assign model_cmd_b=0;
         assign gfx_done=1'b0;
         assign gfx_status=8'h02;
         assign gfx_result=16'h0000;
@@ -139,9 +163,11 @@ module link_bringup_filtered #(
             raw_done_sync<=0;raw_started_sync<=0;raw_progress_sync<=0;raw_progress_last<=0;
             valid<=0; rx_crc<=16'hffff; idle_count<=0;
             gfx_start<=0; gfx_pending<=0;batch_start<=0;batch_pending<=0;
+            model_start_load<=0;model_start_pose<=0;model_start_draw<=0;model_pending<=0;
             bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff;
         end else begin
             gfx_start<=0;batch_start<=0;
+            model_start_load<=0;model_start_pose<=0;model_start_draw<=0;
             raw_done_sync<={raw_done_sync[0],raw_done};
             raw_started_sync<={raw_started_sync[0],raw_started};
             raw_progress_sync<={raw_progress_sync[0],raw_progress};
@@ -149,11 +175,11 @@ module link_bringup_filtered #(
             clk_sync<={clk_sync[1:0],bus_clk}; dir_sync<={dir_sync[0],dir};
             if(!arm) begin
                 valid<=0; rx_index<=0; tx_index<=0; rx_crc<=16'hffff; idle_count<=0;
-                gfx_pending<=0;batch_pending<=0;fast_offer<=0;fast_inflight<=0;fast_prepare<=0;
+                gfx_pending<=0;batch_pending<=0;model_pending<=0;fast_offer<=0;fast_inflight<=0;fast_prepare<=0;
                 bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff;
             end else if(idle_count>=TIMEOUT_CYCLES-1) begin
                 valid<=0; rx_index<=0; tx_index<=0; rx_crc<=16'hffff; idle_count<=0;
-                gfx_pending<=0;batch_pending<=0;fast_offer<=0;fast_inflight<=0;fast_prepare<=0;
+                gfx_pending<=0;batch_pending<=0;model_pending<=0;fast_offer<=0;fast_inflight<=0;fast_prepare<=0;
                 bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff;
             end else begin
                 idle_count<=idle_count+1;
@@ -174,6 +200,14 @@ module link_bringup_filtered #(
                     end
                 end
                 if(batch_pending && gfx_done) idle_count<=0;
+                if(model_pending && gfx_done) idle_count<=0;
+                if(model_pending && model_done) begin
+                    reply[1]<=model_status;reply[4]<=model_result_a;reply[5]<=model_result_b;
+                    valid<=1;model_pending<=0;
+                end
+                if(model_pending && model_receiving && dir_sync[1]) begin
+                    model_pending<=0;rx_index<=0;rx_crc<=16'hffff;
+                end
                 if(batch_pending && batch_done) begin
                     reply[1]<=batch_status;reply[4]<=req[4];reply[5]<=1;
                     valid<=1;batch_pending<=0;
@@ -190,7 +224,7 @@ module link_bringup_filtered #(
                 if(dir_sync[1] && rx_index!=0) begin rx_index<=0; rx_crc<=16'hffff; end
                 if(rise) begin
                     idle_count<=0;
-                    if(!dir_sync[1] && !dir && !valid && !gfx_pending && !batch_pending) begin
+                    if(!dir_sync[1] && !dir && !valid && !gfx_pending && !batch_pending && !model_pending) begin
                         if(rx_index==0) begin bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff; end
                         if(rx_index<7) req[rx_index]<=data_i;
                         if(rx_index<6) rx_crc<=crc_byte(rx_crc,data_i);
@@ -210,6 +244,21 @@ module link_bringup_filtered #(
                                 8'h41: if(GFX_ENABLE==2) begin
                                     if(req[4]<1 || req[4]>64 || req[5]!=1) reply[1]<=3;
                                     else begin valid<=0;batch_pending<=1;batch_start<=1;batch_header_crc<=rx_crc;end
+                                end else reply[1]<=2;
+                                8'h48: if(GFX_ENABLE==2 && MODEL_ENABLE) begin
+                                    if(req[5]!=0 || req[4]>1) reply[1]<=3;
+                                    else begin reply[1]<=0;reply[4]<=req[4]==0 ? 8'd64 : 8'd96;reply[5]<=req[4]==0 ? 8'd1 : 8'd0;end
+                                end else reply[1]<=2;
+                                8'h49: if(GFX_ENABLE==2 && MODEL_ENABLE) begin
+                                    if(req[4]<1 || req[4]>64 || req[5]<1 || req[5]>96) reply[1]<=3;
+                                    else begin valid<=0;model_pending<=1;model_start_load<=1;model_header_crc<=rx_crc;end
+                                end else reply[1]<=2;
+                                8'h4a: if(GFX_ENABLE==2 && MODEL_ENABLE) begin
+                                    if(req[4]!=0 || req[5]!=1) reply[1]<=3;
+                                    else begin valid<=0;model_pending<=1;model_start_pose<=1;model_header_crc<=rx_crc;end
+                                end else reply[1]<=2;
+                                8'h4b: if(GFX_ENABLE==2 && MODEL_ENABLE) begin
+                                    valid<=0;model_pending<=1;model_start_draw<=1;
                                 end else reply[1]<=2;
                                 1: begin reply[1]<=0; reply[4]<=8'h54; reply[5]<=8'h50; end
                                 2: begin reply[1]<=0; reply[4]<=req[4]; reply[5]<=req[5]; end
