@@ -1,0 +1,109 @@
+{
+  "date": "2026-11-03",
+  "pins": "unchanged Dock jumper8bit; CLK16 DIR51 READY45 D[18,19,5,3,4,2,48,47]",
+  "fpga_source_commit": "92d626e19ba64b0c015ca10b74f72b40418b87ca",
+  "fpga_fs_sha256": "7405b4bde018580219008e516bc5db265c8eb881f61279257bda8ab14f3fdd47",
+  "host_160_bin_sha256": "b925c3c9c89a4a9d66ffb07c9a7548a752646ac28e60a818f7c4e167b331c747",
+  "host_640_bin_sha256": "41e8b790a8ea18224d1a25665607e8cbebc55274b4264b1f4c1140f378c6d55d",
+  "sys_clock_hz": 27000000,
+  "rx_clock_highest_tested_hz": 8000000,
+  "rx_clock_scope": "PARLIO native divider PLL160MHz/20 configuration; not oscilloscope waveform measurement or cable maximum certification",
+  "tx": "direct GPIO short commands, observed issue cadence separate from RX divider",
+  "readout": "optional capability-negotiated TILE body2058 bytes,8-byte sync prefix, bounded2074-byte DMA capture; idle capture margin excluded from protocol byte counts",
+  "dma_lifecycle": "one allocated unit/buffer per armed session; full exclusive APB/Core/FIFO hardware reset and public enable/disable per long transfer remain. No per-frame heap allocations. Fixed-direction duplex not implemented.",
+  "device_timing_scope": "DRAW acceptance through final RAM write; already within command/READY waits, not additive to GPU total",
+  "gpu_total_scope": "same integer image including submission/wait/full image readback; excludes LCD software presentation",
+  "programmer_outcome": "op2 exit254 genericError after100%; independent status6020/UserCode364C and actual runtime results recorded; do not mark programming operation successful",
+  "evidence": [
+    {
+      "host_repository": "airpocket-soundman/tab5-fpga-gpu",
+      "file": "docs/validation/gpu-dma-prefetch-8000000-hz-stress-2026-11-03.json",
+      "sha256": "ad657a44e0268418509a2690e10b8ef1e8a26bad0d75001873aac5e0f9297f02",
+      "passed": true,
+      "matched_pairs": 30,
+      "matched_pixels": 460800
+    },
+    {
+      "host_repository": "airpocket-soundman/tab5-fpga-gpu",
+      "file": "docs/validation/gpu-dma-prefetch-8000000-hz-matrix-2026-11-03.json",
+      "sha256": "0974021cb4c0959461306de7ae533b3d410d250420d309fb998c406d9bddc515",
+      "passed": true,
+      "matched_pairs": 9,
+      "matched_pixels": 138240
+    },
+    {
+      "host_repository": "airpocket-soundman/tab5-fpga-gpu",
+      "file": "docs/validation/gpu-dma-hybrid-640x360-julia-repeat-2026-11-03.json",
+      "sha256": "d34fb3dc6082e150bae0570528d2676d70efae6e6f49cd0785e22b1c49928fa7",
+      "passed": true,
+      "matched_pairs": 6,
+      "matched_pixels": 1382400
+    },
+    {
+      "host_repository": "airpocket-soundman/tab5-fpga-gpu",
+      "file": "docs/validation/gpu-live-benchmark-160x96-8mhz-2026-11-03.json",
+      "sha256": "3a3d4bfce99951dd0ecacfe6100d36c61b5f39432fc223d57b50a69cd4d0449a"
+    },
+    {
+      "host_repository": "airpocket-soundman/tab5-fpga-gpu",
+      "file": "docs/validation/gpu-hybrid-memory-640x360-2026-11-03.json",
+      "sha256": "787ec9363a97c7739c4a2ba039b44acf4868491b21258573c7bf131e9959004e"
+    }
+  ],
+  "selected_medians": [
+    {
+      "width": 160,
+      "height": 96,
+      "scene": 2,
+      "load": 2,
+      "frame": 17,
+      "samples": 3,
+      "cpu_ms": 92.84,
+      "gpu_total_ms": 40.218,
+      "cpu_over_gpu": 2.3084191158187877,
+      "device_ms": 21.08562962962963
+    },
+    {
+      "width": 160,
+      "height": 96,
+      "scene": 2,
+      "load": 2,
+      "frame": 403,
+      "samples": 3,
+      "cpu_ms": 165.514,
+      "gpu_total_ms": 56.086,
+      "cpu_over_gpu": 2.9510751346146993,
+      "device_ms": 37.10311111111111
+    },
+    {
+      "width": 160,
+      "height": 96,
+      "scene": 3,
+      "load": 2,
+      "frame": 17,
+      "samples": 3,
+      "cpu_ms": 122.706,
+      "gpu_total_ms": 48.608,
+      "cpu_over_gpu": 2.524399275839368,
+      "device_ms": 27.694444444444443
+    },
+    {
+      "width": 160,
+      "height": 96,
+      "scene": 3,
+      "load": 2,
+      "frame": 403,
+      "samples": 3,
+      "cpu_ms": 215.194,
+      "gpu_total_ms": 66.62,
+      "cpu_over_gpu": 3.2301711197838485,
+      "device_ms": 48.178481481481484
+    }
+  ],
+  "limits": [
+    "Polygons remain slower than CPU; many small command round trips dominate.",
+    "5MHz640x360 confirmed on both original tile and prefetch images;8MHz160x96 confirmed.8MHz640x360 not tested.",
+    "10MHz current digital response models fail; new frontend/clock design needed before a cable-limit claim.",
+    "No DDR3 external framebuffer or Linux main-memory extension implemented."
+  ]
+}

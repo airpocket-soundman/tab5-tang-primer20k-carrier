@@ -1,5 +1,22 @@
 # Dock GFX診断の検証記録
 
+## GPU LABと8bit DMA（2026-11-03）
+
+[最終実機記録](gpu-lab-final-2026-11-03.json)には、FPGA/Tab5バイナリのハッシュ、
+同一整数画像の比較、計算時間と通信を含む描画時間、640×360の部分タイル、
+120フレームの元アプリ内ベンチマークを記録した。
+ホスト側の全JSON・画像・単独HTMLレポートは `tab5-fpga-gpu/docs/validation/` に保存する。
+
+再利用可能な[圧縮FSのメタデータ](artifacts/gfx-tile-prefetch-2026-11-03.json)、
+[ビルドmanifest](gfx-prefetch-build-2026-11-03.json)、
+[書込み操作と独立確認](gfx-prefetch-programming-2026-11-03.json)を保存。
+書込みツールの汎用Errorを成功として扱わず、Status/UserCodeと実際の画像検証を区別した。
+内部27MHzの配置配線タイミングと、外部8MHz受信の実機合格点も区別する。
+
+5/8/10MHzのデジタル応答モデルは[tile-frequency-model-2026-11-03.json](tile-frequency-model-2026-11-03.json)。
+仮定した位相・伝搬時間によるモデルであり、電気的なジャンパ限界の実測ではない。
+固定方向4bit送受信は設計比較のみ、DDR3とLinuxメインRAM拡張は未実装。
+
 ## 全機能の試験準備（2026-10-28）
 
 [全機能テスト計画](../../docs/全機能テスト計画.md)に24項目の準備段階、依存条件、合格条件を整理した。[今回の統合レポート](all-features-2026-10-28.json)では、PC試験33件、WindowsネイティブのRTL試験8系統、要素合成6種、Dock LINK/GFXビルド2種が通過。Cコーデックには既存Zigを明示した。新しい試験管理・ビルド・セットアップの単体試験は別途25件（Dockビルド4、ツール18、要素ビルド3）通過した。
