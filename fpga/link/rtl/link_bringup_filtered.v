@@ -6,11 +6,13 @@ module link_bringup_filtered #(
     parameter GFX_ENABLE = 0,
     parameter CORE_CLOCK_MHZ = 27,
     parameter CLOCK_QUERY_ENABLE = 0,
-    parameter FAST_REPLY_ENABLE = 0
+    parameter FAST_REPLY_ENABLE = 0,
+    parameter REPLY_PHASE_TICKS = 0
 )(input wire sys_clk, input wire reset_n, input wire arm,
   input wire bus_clk, input wire dir, input wire [7:0] data_i,
   output reg [7:0] data_o, output wire data_oe, output wire ready, input wire filter_clk,filter_reset_async_n);
     (* keep *) wire clean_reply_clk;
+    (* keep *) wire reply_clk;
     wire clock_filter_fault;
     reg [2:0] clk_sync;
     reg [1:0] dir_sync;
@@ -55,6 +57,13 @@ module link_bringup_filtered #(
         else filter_reset_release<={filter_reset_release[0],1'b1};
     wire filter_running=filter_reset_async_n && filter_reset_release[1];
     reply_clock_filter clock_conditioner(filter_clk,filter_running,bus_clk,fast_offer && dir,clean_reply_clk,clock_filter_fault);
+    // Phase offset of the whole reply clock (serializer and its BSRAM read port).
+    // REPLY_PHASE_TICKS=0 adds no cells: reply_clk is clean_reply_clk.
+    generate if(REPLY_PHASE_TICKS==0) begin: reply_phase_none
+        assign reply_clk=clean_reply_clk;
+    end else begin: reply_phase_shift
+        reply_phase_delay #(.TICKS(REPLY_PHASE_TICKS)) delay(filter_clk,filter_running,clean_reply_clk,reply_clk);
+    end endgenerate
     reg [1:0] fast_prepare;
     reg [49:0] fast_metadata;
     (* ASYNC_REG="TRUE" *) reg [1:0] raw_done_sync,raw_started_sync,raw_progress_sync;
@@ -66,7 +75,7 @@ module link_bringup_filtered #(
         // fast_offer still owns immediate OE/READY kill and SYS lifecycle.
         (* keep = "true" *) wire serializer_offer;
         (* keep = "true" *) LUT1 #(.INIT(2'h2)) offer_hold_buffer(.F(serializer_offer),.I0(fast_offer));
-        link_reply_raw serializer(clean_reply_clk,reset_n,arm,dir,serializer_offer,fast_metadata,
+        link_reply_raw serializer(reply_clk,reset_n,arm,dir,serializer_offer,fast_metadata,
             row_byte,raw_ram_color,raw_ram_depth,raw_data,raw_done,raw_started,raw_error,raw_progress,
             raw_row_index,raw_ram_address,raw_ram_enable);
     end else begin: no_fast_serializer
@@ -86,7 +95,7 @@ module link_bringup_filtered #(
             batch_cmd_start,batch_cmd_opcode,batch_cmd_a,batch_cmd_b,gfx_done,gfx_status);
         triangle_tile #(.CORE_CLOCK_MHZ(CORE_CLOCK_MHZ),.CLOCK_QUERY_ENABLE(CLOCK_QUERY_ENABLE),.RAW_READ_ENABLE(FAST_REPLY_ENABLE)) renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start || batch_cmd_start,
                               renderer_opcode, renderer_a, renderer_b, gfx_done, gfx_status, gfx_result,
-                              row_index, row_byte,clean_reply_clk,raw_ram_enable,raw_ram_address,raw_ram_color,raw_ram_depth);
+                              row_index, row_byte,reply_clk,raw_ram_enable,raw_ram_address,raw_ram_color,raw_ram_depth);
     end else if(GFX_ENABLE) begin: gfx
         assign batch_receiving=0;assign batch_busy=0;assign batch_done=0;assign batch_status=0;
         assign batch_cmd_start=0;assign batch_cmd_opcode=0;assign batch_cmd_a=0;assign batch_cmd_b=0;
