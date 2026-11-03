@@ -200,7 +200,49 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
             endcase
         end
     endfunction
-    wire [15:0] fractal_color = iterations==fractal_params[6][7:0] ? 16'h0042 : fractal_palette(iterations);
+    function [15:0] fractal_vivid_palette;
+        input [4:0] index;
+        begin
+            case(index)
+                5'd0: fractal_vivid_palette=16'h000a;
+                5'd1: fractal_vivid_palette=16'h0010;
+                5'd2: fractal_vivid_palette=16'h0018;
+                5'd3: fractal_vivid_palette=16'h011f;
+                5'd4: fractal_vivid_palette=16'h031f;
+                5'd5: fractal_vivid_palette=16'h051f;
+                5'd6: fractal_vivid_palette=16'h071f;
+                5'd7: fractal_vivid_palette=16'h07ff;
+                5'd8: fractal_vivid_palette=16'h47fc;
+                5'd9: fractal_vivid_palette=16'h87f4;
+                5'd10: fractal_vivid_palette=16'hc7ec;
+                5'd11: fractal_vivid_palette=16'hf7e4;
+                5'd12: fractal_vivid_palette=16'hffe0;
+                5'd13: fractal_vivid_palette=16'hff00;
+                5'd14: fractal_vivid_palette=16'hfe00;
+                5'd15: fractal_vivid_palette=16'hfd00;
+                5'd16: fractal_vivid_palette=16'hfc00;
+                5'd17: fractal_vivid_palette=16'hfb00;
+                5'd18: fractal_vivid_palette=16'hfa00;
+                5'd19: fractal_vivid_palette=16'hf880;
+                5'd20: fractal_vivid_palette=16'hf800;
+                5'd21: fractal_vivid_palette=16'hf808;
+                5'd22: fractal_vivid_palette=16'hf810;
+                5'd23: fractal_vivid_palette=16'hf818;
+                5'd24: fractal_vivid_palette=16'hf81f;
+                5'd25: fractal_vivid_palette=16'hd01f;
+                5'd26: fractal_vivid_palette=16'ha01f;
+                5'd27: fractal_vivid_palette=16'h701f;
+                5'd28: fractal_vivid_palette=16'h501c;
+                5'd29: fractal_vivid_palette=16'h3016;
+                5'd30: fractal_vivid_palette=16'h1810;
+                5'd31: fractal_vivid_palette=16'h080c;
+            endcase
+        end
+    endfunction
+    wire vivid_palette=fractal_params[6][9];
+    wire [15:0] fractal_color = iterations==fractal_params[6][7:0] ?
+        (vivid_palette?16'h0000:16'h0042) :
+        (vivid_palette?fractal_vivid_palette(iterations[4:0]):fractal_palette(iterations));
     // Snapshot data is immutable while the link sends the response. It is not
     // exposed until all 32 synchronous RAM reads have completed.
     wire [15:0] ram_stream_word=read_depth ? depth_q : color_q;
@@ -287,7 +329,7 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
                                 state<=TILE_PREFETCH_WAIT;
                             end
                         end
-                        8'h30: begin result<=CLOCK_QUERY_ENABLE ? 16'h020f : 16'h0107; done<=1; end
+                        8'h30: begin result<=CLOCK_QUERY_ENABLE ? 16'h021f : 16'h0117; done<=1; end
                         8'h3d: begin
                             if(!CLOCK_QUERY_ENABLE) status<=2;
                             else if(a!=0 || b!=0) status<=3;
@@ -301,7 +343,7 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
                             done<=1;
                         end
                         8'h37: begin
-                            if(a==0 || a>128 || b>1) begin status<=3; done<=1; end
+                            if(a==0 || a>128 || b>3) begin status<=3; done<=1; end
                             else begin fractal_params[6]<={b,a}; fractal_configured[6]<=1; result<={b,a}; done<=1; end
                         end
                         8'h38: begin

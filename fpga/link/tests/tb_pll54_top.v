@@ -52,7 +52,7 @@ module tb_pll54_top;
         wait(dut.pll_locked);#200000;before_edges=edges;#1851800;
         if(edges-before_edges!=100)$fatal(1,"nominal54MHz model frequency");
         make(8'h30,0,0);send();read_reply();
-        if(r[1]!=0 || r[4]!=15 || r[5]!=2)$fatal(1,"wrong version2 INFO");
+        if(r[1]!=0 || r[4]!=31 || r[5]!=2)$fatal(1,"wrong version2 INFO");
         make(8'h3d,0,0);send();read_reply();
         if(r[1]!=0 || r[4]!=54 || r[5]!=0)$fatal(1,"wrong core MHz");
         make(8'h3d,1,0);send();read_reply();if(r[1]!=3)$fatal(1,"badargs accepted");

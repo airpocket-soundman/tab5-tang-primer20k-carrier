@@ -54,7 +54,7 @@ class CodecTests(unittest.TestCase):
                 q=request(op,len(cases),a,b);r=model.exchange(q)
                 cases.append((q,r,r[1]==0))
         q=request(0x30,71,0,0)
-        for value,accepted in [(0x0103,True),(0x0107,True),(0x020f,True),
+        for value,accepted in [(0x0103,True),(0x0107,True),(0x020f,True),(0x0117,True),(0x021f,True),
                                (0x010f,False),(0x0207,False),(0x030f,False)]:
             r=seal(bytes([0x5a,0,q[2],2,value&255,value>>8]))
             cases.append((q,r,accepted))

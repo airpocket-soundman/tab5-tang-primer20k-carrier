@@ -74,7 +74,7 @@ static inline bool link_validate_response(const uint8_t r[8], const uint8_t q[8]
         case TRI_AX: case TRI_AY: case TRI_BX: case TRI_BY: case TRI_CX: case TRI_CY:
         case TRI_ZA: case TRI_ZB: case TRI_ZC: case TRI_COLOR:
             return r[4]==q[4] && r[5]==q[5];
-        case FRACTAL_INFO: return ((r[4]==3 || r[4]==7) && r[5]==1) || (r[4]==15 && r[5]==2);
+        case FRACTAL_INFO: return ((r[4]==3 || r[4]==7 || r[4]==23) && r[5]==1) || ((r[4]==15 || r[4]==31) && r[5]==2);
         case FRACTAL_X0: case FRACTAL_Y0: case FRACTAL_DX: case FRACTAL_DY:
         case FRACTAL_CX: case FRACTAL_CY: case FRACTAL_CONFIG:
             return r[4]==q[4] && r[5]==q[5];

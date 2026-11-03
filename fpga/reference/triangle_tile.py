@@ -7,18 +7,22 @@ ROW = 0x2f
 FRACTAL_INFO, FRACTAL_DRAW = 0x30, 0x38
 
 
+VIVID_PALETTE=(10, 16, 24, 287, 799, 1311, 1823, 2047, 18428, 34804, 51180, 63460, 65504, 65280, 65024, 64768, 64512, 64256, 64000, 63616, 63488, 63496, 63504, 63512, 63519, 53279, 40991, 28703, 20508, 12310, 6160, 2060)
+
+
 def fractal_sample(params, x, y):
     def signed(v): return v if v<32768 else v-65536
     px=signed(params[0])+x*params[2]
     py=signed(params[1])+y*params[3]
-    limit, julia=params[6]&255, params[6]>>8
-    zx,zy=(px,py) if julia else (0,0)
-    cx,cy=(signed(params[4]),signed(params[5])) if julia else (px,py)
+    limit, mode=params[6]&255, params[6]>>8
+    zx,zy=(px,py) if mode&1 else (0,0)
+    cx,cy=(signed(params[4]),signed(params[5])) if mode&1 else (px,py)
     iterations=0
     while zx*zx+zy*zy<4*4096*4096 and iterations<limit:
         zx,zy=((zx*zx-zy*zy)//4096+cx, (2*zx*zy)//4096+cy)
         iterations+=1
-    if iterations==limit: return 0x0042,iterations
+    if iterations==limit: return (0 if mode&2 else 0x0042),iterations
+    if mode&2: return VIVID_PALETTE[iterations&31],iterations
     n=iterations*3
     r,g,b=32+(n*9%224),60+(n*5%196),100+(n*3%156)
     return ((r&248)<<8)|((g&252)<<3)|(b>>3),iterations
@@ -58,11 +62,11 @@ class TriangleTile:
             self.frame.clear(value, 0)
             value = 0
         elif op == FRACTAL_INFO:
-            value=0x020f if self.clock_query_enable else 0x0107
+            value=0x021f if self.clock_query_enable else 0x0117
         elif 0x31 <= op <= 0x36:
             self.fractal_params[op-0x31]=value
         elif op == 0x37:
-            if not 1<=a<=128 or b>1: status,value=3,0
+            if not 1<=a<=128 or b>3: status,value=3,0
             else: self.fractal_params[6]=value
         elif op in (0x39,0x3a):
             value=0
