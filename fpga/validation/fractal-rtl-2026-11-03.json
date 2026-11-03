@@ -1,0 +1,68 @@
+{
+  "date": "2026-11-03",
+  "scope": "PC-only RTL/reference/codec tests; physical programming and performance measured separately",
+  "base_commit": "6b1dbbc836e1a5cc8e710b5d148c25d12e619a91",
+  "hardware_access": false,
+  "tests": [
+    {
+      "name": "fractal_pin_level",
+      "passed": true,
+      "transactions": 413,
+      "viewports": 5,
+      "color_and_depth_pixels": 10240,
+      "coverage": [
+        "Mandelbrot",
+        "Julia",
+        "limit128",
+        "signed floor rounding",
+        "extreme immediate escape",
+        "missing configuration",
+        "invalid limit/mode/step/extent/DRAW argument",
+        "bad CRC",
+        "mid-operation timeout/abort",
+        "truncated response",
+        "reset/disarm",
+        "legacy image rejection"
+      ]
+    },
+    {
+      "name": "triangle_row_regression",
+      "passed": true,
+      "transactions": 410,
+      "draws": 7
+    },
+    {
+      "name": "C_reference_and_new_codec",
+      "passed": true,
+      "viewports": 29,
+      "color_pixels": 29696,
+      "new_codec_corruption_cases": 81
+    },
+    {
+      "name": "existing_codec_regression",
+      "passed": true,
+      "unittests": 4
+    }
+  ],
+  "source_sha256": {
+    "fpga/gfx/rtl/triangle_tile.v": "7386437a3bb62a918b79c30511efbc9e26417c75a421602ce78519075e423e8b",
+    "fpga/link/rtl/link_bringup.v": "c3f7824ac40a8cd550b8514070b74e3984963c082e058cbab5e29b97f436a8bf",
+    "fpga/host/link_protocol.h": "6111f6c0360c783fb0276ced5680c67ea7273f12c905198ebf4edd0f8c7f3803",
+    "fpga/host/fractal_reference.h": "fab718adfb71f0b87790ac65af239a2b2fcd0673ff7a6b11d216474ff515fa63",
+    "fpga/reference/triangle_tile.py": "d80c45b437ccdaace559154ad39fb0859f43625cca4cf83f44f7ad22aa0e7751",
+    "fpga/gfx/tests/tb_fractal_tile.v": "22da96b6e149981f7b7e5108e8b3bb5ff3509e840cdd06da896ea91a64616483",
+    "fpga/gfx/tests/run_fractal_tile.py": "6bb0cfe4b260f9981902dd6fbb8e2e9663f5178bce6c1c957c3f0fa8d38ac8fc",
+    "fpga/host/tests/test_fractal_reference.py": "b6b8add8a5ab0a8490edccd3ac4589da3c29445fa032b14b6ed91db8a177a915"
+  },
+  "tools": {
+    "iverilog": "Icarus14.0 devel s20260301-713-gf9111a949-dirty; existing OSS CAD Suite",
+    "c_compiler": "Zig0.16.0 cc -std=c11 -Wall -Wextra -Werror"
+  },
+  "unverified": [
+    "physical image load/runtime",
+    "FPGA/CPU speedup",
+    "jumper timing maximum",
+    "DMA",
+    "DDR3"
+  ]
+}

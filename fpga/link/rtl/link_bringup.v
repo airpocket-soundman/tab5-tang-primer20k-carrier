@@ -115,7 +115,8 @@ module link_bringup #(
                                         valid<=0; gfx_pending<=1; gfx_start<=1;
                                     end else reply[1]<=2;
                                 8'h20,8'h21,8'h22,8'h23,8'h24,8'h25,8'h26,8'h27,
-                                8'h28,8'h29,8'h2a,8'h2b,8'h2c,8'h2d,8'h2e,8'h2f:
+                                8'h28,8'h29,8'h2a,8'h2b,8'h2c,8'h2d,8'h2e,8'h2f,
+                                8'h30,8'h31,8'h32,8'h33,8'h34,8'h35,8'h36,8'h37,8'h38,8'h39,8'h3a:
                                     if(GFX_ENABLE==2) begin
                                         valid<=0; gfx_pending<=1; gfx_start<=1;
                                     end else reply[1]<=2;

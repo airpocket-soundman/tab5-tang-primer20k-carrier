@@ -9,7 +9,11 @@ enum { LINK_ID=1, LINK_ECHO=2, LINK_INVERT=3,
        TRI_INFO=0x20, TRI_AX=0x21, TRI_AY=0x22, TRI_BX=0x23, TRI_BY=0x24,
        TRI_CX=0x25, TRI_CY=0x26, TRI_ZA=0x27, TRI_ZB=0x28, TRI_ZC=0x29,
        TRI_COLOR=0x2a, TRI_CLEAR=0x2b, TRI_DRAW=0x2c, TRI_READ=0x2d, TRI_DEPTH=0x2e,
-       TRI_ROW=0x2f };
+       TRI_ROW=0x2f,
+       FRACTAL_INFO=0x30, FRACTAL_X0=0x31, FRACTAL_Y0=0x32,
+       FRACTAL_DX=0x33, FRACTAL_DY=0x34, FRACTAL_CX=0x35, FRACTAL_CY=0x36,
+       FRACTAL_CONFIG=0x37, FRACTAL_DRAW=0x38,
+       FRACTAL_CYCLES_LO=0x39, FRACTAL_CYCLES_HI=0x3a };
 enum { TRI_ROW_WORDS=32, TRI_ROW_RESPONSE_BYTES=74 };
 static inline uint16_t link_crc16_extend(uint16_t c, const uint8_t *p, unsigned n) {
     while(n--) { c^=(uint16_t)*p++ << 8; for(int i=0;i<8;i++) c=(c&0x8000)?(c<<1)^0x1021:c<<1; }
@@ -33,6 +37,12 @@ static inline bool link_validate_response(const uint8_t r[8], const uint8_t q[8]
         case TRI_AX: case TRI_AY: case TRI_BX: case TRI_BY: case TRI_CX: case TRI_CY:
         case TRI_ZA: case TRI_ZB: case TRI_ZC: case TRI_COLOR:
             return r[4]==q[4] && r[5]==q[5];
+        case FRACTAL_INFO: return (r[4]==3 || r[4]==7) && r[5]==1;
+        case FRACTAL_X0: case FRACTAL_Y0: case FRACTAL_DX: case FRACTAL_DY:
+        case FRACTAL_CX: case FRACTAL_CY: case FRACTAL_CONFIG:
+            return r[4]==q[4] && r[5]==q[5];
+        case FRACTAL_CYCLES_LO: case FRACTAL_CYCLES_HI: return q[4]==0 && q[5]==0;
+        case FRACTAL_DRAW: return r[4]==0 && r[5]==4;
         case TRI_CLEAR: return r[4]==0 && r[5]==0;
         case TRI_DRAW: return ((uint16_t)r[4] | (uint16_t)r[5]<<8)<=1024;
         case TRI_READ: case TRI_DEPTH: return true; // Compare complete color/depth on host.
