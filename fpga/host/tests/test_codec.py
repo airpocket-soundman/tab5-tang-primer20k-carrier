@@ -45,6 +45,22 @@ class CodecTests(unittest.TestCase):
                 self.assertEqual(made, q.hex())
                 self.assertEqual(int(valid), accepted)
 
+    def test_optional_request_capture_codec(self):
+        cases=[]
+        def add(op,a,b,value,ok=True):
+            q=request(op,255,a,b);r=seal(bytes([0x5a,0,255,2,value&255,value>>8]));cases.append((q,r,ok))
+        for tag in (0,128):
+            add(0x42|tag,0,0,0x103)
+            add(0x42|tag,1,0,0x103,False)
+            add(0x42|tag,0,0,0x104,False)
+            for word in range(4):add(0x43|tag,word,0,0xd927)
+            add(0x43|tag,4,0,0xd927,False);add(0x43|tag,0,1,0xd927,False)
+            for selector in (0,2):add(0x44|tag,selector,0,0xffff)
+            for flags in (1,3,5,7):add(0x44|tag,1,0,0x800|flags)
+            for v in (0x800,0x809,0x705,0x905):add(0x44|tag,1,0,v,False)
+            add(0x44|tag,3,0,0,False);add(0x44|tag,0,1,0,False)
+        self.assert_c_cases(cases)
+
     def test_optional_clock_v2_codec(self):
         cases=[]
         old=TriangleTile()
