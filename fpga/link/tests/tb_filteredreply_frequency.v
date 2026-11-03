@@ -20,7 +20,7 @@ module tb_filteredreply_frequency;
     assign #(ONE_WAY_DELAY_PS) host_ready=ready;
     always begin #9259;sys_clk=1;#9259;sys_clk=0;end
     link_bringup_filtered #(.GFX_ENABLE(2),.TIMEOUT_CYCLES(5400000),.CORE_CLOCK_MHZ(54),.CLOCK_QUERY_ENABLE(1),.FAST_REPLY_ENABLE(1)) dut(
-        sys_clk,reset_n,arm,bus_clk,dir,data_i,data_o,data_oe,ready,filter_clk);
+        sys_clk,reset_n,arm,bus_clk,dir,data_i,data_o,data_oe,ready,filter_clk,reset_n && arm);
     reg [7:0] q[0:7],expected[0:2065],got[0:2081];
     integer f,p,kind,i,j,frequency,period_ps,half_ps,length,case_id=0,first_bad,pass,cycles;
     integer match_count,offset,k,match;

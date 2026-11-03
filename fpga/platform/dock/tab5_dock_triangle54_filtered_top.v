@@ -4,7 +4,8 @@ module tab5_dock_triangle54_filtered_top(
     input wire [3:0]aux,inout wire [7:0]data,
     output wire ready,output wire [3:0]led
 );
-    wire core_clk,filter_clk,core_locked,filter_locked;
+    (* keep *) wire core_clk,filter_clk;
+    wire core_locked,filter_locked;
     dock_pll54 core_pll(sys_clk,core_clk,core_locked);
     dock_pll216 filter_pll(sys_clk,filter_clk,filter_locked);
     wire platform_reset_n=reset_n && core_locked && filter_locked;
@@ -23,6 +24,6 @@ module tab5_dock_triangle54_filtered_top(
     assign data=data_oe?data_o:8'bz;
     link_bringup_filtered #(.GFX_ENABLE(2),.TIMEOUT_CYCLES(5400000),.CORE_CLOCK_MHZ(54),
         .CLOCK_QUERY_ENABLE(1),.FAST_REPLY_ENABLE(1)) core(
-        core_clk,core_reset_n,armed,bus_clk,dir,data,data_o,data_oe,ready,filter_clk);
+        core_clk,core_reset_n,armed,bus_clk,dir,data,data_o,data_oe,ready,filter_clk,platform_reset_n && arm_sw);
     assign led=~{heartbeat[23],ready,data_oe,armed};
 endmodule

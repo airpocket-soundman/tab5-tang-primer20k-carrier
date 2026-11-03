@@ -9,8 +9,9 @@ module link_bringup_filtered #(
     parameter FAST_REPLY_ENABLE = 0
 )(input wire sys_clk, input wire reset_n, input wire arm,
   input wire bus_clk, input wire dir, input wire [7:0] data_i,
-  output reg [7:0] data_o, output wire data_oe, output wire ready, input wire filter_clk);
-    wire clean_reply_clk,clock_filter_fault;
+  output reg [7:0] data_o, output wire data_oe, output wire ready, input wire filter_clk,filter_reset_async_n);
+    (* keep *) wire clean_reply_clk;
+    wire clock_filter_fault;
     reg [2:0] clk_sync;
     reg [1:0] dir_sync;
     wire rise = clk_sync[1] & ~clk_sync[2];
@@ -39,7 +40,12 @@ module link_bringup_filtered #(
     wire [9:0] raw_ram_address;
     wire [15:0] raw_ram_color,raw_ram_depth;
     reg fast_inflight,fast_offer;
-    reply_clock_filter clock_conditioner(filter_clk,reset_n && arm,bus_clk,fast_offer && dir,clean_reply_clk,clock_filter_fault);
+    (* ASYNC_REG="TRUE" *) reg [1:0]filter_reset_release=0;
+    always @(posedge filter_clk or negedge filter_reset_async_n)
+        if(!filter_reset_async_n)filter_reset_release<=0;
+        else filter_reset_release<={filter_reset_release[0],1'b1};
+    wire filter_running=filter_reset_async_n && filter_reset_release[1];
+    reply_clock_filter clock_conditioner(filter_clk,filter_running,bus_clk,fast_offer && dir,clean_reply_clk,clock_filter_fault);
     reg [1:0] fast_prepare;
     reg [49:0] fast_metadata;
     (* ASYNC_REG="TRUE" *) reg [1:0] raw_done_sync,raw_started_sync,raw_progress_sync;
