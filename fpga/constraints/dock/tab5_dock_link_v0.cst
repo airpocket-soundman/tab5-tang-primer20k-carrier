@@ -1,8 +1,10 @@
 // Tab5 M5-Bus <-> Tang Primer 20K Dock jumper-wire bench, link test v0 (DRAFT)
 // Target : GW2A-LV18PG256C8/I7 on Tang Primer 20K Core, mounted on the official Dock (3713/3714 schematic)
 // Top    : platform/dock/tab5_dock_top.v (LINK), tab5_dock_gfx_top.v (GFX bench)
+//          platform/dock_link_top.v (initial SRAM bring-up, different LED order)
 // Status : balls and bank voltages checked against Dock_3714_Schematics.pdf p.1/6/8/9 and
-//          SOM-3961_Schematic.pdf only. Not synthesized, not placed, not tested on hardware.
+//          SOM-3961_Schematic.pdf. Synthesized/placed; initial SRAM LED test passed.
+//          External pin voltage, Hi-Z and physical link remain unverified.
 //          See ../../../docs/Dockジャンパ試験_配線とFPGA構成_2026-10-28.md before use.
 // This file is for the Dock bench only. Do NOT reuse it for the carrier board
 // (carrier balls come from kicad/core_pin_assignment.csv; CLK is K14 there).
@@ -60,7 +62,8 @@ IO_PORT "aux[1]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
 IO_PORT "aux[2]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
 IO_PORT "aux[3]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
 
-// Status LEDs (Dock LED2..LED5 nets as in dk_video.cst): 0=armed 1=bus OE 2=ready 3=heartbeat
+// Active-low LEDs for platform/dock/: 0=armed, 1=OE, 2=ready, 3=heartbeat.
+// Initial platform/dock_link_top.v: 0=heartbeat, 1=armed, 2=ready, 3=OE.
 IO_LOC  "led[0]" L16;
 IO_LOC  "led[1]" L14;
 IO_LOC  "led[2]" N14;
