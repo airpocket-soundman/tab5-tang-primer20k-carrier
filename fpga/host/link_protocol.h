@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 // dock-gfx-v0: experimental extension, independent of the future DDR3 v1 ABI.
-enum { LINK_ID=1, LINK_ECHO=2, LINK_INVERT=3,
+enum { LINK_ID=1, LINK_ECHO=2, LINK_INVERT=3, LINK_CAPS=4,
        GFX_INFO=0x10, GFX_COLOR=0x11, GFX_CLEAR=0x12, GFX_PIXEL=0x13,
        GFX_READ=0x14, GFX_ORIGIN=0x15, GFX_RECT=0x16,
        TRI_INFO=0x20, TRI_AX=0x21, TRI_AY=0x22, TRI_BX=0x23, TRI_BY=0x24,
@@ -65,8 +65,9 @@ static inline void link_make_request(uint8_t q[8], uint8_t op, uint8_t seq, uint
 static inline bool link_validate_response(const uint8_t r[8], const uint8_t q[8]) {
     uint16_t c=link_crc16(r,6);
     if(r[0]!=0x5a || r[1]!=0 || r[2]!=q[2] || r[3]!=2 || r[6]!=(uint8_t)c || r[7]!=(uint8_t)(c>>8)) return false;
-    switch(q[1]) {
+    switch(q[1]&0x7f) {
         case LINK_ID: return r[4]=='T' && r[5]=='P';
+        case LINK_CAPS: return r[4]==8 && r[5]==1;
         case LINK_ECHO: return r[4]==q[4] && r[5]==q[5];
         case LINK_INVERT: return r[4]==(uint8_t)(q[4]^255) && r[5]==(uint8_t)(q[5]^255);
         case GFX_INFO: case TRI_INFO: return r[4]==32 && r[5]==32;
@@ -93,7 +94,7 @@ static inline bool link_validate_response(const uint8_t r[8], const uint8_t q[8]
 // TRI_ROW success only: 8-byte header + 64-byte row + 2-byte bound CRC.
 // A nonzero status is a normal eight-byte error, never a 74-byte success.
 static inline bool link_validate_row_response(const uint8_t r[74], const uint8_t q[8]) {
-    if(q[1]!=TRI_ROW || !link_validate_response(r,q)) return false;
+    if((q[1]&0x7f)!=TRI_ROW || !link_validate_response(r,q)) return false;
     uint16_t c=link_crc16_extend(link_crc16(r,6),r+8,64);
     return r[72]==(uint8_t)c && r[73]==(uint8_t)(c>>8);
 }

@@ -14,7 +14,10 @@ module link_bringup #(
     reg [2:0] rx_index;
     reg [6:0] tx_index;
     reg valid;
-    reg bulk_mode;
+    reg bulk_mode,prefixed;
+    wire [7:0] logical_opcode={1'b0,req[1][6:0]};
+    wire in_prefix=prefixed && tx_index<8;
+    wire [6:0] logical_tx_index=tx_index-(prefixed?7'd8:7'd0);
     reg [15:0] stream_crc;
     reg [15:0] rx_crc;
     reg [31:0] idle_count;
@@ -24,18 +27,18 @@ module link_bringup #(
     wire [7:0] gfx_status;
     wire [15:0] gfx_result;
     wire [7:0] row_byte;
-    wire [5:0] row_index = tx_index-7'd8;
+    wire [5:0] row_index = logical_tx_index-7'd8;
     generate if(GFX_ENABLE==2) begin: triangle
         wire renderer_abort = gfx_pending && idle_count >= TIMEOUT_CYCLES-1;
         triangle_tile renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start,
-                              req[1], req[4], req[5], gfx_done, gfx_status, gfx_result,
+                              logical_opcode, req[4], req[5], gfx_done, gfx_status, gfx_result,
                               row_index, row_byte);
     end else if(GFX_ENABLE) begin: gfx
         // A timed-out operation must not keep mutating RAM or consume a later start.
         wire renderer_reset_n = reset_n && arm;
         wire renderer_abort = gfx_pending && idle_count >= TIMEOUT_CYCLES-1;
         gfx_bench renderer(sys_clk, renderer_reset_n, renderer_abort, gfx_start,
-                           req[1], req[4], req[5], gfx_done, gfx_status, gfx_result);
+                           logical_opcode, req[4], req[5], gfx_done, gfx_status, gfx_result);
         assign row_byte=8'h00;
     end else begin: no_gfx
         assign gfx_done=1'b0;
@@ -61,12 +64,13 @@ module link_bringup #(
     always @* begin
         reply_crc=16'hffff;
         for(j=0;j<6;j=j+1) reply_crc=crc_byte(reply_crc,reply[j]);
-        if(tx_index<6) data_o=reply[tx_index];
-        else if(tx_index==6) data_o=reply_crc[7:0];
-        else if(tx_index==7) data_o=reply_crc[15:8];
-        else if(bulk_mode && tx_index<72) data_o=row_byte;
-        else if(bulk_mode && tx_index==72) data_o=stream_crc[7:0];
-        else if(bulk_mode && tx_index==73) data_o=stream_crc[15:8];
+        if(in_prefix) data_o=8'hc3;
+        else if(logical_tx_index<6) data_o=reply[logical_tx_index];
+        else if(logical_tx_index==6) data_o=reply_crc[7:0];
+        else if(logical_tx_index==7) data_o=reply_crc[15:8];
+        else if(bulk_mode && logical_tx_index<72) data_o=row_byte;
+        else if(bulk_mode && logical_tx_index==72) data_o=stream_crc[7:0];
+        else if(bulk_mode && logical_tx_index==73) data_o=stream_crc[15:8];
         else data_o=8'h00;
     end
     always @(posedge sys_clk or negedge reset_n) begin
@@ -74,42 +78,45 @@ module link_bringup #(
             clk_sync<=0; dir_sync<=0; rx_index<=0; tx_index<=0;
             valid<=0; rx_crc<=16'hffff; idle_count<=0;
             gfx_start<=0; gfx_pending<=0;
-            bulk_mode<=0; stream_crc<=16'hffff;
+            bulk_mode<=0; prefixed<=0; stream_crc<=16'hffff;
         end else begin
             gfx_start<=0;
             clk_sync<={clk_sync[1:0],bus_clk}; dir_sync<={dir_sync[0],dir};
             if(!arm) begin
                 valid<=0; rx_index<=0; tx_index<=0; rx_crc<=16'hffff; idle_count<=0;
                 gfx_pending<=0;
-                bulk_mode<=0; stream_crc<=16'hffff;
+                bulk_mode<=0; prefixed<=0; stream_crc<=16'hffff;
             end else if(idle_count>=TIMEOUT_CYCLES-1) begin
                 valid<=0; rx_index<=0; tx_index<=0; rx_crc<=16'hffff; idle_count<=0;
                 gfx_pending<=0;
-                bulk_mode<=0; stream_crc<=16'hffff;
+                bulk_mode<=0; prefixed<=0; stream_crc<=16'hffff;
             end else begin
                 idle_count<=idle_count+1;
                 if(gfx_pending && gfx_done) begin
                     reply[1]<=gfx_status; reply[4]<=gfx_result[7:0]; reply[5]<=gfx_result[15:8];
                     valid<=1; gfx_pending<=0;
-                    bulk_mode<=GFX_ENABLE==2 && req[1]==8'h2f && gfx_status==0;
+                    bulk_mode<=GFX_ENABLE==2 && logical_opcode==8'h2f && gfx_status==0;
                 end
                 if(dir_sync[1] && rx_index!=0) begin rx_index<=0; rx_crc<=16'hffff; end
                 if(rise) begin
                     idle_count<=0;
                     if(!dir_sync[1] && !dir && !valid && !gfx_pending) begin
-                        if(rx_index==0) begin bulk_mode<=0; stream_crc<=16'hffff; end
+                        if(rx_index==0) begin bulk_mode<=0; prefixed<=0; stream_crc<=16'hffff; end
                         if(rx_index<7) req[rx_index]<=data_i;
                         if(rx_index<6) rx_crc<=crc_byte(rx_crc,data_i);
                         if(rx_index==7) begin
                             rx_index<=0; rx_crc<=16'hffff;
                             reply[0]<=8'h5a; reply[2]<=req[2]; reply[3]<=2;
                             reply[4]<=0; reply[5]<=0; tx_index<=0; valid<=1;
-                            bulk_mode<=0; stream_crc<=16'hffff;
+                            bulk_mode<=0; prefixed<=0; stream_crc<=16'hffff;
+                            prefixed<=req[1][7] && req[0]==8'ha5 && req[3]==2 &&
+                                      req[6]==rx_crc[7:0] && data_i==rx_crc[15:8];
                             if(req[0]!=8'ha5 || req[3]!=2 || req[6]!=rx_crc[7:0] || data_i!=rx_crc[15:8]) reply[1]<=1;
-                            else case(req[1])
+                            else case(logical_opcode)
                                 1: begin reply[1]<=0; reply[4]<=8'h54; reply[5]<=8'h50; end
                                 2: begin reply[1]<=0; reply[4]<=req[4]; reply[5]<=req[5]; end
                                 3: begin reply[1]<=0; reply[4]<=~req[4]; reply[5]<=~req[5]; end
+                                4: begin reply[1]<=0; reply[4]<=8; reply[5]<=1; end
                                 8'h10,8'h11,8'h12,8'h13,8'h14,8'h15,8'h16:
                                     if(GFX_ENABLE==1) begin
                                         valid<=0; gfx_pending<=1; gfx_start<=1;
@@ -124,10 +131,10 @@ module link_bringup #(
                             endcase
                         end else rx_index<=rx_index+1'b1;
                     end else if(dir_sync[1] && dir && valid) begin
-                        if(bulk_mode && (tx_index<6 || (tx_index>=8 && tx_index<72)))
+                        if(bulk_mode && !in_prefix && (logical_tx_index<6 || (logical_tx_index>=8 && logical_tx_index<72)))
                             stream_crc<=crc_byte(stream_crc,data_o);
-                        if((!bulk_mode && tx_index==7) || (bulk_mode && tx_index==73)) begin
-                            valid<=0; tx_index<=0; bulk_mode<=0;
+                        if(!in_prefix && ((!bulk_mode && logical_tx_index==7) || (bulk_mode && logical_tx_index==73))) begin
+                            valid<=0; tx_index<=0; bulk_mode<=0; prefixed<=0;
                         end
                         else tx_index<=tx_index+1'b1;
                     end

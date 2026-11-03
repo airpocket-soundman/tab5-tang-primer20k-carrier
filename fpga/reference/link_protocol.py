@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 
 FRAME_BYTES = 8
-ID, ECHO, INVERT = 1, 2, 3
+ID, ECHO, INVERT, CAPS = 1, 2, 3, 4
 OK, BAD_FRAME, BAD_OPCODE = 0, 1, 2
 
 
@@ -46,6 +46,8 @@ def respond(frame):
         status = BAD_FRAME
     elif frame[1] == ID:
         data = b'TP'
+    elif frame[1] == CAPS:
+        data = bytes([8,1])
     elif frame[1] == ECHO:
         data = frame[4:6]
     elif frame[1] == INVERT:
@@ -58,11 +60,11 @@ def respond(frame):
 def validate_response(frame, sent):
     """Host validation: frame, status, sequence AND operation result must match."""
     frame, sent = bytes(frame), bytes(sent)
-    if len(sent) != FRAME_BYTES or sent[1] not in (ID, ECHO, INVERT):
+    if len(sent) != FRAME_BYTES or sent[1] not in (ID, ECHO, INVERT, CAPS):
         return False
     if not crc_valid(frame) or frame[:4] != bytes([0x5a, OK, sent[2], 2]):
         return False
-    expected = b'TP' if sent[1] == ID else sent[4:6] if sent[1] == ECHO else bytes(v ^ 255 for v in sent[4:6])
+    expected = b'TP' if sent[1] == ID else bytes([8,1]) if sent[1]==CAPS else sent[4:6] if sent[1] == ECHO else bytes(v ^ 255 for v in sent[4:6])
     return frame[4:6] == expected
 
 
@@ -152,7 +154,8 @@ def vectors():
     for i in range(256):
         pairs.append((f'echo-{i:03}', request(ECHO, i, i, i ^ 0xa5)))
         pairs.append((f'invert-{i:03}', request(INVERT, i, i, 255-i)))
-    for opcode in (0, 4, 127, 255):
+    pairs.append(('caps',request(CAPS,255,0x55,0xaa)))
+    for opcode in (0, 126, 127):
         pairs.append((f'unknown-{opcode}', request(opcode, 255, 0x55, 0xaa)))
     base = request(ECHO, 0x73, 0x55, 0xaa)
     for bit in range(64):
