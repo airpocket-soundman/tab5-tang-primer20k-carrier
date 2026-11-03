@@ -1,6 +1,6 @@
 # Fixed-direction 4+4 DMA link: research proposal, not an implemented interface
 
-2026-11-03. Priority remains optimizing the existing eight-bit DMA transport and measuring its long tile bursts. This alternative must be a separate experimental FPGA image and host transport. No current pin, RTL or firmware behavior was changed by this research.
+2026-11-03, updated after the eight-bit prefetch hardware campaign. The first track now demonstrates faster FPGA fractal rendering including readback; a fixed-direction prototype is not required for the current demo goal. This alternative must be a separate experimental FPGA image and host transport. No current pin, RTL or firmware behavior was changed by this research.
 
 ## Wiring and permanent ownership
 
@@ -44,9 +44,19 @@ Startup: data outputs disabled; allocate both units/rings and configure fixed di
 
 At5MHz, eight-bit payload capacity is5MB/s and four-bit is2.5MB/s before framing. A160×96 RGB565 frame is30720 bytes: ideal payload time6.144ms versus12.288ms. Existing complete-tile reads already remove most row-sized DMA setup overhead. Fixed4+4 can win only if saved setup/CPU time or compute/transfer overlap exceeds the narrower-link cost; it is not automatically faster.
 
-A candidate four-descriptor RX ring of2176 bytes each uses8704 bytes; a two-block1024-byte TX producer uses2048 bytes. Add one2058-byte validated tile body and2048-byte word staging: approximately14858 bytes plus descriptors, queues and metadata. This is a design budget, not linked RAM consumption. The present long-burst path uses approximately2176-byte DMA storage,2176-byte raw capture,2058-byte body and2048-byte staging (8458 bytes before other state). A continuous embedded-VALID TX ring may need a larger producer budget. Check linker map and heap high-water marks, not these arithmetic estimates alone.
+A candidate four-descriptor RX ring of2176 bytes each uses8704 bytes; a two-block1024-byte TX producer uses2048 bytes. Add one2058-byte validated tile body and2048-byte word staging: approximately14858 bytes plus descriptors, queues and metadata. This is a design budget, not linked RAM consumption. The current eight-bit path has8458 bytes of static transport buffers:2176-byte diagnostic snapshot,2176-byte raw capture,2058-byte validated body and2048-byte word staging. Its measured active internal-heap delta is3300 bytes, including the separate2176-byte DMA payload and driver allocations. Together this is11758 bytes, roughly12KB before further metadata, not an8.5KB total. Static buffers and heap allocations are separate accounting categories. A continuous embedded-VALID TX ring may need a larger producer budget. Check linker map and heap high-water marks, not these arithmetic estimates alone.
 
 Compare three measured implementations on identical frames: current eight-bit long-burst baseline; optimized eight-bit official DMA lifecycle/alignment; fixed4+4 prototype only if needed. Record total frame time, CPU-active time, device cycles, DMA setup/IRQ counts, RAM/map deltas, FPGA LUT/FF/BRAM/DSP and routed timing. Adaptive pin widths add protocol/state complexity and are a later option, not part of this fixed-direction proposal.
+
+### Measured first-track result and present decision
+
+The prefetch FPGA image (source92d626e, UserCode364C) and eight-bit bulk DMA at8MHz passed30 fractal CPU/GPU frame pairs,460800 pixels, plus a nine-case scene/load matrix including polygons. A640×360 Julia frame also passed all230400 pixels at5MHz. These are recorded conditions on this jumper setup, not a guaranteed maximum cable frequency or acceleration of every scene. Polygon frames are pixel-correct but remain slower than CPU.
+
+One160×96 Julia/load2/frame17 pair records CPU122.706ms and FPGA48.608ms render time including transport:2.52× faster. See the [8MHz stress campaign](../../tab5-fpga-gpu-demo/docs/validation/gpu-dma-prefetch-8000000-hz-stress-2026-11-03.json), [scene/load matrix](../../tab5-fpga-gpu-demo/docs/validation/gpu-dma-prefetch-8000000-hz-matrix-2026-11-03.json), and [640×360 control](../../tab5-fpga-gpu-demo/docs/validation/gpu-prefetch-640x360-5000000-hz-2026-11-03.json). This single pair is not a campaign mean. The original application benchmark separately records CPU6.936 versus FPGA11.131 software-pipeline FPS,1.60×; this includes presentation work and is neither panel scanout FPS nor the render-time ratio above.
+
+The [memory capture](../../tab5-fpga-gpu-demo/docs/validation/gpu-hybrid-memory-640x360-2026-11-03.json) supports the3300-byte heap delta. The fixed4+4 proposal's14858-byte buffer budget remains a model, not a measured static/heap total; descriptors and metadata are additional. It cannot be presented as measured RAM savings against the roughly12KB current transport.
+
+Retain the working eight-bit transport for the current demo. Long responses, FPGA RAM prefetch and bulk-only DMA achieved useful speedup without changing data-pin direction assignments. Fixed-direction streaming may later overlap computation, request TX and readback, but this hypothesis still requires owned DMA rings, valid/clock framing, queue credits and possibly another4096-byte FPGA tile bank. Those costs and narrower bandwidth need measurement. Implementing that second track is unnecessary merely to establish the current fractal speedup.
 
 ### Existing eight-bit alignment investigation
 
