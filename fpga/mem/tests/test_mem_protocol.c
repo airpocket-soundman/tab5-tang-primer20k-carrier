@@ -30,6 +30,9 @@ int main(void){
  for(i=0;i<8;++i){link_make_request(q,MEM_SYSQUERY,0,(uint8_t)i,0);response(r,q,0,values[i]);CHECK(mem_validate_response(r,q));}
  link_make_request(q,MEM_SYSQUERY,0,6,0);response(r,q,0,0x8000);CHECK(!mem_validate_response(r,q));
  link_make_request(q,MEM_SYSQUERY,0,8,0);response(r,q,0,0);CHECK(!mem_validate_response(r,q));response(r,q,3,0);CHECK(mem_validate_response(r,q));
+ response(r,q,0,MEM_DIAG_FORMAT);CHECK(mem_validate_response(r,q));
+ for(i=9;i<=19;++i){link_make_request(q,MEM_SYSQUERY,0,(uint8_t)i,0);response(r,q,0,0xcafe);CHECK(mem_validate_response(r,q));}
+ link_make_request(q,MEM_SYSQUERY,0,20,0);response(r,q,0,0);CHECK(!mem_validate_response(r,q));
  link_make_request(q,MEM_CAPS,0,0,0);response(r,q,0,MEM_FORMAT);q[1]^=0x80;CHECK(!mem_validate_response(r,q));
  CHECK(mem_range_valid(0,8388608));CHECK(mem_range_valid(0x7fffff0,1));CHECK(!mem_range_valid(0x7fffff0,2));
  CHECK(!mem_range_valid(1,1));CHECK(!mem_range_valid(0,0));CHECK(!mem_range_valid(0,0xffffffffu));CHECK(!mem_range_valid(0xfffffff0u,1));

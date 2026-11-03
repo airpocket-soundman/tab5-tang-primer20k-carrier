@@ -12,7 +12,7 @@ parser.add_argument('--scoped',action='store_true')
 parser.add_argument('--guarded',action='store_true')
 args=parser.parse_args()
 assert not(args.scoped and args.guarded)
-stem='mem-bist-guarded' if args.guarded else 'mem-bist-scoped' if args.scoped else 'mem-bist-official'
+stem='mem-native-diag' if args.guarded else 'mem-bist-scoped' if args.scoped else 'mem-bist-official'
 pnr=root/f'build/{stem}/mem_bist/impl/pnr'
 console=root/f'build/{stem}-console.log'
 log=console.read_text()
@@ -61,7 +61,7 @@ def negative_paths(table):
     return paths
 inputs=sorted((root/'mem/rtl').glob('*.v'))+sorted((root/'mem/config').glob('*.tcl'))+list((root/'mem/config').glob('*.cst'))+list((root/'mem/config').glob('*.sdc'))
 inputs += [root/'build/mem-bist-ip/generated/MemDDR3/MemDDR3.vo']
-active_sdc=root/('build/mem-bist-guarded-input/mem_bist.sdc' if args.guarded else 'build/mem-bist-scoped-input/mem_bist.sdc' if args.scoped else 'mem/config/mem_bist.sdc')
+active_sdc=root/('build/mem-native-diag-input/mem_bist.sdc' if args.guarded else 'build/mem-bist-scoped-input/mem_bist.sdc' if args.scoped else 'mem/config/mem_bist.sdc')
 assert (pnr/'mem_bist.rpt.txt').stat().st_mtime>=max(p.stat().st_mtime for p in inputs+[active_sdc]), 'sources changed after build; do not attest stale report'
 def pin_audit():
     cst=(root/'mem/config/mem_bist.cst').read_text(encoding='utf-8-sig')
@@ -101,6 +101,7 @@ result={
    'hold_exempt_only_for_held_bundles':True,
    'request_paths':scoped_paths('control/held_base*'),
    'snapshot_paths':scoped_paths('control/user_snapshot*'),
+   'diagnostic_snapshot_paths':scoped_paths('control/user_debug_snapshot*'),
    'first_stage_d_pins':['control/'+name+'_0_s0/D' for name in ['request_sync','ack_sync','cal_sync','busy_sync','fault_sync','user_ready_sync','heartbeat_sync']],
    'note':'Only first synchronizer D pins exempt; later stages and same-domain logic remain timed.'},
  'fmax_mhz':{name:fmax(name) for name in ['sys27','memory324','user81']},
@@ -124,8 +125,19 @@ if args.scoped:
     result['vendor_input_qualification']=json.loads((root/'build/mem-bist-scoped-input/qualification.json').read_text())
     result['inputs'].append(artifact(root/'build/mem-bist-scoped-input/mem_bist.sdc'))
 if args.guarded:
-    result['guarded_input_qualification']=json.loads((root/'build/mem-bist-guarded-input/qualification.json').read_text())
+    result['guarded_input_qualification']=json.loads((root/'build/mem-native-diag-input/qualification.json').read_text())
     result['inputs'].append(artifact(active_sdc))
-dest=root/('validation/mem-bist-guarded-prehardware-2026-11-04.json' if args.guarded else 'validation/mem-bist-scoped-prehardware-2026-11-04.json' if args.scoped else 'validation/mem-bist-prehardware-2026-11-04.json')
+    paths=result['held_bundle_constraints']['diagnostic_snapshot_paths']
+    actual_bits={int(re.search(r'sys_debug_snapshot_(\d+)_s\d+/D$',p['to']).group(1)) for p in paths}
+    constant_bits=set(range(74,80))|set(range(106,112))|set(range(138,144))|set(range(170,176))
+    expected_bits=set(range(176))-constant_bits
+    assert actual_bits==expected_bits,('diagnostic CDC coverage gap',sorted(expected_bits-actual_bits),sorted(actual_bits-expected_bits))
+    assert all(p['slack_ns']>=0 for p in paths)
+    result['native_diagnostic']=True
+    result['diagnostic_CDC_coverage']={'total_bundle_bits':176,'variable_bits':sorted(actual_bits),
+        'constant_zero_bits':sorted(constant_bits),'matched_destinations':len(actual_bits),
+        'max_delay_ns':60,'minimum_capture_settle_ns':3e9/27000000+1e9/81000000,
+        'passed':True,'normal_native_handshake_policy_changed':False}
+dest=root/('validation/mem-native-diag-prehardware-2026-11-04.json' if args.guarded else 'validation/mem-bist-scoped-prehardware-2026-11-04.json' if args.scoped else 'validation/mem-bist-prehardware-2026-11-04.json')
 dest.write_text(json.dumps(result,indent=2)+'\n')
 print(dest)

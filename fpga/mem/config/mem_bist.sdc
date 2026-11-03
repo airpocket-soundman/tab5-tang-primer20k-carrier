@@ -13,6 +13,9 @@ set_false_path -hold -from [get_regs {control/held_base* control/held_count* con
 // these held bundles; same-domain paths and all vendor DDR paths stay timed.
 set_max_delay -from [get_regs {control/user_snapshot*}] -to [get_regs {control/sys_snapshot*}] 60
 set_false_path -hold -from [get_regs {control/user_snapshot*}] -to [get_regs {control/sys_snapshot*}]
+// Diagnostic bank uses the very same SNAPSHOT request/ack/settle contract.
+set_max_delay -from [get_regs {control/user_debug_snapshot*}] -to [get_regs {control/sys_debug_snapshot*}] 60
+set_false_path -hold -from [get_regs {control/user_debug_snapshot*}] -to [get_regs {control/sys_debug_snapshot*}]
 // Only the first sampling stage accepts metastability. Stage0->stage1 and
 // all subsequent logic remain timed; these seven D pins are explicit.
 set_false_path -to [get_pins {control/request_sync_0_s0/D control/ack_sync_0_s0/D control/cal_sync_0_s0/D control/busy_sync_0_s0/D control/fault_sync_0_s0/D control/user_ready_sync_0_s0/D control/heartbeat_sync_0_s0/D}]
@@ -21,4 +24,5 @@ report_timing -hold -max_paths 25
 report_timing -recovery -max_paths 256 -max_common_paths 1
 report_timing -removal -max_paths 25
 report_timing -setup -from [get_regs {control/user_snapshot*}] -to [get_regs {control/sys_snapshot*}] -max_paths 512
+report_timing -setup -from [get_regs {control/user_debug_snapshot*}] -to [get_regs {control/sys_debug_snapshot*}] -max_paths 176
 report_timing -setup -from [get_regs {control/held_base* control/held_count* control/held_seed* control/held_job*}] -to [get_regs {control/job_base* control/job_count* control/job_seed* control/job_id*}] -max_paths 128

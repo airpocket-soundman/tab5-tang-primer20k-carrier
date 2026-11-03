@@ -21,7 +21,8 @@ module mem_bist #(
     output wire [15:0] app_write_mask,
     input wire app_write_ready,
     input wire [127:0] app_read_data,
-    input wire app_read_valid,app_read_end
+    input wire app_read_valid,app_read_end,
+    output wire [175:0] debug_bundle
 );
     // phase1 fillA,2 verifyA,3 masked complementB,4 verifymerged,5 complete.
     reg [31:0] base_latched,count_latched,seed_latched,index,wait_cycles;
@@ -42,6 +43,25 @@ module mem_bist #(
     wire data_fire=app_write_en && app_write_ready;
     wire read_expected=reading && !gap && (read_pending || command_fire);
     wire progress=command_fire || data_fire || (app_read_valid && read_expected);
+    reg [25:0] debug_commands,debug_data,debug_reads;
+    reg [26:0] debug_last_address;
+    reg [15:0] debug_fault_flags;
+    reg debug_fault_valid;
+    wire [15:0] debug_live_flags={4'b0,1'b0,calibrated,reset_n,app_read_valid,gap,
+        read_pending,data_sent,command_sent,app_write_ready,app_write_en,app_cmd_ready,app_cmd_en};
+    // Native counters/index stop with busy on transaction fault. Only flags need
+    // explicit pre-clear capture; later cleanup CANCEL cannot replace them.
+    assign debug_bundle={5'b0,debug_last_address,6'b0,debug_reads,6'b0,debug_data,
+        6'b0,debug_commands,index,debug_fault_valid?debug_fault_flags:debug_live_flags};
+    always @(posedge clk or negedge reset_n)begin
+        if(!reset_n)begin debug_commands<=0;debug_data<=0;debug_reads<=0;debug_last_address<=0;end
+        else if(start&&!busy&&!faulted)begin debug_commands<=0;debug_data<=0;debug_reads<=0;debug_last_address<=0;end
+        else if(busy)begin
+            if(command_fire)begin debug_commands<=debug_commands+1'b1;debug_last_address<=app_addr;end
+            if(data_fire)debug_data<=debug_data+1'b1;
+            if(app_read_valid)debug_reads<=debug_reads+1'b1;
+        end
+    end
     wire [63:0] requested_end={32'b0,base_byte}+({32'b0,beat_count}<<4);
     wire valid_range=base_byte[3:0]==0 && beat_count!=0 && beat_count<=32'd8388608 &&
                      requested_end<=64'd134217728;
@@ -62,7 +82,10 @@ module mem_bist #(
     assign app_write_data=phase==3?~base_pattern:base_pattern;
     task fail_job;
         input [7:0] code;
-        begin busy<=0;done<=1;faulted<=1;error_code<=code;
+        begin
+              if(!debug_fault_valid)begin debug_fault_valid<=1;
+                  debug_fault_flags<={code[3:0],1'b1,debug_live_flags[10:0]};end
+              busy<=0;done<=1;faulted<=1;error_code<=code;
               command_sent<=0;data_sent<=0;read_pending<=0;gap<=0;end
     endtask
     always @(posedge clk or negedge reset_n) begin
@@ -70,12 +93,14 @@ module mem_bist #(
             busy<=0;done<=0;faulted<=0;phase<=0;error_code<=0;
             verified_beats<=0;error_beats<=0;first_bad_byte<=0;accepted_job_id<=0;
             first_expected<=0;first_actual<=0;elapsed_cycles<=0;
+            debug_fault_valid<=0;debug_fault_flags<=0;
             base_latched<=0;count_latched<=0;seed_latched<=0;index<=0;wait_cycles<=0;
             command_sent<=0;data_sent<=0;read_pending<=0;gap<=0;
         end else if(cancel) fail_job(8'd7);
         else if(start && !busy && !faulted) begin
             done<=0;phase<=0;error_code<=0;verified_beats<=0;error_beats<=0;
             first_bad_byte<=0;first_expected<=0;first_actual<=0;elapsed_cycles<=0;
+            debug_fault_valid<=0;debug_fault_flags<=0;
             accepted_job_id<=job_id;command_sent<=0;data_sent<=0;read_pending<=0;gap<=0;
             wait_cycles<=0;index<=0;
             if(!calibrated) begin done<=1;error_code<=1;end

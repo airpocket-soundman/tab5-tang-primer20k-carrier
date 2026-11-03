@@ -9,8 +9,9 @@ reg[127:0] expected=128'h0123456789abcdef1122334455667788,actual=128'h9999999988
 reg[63:0] elapsed=64'hfedcba9876543210;
 wire bs,bc;wire[31:0] base,count,seed,job;
 wire abort_user;
+reg[175:0] diagnostic=0;integer diag_i;
 mem_mailbox #(.DEADLINE(40)) dut(sys,reset,user,reset&&!abort_user&&!force_user_reset,cs,op,a,b,cd,status,result,recal,
-cal,busy,done,fault,error,phase,verified,errors,first,accepted,expected,actual,elapsed,bs,bc,base,count,seed,job,abort_user);
+cal,busy,done,fault,error,phase,verified,errors,first,accepted,expected,actual,elapsed,bs,bc,base,count,seed,job,abort_user,diagnostic);
 integer starts=0,cancels=0,checks=0,saved_starts=0;
 realtime request_time=0,snapshot_time=0;
 reg[511:0] previous_bundle=0;reg[15:0] previous_generation=0;
@@ -39,8 +40,12 @@ command(8'h51,0,0);command(8'h52,0,0);command(8'h53,1,0);command(8'h54,0,0);
 command(8'h55,0,0);command(8'h56,0,0);repeat(260)@(negedge sys);command(8'h57,0,0);
 end endtask
 initial begin
+for(diag_i=0;diag_i<11;diag_i=diag_i+1)diagnostic[diag_i*16+:16]=16'h0100+diag_i;
+diagnostic[15:0]=16'h0600;
 repeat(4)@(negedge sys);reset=1;repeat(5)@(negedge sys);
 command(8'h50,0,0);if(result!=16'h014d)$fatal(1,"cap");
+command(8'h5c,8,0);if(result!=16'h014e)$fatal(1,"diagnostic cap");
+command(8'h5c,9,5);
 command(8'h57,0,5); // Configuration completeness is mandatory.
 command(8'h51,16'h1ff0,0);command(8'h52,0,0);
 command(8'h53,33,0);command(8'h54,0,0);
@@ -52,6 +57,13 @@ busy=1;repeat(4)@(negedge sys);command(8'h51,0,5);busy=0;
 command(8'h58,0,0);if(result!=1)$fatal(1,"snapshot generation");
 // The input bundle changes immediately, while the accepted SYS bank stays fixed.
 verified=0;expected=0;elapsed=0;
+diagnostic=0;
+for(diag_i=0;diag_i<11;diag_i=diag_i+1)begin
+command(8'h5c,9+diag_i,0);
+if(result!=(diag_i==0?16'h0600:16'h0100+diag_i))$fatal(1,"torn diagnostic word%0d",diag_i);
+end
+command(8'h5c,7,0);if(result!=1)$fatal(1,"diag bank generation mismatch");
+command(8'h5c,20,3);command(8'h5c,16'h0109,3);
 command(8'h59,4,0);if(result!=16'h5678)$fatal(1,"torn verified low");
 command(8'h59,5,0);if(result!=16'h1234)$fatal(1,"torn verified high");
 command(8'h59,10,0);if(result!=16'h7788)$fatal(1,"expected endian");
@@ -64,6 +76,7 @@ command(8'h5a,0,0);if(cancels!=1)$fatal(1,"cancel crossing");
 command(8'h58,0,4);
 command(8'h5c,6,0);if((result&16'h0038)!=16'h0038)$fatal(1,"stale timeout flags");
 command(8'h59,4,0);if(result!=16'h5678)$fatal(1,"timeout corrupted old bank");
+command(8'h5c,9,0);if(result!=16'h0600)$fatal(1,"timeout corrupted old diag bank");
 command(8'h57,0,5);
 command(8'h5b,0,0);if(!recal)$fatal(1,"recal cannot depend on USER clock");
 reset=0;run_user=1;repeat(4)@(negedge sys);reset=1;repeat(4)@(negedge sys);

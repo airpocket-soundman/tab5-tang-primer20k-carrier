@@ -18,6 +18,15 @@ enum { MEM_ERROR_NONE=0,MEM_ERROR_UNCALIBRATED=1,MEM_ERROR_RANGE=2,
  MEM_ERROR_WRITE_TIMEOUT=3,MEM_ERROR_READ_TIMEOUT=4,MEM_ERROR_READ_ORDER=5,
  MEM_ERROR_MISMATCH=6,MEM_ERROR_CANCEL=7,MEM_ERROR_CALIBRATION_LOST=8,
  MEM_ERROR_TOTAL_DEADLINE=9 };
+enum { MEM_DIAG_FORMAT=0x014e,MEM_DIAG_WORDS=11,
+ MEM_QUERY_DIAG_CAPS=8,MEM_QUERY_DIAG_FLAGS=9,MEM_QUERY_DIAG_INDEX_LO=10,
+ MEM_QUERY_DIAG_COMMANDS_LO=12,MEM_QUERY_DIAG_DATA_LO=14,
+ MEM_QUERY_DIAG_READS_LO=16,MEM_QUERY_DIAG_LAST_ADDRESS_LO=18 };
+enum { MEM_DIAG_COMMAND_VALID=1,MEM_DIAG_COMMAND_READY=2,
+ MEM_DIAG_DATA_VALID=4,MEM_DIAG_DATA_READY=8,MEM_DIAG_COMMAND_SENT=16,
+ MEM_DIAG_DATA_SENT=32,MEM_DIAG_READ_PENDING=64,MEM_DIAG_GAP=128,
+ MEM_DIAG_READ_VALID=256,MEM_DIAG_RESET_RELEASED=512,
+ MEM_DIAG_CALIBRATED=1024,MEM_DIAG_FAULT_LATCHED=2048 };
 static inline uint32_t mem_words32(const uint16_t *w) {
  return (uint32_t)w[0]|((uint32_t)w[1]<<16);
 }
@@ -48,7 +57,10 @@ static inline bool mem_validate_response(const uint8_t r[8],const uint8_t q[8]) 
    case 0:return value==MEM_FORMAT;case 1:return value==2048;
    case 2:return value==0x0d0a;case 3:return value==0x0310;
    case 4:return value==324;case 5:return value==81;
-   case 6:return !(value&0xc000);case 7:return true;default:return false;
+   case 6:return !(value&0xc000);case 7:return true;
+   case 8:return value==MEM_DIAG_FORMAT;
+   case 9:case 10:case 11:case 12:case 13:case 14:case 15:case 16:case 17:case 18:case 19:return true;
+   default:return false;
   }
  default:return false;
  }
