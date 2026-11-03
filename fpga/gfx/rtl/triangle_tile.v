@@ -1,6 +1,6 @@
 // Diagnostic 32x32 color/depth tile. Exact G0 fragment unit, one pixel in flight.
 // No DDR3, no performance claim. Abort invalidates RAM until a complete clear.
-module triangle_tile(
+module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE=0)(
     input wire clk, reset_n, abort, start,
     input wire [7:0] opcode, a, b,
     output reg done,
@@ -287,7 +287,13 @@ module triangle_tile(
                                 state<=TILE_PREFETCH_WAIT;
                             end
                         end
-                        8'h30: begin result<=16'h0107; done<=1; end
+                        8'h30: begin result<=CLOCK_QUERY_ENABLE ? 16'h020f : 16'h0107; done<=1; end
+                        8'h3d: begin
+                            if(!CLOCK_QUERY_ENABLE) status<=2;
+                            else if(a!=0 || b!=0) status<=3;
+                            else result<=CORE_CLOCK_MHZ;
+                            done<=1;
+                        end
                         8'h39,8'h3a: begin
                             if(a!=0 || b!=0) status<=3;
                             else if(last_fractal_cycles==0) status<=5;

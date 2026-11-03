@@ -2,7 +2,9 @@
 // DIR=0: host writes on rising bus_clk. DIR=1: host samples then pulses.
 module link_bringup #(
     parameter TIMEOUT_CYCLES = 2700000,
-    parameter GFX_ENABLE = 0
+    parameter GFX_ENABLE = 0,
+    parameter CORE_CLOCK_MHZ = 27,
+    parameter CLOCK_QUERY_ENABLE = 0
 )(input wire sys_clk, input wire reset_n, input wire arm,
   input wire bus_clk, input wire dir, input wire [7:0] data_i,
   output reg [7:0] data_o, output wire data_oe, output wire ready);
@@ -35,7 +37,7 @@ module link_bringup #(
                             logical_tx_index-12'd8;
     generate if(GFX_ENABLE==2) begin: triangle
         wire renderer_abort = gfx_pending && idle_count >= TIMEOUT_CYCLES-1;
-        triangle_tile renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start,
+        triangle_tile #(.CORE_CLOCK_MHZ(CORE_CLOCK_MHZ),.CLOCK_QUERY_ENABLE(CLOCK_QUERY_ENABLE)) renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start,
                               logical_opcode, req[4], req[5], gfx_done, gfx_status, gfx_result,
                               row_index, row_byte);
     end else if(GFX_ENABLE) begin: gfx
@@ -129,7 +131,7 @@ module link_bringup #(
                                     end else reply[1]<=2;
                                 8'h20,8'h21,8'h22,8'h23,8'h24,8'h25,8'h26,8'h27,
                                 8'h28,8'h29,8'h2a,8'h2b,8'h2c,8'h2d,8'h2e,8'h2f,
-                                8'h30,8'h31,8'h32,8'h33,8'h34,8'h35,8'h36,8'h37,8'h38,8'h39,8'h3a,8'h3b,8'h3c:
+                                8'h30,8'h31,8'h32,8'h33,8'h34,8'h35,8'h36,8'h37,8'h38,8'h39,8'h3a,8'h3b,8'h3c,8'h3d:
                                     if(GFX_ENABLE==2) begin
                                         valid<=0; gfx_pending<=1; gfx_start<=1;
                                     end else reply[1]<=2;
