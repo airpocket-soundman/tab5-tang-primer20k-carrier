@@ -13,7 +13,7 @@ wire[127:0] expected,actual,wd;wire[63:0] cycles;wire[2:0] cmd;wire ce,we,wend;w
 reg stall=1,rv=0;reg[127:0] memory=0,rd=0;reg pending=0;integer delay_read=0,i,checks=0;
 integer native_commands=0,native_data=0,saved_commands=0,saved_data=0;
 mem_mailbox #(.DEADLINE(200)) control(sys,reset,user,user_reset,cs,op,a,b,cd,status,result,recal,
-1'b1,busy,done,fault,error,phase,verified,errors,first,accepted,expected,actual,cycles,bs,bc,base,count,seed,job,abort_user,native_debug);
+1'b1,busy,done,fault,error,phase,verified,errors,first,accepted,expected,actual,cycles,bs,bc,base,count,seed,job,abort_user,native_debug,256'b0);
 mem_bist engine(user,user_reset,1'b1,bs,bc,base,count,seed,job,busy,done,fault,error,phase,
 verified,errors,first,accepted,expected,actual,cycles,cmd,ce,addr,!stall,wd,we,wend,mask,!stall,rd,rv,1'b1,native_debug);
 always @(posedge user)begin

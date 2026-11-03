@@ -32,17 +32,19 @@ wire bist_start,bist_cancel,busy,done,faulted;
 wire[31:0] base,count,seed,job,verified,errors,first,accepted;
 wire[7:0] error;wire[2:0] phase;wire[127:0] expected,actual;wire[63:0] cycles;
 wire[175:0] native_debug;
+wire[63:0] deep_taps;wire[255:0] deep_debug;
+mem_deep_monitor observer(user_clk,user_reset_n,bist_start,busy,native_debug,deep_taps,deep_debug);
 // SYS observations remain available even if PLL/user clock disappears.
 mem_mailbox control(sys_clk,raw_reset_n&&mailbox_epoch==0,user_clk,user_reset_n,
 command_start,op,a,b,command_done,status,result,recalibrate,
 calibrated,busy,done,faulted,error,phase,verified,errors,first,accepted,expected,actual,cycles,
-bist_start,bist_cancel,base,count,seed,job,user_abort,native_debug);
+bist_start,bist_cancel,base,count,seed,job,user_abort,native_debug,deep_debug);
 wire[2:0] cmd;wire cmd_en,cmd_ready,wr_en,wr_end,wr_ready,rd_valid,rd_end;
 wire[26:0] address;wire[127:0] wr_data,rd_data;wire[15:0] mask;
 mem_bist engine(user_clk,user_reset_n,calibrated,bist_start,bist_cancel,base,count,seed,job,
 busy,done,faulted,error,phase,verified,errors,first,accepted,expected,actual,cycles,
 cmd,cmd_en,address,cmd_ready,wr_data,wr_en,wr_end,mask,wr_ready,rd_data,rd_valid,rd_end,native_debug);
-MemDDR3 controller(.clk(sys_clk),.memory_clk(memory_clk),.pll_lock(pll_lock),.rst_n(controller_reset_n),
+MemDDR3 controller(.deep_taps(deep_taps),.clk(sys_clk),.memory_clk(memory_clk),.pll_lock(pll_lock),.rst_n(controller_reset_n),
 .cmd(cmd),.cmd_en(cmd_en),.addr(address),.cmd_ready(cmd_ready),
 .wr_data(wr_data),.wr_data_en(wr_en),.wr_data_end(wr_end),.wr_data_mask(mask),.wr_data_rdy(wr_ready),
 .rd_data(rd_data),.rd_data_valid(rd_valid),.rd_data_end(rd_end),.sr_req(1'b0),.ref_req(1'b0),.burst(1'b1),

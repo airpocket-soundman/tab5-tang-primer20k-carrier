@@ -8,14 +8,14 @@ if {[info exists env(MEM_BIST_SCOPED)] && $env(MEM_BIST_SCOPED) eq "1"} {
  set timing_file [file join $fpga_root build mem-bist-scoped-input mem_bist.sdc]
 }
 if {[info exists env(MEM_BIST_GUARDED)] && $env(MEM_BIST_GUARDED) eq "1"} {
- set output [file join $fpga_root build mem-native-diag]
- set timing_file [file join $fpga_root build mem-native-diag-input mem_bist.sdc]
+ set output [file join $fpga_root build mem-deep-diag]
+ set timing_file [file join $fpga_root build mem-deep-diag-input mem_bist.sdc]
 }
 create_project -name mem_bist -dir $output -pn GW2A-LV18PG256C8/I7 -device_version C -force
-foreach name {mem_pll mem_bist mem_mailbox mem_link mem_top} {
+foreach name {mem_deep_monitor mem_pll mem_bist mem_mailbox mem_link mem_top} {
  add_file [file join $fpga_root mem rtl ${name}.v]
 }
-add_file [file join $fpga_root build mem-bist-ip generated MemDDR3 MemDDR3.vo]
+add_file [file join $fpga_root build mem-deep-input MemDDR3_tapped.vo]
 add_file [file join $fpga_root mem config mem_bist.cst]
 add_file $timing_file
 set_option -top_module mem_top
