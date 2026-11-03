@@ -42,6 +42,8 @@ always @(negedge clk) begin
 end
 always @(posedge clk) if(rst) begin
  if(ce&&cr)begin
+ if(cmd==0&&base==32'h3ff0&&writes==0&&addr!=27'h38003f8)$fatal(1,"row-boundary first native address");
+ if(cmd==0&&base==32'h3ff0&&writes==1&&addr!=27'h400)$fatal(1,"row-boundary next native address");
  if(cmd==0)begin if(pending_cmd)$fatal(1,"duplicate write command");pending_cmd=1;saved_addr=addr;end
  else begin if(pending_read)$fatal(1,"multiple outstanding reads");saved_addr=addr;pending_read=1;delay_read=4;end
  end
@@ -69,6 +71,7 @@ initial begin
  // Nonzero region crossing column/bank boundary verifies native remapping.
  reset;base=32'h1ff0;count=33;job=2;launch;finish;
  if(fault||error||verified!=66||writes!=66)$fatal(1,"boundary result");
+ reset;base=32'h3ff0;launch;finish;if(fault||error||verified!=66)$fatal(1,"row transition result");
  reset;count=17;corrupt=1;launch;finish;
  if(fault||error!=6||errors!=2||first!=base+48||expected==actual)$fatal(1,"first mismatch accounting");corrupt=0;
  reset;base=1;launch;finish;if(error!=2||busy||writes)$fatal(1,"alignment");

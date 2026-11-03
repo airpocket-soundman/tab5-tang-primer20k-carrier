@@ -1,10 +1,15 @@
 # Generate IP with generate_ip.tcl first. Never programs any device.
 set fpga_root [file normalize [file join [file dirname [info script]] ../..]]
-set output [file join $fpga_root build mem-bist-official]
+# Guarded sources must never overwrite preserved5c481b7 unwaived/scoped20 outputs.
+set output [file join $fpga_root build mem-bist-guarded-unwaived]
 set timing_file [file join $fpga_root mem config mem_bist.sdc]
 if {[info exists env(MEM_BIST_SCOPED)] && $env(MEM_BIST_SCOPED) eq "1"} {
- set output [file join $fpga_root build mem-bist-scoped]
+ set output [file join $fpga_root build mem-bist-guarded-scoped20]
  set timing_file [file join $fpga_root build mem-bist-scoped-input mem_bist.sdc]
+}
+if {[info exists env(MEM_BIST_GUARDED)] && $env(MEM_BIST_GUARDED) eq "1"} {
+ set output [file join $fpga_root build mem-bist-guarded]
+ set timing_file [file join $fpga_root build mem-bist-guarded-input mem_bist.sdc]
 }
 create_project -name mem_bist -dir $output -pn GW2A-LV18PG256C8/I7 -device_version C -force
 foreach name {mem_pll mem_bist mem_mailbox mem_link mem_top} {
