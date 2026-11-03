@@ -14,7 +14,7 @@ report_timing -setup -from [get_regs {core/clock_conditioner/*}] -to [get_regs {
 report_timing -hold -from [get_regs {core/clock_conditioner/*}] -to [get_regs {core/clock_conditioner/*}] -max_paths 100
 
 # Qualified bundled-data CDC FIRST STAGE ONLY; see Metadata_CDC qualification.
-# Source SHA256 {"link\\rtl\\link_bringup_filtered.v": "3816588dc56d85a9cf568ede39e035f0da9490afbf1e3d2e260c0d116cd39ed2", "link\\rtl\\link_reply_raw.v": "c1df039c17f5ca8b6708f2455c1d52c1727feb8dfaac2fe401d5ab2f660094a8"}
+# Source SHA256 {"link\\rtl\\link_bringup_filtered.v": "47b020e831f797bb572cf6886d374a38b2f2f1be768789a4b03a618a8c920aeb", "link\\rtl\\link_reply_raw.v": "c1df039c17f5ca8b6708f2455c1d52c1727feb8dfaac2fe401d5ab2f660094a8"}
 # EXACT_EXCEPTION_COUNT 30; do not wildcard or exempt metadata_bus.
 set_false_path -from [get_pins {core/fast_metadata_10_s0/Q}] -to [get_pins {core/fast_serializer.serializer/metadata_meta_10_s0/D}]
 set_false_path -from [get_pins {core/fast_metadata_16_s0/Q}] -to [get_pins {core/fast_serializer.serializer/metadata_meta_16_s0/D}]

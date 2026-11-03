@@ -62,7 +62,11 @@ module link_bringup_filtered #(
     wire use_raw=FAST_REPLY_ENABLE && prefixed;
     wire raw_valid=fast_offer && !raw_done && (!raw_started || dir);
     generate if(FAST_REPLY_ENABLE) begin: fast_serializer
-        link_reply_raw serializer(clean_reply_clk,reset_n,arm,dir,fast_offer,fast_metadata,
+        // Physical hold repair on this one serializer input only. The original
+        // fast_offer still owns immediate OE/READY kill and SYS lifecycle.
+        (* keep = "true" *) wire serializer_offer;
+        (* keep = "true" *) LUT1 #(.INIT(2'h2)) offer_hold_buffer(.F(serializer_offer),.I0(fast_offer));
+        link_reply_raw serializer(clean_reply_clk,reset_n,arm,dir,serializer_offer,fast_metadata,
             row_byte,raw_ram_color,raw_ram_depth,raw_data,raw_done,raw_started,raw_error,raw_progress,
             raw_row_index,raw_ram_address,raw_ram_enable);
     end else begin: no_fast_serializer
