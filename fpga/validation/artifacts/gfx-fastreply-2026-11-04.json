@@ -1,0 +1,128 @@
+{
+  "source_commit": "9c314f3d70df4847e809c6895968f30ae84e9286",
+  "manifest": {
+    "variant": "triangle54fast",
+    "device": "GW2A-LV18PG256C8/I7",
+    "family": "GW2A-18",
+    "target_mhz": 54,
+    "input_clock_mhz": 27,
+    "clock_constraints": {
+      "sys_clk_mhz": 27,
+      "core_clk_mhz": 54,
+      "external_bus_target_mhz": 40,
+      "format": "explicit nextpnr SDC create_clock"
+    },
+    "hardware_access": "none",
+    "status": "passed",
+    "run_dir": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\build\\dock-oss-triangle54fast-bram\\runs\\20261103T150044Z-13773e4a3717",
+    "sources": {
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\link\\rtl\\link_bringup.v": "bd4300573a640eb32e51e4cc7ac96ac23e3886b35ec6b4d7f17481b3e82c3c2f",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\gfx\\rtl\\gfx_bench.v": "841a4f50baa9e3200bbda1cd61bc9511db36909f76e854a9b66b331ebda2c392",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\platform\\dock\\tab5_dock_top.v": "f9692d8a91d248bca03789d76fbb6fe23bdbfd9a015788156ca00721be7c828f",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\platform\\dock\\tab5_dock_gfx_top.v": "9e2124a302b0931c6bd867aeda59e47c08cc65140bbac8713c809d8dd1dc7440",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\platform\\dock\\tab5_dock_triangle_top.v": "6e82c84346a9805b275e2898e50e6e99b3c81cb738876cae5bac7396f7a879a1",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\gfx\\rtl\\triangle_tile.v": "ae62ed73d99ab5410dbb2bfa2ee7972f7344f4fa6fa5f1a3472bb22e59be2d67",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\gfx\\rtl\\triangle_fragment.v": "164a23321804c2109fdc963de7e18f1ad13270671e73feadef46a621d9077c4e",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\gfx\\rtl\\triangle_coverage.v": "86ee0bb128500b535e5623c92a25dc8faabfc95106757a435ecb840b72bd38f3",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\gfx\\rtl\\triangle_depth.v": "de970c1412f827a1bac67d840b7f0345128ad669a67cd3d3e66029c2b5ffe06f",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\platform\\dock\\dock_pll54.v": "a39b06768797c12ac8e72a58e1ff1bbfbf01a24c079309982cd8c89a9adc7879",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\platform\\dock\\tab5_dock_triangle54_top.v": "f0b851c628359bc369008a77ccbab687c2982fe621a1d0c062a323a26a8c6a0a",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\link\\rtl\\link_reply_raw.v": "c1df039c17f5ca8b6708f2455c1d52c1727feb8dfaac2fe401d5ab2f660094a8",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\platform\\dock\\tab5_dock_triangle54_fast_top.v": "f1de64ea4762a3b762bf6b211b45be2b363d8958ea65cd6b6b12cbea8fac058a",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\constraints\\dock\\tab5_dock_link_v0.cst": "ebc2cc10587f201c489b14703ac7843a24476481103e6566ff1aec02f6036c61",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\builds\\dock\\build_oss.py": "31d9d725d172d797003d86bb62d0ae4992f8cdf72d37bf676a9d2695a5046d5f",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\constraints\\dock\\triangle54fast.sdc": "2e595421773869f8d7456eecec9a79b386e485450aea8c29c995cd7cde498160",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\constraints\\dock\\triangle54fast_reference.sdc": "96f9b32e8137a1e6b7aab9fac4e0b7f665031c153de2b6005ca1a15aad39d705"
+    },
+    "tools": {
+      "yosys": {
+        "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+        "sha256": "ab48126088d64e9a9de48acf5060b25b4e5d71618eef46a134e388fff8780046",
+        "version": "Yosys 0.70 (git sha1 28ba3cb92, Release, Clang /workspace/YoWASP/yosys/wasi-sdk-33.0-x86_64-linux/share/cmake/../..//bin/clang++ 22.1.0)",
+        "version_exit_code": 0
+      },
+      "nextpnr": {
+        "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-nextpnr-himbaechel-gowin.exe",
+        "sha256": "94cc73465631a8e9027d0f7fe4a747fde0a7e60b5d3b990433ab0201204e0fa3",
+        "version": "\"yowasp-nextpnr-himbaechel-gowin\" -- Next Generation Place and Route (Version nextpnr-0.11.1)",
+        "version_exit_code": 0
+      },
+      "pack": {
+        "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\gowin_pack.exe",
+        "sha256": "52831e9dde9c181af21e420bfa216822614ea97ff0352e3c29ce37846b5bf724",
+        "version": "usage: gowin_pack [-h] [-d DEVICE] [-o OUTPUT] [-c] [-s CST] [--jtag_as_gpio]\n                  [--sspi_as_gpio] [--mspi_as_gpio] [--ready_as_gpio]\n                  [--done_as_gpio] [--reconfign_as_gpio] [--cpu_as_gpio]\n                  [--i2c_as_gpio]\n                  netlist\ngowin_pack: error: the following arguments are required: netlist",
+        "version_exit_code": 2
+      }
+    },
+    "stages": {
+      "synthesis": {
+        "status": "passed",
+        "command": [
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-yosys.exe",
+          "-p",
+          "read_verilog \"D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/link/rtl/link_bringup.v\" \"D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/gfx/rtl/gfx_bench.v\" \"D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/platform/dock/tab5_dock_top.v\" \"D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/platform/dock/tab5_dock_gfx_top.v\" \"D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/platform/dock/tab5_dock_triangle_top.v\" \"D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/gfx/rtl/triangle_tile.v\" \"D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/gfx/rtl/triangle_fragment.v\" \"D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/gfx/rtl/triangle_coverage.v\" \"D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/gfx/rtl/triangle_depth.v\" \"D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/platform/dock/dock_pll54.v\" \"D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/platform/dock/tab5_dock_triangle54_top.v\" \"D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/link/rtl/link_reply_raw.v\" \"D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/platform/dock/tab5_dock_triangle54_fast_top.v\"; synth_gowin -family gw2a -top tab5_dock_triangle54_fast_top -json \"D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/build/dock-oss-triangle54fast-bram/runs/20261103T150044Z-13773e4a3717/synth.json\""
+        ],
+        "log": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\build\\dock-oss-triangle54fast-bram\\runs\\20261103T150044Z-13773e4a3717\\synthesis.log",
+        "exit_code": 0
+      },
+      "pnr": {
+        "status": "passed",
+        "command": [
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\yowasp-nextpnr-himbaechel-gowin.exe",
+          "--json",
+          "D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/build/dock-oss-triangle54fast-bram/runs/20261103T150044Z-13773e4a3717/synth.json",
+          "--write",
+          "D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/build/dock-oss-triangle54fast-bram/runs/20261103T150044Z-13773e4a3717/output.pnr.json",
+          "--device",
+          "GW2A-LV18PG256C8/I7",
+          "--vopt",
+          "family=GW2A-18",
+          "--vopt",
+          "cst=D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/constraints/dock/tab5_dock_link_v0.cst",
+          "--freq",
+          "54",
+          "--sdc",
+          "D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-fastreply/fpga/constraints/dock/triangle54fast.sdc"
+        ],
+        "log": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\build\\dock-oss-triangle54fast-bram\\runs\\20261103T150044Z-13773e4a3717\\pnr.log",
+        "exit_code": 0
+      },
+      "pack": {
+        "status": "passed",
+        "command": [
+          "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Scripts\\gowin_pack.exe",
+          "-d",
+          "GW2A-18",
+          "--sspi_as_gpio",
+          "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\build\\dock-oss-triangle54fast-bram\\runs\\20261103T150044Z-13773e4a3717\\output.pnr.json",
+          "-o",
+          "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\build\\dock-oss-triangle54fast-bram\\runs\\20261103T150044Z-13773e4a3717\\output.fs"
+        ],
+        "log": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\build\\dock-oss-triangle54fast-bram\\runs\\20261103T150044Z-13773e4a3717\\pack.log",
+        "exit_code": 0
+      }
+    },
+    "artifacts": {
+      "synthesis": {
+        "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\build\\dock-oss-triangle54fast-bram\\runs\\20261103T150044Z-13773e4a3717\\synth.json",
+        "sha256": "176c26c3119d3ceb7ce3955c6dcf52c3bee8437ecae0a06feae601f118954e82"
+      },
+      "pnr": {
+        "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\build\\dock-oss-triangle54fast-bram\\runs\\20261103T150044Z-13773e4a3717\\output.pnr.json",
+        "sha256": "fb309d66995683862fafdeb1c17999c842925216b578c66075131628ee9e163d"
+      },
+      "pack": {
+        "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-fastreply\\fpga\\build\\dock-oss-triangle54fast-bram\\runs\\20261103T150044Z-13773e4a3717\\output.fs",
+        "sha256": "5b93ac88ffd9d45ad959e19da50e8af433dd8ca3fbc8ccb8f4e80ff1a1c391cb"
+      }
+    }
+  },
+  "image_scope": "Experimental 54MHz GFX, raw-clock tagged replies; actual runtime evidence in host repository. Build success is not electrical timing signoff.",
+  "resource": {
+    "LUT4": 5343,
+    "DFF": 2141,
+    "BSRAM": 2,
+    "RAM16SDP4": 0,
+    "MULT18X18": 21
+  }
+}
