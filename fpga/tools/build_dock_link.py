@@ -19,7 +19,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     env = dict(os.environ)
     env['PATH'] = str(suite/'bin') + os.pathsep + str(suite/'lib') + os.pathsep + env['PATH']
-    sources = ['fpga/platform/dock_link_top.v', 'fpga/link/rtl/link_bringup.v']
+    sources = ['fpga/platform/dock_link_top.v', 'fpga/link/rtl/triangle_batch.v','fpga/link/rtl/link_bringup.v']
     cst = 'fpga/constraints/dock/tab5_dock_link_v0.cst'
     def run(name, cmd):
         cmd[0] = shutil.which(cmd[0], path=env['PATH']) or cmd[0]

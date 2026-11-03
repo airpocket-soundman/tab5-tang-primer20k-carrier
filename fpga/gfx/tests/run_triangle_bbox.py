@@ -53,7 +53,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='triangle-bbox-') as td:
         td=Path(td);vf=td/'vectors.txt';exe=td/'test.vvp'
         vf.write_text(''.join(f'{len(r)} {cap} '+' '.join(f'{b:02x}' for b in q+r)+'\n' for q,r,cap in vectors),encoding='ascii')
-        sources=['link/rtl/link_bringup.v','gfx/rtl/gfx_bench.v','gfx/rtl/triangle_tile.v','gfx/rtl/triangle_fragment.v',
+        sources=['link/rtl/triangle_batch.v','link/rtl/link_bringup.v','gfx/rtl/gfx_bench.v','gfx/rtl/triangle_tile.v','gfx/rtl/triangle_fragment.v',
                  'gfx/rtl/triangle_coverage.v','gfx/rtl/triangle_depth.v','platform/dock/tab5_dock_top.v','gfx/tests/tb_triangle_bbox.v']
         subprocess.run([args.iverilog,'-g2012','-Wall','-s','tb_triangle_bbox','-o',str(exe),*[str(ROOT/s) for s in sources]],check=True)
         subprocess.run([args.vvp,str(exe),'+vectors='+str(vf)],check=True,timeout=180)

@@ -42,7 +42,7 @@ with tempfile.TemporaryDirectory(prefix='dock-gfx-') as d:
     vector_file.write_text(''.join(' '.join(f'{b:02x}' for b in req+reply)+'\n' for req, reply in vectors), encoding='ascii')
     exe = d/'bench.vvp'
     subprocess.run([a.iverilog, '-g2012', '-Wall', '-s', 'tb_bench_dock', '-o', str(exe),
-                    str(ROOT/'link/rtl/link_bringup.v'), str(ROOT/'gfx/rtl/gfx_bench.v'),
+                    str(ROOT/'link/rtl/triangle_batch.v'),str(ROOT/'link/rtl/link_bringup.v'), str(ROOT/'gfx/rtl/gfx_bench.v'),
                     str(ROOT/'platform/dock/tab5_dock_top.v'), str(ROOT/'gfx/tests/tb_bench_dock.v')], check=True)
     subprocess.run([a.vvp, str(exe), '+vectors='+str(vector_file)], check=True)
 print(f'PASS dock GFX: {len(vectors)} oracle transactions, 1024 image pixels; no hardware access')

@@ -57,7 +57,7 @@ def main():
         td=Path(td); vf=td/'vectors.txt';exe=td/'test.vvp';palette_file=td/'palette.hex'
         palette_file.write_text(''.join(f'{v:04x}\n' for v in VIVID_PALETTE),encoding='ascii')
         vf.write_text(''.join(str(len(r))+' '+' '.join(f'{b:02x}' for b in bytes(q)+r)+'\n' for q,r in vectors),encoding='ascii')
-        sources=['link/rtl/link_bringup.v','gfx/rtl/gfx_bench.v','gfx/rtl/triangle_tile.v','gfx/rtl/triangle_fragment.v',
+        sources=['link/rtl/triangle_batch.v','link/rtl/link_bringup.v','gfx/rtl/gfx_bench.v','gfx/rtl/triangle_tile.v','gfx/rtl/triangle_fragment.v',
                  'gfx/rtl/triangle_coverage.v','gfx/rtl/triangle_depth.v',
                  'platform/dock/tab5_dock_top.v','gfx/tests/tb_fractal_tile.v']
         paths=[str(ROOT/s)for s in sources]

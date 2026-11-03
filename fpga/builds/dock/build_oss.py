@@ -10,7 +10,7 @@ import sys
 import uuid
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCES = [ROOT / p for p in ('link/rtl/link_bringup.v', 'gfx/rtl/gfx_bench.v',
+SOURCES = [ROOT / p for p in ('link/rtl/triangle_batch.v','link/rtl/link_bringup.v', 'gfx/rtl/gfx_bench.v',
            'platform/dock/tab5_dock_top.v', 'platform/dock/tab5_dock_gfx_top.v',
            'platform/dock/tab5_dock_triangle_top.v', 'gfx/rtl/triangle_tile.v',
            'gfx/rtl/triangle_fragment.v', 'gfx/rtl/triangle_coverage.v', 'gfx/rtl/triangle_depth.v',

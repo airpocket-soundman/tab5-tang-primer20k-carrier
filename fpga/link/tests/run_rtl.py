@@ -11,5 +11,5 @@ if not shutil.which(a.iverilog) or not shutil.which(a.vvp):
 with tempfile.TemporaryDirectory(prefix='link-bringup-') as d:
     for name in ('tb_link_bringup', 'tb_link_vectors'):
         exe=Path(d)/(name+'.vvp')
-        subprocess.run([a.iverilog,'-g2012','-Wall','-s',name,'-o',str(exe),str(root/'link/rtl/link_bringup.v'),str(root/f'link/tests/{name}.v')],check=True,cwd=root)
+        subprocess.run([a.iverilog,'-g2012','-Wall','-s',name,'-o',str(exe),str(root/'link/rtl/triangle_batch.v'),str(root/'link/rtl/link_bringup.v'),str(root/f'link/tests/{name}.v')],check=True,cwd=root)
         subprocess.run([a.vvp,str(exe)],check=True,cwd=root)

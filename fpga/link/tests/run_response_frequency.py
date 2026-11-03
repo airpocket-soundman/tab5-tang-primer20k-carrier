@@ -16,7 +16,7 @@ def main():
     args=p.parse_args()
     if not shutil.which(args.iverilog) or not shutil.which(args.vvp):p.error('existing Icarus/vvp required')
     cases=[]
-    sources=['link/rtl/link_bringup.v','gfx/rtl/gfx_bench.v','gfx/rtl/triangle_tile.v','gfx/rtl/triangle_fragment.v',
+    sources=['link/rtl/triangle_batch.v','link/rtl/link_bringup.v','gfx/rtl/gfx_bench.v','gfx/rtl/triangle_tile.v','gfx/rtl/triangle_fragment.v',
              'gfx/rtl/triangle_coverage.v','gfx/rtl/triangle_depth.v','link/tests/tb_response_frequency.v']
     with tempfile.TemporaryDirectory(prefix='response-frequency-') as td:
         for delay in (0,5,10):
