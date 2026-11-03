@@ -71,7 +71,7 @@ IPUG281-2.6E の 4.4.6（Figure 4-10）は、書込みデータをコマンド�
 
 ### 段階0: 準備（実機に触れない）
 1. `fpga/validation/mem-paired-write-2026-11-04/mem_bist.fs.gz` を展開し、SHA256が `be42c604…` と一致することを確認する。
-2. 古いdeep系ホスト（`ec93b6e`、capability 014f）は024fを**拒否する**。ホストのmain（`6ad1ed6`以降、スケジューラ診断を含む）から `tab5-fpga-gpu/tools/build_mem_probe.ps1` で、新しいビルド名のMEM probeファームを作る（ABIは変更なし）。ホストmain `6ad1ed6` から `build_mem_probe.ps1 -BuildName mem-probe-trackd-6ad1ed6` でオフラインのビルドは成功した（`tab5_gpu_lab.bin` SHA256 `7d417e35…`、ELF SHA256 `f7c84fe7…`、場所 `D:\GitHub	ab5-fpga-gpuuild\mem-probe-trackd-6ad1ed6`）。書込み・実機確認は未実施で、`--expected-elf-sha` にはELFのSHA256を指定する。
+2. 古いdeep系ホスト（`ec93b6e`、capability 014f）は024fを**拒否する**。ホストのmain（`6ad1ed6`以降、スケジューラ診断を含む）から `tab5-fpga-gpu/tools/build_mem_probe.ps1` で、新しいビルド名のMEM probeファームを作る（ABIは変更なし）。ホストmain `6ad1ed6` から `build_mem_probe.ps1 -BuildName mem-probe-trackd-6ad1ed6` でオフラインのビルドは成功した（`tab5_gpu_lab.bin` SHA256 `7d417e35…`、ELF SHA256 `f7c84fe7…`、場所 `D:/GitHub/tab5-fpga-gpu/build/mem-probe-trackd-6ad1ed6`）。書込み・実機確認は未実施で、`--expected-elf-sha` にはELFのSHA256を指定する。
 
 ### 段階1: 読取り専用の観測（最優先）
 - SRAMのみに書込み（SPI flashには書かない）。書込み後にUserCode `0x0000B317` を確認する。
