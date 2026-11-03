@@ -97,7 +97,7 @@ coverageの乗算を、signed16座標の差分signed17・積signed34・差signed
 
 | 対象 | 確認HEAD | 今回の適合性と反映 |
 |---|---|---|
-| ESP-IDF `tab5-fpga-gpu` | `c7f3a8534fed1b38e8e1fdb8d532d73daf7dbff0` | CPU整数ラスタと既存GPIO診断を基に、三角形の設定・実行・全画素照合・LCD表示を追加中。変更は未コミットのため最終反映版は検証時に記録する。 |
+| ESP-IDF `tab5-fpga-gpu` | `c7f3a8534fed1b38e8e1fdb8d532d73daf7dbff0` | CPU整数ラスタと既存GPIO診断を基に、三角形の設定・実行・全画素照合・LCD表示を追加中。最終反映版は`f8e978f3127e15200942305dc6b5f2aa8bc4f937`。キャリアcodec`5071406`を参照し、実機で行単位転送を検証済み。 |
 | MeOS `tab5-meos-fpga` | `26c8082961b1152901475fb56bbb2e8be192a4da` | 既存LINK実通信は成功。三角形診断のホスト操作は未対応。同じv0転送を利用できるが、新命令の数値照合・CLI追加が別途必要。 |
 | Linux `tab5-linux-fpga` | `c8d4b5689735ae9fc5c1401a9699c49ab2343a04` | mockのみ。三角形ABIはOS非依存だが、物理backendと三角形操作は未実装。 |
 | 外部メモリ研究 `esp32p4-linux-fpga-memory` | `e84b59e8bf462ab1e2023f9e28f7915c152cbbdb` | 研究計画を照合。今回は内部RAMの診断であり、DDR3の明示アクセス要求やLinux透過RAM増設を実装するものではない。 |
