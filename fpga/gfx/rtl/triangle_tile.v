@@ -12,12 +12,16 @@ module triangle_tile(
     localparam IDLE=0, CLEAR=1, READ_WAIT=2, READ_DONE=3,
                SCAN_WAIT=4, SUBMIT=5, WAIT_RESULT=6, COMPLETE=7,
                ROW_WAIT=8, ROW_CAPTURE=9,
-               FRACTAL_BEGIN=10, FRACTAL_MULT=11, FRACTAL_STEP=12, FRACTAL_WRITE=13;
+               FRACTAL_BEGIN=10, FRACTAL_MULT=11, FRACTAL_STEP=12, FRACTAL_WRITE=13, TILE_PREFETCH_WAIT=14, TILE_PREFETCH_CAPTURE=15;
     reg [3:0] state;
     reg initialized, read_depth;
     reg tile_stream;
+    reg [15:0] tile_words[0:1];
+    reg [9:0] prefetch_address,stream_word_seen;
+    reg prefetch_slot;
+    reg [1:0] prefetch_pending;
     reg [9:0] address;
-    wire [9:0] ram_read_address=tile_stream ? row_index[10:1] : address;
+    wire [9:0] ram_read_address=tile_stream ? prefetch_address : address;
     reg [9:0] configured;
     reg [15:0] params[0:9];
     reg [4:0] scan_x0, scan_x1, scan_y1;
@@ -199,7 +203,8 @@ module triangle_tile(
     wire [15:0] fractal_color = iterations==fractal_params[6][7:0] ? 16'h0042 : fractal_palette(iterations);
     // Snapshot data is immutable while the link sends the response. It is not
     // exposed until all 32 synchronous RAM reads have completed.
-    wire [15:0] stream_word=read_depth ? depth_q : color_q;
+    wire [15:0] ram_stream_word=read_depth ? depth_q : color_q;
+    wire [15:0] stream_word=tile_words[row_index[1]];
     assign row_byte = tile_stream ? (row_index[0] ? stream_word[15:8] : stream_word[7:0]) :
                      (row_index[0] ? row_cache[row_index[5:1]][15:8] : row_cache[row_index[5:1]][7:0]);
     wire fragment_ready, fragment_valid, fragment_write;
@@ -232,20 +237,34 @@ module triangle_tile(
     end
     always @(posedge clk or negedge reset_n) begin
         if(!reset_n) begin
-            state<=IDLE; initialized<=0; tile_stream<=0; configured<=0; fractal_configured<=0; address<=0;
+            state<=IDLE; initialized<=0; tile_stream<=0; prefetch_pending<=0; prefetch_address<=0; stream_word_seen<=0; prefetch_slot<=0; configured<=0; fractal_configured<=0; address<=0;
             done<=0; status<=0; result<=0; written<=0; read_depth<=0; clear_color<=0;
             fractal_cycles<=0; last_fractal_cycles<=0;
         end else if(abort) begin
-            state<=IDLE; initialized<=0; tile_stream<=0; configured<=0; fractal_configured<=0; address<=0;
+            state<=IDLE; initialized<=0; tile_stream<=0; prefetch_pending<=0; prefetch_address<=0; stream_word_seen<=0; prefetch_slot<=0; configured<=0; fractal_configured<=0; address<=0;
             done<=0; status<=0; result<=0; written<=0;
             fractal_cycles<=0; last_fractal_cycles<=0;
         end else begin
             done<=0;
+            // Cache the next word before its byte index is presented. The
+            // consumed parity slot can be refilled during two byte periods.
+            if(tile_stream && state==IDLE) begin
+                if(prefetch_pending==1) begin
+                    tile_words[prefetch_slot]<=ram_stream_word;
+                    prefetch_pending<=0;
+                end else if(prefetch_pending!=0) prefetch_pending<=prefetch_pending-1'b1;
+                if(row_index[10:1]!=stream_word_seen) begin
+                    stream_word_seen<=row_index[10:1];
+                    prefetch_address<=row_index[10:1]+1'b1;
+                    prefetch_slot<=~row_index[1];
+                    prefetch_pending<=2;
+                end
+            end
             if(state==FRACTAL_BEGIN || state==FRACTAL_MULT || state==FRACTAL_WRITE)
                 fractal_cycles<=fractal_cycles+1'b1;
             case(state)
                 IDLE: if(start) begin
-                    status<=0; result<=0; tile_stream<=0;
+                    status<=0; result<=0; tile_stream<=0; prefetch_pending<=0;
                     if(opcode>=8'h21 && opcode<=8'h2a) begin
                         params[opcode-8'h21]<={b,a};
                         configured[opcode-8'h21]<=1; result<={b,a}; done<=1;
@@ -262,7 +281,11 @@ module triangle_tile(
                         8'h3b: begin
                             if(a!=0 || b>1) begin status<=3; done<=1; end
                             else if(!initialized) begin status<=5; done<=1; end
-                            else begin tile_stream<=1;read_depth<=b[0];result<={b,a};done<=1;end
+                            else begin
+                                tile_stream<=1;read_depth<=b[0];result<={b,a};
+                                prefetch_address<=0;stream_word_seen<=0;prefetch_slot<=0;
+                                state<=TILE_PREFETCH_WAIT;
+                            end
                         end
                         8'h30: begin result<=16'h0107; done<=1; end
                         8'h39,8'h3a: begin
@@ -319,6 +342,13 @@ module triangle_tile(
                        else address<=address+1'b1;
                 READ_WAIT: state<=READ_DONE;
                 READ_DONE: begin result<=read_depth ? depth_q : color_q; done<=1; state<=IDLE; end
+                TILE_PREFETCH_WAIT: state<=TILE_PREFETCH_CAPTURE;
+                TILE_PREFETCH_CAPTURE: begin
+                    tile_words[prefetch_slot]<=ram_stream_word;
+                    if(!prefetch_slot) begin
+                        prefetch_address<=1;prefetch_slot<=1;state<=TILE_PREFETCH_WAIT;
+                    end else begin done<=1;state<=IDLE;end
+                end
                 ROW_WAIT: state<=ROW_CAPTURE;
                 ROW_CAPTURE: begin
                     row_cache[address[4:0]]<=read_depth ? depth_q : color_q;

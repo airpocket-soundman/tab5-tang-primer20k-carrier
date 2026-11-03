@@ -28,7 +28,11 @@ module link_bringup #(
     wire [7:0] gfx_status;
     wire [15:0] gfx_result;
     wire [7:0] row_byte;
-    wire [10:0] row_index = logical_tx_index-12'd8;
+    // Clamp preamble/CRC to valid endpoints so the tile prefetcher sees
+    // only real payload word advances, never unsigned header underflow.
+    wire [10:0] row_index = in_prefix || logical_tx_index<8 ? 11'd0 :
+                            logical_tx_index>=payload_end ? (tile_mode?11'd2047:11'd63) :
+                            logical_tx_index-12'd8;
     generate if(GFX_ENABLE==2) begin: triangle
         wire renderer_abort = gfx_pending && idle_count >= TIMEOUT_CYCLES-1;
         triangle_tile renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start,
