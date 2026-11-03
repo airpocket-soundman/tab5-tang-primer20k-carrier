@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-04",
+  "timezone": "Asia/Tokyo",
+  "branch": "claude/track-l-scenes",
+  "head_before_recovery": "9528d2eb49f38662705a0392fa6290087409eee0",
+  "status_before_recovery": [
+    "?? fpga/gfx/rtl/fire_pixel.v",
+    "?? fpga/gfx/tests/run_fire_pixel.py",
+    "?? fpga/gfx/tests/tb_fire_pixel.v",
+    "?? fpga/host/fire_g0.h",
+    "?? fpga/host/tests/test_fire_g0.py",
+    "?? fpga/reference/fire_g0.py"
+  ],
+  "artifacts": [],
+  "recovery_check": {
+    "status": "PASS (limited scope)",
+    "details": [
+      "C/Python fire reference: 2 tests PASS, including 3005 comparison inputs",
+      "RTL/Python: PASS fire_pixel vectors=370"
+    ],
+    "note": "Existing Icarus requires oss-cad-suite bin and lib on process PATH. Timescale and oversized readmemh-range warnings observed. Scene integration, synthesis and hardware are not validated."
+  },
+  "compatibility": "Interrupted work checkpoint only. No pin/protocol specification is finalized by this recovery. Linux/MeOS compatibility is not newly verified."
+}
