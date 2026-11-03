@@ -1,0 +1,422 @@
+{
+  "source_commit": "9eb8c1b4f0c4ebc5ecc66318d798e9617cf5f6a7",
+  "hardware_access": false,
+  "base_commit": "255e5da",
+  "batch_import": "9dee0af",
+  "timing_pass": false,
+  "qualification": "offline functional passes; timing failure retained; NOT ready",
+  "limitations": [
+    "Base filter physical8MHz CRC failure remains; GPIO and1MHz passed",
+    "No measured pad timing/cable ceiling/BER claim",
+    "Structural STA does not cover external roundtrip capture aperture"
+  ],
+  "sta_counts": {
+    "Numbers of Paths Analyzed": 19414,
+    "Numbers of Endpoints Analyzed": 6191,
+    "Numbers of Setup Violated Endpoints": 0,
+    "Numbers of Hold Violated Endpoints": 30
+  },
+  "actual_clock_domains": {
+    "conditioned_reply54": {
+      "target_mhz": 54.0,
+      "fmax_mhz": 83.813
+    },
+    "core54": {
+      "target_mhz": 54.0,
+      "fmax_mhz": 64.518
+    },
+    "sampler216": {
+      "target_mhz": 216.0,
+      "fmax_mhz": 329.931
+    }
+  },
+  "min_slack_ns": {
+    "Setup Paths Table": 1.599,
+    "Hold Paths Table": -0.188,
+    "Recovery Paths Table": 2.441,
+    "Removal Paths Table": 1.139
+  },
+  "sampler_paths": [
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.599,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_1_s1/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.62,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_0_s1/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.684,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/clean_clk_s1/CE"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.785,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/clean_clk_s1/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.785,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/pulse_remaining_s0/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 2.154,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_0_s1/CE"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 2.154,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_1_s1/CE"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 2.208,
+      "source": "core/clock_conditioner/cooldown_2_s5/Q",
+      "endpoint": "core/clock_conditioner/fault_s1/CE"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 2.344,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_2_s5/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 2.406,
+      "source": "core/clock_conditioner/cooldown_2_s5/Q",
+      "endpoint": "core/clock_conditioner/fault_s1/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.599,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_1_s1/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.62,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_0_s1/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.684,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/clean_clk_s1/CE"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.785,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/pulse_remaining_s0/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.785,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/clean_clk_s1/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 2.154,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_0_s1/CE"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 2.154,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_1_s1/CE"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 2.208,
+      "source": "core/clock_conditioner/cooldown_2_s5/Q",
+      "endpoint": "core/clock_conditioner/fault_s1/CE"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 2.344,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_2_s5/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 2.406,
+      "source": "core/clock_conditioner/cooldown_2_s5/Q",
+      "endpoint": "core/clock_conditioner/fault_s1/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 3.48,
+      "source": "core/clock_conditioner/qualified_s0/Q",
+      "endpoint": "core/clock_conditioner/qualified_s0/CE"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 3.576,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/qualified_s0/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 3.624,
+      "source": "core/clock_conditioner/qualified_s0/Q",
+      "endpoint": "core/clock_conditioner/changing_s0/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 3.839,
+      "source": "core/clock_conditioner/meta_s0/Q",
+      "endpoint": "core/clock_conditioner/sampled_s0/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.425,
+      "source": "core/clock_conditioner/cooldown_1_s1/Q",
+      "endpoint": "core/clock_conditioner/cooldown_1_s1/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.427,
+      "source": "core/clock_conditioner/cooldown_2_s5/Q",
+      "endpoint": "core/clock_conditioner/cooldown_2_s5/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.485,
+      "source": "core/clock_conditioner/changing_s0/Q",
+      "endpoint": "core/clock_conditioner/changing_s0/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.539,
+      "source": "core/clock_conditioner/meta_s0/Q",
+      "endpoint": "core/clock_conditioner/sampled_s0/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.559,
+      "source": "core/clock_conditioner/cooldown_0_s1/Q",
+      "endpoint": "core/clock_conditioner/cooldown_0_s1/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.676,
+      "source": "core/clock_conditioner/changing_s0/Q",
+      "endpoint": "core/clock_conditioner/qualified_s0/CE"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.688,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/qualified_s0/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.818,
+      "source": "core/clock_conditioner/pulse_remaining_s0/Q",
+      "endpoint": "core/clock_conditioner/clean_clk_s1/CE"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.879,
+      "source": "core/clock_conditioner/cooldown_2_s5/Q",
+      "endpoint": "core/clock_conditioner/cooldown_0_s1/CE"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.879,
+      "source": "core/clock_conditioner/cooldown_2_s5/Q",
+      "endpoint": "core/clock_conditioner/cooldown_1_s1/CE"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.923,
+      "source": "core/clock_conditioner/cooldown_2_s5/Q",
+      "endpoint": "core/clock_conditioner/pulse_remaining_s0/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.923,
+      "source": "core/clock_conditioner/cooldown_2_s5/Q",
+      "endpoint": "core/clock_conditioner/clean_clk_s1/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 1.316,
+      "source": "core/clock_conditioner/changing_s0/Q",
+      "endpoint": "core/clock_conditioner/fault_s1/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 1.482,
+      "source": "core/clock_conditioner/changing_s0/Q",
+      "endpoint": "core/clock_conditioner/fault_s1/CE"
+    },
+    {
+      "analysis": "Recovery Paths Table",
+      "slack_ns": 2.441,
+      "source": "core/filter_reset_release_1_s0/Q",
+      "endpoint": "core/clock_conditioner/meta_s0/CLEAR"
+    },
+    {
+      "analysis": "Recovery Paths Table",
+      "slack_ns": 2.441,
+      "source": "core/filter_reset_release_1_s0/Q",
+      "endpoint": "core/clock_conditioner/changing_s0/CLEAR"
+    },
+    {
+      "analysis": "Recovery Paths Table",
+      "slack_ns": 2.441,
+      "source": "core/filter_reset_release_1_s0/Q",
+      "endpoint": "core/clock_conditioner/qualified_s0/CLEAR"
+    },
+    {
+      "analysis": "Recovery Paths Table",
+      "slack_ns": 2.441,
+      "source": "core/filter_reset_release_1_s0/Q",
+      "endpoint": "core/clock_conditioner/sampled_s0/CLEAR"
+    },
+    {
+      "analysis": "Recovery Paths Table",
+      "slack_ns": 2.447,
+      "source": "core/filter_reset_release_1_s0/Q",
+      "endpoint": "core/clock_conditioner/fault_s1/CLEAR"
+    },
+    {
+      "analysis": "Recovery Paths Table",
+      "slack_ns": 2.447,
+      "source": "core/filter_reset_release_1_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_0_s1/CLEAR"
+    },
+    {
+      "analysis": "Recovery Paths Table",
+      "slack_ns": 2.447,
+      "source": "core/filter_reset_release_1_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_1_s1/CLEAR"
+    },
+    {
+      "analysis": "Recovery Paths Table",
+      "slack_ns": 2.453,
+      "source": "core/filter_reset_release_1_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_2_s5/CLEAR"
+    },
+    {
+      "analysis": "Recovery Paths Table",
+      "slack_ns": 2.613,
+      "source": "core/filter_reset_release_1_s0/Q",
+      "endpoint": "core/clock_conditioner/clean_clk_s1/CLEAR"
+    },
+    {
+      "analysis": "Recovery Paths Table",
+      "slack_ns": 2.613,
+      "source": "core/filter_reset_release_1_s0/Q",
+      "endpoint": "core/clock_conditioner/pulse_remaining_s0/CLEAR"
+    }
+  ],
+  "no_timing_waivers": true,
+  "source_sha256": {
+    "link/rtl/triangle_batch.v": "08a1ad4a5c623b8fb5b057cadca98950a5b61a1241b88af975b1777a0c91ec26",
+    "link/rtl/reply_clock_filter.v": "dd9d4f92f6dbeb0b3d8601ab77ac94aab86f410753112a9fa6dde529e6575cb1",
+    "link/rtl/link_reply_raw.v": "c1df039c17f5ca8b6708f2455c1d52c1727feb8dfaac2fe401d5ab2f660094a8",
+    "link/rtl/link_bringup_filtered.v": "3816588dc56d85a9cf568ede39e035f0da9490afbf1e3d2e260c0d116cd39ed2",
+    "gfx/rtl/gfx_bench.v": "841a4f50baa9e3200bbda1cd61bc9511db36909f76e854a9b66b331ebda2c392",
+    "gfx/rtl/triangle_tile_vendor.v": "0e6b472f55775b2071f2832bcc1514bff0e8db141ac0e42784e31c64c3933369",
+    "gfx/rtl/tile_dpram_vendor.v": "b133181cd254c9059c54e19fc03f06b506ca280d374dd6fa6ae321bc0159135e",
+    "gfx/rtl/triangle_fragment.v": "164a23321804c2109fdc963de7e18f1ad13270671e73feadef46a621d9077c4e",
+    "gfx/rtl/triangle_coverage_pipeline.v": "612d9f92858e0f3a58d0b20471c05d3c1d5a98005a145b450b55b5ae70935e1b",
+    "gfx/rtl/triangle_depth.v": "de970c1412f827a1bac67d840b7f0345128ad669a67cd3d3e66029c2b5ffe06f",
+    "platform/dock/dock_pll54.v": "a39b06768797c12ac8e72a58e1ff1bbfbf01a24c079309982cd8c89a9adc7879",
+    "platform/dock/dock_pll216.v": "7a6b8e3421955bb4f22b08594f900e86b3051f1e9a33d1ff3c742bf84aac2456",
+    "platform/dock/tab5_dock_triangle54_filtered_top.v": "144ade85cd2604caad23437e267cfd7626570055601ff3c7869c043423faf0d8",
+    "constraints/dock/tab5_dock_link_v0.cst": "ebc2cc10587f201c489b14703ac7843a24476481103e6566ff1aec02f6036c61",
+    "constraints/dock/triangle54filtered_official.sdc": "e5660313beb55c7acaa51db4f50f6309872bd8fc24051df68e7367b7ebf18800",
+    "builds/dock/build_filtered_batch_route1.tcl": "fda64f3a59e2041a5dc906d7ccbdc4e082d5d975507c9fa4c3866ab7732f2400",
+    "host/triangle_batch.h": "c840db9817ceef6b974a6aa8d19c05ebdaff46505f8057f18cace5aa0e098097",
+    "host/link_protocol.h": "3c40a5a938df6260b9d21b77cd6eaab29cda3c690bd269dd32ab38f04de6e5b2"
+  },
+  "artifacts": [
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch\\fpga\\build\\filtered-batch-route1\\filtered_reply\\impl\\pnr\\filtered_reply_tr_content.html",
+      "archived": "filtered_reply_tr_content.html.gz",
+      "sha256": "069f188e3fc72ca280c159b8afc9886dab81190463ae3abaad9d01b6809fb381",
+      "gzip_sha256": "54171fe66b9619ed22c3a753740cc784b16fd0b855d1b8e47523f71109e1eaf3",
+      "bytes": 2037537
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch\\fpga\\build\\filtered-batch-route1\\filtered_reply\\impl\\pnr\\filtered_reply.rpt.txt",
+      "archived": "filtered_reply.rpt.txt.gz",
+      "sha256": "2c108ec96bf5f2d3eec9f8285fa745e026b8a9b18be25f42c22a52d78bc9f696",
+      "gzip_sha256": "194c21e810bb19ecba8806727c8b5a5afae6e52129b42dbce463fcfb758727b3",
+      "bytes": 50378
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch\\fpga\\build\\filtered-batch-route1\\filtered_reply\\impl\\pnr\\filtered_reply.pin.html",
+      "archived": "filtered_reply.pin.html.gz",
+      "sha256": "51bc54610ae9cfd26d0ae778a821c62172d834dd06f25ff592814aab656b20b1",
+      "gzip_sha256": "c9edb9994dd3e24e54abcd645390c1d64bd58b6e44fbc6dcc8e703e2c4bb4945",
+      "bytes": 60155
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch\\fpga\\build\\filtered-batch-route1\\filtered_reply\\impl\\pnr\\filtered_reply.fs",
+      "archived": "filtered_reply.fs.gz",
+      "sha256": "5894f0bb224defc197e6e28eff4d22926e2aa67c9adeeedd24e4650a1b099da2",
+      "gzip_sha256": "da611a23e8850da5c39ce0fd89a1fe67f8d28d53840d929407688e5bfeb450d0",
+      "bytes": 7264154
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch\\fpga\\build\\batch-fractal-regression.log",
+      "archived": "batch-fractal-regression.log.gz",
+      "sha256": "57c416813bc0b4f43e87d4ff9a93b60efea118860363a0586caba0e917bcd3b0",
+      "gzip_sha256": "b1721eb87a06776beae223b0542eb7c06f0d3f2d0227e1f4d833ed38ce8fd009",
+      "bytes": 4878
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch\\fpga\\build\\batch-triangle-regression.log",
+      "archived": "batch-triangle-regression.log.gz",
+      "sha256": "47669f1e9c23c7aa5662959d7bac5c82e703b62239952c90f90e417a2ca0b282",
+      "gzip_sha256": "32bceaa59720f702d1d701a006e0253a689dd675f54866a1d378b3629fe4efe7",
+      "bytes": 4087
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch\\fpga\\build\\filtered-batch-regression.log",
+      "archived": "filtered-batch-regression.log.gz",
+      "sha256": "c1af576d24ebb9f84c55364848ea6225bef8b1d3054bec62ba8e2ab6af83dff6",
+      "gzip_sha256": "114f2a8292c305e95e312bfc5ef3249fd2cb09b239df35683551b02aa6f82d7a",
+      "bytes": 4138
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch\\fpga\\build\\filtered-batch-route1.log",
+      "archived": "filtered-batch-route1.log.gz",
+      "sha256": "1d0f9d34cf65f706e71395e8f9070db64795ac3ebf4c30eb7364c9b2ff8bd0d9",
+      "gzip_sha256": "cd91abc1cf318732ac8d05f07c89b47178d18f55c1db3321c6d6bbf5199bf3b3",
+      "bytes": 12398
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch\\fpga\\build\\batch-filtered-control.json",
+      "archived": "batch-filtered-control.json.gz",
+      "sha256": "14e55f92a64e1d4a715f31118f8738a7ee38a977fbcb745713769a233e974236",
+      "gzip_sha256": "e904117c2fc23cb2bc3d599df4e04a26c938c83d9d9a075ed20ad3c6885eaf60",
+      "bytes": 1694
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-filtered-batch\\fpga\\build\\filtered-batch-official\\filtered_reply\\impl\\pnr\\filtered_reply_tr_content.html",
+      "archived": "initial-failed-filtered_reply_tr_content.html.gz",
+      "sha256": "ca2e41d4bd6819fd71a4501225b35459425a3823d9fb8c3da5b030657be08d10",
+      "gzip_sha256": "415a3837524b1f1d5ce1ae709d6613d65abfcdca900bfab303944176a81c937f",
+      "bytes": 1236700
+    }
+  ]
+}

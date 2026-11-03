@@ -4,7 +4,7 @@
 
 変更はcanonical BATCH OP40/41、count1..64、640word staging RAM、全payload/trailer CRC確認後の実行開始を、既存vendor DPB/coverage pipeline/local216resetのfiltered coreへ統合するもの。serializerとDPB portBは同じclean clockを維持する。TILE/fractal/vivid/CORE54は維持し、TXcaptureは追加しない。
 
-通常route0の最初の公式ビルドはmetadata first-stageのhold違反31本（最小−0.188ns）で不合格だった。RTL/SDCを変えず、公式 `route_option=1` を使う別buildはactual core54/conditioned54/sampler216のsetup/hold違反0となった。Fmaxはそれぞれ64.518/83.813/329.931MHz。false-path/multicycle/clock-group等のwaiverは追加しない。初回失敗を削除しない。
+通常route0の最初の公式ビルドはmetadata first-stageのhold違反31本（最小−0.188ns）で不合格だった。RTL/SDCを変えず、公式 `route_option=1` を使う別buildもcross-clock metadata hold違反30本、最小−0.188nsで不合格。通常per-clock TNS行の0を全経路合格と読んだ途中報告は誤りで、機械aggregate gateが拒否した。Fmaxはcore54/conditioned54/sampler216それぞれ64.518/83.813/329.931MHzだが、Fmaxだけでhold適合とはならない。recovery最小+2.441ns、removal+1.139ns。false-path/multicycle/clock-group等のwaiverは追加しない。両方の失敗を削除しない。
 
 オフライン確認:
 
