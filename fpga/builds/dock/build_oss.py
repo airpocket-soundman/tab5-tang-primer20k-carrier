@@ -11,7 +11,9 @@ import uuid
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCES = [ROOT / p for p in ('link/rtl/link_bringup.v', 'gfx/rtl/gfx_bench.v',
-           'platform/dock/tab5_dock_top.v', 'platform/dock/tab5_dock_gfx_top.v')]
+           'platform/dock/tab5_dock_top.v', 'platform/dock/tab5_dock_gfx_top.v',
+           'platform/dock/tab5_dock_triangle_top.v', 'gfx/rtl/triangle_tile.v',
+           'gfx/rtl/triangle_fragment.v', 'gfx/rtl/triangle_coverage.v', 'gfx/rtl/triangle_depth.v')]
 CST = ROOT / 'constraints/dock/tab5_dock_link_v0.cst'
 DEVICE = 'GW2A-LV18PG256C8/I7'
 FAMILY = 'GW2A-18'
@@ -57,7 +59,7 @@ def build(variant, yosys, nextpnr, pack, output):
         netlist = run_dir / 'synth.json'
         routed = run_dir / 'output.pnr.json'
         image = run_dir / 'output.fs'
-        top = 'tab5_dock_gfx_top' if variant == 'gfx' else 'tab5_dock_top'
+        top = {'gfx':'tab5_dock_gfx_top', 'triangle':'tab5_dock_triangle_top', 'link':'tab5_dock_top'}[variant]
         script = 'read_verilog ' + ' '.join(yosys_quote(p) for p in SOURCES)
         script += '; synth_gowin -family gw2a -top ' + top + ' -json ' + yosys_quote(netlist)
         commands = [
@@ -98,7 +100,7 @@ def build(variant, yosys, nextpnr, pack, output):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('variant', choices=('link', 'gfx'))
+    parser.add_argument('variant', choices=('link', 'gfx', 'triangle'))
     parser.add_argument('--yosys', required=True, help='Path to an existing Yosys executable')
     parser.add_argument('--nextpnr', required=True, help='Path to an existing nextpnr-himbaechel executable')
     parser.add_argument('--pack', required=True, help='Path to an existing gowin_pack executable')

@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-03",
+  "physical_link_tested": true,
+  "same_firmware": true,
+  "clock_changed": false,
+  "results": [
+    {
+      "triangle_pass": true,
+      "readback_mode": "pixel",
+      "draws": 5,
+      "cpu_reference_us": 2598,
+      "setup_transfer_us": 286099,
+      "draw_roundtrip_us": 29523,
+      "readback_us": 23689843,
+      "lcd_submitted": true,
+      "speedup_claimed": false
+    },
+    {
+      "triangle_pass": true,
+      "readback_mode": "row32",
+      "draws": 5,
+      "cpu_reference_us": 2627,
+      "setup_transfer_us": 286269,
+      "draw_roundtrip_us": 29531,
+      "readback_us": 3829592,
+      "lcd_submitted": true,
+      "speedup_claimed": false
+    }
+  ],
+  "readback_ratio": 6.18599657613657,
+  "after_test_armed": false,
+  "fpga_fs_sha256": "ce06521207f6bc13f2e5f299f6c5b475b496e6cf54f9d4b3b14b2d1cc5e5716f",
+  "fpga_sources": {
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\link\\rtl\\link_bringup.v": "22907012cae3bb937087b13e1e85de3f0f899b2776a81e9c9886c931d40e8bbd",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\gfx_bench.v": "841a4f50baa9e3200bbda1cd61bc9511db36909f76e854a9b66b331ebda2c392",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\platform\\dock\\tab5_dock_top.v": "b52dbad29c4a262f31f2d63e94cba169f3fcb9a2f031f7dac43bca670aada021",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\platform\\dock\\tab5_dock_gfx_top.v": "9e2124a302b0931c6bd867aeda59e47c08cc65140bbac8713c809d8dd1dc7440",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\platform\\dock\\tab5_dock_triangle_top.v": "6e82c84346a9805b275e2898e50e6e99b3c81cb738876cae5bac7396f7a879a1",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_tile.v": "68485e3aea4bcdbf35eb35f9dc66f2f3b6da26854eeae8697890825dcec95d30",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_fragment.v": "164a23321804c2109fdc963de7e18f1ad13270671e73feadef46a621d9077c4e",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_coverage.v": "86ee0bb128500b535e5623c92a25dc8faabfc95106757a435ecb840b72bd38f3",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_depth.v": "de970c1412f827a1bac67d840b7f0345128ad669a67cd3d3e66029c2b5ffe06f",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\constraints\\dock\\tab5_dock_link_v0.cst": "ebc2cc10587f201c489b14703ac7843a24476481103e6566ff1aec02f6036c61",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\builds\\dock\\build_oss.py": "9248e38b57e063a4c271963b857d91132d65eb0eaa2d49fb33cde2d1673391a0"
+  },
+  "fpga_usercode": "0x00009137",
+  "fpga_status": "0x00006020",
+  "host_app_sha256": "da8905e200f5c5a62052c9079095e1d34ebf3f39f0cca69d47b69e4acfd0db80",
+  "host_app_bytes": 691824,
+  "post_test_status": {
+    "armed": false,
+    "profile": "dock-jumper-v0",
+    "verified": true,
+    "triangle_available": true,
+    "triangle_bulk_available": true
+  },
+  "visual_confirmation": false,
+  "measurement_scope": "single run of same five draws, two stages of 1024 color+1024 depth comparisons; readback includes comparison and scheduling",
+  "clock_max_hz": 5000,
+  "raw_logs": {
+    "triangle": "{\"triangle_stage_pass\":true,\"draw\":0,\"color_pixels\":1024,\"depth_pixels\":1024}\n{\"triangle_stage_pass\":true,\"draw\":4,\"color_pixels\":1024,\"depth_pixels\":1024}\nI (55708) LVGL: Starting LVGL task\nI (56208) M5Stack Tab5: Discovered board version 2 (LCD ST7123, Touch ST7123, FW 3)\nI (56208) M5Stack Tab5: MIPI DSI PHY Powered on\nI (56208) M5Stack Tab5: Install MIPI DSI LCD control panel\nI (56208) st7123: version: 1.0.2\nW (56348) st7123: The 36h command has been used and will be overwritten by external initialization sequence\nI (56518) M5Stack Tab5: Display initialized with resolution 720x1280\nI (56518) ST7123: Firmware version: 3(1.71.1.3), Max.X: 720, Max.Y: 1280, Max.Touchs: 10\nI (56518) ST7123: Touch panel create success, version: 1.0.2\nI (56518) M5Stack Tab5: Setting LCD backlight: 100%\n{\"triangle_pass\":true,\"readback_mode\":\"pixel\",\"draws\":5,\"cpu_reference_us\":2598,\"setup_transfer_us\":286099,\"draw_roundtrip_us\":29523,\"readback_us\":23689843,\"lcd_submitted\":true,\"speedup_claimed\":false}\n",
+    "triangle-bulk": "{\"triangle_stage_pass\":true,\"draw\":0,\"color_pixels\":1024,\"depth_pixels\":1024}\n{\"triangle_stage_pass\":true,\"draw\":4,\"color_pixels\":1024,\"depth_pixels\":1024}\n{\"triangle_pass\":true,\"readback_mode\":\"row32\",\"draws\":5,\"cpu_reference_us\":2627,\"setup_transfer_us\":286269,\"draw_roundtrip_us\":29531,\"readback_us\":3829592,\"lcd_submitted\":true,\"speedup_claimed\":false}\n"
+  },
+  "rtl_bulk_vectors_passed": 410,
+  "rtl_scalar_vectors_passed": 10334
+}

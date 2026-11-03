@@ -48,7 +48,7 @@ def run(argv=None, root=ROOT, invoke=subprocess.run):
     detect = sub.add_parser('detect', help='Detect FPGA using the Tang Primer 20K board profile')
     detect.add_argument('--serial', help='USB adapter serial number')
     program = sub.add_parser('program', help='Load validated bitstream into SRAM')
-    program.add_argument('--variant', choices=['link', 'gfx'], required=True)
+    program.add_argument('--variant', choices=['link', 'gfx', 'triangle'], required=True)
     program.add_argument('--dry-run', action='store_true')
     program.add_argument('--serial', help='USB adapter serial number')
     args = parser.parse_args(argv)

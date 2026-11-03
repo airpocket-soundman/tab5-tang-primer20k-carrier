@@ -41,6 +41,8 @@ def main():
         for name, script in (
             ('bringup', 'link/tests/run_rtl.py'),
             ('dock_gfx', 'gfx/tests/run_bench.py'),
+            ('triangle_tile', 'gfx/tests/run_triangle_tile.py'),
+            ('triangle_rows', 'gfx/tests/run_triangle_rows.py'),
             ('coverage', 'gfx/tests/run.py'),
             ('depth', 'gfx/tests/run_depth.py'),
             ('fragment', 'gfx/tests/run_fragment.py')):

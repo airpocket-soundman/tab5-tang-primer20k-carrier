@@ -1,0 +1,107 @@
+{
+  "date": "2026-11-03",
+  "recorded_utc": "2026-11-03T08:38:04.503374+00:00",
+  "physical_triangle_tested": true,
+  "visual_confirmation": false,
+  "host": "ESP-IDF 5.5.5 diagnostic / ESP32-P4 rev1.3",
+  "port": "COM4",
+  "profile": "dock-jumper-v0",
+  "fpga_usercode": "0x00006260",
+  "fpga_status": "0x00006020",
+  "fpga_fs_sha256": "7c056fae075086a4721215a0a5da62726aa5132e0efa376a3afe23d4c14f4f7d",
+  "fpga_sources": {
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\link\\rtl\\link_bringup.v": "0de0cea3812d50087523261c629ce83897a267e83f27736b5b59a55062e4e824",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\gfx_bench.v": "841a4f50baa9e3200bbda1cd61bc9511db36909f76e854a9b66b331ebda2c392",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\platform\\dock\\tab5_dock_top.v": "b52dbad29c4a262f31f2d63e94cba169f3fcb9a2f031f7dac43bca670aada021",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\platform\\dock\\tab5_dock_gfx_top.v": "9e2124a302b0931c6bd867aeda59e47c08cc65140bbac8713c809d8dd1dc7440",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\platform\\dock\\tab5_dock_triangle_top.v": "6e82c84346a9805b275e2898e50e6e99b3c81cb738876cae5bac7396f7a879a1",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_tile.v": "428dc4bea5361e632d3b0c99b1fcaec9fbfee427cf79750bbd655a19bb2e79a7",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_fragment.v": "164a23321804c2109fdc963de7e18f1ad13270671e73feadef46a621d9077c4e",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_coverage.v": "86ee0bb128500b535e5623c92a25dc8faabfc95106757a435ecb840b72bd38f3",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\gfx\\rtl\\triangle_depth.v": "de970c1412f827a1bac67d840b7f0345128ad669a67cd3d3e66029c2b5ffe06f",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\constraints\\dock\\tab5_dock_link_v0.cst": "ebc2cc10587f201c489b14703ac7843a24476481103e6566ff1aec02f6036c61",
+    "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\builds\\dock\\build_oss.py": "9248e38b57e063a4c271963b857d91132d65eb0eaa2d49fb33cde2d1673391a0"
+  },
+  "host_app_sha256": "ca0662c69ef60f064e34398965d3693978c329d3c284be9f24e8be6923849e1f",
+  "host_app_bytes": 690736,
+  "stages": [
+    {
+      "triangle_stage_pass": true,
+      "draw": 0,
+      "color_pixels": 1024,
+      "depth_pixels": 1024
+    },
+    {
+      "triangle_stage_pass": true,
+      "draw": 4,
+      "color_pixels": 1024,
+      "depth_pixels": 1024
+    }
+  ],
+  "result": {
+    "triangle_pass": true,
+    "draws": 5,
+    "cpu_reference_us": 2593,
+    "setup_transfer_us": 286080,
+    "draw_roundtrip_us": 29525,
+    "readback_us": 23689908,
+    "lcd_submitted": true,
+    "speedup_claimed": false
+  },
+  "after_test_armed": false,
+  "raw_log_sha256": "113d4a77841e71b8b935aedfbf134cd71273c0d3936c0f230a61ceacdf27c0bd",
+  "raw_log": "{\"triangle_stage_pass\":true,\"draw\":0,\"color_pixels\":1024,\"depth_pixels\":1024}\n{\"triangle_stage_pass\":true,\"draw\":4,\"color_pixels\":1024,\"depth_pixels\":1024}\nI (69705) LVGL: Starting LVGL task\nI (70205) M5Stack Tab5: Discovered board version 2 (LCD ST7123, Touch ST7123, FW 3)\nI (70205) M5Stack Tab5: MIPI DSI PHY Powered on\nI (70205) M5Stack Tab5: Install MIPI DSI LCD control panel\nI (70205) st7123: version: 1.0.2\nW (70345) st7123: The 36h command has been used and will be overwritten by external initialization sequence\nI (70515) M5Stack Tab5: Display initialized with resolution 720x1280\nI (70515) ST7123: Firmware version: 3(1.71.1.3), Max.X: 720, Max.Y: 1280, Max.Touchs: 10\nI (70515) ST7123: Touch panel create success, version: 1.0.2\nI (70515) M5Stack Tab5: Setting LCD backlight: 100%\n{\"triangle_pass\":true,\"draws\":5,\"cpu_reference_us\":2593,\"setup_transfer_us\":286080,\"draw_roundtrip_us\":29525,\"readback_us\":23689908,\"lcd_submitted\":true,\"speedup_claimed\":false}\n{\"armed\":false}\n",
+  "rtl_suites": [
+    {
+      "name": "bringup",
+      "status": "passed",
+      "output": "PASS link-bringup: ID, 512 patterns, CRC/op rejection, partial DIR, timeout, arm/reset/OE\nD:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\link\\tests\\tb_link_bringup.v:74: $finish called at 2911203000 (1ps)\nPASS Python golden vectors: 583\nD:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\link\\tests\\tb_link_vectors.v:37: $finish called at 3206700000 (1ps)"
+    },
+    {
+      "name": "dock_gfx",
+      "status": "passed",
+      "output": "PASS dock pin-level oracle vectors=1572, timeout/disarm/reset\nD:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\tb_bench_dock.v:91: $finish called at 5054783000 (1ps)\nPASS dock GFX: 1572 oracle transactions, 1024 image pixels; no hardware access"
+    },
+    {
+      "name": "triangle_tile",
+      "status": "passed",
+      "output": "PASS triangle tile pin-level oracle vectors=10334, timeout/disarm/reset\nD:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\tb_triangle_tile_dock.v:98: $finish called at 36505218000 (1ps)\nPASS 10334 wire transactions; {'commands': 10321, 'draws': 7, 'pixels_per_plane': 1024, 'compared_planes': ['RGB565', 'depth16']}; no hardware access"
+    },
+    {
+      "name": "coverage",
+      "status": "passed",
+      "output": "3328 coverage vectors verified\nPASS triangle_coverage: 3328 vectors, back-to-back, bubbles, reset\nD:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\tb_triangle_coverage.v:42: $finish called at 34376000 (1ps)"
+    },
+    {
+      "name": "depth",
+      "status": "passed",
+      "output": "1154 depth vectors verified\nPASS triangle_depth: 1154 vectors, 49-step exact divide, stall, reset\nD:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\tb_triangle_depth.v:58: $finish called at 357666000 (1ps)"
+    },
+    {
+      "name": "fragment",
+      "status": "passed",
+      "output": "436 fragment vectors checked\nPASS triangle_fragment 436 candidates, metadata, stalls, reset\nD:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\gfx\\tests\\tb_triangle_fragment.v:61: $finish called at 106036000 (1ps)"
+    },
+    {
+      "name": "mac",
+      "status": "passed",
+      "output": "PASS int8_mac_lane reference cycles\nD:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\build\\rtl-check\\compute\\tb_int8_mac_lane.v:5062: $finish called at 2526000 (1ps)"
+    },
+    {
+      "name": "requant",
+      "status": "passed",
+      "output": "PASS int8_requantize golden cycles\nD:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\build\\rtl-check\\compute\\tb_int8_requantize.v:17012: $finish called at 10626000 (1ps)"
+    },
+    {
+      "name": "dot",
+      "status": "passed",
+      "output": "PASS dot job golden cycles\nD:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier\\fpga\\build\\rtl-check\\compute\\tb_int8_dot_job.v:45305: $finish called at 16776000 (1ps)"
+    }
+  ],
+  "limits": [
+    "32x32 diagnostic tile only",
+    "No full-screen GPU speedup claim",
+    "Draw timing includes command roundtrip; readback includes CPU comparisons",
+    "No DDR3/HDMI/DMA test"
+  ]
+}

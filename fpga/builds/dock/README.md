@@ -49,3 +49,8 @@ accept native backslashes as path separators. The runner normalizes these paths.
 
 The vendor `build.tcl` remains available for `gw_sh build.tcl link|gfx`, including
 SSPI GPIO reuse, but has not been executed in Gowin EDA.
+# 三角形タイル診断の追加
+
+`build_oss.py triangle`は32×32の色・深度を内部RAMに持つ独立GFX診断を生成する。
+命令は[三角形タイル試験](../../../docs/Dock三角形タイル試験.md)を参照。
+既存の`link`、`gfx`とは別イメージで、全画面GPUや性能向上を示すものではない。

@@ -16,10 +16,17 @@ module triangle_coverage (
     wire signed [63:0] p_y=($signed({55'b0,pixel_y}) <<< 4)+64'sd8;
     function signed [63:0] edge64;
         input signed [63:0] ux,uy,vx,vy,px,py;
-        reg signed [63:0] dx,dy,rx,ry;
+        // All coordinates are signed16 raw12.4 (pixel centers fit signed16).
+        // Differences need signed17, products signed34, subtraction signed35.
+        // Explicit widths avoid mapping each 64-bit multiply to several DSPs.
+        reg signed [16:0] dx,dy,rx,ry;
+        reg signed [33:0] lhs,rhs;
+        reg signed [34:0] value;
         begin
             dx=vx-ux; dy=vy-uy; rx=px-ux; ry=py-uy;
-            edge64=dx*ry-dy*rx;
+            lhs=dx*ry; rhs=dy*rx;
+            value={lhs[33],lhs}-{rhs[33],rhs};
+            edge64=value;
         end
     endfunction
     function top_left;

@@ -9,6 +9,7 @@ from unittest.mock import patch
 
 from reference.gfx_bench import GfxBench, INFO, COLOR, CLEAR, PIXEL, READ, ORIGIN, RECT
 from reference.link_protocol import request, seal
+from reference.triangle_tile import TriangleTile
 
 
 def compiler_command():
@@ -26,6 +27,24 @@ def compiler_command():
 
 
 class CodecTests(unittest.TestCase):
+    def assert_c_cases(self, cases):
+        cc = compiler_command()
+        if not cc:
+            self.skipTest('C compiler unavailable')
+        source = Path(__file__).with_name('codec_harness.c')
+        with tempfile.TemporaryDirectory() as tmp:
+            binary = str(Path(tmp)/('codec.exe' if os.name == 'nt' else 'codec'))
+            subprocess.run([*cc, '-std=c99', '-Wall', '-Wextra', '-Werror', str(source), '-o', binary], check=True)
+            data = ''.join(' '.join(f'{v:02x}' for v in q+r) + '\n' for q,r,_ in cases)
+            result = subprocess.run([binary], input=data, text=True, capture_output=True, check=True)
+        lines = result.stdout.splitlines()
+        self.assertEqual(len(lines), len(cases))
+        for (q, r, accepted), line in zip(cases, lines):
+            with self.subTest(op=q[1], seq=q[2], response=r.hex()):
+                made, valid = line.split()
+                self.assertEqual(made, q.hex())
+                self.assertEqual(int(valid), accepted)
+
     def test_compiler_command_configuration(self):
         with patch.dict(os.environ, {'CARRIER_CC_JSON': '["path with spaces/zig.exe", "cc"]'}):
             self.assertEqual(compiler_command(), ['path with spaces/zig.exe', 'cc'])
@@ -57,15 +76,59 @@ class CodecTests(unittest.TestCase):
             if r[1] == 0 and op != READ:
                 wrong_data = seal(r[:4] + bytes([r[4]^1, r[5]]))
                 cases.append((q, wrong_data, False))
-        source = Path(__file__).with_name('codec_harness.c')
-        with tempfile.TemporaryDirectory() as tmp:
-            binary = str(Path(tmp)/('codec.exe' if os.name == 'nt' else 'codec'))
-            subprocess.run([*cc, '-std=c99', '-Wall', '-Wextra', '-Werror', str(source), '-o', binary], check=True)
-            data = ''.join(' '.join(f'{v:02x}' for v in q+r) + '\n' for q,r,_ in cases)
-            result = subprocess.run([binary], input=data, text=True, capture_output=True, check=True)
-        lines = result.stdout.splitlines()
-        self.assertEqual(len(lines), len(cases))
-        for (q, _, accepted), line in zip(cases, lines):
-            made, valid = line.split()
-            self.assertEqual(made, q.hex())
-            self.assertEqual(int(valid), accepted)
+        self.assert_c_cases(cases)
+
+    def test_triangle_codec_against_independent_oracle(self):
+        bench = TriangleTile()
+        cases = []
+        def exchange(op, a=0, b=0):
+            q = request(op, len(cases) & 255, a, b)
+            r = bench.exchange(q)
+            cases.append((q, r, r[1] == 0))
+            return q, r
+
+        # Error replies from uninitialized/read-range/unknown-command checks.
+        for op, a, b in [(0x20,0,0), (0x2c,0,0), (0x2d,0,0), (0x2e,0,0),
+                         (0x2d,32,0), (0x2e,0,32), (0x2c,1,0), (0xff,0,0)]:
+            exchange(op,a,b)
+        # Negative fractional coordinates and nonconstant Z exercise the wire
+        # representation used by the signed G0 oracle; all 10 setters are used.
+        values = [-8,-8, 488,8, 24,488, 1,32768,65535,0x5a3c]
+        for i, value in enumerate(values):
+            word = value & 65535
+            q, r = exchange(0x21+i, word & 255, word >> 8)
+            cases.append((q, seal(r[:4]+bytes([r[4]^1,r[5]])), False))
+        exchange(0x2b,0x34,0x12)
+        q, r = exchange(0x2c)
+        self.assertGreater(r[4] | r[5] << 8, 0)
+        # Every pixel's color/depth comes from the independent CPU rasterizer.
+        # The codec checks framing; numerical equality remains a host check.
+        for y in range(32):
+            for x in range(32):
+                exchange(0x2d,x,y)
+                exchange(0x2e,x,y)
+        q, r = exchange(0x2c)  # Strict equal-Z makes the repeated draw write zero.
+        self.assertEqual(r[4:6], b'\0\0')
+        q, r = exchange(0x2b,0xff,0xff)
+        self.assertEqual(r[4:6], b'\0\0')
+        cases.append((q,seal(r[:4]+b'\1\0'),False))
+
+        draw_q = request(0x2c,0x61,0,0)
+        for value, accepted in [(0,True),(1,True),(1024,True),(1025,False),(65535,False)]:
+            cases.append((draw_q,seal(bytes([0x5a,0,0x61,2,value&255,value>>8])),accepted))
+        # CRC-valid malformed envelopes must still be rejected.
+        q = request(0x20,0x62,0,0)
+        good = bench.exchange(q)
+        for offset, replacement in [(0,0xa5),(1,2),(1,3),(1,5),(2,0x63),(3,1)]:
+            damaged = bytearray(good[:6]); damaged[offset] = replacement
+            cases.append((q,seal(damaged),False))
+        for offset in range(8):
+            damaged = bytearray(good); damaged[offset] ^= 1
+            cases.append((q,bytes(damaged),False))
+        unknown_q = request(0xff,0x63,0,0)
+        cases.append((unknown_q,seal(bytes([0x5a,0,0x63,2,0,0])),False))
+        # A bad incoming CRC yields an error response from the oracle, which the
+        # success-only C validator must reject even though its reply CRC is valid.
+        bad_q = bytearray(q); bad_q[7] ^= 1
+        cases.append((q,bench.exchange(bad_q),False))
+        self.assert_c_cases(cases)
