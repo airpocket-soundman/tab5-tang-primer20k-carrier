@@ -45,8 +45,8 @@ end endtask
 initial begin
 repeat(4)@(negedge sys);reset=1;configure;
 command(8'h57,0,0);command(8'h58,0,0);
-if(!busy||!ce||!we)$fatal(1,"test did not hold native command and data valids");
-@(negedge user);run_user=0;repeat(10)@(negedge sys);
+if(!busy||ce||we)$fatal(1,"stalled strict-ready outputs");
+@(negedge user);run_user=0;stall=0;repeat(10)@(negedge sys);
 if(!ce||!we)$fatal(1,"USER did not actually halt with valids held");
 repeat(27010)@(negedge sys);
 // No USER edge occurs after halt; SYS watchdog must asynchronously kill valids.
@@ -85,3 +85,4 @@ if(native_commands!=saved_commands||native_data!=saved_data||ce||we||busy)$fatal
 $display("PASS mem_heartbeat_abort %0d commands: held native valids killed without USER edge, no auto-resume, explicit rearm, stale DONE",checks);$finish;
 end
 endmodule
+

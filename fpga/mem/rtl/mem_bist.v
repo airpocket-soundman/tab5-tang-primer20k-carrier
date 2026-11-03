@@ -35,8 +35,8 @@ module mem_bist #(
     // Linear row-bank-column order converted to native rank-bank-row-column.
     assign app_addr={1'b0,linear_word[12:10],linear_word[25:13],linear_word[9:0]};
     assign app_cmd=writing?3'b000:3'b001;
-    assign app_cmd_en=active && ((writing&&!command_sent)||(reading&&!read_pending));
-    assign app_write_en=active && writing && !data_sent;
+    assign app_cmd_en=app_cmd_ready && active && ((writing&&!command_sent)||(reading&&!read_pending));
+    assign app_write_en=app_write_ready && active && writing && !data_sent;
     assign app_write_end=app_write_en;
     assign app_write_mask=phase==3?16'haaaa:16'h0000;
     wire command_fire=app_cmd_en && app_cmd_ready;
