@@ -43,3 +43,7 @@ SYS54から216 counterの非同期reset解除にrecovery違反が残ったため
 公式full候補FS SHA256 `6c5a10f5c298bc78a8c73bd455247e7f1ea9278880ef055fb8e15d867146658e`。bslibによる全frame CRCを検査し、footer0Aは7D1F。実際のprogrammer USER/statusは親担当が独立に確認する。`fpga/validation/clock-filter-qualified-2026-11-04`にFS/STA/実行log/配置配線・pin reportのgzipとSHAを保存する。sampler-onlyのFSはLINK/GFXを持たないため、実機へ書き込まない。
 
 まだ実機合格ではない。親担当は既存イメージへ戻せる状態で、明示されたhost phase/driveと8MHz controlから始め、20/25/26.666/32/40MHzを各点の完全CRC+CPU全画素一致に応じて進める。失敗時は自動再試行や位相切替を行わず停止する。高周波数の実pad波形・配線遅延・bit error rate・絶対的ジャンパ限界は未測定である。
+
+最終RTLソース凍結は`255e5da5a71b551ecb055bdb035dfe0ba433d85d`。独立担当が3328 coverage、同じ3328 CPU C、2050 DPB、41 controlを再実行してPASSし、STAの3clockと最小setup1.031ns/hold0.107ns/recovery2.981ns/removal0.964nsを再確認した。別担当も幅・順序・DPB latency/ownership・raw reset/ARM/PLL lossのOE遮断をソースレビューし、制御試験を妨げる所見はなかった。いずれも実機証明ではない。
+
+追加の長いHIGH側モデル（160MHz dividerのHIGH=ceil(div/2)）は別JSONに468条件を保存し、444完全一致、408条件付きsetup/hold合格。短いHIGH側と低周波の先行576条件と合わせ1044条件、1008完全一致/933条件付き合格だが、同じ条件の重複も含むデジタル試験数であり物理試験標本数ではない。両RX位相・両dutyモデルともlegacy20/25MHzは各18条件すべて合格し、inverted25/32などには追加失敗が出る。実P4 dividerのduty/順序は未測定のままなので、有利な方だけを選んで最高速度を主張しない。この追試でRTL/FSは変更していない。
