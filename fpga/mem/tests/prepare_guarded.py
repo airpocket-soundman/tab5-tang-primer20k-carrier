@@ -51,7 +51,7 @@ for pin in reset_pins:
  'reason':'initialization-only asynchronous RESET recovery; calibration reestablishes alignment before256SYS-guarded native traffic; removal remains timed'})
 assert counts=={'OSER8':23,'OSER8_MEM':20,'IDES8_MEM':16,'DQS':2},counts
 assert len(entries)==90 and len(set(e['pin'] for e in entries))==90
-out=root/'build/mem-ready-strobe-input';out.mkdir(parents=True,exist_ok=True)
+out=root/'build/mem-scheduler-diag-input';out.mkdir(parents=True,exist_ok=True)
 extra='\n//90 finite guarded primitive input endpoints; no clock groups.\n'
 for e in entries:
  line='set_false_path '

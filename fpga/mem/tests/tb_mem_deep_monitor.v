@@ -8,10 +8,10 @@ initial begin
  tick;reset=1;start=1;taps[5:3]=6;taps[20:16]=30;tick;start=0;busy=1;
  taps[5:3]=7;taps[20:16]=31;taps[11]=1;tick;
  taps[5:3]=0;taps[20:16]=0;tick;
- taps[5:3]=1;taps[20:16]=1;taps[11]=0;tick;
+ taps[5:3]=1;taps[20:16]=1;taps[11]=0;taps[63:26]=38'h2abcde1234;tick;
  busy=0;native[11]=1;tick;
  if(out[95:64]!=3||out[127:96]!=3||out[159:128]!=2||!out[160])$fatal(1,"counter wrap or freeze");
- if(out[5:3]!=1||out[20:16]!=1)$fatal(1,"fault edge observation");
+ if(out[5:3]!=1||out[20:16]!=1||out[63:26]!=38'h2abcde1234)$fatal(1,"fault edge observation");
  taps=64'hdeadbeef;native=0;repeat(5)tick;
  if(out[5:3]!=1||out[95:64]!=3)$fatal(1,"cleanup changed first fault");
  start=1;tick;start=0;if(out[160]||out[95:64]!=0)$fatal(1,"new job did not clear");

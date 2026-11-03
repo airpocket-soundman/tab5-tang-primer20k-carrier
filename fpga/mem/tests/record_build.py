@@ -12,7 +12,7 @@ parser.add_argument('--scoped',action='store_true')
 parser.add_argument('--guarded',action='store_true')
 args=parser.parse_args()
 assert not(args.scoped and args.guarded)
-stem='mem-ready-strobe' if args.guarded else 'mem-bist-scoped' if args.scoped else 'mem-bist-official'
+stem='mem-scheduler-diag' if args.guarded else 'mem-bist-scoped' if args.scoped else 'mem-bist-official'
 pnr=root/f'build/{stem}/mem_bist/impl/pnr'
 console=root/f'build/{stem}-console.log'
 log=console.read_text()
@@ -61,7 +61,7 @@ def negative_paths(table):
     return paths
 inputs=sorted((root/'mem/rtl').glob('*.v'))+sorted((root/'mem/config').glob('*.tcl'))+list((root/'mem/config').glob('*.cst'))+list((root/'mem/config').glob('*.sdc'))
 inputs += [root/'build/mem-bist-ip/generated/MemDDR3/MemDDR3.vo',root/'build/mem-deep-input/MemDDR3_tapped.vo']
-active_sdc=root/('build/mem-ready-strobe-input/mem_bist.sdc' if args.guarded else 'build/mem-bist-scoped-input/mem_bist.sdc' if args.scoped else 'mem/config/mem_bist.sdc')
+active_sdc=root/('build/mem-scheduler-diag-input/mem_bist.sdc' if args.guarded else 'build/mem-bist-scoped-input/mem_bist.sdc' if args.scoped else 'mem/config/mem_bist.sdc')
 assert (pnr/'mem_bist.rpt.txt').stat().st_mtime>=max(p.stat().st_mtime for p in inputs+[active_sdc]), 'sources changed after build; do not attest stale report'
 def pin_audit():
     cst=(root/'mem/config/mem_bist.cst').read_text(encoding='utf-8-sig')
@@ -126,7 +126,7 @@ if args.scoped:
     result['vendor_input_qualification']=json.loads((root/'build/mem-bist-scoped-input/qualification.json').read_text())
     result['inputs'].append(artifact(root/'build/mem-bist-scoped-input/mem_bist.sdc'))
 if args.guarded:
-    result['guarded_input_qualification']=json.loads((root/'build/mem-ready-strobe-input/qualification.json').read_text())
+    result['guarded_input_qualification']=json.loads((root/'build/mem-scheduler-diag-input/qualification.json').read_text())
     result['inputs'].append(artifact(active_sdc))
     paths=result['held_bundle_constraints']['diagnostic_snapshot_paths']
     actual_bits={int(re.search(r'sys_debug_snapshot_(\d+)_s\d+/D$',p['to']).group(1)) for p in paths}
@@ -136,10 +136,10 @@ if args.guarded:
     assert all(p['slack_ns']>=0 for p in paths)
     deep_paths=result['held_bundle_constraints']['deep_snapshot_paths']
     deep_actual={int(re.search(r'sys_deep_snapshot_(\d+)_s\d+/D$',p['to']).group(1)) for p in deep_paths}
-    deep_expected=set(range(26))|set(range(64,161))
+    deep_expected=set(range(161))-{33,36,44,51,55,56}
     assert deep_actual==deep_expected,('deep CDC coverage gap',sorted(deep_expected-deep_actual),sorted(deep_actual-deep_expected))
     assert all(p['slack_ns']>=0 for p in deep_paths)
-    result['deep_CDC_coverage']={'matched_destinations':len(deep_actual),'variable_bits':sorted(deep_actual),'constant_bits':sorted(set(range(256))-deep_expected),'max_delay_ns':60,'passed':True}
+    result['deep_CDC_coverage']={'expected_variable_destinations':155,'explicit_zero_unavailable_state_bits':[33,36,44,51,55,56],'matched_destinations':len(deep_actual),'variable_bits':sorted(deep_actual),'constant_bits':sorted(set(range(256))-deep_expected),'max_delay_ns':60,'passed':True}
     result['output_only_tap_audit']=json.loads((root/'build/mem-deep-input/tap_audit.json').read_text())
     result['native_diagnostic']=True
     result['diagnostic_CDC_coverage']={'total_bundle_bits':176,'variable_bits':sorted(actual_bits),
@@ -149,6 +149,6 @@ if args.guarded:
 result['native_enable_policy']='strict ready-gated strobe; command/data sent bookkeeping unchanged'
 result['ready_entry_cone_proof']=json.loads((root/'build/mem-tests/ready_entry_cone.json').read_text())
 result['accepted_transaction_equivalence']=json.loads((root/'build/mem-tests/ready_equivalence.json').read_text())
-dest=root/('validation/mem-ready-strobe-prehardware-2026-11-04.json' if args.guarded else 'validation/mem-bist-scoped-prehardware-2026-11-04.json' if args.scoped else 'validation/mem-bist-prehardware-2026-11-04.json')
+dest=root/('validation/mem-scheduler-diag-prehardware-2026-11-04.json' if args.guarded else 'validation/mem-bist-scoped-prehardware-2026-11-04.json' if args.scoped else 'validation/mem-bist-prehardware-2026-11-04.json')
 dest.write_text(json.dumps(result,indent=2)+'\n')
 print(dest)

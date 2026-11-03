@@ -37,7 +37,7 @@ if args.zig:
     source=root/'mem/tests/test_mem_protocol.c'
     subprocess.run([args.zig,'cc','-std=c99','-Wall','-Wextra','-Werror',str(source),'-o',str(executable)],check=True,timeout=60)
     completed=subprocess.run([str(executable)],capture_output=True,text=True,check=True,timeout=10)
-    if 'PASS mem_protocol 621 checks' not in completed.stdout:raise RuntimeError(completed.stdout)
+    if 'PASS mem_protocol 622 checks' not in completed.stdout:raise RuntimeError(completed.stdout)
     print(completed.stdout.strip())
     sources=[source,root/'host/mem_protocol.h',root/'host/link_protocol.h']
     results.append({'name':'mem_protocol_c','output':completed.stdout.strip(),

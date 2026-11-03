@@ -166,7 +166,7 @@ module mem_mailbox # (parameter DEADLINE=2700000,parameter CAL_GUARD_CYCLES=256,
  0:result<=16'h014d;1:result<=2048;2:result<=16'h0d0a;3:result<=16'h0310;
  4:result<=324;5:result<=81;6:result<={2'b0,loss_reasons,heartbeat_fresh,user_ready_sync[1],(calibration_guard>=CAL_GUARD_CYCLES),reset_loss,mailbox_timeout,snapshot_stale,snapshot_valid,fault_sync[1],busy_sync[1],cal_sync[1]};
  7:result<=generation;8:result<=16'h014e;
- 20:result<=16'h014f;
+ 20:result<=16'h024f;
  21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36:if(!snapshot_valid)status<=5;else result<=sys_deep_snapshot[(a-21)*16+:16];
  9,10,11,12,13,14,15,16,17,18,19:if(!snapshot_valid)status<=5;else result<=sys_debug_snapshot[(a-9)*16+:16];
  default:status<=3;endcase
