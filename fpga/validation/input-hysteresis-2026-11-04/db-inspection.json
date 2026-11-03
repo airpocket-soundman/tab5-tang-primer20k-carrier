@@ -1,0 +1,79 @@
+{
+  "scope": "Read-only installed packer helper/database evidence; no PNR, repack, source/CST modification or hardware operation.",
+  "hardware_access": false,
+  "generated_bitstream": false,
+  "apycula_version": "0.32",
+  "baseline_fs_sha256": "5b93ac88ffd9d45ad959e19da50e8af433dd8ca3fbc8ccb8f4e80ff1a1c391cb",
+  "pnr_sha256": "fb309d66995683862fafdeb1c17999c842925216b578c66075131628ee9e163d",
+  "cell": "platform.bus_clk_IBUF_O",
+  "bel": "X55Y28/IOBA",
+  "db_row_col_zero_based": [
+    28,
+    55
+  ],
+  "bank": 3,
+  "tile_type": 58,
+  "baseline_ibuf_attrs": {
+    "PADDI": "PADDI",
+    "HYSTERESIS": "NONE",
+    "PULLMODE": "DOWN",
+    "SLEWRATE": "SLOW",
+    "DRIVE": "0",
+    "CLAMP": "OFF",
+    "OPENDRAIN": "OFF",
+    "DIFFRESISTOR": "OFF",
+    "VREF": "OFF",
+    "LVDS_OUT": "OFF",
+    "IO_TYPE": "LVCMOS33",
+    "BANK_VCCIO": "3.3"
+  },
+  "modes": [
+    {
+      "mode": "NONE",
+      "fuse_count": 4,
+      "xor_vs_none_tile_local": []
+    },
+    {
+      "mode": "L2H",
+      "fuse_count": 5,
+      "xor_vs_none_tile_local": [
+        [
+          14,
+          62
+        ]
+      ]
+    },
+    {
+      "mode": "H2L",
+      "fuse_count": 5,
+      "xor_vs_none_tile_local": [
+        [
+          8,
+          60
+        ]
+      ]
+    },
+    {
+      "mode": "HIGH",
+      "fuse_count": 6,
+      "xor_vs_none_tile_local": [
+        [
+          8,
+          60
+        ],
+        [
+          14,
+          62
+        ]
+      ]
+    }
+  ],
+  "sources_sha256": {
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Lib\\site-packages\\apycula\\gowin_pack.py": "176cf71a8b17ce8e2e36809cdf5ab1c429acdb54538b9f7725ffc83df145a529",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Lib\\site-packages\\apycula\\attrids.py": "597822bc9e70098fc1d52e5ec2f81f4da6ff8965fedd7b919d9a7a218a08e2ea",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Lib\\site-packages\\apycula\\chipdb.py": "1c608811689a90ddd2e3fc18027149d26d55bd9a39d0c30d080e3e1c8c821098",
+    "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\oss-env\\Lib\\site-packages\\apycula\\GW2A-18.msgpack.xz": "43a06ab227fb5d9332a2645f975673b1c1f14149ccc667de3ddd7be7e4392851"
+  },
+  "cst_option_scope": "gowin_pack -s is OUTPUT CST (open w), not an input constraint file",
+  "proposed_control": "Baseline repack must match5b93; copy routed JSON and alter exactly one bus_clk &HYSTERESIS attribute; preserve all cells/connectivity/placement/routing; verify target fuse-only delta plus format checksums before hardware."
+}
