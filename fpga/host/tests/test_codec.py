@@ -45,6 +45,28 @@ class CodecTests(unittest.TestCase):
                 self.assertEqual(made, q.hex())
                 self.assertEqual(int(valid), accepted)
 
+    def test_optional_clock_v2_codec(self):
+        cases=[]
+        old=TriangleTile()
+        new=TriangleTile(core_clock_mhz=54,clock_query_enable=True)
+        for model in (old,new):
+            for op,a,b in [(0x30,0,0),(0x3d,0,0),(0x3d,1,0),(0x3d,0,1)]:
+                q=request(op,len(cases),a,b);r=model.exchange(q)
+                cases.append((q,r,r[1]==0))
+        q=request(0x30,71,0,0)
+        for value,accepted in [(0x0103,True),(0x0107,True),(0x020f,True),(0x0117,True),(0x021f,True),
+                               (0x010f,False),(0x0207,False),(0x030f,False)]:
+            r=seal(bytes([0x5a,0,q[2],2,value&255,value>>8]))
+            cases.append((q,r,accepted))
+        for tag in (0,128):
+            q=request(0x3d|tag,72,0,0)
+            for mhz in (0,1,27,54,200,201,256):
+                r=seal(bytes([0x5a,0,q[2],2,mhz&255,mhz>>8]))
+                cases.append((q,r,1<=mhz<=200))
+                badseq=seal(r[:2]+bytes([q[2]^1])+r[3:6])
+                cases.append((q,badseq,False))
+        self.assert_c_cases(cases)
+
     def test_compiler_command_configuration(self):
         with patch.dict(os.environ, {'CARRIER_CC_JSON': '["path with spaces/zig.exe", "cc"]'}):
             self.assertEqual(compiler_command(), ['path with spaces/zig.exe', 'cc'])

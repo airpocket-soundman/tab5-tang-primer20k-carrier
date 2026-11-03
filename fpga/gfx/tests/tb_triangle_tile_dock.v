@@ -1,5 +1,5 @@
 `timescale 1ns/1ps
-module tb_triangle_tile_dock;
+module tb_triangle_tile_dock #(parameter FAST_REPLY_ENABLE=0);
     reg sys_clk=0, reset_n=0, arm=0, bus_clk=0, dir=0, host_oe=0;
     reg [7:0] host_data=0;
     tri [7:0] data;
@@ -9,7 +9,7 @@ module tb_triangle_tile_dock;
     integer fd, n, i, count;
     always #5 sys_clk=~sys_clk;
     assign data=host_oe ? host_data : 8'hzz;
-    tab5_dock_top #(.GFX_ENABLE(2), .TIMEOUT_CYCLES(200000)) dut(
+    tab5_dock_top #(.GFX_ENABLE(2), .TIMEOUT_CYCLES(200000),.FAST_REPLY_ENABLE(FAST_REPLY_ENABLE)) dut(
         sys_clk,reset_n,arm,bus_clk,dir,4'b0,data,ready,led);
     always @(posedge sys_clk) if(host_oe && dut.data_oe) $fatal(1,"host/FPGA contention");
     function [15:0] crc_byte(input [15:0] c, input [7:0] b);

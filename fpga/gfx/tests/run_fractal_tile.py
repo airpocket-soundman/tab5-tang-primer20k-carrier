@@ -15,6 +15,8 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--iverilog',default='iverilog')
     p.add_argument('--vvp',default='vvp')
+    p.add_argument('--vendor-primitive-lib',type=Path)
+    p.add_argument('--pipeline-coverage',action='store_true')
     args=p.parse_args()
     if not shutil.which(args.iverilog) or not shutil.which(args.vvp): p.error('existing Icarus/vvp required')
     model,vectors=TriangleTile(),[]
@@ -58,7 +60,13 @@ def main():
         sources=['link/rtl/link_bringup.v','gfx/rtl/gfx_bench.v','gfx/rtl/triangle_tile.v','gfx/rtl/triangle_fragment.v',
                  'gfx/rtl/triangle_coverage.v','gfx/rtl/triangle_depth.v',
                  'platform/dock/tab5_dock_top.v','gfx/tests/tb_fractal_tile.v']
-        subprocess.run([args.iverilog,'-g2012','-Wall','-s','tb_fractal_tile','-o',str(exe),*[str(ROOT/s) for s in sources]],check=True)
+        paths=[str(ROOT/s)for s in sources]
+        if args.pipeline_coverage:paths[sources.index('gfx/rtl/triangle_coverage.v')]=str(ROOT/'gfx/rtl/triangle_coverage_pipeline.v')
+        if args.vendor_primitive_lib:
+            paths[2]=str(ROOT/'gfx/rtl/triangle_tile_vendor.v')
+            bench=td/'vendor_bench.v';text=(ROOT/sources[-1]).read_text();text=text.replace('    reg clk=0,',"    GSR GSR(1'b1);\n    reg clk=0,",1);bench.write_text(text)
+            paths[-1]=str(bench);paths +=[str(ROOT/'gfx/rtl/tile_dpram_vendor.v'),str(args.vendor_primitive_lib)]
+        subprocess.run([args.iverilog,'-g2012','-Wall','-s','tb_fractal_tile','-o',str(exe),*paths],check=True)
         subprocess.run([args.vvp,str(exe),'+vectors='+str(vf),'+palette='+str(palette_file)],check=True,timeout=180)
     print(f'PASS fractal {len(vectors)} oracle transactions, {pixel_count} color/depth pixels, 12 legacy/vivid viewports with exact stable DRAW cycles; no hardware access')
 if __name__=='__main__':main()

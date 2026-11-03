@@ -2,7 +2,10 @@
 // DIR=0: host writes on rising bus_clk. DIR=1: host samples then pulses.
 module link_bringup #(
     parameter TIMEOUT_CYCLES = 2700000,
-    parameter GFX_ENABLE = 0
+    parameter GFX_ENABLE = 0,
+    parameter CORE_CLOCK_MHZ = 27,
+    parameter CLOCK_QUERY_ENABLE = 0,
+    parameter FAST_REPLY_ENABLE = 0
 )(input wire sys_clk, input wire reset_n, input wire arm,
   input wire bus_clk, input wire dir, input wire [7:0] data_i,
   output reg [7:0] data_o, output wire data_oe, output wire ready);
@@ -28,28 +31,49 @@ module link_bringup #(
     wire [7:0] gfx_status;
     wire [15:0] gfx_result;
     wire [7:0] row_byte;
+    wire [7:0] raw_data;
+    wire raw_done,raw_started,raw_error,raw_progress,raw_ram_enable;
+    wire [5:0] raw_row_index;
+    wire [9:0] raw_ram_address;
+    wire [15:0] raw_ram_color,raw_ram_depth;
+    reg fast_inflight,fast_offer;
+    reg [1:0] fast_prepare;
+    reg [49:0] fast_metadata;
+    (* ASYNC_REG="TRUE" *) reg [1:0] raw_done_sync,raw_started_sync,raw_progress_sync;
+    reg raw_progress_last;
+    wire use_raw=FAST_REPLY_ENABLE && prefixed;
+    wire raw_valid=fast_offer && !raw_done && (!raw_started || dir);
+    generate if(FAST_REPLY_ENABLE) begin: fast_serializer
+        link_reply_raw serializer(bus_clk,reset_n,arm,dir,fast_offer,fast_metadata,
+            row_byte,raw_ram_color,raw_ram_depth,raw_data,raw_done,raw_started,raw_error,raw_progress,
+            raw_row_index,raw_ram_address,raw_ram_enable);
+    end else begin: no_fast_serializer
+        assign raw_data=0;assign raw_done=0;assign raw_started=0;assign raw_error=0;assign raw_progress=0;
+        assign raw_row_index=0;assign raw_ram_address=0;assign raw_ram_enable=0;
+    end endgenerate
     // Clamp preamble/CRC to valid endpoints so the tile prefetcher sees
     // only real payload word advances, never unsigned header underflow.
-    wire [10:0] row_index = in_prefix || logical_tx_index<8 ? 11'd0 :
+    wire [10:0] legacy_row_index = in_prefix || logical_tx_index<8 ? 11'd0 :
                             logical_tx_index>=payload_end ? (tile_mode?11'd2047:11'd63) :
                             logical_tx_index-12'd8;
+    wire [10:0] row_index=use_raw ? (tile_mode?11'd0:{5'b0,raw_row_index}):legacy_row_index;
     generate if(GFX_ENABLE==2) begin: triangle
         wire renderer_abort = gfx_pending && idle_count >= TIMEOUT_CYCLES-1;
-        triangle_tile renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start,
+        triangle_tile #(.CORE_CLOCK_MHZ(CORE_CLOCK_MHZ),.CLOCK_QUERY_ENABLE(CLOCK_QUERY_ENABLE),.RAW_READ_ENABLE(FAST_REPLY_ENABLE)) renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start,
                               logical_opcode, req[4], req[5], gfx_done, gfx_status, gfx_result,
-                              row_index, row_byte);
+                              row_index, row_byte,bus_clk,raw_ram_enable,raw_ram_address,raw_ram_color,raw_ram_depth);
     end else if(GFX_ENABLE) begin: gfx
         // A timed-out operation must not keep mutating RAM or consume a later start.
         wire renderer_reset_n = reset_n && arm;
         wire renderer_abort = gfx_pending && idle_count >= TIMEOUT_CYCLES-1;
         gfx_bench renderer(sys_clk, renderer_reset_n, renderer_abort, gfx_start,
                            logical_opcode, req[4], req[5], gfx_done, gfx_status, gfx_result);
-        assign row_byte=8'h00;
+        assign row_byte=8'h00;assign raw_ram_color=0;assign raw_ram_depth=0;
     end else begin: no_gfx
         assign gfx_done=1'b0;
         assign gfx_status=8'h02;
         assign gfx_result=16'h0000;
-        assign row_byte=8'h00;
+        assign row_byte=8'h00;assign raw_ram_color=0;assign raw_ram_depth=0;
     end endgenerate
     integer j;
     function [15:0] crc_byte;
@@ -64,12 +88,13 @@ module link_bringup #(
         end
     endfunction
     // raw DIR/reset/arm immediately remove output; synchronized DIR enables it.
-    assign data_oe=reset_n && arm && dir && dir_sync[1] && valid;
-    assign ready=reset_n && arm && valid;
+    assign data_oe=reset_n && arm && dir && dir_sync[1] && valid && (!use_raw || raw_valid);
+    assign ready=reset_n && arm && valid && (!use_raw || raw_valid);
     always @* begin
         reply_crc=16'hffff;
         for(j=0;j<6;j=j+1) reply_crc=crc_byte(reply_crc,reply[j]);
-        if(in_prefix) data_o=8'hc3;
+        if(use_raw) data_o=raw_data;
+        else if(in_prefix) data_o=8'hc3;
         else if(logical_tx_index<6) data_o=reply[logical_tx_index];
         else if(logical_tx_index==6) data_o=reply_crc[7:0];
         else if(logical_tx_index==7) data_o=reply_crc[15:8];
@@ -81,22 +106,44 @@ module link_bringup #(
     always @(posedge sys_clk or negedge reset_n) begin
         if(!reset_n) begin
             clk_sync<=0; dir_sync<=0; rx_index<=0; tx_index<=0;
+            fast_inflight<=0;fast_offer<=0;fast_prepare<=0;fast_metadata<=0;
+            raw_done_sync<=0;raw_started_sync<=0;raw_progress_sync<=0;raw_progress_last<=0;
             valid<=0; rx_crc<=16'hffff; idle_count<=0;
             gfx_start<=0; gfx_pending<=0;
             bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff;
         end else begin
             gfx_start<=0;
+            raw_done_sync<={raw_done_sync[0],raw_done};
+            raw_started_sync<={raw_started_sync[0],raw_started};
+            raw_progress_sync<={raw_progress_sync[0],raw_progress};
+            raw_progress_last<=raw_progress_sync[1];
             clk_sync<={clk_sync[1:0],bus_clk}; dir_sync<={dir_sync[0],dir};
             if(!arm) begin
                 valid<=0; rx_index<=0; tx_index<=0; rx_crc<=16'hffff; idle_count<=0;
-                gfx_pending<=0;
+                gfx_pending<=0;fast_offer<=0;fast_inflight<=0;fast_prepare<=0;
                 bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff;
             end else if(idle_count>=TIMEOUT_CYCLES-1) begin
                 valid<=0; rx_index<=0; tx_index<=0; rx_crc<=16'hffff; idle_count<=0;
-                gfx_pending<=0;
+                gfx_pending<=0;fast_offer<=0;fast_inflight<=0;fast_prepare<=0;
                 bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff;
             end else begin
                 idle_count<=idle_count+1;
+                if(FAST_REPLY_ENABLE && fast_inflight && raw_progress_sync[1]!=raw_progress_last) idle_count<=0;
+                // Four-phase bundled-data handshake. Snapshot metadata before
+                // raising offer; source stays frozen until RAW done or abort.
+                if(FAST_REPLY_ENABLE && valid && prefixed && !fast_inflight) begin
+                    fast_inflight<=1;fast_prepare<=2;
+                end else if(fast_inflight) begin
+                    if(fast_prepare==2) begin
+                        fast_metadata<={tile_mode,bulk_mode,reply[5],reply[4],reply[3],reply[2],reply[1],reply[0]};
+                        fast_prepare<=1;
+                    end else if(fast_prepare==1 && !raw_done_sync[1]) begin
+                        fast_offer<=1;fast_prepare<=0;
+                    end else if(fast_offer && (raw_done_sync[1] || (raw_started_sync[1] && !dir && !dir_sync[1]))) begin
+                        valid<=0;fast_offer<=0;fast_inflight<=0;fast_prepare<=0;
+                        bulk_mode<=0;tile_mode<=0;prefixed<=0;tx_index<=0;idle_count<=0;
+                    end
+                end
                 if(gfx_pending && gfx_done) begin
                     reply[1]<=gfx_status; reply[4]<=gfx_result[7:0]; reply[5]<=gfx_result[15:8];
                     valid<=1; gfx_pending<=0;
@@ -129,14 +176,14 @@ module link_bringup #(
                                     end else reply[1]<=2;
                                 8'h20,8'h21,8'h22,8'h23,8'h24,8'h25,8'h26,8'h27,
                                 8'h28,8'h29,8'h2a,8'h2b,8'h2c,8'h2d,8'h2e,8'h2f,
-                                8'h30,8'h31,8'h32,8'h33,8'h34,8'h35,8'h36,8'h37,8'h38,8'h39,8'h3a,8'h3b,8'h3c:
+                                8'h30,8'h31,8'h32,8'h33,8'h34,8'h35,8'h36,8'h37,8'h38,8'h39,8'h3a,8'h3b,8'h3c,8'h3d:
                                     if(GFX_ENABLE==2) begin
                                         valid<=0; gfx_pending<=1; gfx_start<=1;
                                     end else reply[1]<=2;
                                 default: reply[1]<=2;
                             endcase
                         end else rx_index<=rx_index+1'b1;
-                    end else if(dir_sync[1] && dir && valid) begin
+                    end else if(dir_sync[1] && dir && valid && !use_raw) begin
                         if(bulk_mode && !in_prefix && (logical_tx_index<6 || (logical_tx_index>=8 && logical_tx_index<payload_end)))
                             stream_crc<=crc_byte(stream_crc,data_o);
                         if(!in_prefix && ((!bulk_mode && logical_tx_index==7) || (bulk_mode && logical_tx_index==payload_end+1'b1))) begin

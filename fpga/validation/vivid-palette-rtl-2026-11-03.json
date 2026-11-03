@@ -49,7 +49,7 @@
   },
   "capabilities": {
     "27MHz_INFO": "0117",
-    "54MHz_INFO_planned": "021f",
+    "54MHz_INFO": "021f",
     "required_palette_flag": "10"
   },
   "tests": {
@@ -62,13 +62,26 @@
     "RTL_legacy_ROW": 410,
     "RTL_legacy_bbox": 2432,
     "RTL_legacy_scalar": 10334,
-    "RTL_sync_tile": 196
+    "RTL_sync_tile": 196,
+    "PLL54_top_lock_reset_info_clock": true,
+    "PLL54_digital_frequency_cases": {
+      "total": 486,
+      "5MHz": 81,
+      "8MHz": 81,
+      "10MHz": 81,
+      "12.5MHz": 81,
+      "16MHz": 27,
+      "20MHz": 0,
+      "cases_each": 81,
+      "not_electrical_measurement": true
+    }
   },
   "synthesis_and_resources": "not_run_source_has_no_new_multiply",
   "source_sha256": {
-    "fpga/gfx/rtl/triangle_tile.v": "699933ca5fdaac85f8507330121cc134bbdf021ffc1879882e71229c92979e12",
+    "fpga/gfx/rtl/triangle_tile.v": "ab5ae06e13463a2fbde06d55c7c32a585d875397b6771c605e08d2359e0024f8",
     "fpga/host/fractal_reference.h": "102bbc1ebc3febf0b7d4d6391e4a4fbefda92584ff40de6a8eded7403db84710",
-    "fpga/host/link_protocol.h": "bd2d3cf6e53caafe417ba6f007679af0d785b182f4f62866426b3e9e101e7177",
-    "fpga/reference/triangle_tile.py": "e51b5698bbea84eba7f05666752334599c71bc599535018ee48c9eedb41842b4"
-  }
+    "fpga/host/link_protocol.h": "724fdc40f49c488efc661c8fcb6b6998205540652fe27690531c36fdf4f3446f",
+    "fpga/reference/triangle_tile.py": "d28ab48dd11caffcaf03d8688d0c62e8409d58478b927550f9e10c5480a8a888"
+  },
+  "profile": "separate pll54-vivid worktree; baseline pll54 unchanged"
 }

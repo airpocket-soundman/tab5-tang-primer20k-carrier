@@ -1,0 +1,309 @@
+{
+  "schema": 1,
+  "hardware_access": false,
+  "qualification": "offline source/functional/STA gates passed; parent physical review/programming still required",
+  "implementation": "combined sampled216 conditioning +explicitvendorDPB +4stagecoverage +local216resetrelease; not originalfastreplyimplementation",
+  "base_commit": "9c314f3",
+  "source_commit": "255e5da5a71b551ecb055bdb035dfe0ba433d85d",
+  "sta_summary": {
+    "Numbers of Paths Analyzed": 18063,
+    "Numbers of Endpoints Analyzed": 5882,
+    "Numbers of Setup Violated Endpoints": 0,
+    "Numbers of Hold Violated Endpoints": 0
+  },
+  "actual_clock_domains": {
+    "conditioned_reply54": {
+      "target_mhz": 54.0,
+      "actual_fmax_mhz": 80.529
+    },
+    "core54": {
+      "target_mhz": 54.0,
+      "actual_fmax_mhz": 64.662
+    },
+    "sampler216": {
+      "target_mhz": 216.0,
+      "actual_fmax_mhz": 295.32
+    }
+  },
+  "sampler_explicit_paths": [
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 2.9,
+      "source": "core/clock_conditioner/qualified_s0/Q",
+      "endpoint": "core/clock_conditioner/qualified_s0/CE"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 3.649,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/changing_s0/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 3.81,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/qualified_s0/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 3.839,
+      "source": "core/clock_conditioner/meta_s0/Q",
+      "endpoint": "core/clock_conditioner/sampled_s0/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 3.839,
+      "source": "core/filter_reset_release_0_s0/Q",
+      "endpoint": "core/filter_reset_release_1_s0/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.243,
+      "source": "core/clock_conditioner/qualified_s0/Q",
+      "endpoint": "core/clock_conditioner/clean_clk_s1/CE"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.793,
+      "source": "core/clock_conditioner/qualified_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_0_s1/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.793,
+      "source": "core/clock_conditioner/qualified_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_1_s1/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.875,
+      "source": "core/clock_conditioner/qualified_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_0_s1/CE"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.875,
+      "source": "core/clock_conditioner/qualified_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_1_s1/CE"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.923,
+      "source": "core/clock_conditioner/qualified_s0/Q",
+      "endpoint": "core/clock_conditioner/clean_clk_s1/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 1.923,
+      "source": "core/clock_conditioner/qualified_s0/Q",
+      "endpoint": "core/clock_conditioner/pulse_remaining_s0/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 2.119,
+      "source": "core/clock_conditioner/qualified_s0/Q",
+      "endpoint": "core/clock_conditioner/fault_s1/CE"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 2.433,
+      "source": "core/clock_conditioner/qualified_s0/Q",
+      "endpoint": "core/clock_conditioner/cooldown_2_s5/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 2.449,
+      "source": "core/clock_conditioner/qualified_s0/Q",
+      "endpoint": "core/clock_conditioner/fault_s1/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 2.9,
+      "source": "core/clock_conditioner/qualified_s0/Q",
+      "endpoint": "core/clock_conditioner/qualified_s0/CE"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 3.649,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/changing_s0/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 3.81,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/qualified_s0/D"
+    },
+    {
+      "analysis": "Setup Paths Table",
+      "slack_ns": 3.839,
+      "source": "core/clock_conditioner/meta_s0/Q",
+      "endpoint": "core/clock_conditioner/sampled_s0/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.427,
+      "source": "core/clock_conditioner/cooldown_2_s5/Q",
+      "endpoint": "core/clock_conditioner/cooldown_2_s5/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.428,
+      "source": "core/clock_conditioner/cooldown_1_s1/Q",
+      "endpoint": "core/clock_conditioner/cooldown_1_s1/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.539,
+      "source": "core/clock_conditioner/meta_s0/Q",
+      "endpoint": "core/clock_conditioner/sampled_s0/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.552,
+      "source": "core/clock_conditioner/qualified_s0/Q",
+      "endpoint": "core/clock_conditioner/changing_s0/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.553,
+      "source": "core/clock_conditioner/sampled_s0/Q",
+      "endpoint": "core/clock_conditioner/qualified_s0/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.559,
+      "source": "core/clock_conditioner/cooldown_0_s1/Q",
+      "endpoint": "core/clock_conditioner/cooldown_0_s1/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.684,
+      "source": "core/clock_conditioner/cooldown_1_s1/Q",
+      "endpoint": "core/clock_conditioner/cooldown_0_s1/CE"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.684,
+      "source": "core/clock_conditioner/cooldown_1_s1/Q",
+      "endpoint": "core/clock_conditioner/cooldown_1_s1/CE"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.922,
+      "source": "core/clock_conditioner/cooldown_1_s1/Q",
+      "endpoint": "core/clock_conditioner/clean_clk_s1/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 0.922,
+      "source": "core/clock_conditioner/cooldown_1_s1/Q",
+      "endpoint": "core/clock_conditioner/pulse_remaining_s0/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 1.046,
+      "source": "core/clock_conditioner/pulse_remaining_s0/Q",
+      "endpoint": "core/clock_conditioner/clean_clk_s1/CE"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 1.128,
+      "source": "core/clock_conditioner/changing_s0/Q",
+      "endpoint": "core/clock_conditioner/qualified_s0/CE"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 1.264,
+      "source": "core/clock_conditioner/cooldown_1_s1/Q",
+      "endpoint": "core/clock_conditioner/fault_s1/D"
+    },
+    {
+      "analysis": "Hold Paths Table",
+      "slack_ns": 1.544,
+      "source": "core/clock_conditioner/cooldown_1_s1/Q",
+      "endpoint": "core/clock_conditioner/fault_s1/CE"
+    }
+  ],
+  "no_timing_waivers": true,
+  "models": [
+    {
+      "path": "filtered-reply-final-reset216-2026-11-04.json",
+      "sha256": "8617629554150c510f468df63c834150185343e3b0fbb9f2ecdfdc51f0f1f342",
+      "cases": 468,
+      "functional_passed": 456,
+      "conditional_2ns_setup_hold_passed": 417
+    },
+    {
+      "path": "filtered-reply-final-low-rates-2026-11-04.json",
+      "sha256": "c77c68bca64e934d908ec06f4f383aea62a4e4bf2faa43e86c21b2bd4463498a",
+      "cases": 108,
+      "functional_passed": 108,
+      "conditional_2ns_setup_hold_passed": 108
+    }
+  ],
+  "native_ram_checks": 2050,
+  "native_cpu_and_pipeline_coverage_vectors": 3328,
+  "polygon_oracle_transactions": 10334,
+  "fractal_oracle_transactions": 991,
+  "fractal_color_depth_pixels": 24576,
+  "source_sha256": {
+    "link/rtl/reply_clock_filter.v": "dd9d4f92f6dbeb0b3d8601ab77ac94aab86f410753112a9fa6dde529e6575cb1",
+    "link/rtl/link_reply_raw.v": "c1df039c17f5ca8b6708f2455c1d52c1727feb8dfaac2fe401d5ab2f660094a8",
+    "link/rtl/link_bringup_filtered.v": "bccc7e1c95630b649d4a19825b744c36b1cc246f8a5e74133c5c46cab471ab2a",
+    "gfx/rtl/triangle_tile_vendor.v": "0e6b472f55775b2071f2832bcc1514bff0e8db141ac0e42784e31c64c3933369",
+    "gfx/rtl/tile_dpram_vendor.v": "b133181cd254c9059c54e19fc03f06b506ca280d374dd6fa6ae321bc0159135e",
+    "gfx/rtl/triangle_fragment.v": "164a23321804c2109fdc963de7e18f1ad13270671e73feadef46a621d9077c4e",
+    "gfx/rtl/triangle_coverage_pipeline.v": "612d9f92858e0f3a58d0b20471c05d3c1d5a98005a145b450b55b5ae70935e1b",
+    "gfx/rtl/triangle_depth.v": "de970c1412f827a1bac67d840b7f0345128ad669a67cd3d3e66029c2b5ffe06f",
+    "platform/dock/dock_pll54.v": "a39b06768797c12ac8e72a58e1ff1bbfbf01a24c079309982cd8c89a9adc7879",
+    "platform/dock/dock_pll216.v": "7a6b8e3421955bb4f22b08594f900e86b3051f1e9a33d1ff3c742bf84aac2456",
+    "platform/dock/tab5_dock_triangle54_filtered_top.v": "144ade85cd2604caad23437e267cfd7626570055601ff3c7869c043423faf0d8",
+    "constraints/dock/tab5_dock_link_v0.cst": "ebc2cc10587f201c489b14703ac7843a24476481103e6566ff1aec02f6036c61",
+    "constraints/dock/triangle54filtered_official.sdc": "e5660313beb55c7acaa51db4f50f6309872bd8fc24051df68e7367b7ebf18800",
+    "builds/dock/build_clock_filter_reset216.tcl": "42ae98a5e75552f5cf25e599c89169590f50cb4a34541e0f01c97d617194ab2a"
+  },
+  "artifacts": [
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-clock-filter\\fpga\\build\\clock-filter-official-reset216\\filtered_reply\\impl\\pnr\\filtered_reply_tr_content.html",
+      "archived": "filtered_reply_tr_content.html.gz",
+      "sha256": "33eb383136b439cbe5b0c11f0d65382523a0559a5874738c0cc6a79a2a8cd9f1",
+      "bytes": 1213036,
+      "gzip_sha256": "43501ba6d1802935261ab135c92128c37f53d5f96885521a34935abf516c1877"
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-clock-filter\\fpga\\build\\clock-filter-official-reset216\\filtered_reply\\impl\\pnr\\filtered_reply.rpt.txt",
+      "archived": "filtered_reply.rpt.txt.gz",
+      "sha256": "a449ab0092a3e654899ff4fc1930b55d6e5d4cf5d843f59759a3c0ed834b386c",
+      "bytes": 50220,
+      "gzip_sha256": "8b460cc01383558a41124e02bd3cd23c486cc14441e723efbaa6076c774a724c"
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-clock-filter\\fpga\\build\\clock-filter-official-reset216\\filtered_reply\\impl\\pnr\\filtered_reply.pin.html",
+      "archived": "filtered_reply.pin.html.gz",
+      "sha256": "a2959419b3d43b610de27f537a6d7fdc189dbb958d69bd26774da40bc19acb7f",
+      "bytes": 60158,
+      "gzip_sha256": "5edd8fd23389079b64cc5b9d152210bb7757ef5e26889f4ddce0376c95f73aa8"
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-clock-filter\\fpga\\build\\clock-filter-official-reset216\\filtered_reply\\impl\\pnr\\filtered_reply.fs",
+      "archived": "filtered_reply.fs.gz",
+      "sha256": "6c5a10f5c298bc78a8c73bd455247e7f1ea9278880ef055fb8e15d867146658e",
+      "bytes": 7264154,
+      "gzip_sha256": "bef7df7c104284afffca080cf18d7aa32236f6689fb7d34407b4b690507cbc81"
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-clock-filter\\fpga\\build\\clock-filter-reset216-run.log",
+      "archived": "clock-filter-reset216-run.log.gz",
+      "sha256": "d4510d4f7a9c0a8de74375ea897e182f04434a14e518d19f289e43a3556f337d",
+      "bytes": 11637,
+      "gzip_sha256": "435ec231be29cf919a6c4b8d4f3456dbb04b8ba58e87b6131a7711a5150203bd"
+    }
+  ],
+  "limitations": [
+    "No physical cable maximum/BER proof",
+    "Digital assumed wire0/2/5ns,Tco0/2ns,hostsetuphold2ns are not measured pads",
+    "Official sampler-only STA does not substitute full-image STA",
+    "Prior OSSmissingendpoint records retained; exacttoolbugcause not counterfactually proven"
+  ]
+}

@@ -1,0 +1,2270 @@
+{
+  "schema": 1,
+  "hardware_access": false,
+  "scope": "unit digital edge-count model plus arithmetic timing envelopes; no serializer or PNR qualification yet",
+  "sampler_period_ps": 4630,
+  "nominal_sampler_hz": 216000000,
+  "waveform_assumption": "160MHz integer orN/N+1 period accumulator; HIGH floor(div/2), actualP4 ordering/duty unmeasured",
+  "metastability": "2FF structure only; no analog metastability/MTBF model",
+  "clean_cases": [
+    {
+      "configured_hz": 5000000,
+      "divider": [
+        32,
+        0,
+        1
+      ],
+      "sample_phase_ps": 0,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13905,
+      "maximum_latency_ps": 18515,
+      "passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "divider": [
+        32,
+        0,
+        1
+      ],
+      "sample_phase_ps": 463,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13902,
+      "maximum_latency_ps": 18502,
+      "passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "divider": [
+        32,
+        0,
+        1
+      ],
+      "sample_phase_ps": 926,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13899,
+      "maximum_latency_ps": 18519,
+      "passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "divider": [
+        32,
+        0,
+        1
+      ],
+      "sample_phase_ps": 1389,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13916,
+      "maximum_latency_ps": 18516,
+      "passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "divider": [
+        32,
+        0,
+        1
+      ],
+      "sample_phase_ps": 1852,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13903,
+      "maximum_latency_ps": 18513,
+      "passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "divider": [
+        32,
+        0,
+        1
+      ],
+      "sample_phase_ps": 2315,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13900,
+      "maximum_latency_ps": 18500,
+      "passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "divider": [
+        32,
+        0,
+        1
+      ],
+      "sample_phase_ps": 2778,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13917,
+      "maximum_latency_ps": 18517,
+      "passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "divider": [
+        32,
+        0,
+        1
+      ],
+      "sample_phase_ps": 3241,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13904,
+      "maximum_latency_ps": 18514,
+      "passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "divider": [
+        32,
+        0,
+        1
+      ],
+      "sample_phase_ps": 3704,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13901,
+      "maximum_latency_ps": 18501,
+      "passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "divider": [
+        32,
+        0,
+        1
+      ],
+      "sample_phase_ps": 4167,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13918,
+      "maximum_latency_ps": 18518,
+      "passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "divider": [
+        20,
+        0,
+        1
+      ],
+      "sample_phase_ps": 0,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 15655,
+      "maximum_latency_ps": 17645,
+      "passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "divider": [
+        20,
+        0,
+        1
+      ],
+      "sample_phase_ps": 463,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 15192,
+      "maximum_latency_ps": 17182,
+      "passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "divider": [
+        20,
+        0,
+        1
+      ],
+      "sample_phase_ps": 926,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14729,
+      "maximum_latency_ps": 16719,
+      "passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "divider": [
+        20,
+        0,
+        1
+      ],
+      "sample_phase_ps": 1389,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14266,
+      "maximum_latency_ps": 16256,
+      "passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "divider": [
+        20,
+        0,
+        1
+      ],
+      "sample_phase_ps": 1852,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13893,
+      "maximum_latency_ps": 18513,
+      "passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "divider": [
+        20,
+        0,
+        1
+      ],
+      "sample_phase_ps": 2315,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13890,
+      "maximum_latency_ps": 18510,
+      "passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "divider": [
+        20,
+        0,
+        1
+      ],
+      "sample_phase_ps": 2778,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13897,
+      "maximum_latency_ps": 18517,
+      "passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "divider": [
+        20,
+        0,
+        1
+      ],
+      "sample_phase_ps": 3241,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13894,
+      "maximum_latency_ps": 18514,
+      "passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "divider": [
+        20,
+        0,
+        1
+      ],
+      "sample_phase_ps": 3704,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13891,
+      "maximum_latency_ps": 18511,
+      "passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "divider": [
+        20,
+        0,
+        1
+      ],
+      "sample_phase_ps": 4167,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 16118,
+      "maximum_latency_ps": 18108,
+      "passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "divider": [
+        16,
+        0,
+        1
+      ],
+      "sample_phase_ps": 0,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13915,
+      "maximum_latency_ps": 18515,
+      "passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "divider": [
+        16,
+        0,
+        1
+      ],
+      "sample_phase_ps": 463,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13892,
+      "maximum_latency_ps": 18492,
+      "passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "divider": [
+        16,
+        0,
+        1
+      ],
+      "sample_phase_ps": 926,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13899,
+      "maximum_latency_ps": 18499,
+      "passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "divider": [
+        16,
+        0,
+        1
+      ],
+      "sample_phase_ps": 1389,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13916,
+      "maximum_latency_ps": 18516,
+      "passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "divider": [
+        16,
+        0,
+        1
+      ],
+      "sample_phase_ps": 1852,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13893,
+      "maximum_latency_ps": 18513,
+      "passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "divider": [
+        16,
+        0,
+        1
+      ],
+      "sample_phase_ps": 2315,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13900,
+      "maximum_latency_ps": 18500,
+      "passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "divider": [
+        16,
+        0,
+        1
+      ],
+      "sample_phase_ps": 2778,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13907,
+      "maximum_latency_ps": 18507,
+      "passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "divider": [
+        16,
+        0,
+        1
+      ],
+      "sample_phase_ps": 3241,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13894,
+      "maximum_latency_ps": 18514,
+      "passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "divider": [
+        16,
+        0,
+        1
+      ],
+      "sample_phase_ps": 3704,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13891,
+      "maximum_latency_ps": 18491,
+      "passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "divider": [
+        16,
+        0,
+        1
+      ],
+      "sample_phase_ps": 4167,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13908,
+      "maximum_latency_ps": 18508,
+      "passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "divider": [
+        10,
+        0,
+        1
+      ],
+      "sample_phase_ps": 0,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13895,
+      "maximum_latency_ps": 18515,
+      "passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "divider": [
+        10,
+        0,
+        1
+      ],
+      "sample_phase_ps": 463,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 15192,
+      "maximum_latency_ps": 18502,
+      "passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "divider": [
+        10,
+        0,
+        1
+      ],
+      "sample_phase_ps": 926,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14729,
+      "maximum_latency_ps": 18039,
+      "passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "divider": [
+        10,
+        0,
+        1
+      ],
+      "sample_phase_ps": 1389,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14266,
+      "maximum_latency_ps": 17576,
+      "passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "divider": [
+        10,
+        0,
+        1
+      ],
+      "sample_phase_ps": 1852,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13893,
+      "maximum_latency_ps": 18513,
+      "passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "divider": [
+        10,
+        0,
+        1
+      ],
+      "sample_phase_ps": 2315,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13890,
+      "maximum_latency_ps": 18510,
+      "passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "divider": [
+        10,
+        0,
+        1
+      ],
+      "sample_phase_ps": 2778,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 15197,
+      "maximum_latency_ps": 18497,
+      "passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "divider": [
+        10,
+        0,
+        1
+      ],
+      "sample_phase_ps": 3241,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14734,
+      "maximum_latency_ps": 18034,
+      "passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "divider": [
+        10,
+        0,
+        1
+      ],
+      "sample_phase_ps": 3704,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14271,
+      "maximum_latency_ps": 17571,
+      "passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "divider": [
+        10,
+        0,
+        1
+      ],
+      "sample_phase_ps": 4167,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13898,
+      "maximum_latency_ps": 18518,
+      "passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "divider": [
+        8,
+        0,
+        1
+      ],
+      "sample_phase_ps": 0,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13895,
+      "maximum_latency_ps": 18505,
+      "passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "divider": [
+        8,
+        0,
+        1
+      ],
+      "sample_phase_ps": 463,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13892,
+      "maximum_latency_ps": 18502,
+      "passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "divider": [
+        8,
+        0,
+        1
+      ],
+      "sample_phase_ps": 926,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13899,
+      "maximum_latency_ps": 18509,
+      "passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "divider": [
+        8,
+        0,
+        1
+      ],
+      "sample_phase_ps": 1389,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13896,
+      "maximum_latency_ps": 18506,
+      "passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "divider": [
+        8,
+        0,
+        1
+      ],
+      "sample_phase_ps": 1852,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13903,
+      "maximum_latency_ps": 18513,
+      "passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "divider": [
+        8,
+        0,
+        1
+      ],
+      "sample_phase_ps": 2315,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13900,
+      "maximum_latency_ps": 18510,
+      "passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "divider": [
+        8,
+        0,
+        1
+      ],
+      "sample_phase_ps": 2778,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13907,
+      "maximum_latency_ps": 18517,
+      "passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "divider": [
+        8,
+        0,
+        1
+      ],
+      "sample_phase_ps": 3241,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13904,
+      "maximum_latency_ps": 18514,
+      "passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "divider": [
+        8,
+        0,
+        1
+      ],
+      "sample_phase_ps": 3704,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13891,
+      "maximum_latency_ps": 18501,
+      "passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "divider": [
+        8,
+        0,
+        1
+      ],
+      "sample_phase_ps": 4167,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13908,
+      "maximum_latency_ps": 18518,
+      "passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "divider": [
+        6,
+        2,
+        5
+      ],
+      "sample_phase_ps": 0,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13905,
+      "maximum_latency_ps": 18515,
+      "passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "divider": [
+        6,
+        2,
+        5
+      ],
+      "sample_phase_ps": 463,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13902,
+      "maximum_latency_ps": 18502,
+      "passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "divider": [
+        6,
+        2,
+        5
+      ],
+      "sample_phase_ps": 926,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13899,
+      "maximum_latency_ps": 18519,
+      "passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "divider": [
+        6,
+        2,
+        5
+      ],
+      "sample_phase_ps": 1389,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13906,
+      "maximum_latency_ps": 18516,
+      "passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "divider": [
+        6,
+        2,
+        5
+      ],
+      "sample_phase_ps": 1852,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13903,
+      "maximum_latency_ps": 18513,
+      "passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "divider": [
+        6,
+        2,
+        5
+      ],
+      "sample_phase_ps": 2315,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13890,
+      "maximum_latency_ps": 18500,
+      "passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "divider": [
+        6,
+        2,
+        5
+      ],
+      "sample_phase_ps": 2778,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13917,
+      "maximum_latency_ps": 18517,
+      "passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "divider": [
+        6,
+        2,
+        5
+      ],
+      "sample_phase_ps": 3241,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13904,
+      "maximum_latency_ps": 18514,
+      "passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "divider": [
+        6,
+        2,
+        5
+      ],
+      "sample_phase_ps": 3704,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13901,
+      "maximum_latency_ps": 18501,
+      "passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "divider": [
+        6,
+        2,
+        5
+      ],
+      "sample_phase_ps": 4167,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13918,
+      "maximum_latency_ps": 18518,
+      "passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "divider": [
+        6,
+        0,
+        1
+      ],
+      "sample_phase_ps": 0,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13895,
+      "maximum_latency_ps": 18505,
+      "passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "divider": [
+        6,
+        0,
+        1
+      ],
+      "sample_phase_ps": 463,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13892,
+      "maximum_latency_ps": 18502,
+      "passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "divider": [
+        6,
+        0,
+        1
+      ],
+      "sample_phase_ps": 926,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13899,
+      "maximum_latency_ps": 18519,
+      "passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "divider": [
+        6,
+        0,
+        1
+      ],
+      "sample_phase_ps": 1389,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13896,
+      "maximum_latency_ps": 18516,
+      "passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "divider": [
+        6,
+        0,
+        1
+      ],
+      "sample_phase_ps": 1852,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13893,
+      "maximum_latency_ps": 18513,
+      "passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "divider": [
+        6,
+        0,
+        1
+      ],
+      "sample_phase_ps": 2315,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13890,
+      "maximum_latency_ps": 18510,
+      "passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "divider": [
+        6,
+        0,
+        1
+      ],
+      "sample_phase_ps": 2778,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13907,
+      "maximum_latency_ps": 18517,
+      "passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "divider": [
+        6,
+        0,
+        1
+      ],
+      "sample_phase_ps": 3241,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13904,
+      "maximum_latency_ps": 18514,
+      "passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "divider": [
+        6,
+        0,
+        1
+      ],
+      "sample_phase_ps": 3704,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13901,
+      "maximum_latency_ps": 18511,
+      "passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "divider": [
+        6,
+        0,
+        1
+      ],
+      "sample_phase_ps": 4167,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13898,
+      "maximum_latency_ps": 18508,
+      "passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "divider": [
+        5,
+        0,
+        1
+      ],
+      "sample_phase_ps": 0,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14505,
+      "maximum_latency_ps": 18465,
+      "passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "divider": [
+        5,
+        0,
+        1
+      ],
+      "sample_phase_ps": 463,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14042,
+      "maximum_latency_ps": 18002,
+      "passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "divider": [
+        5,
+        0,
+        1
+      ],
+      "sample_phase_ps": 926,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13899,
+      "maximum_latency_ps": 18519,
+      "passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "divider": [
+        5,
+        0,
+        1
+      ],
+      "sample_phase_ps": 1389,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14266,
+      "maximum_latency_ps": 18236,
+      "passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "divider": [
+        5,
+        0,
+        1
+      ],
+      "sample_phase_ps": 1852,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13893,
+      "maximum_latency_ps": 18513,
+      "passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "divider": [
+        5,
+        0,
+        1
+      ],
+      "sample_phase_ps": 2315,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14500,
+      "maximum_latency_ps": 18460,
+      "passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "divider": [
+        5,
+        0,
+        1
+      ],
+      "sample_phase_ps": 2778,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14037,
+      "maximum_latency_ps": 17997,
+      "passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "divider": [
+        5,
+        0,
+        1
+      ],
+      "sample_phase_ps": 3241,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13894,
+      "maximum_latency_ps": 18514,
+      "passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "divider": [
+        5,
+        0,
+        1
+      ],
+      "sample_phase_ps": 3704,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14271,
+      "maximum_latency_ps": 18231,
+      "passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "divider": [
+        5,
+        0,
+        1
+      ],
+      "sample_phase_ps": 4167,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13898,
+      "maximum_latency_ps": 18518,
+      "passed": true
+    },
+    {
+      "configured_hz": 40000000,
+      "divider": [
+        4,
+        0,
+        1
+      ],
+      "sample_phase_ps": 0,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13895,
+      "maximum_latency_ps": 18515,
+      "passed": true
+    },
+    {
+      "configured_hz": 40000000,
+      "divider": [
+        4,
+        0,
+        1
+      ],
+      "sample_phase_ps": 463,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14272,
+      "maximum_latency_ps": 18362,
+      "passed": true
+    },
+    {
+      "configured_hz": 40000000,
+      "divider": [
+        4,
+        0,
+        1
+      ],
+      "sample_phase_ps": 926,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13899,
+      "maximum_latency_ps": 18519,
+      "passed": true
+    },
+    {
+      "configured_hz": 40000000,
+      "divider": [
+        4,
+        0,
+        1
+      ],
+      "sample_phase_ps": 1389,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14266,
+      "maximum_latency_ps": 18366,
+      "passed": true
+    },
+    {
+      "configured_hz": 40000000,
+      "divider": [
+        4,
+        0,
+        1
+      ],
+      "sample_phase_ps": 1852,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13893,
+      "maximum_latency_ps": 18513,
+      "passed": true
+    },
+    {
+      "configured_hz": 40000000,
+      "divider": [
+        4,
+        0,
+        1
+      ],
+      "sample_phase_ps": 2315,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14270,
+      "maximum_latency_ps": 18360,
+      "passed": true
+    },
+    {
+      "configured_hz": 40000000,
+      "divider": [
+        4,
+        0,
+        1
+      ],
+      "sample_phase_ps": 2778,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13897,
+      "maximum_latency_ps": 18517,
+      "passed": true
+    },
+    {
+      "configured_hz": 40000000,
+      "divider": [
+        4,
+        0,
+        1
+      ],
+      "sample_phase_ps": 3241,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14274,
+      "maximum_latency_ps": 18364,
+      "passed": true
+    },
+    {
+      "configured_hz": 40000000,
+      "divider": [
+        4,
+        0,
+        1
+      ],
+      "sample_phase_ps": 3704,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 13891,
+      "maximum_latency_ps": 18511,
+      "passed": true
+    },
+    {
+      "configured_hz": 40000000,
+      "divider": [
+        4,
+        0,
+        1
+      ],
+      "sample_phase_ps": 4167,
+      "accepted_rises": 200,
+      "minimum_latency_ps": 14268,
+      "maximum_latency_ps": 18368,
+      "passed": true
+    }
+  ],
+  "short_pulse_rejection_passed": true,
+  "oversized_short_spacing_fault_passed": true,
+  "asynchronous_reset_stopped_clock_passed": true,
+  "timing_budgets": [
+    {
+      "configured_hz": 5000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 200000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 179481,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 200000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 177481,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 200000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 174481,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 200000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 175481,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 200000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 173481,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 200000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 170481,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 200000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 169481,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 200000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 167481,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 200000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 164481,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 200000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 159481,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 200000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 157481,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 5000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 200000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 154481,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 125000,
+      "worst_sampled_filter_latency_ps": 18517,
+      "remaining_setup_slack_ps": 104483,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 125000,
+      "worst_sampled_filter_latency_ps": 18517,
+      "remaining_setup_slack_ps": 102483,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 125000,
+      "worst_sampled_filter_latency_ps": 18517,
+      "remaining_setup_slack_ps": 99483,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 125000,
+      "worst_sampled_filter_latency_ps": 18517,
+      "remaining_setup_slack_ps": 100483,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 125000,
+      "worst_sampled_filter_latency_ps": 18517,
+      "remaining_setup_slack_ps": 98483,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 125000,
+      "worst_sampled_filter_latency_ps": 18517,
+      "remaining_setup_slack_ps": 95483,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 125000,
+      "worst_sampled_filter_latency_ps": 18517,
+      "remaining_setup_slack_ps": 94483,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 125000,
+      "worst_sampled_filter_latency_ps": 18517,
+      "remaining_setup_slack_ps": 92483,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 125000,
+      "worst_sampled_filter_latency_ps": 18517,
+      "remaining_setup_slack_ps": 89483,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 125000,
+      "worst_sampled_filter_latency_ps": 18517,
+      "remaining_setup_slack_ps": 84483,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 125000,
+      "worst_sampled_filter_latency_ps": 18517,
+      "remaining_setup_slack_ps": 82483,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 8000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 125000,
+      "worst_sampled_filter_latency_ps": 18517,
+      "remaining_setup_slack_ps": 79483,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 100000,
+      "worst_sampled_filter_latency_ps": 18516,
+      "remaining_setup_slack_ps": 79484,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 100000,
+      "worst_sampled_filter_latency_ps": 18516,
+      "remaining_setup_slack_ps": 77484,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 100000,
+      "worst_sampled_filter_latency_ps": 18516,
+      "remaining_setup_slack_ps": 74484,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 100000,
+      "worst_sampled_filter_latency_ps": 18516,
+      "remaining_setup_slack_ps": 75484,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 100000,
+      "worst_sampled_filter_latency_ps": 18516,
+      "remaining_setup_slack_ps": 73484,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 100000,
+      "worst_sampled_filter_latency_ps": 18516,
+      "remaining_setup_slack_ps": 70484,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 100000,
+      "worst_sampled_filter_latency_ps": 18516,
+      "remaining_setup_slack_ps": 69484,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 100000,
+      "worst_sampled_filter_latency_ps": 18516,
+      "remaining_setup_slack_ps": 67484,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 100000,
+      "worst_sampled_filter_latency_ps": 18516,
+      "remaining_setup_slack_ps": 64484,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 100000,
+      "worst_sampled_filter_latency_ps": 18516,
+      "remaining_setup_slack_ps": 59484,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 100000,
+      "worst_sampled_filter_latency_ps": 18516,
+      "remaining_setup_slack_ps": 57484,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 10000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 100000,
+      "worst_sampled_filter_latency_ps": 18516,
+      "remaining_setup_slack_ps": 54484,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 62500,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 41982,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 62500,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 39982,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 62500,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 36982,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 62500,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 37982,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 62500,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 35982,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 62500,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 32982,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 62500,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 31982,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 62500,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 29982,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 62500,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 26982,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 62500,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 21982,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 62500,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 19982,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 16000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 62500,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 16982,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 50000,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 29482,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 50000,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 27482,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 50000,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 24482,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 50000,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 25482,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 50000,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 23482,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 50000,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 20482,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 50000,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 19482,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 50000,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 17482,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 50000,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 14482,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 50000,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 9482,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 50000,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 7482,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 20000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 50000,
+      "worst_sampled_filter_latency_ps": 18518,
+      "remaining_setup_slack_ps": 4482,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 16981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 14981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 11981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 12981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 10981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 7981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 6981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 4981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 1981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 25000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -3019,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 25000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -5019,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 25000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -8019,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 26666667,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 16981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 14981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 11981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 12981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 10981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 7981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 6981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 4981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 1981,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 26666667,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -3019,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 26666667,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -5019,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 26666667,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 37500,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -8019,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 32000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 31250,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 10731,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 31250,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 8731,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 31250,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 5731,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 31250,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 6731,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 31250,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 4731,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 31250,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 1731,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 31250,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 731,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 32000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 31250,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -1269,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 32000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 31250,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -4269,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 32000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 31250,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -9269,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 32000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 31250,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -11269,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 32000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 31250,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -14269,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 40000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 25000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 4481,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 40000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 25000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 2481,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 40000000,
+      "one_way_wire_assumed_ns": 0,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 25000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -519,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 40000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 25000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": 481,
+      "conditional_timing_passed": true
+    },
+    {
+      "configured_hz": 40000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 25000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -1519,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 40000000,
+      "one_way_wire_assumed_ns": 2,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 25000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -4519,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 40000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 25000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -5519,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 40000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 25000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -7519,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 40000000,
+      "one_way_wire_assumed_ns": 5,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 25000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -10519,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 40000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 0,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 25000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -15519,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 40000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 2,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 25000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -17519,
+      "conditional_timing_passed": false
+    },
+    {
+      "configured_hz": 40000000,
+      "one_way_wire_assumed_ns": 10,
+      "fpga_clock_to_data_assumed_ns": 5,
+      "host_setup_assumed_ns": 2,
+      "minimum_period_ps": 25000,
+      "worst_sampled_filter_latency_ps": 18519,
+      "remaining_setup_slack_ps": -20519,
+      "conditional_timing_passed": false
+    }
+  ],
+  "source_sha256": {
+    "link/rtl/reply_clock_filter.v": "dd9d4f92f6dbeb0b3d8601ab77ac94aab86f410753112a9fa6dde529e6575cb1",
+    "link/tests/tb_reply_clock_filter.v": "eb00a590b8ca9e7f08729f49b534ee4f73889ba12abe5253bc1352ca0b1bd61b"
+  }
+}

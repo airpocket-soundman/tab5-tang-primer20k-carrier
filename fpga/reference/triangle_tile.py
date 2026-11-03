@@ -34,7 +34,9 @@ def fractal_pixel(params,x,y):
 
 
 class TriangleTile:
-    def __init__(self):
+    def __init__(self,core_clock_mhz=27,clock_query_enable=False):
+        self.core_clock_mhz=core_clock_mhz
+        self.clock_query_enable=clock_query_enable
         self.abort()
 
     def abort(self):
@@ -60,7 +62,7 @@ class TriangleTile:
             self.frame.clear(value, 0)
             value = 0
         elif op == FRACTAL_INFO:
-            value=0x0117
+            value=0x021f if self.clock_query_enable else 0x0117
         elif 0x31 <= op <= 0x36:
             self.fractal_params[op-0x31]=value
         elif op == 0x37:
@@ -100,6 +102,8 @@ class TriangleTile:
                 old = self.frame.depth[:]
                 self.frame.triangle(*vertices, self.params[9])
                 value = sum(x != y for x, y in zip(old, self.frame.depth))
+        elif op == 0x3d:
+            status,value=(2,0) if not self.clock_query_enable else ((3,0) if a or b else (0,self.core_clock_mhz))
         elif op == 0x3c:
             status,value=(3,0) if a or b else (0,0x0103)
         elif op == 0x3b:
