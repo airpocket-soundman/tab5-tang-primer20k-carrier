@@ -13,8 +13,8 @@ enum { LINK_ID=1, LINK_ECHO=2, LINK_INVERT=3, LINK_CAPS=4,
        FRACTAL_INFO=0x30, FRACTAL_X0=0x31, FRACTAL_Y0=0x32,
        FRACTAL_DX=0x33, FRACTAL_DY=0x34, FRACTAL_CX=0x35, FRACTAL_CY=0x36,
        FRACTAL_CONFIG=0x37, FRACTAL_DRAW=0x38,
-       FRACTAL_CYCLES_LO=0x39, FRACTAL_CYCLES_HI=0x3a };
-enum { TRI_ROW_WORDS=32, TRI_ROW_RESPONSE_BYTES=74 };
+       FRACTAL_CYCLES_LO=0x39, FRACTAL_CYCLES_HI=0x3a, TRI_TILE_READ=0x3b, TRI_TILE_CAPS=0x3c, TILE_READ=TRI_TILE_READ, TILE_CAPS=TRI_TILE_CAPS };
+enum { TRI_ROW_WORDS=32, TRI_ROW_RESPONSE_BYTES=74, TRI_TILE_WORDS=1024, TRI_TILE_RESPONSE_BYTES=2058 };
 static inline uint16_t link_crc16_extend(uint16_t c, const uint8_t *p, unsigned n) {
     // CRC-16/CCITT-FALSE, identical polynomial/seed/wire bytes. A 512-byte
     // table replaces eight bit steps per byte; incremental seeds are preserved.
@@ -83,6 +83,8 @@ static inline bool link_validate_response(const uint8_t r[8], const uint8_t q[8]
         case TRI_CLEAR: return r[4]==0 && r[5]==0;
         case TRI_DRAW: return ((uint16_t)r[4] | (uint16_t)r[5]<<8)<=1024;
         case TRI_READ: case TRI_DEPTH: return true; // Compare complete color/depth on host.
+        case TRI_TILE_CAPS: return q[4]==0 && q[5]==0 && r[4]==3 && r[5]==1;
+        case TRI_TILE_READ: return q[4]==0 && q[5]<2 && r[4]==0 && r[5]==q[5];
         case TRI_ROW: return q[4]<32 && q[5]<2 && r[4]==q[4] && r[5]==q[5];
         case GFX_COLOR: case GFX_PIXEL: case GFX_ORIGIN: case GFX_RECT:
             return r[4]==q[4] && r[5]==q[5];
@@ -97,4 +99,11 @@ static inline bool link_validate_row_response(const uint8_t r[74], const uint8_t
     if((q[1]&0x7f)!=TRI_ROW || !link_validate_response(r,q)) return false;
     uint16_t c=link_crc16_extend(link_crc16(r,6),r+8,64);
     return r[72]==(uint8_t)c && r[73]==(uint8_t)(c>>8);
+}
+
+// TILE_READ success: header8 + row-major little-endian words2048 + boundCRC2.
+static inline bool link_validate_tile_response(const uint8_t r[2058],const uint8_t q[8]) {
+    if((q[1]&0x7f)!=TRI_TILE_READ || !link_validate_response(r,q)) return false;
+    uint16_t c=link_crc16_extend(link_crc16(r,6),r+8,2048);
+    return r[2056]==(uint8_t)c && r[2057]==(uint8_t)(c>>8);
 }

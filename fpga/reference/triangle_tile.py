@@ -96,6 +96,16 @@ class TriangleTile:
                 old = self.frame.depth[:]
                 self.frame.triangle(*vertices, self.params[9])
                 value = sum(x != y for x, y in zip(old, self.frame.depth))
+        elif op == 0x3c:
+            status,value=(3,0) if a or b else (0,0x0103)
+        elif op == 0x3b:
+            if a or b>1: status,value=3,0
+            elif self.frame is None: status,value=5,0
+            else:
+                prefix=bytes([0x5a,0,frame[2],2,0,b])
+                plane=self.frame.color if b==0 else self.frame.depth
+                payload=b''.join(v.to_bytes(2,'little') for v in plane)
+                return seal(prefix)+payload+crc16(prefix+payload).to_bytes(2,'little')
         elif op == ROW:
             if a >= 32 or b >= 2:
                 status, value = 3, 0

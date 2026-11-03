@@ -6,7 +6,7 @@ module triangle_tile(
     output reg done,
     output reg [7:0] status,
     output reg [15:0] result,
-    input wire [5:0] row_index,
+    input wire [10:0] row_index,
     output wire [7:0] row_byte
 );
     localparam IDLE=0, CLEAR=1, READ_WAIT=2, READ_DONE=3,
@@ -15,7 +15,9 @@ module triangle_tile(
                FRACTAL_BEGIN=10, FRACTAL_MULT=11, FRACTAL_STEP=12, FRACTAL_WRITE=13;
     reg [3:0] state;
     reg initialized, read_depth;
+    reg tile_stream;
     reg [9:0] address;
+    wire [9:0] ram_read_address=tile_stream ? row_index[10:1] : address;
     reg [9:0] configured;
     reg [15:0] params[0:9];
     reg [4:0] scan_x0, scan_x1, scan_y1;
@@ -197,8 +199,9 @@ module triangle_tile(
     wire [15:0] fractal_color = iterations==fractal_params[6][7:0] ? 16'h0042 : fractal_palette(iterations);
     // Snapshot data is immutable while the link sends the response. It is not
     // exposed until all 32 synchronous RAM reads have completed.
-    assign row_byte = row_index[0] ? row_cache[row_index[5:1]][15:8]
-                                        : row_cache[row_index[5:1]][7:0];
+    wire [15:0] stream_word=read_depth ? depth_q : color_q;
+    assign row_byte = tile_stream ? (row_index[0] ? stream_word[15:8] : stream_word[7:0]) :
+                     (row_index[0] ? row_cache[row_index[5:1]][15:8] : row_cache[row_index[5:1]][7:0]);
     wire fragment_ready, fragment_valid, fragment_write;
     wire covered, degenerate, invalid_input, depth_pass;
     wire [15:0] new_depth, out_color;
@@ -225,15 +228,15 @@ module triangle_tile(
         end else if(active && state==FRACTAL_WRITE) begin
             colors[address]<=fractal_color; depths[address]<=0;
         end
-        color_q<=colors[address]; depth_q<=depths[address];
+        color_q<=colors[ram_read_address]; depth_q<=depths[ram_read_address];
     end
     always @(posedge clk or negedge reset_n) begin
         if(!reset_n) begin
-            state<=IDLE; initialized<=0; configured<=0; fractal_configured<=0; address<=0;
+            state<=IDLE; initialized<=0; tile_stream<=0; configured<=0; fractal_configured<=0; address<=0;
             done<=0; status<=0; result<=0; written<=0; read_depth<=0; clear_color<=0;
             fractal_cycles<=0; last_fractal_cycles<=0;
         end else if(abort) begin
-            state<=IDLE; initialized<=0; configured<=0; fractal_configured<=0; address<=0;
+            state<=IDLE; initialized<=0; tile_stream<=0; configured<=0; fractal_configured<=0; address<=0;
             done<=0; status<=0; result<=0; written<=0;
             fractal_cycles<=0; last_fractal_cycles<=0;
         end else begin
@@ -242,7 +245,7 @@ module triangle_tile(
                 fractal_cycles<=fractal_cycles+1'b1;
             case(state)
                 IDLE: if(start) begin
-                    status<=0; result<=0;
+                    status<=0; result<=0; tile_stream<=0;
                     if(opcode>=8'h21 && opcode<=8'h2a) begin
                         params[opcode-8'h21]<={b,a};
                         configured[opcode-8'h21]<=1; result<={b,a}; done<=1;
@@ -251,6 +254,16 @@ module triangle_tile(
                         fractal_configured[opcode-8'h31]<=1; result<={b,a}; done<=1;
                     end else case(opcode)
                         8'h20: begin result<=16'h2020; done<=1; end
+                        8'h3c: begin
+                            if(a!=0 || b!=0) status<=3;
+                            else result<=16'h0103;
+                            done<=1;
+                        end
+                        8'h3b: begin
+                            if(a!=0 || b>1) begin status<=3; done<=1; end
+                            else if(!initialized) begin status<=5; done<=1; end
+                            else begin tile_stream<=1;read_depth<=b[0];result<={b,a};done<=1;end
+                        end
                         8'h30: begin result<=16'h0107; done<=1; end
                         8'h39,8'h3a: begin
                             if(a!=0 || b!=0) status<=3;

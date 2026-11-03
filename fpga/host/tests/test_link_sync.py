@@ -20,19 +20,21 @@ class LinkSync(unittest.TestCase):
         def add(q,raw,length,valid,offset=0,body=b''):
             cases.append((bytes(q),bytes(raw),length,valid,offset,body))
         replies=[]
-        for op,value in [(1,0),(2,0xa55a),(3,0x55aa),(4,0),(0x30,0)]:
+        for op,value in [(1,0),(2,0xa55a),(3,0x55aa),(4,0),(0x30,0),(0x3c,0)]:
             q=request(op|128,len(replies),value&255,value>>8);r=model.exchange(q)
             replies.append((q,r[8:]))
         model.exchange(request(0xab,10,0x34,0x12))
         for row,plane in [(0,0),(31,0),(0,1),(31,1)]:
             q=request(0xaf,20+len(replies),row,plane);r=model.exchange(q);replies.append((q,r[8:]))
+        for plane in (0,1):
+            q=request(0xbb,80+plane,0,plane);r=model.exchange(q);replies.append((q,r[8:]))
         for q,body in replies:
             for margin in (8,16):
                 wire=bytes([0xc3])*margin+body
                 for offset in range(margin+1):
                     raw=bytes([0xc3])*offset+body+bytes([0x7e])*(margin-offset)
                     add(q,raw,len(body),True,offset,body)
-                    for byte in range(len(body)):
+                    for byte in (range(len(body)) if len(body)<100 else (0,1,2,3,4,5,6,7,8,9,1023,2055,2056,2057)):
                         bad=bytearray(raw);bad[offset+byte]^=1
                         add(q,bad,len(body),False)
                 add(q,wire[:-1],len(body),False)
@@ -45,24 +47,38 @@ class LinkSync(unittest.TestCase):
         # Two disjoint valid ordinary frames must be rejected, not the first
         # one chosen. Also construct overlapping complete ROW frames at0/8.
         q,body=replies[0];add(q,body+body,8,False);add(q,body+body+bytes(8),8,False)
-        q,row=replies[-1];raw=bytearray(82);raw[:8]=row[:8];raw[8:16]=row[:8]
+        q,row=replies[-3];raw=bytearray(82);raw[:8]=row[:8];raw[8:16]=row[:8]
         raw[72:74]=crc16(raw[:6]+raw[8:72]).to_bytes(2,'little')
         raw[80:82]=crc16(raw[8:14]+raw[16:80]).to_bytes(2,'little')
         add(q,raw,74,False);add(q,raw+bytes(8),74,False)
         # Metadata mismatch remains invalid even with both CRCs recomputed.
-        q,body=replies[-1];bad=bytearray(body);bad[4]^=1
+        q,body=replies[-3];bad=bytearray(body);bad[4]^=1
         bad[:8]=seal(bad[:6]);bad[72:74]=crc16(bad[:6]+bad[8:72]).to_bytes(2,'little')
         add(q,bytes([0xc3])*8+bad,74,False)
+        # Two overlapping complete tile frames at0/16 must be rejected too.
+        q,tile=replies[-1];raw=bytearray(2074)
+        raw[:2058]=tile;raw[16:24]=tile[:8]
+        raw[2056:2058]=crc16(raw[:6]+raw[8:2056]).to_bytes(2,'little')
+        raw[2072:2074]=crc16(raw[16:22]+raw[24:2072]).to_bytes(2,'little')
+        add(q,raw,2058,False)
+        # Recomputed CRCs cannot legitimize wrong plane metadata.
+        bad=bytearray(tile);bad[5]^=1;bad[:8]=seal(bad[:6])
+        bad[2056:2058]=crc16(bad[:6]+bad[8:2056]).to_bytes(2,'little')
+        add(q,bytes([0xc3])*16+bad,2058,False)
+        # Exercise every tile-body byte at one valid capture offset.
+        for byte in range(len(tile)):
+            bad=bytearray(bytes([0xc3])*16+tile);bad[16+byte]^=1
+            add(q,bad,2058,False)
         source=r'''#include "link_sync.h"
 #include <stdio.h>
 #include <string.h>
 int main(void){unsigned n,len,x;while(scanf("%u%u",&len,&n)==2){
-uint8_t q[8],raw[128],guard[76];unsigned offset=999;memset(guard,0xcc,sizeof guard);
-if(n>128)return 1;for(unsigned i=0;i<8;i++){if(scanf("%u",&x)!=1)return 2;q[i]=(uint8_t)x;}
+uint8_t q[8],raw[2176],guard[2060];unsigned offset=999;memset(guard,0xcc,sizeof guard);
+if(n>2176)return 1;for(unsigned i=0;i<8;i++){if(scanf("%u",&x)!=1)return 2;q[i]=(uint8_t)x;}
 for(unsigned i=0;i<n;i++){if(scanf("%u",&x)!=1)return 2;raw[i]=(uint8_t)x;}
 bool ok=link_sync_unwrap(raw,n,q,guard+1,len,&offset);
-if(guard[0]!=0xcc || guard[75]!=0xcc)return 3;
-if(!ok){if(offset!=999)return 4;for(unsigned i=0;i<76;i++)if(guard[i]!=0xcc)return 5;}
+if(guard[0]!=0xcc || guard[2059]!=0xcc)return 3;
+if(!ok){if(offset!=999)return 4;for(unsigned i=0;i<2060;i++)if(guard[i]!=0xcc)return 5;}
 printf("%u %u ",ok,offset);if(ok)for(unsigned i=0;i<len;i++)printf("%02x",guard[1+i]);puts("");
 }return 0;}
 '''

@@ -7,7 +7,7 @@ module tb_link_sync;
     reg variant_arm=0;
     wire link_ready,gfx_ready,link_oe,gfx_oe;
     wire [7:0] link_data,gfx_data;
-    reg [7:0] q[0:7],expected[0:81],got[0:81];
+    reg [7:0] q[0:7],expected[0:2065],got[0:2065];
     reg [1023:0] path;
     integer fd,n,i,count,length,cycles;
     always #5 clk=~clk;
@@ -68,7 +68,7 @@ module tb_link_sync;
         while(!$feof(fd))begin
             n=$fscanf(fd,"%d",length);
             if(n==1)begin
-                if(length!=8 && length!=74 && length!=16 && length!=82)$fatal(1,"bad response length");
+                if(length!=8 && length!=74 && length!=16 && length!=82 && length!=2058 && length!=2066)$fatal(1,"bad response length");
                 for(i=0;i<8;i=i+1)begin n=$fscanf(fd,"%h",q[i]);if(n!=1)$fatal(1,"bad request");end
                 for(i=0;i<length;i=i+1)begin n=$fscanf(fd,"%h",expected[i]);if(n!=1)$fatal(1,"bad response");end
                 send();read_bytes(length);finish_read();
