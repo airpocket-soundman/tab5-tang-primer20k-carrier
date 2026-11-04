@@ -939,6 +939,68 @@
       "sdc_lines_dropped": [],
       "archive": "validation/mem-variant-sampleip_map_t3-2026-11-04"
     },
+    "sampleip_map_t4": {
+      "built": true,
+      "description": "(i6) sampleip_map_t3 plus PIPELINE=4: native enables are a 3-input AND of the IP ready flops, a registered want and !cancel (one idle cycle per beat), to remove the IP ready -> enable -> IP FIFO flag combinational path that stays at -0.164 ns in t3",
+      "fs_sha256": "39ff44093808a4272d00224f7ea381a887024b1cce8fd64d81d4018723e41318",
+      "fs_sha256_without_comment_lines": "4a497b52718299afb799170734729ecbda1212990d90df3b699511f2c06aace4",
+      "usercode": "0x00000233",
+      "fs_bytes": 7264154,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": false,
+      "sta": {
+        "setup_violated_endpoints": 0,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": 0.024,
+          "from": "control/bist_cancel_s0/Q",
+          "to": "controller/gw3_top/u_gwmc_top/gw_wr_data0/wr_fifo/Almost_Full_s0/D"
+        },
+        "worst_hold": {
+          "slack_ns": 0.234,
+          "from": "controller/gw3_top/i4/u_ddr_phy_wd/u_ddr3_phy_cmd_lane/oserdes_d_reg_71_s0/Q",
+          "to": "controller/gw3_top/i4/u_ddr_phy_wd/u_ddr3_phy_cmd_lane/u_ddr3_phy_cmd_io/cmd_oserdes_gen[17].u_cmd_gen/D6"
+        },
+        "worst_recovery": {
+          "slack_ns": 8.074,
+          "from": "user_reset_sync_2_s0/Q",
+          "to": "engine/debug_fault_valid_s5/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.453,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 0,
+          "Hold": 0,
+          "Recovery": 0,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 73.582,
+          "memory398": 2016.128,
+          "user100": 99.796
+        }
+      },
+      "logic": "5214/20736",
+      "registers": "4346/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "5d77a153481da33f2a49d5518f8ea991bc197c8301efae5205aa6084addb250b",
+        "mem_bist": "e6a7fe6647f83391eed266c98d61ae1f5cd6179211ae904b9a8dbba427ec5913",
+        "mem_mailbox": "00d45fba8e3a4aca26129a003b9642750195a4adb13affebd338e7620ff149f9",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "494e821c60a8140e52b1e2f8aa2104858b92ca7f4a35db08490bcc9effb0c180"
+      },
+      "sdc_lines_dropped": [],
+      "archive": "validation/mem-variant-sampleip_map_t4-2026-11-04"
+    },
     "clk400x_dp000": {
       "built": true,
       "description": "(a5) untapped clk400 IP regenerated with Debug P1=101 (DLL CODESCAL), P2=0 (DQ IODELAY 0) - the values the generator itself uses for the official 1:2/200MHz reference. Needs MEM_IP_TAG=xdp000",
