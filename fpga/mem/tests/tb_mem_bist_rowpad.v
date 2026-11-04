@@ -2,6 +2,7 @@
 // {rank0,bank3,row13,col10}. The first command of a write job must carry the expected address.
 `timescale 1ns/1ps
 module tb_mem_bist_rowpad;
+parameter PIPE=0;
 reg clk=0,reset_n=0;
 always #5 clk=~clk;
 reg start=0;
@@ -21,9 +22,9 @@ wire [127:0] wd_p,wd_d;
 wire we_p,wend_p,we_d,wend_d;
 wire [15:0] wm_p,wm_d;
 wire [175:0] dbg_p,dbg_d;
-mem_bist #(.APP_ROW_PAD(1),.CALIBRATION_SETTLE_CYCLES(0)) pad(clk,reset_n,1'b1,start,1'b0,base,32'd1,32'd7,32'd1,
+mem_bist #(.APP_ROW_PAD(1),.PIPELINE(PIPE),.CALIBRATION_SETTLE_CYCLES(0)) pad(clk,reset_n,1'b1,start,1'b0,base,32'd1,32'd7,32'd1,
  busy_p,done_p,fault_p,err_p,ph_p,v_p,e_p,f_p,a_p,fe_p,fa_p,cy_p,cmd_p,en_pad,addr_pad,ready,wd_p,we_p,wend_p,wm_p,ready,rd,1'b0,1'b0,dbg_p);
-mem_bist #(.APP_ROW_PAD(0),.CALIBRATION_SETTLE_CYCLES(0)) def(clk,reset_n,1'b1,start,1'b0,base,32'd1,32'd7,32'd1,
+mem_bist #(.APP_ROW_PAD(0),.PIPELINE(PIPE),.CALIBRATION_SETTLE_CYCLES(0)) def(clk,reset_n,1'b1,start,1'b0,base,32'd1,32'd7,32'd1,
  busy_d,done_d,fault_d,err_d,ph_d,v_d,e_d,f_d,a_d,fe_d,fa_d,cy_d,cmd_d,en_def,addr_def,ready,wd_d,we_d,wend_d,wm_d,ready,rd,1'b0,1'b0,dbg_d);
 integer checks=0;
 // expected: byte address -> word = byte[26:1]; col=word[9:0], bank=word[12:10], row=word[25:13]

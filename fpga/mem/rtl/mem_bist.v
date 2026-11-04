@@ -13,7 +13,15 @@ module mem_bist #(
     parameter CALIBRATION_SETTLE_CYCLES=256,
     // 1: place a zero row MSB between bank and row (IP with 14 row bits, e.g. the Sipeed sample IP:
     // app address {bank3,row14,col10}); the 1Gbit part has 13 row bits. 0: {rank0,bank3,row13,col10}.
-    parameter APP_ROW_PAD=0
+    parameter APP_ROW_PAD=0,
+    // 1: timing-oriented structure for USER ~99.56 MHz. START inputs and the range check are registered
+    // (START takes effect one cycle later), and the read data compare is a 3-stage pipeline
+    // (capture -> compare -> account); DONE is raised only after the last beat is accounted.
+    // 2: additionally drops the (redundant, busy is asynchronously cleared by reset) reset_n term from the
+    //    native-enable gating and uses a registered copy of `calibrated` for the fault/settle/start decisions
+    //    (calibration loss is then detected one cycle later; native enables still use the raw input).
+    // 0: original structure (kept bit-identical for the earlier images).
+    parameter PIPELINE=0
 )(
     input wire clk,reset_n,calibrated,start,cancel,
     input wire [31:0] base_byte,beat_count,seed,job_id,
@@ -37,17 +45,36 @@ module mem_bist #(
 );
     // phase1 fillA,2 verifyA,3 masked complementB,4 verifymerged,5 complete.
     reg [31:0] base_latched,count_latched,seed_latched,index,wait_cycles;
+    // PIPELINE=1 registers (unused and removed when PIPELINE=0)
+    reg start_q,range_ok_q,rd_v1,rd_last1,rd_v2,rd_last2,mm_q,drain,cal_q;
+    always @(posedge clk or negedge reset_n) if(!reset_n) cal_q<=0; else cal_q<=calibrated;
+    wire cal_i=(PIPELINE>=2)?cal_q:calibrated;
+    reg [31:0] base_q,count_q,seed_q,job_q,addr_q;
+    reg [127:0] rd_q,exp_q;
     reg command_sent,data_sent,read_pending,gap;
     wire writing=phase==1 || phase==3;
     wire reading=phase==2 || phase==4;
+    wire [63:0] requested_end={32'b0,base_byte}+({32'b0,beat_count}<<4);
+    wire valid_range=base_byte[3:0]==0 && beat_count!=0 && beat_count<=32'd8388608 &&
+                     requested_end<=64'd134217728;
+    always @(posedge clk or negedge reset_n)begin
+        if(!reset_n)begin start_q<=0;range_ok_q<=0;base_q<=0;count_q<=0;seed_q<=0;job_q<=0;end
+        else begin start_q<=start;range_ok_q<=valid_range;base_q<=base_byte;count_q<=beat_count;seed_q<=seed;job_q<=job_id;end
+    end
+    wire start_i=PIPELINE?start_q:start;
+    wire [31:0] base_i=PIPELINE?base_q:base_byte;
+    wire [31:0] count_i=PIPELINE?count_q:beat_count;
+    wire [31:0] seed_i=PIPELINE?seed_q:seed;
+    wire [31:0] job_i=PIPELINE?job_q:job_id;
+    wire range_i=PIPELINE?range_ok_q:valid_range;
     reg [15:0] settle_count;
     wire settled=settle_count>=CALIBRATION_SETTLE_CYCLES;
     always @(posedge clk or negedge reset_n)begin
         if(!reset_n)settle_count<=0;
-        else if(!calibrated)settle_count<=0;
+        else if(!cal_i)settle_count<=0;
         else if(!settled)settle_count<=settle_count+1'b1;
     end
-    wire active=reset_n && calibrated && settled && busy && !faulted && !cancel && !gap;
+    wire active=((PIPELINE>=2)?1'b1:reset_n) && calibrated && settled && busy && !faulted && !cancel && !gap && !drain;
     wire [31:0] byte_address=base_latched+(index<<4);
     wire [25:0] linear_word=byte_address[26:1];
     // Linear row-bank-column order converted to native rank-bank-row-column.
@@ -76,16 +103,13 @@ module mem_bist #(
         6'b0,debug_commands,index,debug_fault_valid?debug_fault_flags:debug_live_flags};
     always @(posedge clk or negedge reset_n)begin
         if(!reset_n)begin debug_commands<=0;debug_data<=0;debug_reads<=0;debug_last_address<=0;end
-        else if(start&&!busy&&!faulted)begin debug_commands<=0;debug_data<=0;debug_reads<=0;debug_last_address<=0;end
+        else if(start_i&&!busy&&!faulted)begin debug_commands<=0;debug_data<=0;debug_reads<=0;debug_last_address<=0;end
         else if(busy)begin
             if(command_fire)begin debug_commands<=debug_commands+1'b1;debug_last_address<=app_addr;end
             if(data_fire)debug_data<=debug_data+1'b1;
             if(app_read_valid)debug_reads<=debug_reads+1'b1;
         end
     end
-    wire [63:0] requested_end={32'b0,base_byte}+({32'b0,beat_count}<<4);
-    wire valid_range=base_byte[3:0]==0 && beat_count!=0 && beat_count<=32'd8388608 &&
-                     requested_end<=64'd134217728;
     function [127:0] pattern;
         input [31:0] address,s;
         reg [31:0] p0,p1,p2,p3;
@@ -107,7 +131,7 @@ module mem_bist #(
               if(!debug_fault_valid)begin debug_fault_valid<=1;
                   debug_fault_flags<={code[3:0],1'b1,debug_live_flags[10:0]};end
               busy<=0;done<=1;faulted<=1;error_code<=code;
-              command_sent<=0;data_sent<=0;read_pending<=0;gap<=0;end
+              command_sent<=0;data_sent<=0;read_pending<=0;gap<=0;drain<=0;rd_v1<=0;rd_v2<=0;rd_last1<=0;rd_last2<=0;end
     endtask
     always @(posedge clk or negedge reset_n) begin
         if(!reset_n) begin
@@ -117,21 +141,36 @@ module mem_bist #(
             debug_fault_valid<=0;debug_fault_flags<=0;
             base_latched<=0;count_latched<=0;seed_latched<=0;index<=0;wait_cycles<=0;
             command_sent<=0;data_sent<=0;read_pending<=0;gap<=0;
+            drain<=0;rd_v1<=0;rd_v2<=0;rd_last1<=0;rd_last2<=0;mm_q<=0;rd_q<=0;exp_q<=0;addr_q<=0;
         end else if(cancel) fail_job(8'd7);
-        else if(start && !busy && !faulted) begin
+        else if(start_i && !busy && !faulted) begin
             done<=0;phase<=0;error_code<=0;verified_beats<=0;error_beats<=0;
             first_bad_byte<=0;first_expected<=0;first_actual<=0;elapsed_cycles<=0;
             debug_fault_valid<=0;debug_fault_flags<=0;
-            accepted_job_id<=job_id;command_sent<=0;data_sent<=0;read_pending<=0;gap<=0;
+            accepted_job_id<=job_i;command_sent<=0;data_sent<=0;read_pending<=0;gap<=0;
+            drain<=0;rd_v1<=0;rd_v2<=0;rd_last1<=0;rd_last2<=0;
             wait_cycles<=0;index<=0;
-            if(!calibrated) begin done<=1;error_code<=1;end
-            else if(!valid_range) begin done<=1;error_code<=2;end
-            else begin busy<=1;phase<=1;base_latched<=base_byte;
-                       count_latched<=beat_count;seed_latched<=seed;end
+            if(!cal_i) begin done<=1;error_code<=1;end
+            else if(!range_i) begin done<=1;error_code<=2;end
+            else begin busy<=1;phase<=1;base_latched<=base_i;
+                       count_latched<=count_i;seed_latched<=seed_i;end
         end else if(busy) begin
             elapsed_cycles<=elapsed_cycles+1'b1;
+            if(PIPELINE)begin
+                // stage 2: compare registered data; stage 3: account (single registered enable)
+                rd_v1<=0;rd_last1<=0;
+                mm_q<=(rd_q!=exp_q);rd_v2<=rd_v1;rd_last2<=rd_v1&&rd_last1;
+                if(rd_v2)begin
+                    if(mm_q)begin
+                        if(error_beats!=32'hffffffff)error_beats<=error_beats+1'b1;
+                        if(error_beats==0)begin first_bad_byte<=addr_q;first_expected<=exp_q;first_actual<=rd_q;end
+                        error_code<=6;
+                    end
+                    if(rd_last2)begin busy<=0;done<=1;phase<=5;gap<=0;drain<=0;end
+                end
+            end
             if(progress) wait_cycles<=0;else wait_cycles<=wait_cycles+1'b1;
-            if(!calibrated) fail_job(8'd8);
+            if(!cal_i) fail_job(8'd8);
             else if(elapsed_cycles>=TOTAL_TIMEOUT_CYCLES-1) fail_job(8'd9);
             else if(app_read_valid && (!read_expected || !app_read_end)) fail_job(8'd5);
             else if(wait_cycles>=TIMEOUT_CYCLES-1 && !progress)
@@ -149,7 +188,10 @@ module mem_bist #(
                 if(command_fire)read_pending<=1;
                 if(app_read_valid && read_expected) begin
                     read_pending<=0;gap<=1;verified_beats<=verified_beats+1'b1;
-                    if(app_read_data!=expected) begin
+                    if(PIPELINE)begin
+                        rd_q<=app_read_data;exp_q<=expected;addr_q<=byte_address;rd_v1<=1;
+                        rd_last1<=phase==4&&index==count_latched-1;
+                    end else if(app_read_data!=expected) begin
                         if(error_beats!=32'hffffffff)error_beats<=error_beats+1'b1;
                         if(error_beats==0) begin first_bad_byte<=byte_address;
                             first_expected<=expected;first_actual<=app_read_data;end
@@ -157,7 +199,10 @@ module mem_bist #(
                     end
                     if(index==count_latched-1) begin
                         index<=0;
-                        if(phase==4) begin busy<=0;done<=1;phase<=5;gap<=0;end
+                        if(phase==4) begin
+                            if(PIPELINE) drain<=1;
+                            else begin busy<=0;done<=1;phase<=5;gap<=0;end
+                        end
                         else phase<=phase+1'b1;
                     end else index<=index+1'b1;
                 end

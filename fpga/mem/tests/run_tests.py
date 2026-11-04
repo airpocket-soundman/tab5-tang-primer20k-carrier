@@ -67,9 +67,36 @@ print(completed.stdout.strip())
 results.append({'name':'mem_bist_paired','output':completed.stdout.strip(),
                 'sources':{str(s.relative_to(root)):hashlib.sha256(s.read_bytes()).hexdigest() for s in sources}})
 report={'scope':'RTL simulations, not physical DDR proof','tests':results}
+sources=[root/'mem/rtl/mem_bist.v',root/'mem/rtl/mem_mailbox.v',root/'mem/tests/tb_mem_heartbeat_abort.v']
+for hb_pipe in (1,2):
+  image=build/f'mem_heartbeat_abort_pipe{hb_pipe}.vvp'
+  subprocess.run([args.iverilog,'-g2012','-s','tb_mem_heartbeat_abort',f'-Ptb_mem_heartbeat_abort.PIPE={hb_pipe}','-o',str(image),*map(str,sources)],check=True,env=env)
+  completed=subprocess.run([args.vvp,str(image)],capture_output=True,text=True,check=True,env=env)
+  if 'PASS ' not in completed.stdout:
+    raise RuntimeError(completed.stdout+completed.stderr)
+  print(f'(PIPELINE={hb_pipe}) '+completed.stdout.strip())
+  results.append({'name':f'mem_heartbeat_abort_pipelined{hb_pipe}','output':completed.stdout.strip(),'sources':{str(s.relative_to(root)):hashlib.sha256(s.read_bytes()).hexdigest() for s in sources}})
+image=build/'mem_heartbeat_abort_pipe.vvp'
+subprocess.run([args.iverilog,'-g2012','-s','tb_mem_heartbeat_abort','-Ptb_mem_heartbeat_abort.PIPE=1','-o',str(image),*map(str,sources)],check=True,env=env)
+completed=subprocess.run([args.vvp,str(image)],capture_output=True,text=True,check=True,env=env)
+if 'PASS ' not in completed.stdout:
+    raise RuntimeError(completed.stdout+completed.stderr)
+print('(PIPELINE=1) '+completed.stdout.strip())
+results.append({'name':'mem_heartbeat_abort_pipelined','output':completed.stdout.strip(),
+                'sources':{str(s.relative_to(root)):hashlib.sha256(s.read_bytes()).hexdigest() for s in sources}})
+for paired,pipe in ((0,1),(1,1),(0,2),(1,2)):
+    sources=[root/'mem/rtl/mem_bist.v',root/'mem/tests/tb_mem_bist.v']
+    image=build/f'mem_bist_pipe{paired}_{pipe}.vvp'
+    subprocess.run([args.iverilog,'-g2012','-s','tb_mem_bist',f'-Ptb_mem_bist.PAIRED={paired}',f'-Ptb_mem_bist.PIPE={pipe}','-o',str(image),*map(str,sources)],check=True,env=env)
+    completed=subprocess.run([args.vvp,str(image)],capture_output=True,text=True,check=True,env=env)
+    if 'pipelined' not in completed.stdout or 'PASS mem_bist' not in completed.stdout:
+        raise RuntimeError(completed.stdout+completed.stderr)
+    print(completed.stdout.strip())
+    results.append({'name':f'mem_bist_pipelined{pipe}_paired{paired}','output':completed.stdout.strip(),
+                    'sources':{str(s.relative_to(root)):hashlib.sha256(s.read_bytes()).hexdigest() for s in sources}})
 sources=[root/'mem/rtl/mem_bist.v',root/'mem/tests/tb_mem_bist_rowpad.v']
 image=build/'mem_bist_rowpad.vvp'
-subprocess.run([args.iverilog,'-g2012','-s','tb_mem_bist_rowpad','-o',str(image),*map(str,sources)],check=True,env=env)
+subprocess.run([args.iverilog,'-g2012','-s','tb_mem_bist_rowpad','-Ptb_mem_bist_rowpad.PIPE=1','-o',str(image),*map(str,sources)],check=True,env=env)
 completed=subprocess.run([args.vvp,str(image)],capture_output=True,text=True,check=True,env=env)
 if 'PASS mem_bist row-pad' not in completed.stdout:
     raise RuntimeError(completed.stdout+completed.stderr)

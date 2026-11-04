@@ -71,7 +71,7 @@ for vid in ids:
      'sta':{'setup_violated_endpoints':int(fol('Numbers of Setup Violated Endpoints')),'hold_violated_endpoints':int(fol('Numbers of Hold Violated Endpoints')),
        'worst_setup':worst('Setup Paths Table'),'worst_hold':worst('Hold Paths Table'),'worst_recovery':worst('Recovery Paths Table'),'worst_removal':worst('Removal Paths Table'),
        'negative_paths':{k:neg(k+' Paths Table') for k in ['Setup','Hold','Recovery','Removal']},
-       'fmax_mhz':{n:fmax(n) for n in (['sys27','memory398','user100'] if vid in ('clk400','clk400_notap','sampleip','clk400_asyncsdc','clk400dp','sampleip_map') else ['sys27','memory324','user81'])}},
+       'fmax_mhz':{n:fmax(n) for n in (['sys27','memory398','user100'] if vid in ('clk400','clk400_notap','sampleip','clk400_asyncsdc','clk400dp','sampleip_map','sampleip_map_t1','sampleip_map_t2') else ['sys27','memory324','user81'])}},
      'logic':re.search(r'Logic\s+\|\s+(\d+/\d+)',rep).group(1),'registers':re.search(r'Register\s+\|\s+(\d+/\d+)',rep).group(1),
      'pin_audit':cst_audit(rep),'rtl_sha256':rv['files'],
      'sdc_lines_dropped':[l[:160] for l in rv.get('sdc_lines_dropped',[])],
