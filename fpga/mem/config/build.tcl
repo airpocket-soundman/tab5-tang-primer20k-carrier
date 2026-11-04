@@ -11,9 +11,15 @@ if {[info exists env(MEM_BIST_GUARDED)] && $env(MEM_BIST_GUARDED) eq "1"} {
  set output [file join $fpga_root build mem-scheduler-diag]
  set timing_file [file join $fpga_root build mem-scheduler-diag-input mem_bist.sdc]
 }
+set rtl_dir [file join $fpga_root mem rtl]
+# DDR3 isolation variants (prepare_variant.py): same flow, single-item RTL change, own output dir.
+if {[info exists env(MEM_VARIANT)] && $env(MEM_VARIANT) ne ""} {
+set rtl_dir [file join $fpga_root build mem-variant-$env(MEM_VARIANT) rtl]
+ set output [file join $fpga_root build mem-variant-$env(MEM_VARIANT) out]
+}
 create_project -name mem_bist -dir $output -pn GW2A-LV18PG256C8/I7 -device_version C -force
 foreach name {mem_deep_monitor mem_pll mem_bist mem_mailbox mem_link mem_top} {
- add_file [file join $fpga_root mem rtl ${name}.v]
+ add_file [file join $rtl_dir ${name}.v]
 }
 add_file [file join $fpga_root build mem-deep-input MemDDR3_tapped.vo]
 add_file [file join $fpga_root mem config mem_bist.cst]
