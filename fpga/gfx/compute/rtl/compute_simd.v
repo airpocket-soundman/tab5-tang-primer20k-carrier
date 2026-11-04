@@ -31,7 +31,7 @@ module compute_simd #(
     localparam WORDS = 1 << PC_BITS;
     localparam LANE_BITS = $clog2(LANES+1);
     localparam IDLE=0, FETCH=1, EXEC=2, MEM_SELECT=3, MEM_REQ=4, MEM_RSP=5,
-               DIV_SEL=6, DIV_RUN=7, CLEAR=8;
+               DIV_SEL=6, DIV_RUN=7, CLEAR=8, RD=9, MULST=10;
     localparam HALT=0, LDI=1, ADD=2, SUB=3, MUL=4, MULQ=5,
                LT=6, AND_=7, XOR_=8, SHL=9, SAR=10,
                LOAD=11, STORE=12, JMP=13, ANY=14,
@@ -100,13 +100,26 @@ module compute_simd #(
     end
 `endif
     generate for (lane=0; lane<LANES; lane=lane+1) begin: operands
-        assign dstv[lane] = dst==0 ? 32'sd0 : regs[lane*16+dst];
-        assign a[lane] = srca==0 ? 32'sd0 : regs[lane*16+srca];
-        assign b[lane] = srcb==0 ? 32'sd0 : regs[lane*16+srcb];
-        assign bsel[lane] = op==MULI ? immediate : b[lane];
-        assign product[lane] = a[lane]*bsel[lane];
+        // Pipeline: FETCH -> RD (latch operands) -> MUL (latch product) -> EXEC
+        reg signed [31:0] a_r, b_r, d_r;
+        reg signed [63:0] p_r;
+        reg pred_r;
+        always @(posedge clk) begin
+            if (state==RD) begin
+                a_r <= srca==0 ? 32'sd0 : regs[lane*16+srca];
+                b_r <= srcb==0 ? 32'sd0 : regs[lane*16+srcb];
+                d_r <= dst==0 ? 32'sd0 : regs[lane*16+dst];
+                pred_r <= regs[lane*16+15]!=0;
+            end
+            if (state==MULST) p_r <= a_r*bsel[lane];
+        end
+        assign dstv[lane] = d_r;
+        assign a[lane] = a_r;
+        assign b[lane] = b_r;
+        assign bsel[lane] = op==MULI ? immediate : b_r;
+        assign product[lane] = p_r;
         assign valid[lane] = count_r==0 || remaining > lane;
-        assign enabled[lane] = valid[lane] && (!predicated || regs[lane*16+15]!=0);
+        assign enabled[lane] = valid[lane] && (!predicated || pred_r);
         assign branch_bits[lane] = valid[lane] && a[lane]!=0;
         assign ea[lane] = a[lane]+immediate;
         assign misaligned[lane] = enabled[lane] && is_half && ea[lane][0];
@@ -266,9 +279,11 @@ module compute_simd #(
                         else if (instructions>=limit) finish(5);
                         else begin
                             insn<=program_mem[pc[PC_BITS-1:0]];
-                            state<=EXEC;
+                            state<=RD;
                         end
                     end
+                    RD: state<=MULST;
+                    MULST: state<=EXEC;
                     EXEC: begin
                         instructions<=instructions+1;
                         pc<=pc+1;
