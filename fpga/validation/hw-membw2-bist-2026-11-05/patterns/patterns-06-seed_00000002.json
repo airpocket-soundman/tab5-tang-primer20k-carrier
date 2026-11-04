@@ -1,0 +1,567 @@
+{
+  "schema": 1,
+  "started_utc": "2026-11-04T17:03:50.661727+00:00",
+  "plan": {
+    "base_byte_address": 0,
+    "count_128bit_beats": 64,
+    "end_byte_exclusive": 1024,
+    "seed": 2,
+    "destructive": true,
+    "recalibrate_explicit": false
+  },
+  "executed": true,
+  "tool_sha256": "a64d271e28c459ca99611530bcef06f2367c1a2232310d4e69231ba78eb4ca19",
+  "snapshots": [
+    {
+      "profile": "standalone_mem_bist_probe",
+      "app_version": "79a28e7",
+      "app_elf_sha256": "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a",
+      "mode": "CPU",
+      "running": false,
+      "gfx_available": false,
+      "dma_available": false,
+      "mem_diag_available": true,
+      "mem_deep_diag_available": true,
+      "mem_scheduler_diag_available": true,
+      "link_armed": true,
+      "mem_session": true,
+      "configured": false,
+      "transport": "gpio_driver",
+      "fault": "none",
+      "device_status": 0,
+      "base": 0,
+      "count": 64,
+      "seed": 2,
+      "request": [
+        165,
+        92,
+        9,
+        2,
+        7,
+        0,
+        160,
+        54
+      ],
+      "response": [
+        90,
+        0,
+        9,
+        2,
+        12,
+        0,
+        252,
+        32
+      ],
+      "generation": 12,
+      "sys_flags": 905,
+      "post_generation": 12,
+      "snapshot_fresh": true,
+      "captured_us": 10390885,
+      "words": [
+        5,
+        1280,
+        6,
+        0,
+        128,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4142,
+        0,
+        0,
+        0,
+        100,
+        333
+      ],
+      "decoded": {
+        "flags": 5,
+        "phase_error_word": 1280,
+        "error": 0,
+        "phase": 5,
+        "job_id": 6,
+        "verified_beats": 128,
+        "mismatching_beats": 0,
+        "first_bad_byte_address": 0,
+        "first_expected_hex": "00000000000000000000000000000000",
+        "first_actual_hex": "00000000000000000000000000000000",
+        "user_cycles": 4142,
+        "user_clock_hz": 99562500,
+        "device_ms": 0.04160200878844947,
+        "generation": 12,
+        "sys_flags": 905
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "disarm": {
+        "profile": "standalone_mem_bist_probe",
+        "app_version": "79a28e7",
+        "app_elf_sha256": "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a",
+        "mode": "CPU",
+        "running": false,
+        "gfx_available": false,
+        "dma_available": false,
+        "mem_diag_available": true,
+        "mem_deep_diag_available": true,
+        "mem_scheduler_diag_available": true,
+        "link_armed": false,
+        "mem_session": false,
+        "configured": false,
+        "transport": "gpio_driver",
+        "fault": "none",
+        "device_status": 0,
+        "base": 0,
+        "count": 64,
+        "seed": 2,
+        "request": [
+          165,
+          92,
+          9,
+          2,
+          7,
+          0,
+          160,
+          54
+        ],
+        "response": [
+          90,
+          0,
+          9,
+          2,
+          12,
+          0,
+          252,
+          32
+        ]
+      }
+    }
+  ],
+  "info": {
+    "profile": "standalone_mem_bist_probe",
+    "app_version": "79a28e7",
+    "app_elf_sha256": "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a",
+    "mode": "CPU",
+    "running": false,
+    "gfx_available": false,
+    "dma_available": false,
+    "mem_diag_available": true,
+    "mem_deep_diag_available": true,
+    "mem_scheduler_diag_available": true,
+    "link_armed": false,
+    "mem_session": false,
+    "configured": false,
+    "transport": "gpio_driver",
+    "fault": "none",
+    "device_status": 0,
+    "base": 0,
+    "count": 64,
+    "seed": 1,
+    "request": [
+      165,
+      92,
+      178,
+      2,
+      7,
+      0,
+      110,
+      217
+    ],
+    "response": [
+      90,
+      0,
+      178,
+      2,
+      10,
+      0,
+      148,
+      101
+    ]
+  },
+  "arm": {
+    "profile": "standalone_mem_bist_probe",
+    "app_version": "79a28e7",
+    "app_elf_sha256": "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a",
+    "mode": "CPU",
+    "running": false,
+    "gfx_available": false,
+    "dma_available": false,
+    "mem_diag_available": true,
+    "mem_deep_diag_available": true,
+    "mem_scheduler_diag_available": true,
+    "link_armed": true,
+    "mem_session": true,
+    "configured": false,
+    "transport": "gpio_driver",
+    "fault": "none",
+    "device_status": 0,
+    "base": 0,
+    "count": 64,
+    "seed": 1,
+    "request": [
+      165,
+      80,
+      180,
+      2,
+      0,
+      0,
+      75,
+      236
+    ],
+    "response": [
+      90,
+      0,
+      180,
+      2,
+      77,
+      1,
+      119,
+      198
+    ]
+  },
+  "sys_before": {
+    "profile": "standalone_mem_bist_probe",
+    "app_version": "79a28e7",
+    "app_elf_sha256": "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a",
+    "mode": "CPU",
+    "running": false,
+    "gfx_available": false,
+    "dma_available": false,
+    "mem_diag_available": true,
+    "mem_deep_diag_available": true,
+    "mem_scheduler_diag_available": true,
+    "link_armed": true,
+    "mem_session": true,
+    "configured": false,
+    "transport": "gpio_driver",
+    "fault": "none",
+    "device_status": 0,
+    "base": 0,
+    "count": 64,
+    "seed": 1,
+    "request": [
+      165,
+      80,
+      180,
+      2,
+      0,
+      0,
+      75,
+      236
+    ],
+    "response": [
+      90,
+      0,
+      180,
+      2,
+      77,
+      1,
+      119,
+      198
+    ],
+    "sys": [
+      333,
+      2048,
+      3338,
+      784,
+      398,
+      100,
+      905,
+      10
+    ]
+  },
+  "snapshot_before": {
+    "profile": "standalone_mem_bist_probe",
+    "app_version": "79a28e7",
+    "app_elf_sha256": "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a",
+    "mode": "CPU",
+    "running": false,
+    "gfx_available": false,
+    "dma_available": false,
+    "mem_diag_available": true,
+    "mem_deep_diag_available": true,
+    "mem_scheduler_diag_available": true,
+    "link_armed": true,
+    "mem_session": true,
+    "configured": false,
+    "transport": "gpio_driver",
+    "fault": "none",
+    "device_status": 0,
+    "base": 0,
+    "count": 64,
+    "seed": 1,
+    "request": [
+      165,
+      92,
+      223,
+      2,
+      7,
+      0,
+      58,
+      185
+    ],
+    "response": [
+      90,
+      0,
+      223,
+      2,
+      11,
+      0,
+      241,
+      54
+    ],
+    "generation": 11,
+    "sys_flags": 905,
+    "post_generation": 11,
+    "snapshot_fresh": true,
+    "captured_us": 10125885,
+    "words": [
+      5,
+      1280,
+      5,
+      0,
+      128,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      4164,
+      0,
+      0,
+      0,
+      100,
+      333
+    ]
+  },
+  "expected_job_id": 6,
+  "configure": {
+    "profile": "standalone_mem_bist_probe",
+    "app_version": "79a28e7",
+    "app_elf_sha256": "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a",
+    "mode": "CPU",
+    "running": false,
+    "gfx_available": false,
+    "dma_available": false,
+    "mem_diag_available": true,
+    "mem_deep_diag_available": true,
+    "mem_scheduler_diag_available": true,
+    "link_armed": true,
+    "mem_session": true,
+    "configured": true,
+    "transport": "gpio_driver",
+    "fault": "none",
+    "device_status": 0,
+    "base": 0,
+    "count": 64,
+    "seed": 2,
+    "request": [
+      165,
+      86,
+      229,
+      2,
+      0,
+      0,
+      65,
+      34
+    ],
+    "response": [
+      90,
+      0,
+      229,
+      2,
+      0,
+      0,
+      73,
+      174
+    ]
+  },
+  "start": {
+    "profile": "standalone_mem_bist_probe",
+    "app_version": "79a28e7",
+    "app_elf_sha256": "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a",
+    "mode": "CPU",
+    "running": false,
+    "gfx_available": false,
+    "dma_available": false,
+    "mem_diag_available": true,
+    "mem_deep_diag_available": true,
+    "mem_scheduler_diag_available": true,
+    "link_armed": true,
+    "mem_session": true,
+    "configured": false,
+    "transport": "gpio_driver",
+    "fault": "none",
+    "device_status": 0,
+    "base": 0,
+    "count": 64,
+    "seed": 2,
+    "request": [
+      165,
+      87,
+      230,
+      2,
+      0,
+      0,
+      204,
+      19
+    ],
+    "response": [
+      90,
+      0,
+      230,
+      2,
+      6,
+      0,
+      51,
+      159
+    ],
+    "start_ack": 6
+  },
+  "result": "PASS",
+  "final": {
+    "flags": 5,
+    "phase_error_word": 1280,
+    "error": 0,
+    "phase": 5,
+    "job_id": 6,
+    "verified_beats": 128,
+    "mismatching_beats": 0,
+    "first_bad_byte_address": 0,
+    "first_expected_hex": "00000000000000000000000000000000",
+    "first_actual_hex": "00000000000000000000000000000000",
+    "user_cycles": 4142,
+    "user_clock_hz": 99562500,
+    "device_ms": 0.04160200878844947,
+    "generation": 12,
+    "sys_flags": 905
+  },
+  "usb_trace": [
+    {
+      "request": {
+        "v": 1,
+        "id": 1,
+        "cmd": "info"
+      }
+    },
+    {
+      "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"79a28e7\",\"app_elf_sha256\":\"8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"link_armed\":false,\"mem_session\":false,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":64,\"seed\":1,\"request\":[165,92,178,2,7,0,110,217],\"response\":[90,0,178,2,10,0,148,101]},\"v\":1,\"id\":1}"
+    },
+    {
+      "request": {
+        "v": 1,
+        "id": 2,
+        "cmd": "mem",
+        "action": "arm"
+      }
+    },
+    {
+      "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"79a28e7\",\"app_elf_sha256\":\"8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":64,\"seed\":1,\"request\":[165,80,180,2,0,0,75,236],\"response\":[90,0,180,2,77,1,119,198]},\"v\":1,\"id\":2}"
+    },
+    {
+      "request": {
+        "v": 1,
+        "id": 3,
+        "cmd": "mem",
+        "action": "sys"
+      }
+    },
+    {
+      "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"79a28e7\",\"app_elf_sha256\":\"8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":64,\"seed\":1,\"request\":[165,80,180,2,0,0,75,236],\"response\":[90,0,180,2,77,1,119,198],\"sys\":[333,2048,3338,784,398,100,905,10]},\"v\":1,\"id\":3}"
+    },
+    {
+      "request": {
+        "v": 1,
+        "id": 4,
+        "cmd": "mem",
+        "action": "snapshot"
+      }
+    },
+    {
+      "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"79a28e7\",\"app_elf_sha256\":\"8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":64,\"seed\":1,\"request\":[165,92,223,2,7,0,58,185],\"response\":[90,0,223,2,11,0,241,54],\"generation\":11,\"sys_flags\":905,\"post_generation\":11,\"snapshot_fresh\":true,\"captured_us\":10125885,\"words\":[5,1280,5,0,128,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4164,0,0,0,100,333]},\"v\":1,\"id\":4}"
+    },
+    {
+      "request": {
+        "v": 1,
+        "id": 5,
+        "cmd": "mem",
+        "action": "configure",
+        "base": 0,
+        "count": 64,
+        "seed": 2
+      }
+    },
+    {
+      "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"79a28e7\",\"app_elf_sha256\":\"8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"link_armed\":true,\"mem_session\":true,\"configured\":true,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":64,\"seed\":2,\"request\":[165,86,229,2,0,0,65,34],\"response\":[90,0,229,2,0,0,73,174]},\"v\":1,\"id\":5}"
+    },
+    {
+      "request": {
+        "v": 1,
+        "id": 6,
+        "cmd": "mem",
+        "action": "start",
+        "execute": true
+      }
+    },
+    {
+      "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"79a28e7\",\"app_elf_sha256\":\"8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":64,\"seed\":2,\"request\":[165,87,230,2,0,0,204,19],\"response\":[90,0,230,2,6,0,51,159],\"start_ack\":6},\"v\":1,\"id\":6}"
+    },
+    {
+      "request": {
+        "v": 1,
+        "id": 7,
+        "cmd": "mem",
+        "action": "snapshot"
+      }
+    },
+    {
+      "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"79a28e7\",\"app_elf_sha256\":\"8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":64,\"seed\":2,\"request\":[165,92,9,2,7,0,160,54],\"response\":[90,0,9,2,12,0,252,32],\"generation\":12,\"sys_flags\":905,\"post_generation\":12,\"snapshot_fresh\":true,\"captured_us\":10390885,\"words\":[5,1280,6,0,128,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4142,0,0,0,100,333]},\"v\":1,\"id\":7}"
+    },
+    {
+      "request": {
+        "v": 1,
+        "id": 8,
+        "cmd": "mem",
+        "action": "disarm"
+      }
+    },
+    {
+      "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"79a28e7\",\"app_elf_sha256\":\"8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"link_armed\":false,\"mem_session\":false,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":64,\"seed\":2,\"request\":[165,92,9,2,7,0,160,54],\"response\":[90,0,9,2,12,0,252,32]},\"v\":1,\"id\":8}"
+    }
+  ],
+  "finished_utc": "2026-11-04T17:03:51.393175+00:00"
+}

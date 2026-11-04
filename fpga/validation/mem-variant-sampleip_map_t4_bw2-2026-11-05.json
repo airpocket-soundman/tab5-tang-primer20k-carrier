@@ -1,0 +1,57 @@
+{
+ "scope": "offline build only (Gowin Education 1.9.11.03, gw_sh); no programmer/UART/DRAM access. STA is under the diagnostic SDC mem_bist_sampleip.sdc (three clocks as one asynchronous group), internal-constrained, not external DDR timing. Hardware behaviour unverified.",
+ "variant": "sampleip_map_t4_bw2",
+ "branch": "claude/membw-sta",
+ "base_commit": "b86e9037875a5d3cd0ac0dea36d99c1a6a06b142",
+ "ip": "Sipeed e469df4c ddr3_memory_interface.v (SHA-verified with SIPEED_VERIFY_SCOPE=build), not committed",
+ "fs_sha256": "4eb0f8868054fd90d992f6702c3f95ec2b9d1a152482a04065f0365fa4082823",
+ "fs_body_sha256_without_comment_lines": "7ea8f78cece6e3d8aeb96a51de8208ab3718e442ce645444d2f87a3eac0e02cc",
+ "usercode": "0x000000AF",
+ "setup_violated_endpoints": 0,
+ "hold_violated_endpoints": 0,
+ "worst": {
+  "Setup": {
+   "slack_ns": 0.079,
+   "from": "controller/gw3_top/u_gwmc_top/gw_wr_data0/wr_buf_rdy_s0/Q",
+   "to": "bw.port/engine/k_ws/s0_0_s1/CE"
+  },
+  "Hold": {
+   "slack_ns": 0.223,
+   "from": "controller/gw3_top/i4/u_ddr_phy_wd/u_fifo_ctrl/if_wbin_4_s0/Q",
+   "to": "controller/gw3_top/i4/u_ddr_phy_wd/data_lane_gen[0].u_ddr3_phy_data_lane/u_in_fifo/mem0_mem0_0_2_s/ADA[9]"
+  },
+  "Recovery": {
+   "slack_ns": 8.438,
+   "from": "user_reset_sync_2_s0/Q",
+   "to": "bw.port/engine/k_lsum/lo_31_s1/CLEAR"
+  },
+  "Removal": {
+   "slack_ns": 0.453,
+   "from": "control/epoch_reset_sync_2_s0/Q",
+   "to": "control/user_epoch_used_s0/CLEAR"
+  }
+ },
+ "negative_paths": {
+  "Setup": 0,
+  "Hold": 0,
+  "Recovery": 0,
+  "Removal": 0
+ },
+ "fmax_mhz": {
+  "sys27": 60.086,
+  "memory398": 2016.128,
+  "user100": 100.354
+ },
+ "logic": "11497/20736",
+ "registers": "8010/16173",
+ "baseline_t4_bw0_rebuild": {
+  "fs_body_sha256": "4a497b52718299afb799170734729ecbda1212990d90df3b699511f2c06aace4",
+  "usercode": "0x00000233",
+  "identical_to_earlier_t4": true
+ },
+ "previous_t4_bw": {
+  "usercode": "0x0000A805",
+  "setup_violated_endpoints": 269,
+  "worst_setup_ns": -1.256
+ }
+}

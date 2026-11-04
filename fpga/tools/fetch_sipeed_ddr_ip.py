@@ -23,9 +23,17 @@ def lf_sha(data):
     return hashlib.sha256(data.replace(b'\r\n', b'\n')).hexdigest()
 
 
-def verify(dest=DEST):
-    """Return a list of (file, problem); empty means every pinned file is present and matches."""
+BUILD_ONLY = ('src/ddr3_memory_interface/ddr3_memory_interface.v',)
+
+
+def verify(dest=DEST, build_only=False):
+    """Return a list of (file, problem); empty means every pinned file is present and matches.
+    build_only=True checks only the file the sampleip* builds actually read (the encrypted IP .v); the other
+    pinned files (LICENSE, .vo, .ipc, sample top) are reference material. Use it only when those cannot be
+    obtained (offline); the result must then be recorded as a build-only verification."""
     files = json.loads(RECORD.read_text(encoding='utf-8'))['files']
+    if build_only:
+        files = {k: v for k, v in files.items() if k in BUILD_ONLY}
     bad = []
     for rel, info in files.items():
         path = dest / rel

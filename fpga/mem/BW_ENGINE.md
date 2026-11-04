@@ -62,3 +62,14 @@ iverilog `-g2012 -Wall`（timescale未指定の警告のみ）で、(PAIRED,ROWP
 - stallシム（cmd_ready 4/5、wr_ready 3/7、読出し遅延ジッタ）：書込み1024ビートが2985サイクル（cmd_stall 597、wd_stall 1704）。stallカウンタはTB独立カウントと一致（PAIRED=1）。
 - 検査項目：全パターンのアドレス列を独立関数と照合、シムのメモリ内容を独立データモデルと照合、チェックサム往復・1ビット破損検出・重複アドレス検出、混在での読出しが書込みに後続すること、エラー分類（1,2,3,4,5,7,8,9、リセット直後の出力停止）。
 これらはRTLシミュレーションの結果であり、DDR3実機・合成後の性能を示さない。
+
+## 2026-11-05 追記：配線・バースト・ストライド
+状態更新：`mem_top` に `BW_ENABLE`（既定0、FS本体は従来とビット同一）で配線（`mem_bw_port.v`、LINK 0x60..0x6F）。パターン5（run_len/stride）と burst_log2（app_burst_number＝L-1、旧IPのみ・実機未検証）を追加。詳細・STA・実機手順は `docs/DDR3_帯域測定_実機手順_2026-11-05.md`。t4_bwイメージはSTA未達（-1.256ns）。
+
+## 2026-11-05 追記：STA改善（`EN_PIPE`、共有enable段、`claude/membw-sta`）
+- パラメータ `EN_PIPE`（`mem_bw`／`mem_bw_port`／`mem_top.BW_EN_PIPE`）。0＝従来、1＝`want & !blk` を1サイクル前に登録した `en_wc_q/en_rc_q/en_wb_q` からenableを作る（**サイクル挙動は0と同一**、`bw_model.py` 変更なし）、2＝BIST PIPELINE=4 と同じ「受理直後の1サイクルを止める」構造（受理間隔2サイクル）。
+- EN_PIPE=2 の期待サイクル：受理（コマンドまたはデータ1ビート）ごとに次サイクルがアイドル（STEP=2）。理想シムで write_stream（N ビート）は cnt_cycles＝2N−1、read_stream（L=1）は 2N−1＋lat。stall カウンタはブロックされたサイクルを数えない。混在は従来から1コマンドごとにアイドルがあり 4×組数＋lat−1 で不変。サイクル定義（最初のコマンド受理〜最後のデータ、両端含む）は変更なし。
+- 統計の64ビットカウンタは16ビット区切り＋登録済みキャリー（`mem_bw_ctr`／`mem_bw_acc`）。値の確定はジョブ終了の最大3サイクル後（LINK読出し前に確定）。次状態の論理からは `cancel` を外した（`fail_job` が上書きする分岐のため等価）。
+- `mem_top` の共有enable段（`BW_SHARED_GATE`、`define BW_GATES` のときだけ有効。`prepare_variant.py` が `sampleip_map_t4_bw2` に付ける）：IPのready、BISTとBWの次サイクルのゲート（`!cancel` の次サイクル値を折込み）から4入力のenableを作る。通常のRTLには `BW_GATES` 関連のポートも論理も存在しないので、BW_ENABLE=0 の既存イメージはビット同一（sampleip_map_t4 の再ビルドでFS本体SHA 4a497b52…、USERCODE 0x0233）。
+- 試験（`run_bw_tests.py`）：mem_bw 単体を EN_PIPE 0／1／2 × paired／unpaired／rowpad で実行し、モデルと照合。mem_top 統合は BW=1（EN_PIPE 0／1／2）、BW=0、旧IP型スタブ（t4_bw）、t4_bw2（共有enable段）。`tb_mem_bw_top` が IP向けenableとエンジン内部の受理判定の一致を全サイクル検査する。STA結果は `docs/DDR3_帯域測定_実機手順_2026-11-05.md` の t4_bw2 の章。
+
