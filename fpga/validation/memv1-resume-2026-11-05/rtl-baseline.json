@@ -1,0 +1,186 @@
+{
+  "scope": "RTL simulations, not physical DDR proof",
+  "tests": [
+    {
+      "name": "mem_deep_monitor",
+      "output": "PASS deep monitor: modulo pointers, event counts, first-fault freeze, cleanup, new job/reset\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_deep_monitor.v:19: $finish called at 126000 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_deep_monitor.v": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem\\tests\\tb_mem_deep_monitor.v": "3bc5b777562eda7c47264def33d99ee899fb20e885aa66c87cf89b878136fbaf"
+      }
+    },
+    {
+      "name": "mem_bist",
+      "output": "PASS mem_bist                   21 scenarios: independent backpressure, native mapping, masks, mismatch, range, timeout, cancel/reset\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_bist.v:118: $finish called at 29090000 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\tests\\tb_mem_bist.v": "9b8482fe954f7489a3104489f5fd5cfd8c4e596efe20583e3b59aa250ea1f340"
+      }
+    },
+    {
+      "name": "mem_mailbox",
+      "output": "PASS mem_mailbox 122 commands: CDC held payload, coherent snapshot, stopped-clock deadline, reset\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_mailbox.v:129: $finish called at 1117677207 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_mailbox.v": "22a0a6306368527b5a74c94db555666805eee57e06b9dee7c4143ee19c68ee4f",
+        "mem\\tests\\tb_mem_mailbox.v": "d74d25cd79e3f44d3cf72c06d65f7f361d36a51e206dc852f002cb248074d950"
+      }
+    },
+    {
+      "name": "mem_link",
+      "output": "PASS mem_link 7 packets: legacy/tagged CRC, dispatch, bad CRC, partial DIR, raw ARM\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_link.v:40: $finish called at 158001000 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_link.v": "2ee77c6b9757ad3ba40f4297bce13e0dbbb630419f676cab41cf1e5273eecbcf",
+        "mem\\tests\\tb_mem_link.v": "ef371e0801940cb6387d1af48dafd052a97ac5fb6c830eeaa9bde66214a5f188"
+      }
+    },
+    {
+      "name": "mem_heartbeat_abort",
+      "output": "PASS mem_heartbeat_abort 39 commands: held native valids killed without USER edge, no auto-resume, explicit rearm, stale DONE\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_heartbeat_abort.v:86: $finish called at 2063819090 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\rtl\\mem_mailbox.v": "22a0a6306368527b5a74c94db555666805eee57e06b9dee7c4143ee19c68ee4f",
+        "mem\\tests\\tb_mem_heartbeat_abort.v": "162fa3a427f15a3bf3f0f675d21606b4a9ad913775231bd379df2decb980b270"
+      }
+    },
+    {
+      "name": "mem_bist_paired",
+      "output": "PASS mem_bist paired            21 scenarios: independent backpressure, native mapping, masks, mismatch, range, timeout, cancel/reset\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_bist.v:118: $finish called at 30160000 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\tests\\tb_mem_bist.v": "9b8482fe954f7489a3104489f5fd5cfd8c4e596efe20583e3b59aa250ea1f340"
+      }
+    },
+    {
+      "name": "mem_v1_core",
+      "output": "PASS mem_v1_core 209 checks, 192 vector records, 1264 native writes, 2291 reads: vectors, cancel, timeout, calibration-loss STALE, stale completion, reset in flight, BIST coexistence",
+      "sources": {
+        "mem\\rtl\\memv1_crc32b.v": "69f8ba2760ff9dd49e4d5a5d12970ba93e643479ad31eb09a527847f14bd07b4",
+        "mem\\rtl\\mem_adapter.v": "5e11f425b6199a7311e5b654e8d975b80e8826f71411f016596c052f271e7a96",
+        "mem\\rtl\\memv1_bridge.v": "75e0da118a942b90b688acfff578c4edce40fd7a815347df5bcd6f5ce14dcac4",
+        "mem\\rtl\\memv1_sys.v": "57a8667664b2fc6a82d7d46b3e5faa620b49ac1d86e380909a2e4577252b00da",
+        "mem\\rtl\\mem_mailbox.v": "22a0a6306368527b5a74c94db555666805eee57e06b9dee7c4143ee19c68ee4f",
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\rtl\\mem_v1_core.v": "b61a6446e7ce3fef60b29673353944a04cd55b118236db8b85d151a87b2404fb",
+        "mem\\tests\\tb_mem_v1_core.v": "bddfc41282f7682d7de91043bb34937d08a2bffb61263d5a0f1a4db0e3db6612"
+      },
+      "vectors_sha256": "cb6bb548e1bde0a2f1d7179f74950a782234588239d1e8c9e98724a312e03bff"
+    },
+    {
+      "name": "mem_heartbeat_abort_pipelined1",
+      "output": "PASS mem_heartbeat_abort 39 commands: held native valids killed without USER edge, no auto-resume, explicit rearm, stale DONE\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_heartbeat_abort.v:86: $finish called at 2063819090 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\rtl\\mem_mailbox.v": "22a0a6306368527b5a74c94db555666805eee57e06b9dee7c4143ee19c68ee4f",
+        "mem\\tests\\tb_mem_heartbeat_abort.v": "162fa3a427f15a3bf3f0f675d21606b4a9ad913775231bd379df2decb980b270"
+      }
+    },
+    {
+      "name": "mem_heartbeat_abort_pipelined2",
+      "output": "PASS mem_heartbeat_abort 39 commands: held native valids killed without USER edge, no auto-resume, explicit rearm, stale DONE\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_heartbeat_abort.v:86: $finish called at 2063819090 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\rtl\\mem_mailbox.v": "22a0a6306368527b5a74c94db555666805eee57e06b9dee7c4143ee19c68ee4f",
+        "mem\\tests\\tb_mem_heartbeat_abort.v": "162fa3a427f15a3bf3f0f675d21606b4a9ad913775231bd379df2decb980b270"
+      }
+    },
+    {
+      "name": "mem_heartbeat_abort_pipelined3",
+      "output": "PASS mem_heartbeat_abort 39 commands: held native valids killed without USER edge, no auto-resume, explicit rearm, stale DONE\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_heartbeat_abort.v:86: $finish called at 2063819090 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\rtl\\mem_mailbox.v": "22a0a6306368527b5a74c94db555666805eee57e06b9dee7c4143ee19c68ee4f",
+        "mem\\tests\\tb_mem_heartbeat_abort.v": "162fa3a427f15a3bf3f0f675d21606b4a9ad913775231bd379df2decb980b270"
+      }
+    },
+    {
+      "name": "mem_heartbeat_abort_pipelined4",
+      "output": "PASS mem_heartbeat_abort 39 commands: held native valids killed without USER edge, no auto-resume, explicit rearm, stale DONE\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_heartbeat_abort.v:86: $finish called at 2063819090 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\rtl\\mem_mailbox.v": "22a0a6306368527b5a74c94db555666805eee57e06b9dee7c4143ee19c68ee4f",
+        "mem\\tests\\tb_mem_heartbeat_abort.v": "162fa3a427f15a3bf3f0f675d21606b4a9ad913775231bd379df2decb980b270"
+      }
+    },
+    {
+      "name": "mem_heartbeat_abort_pipelined",
+      "output": "PASS mem_heartbeat_abort 39 commands: held native valids killed without USER edge, no auto-resume, explicit rearm, stale DONE\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_heartbeat_abort.v:86: $finish called at 2063819090 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\rtl\\mem_mailbox.v": "22a0a6306368527b5a74c94db555666805eee57e06b9dee7c4143ee19c68ee4f",
+        "mem\\tests\\tb_mem_heartbeat_abort.v": "162fa3a427f15a3bf3f0f675d21606b4a9ad913775231bd379df2decb980b270"
+      }
+    },
+    {
+      "name": "mem_bist_pipelined1_paired0",
+      "output": "PASS mem_bist         pipelined 21 scenarios: independent backpressure, native mapping, masks, mismatch, range, timeout, cancel/reset\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_bist.v:118: $finish called at 29310000 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\tests\\tb_mem_bist.v": "9b8482fe954f7489a3104489f5fd5cfd8c4e596efe20583e3b59aa250ea1f340"
+      }
+    },
+    {
+      "name": "mem_bist_pipelined1_paired1",
+      "output": "PASS mem_bist paired  pipelined 21 scenarios: independent backpressure, native mapping, masks, mismatch, range, timeout, cancel/reset\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_bist.v:118: $finish called at 30220000 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\tests\\tb_mem_bist.v": "9b8482fe954f7489a3104489f5fd5cfd8c4e596efe20583e3b59aa250ea1f340"
+      }
+    },
+    {
+      "name": "mem_bist_pipelined2_paired0",
+      "output": "PASS mem_bist        pipelined2 21 scenarios: independent backpressure, native mapping, masks, mismatch, range, timeout, cancel/reset\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_bist.v:118: $finish called at 29470000 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\tests\\tb_mem_bist.v": "9b8482fe954f7489a3104489f5fd5cfd8c4e596efe20583e3b59aa250ea1f340"
+      }
+    },
+    {
+      "name": "mem_bist_pipelined2_paired1",
+      "output": "PASS mem_bist paired pipelined2 21 scenarios: independent backpressure, native mapping, masks, mismatch, range, timeout, cancel/reset\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_bist.v:118: $finish called at 30600000 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\tests\\tb_mem_bist.v": "9b8482fe954f7489a3104489f5fd5cfd8c4e596efe20583e3b59aa250ea1f340"
+      }
+    },
+    {
+      "name": "mem_bist_pipelined3_paired0",
+      "output": "PASS mem_bist         pipelined 21 scenarios: independent backpressure, native mapping, masks, mismatch, range, timeout, cancel/reset\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_bist.v:118: $finish called at 29470000 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\tests\\tb_mem_bist.v": "9b8482fe954f7489a3104489f5fd5cfd8c4e596efe20583e3b59aa250ea1f340"
+      }
+    },
+    {
+      "name": "mem_bist_pipelined3_paired1",
+      "output": "PASS mem_bist paired  pipelined 21 scenarios: independent backpressure, native mapping, masks, mismatch, range, timeout, cancel/reset\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_bist.v:118: $finish called at 30600000 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\tests\\tb_mem_bist.v": "9b8482fe954f7489a3104489f5fd5cfd8c4e596efe20583e3b59aa250ea1f340"
+      }
+    },
+    {
+      "name": "mem_bist_pipelined4_paired0",
+      "output": "PASS mem_bist         pipelined 21 scenarios: independent backpressure, native mapping, masks, mismatch, range, timeout, cancel/reset\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_bist.v:118: $finish called at 34310000 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\tests\\tb_mem_bist.v": "9b8482fe954f7489a3104489f5fd5cfd8c4e596efe20583e3b59aa250ea1f340"
+      }
+    },
+    {
+      "name": "mem_bist_pipelined4_paired1",
+      "output": "PASS mem_bist paired  pipelined 21 scenarios: independent backpressure, native mapping, masks, mismatch, range, timeout, cancel/reset\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_bist.v:118: $finish called at 36200000 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\tests\\tb_mem_bist.v": "9b8482fe954f7489a3104489f5fd5cfd8c4e596efe20583e3b59aa250ea1f340"
+      }
+    },
+    {
+      "name": "mem_bist_rowpad",
+      "output": "PASS mem_bist row-pad address placement 8 bases\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\mem\\tests\\tb_mem_bist_rowpad.v:61: $finish called at 865000 (1ps)",
+      "sources": {
+        "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+        "mem\\tests\\tb_mem_bist_rowpad.v": "2b933a38837b24e779d4772c84478f3be75d6fb2f5e4b8193009ad5bebbc9730"
+      }
+    }
+  ]
+}
