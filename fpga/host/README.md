@@ -19,3 +19,5 @@ python -m unittest discover -s host/tests -p "test_*.py"
 ```
 
 コンパイラがない場合はCのテストだけskipする。擬似シリアルの試験は機器を開かずに実行できる。
+
+`mem_v1.h`は**MEMV1**（DDR3の明示的READ／WRITE／CRC32、opcode 0x60〜0x67）のCコーデック。仕様は[MEMV1プロトコル仕様](../../docs/MEMV1_プロトコル仕様_v1確定案_2026-11-05.md)。確定案で、実機・ホストOS側は未検証。`fpga/mem/tests/memv1_model.py`の独立なPython参照モデルと`fpga/host/tests/test_mem_v1.c`でバイト単位に照合する。
