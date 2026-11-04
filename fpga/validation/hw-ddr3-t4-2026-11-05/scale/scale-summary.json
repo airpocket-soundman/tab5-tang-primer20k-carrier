@@ -1,0 +1,100 @@
+{
+  "stage": "scale",
+  "status": "ALL_PASS",
+  "executed": true,
+  "jobs": [
+    {
+      "name": "range_64",
+      "base": 0,
+      "count": 64,
+      "seed": 305419896,
+      "output": "build\\hw-t4\\scale\\scale-01-range_64.json",
+      "argv": [
+        "--execute",
+        "--port",
+        "COM4",
+        "--base",
+        "0x0",
+        "--count",
+        "64",
+        "--seed",
+        "0x12345678",
+        "--output",
+        "build\\hw-t4\\scale\\scale-01-range_64.json",
+        "--expected-elf-sha",
+        "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "range_65536",
+      "base": 0,
+      "count": 65536,
+      "seed": 305419896,
+      "output": "build\\hw-t4\\scale\\scale-02-range_65536.json",
+      "argv": [
+        "--execute",
+        "--port",
+        "COM4",
+        "--base",
+        "0x0",
+        "--count",
+        "65536",
+        "--seed",
+        "0x12345678",
+        "--output",
+        "build\\hw-t4\\scale\\scale-02-range_65536.json",
+        "--expected-elf-sha",
+        "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "range_1048576",
+      "base": 0,
+      "count": 1048576,
+      "seed": 305419896,
+      "output": "build\\hw-t4\\scale\\scale-03-range_1048576.json",
+      "argv": [
+        "--execute",
+        "--port",
+        "COM4",
+        "--base",
+        "0x0",
+        "--count",
+        "1048576",
+        "--seed",
+        "0x12345678",
+        "--output",
+        "build\\hw-t4\\scale\\scale-03-range_1048576.json",
+        "--expected-elf-sha",
+        "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "range_8388608",
+      "base": 0,
+      "count": 8388608,
+      "seed": 305419896,
+      "output": "build\\hw-t4\\scale\\scale-04-range_8388608.json",
+      "argv": [
+        "--execute",
+        "--port",
+        "COM4",
+        "--base",
+        "0x0",
+        "--count",
+        "8388608",
+        "--seed",
+        "0x12345678",
+        "--output",
+        "build\\hw-t4\\scale\\scale-04-range_8388608.json",
+        "--expected-elf-sha",
+        "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "finished_utc": "2026-11-04T12:03:10.762245+00:00"
+}
