@@ -31,7 +31,15 @@ module mem_bw #(
     parameter APP_ROW_PAD=0,
     // mixed mode: a read command is only issued when at least this many more write commands than read commands
     // were issued (or all writes are issued). Read-after-write ordering is not assumed inside the IP.
-    parameter MIX_LAG=8
+    parameter MIX_LAG=8,
+    // Native-enable structure (timing). 0: enables = IP ready flops & want_*_q & !blk_q & !cancel (original).
+    // 1: the enables are taken from dedicated registered flops en_wc_q/en_rc_q/en_wb_q (= want & !blk, folded one cycle ahead), so that
+    //    each enable is a small AND of the IP ready flops, one registered enable flop and !cancel (the same idea as mem_bist PIPELINE=4).
+    //    Cycle behaviour is IDENTICAL to 0 (same cycle counters, stalls, latency); only the logic depth in front of the IP changes.
+    // 2: additionally the wants are evaluated from the state of the CURRENT cycle (not the next one) and every accepted command / data beat
+    //    blocks the following cycle (stale-want block), exactly like mem_bist PIPELINE=4: at most one command or data beat per TWO cycles.
+    //    Cycle definitions are unchanged; the idle cycle after every acceptance shows up in cnt_cycles (see bw_model.py).
+    parameter EN_PIPE=0
 )(
     input wire clk,reset_n,calibrated,start,cancel,
     input wire [1:0] mode,
@@ -45,9 +53,9 @@ module mem_bw #(
     output reg busy,done,faulted,
     output reg [7:0] error_code,
     output reg [31:0] accepted_job_id,
-    output reg [63:0] cnt_cycles,cnt_cmds,cnt_wbeats,cnt_rbeats,cnt_cmd_stall,cnt_wd_stall,
-    output reg [63:0] lat_sum,lat_samples,
-    output reg [31:0] lat_max,
+    output wire [63:0] cnt_cycles,cnt_cmds,cnt_wbeats,cnt_rbeats,cnt_cmd_stall,cnt_wd_stall,
+    output wire [63:0] lat_sum,lat_samples,
+    output wire [31:0] lat_max,
     output wire [127:0] ck_wr,ck_rd,ck_exp,
     output reg ck_wr_match,ck_rd_match,
     output wire [5:0] app_burst_number, // L-1, constant during a job
@@ -60,7 +68,11 @@ module mem_bw #(
     output wire [15:0] app_write_mask,
     input wire app_write_ready,
     input wire [127:0] app_read_data,
-    input wire app_read_valid,app_read_end
+    input wire app_read_valid,app_read_end,
+    // Next-cycle gate values (D inputs of en_wc_q/en_rc_q/en_wb_q), for a shared top-level enable stage (mem_top BW_EN_PIPE>=1):
+    // app_cmd_en = cmd_ready & (gate_rc | gate_wc & write_ready), app_write_en = write_ready & (gate_wb | gate_wc & cmd_ready), with
+    // gate_* the registered values of these D inputs and cancel folded in by the caller. Equal to the internal enables (PAIRED_WRITE=1).
+    output wire gate_wc_d,gate_rc_d,gate_wb_d
 );
     // error_code: 0 ok, 1 not calibrated, 2 bad configuration, 3 no progress (command/write side),
     // 4 no progress with reads outstanding, 5 unexpected/ill-formed read data, 7 cancel, 8 calibration lost, 9 total deadline.
@@ -107,22 +119,31 @@ module mem_bw #(
     reg [4:0] sr;               // setup: sr[0] load, sr[1..3] address pipeline fill, armed afterwards
     reg armed,scat_bad_q;
     reg want_wc_q,want_rc_q,want_wd_q,blk_q;
+    reg en_wc_q,en_rc_q,en_wb_q,en_wd_q;   // EN_PIPE>=1: want & !blk, registered
     reg [1:0] skew;             // write commands issued minus write data beats issued (-1,0,1), PAIRED_WRITE=0 only
     reg run_wr; reg [7:0] run_left;
     wire accept=start_q && !busy && !faulted;
 
     // ---------------- native strobes ----------------
-    wire en_ok=!blk_q && !cancel;
-    wire fire_wc=app_cmd_ready && want_wc_q && ((PAIRED_WRITE!=0)?app_write_ready:1'b1) && en_ok;
-    wire fire_rc=app_cmd_ready && want_rc_q && en_ok;
-    wire fire_wb=(PAIRED_WRITE!=0) && app_write_ready && want_wb_q && en_ok;
-    wire fire_wd=(PAIRED_WRITE!=0)?(fire_wc||fire_wb):(app_write_ready && want_wd_q && en_ok);
+    // *_n: the same strobes without the cancel term. They are used for the next-state logic of the control registers, which are all
+    // overridden by fail_job in a cancel cycle (cancel && busy is the first branch), so the long cancel -> state paths are not needed.
+    // The counters, address generators and data/checksum pipelines use the real strobes (with !cancel).
+    wire fire_wc_n=(EN_PIPE>=1)?(app_cmd_ready && en_wc_q && ((PAIRED_WRITE!=0)?app_write_ready:1'b1)):
+        (app_cmd_ready && want_wc_q && ((PAIRED_WRITE!=0)?app_write_ready:1'b1) && !blk_q);
+    wire fire_rc_n=(EN_PIPE>=1)?(app_cmd_ready && en_rc_q):(app_cmd_ready && want_rc_q && !blk_q);
+    wire fire_wb_n=(PAIRED_WRITE!=0) && ((EN_PIPE>=1)?(app_write_ready && en_wb_q):(app_write_ready && want_wb_q && !blk_q));
+    wire fire_wd_n=(PAIRED_WRITE!=0)?(fire_wc_n||fire_wb_n):((EN_PIPE>=1)?(app_write_ready && en_wd_q):(app_write_ready && want_wd_q && !blk_q));
+    wire fire_wc=fire_wc_n && !cancel;
+    wire fire_rc=fire_rc_n && !cancel;
+    wire fire_wb=fire_wb_n && !cancel;
+    wire fire_wd=fire_wd_n && !cancel;
     assign app_cmd_en=fire_wc||fire_rc;
     assign app_write_en=fire_wd;
     assign app_write_end=fire_wd;
     assign app_write_mask=16'h0000;
     assign app_cmd={2'b00,want_rc_q};
     wire progress=fire_wc||fire_rc||fire_wd||app_read_valid;
+    wire progress_n=fire_wc_n||fire_rc_n||fire_wd_n||app_read_valid;
 
     // ---------------- remaining-work counters (ge1/ge2 flags are registered) ----------------
     wire wc1,wc2,rc1,rc2,d1,d2,r1,r2,e1,e2;
@@ -185,12 +206,12 @@ module mem_bw #(
     always @(posedge clk) begin wr_eq_q<=(ck_wr==ck_exp); rd_eq_q<=(ck_rd==ck_exp); end
 
     // ---------------- request arbitration (registered wants) ----------------
-    wire nwc1=fire_wc?wc2:wc1;
-    wire nrc1=fire_rc?rc2:rc1;
-    wire nd1=fire_wd?d2:d1;
-    wire [5:0] nwb=fire_wc?bnum_l:(fire_wb?wb_left-6'd1:wb_left);   // continuation beats still owed after this cycle
+    wire nwc1=fire_wc_n?wc2:wc1;
+    wire nrc1=fire_rc_n?rc2:rc1;
+    wire nd1=fire_wd_n?d2:d1;
+    wire [5:0] nwb=fire_wc_n?bnum_l:(fire_wb_n?wb_left-6'd1:wb_left);   // continuation beats still owed after this cycle
     wire nwb_z=(PAIRED_WRITE!=0)?(nwb==6'd0):1'b1;
-    wire [1:0] nskew=skew+{1'b0,fire_wc}+{2{fire_wd}};
+    wire [1:0] nskew=skew+{1'b0,fire_wc_n}+{2{fire_wd_n}};
     wire ok_c=(nskew!=2'b01);
     wire ok_d=!nskew[1];
     reg [23:0] lagc;           // write commands issued minus read commands issued
@@ -200,6 +221,18 @@ module mem_bw #(
     wire pick_w=can_w && (run_wr || !can_r);
     wire pick_r=can_r && (!run_wr || !can_w);
     wire go=armed && settled_q;
+    // wants for the next cycle. EN_PIPE=2 evaluates them from the current state (the fire of this cycle is not yet visible).
+    wire s_wc1=(EN_PIPE>=2)?wc1:nwc1, s_rc1=(EN_PIPE>=2)?rc1:nrc1, s_d1=(EN_PIPE>=2)?d1:nd1;
+    wire [5:0] s_wb=(EN_PIPE>=2)?wb_left:nwb;
+    wire s_wb_z=(PAIRED_WRITE!=0)?(s_wb==6'd0):1'b1;
+    wire [1:0] s_skew=(EN_PIPE>=2)?skew:nskew;
+    wire s_ok_c=(s_skew!=2'b01), s_ok_d=!s_skew[1];
+    wire nx_wb=(PAIRED_WRITE!=0) && m_wr && !s_wb_z;
+    wire nx_wc=m_mx?pick_w:(m_wr && s_wc1 && s_wb_z && (PAIRED_WRITE!=0 || s_ok_c));
+    wire nx_rc=m_mx?pick_r:(m_rd && s_rc1);
+    wire nx_wd=(PAIRED_WRITE==0) && m_wr && s_d1 && s_ok_d;
+    wire fire_any=fire_wc_n||fire_rc_n||fire_wd_n;
+    wire stale=(EN_PIPE>=2)?fire_any:(fire_any && m_mx);   // blk_q of the next cycle
     reg lat_v_q;
     wire pipe_busy=wck_busy||rck_busy||eck_busy||e1||lat_v_q;
 
@@ -208,23 +241,32 @@ module mem_bw #(
     reg [23:0] rd_out;
     wire rd_out_nz=|rd_out;
     wire bad_rd=app_read_valid && (!rd_out_nz || (!app_read_end && bl_l==3'd0));
+    wire fail_c=!cal_q || tot_hit_q || bad_rd || (wait_hit_q && !progress_n);
+    wire gate_ok=busy && !cancel && !fail_c && !(sr[1] && scat_bad_q) && go && !fin_q;
+    wire en_wb_d=gate_ok && nx_wb && !stale;
+    wire en_wc_d=gate_ok && nx_wc && !stale;
+    wire en_rc_d=gate_ok && nx_rc && !stale;
+    wire en_wd_d=gate_ok && nx_wd && !stale;
+    assign gate_wc_d=en_wc_d;
+    assign gate_rc_d=en_rc_d;
+    assign gate_wb_d=en_wb_d;
     task fail_job;
         input [7:0] code;
         begin busy<=0;done<=1;faulted<=1;error_code<=code;
-            want_wc_q<=0;want_rc_q<=0;want_wd_q<=0;want_wb_q<=0;blk_q<=0;sr<=0;armed<=0;fin_q<=0;wait_hit_q<=0;tot_hit_q<=0; end
+            want_wc_q<=0;want_rc_q<=0;want_wd_q<=0;want_wb_q<=0;en_wc_q<=0;en_rc_q<=0;en_wb_q<=0;en_wd_q<=0;blk_q<=0;sr<=0;armed<=0;fin_q<=0;wait_hit_q<=0;tot_hit_q<=0; end
     endtask
     always @(posedge clk or negedge reset_n) begin
         if(!reset_n) begin
             busy<=0;done<=0;faulted<=0;error_code<=0;accepted_job_id<=0;
             m_wr<=0;m_rd<=0;m_mx<=0;pat_l<=0;rmask_l<=0;mw_l<=0;mr_l<=0;base_l<=0;count_l<=0;seed_l<=0;
-            sr<=0;armed<=0;want_wc_q<=0;want_rc_q<=0;want_wd_q<=0;want_wb_q<=0;blk_q<=0;skew<=0;
+            sr<=0;armed<=0;want_wc_q<=0;want_rc_q<=0;want_wd_q<=0;want_wb_q<=0;en_wc_q<=0;en_rc_q<=0;en_wb_q<=0;en_wd_q<=0;blk_q<=0;skew<=0;
             bl_l<=0;run_l<=0;stride_l<=0;ncmd_l<=0;bnum_l<=0;wb_left<=0;
             run_wr<=1;run_left<=0;wait_cycles<=0;elapsed<=0;wait_hit_q<=0;tot_hit_q<=0;fin_q<=0;
             ck_wr_match<=0;ck_rd_match<=0;
         end else if(cancel && busy) fail_job(8'd7);
         else if(accept) begin
             done<=0;error_code<=0;accepted_job_id<=job_q;ck_wr_match<=0;ck_rd_match<=0;
-            sr<=0;armed<=0;want_wc_q<=0;want_rc_q<=0;want_wd_q<=0;want_wb_q<=0;blk_q<=0;fin_q<=0;wb_left<=0;
+            sr<=0;armed<=0;want_wc_q<=0;want_rc_q<=0;want_wd_q<=0;want_wb_q<=0;en_wc_q<=0;en_rc_q<=0;en_wb_q<=0;en_wd_q<=0;blk_q<=0;fin_q<=0;wb_left<=0;
             bl_l<=bl_q;run_l<=run_q;stride_l<=stride_q;ncmd_l<=count_q[23:0]>>bl_q;bnum_l<=(6'd1<<bl_q)-6'd1;
             wait_cycles<=0;elapsed<=0;wait_hit_q<=0;tot_hit_q<=0;
             m_wr<=(mode_q==2'd0);m_rd<=(mode_q==2'd1);m_mx<=(mode_q==2'd2);
@@ -235,13 +277,13 @@ module mem_bw #(
             else begin busy<=1;sr<=5'b00001; end
         end else if(busy) begin
             elapsed<=elapsed+1'b1;
-            wait_cycles<=progress?32'd0:wait_cycles+1'b1;
-            wait_hit_q<=!progress && wait_cycles>=TIMEOUT_CYCLES-2;
+            wait_cycles<=progress_n?32'd0:wait_cycles+1'b1;
+            wait_hit_q<=!progress_n && wait_cycles>=TIMEOUT_CYCLES-2;
             tot_hit_q<=elapsed>=TOTAL_TIMEOUT_CYCLES-2;
             if(!cal_q) fail_job(8'd8);
             else if(tot_hit_q) fail_job(8'd9);
             else if(bad_rd) fail_job(8'd5);
-            else if(wait_hit_q && !progress) fail_job(rd_out_nz?8'd4:8'd3);
+            else if(wait_hit_q && !progress_n) fail_job(rd_out_nz?8'd4:8'd3);
             else if(sr[1] && scat_bad_q) begin
                 busy<=0;done<=1;error_code<=8'd2;sr<=0;armed<=0;
             end else begin
@@ -249,24 +291,28 @@ module mem_bw #(
                 if(sr[3]) armed<=1;
                 if(sr[0]) begin run_wr<=1;run_left<=mw_l;skew<=0; end else skew<=nskew;
                 wb_left<=nwb;
-                blk_q<=(fire_wc||fire_rc||fire_wd) && m_mx;
+                blk_q<=stale;
                 if(m_mx) begin
-                    if(fire_wc && run_wr) begin
+                    if(fire_wc_n && run_wr) begin
                         if(run_left==8'd1) begin run_wr<=0;run_left<=mr_l; end else run_left<=run_left-1'b1;
-                    end else if(fire_rc && !run_wr) begin
+                    end else if(fire_rc_n && !run_wr) begin
                         if(run_left==8'd1) begin run_wr<=1;run_left<=mw_l; end else run_left<=run_left-1'b1;
                     end
                 end
-                if(!go) begin want_wc_q<=0;want_rc_q<=0;want_wd_q<=0;want_wb_q<=0; end
+                if(!go) begin want_wc_q<=0;want_rc_q<=0;want_wd_q<=0;want_wb_q<=0;en_wc_q<=0;en_rc_q<=0;en_wb_q<=0;en_wd_q<=0; end
                 else begin
-                    want_wb_q<=(PAIRED_WRITE!=0) && m_wr && !nwb_z;
-                    want_wc_q<=m_mx?pick_w:(m_wr && nwc1 && nwb_z && (PAIRED_WRITE!=0 || ok_c));
-                    want_rc_q<=m_mx?pick_r:(m_rd && nrc1);
-                    want_wd_q<=(PAIRED_WRITE==0) && m_wr && nd1 && ok_d;
+                    want_wb_q<=nx_wb;
+                    want_wc_q<=nx_wc;
+                    want_rc_q<=nx_rc;
+                    want_wd_q<=nx_wd;
+                    en_wb_q<=en_wb_d;
+                    en_wc_q<=en_wc_d;
+                    en_rc_q<=en_rc_d;
+                    en_wd_q<=en_wd_d;
                 end
                 fin_q<=armed && idle_io && !pipe_busy;
                 if(fin_q) begin
-                    busy<=0;done<=1;want_wc_q<=0;want_rc_q<=0;want_wd_q<=0;want_wb_q<=0;
+                    busy<=0;done<=1;want_wc_q<=0;want_rc_q<=0;want_wd_q<=0;want_wb_q<=0;en_wc_q<=0;en_rc_q<=0;en_wb_q<=0;en_wd_q<=0;
                     ck_wr_match<=m_wr?wr_eq_q:(m_mx?wr_eq_q:1'b0);
                     ck_rd_match<=(m_rd||m_mx)?rd_eq_q:1'b0;
                 end
@@ -283,25 +329,27 @@ module mem_bw #(
     wire cnt_en=(tc_run||first_fire) && !idle_io;
     wire want_cmd_any=(want_wc_q||want_rc_q) && !blk_q;
     wire want_wd_any=((PAIRED_WRITE!=0)?(want_wc_q||want_wb_q):want_wd_q) && !blk_q;
+    // 64-bit statistics: 16-bit segments with registered carries (events counted in busy only; the carries ripple on after busy falls
+    // and are settled a few cycles later, long before done is visible to the LINK side). Cleared by accept.
+    wire cb=busy;
+    mem_bw_ctr k_cyc(clk,reset_n,accept,cb&&cnt_en,cnt_cycles);
+    mem_bw_ctr k_cmd(clk,reset_n,accept,cb&&(fire_wc||fire_rc),cnt_cmds);
+    mem_bw_ctr k_wb (clk,reset_n,accept,cb&&fire_wd,cnt_wbeats);
+    mem_bw_ctr k_rb (clk,reset_n,accept,cb&&app_read_valid,cnt_rbeats);
+    mem_bw_ctr k_cs (clk,reset_n,accept,cb&&cnt_en&&want_cmd_any&&!app_cmd_ready,cnt_cmd_stall);
+    mem_bw_ctr k_ws (clk,reset_n,accept,cb&&cnt_en&&want_wd_any&&!app_write_ready,cnt_wd_stall);
+    mem_bw_ctr k_ls (clk,reset_n,accept,cb&&lat_v_q,lat_samples);
+    mem_bw_acc k_lsum(clk,reset_n,accept,cb&&lat_v_q,lat_q,lat_sum);
+    reg [31:0] lat_max_r; assign lat_max=lat_max_r;
     always @(posedge clk or negedge reset_n) begin
         if(!reset_n) begin
-            cnt_cycles<=0;cnt_cmds<=0;cnt_wbeats<=0;cnt_rbeats<=0;cnt_cmd_stall<=0;cnt_wd_stall<=0;
-            lat_sum<=0;lat_samples<=0;lat_max<=0;tc_run<=0;lat_busy<=0;lat_v_q<=0;cyc<=0;lat_start<=0;lat_q<=0;
+            lat_max_r<=0;tc_run<=0;lat_busy<=0;lat_v_q<=0;cyc<=0;lat_start<=0;lat_q<=0;
             lat_left<=0;lagc<=0;rd_out<=0;
         end else if(accept) begin
-            cnt_cycles<=0;cnt_cmds<=0;cnt_wbeats<=0;cnt_rbeats<=0;cnt_cmd_stall<=0;cnt_wd_stall<=0;
-            lat_sum<=0;lat_samples<=0;lat_max<=0;tc_run<=0;lat_busy<=0;lat_v_q<=0;cyc<=0;lagc<=0;rd_out<=0;
+            lat_max_r<=0;tc_run<=0;lat_busy<=0;lat_v_q<=0;cyc<=0;lagc<=0;rd_out<=0;
         end else if(busy) begin
             cyc<=cyc+1'b1;
-            if(fire_wc||fire_rc) cnt_cmds<=cnt_cmds+1'b1;
-            if(fire_wd) cnt_wbeats<=cnt_wbeats+1'b1;
-            if(app_read_valid) cnt_rbeats<=cnt_rbeats+1'b1;
             if(first_fire) tc_run<=1;
-            if(cnt_en) begin
-                cnt_cycles<=cnt_cycles+1'b1;
-                if(want_cmd_any && !app_cmd_ready) cnt_cmd_stall<=cnt_cmd_stall+1'b1;
-                if(want_wd_any && !app_write_ready) cnt_wd_stall<=cnt_wd_stall+1'b1;
-            end
             lagc<=lagc+fire_wc-fire_rc;
             rd_out<=rd_out+(fire_rc?{18'd0,bnum_l}+24'd1:24'd0)-((app_read_valid && rd_out_nz)?24'd1:24'd0);   // outstanding read BEATS
             // read latency sampling: one command at a time is timestamped
@@ -313,9 +361,45 @@ module mem_bw #(
                 lat_busy<=1;lat_start<=cyc;lat_left<=rd_out-(app_read_valid?24'd1:24'd0);
             end
             if(lat_v_q) begin
-                lat_sum<=lat_sum+lat_q;lat_samples<=lat_samples+1'b1;
-                if(lat_q>lat_max) lat_max<=lat_q;
+                if(lat_q>lat_max_r) lat_max_r<=lat_q;
             end
+        end
+    end
+endmodule
+
+// 64-bit event counter: four 16-bit segments, registered carries between them (value settles <= 3 cycles after the last event)
+module mem_bw_ctr(input wire clk,reset_n,clear,inc,output wire [63:0] q);
+    reg [15:0] s0,s1,s2,s3; reg c0,c1,c2;
+    assign q={s3,s2,s1,s0};
+    always @(posedge clk or negedge reset_n) begin
+        if(!reset_n) begin s0<=0;s1<=0;s2<=0;s3<=0;c0<=0;c1<=0;c2<=0; end
+        else if(clear) begin s0<=0;s1<=0;s2<=0;s3<=0;c0<=0;c1<=0;c2<=0; end
+        else begin
+            if(inc) s0<=s0+1'b1;
+            c0<=inc && (s0==16'hffff);
+            if(c0) s1<=s1+1'b1;
+            c1<=c0 && (s1==16'hffff);
+            if(c1) s2<=s2+1'b1;
+            c2<=c1 && (s2==16'hffff);
+            if(c2) s3<=s3+1'b1;
+        end
+    end
+endmodule
+
+// 64-bit accumulator of a 32-bit value: 32-bit low sum with registered carry into a 32-bit high counter (two 16-bit segments)
+module mem_bw_acc(input wire clk,reset_n,clear,add_en,input wire [31:0] add,output wire [63:0] q);
+    reg [31:0] lo; reg [15:0] h0,h1; reg c,ch;
+    assign q={h1,h0,lo};
+    wire [32:0] sum={1'b0,lo}+{1'b0,add};
+    always @(posedge clk or negedge reset_n) begin
+        if(!reset_n) begin lo<=0;h0<=0;h1<=0;c<=0;ch<=0; end
+        else if(clear) begin lo<=0;h0<=0;h1<=0;c<=0;ch<=0; end
+        else begin
+            if(add_en) lo<=sum[31:0];
+            c<=add_en && sum[32];
+            if(c) h0<=h0+1'b1;
+            ch<=c && (h0==16'hffff);
+            if(ch) h1<=h1+1'b1;
         end
     end
 endmodule

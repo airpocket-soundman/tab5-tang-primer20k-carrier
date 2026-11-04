@@ -6,15 +6,29 @@
 module tb_mem_bw_top;
 parameter BW=1;
 parameter SAMPLE=0;
+parameter BWPIPE=0;   // mem_top.BW_EN_PIPE
+parameter BWGATE=0;   // mem_top.BW_SHARED_GATE (needs the PIPELINE=4 BIST of the generated variants)
 reg sys_clk=0; always #18.5185 sys_clk=~sys_clk;
 reg reset_n=0,arm_sw=0,bus=0,dir=0; reg [7:0] di=0; wire [7:0] data; wire ready; wire [3:0] led;
 assign data=dir?8'bz:di;
 wire [12:0] ddr_addr; wire [2:0] ddr_bank; wire ddr_cs,ddr_ras,ddr_cas,ddr_we,ddr_ck,ddr_ck_n,ddr_cke,ddr_odt,ddr_reset_n; wire [1:0] ddr_dm;
 wire [15:0] ddr_dq; wire [1:0] ddr_dqs,ddr_dqs_n;
-mem_top #(.BW_ENABLE(BW),.BW_ROW_PAD(SAMPLE)) dut(.sys_clk(sys_clk),.reset_n(reset_n),.arm_sw(arm_sw),.bus_clk(bus),.dir(dir),.aux(4'b0),.data(data),.ready(ready),.led(led),
+mem_top #(.BW_ENABLE(BW),.BW_ROW_PAD(SAMPLE),.BW_EN_PIPE(BWPIPE),.BW_SHARED_GATE(BWGATE)) dut(.sys_clk(sys_clk),.reset_n(reset_n),.arm_sw(arm_sw),.bus_clk(bus),.dir(dir),.aux(4'b0),.data(data),.ready(ready),.led(led),
     .ddr_addr(ddr_addr),.ddr_bank(ddr_bank),.ddr_cs(ddr_cs),.ddr_ras(ddr_ras),.ddr_cas(ddr_cas),.ddr_we(ddr_we),.ddr_ck(ddr_ck),.ddr_ck_n(ddr_ck_n),
     .ddr_cke(ddr_cke),.ddr_odt(ddr_odt),.ddr_reset_n(ddr_reset_n),.ddr_dm(ddr_dm),.ddr_dq(ddr_dq),.ddr_dqs(ddr_dqs),.ddr_dqs_n(ddr_dqs_n));
 
+// Shared enable stage (BW_EN_PIPE>=1): the IP-facing enables must equal the engines' own accounting strobes in every cycle.
+integer gate_checked=0;
+always @(negedge dut.user_clk) if(dut.user_reset_n===1'b1) begin
+  gate_checked=gate_checked+1;
+  if(BW!=0) begin
+    if(dut.cmd_en!==(dut.b_cmd_en||dut.bw.w_cmd_en)) begin
+      $display("DBG cmd_en=%b b=%b w=%b cmd_ready=%b wr_ready=%b bwbusy=%b",dut.cmd_en,dut.b_cmd_en,dut.bw.w_cmd_en,dut.cmd_ready,dut.wr_ready,dut.bw.bw_busy);
+      $fatal(1,"IP cmd_en differs from the engines' strobes at %0t",$time);
+    end
+    if(dut.wr_en!==(dut.b_wr_en||dut.bw.w_wr_en)) $fatal(1,"IP wr_en differs from the engines' strobes at %0t",$time);
+  end
+end
 function [15:0] crc; input [15:0] old; input [7:0] bv; reg [15:0] v; integer k;
  begin v=old^{bv,8'b0}; for(k=0;k<8;k=k+1) v=v[15]?(v<<1)^16'h1021:v<<1; crc=v; end endfunction
 reg [7:0] q [0:7]; reg [7:0] r [0:7]; reg [15:0] c; integer i,n,checks=0; reg [7:0] seqid=0;
@@ -160,7 +174,7 @@ initial begin
   // BW image disabled: the BIST path alone
   bist_run(0,256,32'h55);
  end
- $display("PASS mem_top bandwidth integration BW=%0d SAMPLE=%0d %0d link transactions",BW,SAMPLE,checks);
+ $display("PASS mem_top bandwidth integration BW=%0d SAMPLE=%0d BWPIPE=%0d BWGATE=%0d %0d link transactions, %0d cycles of IP enables checked",BW,SAMPLE,BWPIPE,BWGATE,checks,gate_checked);
  $finish;
 end
 initial begin #3000000000; $fatal(1,"global timeout"); end

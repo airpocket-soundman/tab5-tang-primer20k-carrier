@@ -15,6 +15,9 @@ module mem_mailbox # (parameter DEADLINE=2700000,parameter CAL_GUARD_CYCLES=256,
  output wire user_abort,
  input wire [175:0] native_debug,
  input wire [255:0] deep_debug
+`ifdef BW_GATES
+ ,output wire bist_cancel_pre   // D input of bist_cancel: high one cycle before bist_cancel (only with `define BW_GATES, see mem_bist.v)
+`endif
 );
  reg[31:0] cfg_base,cfg_count,cfg_seed,next_job;
  reg[5:0] cfg_written;
@@ -64,6 +67,9 @@ module mem_mailbox # (parameter DEADLINE=2700000,parameter CAL_GUARD_CYCLES=256,
  wire[511:0] snapshot_bundle={16'h014d,USER_MHZ,elapsed_cycles,first_actual,first_expected,
                              first_bad_byte,error_beats,verified_beats,accepted_job_id,
                              {5'b0,phase,error_code},flags};
+`ifdef BW_GATES
+ assign bist_cancel_pre=user_mailbox_ready&&!pending_user&&(request_sync[1]!=ack_toggle)&&held_op==8'h5a;
+`endif
  // USER half: first cycle accepts stable payload, following cycle acknowledges.
  always @(posedge user_clk or negedge user_reset_n)begin
  if(!user_reset_n)begin request_sync<=0;ack_toggle<=0;pending_user<=0;

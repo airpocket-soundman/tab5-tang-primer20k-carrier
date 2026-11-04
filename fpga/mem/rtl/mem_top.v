@@ -8,6 +8,8 @@ output wire[1:0] ddr_dm,inout wire[15:0] ddr_dq,inout wire[1:0] ddr_dqs,ddr_dqs_
 // BW_ENABLE=0 (default): BIST-only image, logic identical to the version without the bandwidth engine.
 // BW_ENABLE=1: adds mem_bw_port (LINK opcodes 0x60..0x6F; MEM diagnostic ABI 0x50..0x5C unchanged) sharing the native bus.
 parameter BW_ENABLE=0;
+parameter BW_EN_PIPE=0; // mem_bw native-enable structure (0 original, 1 registered enables with identical cycles, 2 stale-block like BIST PIPELINE=4)
+parameter BW_SHARED_GATE=0; // 1 (only with `define BW_GATES, mem_bist PIPELINE=4): IP-facing enables from shared registered gates; 0: OR of the engines' enables
 parameter BW_ROW_PAD=0; // APP_ROW_PAD of the bandwidth engine (1 for the 14-row-bit Sipeed sample IP)
 wire memory_clk,pll_lock,user_clk,calibrated,ip_user_reset;
 mem_pll frequency(sys_clk,!reset_n,memory_clk,pll_lock);
@@ -36,6 +38,9 @@ assign data=oe?out:8'bz;
 mem_link #(.BW_ENABLE(BW_ENABLE)) link(sys_clk,reset_n,arm_sw,bus_clk,dir,data,out,oe,ready,
 command_start,op,a,b,command_done,status,result);
 wire bist_start,bist_cancel,busy,done,faulted;
+`ifdef BW_GATES
+wire bist_cancel_pre,b_gwc,b_grc,b_gwd;
+`endif
 wire[31:0] base,count,seed,job,verified,errors,first,accepted;
 wire[7:0] error;wire[2:0] phase;wire[127:0] expected,actual;wire[63:0] cycles;
 wire[175:0] native_debug;
@@ -45,12 +50,20 @@ mem_deep_monitor observer(user_clk,user_reset_n,bist_start,busy,native_debug,dee
 mem_mailbox control(sys_clk,raw_reset_n&&mailbox_epoch==0,user_clk,user_reset_n,
 mb_start,op,a,b,mb_done,mb_status,mb_result,recalibrate,
 calibrated,mb_busy,done,faulted,error,phase,verified,errors,first,accepted,expected,actual,cycles,
-bist_start,bist_cancel,base,count,seed,job,user_abort,native_debug,deep_debug);
+bist_start,bist_cancel,base,count,seed,job,user_abort,native_debug,deep_debug
+`ifdef BW_GATES
+,bist_cancel_pre
+`endif
+);
 wire[2:0] cmd;wire cmd_en,cmd_ready,wr_en,wr_end,wr_ready,rd_valid,rd_end;
 wire[26:0] address;wire[127:0] wr_data,rd_data;wire[15:0] mask;
 mem_bist engine(user_clk,user_reset_n,calibrated,bist_start,bist_cancel,base,count,seed,job,
 busy,done,faulted,error,phase,verified,errors,first,accepted,expected,actual,cycles,
-b_cmd,b_cmd_en,b_address,cmd_ready,b_wr_data,b_wr_en,b_wr_end,b_mask,wr_ready,rd_data,rd_valid,rd_end,native_debug);
+b_cmd,b_cmd_en,b_address,cmd_ready,b_wr_data,b_wr_en,b_wr_end,b_mask,wr_ready,rd_data,rd_valid,rd_end,native_debug
+`ifdef BW_GATES
+,b_gwc,b_grc,b_gwd
+`endif
+);
 generate if(BW_ENABLE!=0) begin:bw
 // Bandwidth jobs own the native bus while bw_busy; the BIST command/data enables are zero when it is idle, so they are OR-ed.
 wire bw_op=op[6:4]==3'b110; // 0x60..0x6F
@@ -62,16 +75,39 @@ assign mb_start=command_start&&!bw_op;
 assign command_done=mb_done||bw_done;
 assign status=route_bw?bw_status:mb_status;
 assign result=route_bw?bw_result:mb_result;
-wire[2:0] w_cmd;wire w_cmd_en,w_wr_en,w_wr_end;wire[26:0] w_address;wire[127:0] w_wr_data;wire[15:0] w_mask;wire[5:0] w_burst;
-mem_bw_port #(.ROW_PAD(BW_ROW_PAD)) port(.sys_clk(sys_clk),.sys_reset_n(raw_reset_n&&mailbox_epoch==0),.user_clk(user_clk),.user_reset_n(user_reset_n),
+wire[2:0] w_cmd;wire w_cmd_en,w_wr_en,w_wr_end,w_gwc,w_grc,w_gwb,w_cpre;wire[26:0] w_address;wire[127:0] w_wr_data;wire[15:0] w_mask;wire[5:0] w_burst;
+mem_bw_port #(.ROW_PAD(BW_ROW_PAD),.EN_PIPE(BW_EN_PIPE)) port(.sys_clk(sys_clk),.sys_reset_n(raw_reset_n&&mailbox_epoch==0),.user_clk(user_clk),.user_reset_n(user_reset_n),
 .command_start(bw_start),.opcode(op),.a(a),.b(b),.command_done(bw_done),.status(bw_status),.result(bw_result),
 .calibrated(calibrated),.bist_busy(busy),.bw_busy(bw_busy),
 .app_cmd(w_cmd),.app_cmd_en(w_cmd_en),.app_addr(w_address),.app_burst_number(w_burst),
 .app_write_data(w_wr_data),.app_write_en(w_wr_en),.app_write_end(w_wr_end),.app_write_mask(w_mask),
-.app_cmd_ready(cmd_ready),.app_write_ready(wr_ready),.app_read_data(rd_data),.app_read_valid(rd_valid),.app_read_end(rd_end));
+.app_cmd_ready(cmd_ready),.app_write_ready(wr_ready),.app_read_data(rd_data),.app_read_valid(rd_valid),.app_read_end(rd_end),
+.gate_wc_d(w_gwc),.gate_rc_d(w_grc),.gate_wb_d(w_gwb),.cancel_pre(w_cpre));
 assign cmd=bw_busy?w_cmd:b_cmd;assign address=bw_busy?w_address:b_address;
 assign wr_data=bw_busy?w_wr_data:b_wr_data;assign mask=bw_busy?w_mask:b_mask;
+`ifdef BW_GATES
+if(BW_SHARED_GATE==0) begin:orgate
 assign cmd_en=b_cmd_en||w_cmd_en;assign wr_en=b_wr_en||w_wr_en;assign wr_end=b_wr_end||w_wr_end;
+end else begin:sharedgate
+// Shared registered enable gates: the IP-facing enables are 4-input functions of the IP ready flags and registered gates (BIST and
+// bandwidth engine never run together; the gates are the OR of the two next-cycle gate values with the next-cycle cancel folded in).
+// They are equal to b_cmd_en||w_cmd_en / b_wr_en||w_wr_en (the engines' own accounting strobes), which tb_mem_bw_top asserts.
+reg g_c,g_r,g_d,g_b;
+always @(posedge user_clk or negedge user_reset_n) begin
+if(!user_reset_n) begin g_c<=0;g_r<=0;g_d<=0;g_b<=0; end
+else begin
+g_c<=(b_gwc&&!bist_cancel_pre)||(w_gwc&&!w_cpre);
+g_r<=(b_grc&&!bist_cancel_pre)||(w_grc&&!w_cpre);
+g_d<=(b_gwd&&!bist_cancel_pre)||(w_gwc&&!w_cpre);
+g_b<=w_gwb&&!w_cpre;
+end end
+assign cmd_en=cmd_ready&&(g_r||(g_c&&wr_ready));
+assign wr_en=wr_ready&&(g_b||(g_d&&cmd_ready));
+assign wr_end=wr_en;
+end
+`else
+assign cmd_en=b_cmd_en||w_cmd_en;assign wr_en=b_wr_en||w_wr_en;assign wr_end=b_wr_end||w_wr_end;
+`endif
 assign burst_number=bw_busy?w_burst:6'd0;
 assign mb_busy=busy||bw_busy;
 end else begin:nobw

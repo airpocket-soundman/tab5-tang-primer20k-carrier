@@ -3,6 +3,7 @@
 module tb_mem_bw;
 parameter PAIRED=1;
 parameter ROWPAD=0;
+parameter ENPIPE=0;   // mem_bw EN_PIPE
 reg clk=0; always #5 clk=~clk;
 reg rst=0,cal=1,start=0,cancel=0;
 reg [1:0] mode=0; reg [2:0] pat=0; reg [4:0] rl=23; reg [7:0] mixw=4,mixr=4;
@@ -14,7 +15,7 @@ wire [127:0] ckw,ckr,cke; wire wr_ok,rd_ok;
 wire [2:0] cmd; wire ce; wire [26:0] addr; wire [127:0] wd; wire we,wend; wire [15:0] wmask;
 reg cr=0,wrdy=0,rv=0,re=1; reg [127:0] rd=0;
 mem_bw #(.TIMEOUT_CYCLES(200),.TOTAL_TIMEOUT_CYCLES(64'd5000000),.PAIRED_WRITE(PAIRED),.CALIBRATION_SETTLE_CYCLES(4),
-         .APP_ROW_PAD(ROWPAD),.MIX_LAG(8)) dut(
+         .APP_ROW_PAD(ROWPAD),.MIX_LAG(8),.EN_PIPE(ENPIPE)) dut(
     .clk(clk),.reset_n(rst),.calibrated(cal),.start(start),.cancel(cancel),.mode(mode),.pattern(pat),.region_log2(rl),
     .mix_w(mixw),.mix_r(mixr),.base_byte(base),.beat_count(count),.seed(seed),.job_id(job),
     .burst_log2(blg),.run_len(runl),.stride(strd),.app_burst_number(bnum),
@@ -27,7 +28,7 @@ mem_bw #(.TIMEOUT_CYCLES(200),.TOTAL_TIMEOUT_CYCLES(64'd5000000),.PAIRED_WRITE(P
     .app_read_valid(rv),.app_read_end(re));
 // total deadline classification: ready never high, TIMEOUT longer than TOTAL
 reg dl_start=0; wire dl_done; wire [7:0] dl_err;
-mem_bw #(.TIMEOUT_CYCLES(100),.TOTAL_TIMEOUT_CYCLES(64'd5),.CALIBRATION_SETTLE_CYCLES(0),.PAIRED_WRITE(PAIRED)) dl(
+mem_bw #(.TIMEOUT_CYCLES(100),.TOTAL_TIMEOUT_CYCLES(64'd5),.CALIBRATION_SETTLE_CYCLES(0),.PAIRED_WRITE(PAIRED),.EN_PIPE(ENPIPE)) dl(
     .clk(clk),.reset_n(rst),.calibrated(1'b1),.start(dl_start),.cancel(1'b0),.mode(2'd0),.pattern(3'd0),.region_log2(5'd23),
     .mix_w(8'd1),.mix_r(8'd1),.base_byte(32'b0),.beat_count(32'd1),.seed(32'b0),.job_id(32'd9),.burst_log2(3'd0),.run_len(16'd1),.stride(24'd1),
     .done(dl_done),.error_code(dl_err),.app_cmd_ready(1'b0),.app_write_ready(1'b0),
@@ -212,16 +213,16 @@ initial begin
  sh=0;lat=6;seed=32'h1234abcd;pat=0;base=0;count=4096;gen_exp(seed,4096);hclear;
  mode=0;launch;finish;ok_end;report("ideal_w");
  if(c_cmd!=4096||c_wb!=4096||c_rb!=0||c_cs!=0||c_ws!=0)$fatal(1,"ideal write counters");
- if(c_cyc!=4096)$fatal(1,"ideal write_stream must take exactly N cycles, got %0d",c_cyc);
+ if(c_cyc!=((ENPIPE>=2)?2*4096-1:4096))$fatal(1,"ideal write_stream must take exactly N cycles (2N-1 for EN_PIPE 2), got %0d",c_cyc);
  if(accid!=1||ckw!==tck||cke!==tck||!wr_ok)$fatal(1,"ideal write checksum");
  check_addrs(4096,0);chk_mem(4096);
  $display("INFO paired=%0d rowpad=%0d ideal write_stream N=4096: total_cycles=%0d (%0d beat/cycle)",PAIRED,ROWPAD,c_cyc,1);
  scen=scen+1;
  mode=1;launch;finish;ok_end;report("ideal_r");
  if(c_cmd!=4096||c_rb!=4096||c_wb!=0||c_cs!=0||c_ws!=0)$fatal(1,"ideal read counters");
- if(c_cyc!=4096+lat)$fatal(1,"ideal read_stream must take N+latency cycles, got %0d",c_cyc);
+ if(c_cyc!=((ENPIPE>=2)?2*4096-1+lat:4096+lat))$fatal(1,"ideal read_stream must take N+latency cycles (2N-1+lat for EN_PIPE 2), got %0d",c_cyc);
  if(ckr!==tck||!rd_ok)$fatal(1,"ideal read checksum");
- if(latmax!=lat||l_sum!=lat*l_n||l_n!=(4096+lat)/(lat+1))$fatal(1,"read latency stats max=%0d sum=%0d n=%0d",latmax,l_sum,l_n);
+ if(latmax!=lat||l_sum!=lat*l_n||(ENPIPE<2&&l_n!=(4096+lat)/(lat+1))||l_n==0)$fatal(1,"read latency stats max=%0d sum=%0d n=%0d",latmax,l_sum,l_n);
  $display("INFO ideal read_stream N=4096 latency=%0d: total_cycles=%0d samples=%0d lat_max=%0d",lat,c_cyc,l_n,latmax);
  scen=scen+1;
  // checksum round trip must catch a single flipped bit
@@ -256,14 +257,14 @@ initial begin
  cyc_meas=last_pc-first_pc+1;
  if(c_cyc!=cyc_meas||c_cmd!=1024||c_wb!=1024)$fatal(1,"stall write counters");
  if(c_cs==0||c_ws==0||c_cyc<1024+c_ws)$fatal(1,"stall counters write cs=%0d ws=%0d",c_cs,c_ws);
- if(PAIRED&&(c_cs!=snap_cr||c_ws!=snap_wr))$fatal(1,"stall counters vs independent count: dut %0d/%0d tb %0d/%0d",c_cs,c_ws,snap_cr,snap_wr);
+ if(PAIRED&&ENPIPE<2&&(c_cs!=snap_cr||c_ws!=snap_wr))$fatal(1,"stall counters vs independent count: dut %0d/%0d tb %0d/%0d",c_cs,c_ws,snap_cr,snap_wr);
  if(ckw!==tck||!wr_ok)$fatal(1,"stall write checksum");
  $display("INFO stalling shim write N=1024: total_cycles=%0d cmd_stall=%0d wd_stall=%0d",c_cyc,c_cs,c_ws);
  scen=scen+1;
  mode=1;launch;finish;ok_end;report("stall_r");
  cyc_meas=last_pc-first_pc+1;
  if(c_cyc!=cyc_meas||c_cmd!=1024||c_rb!=1024||c_ws!=0||c_cs==0)$fatal(1,"stall read counters");
- if(c_cs!=snap_cr)$fatal(1,"read cmd_stall dut %0d tb %0d",c_cs,snap_cr);
+ if(ENPIPE<2&&c_cs!=snap_cr)$fatal(1,"read cmd_stall dut %0d tb %0d",c_cs,snap_cr);
  if(ckr!==tck||!rd_ok||latmax<lat||l_sum<lat*l_n||l_n==0)$fatal(1,"stall read results");
  $display("INFO stalling shim read N=1024: total_cycles=%0d cmd_stall=%0d lat_max=%0d samples=%0d",c_cyc,c_cs,latmax,l_n);
  scen=scen+1;
@@ -336,13 +337,13 @@ initial begin
    mode=0;launch;finish;ok_end;report("burst_w");
    check_addrs(bn>>blg,0);
    if(c_cmd!=(bn>>blg)||c_wb!=bn||c_rb!=0||c_cs!=0||c_ws!=0)$fatal(1,"burst write counters bi=%0d cmds %0d wb %0d",bi,c_cmd,c_wb);
-   if(c_cyc!=bn)$fatal(1,"ideal burst write must take exactly N=%0d cycles, got %0d (bi=%0d)",bn,c_cyc,bi);
+   if(c_cyc!=((ENPIPE>=2)?2*bn-1:bn))$fatal(1,"ideal burst write must take exactly N=%0d cycles (2N-1 for EN_PIPE 2), got %0d (bi=%0d)",bn,c_cyc,bi);
    if(c_cyc!=last_pc-first_pc+1||ckw!==tck||cke!==tck||!wr_ok)$fatal(1,"burst write checksum/cycles bi=%0d",bi);
    if(!dupseen)chk_mem(bn);
    mode=1;launch;finish;ok_end;report("burst_r");
    check_addrs(0,bn>>blg);
    if(c_cmd!=(bn>>blg)||c_rb!=bn||c_wb!=0||c_cs!=0)$fatal(1,"burst read counters bi=%0d",bi);
-   if(c_cyc!=bn+lat||c_cyc!=last_pc-first_pc+1)$fatal(1,"ideal burst read must take N+latency, got %0d bi=%0d",c_cyc,bi);
+   if((ENPIPE<2&&c_cyc!=bn+lat)||c_cyc!=last_pc-first_pc+1)$fatal(1,"ideal burst read must take N+latency, got %0d bi=%0d",c_cyc,bi);
    if(!dupseen&&(ckr!==tck||!rd_ok))$fatal(1,"burst read checksum bi=%0d",bi);
    if(dupseen&&rd_ok)$fatal(1,"collisions in a burst job must be flagged by the checksum bi=%0d",bi);
    scen=scen+1;
@@ -355,7 +356,7 @@ initial begin
  if(c_cyc!=last_pc-first_pc+1||c_cmd!=64||c_wb!=512||ckw!==tck||!wr_ok)$fatal(1,"stall burst write");
  mode=1;launch;finish;ok_end;report("stall_burst_r");
  if(c_cyc!=last_pc-first_pc+1||c_cmd!=64||c_rb!=512||ckr!==tck||!rd_ok)$fatal(1,"stall burst read");
- if(c_cs!=snap_cr)$fatal(1,"stall burst read cmd_stall dut %0d tb %0d",c_cs,snap_cr);
+ if(ENPIPE<2&&c_cs!=snap_cr)$fatal(1,"stall burst read cmd_stall dut %0d tb %0d",c_cs,snap_cr);
  scen=scen+1;
  end
  sh=0;lat=6;blg=0;

@@ -7,6 +7,19 @@ Written from the documented behaviour (fpga/mem/BW_ENGINE.md), not from the RTL 
   * the cycle counters: cnt_cycles, cmd_stall, wd_stall (greedy issue against the shim's ready pattern),
     read-latency sampler (lat_sum / lat_samples / lat_max)
   * mixed mode on the ideal shim: 2 cycles per command (one idle cycle after each accepted command)
+
+EN_PIPE (mem_bw parameter, native-enable structure):
+  0 original and 1 registered enables: identical cycle behaviour (one command / data beat per cycle when ready).
+  2 BIST-PIPELINE=4 style: every accepted command or data beat blocks the NEXT cycle (stale-want block), so the issue spacing is
+    2 cycles (STEP = 2). Cycle definitions are unchanged (first accepted command .. last data beat, both included); with the issue
+    times t_k of the accepted commands / beats the span is last_fire - first_fire + 1. Ideal shim, N beats, burst L:
+      write_stream : cnt_cycles = 2*N - 1        (N beats, every beat takes STEP cycles, the last one has no trailing idle cycle)
+      read_stream  : cnt_cycles = 2*(N/L - 1) + lat + L   (commands every 2 cycles, L data beats per command arrive back to back)
+    versus N and N + lat (L=1) for EN_PIPE 0/1. Stall counters only count unblocked cycles (the idle cycle is not a stall).
+    Mixed mode is unchanged (it already inserted one idle cycle per accepted command): 2 cycles per command, ideal shim
+      cnt_cycles = 4*ncmd + lat - 1   (ncmd = number of write/read PAIRS; 2*ncmd commands in total).
+  With a stalling shim the stall counters count only unblocked cycles (the idle cycle after an acceptance is never a stall); the span
+  is computed by the greedy issue simulation write_cycles()/read_cycles() with STEP = 2 after every accepted command / data beat.
 It models the engine in USER clock cycles only. It is simulation evidence; it says nothing about the real DDR3 IP.
 """
 import re
@@ -95,7 +108,7 @@ def ready(sh, n):
     return True, True
 
 
-def write_cycles(sh, first, ncmd, L):
+def write_cycles(sh, first, ncmd, L, step=1):
     t = first
     cs = ws = 0
     for _ in range(ncmd):
@@ -106,17 +119,17 @@ def write_cycles(sh, first, ncmd, L):
             cs += (not cr)
             ws += (not wr)
             t += 1
-        t += 1
+        t += step
         for _ in range(L - 1):
             while not ready(sh, t)[1]:
                 ws += 1
                 t += 1
-            t += 1
-    last = t - 1
+            t += step
+    last = t - step
     return last, cs, ws
 
 
-def read_cycles(sh, first, lat, ncmd, L):
+def read_cycles(sh, first, lat, ncmd, L, step=1):
     t = first
     cs = 0
     issue = []
@@ -125,7 +138,7 @@ def read_cycles(sh, first, lat, ncmd, L):
             cs += 1
             t += 1
         issue.append(t)
-        t += 1
+        t += step
     valid = set()
     prev = -1
     for k, ti in enumerate(issue):
@@ -161,8 +174,9 @@ def read_cycles(sh, first, lat, ncmd, L):
 
 
 class Model:
-    def __init__(self, paired):
+    def __init__(self, paired, enpipe=0):
         self.paired = paired
+        self.step = 2 if enpipe >= 2 else 1
         self.mem = {}
         self.errors = []
 
@@ -205,7 +219,7 @@ class Model:
             self.hashes(r, e, fnv(cmds), fnv([]))
             e('lat_samples', r['latn'], 0)
             if self.paired and r['sh'] in (0, 1):
-                last, cs, ws = write_cycles(r['sh'], r['first'], ncmd, L)
+                last, cs, ws = write_cycles(r['sh'], r['first'], ncmd, L, self.step)
                 self.last(r, e, last)
                 e('cnt_cycles', r['cyc'], last - r['first'] + 1); e('cmd_stall', r['cs'], cs); e('wd_stall', r['ws'], ws)
         elif mode == 1:
@@ -217,7 +231,7 @@ class Model:
             self.hashes(r, e, fnv([]), fnv(cmds))
             if True:   # the read side has no write pairing: same timing in both configurations
                 if r['sh'] in (0, 1):
-                    last, cs, ssum, sn, smax = read_cycles(r['sh'], r['first'], r['lat'], ncmd, L)
+                    last, cs, ssum, sn, smax = read_cycles(r['sh'], r['first'], r['lat'], ncmd, L, self.step)
                     self.last(r, e, last)
                     e('cnt_cycles', r['cyc'], last - r['first'] + 1); e('cmd_stall', r['cs'], cs); e('wd_stall', r['ws'], 0)
                     e('lat_sum', r['latsum'], ssum); e('lat_samples', r['latn'], sn); e('lat_max', r['latmax'], smax)
@@ -261,10 +275,10 @@ def parse_port(line):
     return r
 
 
-def check_port_output(text):
+def check_port_output(text, enpipe=0):
     """Verify every PORTSNAP record (LINK-visible snapshot of the bandwidth engine behind mem_top) against the model.
     The stand-in IP has ideal readies and a 6-cycle command-to-data latency, so the ideal cycle formulas apply."""
-    m = Model(True)
+    m = Model(True, enpipe)
     jobs = 0
     for line in text.splitlines():
         if line.startswith('PORTSNAP'):
@@ -279,9 +293,9 @@ def check_port_output(text):
     return jobs, m.errors
 
 
-def check_output(text, paired):
+def check_output(text, paired, enpipe=0):
     """Verify every BWRES line of a tb_mem_bw run. Returns (jobs_checked, list_of_mismatches)."""
-    m = Model(paired)
+    m = Model(paired, enpipe)
     jobs = 0
     for line in text.splitlines():
         if line.startswith('BWCLR'):

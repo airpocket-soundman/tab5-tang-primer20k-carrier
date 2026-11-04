@@ -26,7 +26,8 @@ module mem_bw_port #(
     parameter DEADLINE=2700000,
     parameter ROW_PAD=0,
     parameter CAL_GUARD_CYCLES=256,
-    parameter [15:0] USER_MHZ=16'd100
+    parameter [15:0] USER_MHZ=16'd100,
+    parameter EN_PIPE=0                              // mem_bw native-enable structure (see mem_bw.v)
 )(
     input wire sys_clk,sys_reset_n,user_clk,user_reset_n,
     input wire command_start,input wire [7:0] opcode,a,b,
@@ -42,7 +43,9 @@ module mem_bw_port #(
     output wire [15:0] app_write_mask,
     input wire app_cmd_ready,app_write_ready,
     input wire [127:0] app_read_data,
-    input wire app_read_valid,app_read_end
+    input wire app_read_valid,app_read_end,
+    // next-cycle enable gates of the engine and the D input of its cancel pulse (shared enable stage in mem_top, see mem_bw.v)
+    output wire gate_wc_d,gate_rc_d,gate_wb_d,cancel_pre
 );
     // ---------------- USER side ----------------
     reg [1:0] request_sync; reg ack_toggle,pending_user,u_ready,u_start,u_cancel; reg [4:0] boot;
@@ -71,7 +74,7 @@ module mem_bw_port #(
             end
         end
     end
-    mem_bw #(.PAIRED_WRITE(1),.APP_ROW_PAD(ROW_PAD)) engine(
+    mem_bw #(.PAIRED_WRITE(1),.APP_ROW_PAD(ROW_PAD),.EN_PIPE(EN_PIPE)) engine(
         .clk(user_clk),.reset_n(user_reset_n),.calibrated(calibrated),.start(u_start),.cancel(u_cancel),
         .mode(u_ctl[1:0]),.pattern(u_ctl[4:2]),.region_log2(u_ctl[9:5]),.burst_log2(u_ctl[12:10]),
         .mix_w(u_mw),.mix_r(u_mr),.base_byte(u_base),.beat_count(u_count),.seed(u_seed),.job_id(u_job),
@@ -82,7 +85,9 @@ module mem_bw_port #(
         .ck_wr_match(wr_ok),.ck_rd_match(rd_ok),
         .app_burst_number(app_burst_number),.app_cmd(app_cmd),.app_cmd_en(app_cmd_en),.app_addr(app_addr),.app_cmd_ready(app_cmd_ready),
         .app_write_data(app_write_data),.app_write_en(app_write_en),.app_write_end(app_write_end),.app_write_mask(app_write_mask),
-        .app_write_ready(app_write_ready),.app_read_data(app_read_data),.app_read_valid(app_read_valid),.app_read_end(app_read_end));
+        .app_write_ready(app_write_ready),.app_read_data(app_read_data),.app_read_valid(app_read_valid),.app_read_end(app_read_end),
+        .gate_wc_d(gate_wc_d),.gate_rc_d(gate_rc_d),.gate_wb_d(gate_wb_d));
+    assign cancel_pre=u_ready&&!pending_user&&(request_sync[1]!=ack_toggle)&&held_op==8'h6c;
 
     // ---------------- SYS side ----------------
     wire [991:0] snap={ck_exp,ck_rd,ck_wr,e_latmax,l_n,l_sum,c_ws,c_cs,c_rb,c_wb,c_cmd,c_cyc,e_jobid,{8'b0,e_err},

@@ -48,6 +48,13 @@ module mem_bist #(
     input wire [127:0] app_read_data,
     input wire app_read_valid,app_read_end,
     output wire [175:0] debug_bundle
+`ifdef BW_GATES
+    // Only with `define BW_GATES (set by prepare_variant.py for the bandwidth image with the shared enable stage; PIPELINE=4 required):
+    // next-cycle values of the registered enable gates (want & !fire & !fail). app_cmd_en = cmd_ready & (gate_rc | gate_wc & write_ready),
+    // app_write_en = write_ready & gate_wd & cmd_ready, the cancel of the next cycle is folded in by the caller. Without the macro the
+    // ports and logic do not exist, so that every other image stays bit-identical to the earlier builds.
+    ,output wire gate_wc_d,gate_rc_d,gate_wd_d
+`endif
 );
     // phase1 fillA,2 verifyA,3 masked complementB,4 verifymerged,5 complete.
     reg [31:0] base_latched,count_latched,seed_latched,index,wait_cycles;
@@ -105,6 +112,13 @@ module mem_bist #(
     wire data_fire=app_write_en && app_write_ready;
     wire read_expected=reading && !gap && (read_pending || command_fire);
     wire progress=command_fire || data_fire || (app_read_valid && read_expected);
+`ifdef BW_GATES
+    // conditions under which the sequential block below calls fail_job (PIPELINE>=3 forms of the timeout flags)
+    wire fail_now=cancel || (busy && (!cal_i || tot_hit_q || (app_read_valid && (!read_expected || !app_read_end)) || (wait_hit_q && !progress)));
+    assign gate_wc_d=(PIPELINE>=4) && active_ns && writing && !command_sent && !command_fire && !fail_now;
+    assign gate_rc_d=(PIPELINE>=4) && active_ns && reading && !read_pending && !command_fire && !fail_now;
+    assign gate_wd_d=(PIPELINE>=4) && active_ns && writing && !data_sent && !data_fire && !fail_now;
+`endif
     reg [25:0] debug_commands,debug_data,debug_reads;
     reg [26:0] debug_last_address;
     reg [15:0] debug_fault_flags;
