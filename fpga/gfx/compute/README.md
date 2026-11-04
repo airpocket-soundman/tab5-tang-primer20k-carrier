@@ -79,3 +79,7 @@ python fpga/gfx/compute/tests/run_compute.py --iverilog D:/tools/oss-cad-suite/b
 資源集計と試験結果は[検証JSON](../../validation/compute-simd-offline-2026-11-04.json)を参照。合成成功は配置配線・STA・デバイス全体の収容・DDR3併載合格を意味しない。CPUとの速度比較も未実施。
 
 ホスト要求の照合・変更の影響・次の段階は[開発記録](../../../docs/汎用GPU演算器_オフライン開発_2026-11-04.md)に記録する。
+
+## v1拡張（2026-11-04, ブランチ claude/compute-simd）
+
+opcode 15..26：MIN/MAX/ABS/SAT8/PK565/UP565、byteアドレスのLDB/LDBS/LDH/LDHS/STB/STH、メモリポートに`mem_wmask[3:0]`、error 6（halfwordアライン違反）を追加。既存LOAD/STOREはwordアドレスのまま。設計・v2案・配置配線の試行結果は[拡張ISA設計](../../../docs/汎用GPU演算器_拡張ISA設計_2026-11-04.md)、結果は[検証JSON](../../validation/compute-simd-ext-2026-11-04.json)。上の記述でmem_wmask・新opcodeに触れていない箇所はv0の記述。配置配線ハーネス`tests/pnr_top.v`はPnR専用で実機トップではない。

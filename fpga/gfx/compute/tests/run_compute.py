@@ -4,6 +4,7 @@ No hardware or network access. All build artifacts go under fpga/build.
 """
 import argparse
 import hashlib
+import itertools
 import json
 import os
 from pathlib import Path
@@ -105,6 +106,113 @@ def cases(lanes):
         yield dict(name=name,program=program,memory=empty,**extra)
 
 
+def pk565(u):
+    u &= 0xffffffff
+    return ((u >> 19 & 31) << 11) | ((u >> 10 & 63) << 5) | (u >> 3 & 31)
+
+
+def up565(u):
+    r, g, b = u >> 11 & 31, u >> 5 & 63, u & 31
+    return ((r << 3 | r >> 2) << 16) | ((g << 2 | g >> 4) << 8) | (b << 3 | b >> 2)
+
+
+def extension_cases(lanes):
+    """Cases for MIN/MAX/ABS/SAT8/PK565/UP565 and byte/halfword access.
+
+    Uses its own RNG so the original campaign stays bit-identical.
+    """
+    rng = random.Random(20261105)
+    alu = ('MIN', 'MAX', 'ABS', 'SAT8', 'PK565', 'UP565', 'ADD', 'SUB', 'SAR', 'LT')
+    for trial in range(6):
+        program = [encode('LOAD', dst=2, a=1), encode('LOAD', dst=3, a=1, imm=32)]
+        for _ in range(40):
+            program.append(encode(rng.choice(alu), dst=rng.randrange(16), a=rng.randrange(16),
+                                  b=rng.randrange(16), pred=bool(rng.randrange(2))))
+        program += [encode('STORE', dst=2, a=0, imm=100), encode('HALT')]
+        memory = [signed(rng.getrandbits(32)) for _ in range(256)]
+        memory[:4] = [-0x80000000, 0x7fffffff, -1, 0]
+        yield dict(name=f'ext-alu-{trial}', program=program, memory=memory)
+    # Independent oracles for the scalar semantics, one value per lane.
+    values = [0, -1, 255, 256, -0x80000000, 0x7fffffff, 0x00ffffff, 0x00abcdef,
+              0x00f8fcf8, 0x12345678, 40, -7]
+    memory = [0] * 256
+    for i, v in enumerate(values): memory[i] = v
+    program = [encode('LOAD', dst=2, a=1), encode('ABS', dst=3, a=2), encode('SAT8', dst=4, a=2),
+               encode('MIN', dst=5, a=2, b=3), encode('MAX', dst=6, a=2, b=3),
+               encode('PK565', dst=7, a=2), encode('UP565', dst=8, a=7)]
+    for k, reg in enumerate((3, 4, 5, 6, 7, 8)):
+        program.append(encode('STORE', dst=reg, a=1, imm=32 + 16 * k))
+    program.append(encode('HALT'))
+    for base in range(0, len(values), lanes):
+        if base + lanes > len(values): break
+        ids = range(base, base + lanes)
+        expected = []
+        for reg in range(6):
+            for i in ids:
+                v = signed(values[i])
+                expected.append([signed(abs(v)), min(max(v, 0), 255), signed(min(v, signed(abs(v)))),
+                                 signed(max(v, signed(abs(v)))), pk565(v), up565(pk565(v))][reg])
+        result = execute(program, memory, lanes, base)
+        got = [result.memory[32 + 16 * k + i] for k in range(6) for i in ids]
+        assert got == expected, (base, got, expected)
+        yield dict(name=f'ext-scalar-{base}', program=program, memory=memory, base=base)
+    # RGB888 -> RGB565 store with STH, then LDH/UP565 round trip.
+    memory = [0] * 256
+    for i in range(32): memory[i] = rng.getrandbits(24)
+    program = [encode('LOAD', dst=2, a=1), encode('PK565', dst=3, a=2), encode('ADD', dst=4, a=1, b=1),
+               encode('STH', dst=3, a=4, imm=512), encode('LDH', dst=5, a=4, imm=512),
+               encode('UP565', dst=6, a=5), encode('STORE', dst=6, a=1, imm=64), encode('HALT')]
+    for base in (0, lanes):
+        result = execute(program, memory, lanes, base)
+        for i in range(lanes):
+            assert result.memory[64 + base + i] == up565(pk565(memory[base + i]))
+            half = (result.memory[128 + (base + i) // 2] >> (16 * ((base + i) & 1))) & 0xffff
+            assert half == pk565(memory[base + i])
+        yield dict(name=f'pixel-pack-{base}', program=program, memory=memory, base=base)
+    # Byte/halfword accesses against a little-endian byte-array oracle.
+    memory = [signed(rng.getrandbits(32)) for _ in range(256)]
+    program = [encode('LDB', dst=2, a=1, imm=1), encode('LDBS', dst=3, a=1, imm=2),
+               encode('ADD', dst=4, a=1, b=1), encode('LDH', dst=5, a=4, imm=6),
+               encode('LDHS', dst=6, a=4, imm=10),
+               encode('STB', dst=2, a=1, imm=301), encode('STB', dst=3, a=1, imm=402),
+               encode('STH', dst=5, a=4, imm=504), encode('STH', dst=6, a=4, imm=610),
+               encode('STB', dst=0, a=1, imm=700), encode('HALT')]
+    base = 3
+    result = execute(program, memory, lanes, base)
+    raw = bytearray()
+    for w in memory: raw += (w & 0xffffffff).to_bytes(4, 'little')
+    for i in range(lanes):
+        r = base + i
+        b1, b2 = raw[r + 1], raw[r + 2]
+        h6 = int.from_bytes(raw[2 * r + 6:2 * r + 8], 'little')
+        h10 = int.from_bytes(raw[2 * r + 10:2 * r + 12], 'little')
+        assert result.registers[i][2] == b1 and result.registers[i][3] == b2 - 256 * (b2 >> 7)
+        assert result.registers[i][5] == h6 and result.registers[i][6] == h10 - 65536 * (h10 >> 15)
+        raw[r + 301] = b1
+        raw[r + 402] = (b2 - 256 * (b2 >> 7)) & 255
+        raw[2 * r + 504:2 * r + 506] = h6.to_bytes(2, 'little')
+        raw[2 * r + 610:2 * r + 612] = (h10 - 65536 * (h10 >> 15) & 0xffff).to_bytes(2, 'little')
+        raw[r + 700] = 0
+    assert [signed(int.from_bytes(raw[4 * i:4 * i + 4], 'little')) for i in range(256)] == result.memory
+    yield dict(name='byte-halfword-access', program=program, memory=memory, base=base)
+    empty = [0] * 256
+    even = [encode('LDI', dst=2, imm=1), encode('AND', dst=15, a=1, b=2),
+            encode('XOR', dst=15, a=15, b=2), encode('LDH', dst=3, a=1, pred=True),
+            encode('STH', dst=1, a=1, imm=100, pred=True), encode('HALT')]
+    for name, prog, extra in (
+        ('half-misaligned', [encode('LDH', dst=2, a=0, imm=1), encode('HALT')], {}),
+        ('half-misaligned-lane1', [encode('LDH', dst=2, a=1), encode('HALT')], {}),
+        ('half-misaligned-store', [encode('STH', dst=2, a=0, imm=3), encode('HALT')], {}),
+        ('half-masked-odd', even, {}),
+        ('byte-out-of-range', [encode('LDB', dst=2, a=0, imm=1024), encode('HALT')], {}),
+        ('byte-fault', [encode('LDB', dst=2, a=1), encode('HALT')], {'fault_address': 0}),
+        ('byte-negative-address', [encode('LDB', dst=2, a=0, imm=-1), encode('HALT')], {}),
+        ('last-op', [(26 << 26) | 0, encode('HALT')], {}),
+        ('first-bad-op', [27 << 26], {}),
+    ):
+        yield dict(name=name, program=prog, memory=empty, **extra)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--iverilog', default='iverilog')
@@ -124,7 +232,7 @@ def main():
         exe = args.output/f'compute-{lanes}.vvp'
         run_tool([args.iverilog,'-g2012','-Wall','-s','tb_compute_simd',
                         f'-Ptb_compute_simd.LANES={lanes}','-o',str(exe),str(rtl),str(bench)],check=True)
-        for case in cases(lanes):
+        for case in itertools.chain(cases(lanes), extension_cases(lanes)):
             directory = args.output/f'{lanes}-{case["name"]}'
             directory.mkdir(exist_ok=True)
             program, memory = case['program'],case['memory']
@@ -135,7 +243,7 @@ def main():
             hexfile(directory/'input.hex',memory,256)
             hexfile(directory/'expected.hex',result.memory,256)
             hexfile(directory/'registers.hex',[x for r in result.registers for x in r])
-            for index,field in enumerate(('write','addr','data')):
+            for index,field in enumerate(('write','addr','data','mask')):
                 hexfile(directory/f'trace_{field}.hex',[x[index] for x in result.requests],4096)
             for stalled in (0,1):
                 command = [args.vvp,str(exe),f'+directory={directory.as_posix()}',
@@ -152,7 +260,7 @@ def main():
                 report['tests'].append(dict(name=case['name'],lanes=lanes,stalled=bool(stalled),
                                             cycles=int(runs[0][2]),instructions=result.instructions,
                                             requests=len(result.requests),error=result.error,restarts_checked=2))
-        print(f'PASS {lanes} lanes: oracle, arithmetic, masks, memory faults, branch/budget faults, restart/reset',flush=True)
+        print(f'PASS {lanes} lanes: oracle, arithmetic, extension ops, byte/halfword access, masks, memory faults, branch/budget faults, restart/reset',flush=True)
         if args.yosys:
             directory=args.output/f'synth-{lanes}'
             directory.mkdir(exist_ok=True)

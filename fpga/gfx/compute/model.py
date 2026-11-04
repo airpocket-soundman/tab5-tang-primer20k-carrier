@@ -6,7 +6,14 @@ from dataclasses import dataclass
 
 OPS = {name: number for number, name in enumerate(
     ('HALT', 'LDI', 'ADD', 'SUB', 'MUL', 'MULQ', 'LT', 'AND', 'XOR',
-     'SHL', 'SAR', 'LOAD', 'STORE', 'JMP', 'ANY'))}
+     'SHL', 'SAR', 'LOAD', 'STORE', 'JMP', 'ANY',
+     'MIN', 'MAX', 'ABS', 'SAT8', 'PK565', 'UP565',
+     'LDB', 'LDBS', 'LDH', 'LDHS', 'STB', 'STH'))}
+MEM_OPS = ('LOAD', 'STORE', 'LDB', 'LDBS', 'LDH', 'LDHS', 'STB', 'STH')
+
+MEM_CODES = {OPS[n] for n in MEM_OPS}
+HALF_CODES = {OPS[n] for n in ('LDH', 'LDHS', 'STH')}
+STORE_CODES = {OPS[n] for n in ('STORE', 'STB', 'STH')}
 
 
 def signed(value):
@@ -17,9 +24,9 @@ def signed(value):
 def encode(op, dst=0, a=0, b=0, imm=0, pred=False):
     if op not in OPS or any(type(r) is not int or not 0 <= r < 16 for r in (dst, a, b)):
         raise ValueError('unknown operation or register outside r0..r15')
-    immediate = op in ('LDI', 'LOAD', 'STORE', 'JMP', 'ANY')
+    immediate = op in ('LDI', 'JMP', 'ANY') or op in MEM_OPS
     if immediate:
-        if b or not (-32768 <= imm <= 32767 if op in ('LDI', 'LOAD', 'STORE') else 0 <= imm <= 65535):
+        if b or not (-32768 <= imm <= 32767 if op not in ('JMP', 'ANY') else 0 <= imm <= 65535):
             raise ValueError('invalid immediate')
     elif imm:
         raise ValueError('register instruction has no immediate')
@@ -150,20 +157,43 @@ def execute(program, memory, lanes=4, base=0, entry=0, budget=10000, words=256,
         if op not in OPS.values():
             error = 1
             break
+        is_mem = op in MEM_CODES
+        if is_mem and op in HALF_CODES and any(
+                (not pred or r[15]) and ((r[a] + simm) & 1) for r in registers):
+            error = 6
+            break
         for r in registers:
             if pred and not r[15]:
                 continue
             av, bv = r[a], r[b]
-            if op in (OPS['LOAD'], OPS['STORE']):
-                address = (av + simm) & 0xffffffff
-                requests.append((int(op == OPS['STORE']), address, r[dst] & 0xffffffff))
+            if is_mem:
+                byte_address = (av + simm) & 0xffffffff
+                word_op = op in (OPS['LOAD'], OPS['STORE'])
+                address = byte_address if word_op else byte_address >> 2
+                off = 0 if word_op else byte_address & 3
+                is_store = op in STORE_CODES
+                data, mask = r[dst] & 0xffffffff, 15
+                if op == OPS['STB']:
+                    data, mask = (data & 255) * 0x01010101, 1 << off
+                elif op == OPS['STH']:
+                    data, mask = (data & 65535) * 0x10001, 12 if off & 2 else 3
+                requests.append((int(is_store), address, data, mask if is_store else 0))
                 if address >= len(memory) or address == fault_address:
                     error = 4
                     break
-                if op == OPS['STORE']:
-                    memory[address] = r[dst]
+                if is_store:
+                    keep = sum(255 << (8 * i) for i in range(4) if mask >> i & 1)
+                    memory[address] = signed((memory[address] & ~keep) | (data & keep))
                     continue
-                value = memory[address]
+                value = (memory[address] & 0xffffffff) >> (8 * off)
+                if op in (OPS['LDB'], OPS['LDBS']):
+                    value &= 255
+                    if op == OPS['LDBS'] and value & 128: value -= 256
+                elif op in (OPS['LDH'], OPS['LDHS']):
+                    value &= 65535
+                    if op == OPS['LDHS'] and value & 32768: value -= 65536
+                else:
+                    value = signed(value)
             elif op == OPS['LDI']: value = simm
             elif op == OPS['ADD']: value = av + bv
             elif op == OPS['SUB']: value = av - bv
@@ -174,6 +204,17 @@ def execute(program, memory, lanes=4, base=0, entry=0, budget=10000, words=256,
             elif op == OPS['XOR']: value = av ^ bv
             elif op == OPS['SHL']: value = av << (bv & 31)
             elif op == OPS['SAR']: value = av >> (bv & 31)
+            elif op == OPS['MIN']: value = min(av, bv)
+            elif op == OPS['MAX']: value = max(av, bv)
+            elif op == OPS['ABS']: value = abs(av)
+            elif op == OPS['SAT8']: value = min(max(av, 0), 255)
+            elif op == OPS['PK565']:
+                u = av & 0xffffffff
+                value = ((u >> 19 & 31) << 11) | ((u >> 10 & 63) << 5) | (u >> 3 & 31)
+            elif op == OPS['UP565']:
+                u = av & 0xffff
+                r5, g6, b5 = u >> 11, u >> 5 & 63, u & 31
+                value = (((r5 << 3) | (r5 >> 2)) << 16) | (((g6 << 2) | (g6 >> 4)) << 8) | ((b5 << 3) | (b5 >> 2))
             else: raise AssertionError(op)
             if dst:
                 r[dst] = signed(value)

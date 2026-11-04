@@ -12,6 +12,7 @@ module tb_compute_simd;
     wire [31:0] cycles,instructions;
     wire mem_valid, mem_write, rsp_ready;
     wire [31:0] mem_word_addr,mem_wdata;
+    wire [3:0] mem_wmask;
     reg rsp_valid=0, rsp_error=0;
     reg [31:0] rsp_data=0;
     reg pending=0, accepted_write=0;
@@ -26,8 +27,10 @@ module tb_compute_simd;
     wire mem_ready=!pending && !rsp_valid && !force_stall && (!stall_mode || rng[1:0]==0);
     reg [31:0] memory[0:255], expected[0:255], code[0:255], present[0:255];
     reg [31:0] expected_regs[0:LANES*16-1];
-    reg [31:0] trace_write[0:4095],trace_addr[0:4095],trace_data[0:4095];
+    reg [31:0] trace_write[0:4095],trace_addr[0:4095],trace_data[0:4095],trace_mask[0:4095];
     reg held=0, held_write;
+    reg [3:0] held_mask, accepted_mask;
+    reg [31:0] byte_mask;
     reg [31:0] held_addr,held_data;
     reg [4095:0] directory;
     compute_simd #(.LANES(LANES)) dut(.*);
@@ -40,17 +43,17 @@ module tb_compute_simd;
             ticks<=ticks+1;
             rng<={rng[30:0],rng[31]^rng[21]^rng[1]^rng[0]};
             if (ticks>300000) $fatal(1,"simulation timeout");
-            if (held && (!mem_valid || mem_word_addr!==held_addr || mem_wdata!==held_data || mem_write!==held_write))
+            if (held && (!mem_valid || mem_word_addr!==held_addr || mem_wdata!==held_data || mem_write!==held_write || mem_wmask!==held_mask))
                 $fatal(1,"request changed under backpressure");
             held<=mem_valid && !mem_ready;
-            held_addr<=mem_word_addr; held_data<=mem_wdata; held_write<=mem_write;
+            held_addr<=mem_word_addr; held_data<=mem_wdata; held_write<=mem_write; held_mask<=mem_wmask;
             if (rsp_valid && rsp_ready) rsp_valid<=0;
             if (mem_valid && mem_ready) begin
                 if (!preflight && requests>=expected_requests) $fatal(1,"unexpected memory request");
-                if (!preflight && (mem_write!==trace_write[requests][0] || mem_word_addr!==trace_addr[requests] || mem_wdata!==trace_data[requests]))
+                if (!preflight && (mem_write!==trace_write[requests][0] || mem_word_addr!==trace_addr[requests] || mem_wdata!==trace_data[requests] || mem_wmask!==trace_mask[requests][3:0]))
                     $fatal(1,"request %0d mismatch addr=%h expected=%h",requests,mem_word_addr,trace_addr[requests]);
                 requests<=requests+1;
-                accepted_addr<=mem_word_addr; accepted_data<=mem_wdata; accepted_write<=mem_write;
+                accepted_addr<=mem_word_addr; accepted_data<=mem_wdata; accepted_write<=mem_write; accepted_mask<=mem_wmask;
                 pending<=1; delay_left<=stall_mode ? (rng[5:2]+1) : 1;
             end
             if (pending) begin
@@ -60,7 +63,10 @@ module tb_compute_simd;
                     rsp_error<=accepted_addr>=256 || accepted_addr==fault_address;
                     rsp_data<=0;
                     if (accepted_addr<256 && accepted_addr!=fault_address) begin
-                        if (accepted_write) memory[accepted_addr]<=accepted_data;
+                        if (accepted_write) begin
+                            byte_mask = {{8{accepted_mask[3]}},{8{accepted_mask[2]}},{8{accepted_mask[1]}},{8{accepted_mask[0]}}};
+                            memory[accepted_addr]<=(memory[accepted_addr] & ~byte_mask) | (accepted_data & byte_mask);
+                        end
                         else rsp_data<=memory[accepted_addr];
                     end
                 end
@@ -97,6 +103,7 @@ module tb_compute_simd;
         $readmemh({directory,"/trace_write.hex"},trace_write);
         $readmemh({directory,"/trace_addr.hex"},trace_addr);
         $readmemh({directory,"/trace_data.hex"},trace_data);
+        $readmemh({directory,"/trace_mask.hex"},trace_mask);
         repeat(3) @(negedge clk);
         reset=0;
         saved_entry=entry; saved_limit=instruction_limit;
