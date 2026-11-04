@@ -5,7 +5,7 @@ Each variant changes exactly ONE item against the baseline be42c604 sources
 Output: fpga/build/mem-variant-<id>/rtl/*.v (copies with a single textual edit).
 No hardware access. Every substitution must match exactly once or the script fails.
 
-  python fpga/mem/tests/prepare_variant.py cs0|rst|refwait|all
+  python fpga/mem/tests/prepare_variant.py base|cs0|rst|refwait|all
 """
 import sys, hashlib, json
 from pathlib import Path
@@ -15,6 +15,7 @@ names = ['mem_deep_monitor', 'mem_pll', 'mem_bist', 'mem_mailbox', 'mem_link', '
 
 # id -> (description, file, old, new)
 VARIANTS = {
+ 'base': ('baseline: unchanged be42c604 sources, rebuilt for tool/netlist reproducibility', 'mem_top', 'module mem_top(', 'module mem_top('),
  'cs0': ('(b) ddr_cs fixed to 0 like the Sipeed sample; IP O_ddr_cs_n left open',
          'mem_top', '.O_ddr_cs_n(ddr_cs)', '.O_ddr_cs_n()'),
  'rst': ('(c) no extra 1ms reset hold after PLL lock: controller_reset_n = raw_reset_n && pll_lock',
@@ -45,5 +46,5 @@ def build(vid):
     print('prepared', vid, '-', desc)
 
 ids = list(VARIANTS) if sys.argv[1:] == ['all'] else sys.argv[1:]
-assert ids and all(i in VARIANTS for i in ids), 'usage: prepare_variant.py cs0|rst|refwait|all'
+assert ids and all(i in VARIANTS for i in ids), 'usage: prepare_variant.py base|cs0|rst|refwait|all'
 for i in ids: build(i)
