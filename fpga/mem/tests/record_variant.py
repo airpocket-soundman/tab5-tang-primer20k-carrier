@@ -36,7 +36,8 @@ for vid in ids:
     console=root/f'build/mem-variant-{vid}-console.log'
     if not (pnr/'mem_bist.fs').exists():
         summary['variants'][vid]={'built':False,'console':console.name,'note':'no .fs produced'};continue
-    log=console.read_text(errors='replace')
+    raw_log=console.read_bytes()
+    log=raw_log.decode('utf-16') if raw_log[:2] in (bytes([255,254]),bytes([254,255])) else raw_log.decode('utf-8',errors='replace')
     assert 'MEM_BUILD_FLOW_RETURNED' in log and not re.search(r'ERROR\s*\(',log),vid
     fs=(pnr/'mem_bist.fs').read_bytes()
     body=b'\n'.join(l for l in fs.split(b'\n') if not l.startswith(b'//'))
@@ -70,7 +71,7 @@ for vid in ids:
      'sta':{'setup_violated_endpoints':int(fol('Numbers of Setup Violated Endpoints')),'hold_violated_endpoints':int(fol('Numbers of Hold Violated Endpoints')),
        'worst_setup':worst('Setup Paths Table'),'worst_hold':worst('Hold Paths Table'),'worst_recovery':worst('Recovery Paths Table'),'worst_removal':worst('Removal Paths Table'),
        'negative_paths':{k:neg(k+' Paths Table') for k in ['Setup','Hold','Recovery','Removal']},
-       'fmax_mhz':{n:fmax(n) for n in (['sys27','memory398','user100'] if vid=='clk400' else ['sys27','memory324','user81'])}},
+       'fmax_mhz':{n:fmax(n) for n in (['sys27','memory398','user100'] if vid in ('clk400','clk400_notap','sampleip') else ['sys27','memory324','user81'])}},
      'logic':re.search(r'Logic\s+\|\s+(\d+/\d+)',rep).group(1),'registers':re.search(r'Register\s+\|\s+(\d+/\d+)',rep).group(1),
      'pin_audit':cst_audit(rep),'rtl_sha256':rv['files'],
      'sdc_lines_dropped':[l[:160] for l in rv.get('sdc_lines_dropped',[])],
