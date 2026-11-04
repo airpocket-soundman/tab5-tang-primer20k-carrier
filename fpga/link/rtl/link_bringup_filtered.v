@@ -96,13 +96,14 @@ module link_bringup_filtered #(
         // has crossed a 2FF synchronizer.
         (* ASYNC_REG="TRUE" *) reg [1:0] tog_sync;
         reg tog_seen,hist_pending,clear_seen;
-        reg [15:0] windows,bad_windows,seq;
+        reg [15:0] windows,bad_windows,seq,excess_windows,deficit_windows;
         reg [11:0] l_pre,l_post,l_fall,l_expect,l_didx;
+        wire [12:0] l_total={1'b0,l_pre}+{1'b0,l_post};
         reg [7:0] l_rej,l_drp,l_rnt,l_minh,l_minl,l_flags,w_rej,w_rnt,ever_minh,ever_minl;
         always @(posedge sys_clk or negedge reset_n) begin
             if(!reset_n) begin
                 tog_sync<=0;tog_seen<=0;hist_pending<=0;clear_seen<=0;
-                windows<=0;bad_windows<=0;seq<=0;
+                windows<=0;bad_windows<=0;seq<=0;excess_windows<=0;deficit_windows<=0;
                 l_pre<=0;l_post<=0;l_fall<=0;l_expect<=0;l_didx<=0;
                 l_rej<=0;l_drp<=0;l_rnt<=0;l_minh<=8'hff;l_minl<=8'hff;l_flags<=0;
                 w_rej<=0;w_rnt<=0;ever_minh<=8'hff;ever_minl<=8'hff;
@@ -119,6 +120,9 @@ module link_bringup_filtered #(
                     if(windows!=16'hffff) windows<=windows+1'b1;
                     if((l_rej!=0 || l_drp!=0 || l_rnt!=0 || l_flags[4] || l_flags[3] || l_flags[2] || l_flags[1] || !l_flags[0]) && bad_windows!=16'hffff)
                         bad_windows<=bad_windows+1'b1;
+                    // Per-window edge-count check against the expected reply length (decisive for extra-edge vs window-error).
+                    if(l_total>{1'b0,l_expect} && excess_windows!=16'hffff) excess_windows<=excess_windows+1'b1;
+                    if(l_total<{1'b0,l_expect} && deficit_windows!=16'hffff) deficit_windows<=deficit_windows+1'b1;
                     if(l_rej>w_rej) w_rej<=l_rej;
                     if(l_rnt>w_rnt) w_rnt<=l_rnt;
                     if(l_minh<ever_minh) ever_minh<=l_minh;
@@ -126,7 +130,7 @@ module link_bringup_filtered #(
                 end
                 if(edge_clear_tog!=clear_seen) begin
                     clear_seen<=edge_clear_tog;
-                    windows<=0;bad_windows<=0;w_rej<=0;w_rnt<=0;ever_minh<=8'hff;ever_minl<=8'hff;
+                    windows<=0;bad_windows<=0;excess_windows<=0;deficit_windows<=0;w_rej<=0;w_rnt<=0;ever_minh<=8'hff;ever_minl<=8'hff;
                 end
             end
         end
@@ -152,6 +156,8 @@ module link_bringup_filtered #(
                 8'd16: ev={8'd0,w_rnt};
                 8'd17: ev={8'd0,ever_minh};
                 8'd18: ev={8'd0,ever_minl};
+                8'd19: ev=excess_windows;
+                8'd20: ev=deficit_windows;
                 default: ev=16'h0000;
             endcase
         end
@@ -313,7 +319,7 @@ module link_bringup_filtered #(
                                         valid<=0; gfx_pending<=1; gfx_start<=1;
                                     end else reply[1]<=2;
                                 8'h4c: if(EDGE_MONITOR_ENABLE && FAST_REPLY_ENABLE) begin
-                                    if(req[5]!=0 || req[4]>8'd18) reply[1]<=3;
+                                    if(req[5]!=0 || req[4]>8'd20) reply[1]<=3;
                                     else begin reply[1]<=0;reply[4]<=edge_value[7:0];reply[5]<=edge_value[15:8];end
                                 end else reply[1]<=2;
                                 8'h4d: if(EDGE_MONITOR_ENABLE && FAST_REPLY_ENABLE) begin

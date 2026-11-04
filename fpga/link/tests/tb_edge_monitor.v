@@ -77,7 +77,7 @@ module tb_edge_monitor;
             $display("PASS EDGE=0 opcodes 0x4c/0x4d unsupported, normal traffic unchanged");$finish;
         end
         // Argument checking.
-        make(8'hcc,19,0);send();read_count(16,12500);complete(16);if(r[9]!=3)$fatal(1,"index range");
+        make(8'hcc,21,0);send();read_count(16,12500);complete(16);if(r[9]!=3)$fatal(1,"index range");
         make(8'hcc,0,1);send();read_count(16,12500);complete(16);if(r[9]!=3)$fatal(1,"reserved byte");
         make(8'hcd,8'h5a,8'ha4);send();read_count(16,12500);complete(16);if(r[9]!=3)$fatal(1,"clear key");
         clear();
@@ -109,6 +109,8 @@ module tb_edge_monitor;
         $display("tile window: pre=%0d post=%0d rej=%0d done_index=%0d",pre,post,rej,ev);
         if(rej!=0||ev==0||ev>2065)$fatal(1,"tile done_index/rej");
         if(pre<2060||pre>2066||post>6)$fatal(1,"tile pre/post");
+        // Clean traffic must show no excess windows. (idx 20 counts aborts/short windows; checked after the abort test.)
+        edge_get(19);if(ev!=0)$fatal(1,"excess windows on a clean link: %0d",ev);
         // Injected qualified short-spacing edge: reject/fault must be visible.
         edge_clear();
         make(8'h81,0,0);send();@(negedge filter_clk);
@@ -132,6 +134,7 @@ module tb_edge_monitor;
         edge_get(14);flags=ev;
         $display("abort: flags=%h",flags);
         if(flags[0])$fatal(1,"abort window must not report done flags=%h",flags);
+        edge_get(20);if(ev==0)$fatal(1,"deficit windows not counted after abort");
         $display("PASS EDGE=1 edge counters: clean 16/2066-edge replies counted, noise/reject/fault visible, clear/args/abort ok packets=%0d",packets);$finish;
     end
     initial begin #10000000000;$fatal(1,"watchdog");end
