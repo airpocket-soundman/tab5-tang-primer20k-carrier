@@ -78,6 +78,12 @@ set_false_path -setup -from [get_regs {mailbox_epoch*}] -to [get_pins {control/e
 set_max_delay -from [get_regs {control/held_op*}] -to [get_regs {control/bist_start* control/bist_cancel* control/job_base* control/job_count* control/job_seed* control/job_id* control/user_snapshot* control/user_debug_snapshot* control/user_deep_snapshot*}] 20
 set_false_path -hold -from [get_regs {control/held_op*}] -to [get_regs {control/bist_start* control/bist_cancel* control/job_base* control/job_count* control/job_seed* control/job_id* control/user_snapshot* control/user_debug_snapshot* control/user_deep_snapshot*}]
 
+// ---- E5/E6 (added after the first official STA run with E1-E4 left 5 setup + 3 recovery paths; UNVERIFIED reasoning) ----
+// E5: IP-internal sys27-launched reset/load synchronisers -> DQS RLOADN/WLOADN and the command FIFO memory DI pins
+set_false_path -setup -from [get_regs {controller/gw3_top_u_ddr_phy_top_ddr_rsti_reg* controller/gw3_top_u_ddr_phy_top_ddr_sync_* controller/gw3_top_u_ddr_phy_top_wloadn_*}] -to [get_pins {controller/*u_dqs/RLOADN controller/*u_dqs/WLOADN controller/gw3_top_u_gwmc_top_gw_cmd0_mem_mem_*_s/DI*}]
+// E6: IP reset synchroniser (ddr_rst source) -> our async-assert/sync-release user_reset_sync CLEAR (recovery only)
+set_false_path -setup -from [get_regs {controller/gw3_top_u_ddr_phy_top_ddr_rsti_reg*}] -to [get_pins {user_reset_sync_0_s0/CLEAR user_reset_sync_1_s0/CLEAR user_reset_sync_2_s0/CLEAR}]
+
 // ---- Verification reports (needed because default reports truncate) ------
 report_timing -setup -from_clock [get_clocks {sys27}] -to_clock [get_clocks {user100}] -max_paths 2000 -max_common_paths 1
 report_timing -recovery -from_clock [get_clocks {sys27}] -to_clock [get_clocks {user100}] -max_paths 2000 -max_common_paths 1

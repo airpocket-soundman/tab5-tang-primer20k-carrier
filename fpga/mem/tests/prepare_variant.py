@@ -5,7 +5,7 @@ Each variant changes exactly ONE item against the baseline be42c604 sources
 Output: fpga/build/mem-variant-<id>/rtl/*.v (copies with a single textual edit).
 No hardware access. Every substitution must match exactly once or the script fails.
 
-  python fpga/mem/tests/prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|clk400|clk400_notap|clk400_asyncsdc|clk400dp|sampleip|sampleip_map|sampleip_map_t1|sampleip_map_t2|sampleip_map_t3|sampleip_map_t4|clk400x_dp000|clk400x_dp1116|clk400x_drvhigh|all
+  python fpga/mem/tests/prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|clk400|clk400_notap|clk400_asyncsdc|clk400dp|sampleip|sampleip_map|sampleip_map_t1|sampleip_map_t2|sampleip_map_t3|sampleip_map_t4|clk400x_scoped|clk400x_dp000|clk400x_dp1116|clk400x_drvhigh|all
 """
 import sys, hashlib, json
 from pathlib import Path
@@ -50,6 +50,7 @@ VARIANTS = {
  'clk400x_drvhigh': ('(a7) untapped clk400 IP with OUTPUT_DRV HIGH (RZQ/7=34 ohm); IPUG281 suggests changing it when initialisation fails. Needs MEM_IP_TAG=xdrvhigh', 'mem_pll', 'pll.IDIV_SEL=0', 'pll.IDIV_SEL=3'),
  'sampleip_map_t4': ('(i6) sampleip_map_t3 plus PIPELINE=4: native enables are a 3-input AND of the IP ready flops, a registered want and !cancel (one idle cycle per beat), to remove the IP ready -> enable -> IP FIFO flag combinational path that stays at -0.164 ns in t3',
           'mem_pll', 'pll.IDIV_SEL=0', 'pll.IDIV_SEL=3'),
+ 'clk400x_scoped': ('(a8) clk400_notap RTL/IP with the guarded SDC plus the SCOPED exceptions E1-E4 proposed in docs/DDR3_clk400_SDC限定例外案_2026-11-04.md (IP-internal/reset sys27->user100 paths false-pathed for setup/recovery only, held_op given the held-bundle max-delay contract). Needs MEM_IP_TAG=clk400; verifies the proposal by an official STA run', 'mem_pll', 'pll.IDIV_SEL=0', 'pll.IDIV_SEL=3'),
  'refwait': ('(d) wait 60000 USER cycles (~0.74ms @81MHz, >200 tREFI) after calibration instead of 256',
              'mem_top', 'mem_bist engine(user_clk,', 'mem_bist #(.CALIBRATION_SETTLE_CYCLES(60000)) engine(user_clk,'),
 }
@@ -130,6 +131,18 @@ DDR3_Memory_Interface_Top controller(.clk(sys_clk),.memory_clk(memory_clk),.pll_
             text = text[:m.start()] + inst.replace(chr(10), chr(13) + chr(10) if chr(13) in text else chr(10)) + text[m.end():]
         (out / f'{n}.v').write_bytes(text.encode())
         rec['files'][n] = hashlib.sha256(text.encode()).hexdigest()
+    if vid == 'clk400x_scoped':
+        base = (root / 'build/mem-scheduler-diag-input-clk400/mem_bist.sdc').read_text()
+        prop = (root / 'mem/config/mem_bist_clk400_scoped.sdc.proposal').read_text(encoding='utf-8')
+        i = prop.index('// ---- E1')
+        extra = chr(10).join([
+            '// ---- E5/E6 (added after the first official STA run left 5 setup + 3 recovery paths) ----',
+            '// E5: IP-internal sys27-launched reset/load synchronisers -> DQS RLOADN/WLOADN and the command FIFO memory DI pins',
+            'set_false_path -setup -from [get_regs {controller/gw3_top_u_ddr_phy_top_ddr_rsti_reg* controller/gw3_top_u_ddr_phy_top_ddr_sync_* controller/gw3_top_u_ddr_phy_top_wloadn_*}] -to [get_pins {controller/*u_dqs/RLOADN controller/*u_dqs/WLOADN controller/gw3_top_u_gwmc_top_gw_cmd0_mem_mem_*_s/DI*}]',
+            '// E6: IP reset synchroniser (ddr_rst source) -> our async-assert/sync-release user_reset_sync CLEAR (recovery only)',
+            'set_false_path -setup -from [get_regs {controller/gw3_top_u_ddr_phy_top_ddr_rsti_reg*}] -to [get_pins {user_reset_sync_0_s0/CLEAR user_reset_sync_1_s0/CLEAR user_reset_sync_2_s0/CLEAR}]'])
+        (out.parent / 'mem_bist.sdc').write_text(base.rstrip() + chr(10) + prop[i:] + chr(10) + extra + chr(10), encoding='utf-8')
+        rec['sdc'] = 'guarded clk400 SDC + proposal exceptions E1-E4 + extended reports'
     if vid == 'cs0':
         # With O_ddr_cs_n unconnected, synthesis removes the cmd-lane OSER8 that drove it
         # (cmd_oserdes_gen[0]); the guarded SDC's recovery exception on its RESET pin then
@@ -144,5 +157,5 @@ DDR3_Memory_Interface_Top controller(.clk(sys_clk),.memory_clk(memory_clk),.pll_
     print('prepared', vid, '-', desc)
 
 ids = list(VARIANTS) if sys.argv[1:] == ['all'] else sys.argv[1:]
-assert ids and all(i in VARIANTS for i in ids), 'usage: prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|clk400|clk400_notap|clk400_asyncsdc|clk400dp|sampleip|sampleip_map|sampleip_map_t1|sampleip_map_t2|sampleip_map_t3|sampleip_map_t4|clk400x_dp000|clk400x_dp1116|clk400x_drvhigh|all'
+assert ids and all(i in VARIANTS for i in ids), 'usage: prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|clk400|clk400_notap|clk400_asyncsdc|clk400dp|sampleip|sampleip_map|sampleip_map_t1|sampleip_map_t2|sampleip_map_t3|sampleip_map_t4|clk400x_scoped|clk400x_dp000|clk400x_dp1116|clk400x_drvhigh|all'
 for i in ids: build(i)

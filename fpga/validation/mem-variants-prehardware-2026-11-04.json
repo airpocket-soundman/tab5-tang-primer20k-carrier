@@ -1186,6 +1186,68 @@
       },
       "sdc_lines_dropped": [],
       "archive": "validation/mem-variant-clk400x_drvhigh-2026-11-04"
+    },
+    "clk400x_scoped": {
+      "built": true,
+      "description": "(a8) clk400_notap RTL/IP with the guarded SDC plus the SCOPED exceptions E1-E4 proposed in docs/DDR3_clk400_SDCŒÀ’è—áŠOˆÄ_2026-11-04.md (IP-internal/reset sys27->user100 paths false-pathed for setup/recovery only, held_op given the held-bundle max-delay contract). Needs MEM_IP_TAG=clk400; verifies the proposal by an official STA run",
+      "fs_sha256": "828f29982b00c169480de0c8d33f018f206fefb6d46f7b546e8438fa0b7f1f94",
+      "fs_sha256_without_comment_lines": "dffcd10107bb5c6c570dced03b49ac6afebd5467fdcf74c67880ce9f9f8fb7da",
+      "usercode": "0x00004AFB",
+      "fs_bytes": 4620698,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": false,
+      "sta": {
+        "setup_violated_endpoints": 307,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": -0.581,
+          "from": "engine/index_1_s0/Q",
+          "to": "engine/first_expected_75_s0/CE"
+        },
+        "worst_hold": {
+          "slack_ns": 0.233,
+          "from": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_oserdes_d_rr_63_s0/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_cmd_oserdes_gen[15].u_cmd_gen/D6"
+        },
+        "worst_recovery": {
+          "slack_ns": 8.356,
+          "from": "controller/gw3_top_u_ddr_phy_top_u_eye_calib_rmove_mod_if_fifo_rst_s0/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_fifo_ctrl_gen[1].fifo_ctrl_if_rq2_wptr_2_s0/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.559,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 25,
+          "Hold": 0,
+          "Recovery": 0,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 68.112,
+          "memory398": 2016.128,
+          "user100": 94.117
+        }
+      },
+      "logic": "5745/20736",
+      "registers": "5824/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "5d77a153481da33f2a49d5518f8ea991bc197c8301efae5205aa6084addb250b",
+        "mem_bist": "e6a7fe6647f83391eed266c98d61ae1f5cd6179211ae904b9a8dbba427ec5913",
+        "mem_mailbox": "00d45fba8e3a4aca26129a003b9642750195a4adb13affebd338e7620ff149f9",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "d2063519c2288de4905e189caadd6e619c019b00d02624d20112ff0596c56877"
+      },
+      "sdc_lines_dropped": [],
+      "archive": "validation/mem-variant-clk400x_scoped-2026-11-04"
     }
   }
 }
