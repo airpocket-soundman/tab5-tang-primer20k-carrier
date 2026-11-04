@@ -30,7 +30,7 @@ if {[info exists env(MEM_VARIANT)] && ($env(MEM_VARIANT) eq "sampleip" || $env(M
  if {![file exists [file join $fpga_root build sipeed-ddr-test-e469df4c src ddr3_memory_interface ddr3_memory_interface.v]]} {error "pinned Sipeed IP missing: run python fpga/tools/fetch_sipeed_ddr_ip.py (verify) first"}
  # Sipeed sample IP (fetched, not committed): bisect OUR logic vs THEIR IP
  add_file [file join $fpga_root build sipeed-ddr-test-e469df4c src ddr3_memory_interface ddr3_memory_interface.v]
-} elseif {[info exists env(MEM_VARIANT)] && ($env(MEM_VARIANT) eq "clk400_notap" || $env(MEM_VARIANT) eq "clk400_asyncsdc" || $env(MEM_VARIANT) eq "clk400dp")} {
+} elseif {[info exists env(MEM_VARIANT)] && ($env(MEM_VARIANT) eq "clk400_notap" || $env(MEM_VARIANT) eq "clk400_asyncsdc" || $env(MEM_VARIANT) eq "clk400dp" || [string match "clk400x_*" $env(MEM_VARIANT)])} {
  # untapped regenerated clk400 IP (deep-tap net names do not follow): no scheduler observation
  add_file [file join $fpga_root build mem-bist-ip$tag generated MemDDR3 MemDDR3.vo]
 } else {
