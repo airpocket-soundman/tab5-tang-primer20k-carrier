@@ -1,0 +1,55 @@
+{
+  "hardware_access": false,
+  "name": "baseline_85bac224_rebuild",
+  "source_commit": "88d15cd",
+  "note": "Rebuild of source 88d15cd with Gowin Education 1.9.11.03 on 2026-11-04. FS differs from the stored 85bac224 FS ONLY in the //Created Time header line (verified line-by-line); USERCODE 0xE368, STA identical to the stored manifest.",
+  "fs_sha256": "fbf93abd5b2feda21b81d1c4f01b3124722dd1d1d700f2f8cd73a67c6101f951",
+  "fs_sha256_created_time_stripped": "53ef62e6e1b4af4b6947df1e78e903320665901503909e2ab72f8e6d4ce2c21a",
+  "bin_sha256": "903ee17e6ec12cde1f0decd9f7bce2a7a891546c3fa61478d00b0fcd256d1df1",
+  "usercode": "0x0000E368",
+  "checksum": "0xE368",
+  "sta_counts": {
+    "Numbers of Paths Analyzed": 19396,
+    "Numbers of Endpoints Analyzed": 6179,
+    "Numbers of Setup Violated Endpoints": 0,
+    "Numbers of Hold Violated Endpoints": 0
+  },
+  "clock_domains": {
+    "conditioned_reply54": {
+      "target_mhz": 54.0,
+      "fmax_mhz": 80.261
+    },
+    "core54": {
+      "target_mhz": 54.0,
+      "fmax_mhz": 69.593
+    },
+    "sampler216": {
+      "target_mhz": 216.0,
+      "fmax_mhz": 293.532
+    }
+  },
+  "min_slack_ns": {
+    "Setup Paths Table": 1.155,
+    "Hold Paths Table": 0.126,
+    "Recovery Paths Table": 2.615,
+    "Removal Paths Table": 1.106
+  },
+  "sta_closed": true,
+  "report_files": {
+    "filtered_reply.bin": "903ee17e6ec12cde1f0decd9f7bce2a7a891546c3fa61478d00b0fcd256d1df1",
+    "filtered_reply.fs": "fbf93abd5b2feda21b81d1c4f01b3124722dd1d1d700f2f8cd73a67c6101f951",
+    "filtered_reply.pin.html": "5fe492dd02c2dbf50267634425db5c813d1cba754dd3653d8f5b3a8b0e2e2a4c",
+    "filtered_reply.power.html": "c42402e6bbf8cae8464850ef2c75dc34db09c99c6589523e371b526f79f7ec0f",
+    "filtered_reply.rpt.html": "80a92d8762ce5ab5253ea856950b6a1aeab3850f46144190f5be5362144744b5",
+    "filtered_reply.rpt.txt": "80223a58248fc568a295675addf20fc8db055673dd6b15540a060a4cd5986275",
+    "filtered_reply.sdf": "d81bcc07cbba2c49ad5d9f7e1ba3c4f1320bad9100fbf40f2de04011082b3546",
+    "filtered_reply.tr.html": "00d9c45c1a2679d45737fc390e43ed386c8c89fa2a8ffe54706e73b9cab8a1d9",
+    "filtered_reply.vo": "1898b9da11b3637db0c554ca75fbc480800d7b40b25cbe1979064306189b2128",
+    "filtered_reply_tr_cata.html": "bc16600940faa563195eebeb031fcb090cce76669238aa5e5e0229385d5ea23d",
+    "filtered_reply_tr_content.html": "dd05f7b94ec6f19d713ef25d767b5f01188115dfb8fad1c063152595246e1565"
+  },
+  "limitations": [
+    "Offline P&R/STA only; not programmed or tested on hardware",
+    "Violations are recorded, not hidden"
+  ]
+}
