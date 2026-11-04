@@ -69,6 +69,70 @@
       "sdc_lines_dropped": [],
       "archive": "validation/mem-variant-base-2026-11-04"
     },
+    "cs0": {
+      "built": true,
+      "description": "(b) ddr_cs fixed to 0 like the Sipeed sample; IP O_ddr_cs_n left open",
+      "fs_sha256": "6b775e570026804b4753688fdc833dfdb0a89857b554deed0b5066129ca3955b",
+      "fs_sha256_without_comment_lines": "380677bb2bebe9d32e74d84c7c5b9324b590377a2157f0387dcd992349074a24",
+      "usercode": "0x0000A32F",
+      "fs_bytes": 4620698,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": false,
+      "sta": {
+        "setup_violated_endpoints": 0,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": 0.148,
+          "from": "engine/base_latched_6_s0/Q",
+          "to": "engine/first_bad_byte_20_s0/CE"
+        },
+        "worst_hold": {
+          "slack_ns": 0.234,
+          "from": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_oserdes_d_rr_63_s0/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_cmd_oserdes_gen[15].u_cmd_gen/D6"
+        },
+        "worst_recovery": {
+          "slack_ns": 1.879,
+          "from": "reset_hold_1_s1/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_ddr_init_internal_r_s0/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.443,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 0,
+          "Hold": 0,
+          "Recovery": 0,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 65.956,
+          "memory324": 2016.128,
+          "user81": 81.985
+        }
+      },
+      "logic": "6534/20736",
+      "registers": "6465/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "e1f4fe7715d8ddf1487938dd85db939b22222c5a03c82b13dc74835d1458aa2a",
+        "mem_bist": "f5a7e3883248fdd3c206e0930405841e7fee0288b1dc2b5f334ab3508cefaa32",
+        "mem_mailbox": "10094dd8705fd7babc098e2f30a9a1540d937c957dfc525f2d2753561f960e02",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "e365cc4847350fe703f2a22eb07c9664167f965c17734bda2fa47114c06227a4"
+      },
+      "sdc_lines_dropped": [
+        "set_false_path -setup -to [get_pins {controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_cmd_oserdes_gen[0].u_cmd_gen/RESET}]"
+      ],
+      "archive": "validation/mem-variant-cs0-2026-11-04"
+    },
     "rst": {
       "built": true,
       "description": "(c) no extra 1ms reset hold after PLL lock: controller_reset_n = raw_reset_n && pll_lock",

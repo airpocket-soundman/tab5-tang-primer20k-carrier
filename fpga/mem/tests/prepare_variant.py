@@ -21,6 +21,8 @@ VARIANTS = {
  'rst': ('(c) no extra 1ms reset hold after PLL lock: controller_reset_n = raw_reset_n && pll_lock',
          'mem_top', 'wire controller_reset_n=raw_reset_n&&pll_lock&&reset_hold==0;',
          'wire controller_reset_n=raw_reset_n&&pll_lock;'),
+ 'pace': ('(e) sample-like pacing: commands/write data issued only when a free-running 8-bit counter is 0 (one per 256 USER cycles), as the Sipeed tester does with work_counter==0',
+          'mem_bist', 'assign app_cmd_en=app_cmd_ready && active &&', 'assign app_cmd_en=app_cmd_ready && active && pace_ok &&'),
  'refwait': ('(d) wait 60000 USER cycles (~0.74ms @81MHz, >200 tREFI) after calibration instead of 256',
              'mem_top', 'mem_bist engine(user_clk,', 'mem_bist #(.CALIBRATION_SETTLE_CYCLES(60000)) engine(user_clk,'),
 }
@@ -35,6 +37,15 @@ def build(vid):
         if n == fname:
             assert text.count(old) == 1, (vid, old, text.count(old))
             text = text.replace(old, new)
+            if vid == 'pace':
+                a1 = '    assign app_write_en=app_write_ready && active && writing && !data_sent &&'
+                assert text.count(a1) == 1
+                text = text.replace(a1, a1 + ' pace_ok &&')
+                a2 = '    wire writing=phase==1 || phase==3;'
+                assert text.count(a2) == 1
+                ins = ("    reg [7:0] pace_counter; wire pace_ok=pace_counter==8'd0;" + chr(10)
+                       + "    always @(posedge clk or negedge reset_n) if(!reset_n) pace_counter<=0; else pace_counter<=pace_counter+1'b1;" + chr(10))
+                text = text.replace(a2, ins + a2)
             if vid == 'cs0':
                 # drive the pin constant low; the IP output is no longer connected
                 anchor = '// USER state is only an LED observation here'
