@@ -1,7 +1,7 @@
 # Resident-model variant of build_filtered_batch_cdc_qualified.tcl (MODEL_ENABLE=1). Vendor Gowin flow (gw_sh); no programming.
-# NOT RUN in the authoring environment (no gw_sh there). The CDC SDC proof was made for the batch image: re-check timing/CDC reports before use.
+# Stage 2: needs validation/filtered-model-cdc-proof-2026-11-04/structure.json made from the stage-1 SDF (tools/qualify_metadata_cdc.py --sdf ... ) and constraints/dock/triangle54filtered_model_cdc.sdc generated from it (generate_metadata_cdc_constraints.py without --verify).
 set root [file normalize [file join [file dirname [info script]] ../..]]
-puts [exec python [file join $root tools/generate_metadata_cdc_constraints.py] --proof [file join $root validation/filtered-batch-cdc-proof-2026-11-04/structure.json] --output [file join $root constraints/dock/triangle54filtered_batch_cdc.sdc] --verify]
+puts [exec python [file join $root tools/generate_metadata_cdc_constraints.py] --proof [file join $root validation/filtered-model-cdc-proof-2026-11-04/structure.json] --output [file join $root constraints/dock/triangle54filtered_model_cdc.sdc] --verify]
 set output [file join $root build filtered-model]
 if {[file exists $output]} {error "Fresh output required: $output"}
 create_project -name filtered_reply -dir $output -pn GW2A-LV18PG256C8/I7 -device_version C -force
@@ -11,7 +11,7 @@ foreach source {
  gfx/rtl/triangle_coverage_pipeline.v gfx/rtl/triangle_depth.v
  platform/dock/dock_pll54.v platform/dock/dock_pll216.v
  platform/dock/tab5_dock_triangle54_filtered_model_top.v
- constraints/dock/tab5_dock_link_v0.cst constraints/dock/triangle54filtered_batch_cdc.sdc
+ constraints/dock/tab5_dock_link_v0.cst constraints/dock/triangle54filtered_model_cdc.sdc
 } {add_file [file join $root $source]}
 set_option -top_module tab5_dock_triangle54_filtered_model_top
 set_option -output_base_name filtered_reply

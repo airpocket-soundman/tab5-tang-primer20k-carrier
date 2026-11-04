@@ -1,0 +1,121 @@
+{
+  "hardware_access": false,
+  "programmed": false,
+  "tool": "Gowin EDA Education V1.9.11.03 gw_sh",
+  "device": "GW2A-LV18PG256C8/I7",
+  "source_commit": "a8e59b54867158182da85846125b4b01e0e3097d",
+  "dirty_note": "build tcl/stage1/SDC/proof files added after this commit",
+  "qualification": "Offline vendor build, MODEL_ENABLE=1, 54MHz core + 216MHz reply filter. STA closed. NOT hardware-verified; the CDC exception set is re-proved for this netlist (30 stage0), not peer-reviewed.",
+  "fs_sha256": "81232e415bea555d74885cde893144d6b3aa3bb9d4063fad281b64a723b42e17",
+  "usercode": "0x00009678",
+  "checksum": "0x9678",
+  "baseline_for_comparison": {
+    "fs_sha256": "85bac22420a81bbaaef26a2edff81a3deb0e2bb114a97f106c1deede8062d717"
+  },
+  "sta_counts": {
+    "Numbers of Paths Analyzed": 29662,
+    "Numbers of Endpoints Analyzed": 9342,
+    "Numbers of Setup Violated Endpoints": 0,
+    "Numbers of Hold Violated Endpoints": 0
+  },
+  "stage1_no_cdc_exception_hold_violated_endpoints": 29,
+  "fmax_mhz": {
+    "conditioned_reply54": 81.064,
+    "core54": 60.597,
+    "sampler216": 341.427
+  },
+  "min_slack_ns": {
+    "setup(general 50 paths)": 1.554,
+    "setup(conditioned)": 1.701,
+    "setup(metadata stage0->1, 30/30)": 17.198,
+    "hold(general)": 0.198,
+    "hold(conditioned)": 0.427,
+    "hold(metadata stage0->1, 30/30)": 0.539,
+    "recovery": 2.505,
+    "removal": 0.895
+  },
+  "resources": {
+    "logic": "5600/20736 27%",
+    "register": "3302/16173 21%",
+    "bsram": "8/46 18%",
+    "dsp": "14.5/24 61%"
+  },
+  "cdc": {
+    "exceptions": 30,
+    "constraint_sha256": "feea50e71c590a5fa9570ca3be24da908b1a9fb1dea70245643bdd41f5a4aef2",
+    "method": "stage1 build without exception -> tools/qualify_metadata_cdc.py (SDF) -> generate SDC -> stage2 build"
+  },
+  "source_sha256": {
+    "link/rtl/triangle_batch.v": "08a1ad4a5c623b8fb5b057cadca98950a5b61a1241b88af975b1777a0c91ec26",
+    "link/rtl/triangle_model.v": "582272050949560a2f5873bcfdf976a129efeedd5944739394eabb0b385f9605",
+    "link/rtl/reply_clock_filter.v": "dd9d4f92f6dbeb0b3d8601ab77ac94aab86f410753112a9fa6dde529e6575cb1",
+    "link/rtl/link_reply_raw.v": "c1df039c17f5ca8b6708f2455c1d52c1727feb8dfaac2fe401d5ab2f660094a8",
+    "link/rtl/link_bringup_filtered.v": "b9a355ee513e5933abfdbbabc768222120511b95fedf2d4a2108a4bf937fea59",
+    "gfx/rtl/triangle_tile_vendor.v": "0e6b472f55775b2071f2832bcc1514bff0e8db141ac0e42784e31c64c3933369",
+    "platform/dock/tab5_dock_triangle54_filtered_model_top.v": "d0e35f9bf4b1953b2b8f212d3cb707e1391ce6399bcda81e9c0e2a6aa3e2b608",
+    "builds/dock/build_filtered_model.tcl": "9e2200e6816978ced5f3ec2f8ff86fc7d82a83e0127b17998549cf709c9b3fa3",
+    "builds/dock/build_filtered_model_stage1.tcl": "6bb6a82d19b6278107a11cb84c9f388c06c1b55aa2ec9d89f90aa156b8b965f3"
+  },
+  "artifacts": [
+    {
+      "archived": "filtered_reply.fs.gz",
+      "source": "build\\filtered-model\\filtered_reply\\impl\\pnr\\filtered_reply.fs",
+      "sha256": "81232e415bea555d74885cde893144d6b3aa3bb9d4063fad281b64a723b42e17",
+      "bytes": 7264154
+    },
+    {
+      "archived": "filtered_reply_tr_content.html.gz",
+      "source": "build\\filtered-model\\filtered_reply\\impl\\pnr\\filtered_reply_tr_content.html",
+      "sha256": "7fa6aef5ffcba56349fb8be9a39fade6c9564932ef9909422c80521159d6ce97",
+      "bytes": 1538141
+    },
+    {
+      "archived": "filtered_reply.rpt.txt.gz",
+      "source": "build\\filtered-model\\filtered_reply\\impl\\pnr\\filtered_reply.rpt.txt",
+      "sha256": "0104662cb92484710a98eb49708ad6afd1270b9f687c55fac582e0783f63a011",
+      "bytes": 50469
+    },
+    {
+      "archived": "filtered_reply.pin.html.gz",
+      "source": "build\\filtered-model\\filtered_reply\\impl\\pnr\\filtered_reply.pin.html",
+      "sha256": "ab0fd079226c961717a2390331e25393dc697fc9255df9555429b636a58e8087",
+      "bytes": 60221
+    },
+    {
+      "archived": "filtered_reply.sdf.gz",
+      "source": "build\\filtered-model\\filtered_reply\\impl\\pnr\\filtered_reply.sdf",
+      "sha256": "bc44fb2d9d90afbbf20266a108576886103c70cfb1fea747257acc80a27cf4f2",
+      "bytes": 10740663
+    },
+    {
+      "archived": "model-stage2.log.gz",
+      "source": "build\\model-stage2.log",
+      "sha256": "370d41882504dcf42b77e480e7cf54e4225eb63b0f89ee64584ec9adf1098767",
+      "bytes": 15796
+    },
+    {
+      "archived": "model-stage1.log.gz",
+      "source": "build\\model-stage1.log",
+      "sha256": "c2a23c3bf729f242af86d67b7b313c6db79f3e808cf79746ee53f7124222c9a7",
+      "bytes": 15744
+    },
+    {
+      "archived": "structure.json.gz",
+      "source": "validation\\filtered-model-cdc-proof-2026-11-04\\structure.json",
+      "sha256": "402efefdd440ada64b4002e420f5e731d5469ba408eac16de118f5873084a035",
+      "bytes": 9604
+    },
+    {
+      "archived": "triangle54filtered_model_cdc.sdc.gz",
+      "source": "constraints\\dock\\triangle54filtered_model_cdc.sdc",
+      "sha256": "405be053e6dcdd82d4202c27592011d964ed87ab2c9551bffffee3206e488f8e",
+      "bytes": 12025
+    }
+  ],
+  "limitations": [
+    "No resident-model RTL regression was rerun against the vendor-flow netlist/post-route sim; RTL tests use triangle_tile.v",
+    "Stage-2 tool synthesises triangle_tile_vendor.v (vendor engine) - cube-vs-CPU RTL test used triangle_tile.v",
+    "No hardware programming or measurement",
+    "Core54 Fmax 60.6 MHz is lower than the 85bac224 baseline 69.6 MHz"
+  ]
+}
