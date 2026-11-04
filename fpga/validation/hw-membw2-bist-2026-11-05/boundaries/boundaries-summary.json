@@ -1,0 +1,146 @@
+{
+  "stage": "boundaries",
+  "status": "ALL_PASS",
+  "executed": true,
+  "jobs": [
+    {
+      "name": "col_to_bank",
+      "base": 2032,
+      "count": 3,
+      "seed": 305419896,
+      "output": "build\\hw-bw2\\boundaries\\boundaries-01-col_to_bank.json",
+      "argv": [
+        "--execute",
+        "--port",
+        "COM4",
+        "--base",
+        "0x7f0",
+        "--count",
+        "3",
+        "--seed",
+        "0x12345678",
+        "--output",
+        "build\\hw-bw2\\boundaries\\boundaries-01-col_to_bank.json",
+        "--expected-elf-sha",
+        "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "bank_to_row",
+      "base": 16368,
+      "count": 3,
+      "seed": 305419896,
+      "output": "build\\hw-bw2\\boundaries\\boundaries-02-bank_to_row.json",
+      "argv": [
+        "--execute",
+        "--port",
+        "COM4",
+        "--base",
+        "0x3ff0",
+        "--count",
+        "3",
+        "--seed",
+        "0x12345678",
+        "--output",
+        "build\\hw-bw2\\boundaries\\boundaries-02-bank_to_row.json",
+        "--expected-elf-sha",
+        "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "row_bit4",
+      "base": 131056,
+      "count": 3,
+      "seed": 305419896,
+      "output": "build\\hw-bw2\\boundaries\\boundaries-03-row_bit4.json",
+      "argv": [
+        "--execute",
+        "--port",
+        "COM4",
+        "--base",
+        "0x1fff0",
+        "--count",
+        "3",
+        "--seed",
+        "0x12345678",
+        "--output",
+        "build\\hw-bw2\\boundaries\\boundaries-03-row_bit4.json",
+        "--expected-elf-sha",
+        "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "row_bit11",
+      "base": 262128,
+      "count": 3,
+      "seed": 305419896,
+      "output": "build\\hw-bw2\\boundaries\\boundaries-04-row_bit11.json",
+      "argv": [
+        "--execute",
+        "--port",
+        "COM4",
+        "--base",
+        "0x3fff0",
+        "--count",
+        "3",
+        "--seed",
+        "0x12345678",
+        "--output",
+        "build\\hw-bw2\\boundaries\\boundaries-04-row_bit11.json",
+        "--expected-elf-sha",
+        "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "half",
+      "base": 67108848,
+      "count": 3,
+      "seed": 305419896,
+      "output": "build\\hw-bw2\\boundaries\\boundaries-05-half.json",
+      "argv": [
+        "--execute",
+        "--port",
+        "COM4",
+        "--base",
+        "0x3fffff0",
+        "--count",
+        "3",
+        "--seed",
+        "0x12345678",
+        "--output",
+        "build\\hw-bw2\\boundaries\\boundaries-05-half.json",
+        "--expected-elf-sha",
+        "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "last_beat",
+      "base": 134217712,
+      "count": 1,
+      "seed": 305419896,
+      "output": "build\\hw-bw2\\boundaries\\boundaries-06-last_beat.json",
+      "argv": [
+        "--execute",
+        "--port",
+        "COM4",
+        "--base",
+        "0x7fffff0",
+        "--count",
+        "1",
+        "--seed",
+        "0x12345678",
+        "--output",
+        "build\\hw-bw2\\boundaries\\boundaries-06-last_beat.json",
+        "--expected-elf-sha",
+        "8ae2d3fff3dd745a8431591dd975b63f30f52b2f1c851aa5244c7600de304a1a"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "finished_utc": "2026-11-04T17:03:58.822308+00:00"
+}
