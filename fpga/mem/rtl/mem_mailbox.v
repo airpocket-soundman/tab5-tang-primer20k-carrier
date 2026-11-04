@@ -1,7 +1,8 @@
 // Standalone diagnostic control. Bundles remain held until their toggle ack.
 // No DDR-native signal crosses directly into the 27MHz LINK domain.
 module mem_mailbox # (parameter DEADLINE=2700000,parameter CAL_GUARD_CYCLES=256,
- parameter HEARTBEAT_DEADLINE=27000)(
+ parameter HEARTBEAT_DEADLINE=27000,
+ parameter [15:0] MEM_MHZ=16'd324,parameter [15:0] USER_MHZ=16'd81)(
  input wire sys_clk,sys_reset_n,user_clk,user_reset_n,
  input wire command_start,input wire[7:0] opcode,a,b,
  output reg command_done,output reg[7:0] status,output reg[15:0] result,
@@ -60,7 +61,7 @@ module mem_mailbox # (parameter DEADLINE=2700000,parameter CAL_GUARD_CYCLES=256,
  wire range_ok=cfg_base[3:0]==0&&cfg_count!=0&&cfg_count<=8388608&&cfg_end<=134217728;
  wire[15:0] flags={8'b0,1'b0,(done&&!faulted&&error_beats==0&&job_base==0&&job_count==8388608),
                    1'b0,(error_beats!=0),faulted,done,busy,calibrated};
- wire[511:0] snapshot_bundle={16'h014d,16'd81,elapsed_cycles,first_actual,first_expected,
+ wire[511:0] snapshot_bundle={16'h014d,USER_MHZ,elapsed_cycles,first_actual,first_expected,
                              first_bad_byte,error_beats,verified_beats,accepted_job_id,
                              {5'b0,phase,error_code},flags};
  // USER half: first cycle accepts stable payload, following cycle acknowledges.
@@ -164,7 +165,7 @@ module mem_mailbox # (parameter DEADLINE=2700000,parameter CAL_GUARD_CYCLES=256,
  8'h5b:if({b,a}!=0)status<=3;else begin recalibrate<=1;snapshot_stale<=1;end
  8'h5c:if(b!=0)status<=3;else case(a)
  0:result<=16'h014d;1:result<=2048;2:result<=16'h0d0a;3:result<=16'h0310;
- 4:result<=324;5:result<=81;6:result<={2'b0,loss_reasons,heartbeat_fresh,user_ready_sync[1],(calibration_guard>=CAL_GUARD_CYCLES),reset_loss,mailbox_timeout,snapshot_stale,snapshot_valid,fault_sync[1],busy_sync[1],cal_sync[1]};
+ 4:result<=MEM_MHZ;5:result<=USER_MHZ;6:result<={2'b0,loss_reasons,heartbeat_fresh,user_ready_sync[1],(calibration_guard>=CAL_GUARD_CYCLES),reset_loss,mailbox_timeout,snapshot_stale,snapshot_valid,fault_sync[1],busy_sync[1],cal_sync[1]};
  7:result<=generation;8:result<=16'h014e;
  20:result<=16'h024f;
  21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36:if(!snapshot_valid)status<=5;else result<=sys_deep_snapshot[(a-21)*16+:16];

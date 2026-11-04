@@ -1,0 +1,560 @@
+{
+ "sample400": {
+  "cells": 2927,
+  "special": {
+   "OBUF": 25,
+   "ELVDS_IOBUF": 2,
+   "IOBUF": 16,
+   "TBUF": 2,
+   "ELVDS_OBUF": 1,
+   "RAM16S4": 2,
+   "RAM16SDP4": 3,
+   "DLL": 1,
+   "DHCEN": 1,
+   "CLKDIV": 1,
+   "IODELAY": 40,
+   "SDPX9B": 8,
+   "OSER8_MEM": 20,
+   "IDES8_MEM": 16,
+   "DQS": 2,
+   "OSER8": 24
+  },
+  "params": {
+   "RAM16S4": {
+    "INIT_0": {
+     "16'h0000": 2
+    },
+    "INIT_1": {
+     "16'h0000": 2
+    },
+    "INIT_2": {
+     "16'h0000": 2
+    },
+    "INIT_3": {
+     "16'h0000": 2
+    }
+   },
+   "RAM16SDP4": {
+    "INIT_0": {
+     "16'h0000": 3
+    },
+    "INIT_1": {
+     "16'h0000": 3
+    },
+    "INIT_2": {
+     "16'h0000": 3
+    },
+    "INIT_3": {
+     "16'h0000": 3
+    }
+   },
+   "DLL": {
+    "DIV_SEL": {
+     "1'b0": 1
+    },
+    "CODESCAL": {
+     "\"101\"": 1
+    },
+    "SCAL_EN": {
+     "\"true\"": 1
+    },
+    "DLL_FORCE": {
+     "0": 1
+    }
+   },
+   "CLKDIV": {
+    "GSREN": {
+     "\"false\"": 1
+    },
+    "DIV_MODE": {
+     "\"4\"": 1
+    }
+   },
+   "IODELAY": {
+    "C_STATIC_DLY": {
+     "6": 16,
+     "40": 24
+    }
+   },
+   "SDPX9B": {
+    "READ_MODE": {
+     "1'b0": 8
+    },
+    "BIT_WIDTH_0": {
+     "36": 8
+    },
+    "BIT_WIDTH_1": {
+     "36": 8
+    },
+    "RESET_MODE": {
+     "\"SYNC\"": 8
+    },
+    "BLK_SEL_0": {
+     "3'b000": 8
+    },
+    "BLK_SEL_1": {
+     "3'b000": 8
+    }
+   },
+   "OSER8_MEM": {
+    "GSREN": {
+     "\"false\"": 20
+    },
+    "LSREN": {
+     "\"true\"": 20
+    },
+    "HWL": {
+     "\"false\"": 20
+    },
+    "TCLK_SOURCE": {
+     "\"DQSW\"": 2,
+     "\"DQSW270\"": 18
+    },
+    "TXCLK_POL": {
+     "1'b0": 20
+    }
+   },
+   "IDES8_MEM": {
+    "GSREN": {
+     "\"false\"": 16
+    },
+    "LSREN": {
+     "\"true\"": 16
+    }
+   },
+   "DQS": {
+    "GSREN": {
+     "\"false\"": 2
+    },
+    "DQS_MODE": {
+     "\"X4\"": 2
+    },
+    "FIFO_MODE_SEL": {
+     "1'b0": 2
+    },
+    "RD_PNTR": {
+     "3'b000": 2
+    },
+    "HWL": {
+     "\"true\"": 2
+    }
+   },
+   "OSER8": {
+    "GSREN": {
+     "\"false\"": 24
+    },
+    "LSREN": {
+     "\"true\"": 24
+    },
+    "HWL": {
+     "\"false\"": 24
+    },
+    "TXCLK_POL": {
+     "1'b0": 24
+    }
+   }
+  }
+ },
+ "ours324": {
+  "cells": 5560,
+  "special": {
+   "OBUF": 24,
+   "ELVDS_IOBUF": 2,
+   "IOBUF": 16,
+   "TBUF": 2,
+   "ELVDS_OBUF": 1,
+   "RAM16S4": 2,
+   "RAM16SDP4": 4,
+   "DLL": 1,
+   "DHCEN": 1,
+   "CLKDIV": 1,
+   "IODELAY": 16,
+   "OSER8_MEM": 20,
+   "IDES8_MEM": 16,
+   "DQS": 2,
+   "OSER8": 23
+  },
+  "params": {
+   "RAM16S4": {
+    "INIT_0": {
+     "16'h0000": 2
+    },
+    "INIT_1": {
+     "16'h0000": 2
+    },
+    "INIT_2": {
+     "16'h0000": 2
+    },
+    "INIT_3": {
+     "16'h0000": 2
+    }
+   },
+   "RAM16SDP4": {
+    "INIT_0": {
+     "16'h0000": 4
+    },
+    "INIT_1": {
+     "16'h0000": 4
+    },
+    "INIT_2": {
+     "16'h0000": 4
+    },
+    "INIT_3": {
+     "16'h0000": 4
+    }
+   },
+   "DLL": {
+    "DIV_SEL": {
+     "1'b0": 1
+    },
+    "CODESCAL": {
+     "\"111\"": 1
+    },
+    "SCAL_EN": {
+     "\"false\"": 1
+    },
+    "DLL_FORCE": {
+     "0": 1
+    }
+   },
+   "CLKDIV": {
+    "GSREN": {
+     "\"false\"": 1
+    },
+    "DIV_MODE": {
+     "\"4\"": 1
+    }
+   },
+   "IODELAY": {
+    "C_STATIC_DLY": {
+     "5": 16
+    }
+   },
+   "OSER8_MEM": {
+    "GSREN": {
+     "\"false\"": 20
+    },
+    "LSREN": {
+     "\"true\"": 20
+    },
+    "HWL": {
+     "\"false\"": 20
+    },
+    "TCLK_SOURCE": {
+     "\"DQSW270\"": 2,
+     "\"DQSW\"": 18
+    },
+    "TXCLK_POL": {
+     "1'b0": 20
+    }
+   },
+   "IDES8_MEM": {
+    "GSREN": {
+     "\"false\"": 16
+    },
+    "LSREN": {
+     "\"true\"": 16
+    }
+   },
+   "DQS": {
+    "GSREN": {
+     "\"false\"": 2
+    },
+    "DQS_MODE": {
+     "\"X4\"": 2
+    },
+    "FIFO_MODE_SEL": {
+     "1'b0": 2
+    },
+    "RD_PNTR": {
+     "3'b000": 2
+    },
+    "HWL": {
+     "\"true\"": 2
+    }
+   },
+   "OSER8": {
+    "GSREN": {
+     "\"false\"": 23
+    },
+    "LSREN": {
+     "\"true\"": 23
+    },
+    "HWL": {
+     "\"false\"": 23
+    },
+    "TXCLK_POL": {
+     "1'b0": 23
+    }
+   }
+  }
+ },
+ "ours400": {
+  "cells": 5612,
+  "special": {
+   "OBUF": 24,
+   "ELVDS_IOBUF": 2,
+   "IOBUF": 16,
+   "TBUF": 2,
+   "ELVDS_OBUF": 1,
+   "RAM16S4": 2,
+   "RAM16SDP4": 4,
+   "DLL": 1,
+   "DHCEN": 1,
+   "CLKDIV": 1,
+   "IODELAY": 16,
+   "OSER8_MEM": 20,
+   "IDES8_MEM": 16,
+   "DQS": 2,
+   "OSER8": 23
+  },
+  "params": {
+   "RAM16S4": {
+    "INIT_0": {
+     "16'h0000": 2
+    },
+    "INIT_1": {
+     "16'h0000": 2
+    },
+    "INIT_2": {
+     "16'h0000": 2
+    },
+    "INIT_3": {
+     "16'h0000": 2
+    }
+   },
+   "RAM16SDP4": {
+    "INIT_0": {
+     "16'h0000": 4
+    },
+    "INIT_1": {
+     "16'h0000": 4
+    },
+    "INIT_2": {
+     "16'h0000": 4
+    },
+    "INIT_3": {
+     "16'h0000": 4
+    }
+   },
+   "DLL": {
+    "DIV_SEL": {
+     "1'b0": 1
+    },
+    "CODESCAL": {
+     "\"111\"": 1
+    },
+    "SCAL_EN": {
+     "\"false\"": 1
+    },
+    "DLL_FORCE": {
+     "0": 1
+    }
+   },
+   "CLKDIV": {
+    "GSREN": {
+     "\"false\"": 1
+    },
+    "DIV_MODE": {
+     "\"4\"": 1
+    }
+   },
+   "IODELAY": {
+    "C_STATIC_DLY": {
+     "5": 16
+    }
+   },
+   "OSER8_MEM": {
+    "GSREN": {
+     "\"false\"": 20
+    },
+    "LSREN": {
+     "\"true\"": 20
+    },
+    "HWL": {
+     "\"false\"": 20
+    },
+    "TCLK_SOURCE": {
+     "\"DQSW270\"": 2,
+     "\"DQSW\"": 18
+    },
+    "TXCLK_POL": {
+     "1'b0": 20
+    }
+   },
+   "IDES8_MEM": {
+    "GSREN": {
+     "\"false\"": 16
+    },
+    "LSREN": {
+     "\"true\"": 16
+    }
+   },
+   "DQS": {
+    "GSREN": {
+     "\"false\"": 2
+    },
+    "DQS_MODE": {
+     "\"X4\"": 2
+    },
+    "FIFO_MODE_SEL": {
+     "1'b0": 2
+    },
+    "RD_PNTR": {
+     "3'b000": 2
+    },
+    "HWL": {
+     "\"true\"": 2
+    }
+   },
+   "OSER8": {
+    "GSREN": {
+     "\"false\"": 23
+    },
+    "LSREN": {
+     "\"true\"": 23
+    },
+    "HWL": {
+     "\"false\"": 23
+    },
+    "TXCLK_POL": {
+     "1'b0": 23
+    }
+   }
+  }
+ },
+ "ours400dp": {
+  "cells": 5612,
+  "special": {
+   "OBUF": 24,
+   "ELVDS_IOBUF": 2,
+   "IOBUF": 16,
+   "TBUF": 2,
+   "ELVDS_OBUF": 1,
+   "RAM16S4": 2,
+   "RAM16SDP4": 4,
+   "DLL": 1,
+   "DHCEN": 1,
+   "CLKDIV": 1,
+   "IODELAY": 16,
+   "OSER8_MEM": 20,
+   "IDES8_MEM": 16,
+   "DQS": 2,
+   "OSER8": 23
+  },
+  "params": {
+   "RAM16S4": {
+    "INIT_0": {
+     "16'h0000": 2
+    },
+    "INIT_1": {
+     "16'h0000": 2
+    },
+    "INIT_2": {
+     "16'h0000": 2
+    },
+    "INIT_3": {
+     "16'h0000": 2
+    }
+   },
+   "RAM16SDP4": {
+    "INIT_0": {
+     "16'h0000": 4
+    },
+    "INIT_1": {
+     "16'h0000": 4
+    },
+    "INIT_2": {
+     "16'h0000": 4
+    },
+    "INIT_3": {
+     "16'h0000": 4
+    }
+   },
+   "DLL": {
+    "DIV_SEL": {
+     "1'b0": 1
+    },
+    "CODESCAL": {
+     "\"101\"": 1
+    },
+    "SCAL_EN": {
+     "\"false\"": 1
+    },
+    "DLL_FORCE": {
+     "0": 1
+    }
+   },
+   "CLKDIV": {
+    "GSREN": {
+     "\"false\"": 1
+    },
+    "DIV_MODE": {
+     "\"4\"": 1
+    }
+   },
+   "IODELAY": {
+    "C_STATIC_DLY": {
+     "6": 16
+    }
+   },
+   "OSER8_MEM": {
+    "GSREN": {
+     "\"false\"": 20
+    },
+    "LSREN": {
+     "\"true\"": 20
+    },
+    "HWL": {
+     "\"false\"": 20
+    },
+    "TCLK_SOURCE": {
+     "\"DQSW270\"": 2,
+     "\"DQSW\"": 18
+    },
+    "TXCLK_POL": {
+     "1'b0": 20
+    }
+   },
+   "IDES8_MEM": {
+    "GSREN": {
+     "\"false\"": 16
+    },
+    "LSREN": {
+     "\"true\"": 16
+    }
+   },
+   "DQS": {
+    "GSREN": {
+     "\"false\"": 2
+    },
+    "DQS_MODE": {
+     "\"X4\"": 2
+    },
+    "FIFO_MODE_SEL": {
+     "1'b0": 2
+    },
+    "RD_PNTR": {
+     "3'b000": 2
+    },
+    "HWL": {
+     "\"true\"": 2
+    }
+   },
+   "OSER8": {
+    "GSREN": {
+     "\"false\"": 23
+    },
+    "LSREN": {
+     "\"true\"": 23
+    },
+    "HWL": {
+     "\"false\"": 23
+    },
+    "TXCLK_POL": {
+     "1'b0": 23
+    }
+   }
+  }
+ }
+}

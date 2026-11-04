@@ -12,11 +12,14 @@ assert 'if(!epoch_reset_sync[2])user_epoch_used<=0;' in mailbox
 assert 'bootstrap_count<31' in mailbox and 'epoch_reset_sync[2]&&!user_epoch_used' in mailbox
 assert 'user_epoch_pulse' not in mailbox
 assert 'user_epoch' not in '\n'.join(line for line in (root/'mem/config/mem_bist.sdc').read_text().splitlines() if line.startswith('set_false_path'))
-vo=root/'build/mem-bist-ip/generated/MemDDR3/MemDDR3.vo'
+import os
+TAG=os.environ.get('MEM_IP_TAG','');SFX=('-'+TAG) if TAG else ''
+BASE_SDC=root/('mem/config/mem_bist.sdc' if not TAG else f'mem/config/mem_bist_{TAG}.sdc')
+vo=root/f'build/mem-bist-ip{SFX}/generated/MemDDR3/MemDDR3.vo'
 text=vo.read_text();cells={}
 for m in re.finditer(r'^(\w+) \\([^\n]+?)\s+\(\n(.*?)^\);',text,re.M|re.S):
  cells['controller/'+m[2].strip().replace('/','_')]=(m[1],m[3])
-proof=json.loads((root/'build/mem-tests/results.json').read_text())
+proof=json.loads((root/f'build/mem-tests{SFX}/results.json').read_text())
 cone=next(t for t in proof['tests'] if t['name']=='vendor_clock_init_cone')
 assert 'PASS vendor initialization model' in cone['output']
 assert cone['projection']['generated_source_sha256']==hashlib.sha256(vo.read_bytes()).hexdigest()
@@ -51,14 +54,14 @@ for pin in reset_pins:
  'reason':'initialization-only asynchronous RESET recovery; calibration reestablishes alignment before256SYS-guarded native traffic; removal remains timed'})
 assert counts=={'OSER8':23,'OSER8_MEM':20,'IDES8_MEM':16,'DQS':2},counts
 assert len(entries)==90 and len(set(e['pin'] for e in entries))==90
-out=root/'build/mem-scheduler-diag-input';out.mkdir(parents=True,exist_ok=True)
+out=root/f'build/mem-scheduler-diag-input{SFX}';out.mkdir(parents=True,exist_ok=True)
 extra='\n//90 finite guarded primitive input endpoints; no clock groups.\n'
 for e in entries:
  line='set_false_path '
  if e['analysis']!='both':line+='-'+e['analysis']+' '
  if 'from' in e:line+='-from [get_pins {'+e['from']+'}] '
  extra+=line+'-to [get_pins {'+e['pin']+'}]\n'
-(out/'mem_bist.sdc').write_text((root/'mem/config/mem_bist.sdc').read_text()+extra)
+(out/'mem_bist.sdc').write_text(BASE_SDC.read_text()+extra)
 record={'scope':'finite guarded internal timing exceptions; NOT physical DDR proof',
  'resolved_unique_endpoints':90,'groups':{'async20':20,'step8':8,'wload1':1,'reset61':61},
  'reset_primitive_counts':counts,'reset_removal_checks_waived':False,

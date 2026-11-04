@@ -1,6 +1,7 @@
 `timescale 1ns/1ps
 module tb_mem_bist;
 parameter PAIRED=0;
+parameter PIPE=0;
 reg clk=0; always #5 clk=~clk;
 reg rst=0,cal=1,start=0,cancel=0;
 reg [31:0] base=0,count=17,seed=32'h1234abcd,job=1;
@@ -8,11 +9,11 @@ wire[175:0] debug;wire busy,done,fault;wire[7:0] error;wire[2:0] phase,cmd;
 wire[31:0] verified,errors,first,accepted;wire[127:0] expected,actual,wd;
 wire[63:0] cycles;wire ce,we,wend;wire[26:0] addr;wire[15:0] mask;
 reg cr=0,wr=0,rv=0,re=1;reg[127:0] rd=0;
-mem_bist #(.TIMEOUT_CYCLES(60),.TOTAL_TIMEOUT_CYCLES(50000),.PAIRED_WRITE(PAIRED),.CALIBRATION_SETTLE_CYCLES(4)) dut(
+mem_bist #(.TIMEOUT_CYCLES(60),.TOTAL_TIMEOUT_CYCLES(50000),.PAIRED_WRITE(PAIRED),.CALIBRATION_SETTLE_CYCLES(4),.PIPELINE(PIPE)) dut(
 clk,rst,cal,start,cancel,base,count,seed,job,busy,done,fault,error,phase,
 verified,errors,first,accepted,expected,actual,cycles,cmd,ce,addr,cr,wd,we,wend,mask,wr,rd,rv,re,debug);
 reg deadline_start=0;wire deadline_done;wire[7:0] deadline_error;
-mem_bist #(.TIMEOUT_CYCLES(100),.TOTAL_TIMEOUT_CYCLES(5),.CALIBRATION_SETTLE_CYCLES(0)) deadline_dut(
+mem_bist #(.TIMEOUT_CYCLES(100),.TOTAL_TIMEOUT_CYCLES(5),.CALIBRATION_SETTLE_CYCLES(0),.PIPELINE(PIPE)) deadline_dut(
 .clk(clk),.reset_n(rst),.calibrated(1'b1),.start(deadline_start),.cancel(1'b0),
 .base_byte(32'b0),.beat_count(32'd1),.seed(32'b0),.job_id(32'd9),
 .app_cmd_ready(1'b0),.app_write_ready(1'b0),.app_read_data(128'b0),.app_read_valid(1'b0),.app_read_end(1'b0),
@@ -114,6 +115,6 @@ initial begin
  reset;launch;repeat(5)@(negedge clk);rst=0;#1;if(ce||we)$fatal(1,"reset outputs");
  reset;mode=0;@(negedge clk);deadline_start=1;@(negedge clk);deadline_start=0;
  repeat(8)@(negedge clk);if(!deadline_done||deadline_error!=9)$fatal(1,"total deadline classification");checks=checks+1;
- $display("PASS mem_bist%s %0d scenarios: independent backpressure, native mapping, masks, mismatch, range, timeout, cancel/reset",PAIRED?" paired":"",checks);$finish;
+ $display("PASS mem_bist%s%s %0d scenarios: independent backpressure, native mapping, masks, mismatch, range, timeout, cancel/reset",PAIRED?" paired":"",(PIPE==2)?" pipelined2":(PIPE?" pipelined":""),checks);$finish;
 end
 endmodule
