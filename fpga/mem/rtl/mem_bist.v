@@ -20,6 +20,8 @@ module mem_bist #(
     // 2: additionally drops the (redundant, busy is asynchronously cleared by reset) reset_n term from the
     //    native-enable gating and uses a registered copy of `calibrated` for the fault/settle/start decisions
     //    (calibration loss is then detected one cycle later; native enables still use the raw input).
+    // 3: additionally uses the registered `calibrated` in the native-enable gating and registers the two
+    //    timeout comparators (wait and 64-bit total) one cycle ahead (identical firing cycle).
     // 0: original structure (kept bit-identical for the earlier images).
     parameter PIPELINE=0
 )(
@@ -46,7 +48,7 @@ module mem_bist #(
     // phase1 fillA,2 verifyA,3 masked complementB,4 verifymerged,5 complete.
     reg [31:0] base_latched,count_latched,seed_latched,index,wait_cycles;
     // PIPELINE=1 registers (unused and removed when PIPELINE=0)
-    reg start_q,range_ok_q,rd_v1,rd_last1,rd_v2,rd_last2,mm_q,drain,cal_q;
+    reg start_q,range_ok_q,rd_v1,rd_last1,rd_v2,rd_last2,mm_q,drain,cal_q,wait_hit_q,tot_hit_q;
     always @(posedge clk or negedge reset_n) if(!reset_n) cal_q<=0; else cal_q<=calibrated;
     wire cal_i=(PIPELINE>=2)?cal_q:calibrated;
     reg [31:0] base_q,count_q,seed_q,job_q,addr_q;
@@ -74,7 +76,7 @@ module mem_bist #(
         else if(!cal_i)settle_count<=0;
         else if(!settled)settle_count<=settle_count+1'b1;
     end
-    wire active=((PIPELINE>=2)?1'b1:reset_n) && calibrated && settled && busy && !faulted && !cancel && !gap && !drain;
+    wire active=((PIPELINE>=2)?1'b1:reset_n) && ((PIPELINE>=3)?cal_q:calibrated) && settled && busy && !faulted && !cancel && !gap && !drain;
     wire [31:0] byte_address=base_latched+(index<<4);
     wire [25:0] linear_word=byte_address[26:1];
     // Linear row-bank-column order converted to native rank-bank-row-column.
@@ -131,7 +133,7 @@ module mem_bist #(
               if(!debug_fault_valid)begin debug_fault_valid<=1;
                   debug_fault_flags<={code[3:0],1'b1,debug_live_flags[10:0]};end
               busy<=0;done<=1;faulted<=1;error_code<=code;
-              command_sent<=0;data_sent<=0;read_pending<=0;gap<=0;drain<=0;rd_v1<=0;rd_v2<=0;rd_last1<=0;rd_last2<=0;end
+              command_sent<=0;data_sent<=0;read_pending<=0;gap<=0;drain<=0;rd_v1<=0;rd_v2<=0;rd_last1<=0;rd_last2<=0;wait_hit_q<=0;tot_hit_q<=0;end
     endtask
     always @(posedge clk or negedge reset_n) begin
         if(!reset_n) begin
@@ -141,14 +143,14 @@ module mem_bist #(
             debug_fault_valid<=0;debug_fault_flags<=0;
             base_latched<=0;count_latched<=0;seed_latched<=0;index<=0;wait_cycles<=0;
             command_sent<=0;data_sent<=0;read_pending<=0;gap<=0;
-            drain<=0;rd_v1<=0;rd_v2<=0;rd_last1<=0;rd_last2<=0;mm_q<=0;rd_q<=0;exp_q<=0;addr_q<=0;
+            drain<=0;rd_v1<=0;rd_v2<=0;rd_last1<=0;rd_last2<=0;mm_q<=0;rd_q<=0;exp_q<=0;addr_q<=0;wait_hit_q<=0;tot_hit_q<=0;
         end else if(cancel) fail_job(8'd7);
         else if(start_i && !busy && !faulted) begin
             done<=0;phase<=0;error_code<=0;verified_beats<=0;error_beats<=0;
             first_bad_byte<=0;first_expected<=0;first_actual<=0;elapsed_cycles<=0;
             debug_fault_valid<=0;debug_fault_flags<=0;
             accepted_job_id<=job_i;command_sent<=0;data_sent<=0;read_pending<=0;gap<=0;
-            drain<=0;rd_v1<=0;rd_v2<=0;rd_last1<=0;rd_last2<=0;
+            drain<=0;rd_v1<=0;rd_v2<=0;rd_last1<=0;rd_last2<=0;wait_hit_q<=0;tot_hit_q<=0;
             wait_cycles<=0;index<=0;
             if(!cal_i) begin done<=1;error_code<=1;end
             else if(!range_i) begin done<=1;error_code<=2;end
@@ -156,6 +158,11 @@ module mem_bist #(
                        count_latched<=count_i;seed_latched<=seed_i;end
         end else if(busy) begin
             elapsed_cycles<=elapsed_cycles+1'b1;
+            if(PIPELINE>=3)begin
+                // one cycle ahead; wait_hit_q is cleared by progress, so the firing cycle is unchanged
+                wait_hit_q<=!progress && wait_cycles>=TIMEOUT_CYCLES-2;
+                tot_hit_q<=elapsed_cycles>=TOTAL_TIMEOUT_CYCLES-2;
+            end
             if(PIPELINE)begin
                 // stage 2: compare registered data; stage 3: account (single registered enable)
                 rd_v1<=0;rd_last1<=0;
@@ -171,9 +178,9 @@ module mem_bist #(
             end
             if(progress) wait_cycles<=0;else wait_cycles<=wait_cycles+1'b1;
             if(!cal_i) fail_job(8'd8);
-            else if(elapsed_cycles>=TOTAL_TIMEOUT_CYCLES-1) fail_job(8'd9);
+            else if((PIPELINE>=3)?tot_hit_q:(elapsed_cycles>=TOTAL_TIMEOUT_CYCLES-1)) fail_job(8'd9);
             else if(app_read_valid && (!read_expected || !app_read_end)) fail_job(8'd5);
-            else if(wait_cycles>=TIMEOUT_CYCLES-1 && !progress)
+            else if(((PIPELINE>=3)?wait_hit_q:(wait_cycles>=TIMEOUT_CYCLES-1)) && !progress)
                 fail_job(reading&&read_pending?8'd4:8'd3);
             else if(gap) gap<=0;
             else if(writing) begin

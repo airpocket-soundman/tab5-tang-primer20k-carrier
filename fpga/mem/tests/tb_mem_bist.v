@@ -13,7 +13,7 @@ mem_bist #(.TIMEOUT_CYCLES(60),.TOTAL_TIMEOUT_CYCLES(50000),.PAIRED_WRITE(PAIRED
 clk,rst,cal,start,cancel,base,count,seed,job,busy,done,fault,error,phase,
 verified,errors,first,accepted,expected,actual,cycles,cmd,ce,addr,cr,wd,we,wend,mask,wr,rd,rv,re,debug);
 reg deadline_start=0;wire deadline_done;wire[7:0] deadline_error;
-mem_bist #(.TIMEOUT_CYCLES(100),.TOTAL_TIMEOUT_CYCLES(5),.CALIBRATION_SETTLE_CYCLES(0)) deadline_dut(
+mem_bist #(.TIMEOUT_CYCLES(100),.TOTAL_TIMEOUT_CYCLES(5),.CALIBRATION_SETTLE_CYCLES(0),.PIPELINE(PIPE)) deadline_dut(
 .clk(clk),.reset_n(rst),.calibrated(1'b1),.start(deadline_start),.cancel(1'b0),
 .base_byte(32'b0),.beat_count(32'd1),.seed(32'b0),.job_id(32'd9),
 .app_cmd_ready(1'b0),.app_write_ready(1'b0),.app_read_data(128'b0),.app_read_valid(1'b0),.app_read_end(1'b0),

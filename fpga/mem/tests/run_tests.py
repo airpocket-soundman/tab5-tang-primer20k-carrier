@@ -68,7 +68,7 @@ results.append({'name':'mem_bist_paired','output':completed.stdout.strip(),
                 'sources':{str(s.relative_to(root)):hashlib.sha256(s.read_bytes()).hexdigest() for s in sources}})
 report={'scope':'RTL simulations, not physical DDR proof','tests':results}
 sources=[root/'mem/rtl/mem_bist.v',root/'mem/rtl/mem_mailbox.v',root/'mem/tests/tb_mem_heartbeat_abort.v']
-for hb_pipe in (1,2):
+for hb_pipe in (1,2,3):
   image=build/f'mem_heartbeat_abort_pipe{hb_pipe}.vvp'
   subprocess.run([args.iverilog,'-g2012','-s','tb_mem_heartbeat_abort',f'-Ptb_mem_heartbeat_abort.PIPE={hb_pipe}','-o',str(image),*map(str,sources)],check=True,env=env)
   completed=subprocess.run([args.vvp,str(image)],capture_output=True,text=True,check=True,env=env)
@@ -84,7 +84,7 @@ if 'PASS ' not in completed.stdout:
 print('(PIPELINE=1) '+completed.stdout.strip())
 results.append({'name':'mem_heartbeat_abort_pipelined','output':completed.stdout.strip(),
                 'sources':{str(s.relative_to(root)):hashlib.sha256(s.read_bytes()).hexdigest() for s in sources}})
-for paired,pipe in ((0,1),(1,1),(0,2),(1,2)):
+for paired,pipe in ((0,1),(1,1),(0,2),(1,2),(0,3),(1,3)):
     sources=[root/'mem/rtl/mem_bist.v',root/'mem/tests/tb_mem_bist.v']
     image=build/f'mem_bist_pipe{paired}_{pipe}.vvp'
     subprocess.run([args.iverilog,'-g2012','-s','tb_mem_bist',f'-Ptb_mem_bist.PAIRED={paired}',f'-Ptb_mem_bist.PIPE={pipe}','-o',str(image),*map(str,sources)],check=True,env=env)

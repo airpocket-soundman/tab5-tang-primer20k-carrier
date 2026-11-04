@@ -752,6 +752,192 @@
       },
       "sdc_lines_dropped": [],
       "archive": "validation/mem-variant-sampleip_map-2026-11-04"
+    },
+    "sampleip_map_t1": {
+      "built": true,
+      "description": "(i3) sampleip_map with the timing-oriented BIST (PIPELINE=1: registered START inputs and range check, 3-stage read compare). Same behaviour, START takes effect one cycle later, DONE after the last beat is accounted. Targets the -0.53ns setup violations at USER 99.5625MHz; the sample IP internal path is untouched",
+      "fs_sha256": "06e61ab415f3446b07ecd7a3318db014dedc2eaee53d24bdb35fdb9e8d3da9fb",
+      "fs_sha256_without_comment_lines": "7e82729594d97ffc92bf87bb0fa256ad8bbff871453603f402967c0520acb47e",
+      "usercode": "0x0000B9CB",
+      "fs_bytes": 7264154,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": false,
+      "sta": {
+        "setup_violated_endpoints": 9,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": -1.059,
+          "from": "user_reset_sync_2_s0/Q",
+          "to": "controller/gw3_top/u_gwmc_top/gw_wr_data0/wr_fifo/Almost_Full_s0/D"
+        },
+        "worst_hold": {
+          "slack_ns": 0.234,
+          "from": "controller/gw3_top/i4/u_ddr_phy_wd/u_ddr3_phy_cmd_lane/oserdes_d_reg_52_s0/Q",
+          "to": "controller/gw3_top/i4/u_ddr_phy_wd/u_ddr3_phy_cmd_lane/u_ddr3_phy_cmd_io/cmd_oserdes_gen[13].u_cmd_gen/D0"
+        },
+        "worst_recovery": {
+          "slack_ns": 8.07,
+          "from": "user_reset_sync_2_s0/Q",
+          "to": "engine/settle_count_0_s3/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.697,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 9,
+          "Hold": 0,
+          "Recovery": 0,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 68.139,
+          "memory398": 2016.128,
+          "user100": 90.067
+        }
+      },
+      "logic": "5015/20736",
+      "registers": "4338/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "5d77a153481da33f2a49d5518f8ea991bc197c8301efae5205aa6084addb250b",
+        "mem_bist": "27ffa08ed825e645eed739508d2e564fce3766c188a6897f77afa5d496c576b0",
+        "mem_mailbox": "00d45fba8e3a4aca26129a003b9642750195a4adb13affebd338e7620ff149f9",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "04aede5dab3a47f1895b246e8efa02d42bb80bcf965a40cf56812899afceae80"
+      },
+      "sdc_lines_dropped": [],
+      "archive": "validation/mem-variant-sampleip_map_t1-2026-11-04"
+    },
+    "sampleip_map_t2": {
+      "built": true,
+      "description": "(i4) sampleip_map_t1 plus PIPELINE=2: no reset_n term in the native-enable gating (busy is asynchronously cleared) and a registered copy of calibrated for fault/settle/start decisions (calibration loss detected one cycle later; enables still use the raw input)",
+      "fs_sha256": "33e37b5fcffe8053575acf3b4875d6e5ff0f96ed59ec293ae807ca1df435fb1f",
+      "fs_sha256_without_comment_lines": "b124636285dcd265d3298be534102d788eb789ea2b376db8a66314c7b277a60b",
+      "usercode": "0x00007FAD",
+      "fs_bytes": 7264154,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": false,
+      "sta": {
+        "setup_violated_endpoints": 77,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": -1.72,
+          "from": "controller/gw3_top/i4/u_ddr_phy_init/ddr_init_complete_d_3_s0/Q",
+          "to": "controller/gw3_top/u_gwmc_top/gw_wr_data0/wr_fifo/Almost_Full_s0/D"
+        },
+        "worst_hold": {
+          "slack_ns": 0.234,
+          "from": "controller/gw3_top/i4/u_ddr_phy_wd/u_ddr3_phy_cmd_lane/oserdes_d_reg_52_s0/Q",
+          "to": "controller/gw3_top/i4/u_ddr_phy_wd/u_ddr3_phy_cmd_lane/u_ddr3_phy_cmd_io/cmd_oserdes_gen[13].u_cmd_gen/D0"
+        },
+        "worst_recovery": {
+          "slack_ns": 8.15,
+          "from": "user_reset_sync_2_s0/Q",
+          "to": "engine/debug_fault_flags_11_s5/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.729,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 25,
+          "Hold": 0,
+          "Recovery": 0,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 81.262,
+          "memory398": 2016.128,
+          "user100": 85.001
+        }
+      },
+      "logic": "5087/20736",
+      "registers": "4339/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "5d77a153481da33f2a49d5518f8ea991bc197c8301efae5205aa6084addb250b",
+        "mem_bist": "88564c65e03f25ee553855350e37425452db1ecbb01240e1dc96cc3eff109e9d",
+        "mem_mailbox": "00d45fba8e3a4aca26129a003b9642750195a4adb13affebd338e7620ff149f9",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "424a69da3293650b0a97672c33df48ba770d5e55cc7b320538dd17ee1c0e71eb"
+      },
+      "sdc_lines_dropped": [],
+      "archive": "validation/mem-variant-sampleip_map_t2-2026-11-04"
+    },
+    "sampleip_map_t3": {
+      "built": true,
+      "description": "(i5) sampleip_map_t2 plus PIPELINE=3: registered calibrated also in the native-enable gating and both timeout comparators (wait, 64-bit total) registered one cycle ahead with identical firing cycle",
+      "fs_sha256": "6e350f24e954e49dcd89b8e36d5b2874b70876df0aa35d299cdd910fabb7b846",
+      "fs_sha256_without_comment_lines": "1314502747308e4a353b31df84d8cda8068ec62498cf937ae795a7c7987d53ed",
+      "usercode": "0x00002442",
+      "fs_bytes": 7264154,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": false,
+      "sta": {
+        "setup_violated_endpoints": 1,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": -0.164,
+          "from": "controller/gw3_top/u_gwmc_top/gw_cmd0/app_rdy_s0/Q",
+          "to": "controller/gw3_top/u_gwmc_top/gw_wr_data0/wr_fifo/Almost_Full_s0/D"
+        },
+        "worst_hold": {
+          "slack_ns": 0.234,
+          "from": "controller/gw3_top/i4/u_ddr_phy_wd/u_ddr3_phy_cmd_lane/oserdes_d_reg_52_s0/Q",
+          "to": "controller/gw3_top/i4/u_ddr_phy_wd/u_ddr3_phy_cmd_lane/u_ddr3_phy_cmd_io/cmd_oserdes_gen[13].u_cmd_gen/D0"
+        },
+        "worst_recovery": {
+          "slack_ns": 8.15,
+          "from": "user_reset_sync_2_s0/Q",
+          "to": "engine/settle_count_0_s3/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.443,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 1,
+          "Hold": 0,
+          "Recovery": 0,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 71.97,
+          "memory398": 2016.128,
+          "user100": 97.961
+        }
+      },
+      "logic": "5025/20736",
+      "registers": "4341/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "5d77a153481da33f2a49d5518f8ea991bc197c8301efae5205aa6084addb250b",
+        "mem_bist": "3e4ea6756b597f178a88e29d2e60eb0c5e61ac961715db63edf5e058363a55ea",
+        "mem_mailbox": "00d45fba8e3a4aca26129a003b9642750195a4adb13affebd338e7620ff149f9",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "36cb250ff06d65628a3cae2e9e8ab6b505ad73641f1cf62694e878f4546fd1cd"
+      },
+      "sdc_lines_dropped": [],
+      "archive": "validation/mem-variant-sampleip_map_t3-2026-11-04"
     }
   }
 }
