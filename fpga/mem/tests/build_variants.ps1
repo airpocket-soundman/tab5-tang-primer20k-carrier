@@ -3,7 +3,7 @@
 #   run_tests.py ; prepare_guarded.py   (MEM_VO_SHA256 must be set if MemDDR3.vo SHA differs from 4d37c875...)
 param([string[]]$Ids=@('base','cs0','rst','refwait','pace','norst','readfirst'),
       [string]$GwBin='D:\Gowin\edu-x\Gowin_V1.9.11.03_Education_x64\IDE\bin')
-$ErrorActionPreference='Stop'
+$ErrorActionPreference='Continue'  # gw_sh writes to stderr; do not abort the loop on that
 $repo=Split-Path (Split-Path (Split-Path $PSScriptRoot -Parent) -Parent) -Parent
 Set-Location $repo
 $env:PATH="$GwBin;$env:PATH"

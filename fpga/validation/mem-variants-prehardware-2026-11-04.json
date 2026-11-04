@@ -318,6 +318,130 @@
       },
       "sdc_lines_dropped": [],
       "archive": "validation/mem-variant-pace-2026-11-04"
+    },
+    "norst": {
+      "built": true,
+      "description": "(g) IP ddr_rst output left open like the Sipeed sample (ip_user_reset tied 0); the IP no longer resets the USER logic",
+      "fs_sha256": "d2986c03f1577966da9cb6c687a58bd70e20a3fe9b637e19973c297c12ed2ece",
+      "fs_sha256_without_comment_lines": "5b5c0f694cc425872f5160aeda5475c4df18b22e08dcd40a37ff5ba45fec6622",
+      "usercode": "0x0000ADA0",
+      "fs_bytes": 4620698,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": false,
+      "sta": {
+        "setup_violated_endpoints": 0,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": 0.593,
+          "from": "engine/index_3_s0/Q",
+          "to": "engine/first_expected_10_s0/CE"
+        },
+        "worst_hold": {
+          "slack_ns": 0.234,
+          "from": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_oserdes_d_rr_55_s0/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_cmd_oserdes_gen[13].u_cmd_gen/D6"
+        },
+        "worst_recovery": {
+          "slack_ns": 1.374,
+          "from": "reset_hold_1_s1/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_ddr_init_internal_r_s0/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.58,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 0,
+          "Hold": 0,
+          "Recovery": 0,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 66.584,
+          "memory324": 2016.128,
+          "user81": 85.089
+        }
+      },
+      "logic": "6592/20736",
+      "registers": "6477/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "e1f4fe7715d8ddf1487938dd85db939b22222c5a03c82b13dc74835d1458aa2a",
+        "mem_bist": "f5a7e3883248fdd3c206e0930405841e7fee0288b1dc2b5f334ab3508cefaa32",
+        "mem_mailbox": "10094dd8705fd7babc098e2f30a9a1540d937c957dfc525f2d2753561f960e02",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "8dd864e57eff1e3ab6ba2bf31358475caec0ca61cac8e78555157773579b1bd9"
+      },
+      "sdc_lines_dropped": [],
+      "archive": "validation/mem-variant-norst-2026-11-04"
+    },
+    "readfirst": {
+      "built": true,
+      "description": "(h) BIST starts with the verify (read) phase instead of the fill (write) phase: tests whether the scheduler serves READ commands (mismatch errors are expected and irrelevant)",
+      "fs_sha256": "6249526e8a84065bbeaaab96efc17e663b97fccb2232718d28cd8d8f9da6a820",
+      "fs_sha256_without_comment_lines": "5ea0fbf99a14b2436000c561a25984a169f8021cc761b3a6f62763994627a48b",
+      "usercode": "0x00009A6C",
+      "fs_bytes": 4620698,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": false,
+      "sta": {
+        "setup_violated_endpoints": 0,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": 0.063,
+          "from": "control/job_base_8_s0/Q",
+          "to": "engine/seed_latched_25_s0/CE"
+        },
+        "worst_hold": {
+          "slack_ns": 0.234,
+          "from": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_oserdes_d_rr_63_s0/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_cmd_oserdes_gen[15].u_cmd_gen/D6"
+        },
+        "worst_recovery": {
+          "slack_ns": 2.281,
+          "from": "controller/gw3_top_u_ddr_phy_top_ddr_rsti_reg_2_s0/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_u_ddr_init_read_calibration_logic_gen[1].rburst_neg_r_s0/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.443,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 0,
+          "Hold": 0,
+          "Recovery": 0,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 66.192,
+          "memory324": 2016.128,
+          "user81": 81.413
+        }
+      },
+      "logic": "6498/20736",
+      "registers": "6477/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "e1f4fe7715d8ddf1487938dd85db939b22222c5a03c82b13dc74835d1458aa2a",
+        "mem_bist": "269a6439d8f704d0617c73d3a761d070873e748870f70cd2794367407086a8bf",
+        "mem_mailbox": "10094dd8705fd7babc098e2f30a9a1540d937c957dfc525f2d2753561f960e02",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "4be53a40bfaee965600dc2d92652e317caadbbeab73923f1d4a5a678aee85822"
+      },
+      "sdc_lines_dropped": [],
+      "archive": "validation/mem-variant-readfirst-2026-11-04"
     }
   }
 }
