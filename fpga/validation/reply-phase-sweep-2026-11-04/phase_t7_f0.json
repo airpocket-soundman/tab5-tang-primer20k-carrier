@@ -1,0 +1,55 @@
+{
+  "hardware_access": false,
+  "name": "phase_t7_f0",
+  "source_commit": "742ba86",
+  "note": "REPLY_PHASE_TICKS=7 REPLY_FINE_DLY=0; CDC SDC of 85bac224 reused with clock net core/reply_clk",
+  "fs_sha256": "ce0d452415666e64ae4b3b44d2bbc0dce779035e9987ea4fe59868d7863dbafb",
+  "fs_sha256_created_time_stripped": "bec00ad3674dc46d9a3af994d8850235c1f0214ad4aa2c57c14cf82b8a35f046",
+  "bin_sha256": "4d8686174b6db9d9acc7b2c753d7b54035a20ce1ccd6227870f3c8b1bb394a4a",
+  "usercode": "0x0000D075",
+  "checksum": "0xD075",
+  "sta_counts": {
+    "Numbers of Paths Analyzed": 19438,
+    "Numbers of Endpoints Analyzed": 6193,
+    "Numbers of Setup Violated Endpoints": 0,
+    "Numbers of Hold Violated Endpoints": 0
+  },
+  "clock_domains": {
+    "conditioned_reply54": {
+      "target_mhz": 54.0,
+      "fmax_mhz": 78.623
+    },
+    "core54": {
+      "target_mhz": 54.0,
+      "fmax_mhz": 67.046
+    },
+    "sampler216": {
+      "target_mhz": 216.0,
+      "fmax_mhz": 312.909
+    }
+  },
+  "min_slack_ns": {
+    "Setup Paths Table": 0.698,
+    "Hold Paths Table": 0.074,
+    "Recovery Paths Table": 2.32,
+    "Removal Paths Table": 0.676
+  },
+  "sta_closed": true,
+  "report_files": {
+    "phase_t7_f0.bin": "4d8686174b6db9d9acc7b2c753d7b54035a20ce1ccd6227870f3c8b1bb394a4a",
+    "phase_t7_f0.fs": "ce0d452415666e64ae4b3b44d2bbc0dce779035e9987ea4fe59868d7863dbafb",
+    "phase_t7_f0.pin.html": "01b5b146fce8206de2c138e23407e4ffae086c11c7212c51522712e04365e289",
+    "phase_t7_f0.power.html": "5dd783ecb87ba7978bf0c4bc6d25cfdf7a46f4bd7dc78eb83c98a65a240d9878",
+    "phase_t7_f0.rpt.html": "0b404658b1f4dcda8d26eda1971b12366ac18c56a874a21a9d01aa0d4d06ba96",
+    "phase_t7_f0.rpt.txt": "c1fbf4cba8ffefcc1869b597f0a4abcc3f5586918ca850cf1e77b3131714fdf4",
+    "phase_t7_f0.sdf": "d7267ed884353ecc757114b64610807a53a0341ffd870551e6f56899d725db5f",
+    "phase_t7_f0.tr.html": "51e2c5e744ff7b1868ed74690d075d66f8a49b2a10848a7d4b4dc1d4009b41df",
+    "phase_t7_f0.vo": "bc3aefe20e86b5acb48e52afff03c4b76cfe01625571142412bfb5fd0a683d4e",
+    "phase_t7_f0_tr_cata.html": "8fbd0e556b6f5bc60c515416b6b32d3151e86c1da02255c4f07fca3b2921c2e7",
+    "phase_t7_f0_tr_content.html": "7ffd4a598af5130f2b61c8fc842696f85c850db27f9b47c978b5e637b0fe54ac"
+  },
+  "limitations": [
+    "Offline P&R/STA only; not programmed or tested on hardware",
+    "Violations are recorded, not hidden"
+  ]
+}
