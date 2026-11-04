@@ -1,0 +1,553 @@
+Info: Using uarch 'gowin' for device 'GW2A-LV18PG256C8/I7'
+
+Info: Reading constraints...
+Info: Create constant nets...
+Info: Modify LUTs...
+Info: Pack IOBs...
+Info: Pack I3C IOs...
+Info: Pack MIPI IOs...
+Info: Pack diff IOBs...
+Info: Pack FFs into IO cells...
+Info: Pack IODELAY...
+Info: Pack Input Edge Monitors...
+Info: Pack IO logic...
+Info: Pack DESER16 logic...
+Info: Pack GSR...
+Info: Pack HCLK cells...
+Info: Pack DLLDLYs...
+Info: Pack wide LUTs...
+Info: Packed MUX2_LUT8:89, MUX2_LU7:74, MUX2_LUT6:105, MUX2_LUT5:586
+Info: Pack ALUs...
+Info: Pack SSRAMs...
+Info: Constrained 534 LUTFF pairs.
+Info: Pack PLL...
+Info: Pack ADC...
+Info: Pack GW JTAG...
+Info: Pack BSRAMs...
+Info: Pack DSP...
+Info: Pack INV...
+Info: Pack buffered nets...
+Info: Pack EMCU and UserFlash cells...
+Info: Pack UserFlash cells...
+Info: Pack DQCE cells...
+Info: Pack DCS cells...
+Info: Checksum: 0x81b8f20f
+
+Info: Device utilisation:
+Info: 	                 VCC:       1/      1   100%
+Info: 	                 IOB:       3/    384     0%
+Info: 	                LUT4:    6502/  20736    31%
+Info: 	            IOLOGICI:       0/    384     0%
+Info: 	            IOLOGICO:       0/    384     0%
+Info: 	           MUX2_LUT5:    1804/  10368    17%
+Info: 	           MUX2_LUT6:     609/   5184    11%
+Info: 	           MUX2_LUT7:     252/   2592     9%
+Info: 	           MUX2_LUT8:      89/   2592     3%
+Info: 	                 ALU:     334/  15552     2%
+Info: 	                 GND:       1/      1   100%
+Info: 	                 DFF:    1230/  15552     7%
+Info: 	           RAM16SDP4:       0/    648     0%
+Info: 	               BSRAM:       1/     46     2%
+Info: 	              ALU54D:       0/     24     0%
+Info: 	     MULTADDALU18X18:       0/     24     0%
+Info: 	        MULTALU18X18:       0/     24     0%
+Info: 	        MULTALU36X18:       0/     24     0%
+Info: 	           MULT36X36:       1/     12     8%
+Info: 	           MULT18X18:       0/     48     0%
+Info: 	             MULT9X9:       0/     96     0%
+Info: 	              PADD18:       0/     48     0%
+Info: 	               PADD9:       0/     96     0%
+Info: 	                 GSR:       1/      1   100%
+Info: 	                 OSC:       0/      1     0%
+Info: 	                rPLL:       0/      4     0%
+Info: 	                BUFG:       0/     24     0%
+Info: 	                DQCE:       0/     24     0%
+Info: 	                 DCS:       0/      8     0%
+Info: 	               DHCEN:       0/     24     0%
+Info: 	              CLKDIV:       0/      8     0%
+Info: 	             CLKDIV2:       0/     16     0%
+
+Info: Running custom HCLK placer...
+Info: Placed 0 cells based on constraints.
+Info: Creating initial analytic placement for 4128 cells, random placement wirelen = 209327.
+Info:     at initial placer iter 0, wirelen = 1519
+Info:     at initial placer iter 1, wirelen = 1582
+Info:     at initial placer iter 2, wirelen = 1595
+Info:     at initial placer iter 3, wirelen = 1577
+Info: Running main analytical placer, max placement attempts per cell = 14699042.
+Info:     at iteration #1, type ALL: wirelen solved = 1586, spread = 40239, legal = 88847; time = 1.52s
+Info:     at iteration #2, type ALL: wirelen solved = 2582, spread = 29857, legal = 69040; time = 0.76s
+Info:     at iteration #3, type ALL: wirelen solved = 4233, spread = 28638, legal = 72965; time = 1.10s
+Info:     at iteration #4, type ALL: wirelen solved = 5307, spread = 28378, legal = 79913; time = 1.13s
+Info:     at iteration #5, type ALL: wirelen solved = 6142, spread = 30241, legal = 73431; time = 1.05s
+Info:     at iteration #6, type ALL: wirelen solved = 8149, spread = 27868, legal = 67568; time = 1.15s
+Info:     at iteration #7, type ALL: wirelen solved = 9593, spread = 28618, legal = 61044; time = 0.71s
+Info:     at iteration #8, type ALL: wirelen solved = 10711, spread = 27737, legal = 62715; time = 0.79s
+Info:     at iteration #9, type ALL: wirelen solved = 11783, spread = 25562, legal = 58718; time = 0.87s
+Info:     at iteration #10, type ALL: wirelen solved = 12081, spread = 27808, legal = 58228; time = 0.62s
+Info:     at iteration #11, type ALL: wirelen solved = 14209, spread = 27113, legal = 52097; time = 0.60s
+Info:     at iteration #12, type ALL: wirelen solved = 14072, spread = 28201, legal = 54359; time = 0.73s
+Info:     at iteration #13, type ALL: wirelen solved = 14947, spread = 25516, legal = 53228; time = 0.61s
+Info:     at iteration #14, type ALL: wirelen solved = 15543, spread = 27575, legal = 53238; time = 0.52s
+Info:     at iteration #15, type ALL: wirelen solved = 16200, spread = 25537, legal = 52961; time = 0.59s
+Info:     at iteration #16, type ALL: wirelen solved = 16161, spread = 26370, legal = 54086; time = 0.60s
+Info: HeAP Placer Time: 14.77s
+Info:   of which solving equations: 2.37s
+Info:   of which spreading cells: 0.35s
+Info:   of which strict legalisation: 11.15s
+
+Info: Running simulated annealing placer for refinement.
+Info:   at iteration #1: temp = 0.000000, timing cost = 2340, wirelen = 52097
+Info:   at iteration #5: temp = 0.000000, timing cost = 2176, wirelen = 33629
+Info:   at iteration #10: temp = 0.000000, timing cost = 2531, wirelen = 29390
+Info:   at iteration #15: temp = 0.000000, timing cost = 2565, wirelen = 28159
+Info:   at iteration #20: temp = 0.000000, timing cost = 2358, wirelen = 27594
+Info:   at iteration #23: temp = 0.000000, timing cost = 2640, wirelen = 27042 
+Info: SA placement time 26.76s
+
+Info: Max frequency for clock 'dut.clk': 47.66 MHz (FAIL at 50.00 MHz)
+
+Info: Slack histogram:
+Info:  legend: times are in ps
+Info:          * represents 10 endpoint(s)
+Info:          + represents [1,10) endpoint(s)
+Info: [  -980,     56) |*+
+Info: [    56,   1092) |****+
+Info: [  1092,   2128) |*************+
+Info: [  2128,   3164) |*********************+
+Info: [  3164,   4200) |*********************+
+Info: [  4200,   5236) |*****************+
+Info: [  5236,   6272) |*************+
+Info: [  6272,   7308) |*+
+Info: [  7308,   8344) |****+
+Info: [  8344,   9380) |****+
+Info: [  9380,  10416) |*+
+Info: [ 10416,  11452) |**+
+Info: [ 11452,  12488) |*****+
+Info: [ 12488,  13524) |**********+
+Info: [ 13524,  14560) |*******************+
+Info: [ 14560,  15596) |**********+
+Info: [ 15596,  16632) |*******+
+Info: [ 16632,  17668) |********************+
+Info: [ 17668,  18704) |**********+
+Info: [ 18704,  19740) |************************************************************ 
+Info: Checksum: 0x7401c7c0
+Info: Routing globals...
+Info:     'dut.clk' net was routed using global resources only.
+Info:     'dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT5_I1_O_LUT2_F_I0_LUT4_I0_F_LUT3_I1_F_LUT4_F_I3_LUT4_I3_2_F_LUT4_I1_1_F[6]' is routed using segments.
+Info:     'dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT5_I1_O_LUT2_F_I0_LUT4_I0_F_LUT3_I1_F_LUT4_F_I3_LUT4_I3_2_F_LUT4_I1_F[6]' is routed using segments.
+Info:     'dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT5_I1_O_LUT2_F_I0_LUT4_I0_F_LUT3_I1_F_LUT4_F_I3_LUT4_I3_F_LUT4_I1_F[6]' is routed using segments.
+Info:     'dut.memory_sext_LUT3_I0_F_LUT3_I2_F_LUT2_I1_F[3]' is routed using segments.
+Info:     'dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT5_I1_O_LUT2_F_I0_LUT4_I0_F_LUT3_I1_F_LUT4_F_I3_LUT4_I3_1_F_LUT4_I1_F[6]' is routed using segments.
+Info:     'dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_LUT2_I1_F_LUT4_I3_F_MUX2_LUT5_I0_O[1]' is routed using segments.
+Info:     'dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT5_I1_O_LUT2_F_I0_LUT4_I0_F_LUT3_I1_F_LUT4_F_I3_LUT4_I3_2_F_LUT4_I0_F[6]' is routed using segments.
+Info:     'dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT5_I1_O_LUT2_F_I0_LUT4_I0_F_LUT3_I1_F_LUT4_F_1_I3_LUT4_I3_1_F_LUT4_I0_F[6]' is routed using segments.
+Info:     'dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT5_I1_O_LUT2_F_I0_LUT4_I0_F_LUT3_I1_F_LUT4_F_1_I3_LUT4_I3_1_F_LUT4_I0_1_F[6]' is routed using segments.
+Info:     'dut.mem_wdata_DFFRE_Q_21_D_LUT4_F_I1_MUX2_LUT5_O_S0_LUT4_F_I3_LUT2_I1_F[3]' is routed using segments.
+Info:     'dut.regs[1]_DFFE_Q_CE_LUT2_F_I0_LUT2_I0_6_F' is routed using segments.
+Info:     'dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT5_I1_O_LUT2_F_I0_LUT4_I0_F_LUT3_I1_F_LUT4_F_1_I3_LUT4_I3_F_LUT4_I0_F[6]' is routed using segments.
+Info:     'dut.memory_sext_LUT3_I0_F_LUT3_I2_F[3]' is routed using segments.
+Info:     'dut.pc[3]' is routed using segments.
+Info:     'dut.loaded_DFFRE_Q_215_D_LUT4_F_I3_LUT4_F_I3[0]' is routed using segments.
+Info:     'dut.regs[1]_DFFE_Q_CE_LUT2_F_I0_LUT2_I0_5_F' is routed using segments.
+Info:     'dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT5_I1_O_LUT2_F_I0_LUT4_I0_F_LUT3_I1_F_LUT4_F_I3_LUT4_I3_1_F_LUT4_I1_1_F[6]' is routed using segments.
+Info:     'dut.state_DFF_Q_1_D_LUT4_F_I3[2]' is routed using segments.
+Info:     'dut.mem_wdata_DFFRE_Q_21_D_LUT4_F_I1_MUX2_LUT5_O_S0_LUT4_F_I3[2]' is routed using segments.
+
+Info: Routing..
+Info: Setting up routing queue.
+Info: Routing 28550 arcs.
+Info:            |   (re-)routed arcs  |   delta    | remaining|       time spent     |
+Info:    IterCnt |  w/ripup   wo/ripup |  w/r  wo/r |      arcs| batch(sec) total(sec)|
+Info:       1000 |      156        843 |  156   843 |     27969|       1.05       1.05|
+Info:       2000 |      322       1677 |  166   834 |     27532|       0.71       1.76|
+Info:       3000 |      457       2542 |  135   865 |     27042|       0.73       2.49|
+Info:       4000 |      564       3435 |  107   893 |     26274|       1.16       3.65|
+Info:       5000 |      679       4320 |  115   885 |     25631|       0.91       4.56|
+Info:       6000 |      792       5207 |  113   887 |     25029|       0.80       5.36|
+Info:       7000 |      909       6090 |  117   883 |     24315|       0.85       6.21|
+Info:       8000 |     1040       6959 |  131   869 |     23766|       0.82       7.03|
+Info:       9000 |     1212       7787 |  172   828 |     23400|       0.88       7.91|
+Info:      10000 |     1383       8616 |  171   829 |     22793|       0.87       8.78|
+Info:      11000 |     1550       9449 |  167   833 |     22237|       0.86       9.64|
+Info:      12000 |     1692      10307 |  142   858 |     21495|       0.83      10.47|
+Info:      13000 |     1900      11099 |  208   792 |     21216|       0.93      11.40|
+Info:      14000 |     2092      11907 |  192   808 |     20644|       0.91      12.32|
+Info:      15000 |     2258      12741 |  166   834 |     19995|       0.77      13.09|
+Info:      16000 |     2473      13526 |  215   785 |     19495|       1.16      14.25|
+Info:      17000 |     2659      14340 |  186   814 |     18780|       0.91      15.16|
+Info:      18000 |     2835      15164 |  176   824 |     18077|       0.92      16.08|
+Info:      19000 |     3008      15991 |  173   827 |     17488|       0.86      16.94|
+Info:      20000 |     3219      16780 |  211   789 |     16940|       0.85      17.79|
+Info:      21000 |     3455      17544 |  236   764 |     16559|       0.90      18.69|
+Info:      22000 |     3719      18280 |  264   736 |     15983|       1.04      19.73|
+Info:      23000 |     3974      19025 |  255   745 |     15676|       0.96      20.69|
+Info:      24000 |     4118      19881 |  144   856 |     14982|       0.73      21.42|
+Info:      25000 |     4358      20641 |  240   760 |     14551|       0.95      22.37|
+Info:      26000 |     4664      21335 |  306   694 |     14130|       1.04      23.40|
+Info:      27000 |     4972      22027 |  308   692 |     13772|       1.30      24.71|
+Info:      28000 |     5255      22744 |  283   717 |     13402|       1.08      25.78|
+Info:      29000 |     5557      23442 |  302   698 |     13089|       1.01      26.79|
+Info:      30000 |     5824      24175 |  267   733 |     12756|       1.04      27.84|
+Info:      31000 |     6102      24897 |  278   722 |     12501|       1.06      28.89|
+Info:      32000 |     6275      25565 |  173   668 |     11890|       0.68      29.58|
+Info:      33000 |     6423      26005 |  148   440 |     11127|       0.78      30.35|
+Info:      34000 |     6580      26519 |  157   514 |     10486|       0.83      31.18|
+Info:      35000 |     6756      27033 |  176   514 |      9931|       0.85      32.03|
+Info:      36000 |     6917      27596 |  161   563 |      9400|       0.76      32.79|
+Info:      37000 |     7027      28038 |  110   442 |      8597|       0.52      33.31|
+Info:      38000 |     7202      28417 |  175   379 |      7895|       0.79      34.11|
+Info:      39000 |     7301      28742 |   99   325 |      7088|       0.50      34.61|
+Info:      40000 |     7407      29038 |  106   296 |      6302|       0.45      35.06|
+Info:      41000 |     7596      29478 |  189   440 |      5643|       0.75      35.81|
+Info:      42000 |     7734      29958 |  138   480 |      4906|       0.62      36.43|
+Info:      43000 |     7885      30649 |  151   691 |      4179|       0.83      37.27|
+Info:      44000 |     7979      31448 |   94   799 |      3469|       0.77      38.04|
+Info:      45000 |     8061      32276 |   82   828 |      2598|       0.72      38.76|
+Info:      46000 |     8204      32980 |  143   704 |      1780|       0.65      39.42|
+Info:      47000 |     8264      33404 |   60   424 |       875|       0.57      39.99|
+Info:      48000 |     8451      33832 |  187   428 |       200|       0.96      40.95|
+Info:      48299 |     8513      33969 |   62   137 |         0|       0.40      41.34|
+Info: Routing complete.
+Info: Router1 time 41.34s
+Info: Checksum: 0x58a205c9
+
+Info: Critical path report for clock 'dut.clk' (posedge -> posedge):
+Info:       type curr  total name
+Info:   clk-to-q  2.26  2.26 Source dut.program_mem.0.0.DO13
+Info:    routing  1.24  3.50 Net dut.immediate[13] (16,27) -> (5,30)
+Info:                          Sink dut.product[0]_MULT36X36_DOUT_A_LUT4_F_I3_MUX2_LUT6_S0_O_MUX2_LUT7_I1_S0_MUX2_LUT5_O_1_S0_MUX2_LUT5_O_S0_LUT3_F.I2
+Info:                          Defined in:
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:130.20-130.21
+Info:      logic  0.46  3.96 Source dut.product[0]_MULT36X36_DOUT_A_LUT4_F_I3_MUX2_LUT6_S0_O_MUX2_LUT7_I1_S0_MUX2_LUT5_O_1_S0_MUX2_LUT5_O_S0_LUT3_F.F
+Info:    routing  0.64  4.61 Net dut.product[0]_MULT36X36_DOUT_A_LUT4_F_I3_MUX2_LUT6_S0_O_MUX2_LUT7_I1_S0_MUX2_LUT5_O_1_S0_MUX2_LUT5_O_S0[4] (5,30) -> (8,29)
+Info:                          Sink dut.product[0]_MULT36X36_DOUT_A_LUT4_F_I3_MUX2_LUT6_S0_O_MUX2_LUT7_I1_S0_MUX2_LUT5_O_1_S0_MUX2_LUT5_O.S0
+Info:                          Defined in:
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:130.20-130.21
+Info:      logic  0.10  4.71 Source dut.product[0]_MULT36X36_DOUT_A_LUT4_F_I3_MUX2_LUT6_S0_O_MUX2_LUT7_I1_S0_MUX2_LUT5_O_1_S0_MUX2_LUT5_O.O
+Info:    routing  1.02  5.73 Net dut.product[0]_MULT36X36_DOUT_A_LUT4_F_I3_MUX2_LUT6_S0_O_MUX2_LUT7_I1_S0_MUX2_LUT5_O_1_S0[4] (8,29) -> (8,29)
+Info:                          Sink dut.product[0]_MULT36X36_DOUT_A_LUT4_F_I3_MUX2_LUT6_S0_O_MUX2_LUT7_I1_S0_MUX2_LUT5_O_1.S0
+Info:                          Defined in:
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:130.20-130.21
+Info:      logic  0.10  5.83 Source dut.product[0]_MULT36X36_DOUT_A_LUT4_F_I3_MUX2_LUT6_S0_O_MUX2_LUT7_I1_S0_MUX2_LUT5_O_1.O
+Info:    routing  1.08  6.91 Net dut.product[0]_MULT36X36_DOUT_A_LUT4_F_I3[7] (8,29) -> (17,23)
+Info:                          Sink dut.regs[0]_LUT3_I0_F_MUX2_LUT5_S0_O_LUT4_I3_F_MUX2_LUT5_I1_O_MUX2_LUT6_O_2_I1_MUX2_LUT5_O_S0_LUT4_F_I2_LUT3_I2_F_MUX2_LUT5_O.S0
+Info:                          Defined in:
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:130.20-130.21
+Info:      logic  0.10  7.01 Source dut.regs[0]_LUT3_I0_F_MUX2_LUT5_S0_O_LUT4_I3_F_MUX2_LUT5_I1_O_MUX2_LUT6_O_2_I1_MUX2_LUT5_O_S0_LUT4_F_I2_LUT3_I2_F_MUX2_LUT5_O.O
+Info:    routing  1.10  8.12 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_LUT4_I2_F_MUX2_LUT5_O_S0_LUT4_I3_F_MUX2_LUT5_I0_S0_LUT4_F_I2_LUT4_F_I3_LUT3_I2_F_LUT3_F_I2_MUX2_LUT6_O_I1_MUX2_LUT5_O_S0[5] (17,23) -> (11,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT.I1
+Info:                          Defined in:
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:130.20-130.21
+Info:      logic  0.57  8.69 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT.COUT
+Info:    routing  0.00  8.69 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN (11,31) -> (11,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  8.72 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT.COUT
+Info:    routing  0.00  8.72 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN_ALU_COUT_CIN (11,31) -> (11,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN_ALU_COUT.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  8.76 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN_ALU_COUT.COUT
+Info:    routing  0.00  8.76 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN (11,31) -> (11,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  8.79 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.COUT
+Info:    routing  0.00  8.79 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_COUT (11,31) -> (11,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN_ALU_COUT.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  8.83 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN_ALU_COUT.COUT
+Info:    routing  0.00  8.83 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN (11,31) -> (12,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  8.86 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.COUT
+Info:    routing  0.00  8.86 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_COUT (12,31) -> (12,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  8.90 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.COUT
+Info:    routing  0.00  8.90 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_COUT (12,31) -> (12,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  8.93 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.COUT
+Info:    routing  0.00  8.93 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_COUT (12,31) -> (12,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  8.97 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.COUT
+Info:    routing  0.00  8.97 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_COUT (12,31) -> (12,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.00 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.COUT
+Info:    routing  0.00  9.00 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_COUT (12,31) -> (12,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN_ALU_COUT.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.04 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN_ALU_COUT.COUT
+Info:    routing  0.00  9.04 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN (12,31) -> (13,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.07 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.COUT
+Info:    routing  0.00  9.07 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_COUT (13,31) -> (13,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.11 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.COUT
+Info:    routing  0.00  9.11 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_COUT (13,31) -> (13,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.14 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.COUT
+Info:    routing  0.00  9.14 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_COUT (13,31) -> (13,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.18 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.COUT
+Info:    routing  0.00  9.18 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_COUT (13,31) -> (13,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN_ALU_COUT.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.21 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN_ALU_COUT.COUT
+Info:    routing  0.00  9.21 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_CIN (13,31) -> (13,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.25 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM.COUT
+Info:    routing  0.00  9.25 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_ALU_SUM_COUT (13,31) -> (14,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.28 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT.COUT
+Info:    routing  0.00  9.28 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_CIN_ALU_COUT_CIN_ALU_COUT_CIN (14,31) -> (14,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_CIN_ALU_COUT_CIN_ALU_COUT.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.32 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_CIN_ALU_COUT_CIN_ALU_COUT.COUT
+Info:    routing  0.00  9.32 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_CIN_ALU_COUT_CIN (14,31) -> (14,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_CIN_ALU_COUT.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.35 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_CIN_ALU_COUT.COUT
+Info:    routing  0.00  9.35 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_CIN (14,31) -> (14,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.39 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1.COUT
+Info:    routing  0.00  9.39 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_COUT (14,31) -> (14,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_COUT_ALU_CIN.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.42 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_COUT_ALU_CIN.COUT
+Info:    routing  0.00  9.42 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_COUT_ALU_CIN_COUT (14,31) -> (14,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_COUT_ALU_CIN_COUT_ALU_CIN.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.46 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_COUT_ALU_CIN_COUT_ALU_CIN.COUT
+Info:    routing  0.00  9.46 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_COUT_ALU_CIN_COUT_ALU_CIN_COUT (14,31) -> (15,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.49 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN.COUT
+Info:    routing  0.00  9.49 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_1_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT (15,31) -> (15,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.53 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM.COUT
+Info:    routing  0.00  9.53 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT (15,31) -> (15,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.56 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN.COUT
+Info:    routing  0.00  9.56 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT (15,31) -> (15,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.60 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN.COUT
+Info:    routing  0.00  9.60 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT (15,31) -> (15,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.63 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN.COUT
+Info:    routing  0.00  9.63 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT (15,31) -> (15,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.67 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN.COUT
+Info:    routing  0.00  9.67 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT (15,31) -> (16,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.70 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN.COUT
+Info:    routing  0.00  9.70 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT (16,31) -> (16,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN.CIN
+Info:                          Defined in:
+Info:                               D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/sharp-mendel-593321/fpga/gfx/compute/rtl/compute_simd.v:184.62-184.71
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/arith_map.v:57.7-63.5
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_sim.v:1033.25-1033.29
+Info:      logic  0.04  9.74 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN.COUT
+Info:    routing  0.00  9.74 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_TAIL_ALULC (16,31) -> (16,31)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_TAIL_ALULC.CIN
+Info:      logic  0.47  10.21 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_TAIL_ALULC.SUM
+Info:    routing  0.64  10.85 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_LUT2_I1_F_MUX2_LUT8_O_S0[2] (16,31) -> (13,30)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_SUM_HEAD_ALULC.I0
+Info:                          Defined in:
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:130.20-130.21
+Info:      logic  0.55  11.40 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_SUM_HEAD_ALULC.COUT
+Info:    routing  0.00  11.40 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_SUM_HEAD_ALULC (13,30) -> (13,30)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_SUM.CIN
+Info:      logic  0.04  11.43 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_SUM.COUT
+Info:    routing  0.00  11.43 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_SUM_TAIL_ALULC (13,30) -> (13,30)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_SUM_TAIL_ALULC.CIN
+Info:      logic  0.47  11.90 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_LUT2_F_1_I0_LUT4_I2_I3_LUT3_I1_F_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_SUM_TAIL_ALULC.SUM
+Info:    routing  0.62  12.52 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_CIN_ALU_COUT_SUM_LUT2_I1_F_MUX2_LUT8_O_S0[3] (13,30) -> (17,30)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT7_O_I0_MUX2_LUT6_O.S0
+Info:                          Defined in:
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:130.20-130.21
+Info:      logic  0.10  12.62 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT7_O_I0_MUX2_LUT6_O.O
+Info:    routing  0.00  12.62 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT7_O_I0 (17,30) -> (17,30)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT7_O.I0
+Info:                          Defined in:
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:163.9-163.11
+Info:      logic  0.27  12.89 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT7_O.O
+Info:    routing  0.64  13.53 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F[3] (17,30) -> (18,33)
+Info:                          Sink dut.memory_sext_LUT3_I0_F_LUT2_I1_F_MUX2_LUT8_O_I0_MUX2_LUT7_O_I0_MUX2_LUT6_O_I0_MUX2_LUT5_O_I1_LUT3_F.I2
+Info:                          Defined in:
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:130.20-130.21
+Info:      logic  0.46  13.99 Source dut.memory_sext_LUT3_I0_F_LUT2_I1_F_MUX2_LUT8_O_I0_MUX2_LUT7_O_I0_MUX2_LUT6_O_I0_MUX2_LUT5_O_I1_LUT3_F.F
+Info:    routing  0.00  13.99 Net dut.memory_sext_LUT3_I0_F_LUT2_I1_F_MUX2_LUT8_O_I0_MUX2_LUT7_O_I0_MUX2_LUT6_O_I0_MUX2_LUT5_O_I1 (18,33) -> (18,33)
+Info:                          Sink dut.memory_sext_LUT3_I0_F_LUT2_I1_F_MUX2_LUT8_O_I0_MUX2_LUT7_O_I0_MUX2_LUT6_O_I0_MUX2_LUT5_O.I1
+Info:                          Defined in:
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:170.42-170.67
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:164.41-164.66
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:158.41-158.66
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:151.13-151.15
+Info:      logic  0.27  14.26 Source dut.memory_sext_LUT3_I0_F_LUT2_I1_F_MUX2_LUT8_O_I0_MUX2_LUT7_O_I0_MUX2_LUT6_O_I0_MUX2_LUT5_O.O
+Info:    routing  0.00  14.26 Net dut.memory_sext_LUT3_I0_F_LUT2_I1_F_MUX2_LUT8_O_I0_MUX2_LUT7_O_I0_MUX2_LUT6_O_I0 (18,33) -> (18,33)
+Info:                          Sink dut.memory_sext_LUT3_I0_F_LUT2_I1_F_MUX2_LUT8_O_I0_MUX2_LUT7_O_I0_MUX2_LUT6_O.I0
+Info:                          Defined in:
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:170.42-170.67
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:164.41-164.66
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:157.9-157.11
+Info:      logic  0.27  14.53 Source dut.memory_sext_LUT3_I0_F_LUT2_I1_F_MUX2_LUT8_O_I0_MUX2_LUT7_O_I0_MUX2_LUT6_O.O
+Info:    routing  0.00  14.53 Net dut.memory_sext_LUT3_I0_F_LUT2_I1_F_MUX2_LUT8_O_I0_MUX2_LUT7_O_I0 (18,33) -> (18,33)
+Info:                          Sink dut.memory_sext_LUT3_I0_F_LUT2_I1_F_MUX2_LUT8_O_I0_MUX2_LUT7_O.I0
+Info:                          Defined in:
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:170.42-170.67
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:163.9-163.11
+Info:      logic  0.27  14.80 Source dut.memory_sext_LUT3_I0_F_LUT2_I1_F_MUX2_LUT8_O_I0_MUX2_LUT7_O.O
+Info:    routing  0.00  14.80 Net dut.memory_sext_LUT3_I0_F_LUT2_I1_F_MUX2_LUT8_O_I0 (18,33) -> (17,33)
+Info:                          Sink dut.memory_sext_LUT3_I0_F_LUT2_I1_F_MUX2_LUT8_O.I0
+Info:                          Defined in:
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:169.9-169.11
+Info:      logic  0.27  15.06 Source dut.memory_sext_LUT3_I0_F_LUT2_I1_F_MUX2_LUT8_O.O
+Info:    routing  1.25  16.31 Net dut.memory_sext_LUT3_I0_F_LUT2_I1_F[4] (17,33) -> (24,41)
+Info:                          Sink dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT5_I1_O_LUT2_F_I0_LUT4_I0_F_LUT3_I1_F_MUX2_LUT5_O.S0
+Info:                          Defined in:
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:130.20-130.21
+Info:      logic  0.10  16.41 Source dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT5_I1_O_LUT2_F_I0_LUT4_I0_F_LUT3_I1_F_MUX2_LUT5_O.O
+Info:    routing  0.78  17.19 Net dut.memory_sext_LUT3_I0_I1_LUT4_I2_F_MUX2_LUT5_I1_O_LUT4_F_I3_ALU_SUM_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_COUT_ALU_CIN_SUM_LUT4_I3_F_MUX2_LUT5_I1_O_LUT2_F_I0_LUT4_I0_F_LUT3_I1_F[4] (24,41) -> (25,44)
+Info:                          Sink dut.regs[9]_DFFE_Q_14_D_MUX2_LUT5_O.S0
+Info:                          Defined in:
+Info:                               D:\tools\oss-cad-suite\bin\../share/yosys/gowin/cells_map.v:130.20-130.21
+Info:      logic  0.10  17.30 Source dut.regs[9]_DFFE_Q_14_D_MUX2_LUT5_O.O
+Info:    routing  0.88  18.18 Net dut.regs[9]_DFFE_Q_14_D (25,44) -> (25,44)
+Info:                          Sink dut.regs[9]_DFFE_Q_14_passthrough_lut$.I3
+Info:      logic  0.37  18.55 Source dut.regs[9]_DFFE_Q_14_passthrough_lut$.F
+Info:    routing  0.00  18.55 Net dut.regs[9]_DFFE_Q_14$conn$D (25,44) -> (25,44)
+Info:                          Sink dut.regs[9]_DFFE_Q_14.D
+Info:      setup  0.04  18.58 Source dut.regs[9]_DFFE_Q_14.D
+Info: 8.69 ns logic, 9.89 ns routing
+
+Info: Max frequency for clock 'dut.clk': 53.82 MHz (PASS at 50.00 MHz)
+
+Info: Slack histogram:
+Info:  legend: times are in ps
+Info:          * represents 7 endpoint(s)
+Info:          + represents [1,7) endpoint(s)
+Info: [  1418,   2309) |********+
+Info: [  2309,   3200) |***********************************+
+Info: [  3200,   4091) |************************+
+Info: [  4091,   4982) |+
+Info: [  4982,   5873) |************+
+Info: [  5873,   6764) |****************************************************+
+Info: [  6764,   7655) |********+
+Info: [  7655,   8546) |*********+
+Info: [  8546,   9437) |****+
+Info: [  9437,  10328) |** 
+Info: [ 10328,  11219) |**+
+Info: [ 11219,  12110) |*+
+Info: [ 12110,  13001) |*+
+Info: [ 13001,  13892) |********+
+Info: [ 13892,  14783) |**************************+
+Info: [ 14783,  15674) |*******+
+Info: [ 15674,  16565) |*********************+
+Info: [ 16565,  17456) |****************************************+
+Info: [ 17456,  18347) |************************************************************ 
+Info: [ 18347,  19238) |***************************************************+
+
+Info: Program finished normally.
