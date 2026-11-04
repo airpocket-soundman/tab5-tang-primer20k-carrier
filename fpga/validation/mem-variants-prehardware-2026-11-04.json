@@ -256,6 +256,68 @@
       },
       "sdc_lines_dropped": [],
       "archive": "validation/mem-variant-refwait-2026-11-04"
+    },
+    "pace": {
+      "built": true,
+      "description": "(e) sample-like pacing: commands/write data issued only when a free-running 8-bit counter is 0 (one per 256 USER cycles), as the Sipeed tester does with work_counter==0",
+      "fs_sha256": "61711981bd59f2dd372025a9ec5240b04b064d654fce6c9739106672c822c0d4",
+      "fs_sha256_without_comment_lines": "46da77e693d125b6c8764c870c7437a0f30e6039f7147ce7b4ddfc75301d504c",
+      "usercode": "0x0000B8F0",
+      "fs_bytes": 4620698,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": false,
+      "sta": {
+        "setup_violated_endpoints": 0,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": 0.023,
+          "from": "engine/index_7_s0/Q",
+          "to": "engine/first_actual_9_s0/CE"
+        },
+        "worst_hold": {
+          "slack_ns": 0.234,
+          "from": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_oserdes_d_rr_43_s0/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_cmd_oserdes_gen[10].u_cmd_gen/D6"
+        },
+        "worst_recovery": {
+          "slack_ns": 1.994,
+          "from": "controller/gw3_top_u_ddr_phy_top_ddr_rsti_reg_2_s0/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_u_ddr_init_read_calibration_logic_gen[1].rburst_neg_r_s0/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.453,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 0,
+          "Hold": 0,
+          "Recovery": 0,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 63.261,
+          "memory324": 2016.128,
+          "user81": 81.154
+        }
+      },
+      "logic": "6535/20736",
+      "registers": "6484/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "e1f4fe7715d8ddf1487938dd85db939b22222c5a03c82b13dc74835d1458aa2a",
+        "mem_bist": "82fa722c0787471df8bc0d3012fb58cf1f1f2fe8059c59366a928adc4be98c0d",
+        "mem_mailbox": "10094dd8705fd7babc098e2f30a9a1540d937c957dfc525f2d2753561f960e02",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "4be53a40bfaee965600dc2d92652e317caadbbeab73923f1d4a5a678aee85822"
+      },
+      "sdc_lines_dropped": [],
+      "archive": "validation/mem-variant-pace-2026-11-04"
     }
   }
 }
