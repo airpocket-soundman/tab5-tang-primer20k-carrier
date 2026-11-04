@@ -1,0 +1,76 @@
+{
+  "scope": "offline build only; no programmer/UART/DRAM access; hardware behaviour of this image UNVERIFIED; IP is the Sipeed sample IP e469df4c (license unconfirmed, not in git)",
+  "tool": "Gowin V1.9.11.03 Education (81398), gw_sh, no programming",
+  "part": "GW2A-LV18PG256C8/I7",
+  "top": "mem_v1_top",
+  "fs_sha256": "8dd9890743db8c3993b19bf169f42a9c882ec76fd8f07ff08ec3491aa6f26203",
+  "fs_sha256_without_comment_lines": "18821f3f7d957979be06aee0b8f6b8a806a40d144fdc6ea0acc28aef3a04450f",
+  "fs_bytes": 7264154,
+  "usercode": "0x0000A692",
+  "pll": {
+    "IDIV_SEL": 3,
+    "FBDIV_SEL": 58,
+    "ODIV_SEL": 2,
+    "memory_clk_mhz": 398.25,
+    "vco_mhz": 796.5,
+    "user_clk_mhz": 99.5625
+  },
+  "ip_sha256": "04ef287b2caf7779b8464c28f4e2176b35f24b181aab9c7509d8b3d9f734bed2",
+  "rtl_sha256": {
+    "memv1_crc32b": "69f8ba2760ff9dd49e4d5a5d12970ba93e643479ad31eb09a527847f14bd07b4",
+    "mem_pll": "5d77a153481da33f2a49d5518f8ea991bc197c8301efae5205aa6084addb250b",
+    "mem_bist": "e6a7fe6647f83391eed266c98d61ae1f5cd6179211ae904b9a8dbba427ec5913",
+    "mem_mailbox": "00d45fba8e3a4aca26129a003b9642750195a4adb13affebd338e7620ff149f9",
+    "mem_adapter": "5e11f425b6199a7311e5b654e8d975b80e8826f71411f016596c052f271e7a96",
+    "memv1_bridge": "75e0da118a942b90b688acfff578c4edce40fd7a815347df5bcd6f5ce14dcac4",
+    "memv1_sys": "57a8667664b2fc6a82d7d46b3e5faa620b49ac1d86e380909a2e4577252b00da",
+    "mem_v1_core": "b61a6446e7ce3fef60b29673353944a04cd55b118236db8b85d151a87b2404fb",
+    "mem_v1_top": "1aee0c7a0af2b07ae25e2e00c5236889b46153512bed987de167d040c50a7f94"
+  },
+  "sdc_sha256": "5f8f9c3fe0802abbaaf8cf06eaefcbc4e4613c9aba18bc10ce8e5972cf6eefdb",
+  "sta": {
+    "sdc": "DIAGNOSTIC mem_bist_sampleip.sdc (blanket-async clock groups, control/ -> core/control/, deep_snapshot lines dropped)",
+    "setup_violated_endpoints": 0,
+    "hold_violated_endpoints": 0,
+    "worst_setup": {
+      "slack_ns": 0.057,
+      "from": "core/bridge/cancel_lat_s0/Q",
+      "to": "controller/gw3_top/u_gwmc_top/gw_wr_data0/wr_fifo/Almost_Full_s0/D"
+    },
+    "worst_hold": {
+      "slack_ns": 0.074,
+      "from": "core/adapter/stage_wdata_109_s0/Q",
+      "to": "core/read_buffer/mem_mem_0_3_s/DI[13]"
+    },
+    "worst_recovery": {
+      "slack_ns": 7.714,
+      "from": "core/user_reset_sync_2_s0/Q",
+      "to": "core/adapter/settle_count_0_s3/CLEAR"
+    },
+    "worst_removal": {
+      "slack_ns": 0.454,
+      "from": "core/control/epoch_reset_sync_2_s0/Q",
+      "to": "core/control/user_epoch_used_s0/CLEAR"
+    },
+    "negative_paths": {
+      "Setup": 0,
+      "Hold": 0,
+      "Recovery": 0,
+      "Removal": 0
+    },
+    "fmax_mhz": {
+      "sys27": 68.765,
+      "memory398": 2016.128,
+      "user100": 100.129
+    }
+  },
+  "logic": "6861/20736",
+  "registers": "5721/16173",
+  "bsram": "16/46",
+  "pin_audit": {
+    "constrained_ports": 66,
+    "mismatches": [],
+    "passed": true
+  },
+  "archive": "validation/memv1-image-2026-11-05"
+}

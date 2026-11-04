@@ -66,6 +66,28 @@ if 'PASS mem_bist paired' not in completed.stdout:
 print(completed.stdout.strip())
 results.append({'name':'mem_bist_paired','output':completed.stdout.strip(),
                 'sources':{str(s.relative_to(root)):hashlib.sha256(s.read_bytes()).hexdigest() for s in sources}})
+# MEMV1: reference-model vectors (independent Python model) replayed through LINK -> CDC -> adapter -> IP model.
+vectors=build/'memv1_vectors.hex'
+subprocess.run([sys.executable,str(root/'mem/tests/memv1_model.py'),'--selftest'],check=True)
+subprocess.run([sys.executable,str(root/'mem/tests/memv1_model.py'),'--vectors',str(vectors)],check=True)
+sources=[root/f'mem/rtl/{m}.v' for m in ('memv1_crc32b','mem_adapter','memv1_bridge','memv1_sys','mem_mailbox','mem_bist','mem_v1_core')]+[root/'mem/tests/tb_mem_v1_core.v']
+image=build/'mem_v1_core.vvp'
+subprocess.run([args.iverilog,'-g2012','-s','tb_mem_v1_core','-o',str(image),*map(str,sources)],check=True,env=env)
+completed=subprocess.run([args.vvp,str(image),f'+VEC={vectors}'],capture_output=True,text=True,check=True,env=env,timeout=900)
+if 'PASS mem_v1_core' not in completed.stdout:
+    raise RuntimeError(completed.stdout+completed.stderr)
+print(completed.stdout.strip().splitlines()[-2] if completed.stdout.strip().splitlines()[-1].startswith('mem/') else completed.stdout.strip())
+results.append({'name':'mem_v1_core','output':[l for l in completed.stdout.splitlines() if l.startswith('PASS')][0],
+                'sources':{str(s.relative_to(root)):hashlib.sha256(s.read_bytes()).hexdigest() for s in sources},
+                'vectors_sha256':hashlib.sha256(vectors.read_bytes()).hexdigest()})
+if args.zig:
+    executable=build/'test_mem_v1.exe'
+    source=root/'host/tests/test_mem_v1.c'
+    subprocess.run([args.zig,'cc','-std=c99','-Wall','-Wextra','-Werror',str(source),'-o',str(executable)],check=True,timeout=60)
+    completed=subprocess.run([str(executable),str(vectors)],capture_output=True,text=True,check=True,timeout=30)
+    if 'PASS mem_v1' not in completed.stdout:raise RuntimeError(completed.stdout)
+    print(completed.stdout.strip())
+    results.append({'name':'mem_v1_c_codec','output':completed.stdout.strip()})
 report={'scope':'RTL simulations, not physical DDR proof','tests':results}
 sources=[root/'mem/rtl/mem_bist.v',root/'mem/rtl/mem_mailbox.v',root/'mem/tests/tb_mem_heartbeat_abort.v']
 for hb_pipe in (1,2,3,4):

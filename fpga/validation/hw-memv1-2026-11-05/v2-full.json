@@ -1,0 +1,745 @@
+{
+ "tool": "memv1_xfer",
+ "started": "2026-11-05T01:35:53.068980+09:00",
+ "scratch": "0x100000",
+ "seed": 19761,
+ "execute": true,
+ "stages_requested": [
+  "caps",
+  "status",
+  "rd1",
+  "rd256",
+  "wr1",
+  "wr256",
+  "crc32",
+  "invalid",
+  "crc_error",
+  "tail",
+  "cancel"
+ ],
+ "info": {
+  "profile": "standalone_mem_bist_probe",
+  "app_version": "79a28e7-dirty",
+  "app_elf_sha256": "9bda75e5f45bbd6a43b4a2b5d4a6d1a6d4b56ce5b58716e7c583737b95b9d934",
+  "mode": "CPU",
+  "running": false,
+  "gfx_available": false,
+  "dma_available": false,
+  "mem_diag_available": true,
+  "mem_deep_diag_available": true,
+  "mem_scheduler_diag_available": true,
+  "link_armed": false,
+  "mem_session": false,
+  "configured": false,
+  "transport": "gpio_driver",
+  "fault": "none",
+  "device_status": 0,
+  "base": 0,
+  "count": 0,
+  "seed": 0,
+  "request": [
+   165,
+   98,
+   83,
+   2,
+   0,
+   1,
+   192,
+   97
+  ],
+  "response": [
+   90,
+   0,
+   83,
+   2,
+   1,
+   0,
+   48,
+   75,
+   196,
+   74,
+   8,
+   161,
+   18,
+   28,
+   54,
+   195,
+   54,
+   105,
+   200,
+   158,
+   109,
+   61,
+   17,
+   61,
+   213,
+   74,
+   74,
+   165,
+   2,
+   24,
+   90,
+   195,
+   52,
+   105,
+   216,
+   154,
+   121,
+   47,
+   1,
+   23,
+   228,
+   74,
+   64,
+   165,
+   50,
+   12,
+   110,
+   195,
+   54,
+   105,
+   232,
+   158,
+   13,
+   47,
+   17,
+   62,
+   245,
+   74,
+   74,
+   129,
+   34,
+   28,
+   98,
+   194,
+   54,
+   97,
+   208,
+   154,
+   93,
+   62,
+   17,
+   55,
+   133,
+   74,
+   74,
+   165,
+   66,
+   20,
+   58,
+   130,
+   54,
+   41,
+   128,
+   154,
+   44,
+   59,
+   16,
+   43,
+   149,
+   10,
+   74,
+   33,
+   64,
+   16,
+   126,
+   194,
+   50,
+   105,
+   136,
+   158,
+   61,
+   31,
+   17,
+   63,
+   133,
+   74,
+   66,
+   37,
+   18,
+   8,
+   126,
+   131,
+   54,
+   105,
+   32,
+   14,
+   12,
+   47,
+   17,
+   63,
+   49,
+   74,
+   74,
+   133,
+   98,
+   24,
+   122,
+   195
+  ]
+ },
+ "arm": {
+  "profile": "standalone_mem_bist_probe",
+  "app_version": "79a28e7-dirty",
+  "app_elf_sha256": "9bda75e5f45bbd6a43b4a2b5d4a6d1a6d4b56ce5b58716e7c583737b95b9d934",
+  "mode": "CPU",
+  "running": false,
+  "gfx_available": false,
+  "dma_available": false,
+  "mem_diag_available": true,
+  "mem_deep_diag_available": true,
+  "mem_scheduler_diag_available": true,
+  "link_armed": true,
+  "mem_session": true,
+  "configured": false,
+  "transport": "gpio_driver",
+  "fault": "none",
+  "device_status": 0,
+  "base": 0,
+  "count": 0,
+  "seed": 0,
+  "request": [
+   165,
+   80,
+   156,
+   2,
+   0,
+   0,
+   198,
+   94
+  ],
+  "response": [
+   90,
+   0,
+   156,
+   2,
+   77,
+   1,
+   250,
+   116
+  ]
+ },
+ "frames": [
+  {
+   "label": "CAPS[0]",
+   "request_head": "a56041020000adc3",
+   "request_len": 8,
+   "reply_head": "5a004102314d0321",
+   "reply_len": 8
+  },
+  {
+   "label": "CAPS[1]",
+   "request_head": "a56042020100406b",
+   "request_len": 8,
+   "reply_head": "5a00420200013305",
+   "reply_len": 8
+  },
+  {
+   "label": "CAPS[2]",
+   "request_head": "a56043020200a748",
+   "request_len": 8,
+   "reply_head": "5a00430280003e78",
+   "reply_len": 8
+  },
+  {
+   "label": "CAPS[3]",
+   "request_head": "a56044020300bb2a",
+   "request_len": 8,
+   "reply_head": "5a0044021000f831",
+   "reply_len": 8
+  },
+  {
+   "label": "CAPS[4]",
+   "request_head": "a5604502040098c5",
+   "request_len": 8,
+   "reply_head": "5a00450200011e54",
+   "reply_len": 8
+  },
+  {
+   "label": "CAPS[5]",
+   "request_head": "a56046020500756d",
+   "request_len": 8,
+   "reply_head": "5a0046027300e982",
+   "reply_len": 8
+  },
+  {
+   "label": "CAPS[6]",
+   "request_head": "a56047020600924e",
+   "request_len": 8,
+   "reply_head": "5a0047020100669a",
+   "reply_len": 8
+  },
+  {
+   "label": "CAPS[7]",
+   "request_head": "a560480207004da9",
+   "request_len": 8,
+   "reply_head": "5a0048020c00d438",
+   "reply_len": 8
+  },
+  {
+   "label": "CAPS[8]",
+   "request_head": "a56049020800c7cf",
+   "request_len": 8,
+   "reply_head": "5a0349020000dfe5",
+   "reply_len": 8
+  },
+  {
+   "label": "STATUS[0]",
+   "request_head": "a5614a020000e377",
+   "request_len": 8,
+   "reply_head": "5a004a02030082c5",
+   "reply_len": 8
+  },
+  {
+   "label": "STATUS[1]",
+   "request_head": "a5614b0201006632",
+   "request_len": 8,
+   "reply_head": "5a004b02010054d5",
+   "reply_len": 8
+  },
+  {
+   "label": "STATUS[2]",
+   "request_head": "a5614c0202001836",
+   "request_len": 8,
+   "reply_head": "5a004c02000048b7",
+   "reply_len": 8
+  },
+  {
+   "label": "STATUS[3]",
+   "request_head": "a5614d0203009d73",
+   "request_len": 8,
+   "reply_head": "5a004d0202009ea7",
+   "reply_len": 8
+  },
+  {
+   "label": "STATUS[4]",
+   "request_head": "a5614e020400d671",
+   "request_len": 8,
+   "reply_head": "5a004e020000205a",
+   "reply_len": 8
+  },
+  {
+   "label": "STATUS[5]",
+   "request_head": "a5614f0205005334",
+   "request_len": 8,
+   "reply_head": "5a004f020000942c",
+   "reply_len": 8
+  },
+  {
+   "label": "STATUS[6]",
+   "request_head": "a5615002060049ae",
+   "request_len": 8,
+   "reply_head": "5a0050020000dde3",
+   "reply_len": 8
+  },
+  {
+   "label": "STATUS[7]",
+   "request_head": "a56151020700cceb",
+   "request_len": 8,
+   "reply_head": "5a005102bb01bf47",
+   "reply_len": 8
+  },
+  {
+   "label": "RD 1 beat",
+   "request_head": "a562520201006434",
+   "request_len": 18,
+   "reply_head": "5a0052020100843dc44a08a1121c36c3",
+   "reply_len": 26
+  },
+  {
+   "label": "RD 256 beats",
+   "request_head": "a56253020001c061",
+   "request_len": 18,
+   "reply_head": "5a0053020100304bc44a08a1121c36c3",
+   "reply_len": 4106
+  },
+  {
+   "label": "WR 1 beat",
+   "request_head": "a56354020100acb9",
+   "request_len": 34,
+   "reply_head": "5a00540201001d1a",
+   "reply_len": 8
+  },
+  {
+   "label": "RD after WR 1 beat",
+   "request_head": "a562550201004965",
+   "request_len": 18,
+   "reply_head": "5a0055020100a96c59e2230fe137f4d3",
+   "reply_len": 26
+  },
+  {
+   "label": "WR 256 beats",
+   "request_head": "a56356020001d477",
+   "request_len": 4114,
+   "reply_head": "5a005602010075f7",
+   "reply_len": 8
+  },
+  {
+   "label": "RD after WR 256 beats",
+   "request_head": "a5625702000131ab",
+   "request_len": 18,
+   "reply_head": "5a0057020100c1813de82e4f544f721d",
+   "reply_len": 4106
+  },
+  {
+   "label": "CRC32 256 beats",
+   "request_head": "a56658020001d9f6",
+   "request_len": 18,
+   "reply_head": "5a00580201002f55ef3de61a16bd",
+   "reply_len": 14
+  },
+  {
+   "label": "CRC32 first 128",
+   "request_head": "a56659028000d48b",
+   "request_len": 18,
+   "reply_head": "5a00590201009b23dac81cd0c7e6",
+   "reply_len": 14
+  },
+  {
+   "label": "CRC32 chained second 128",
+   "request_head": "a5665a0280000810",
+   "request_len": 18,
+   "reply_head": "5a005a02010047b8ef3de61ab032",
+   "reply_len": 14
+  },
+  {
+   "label": "CRC32 1 beat",
+   "request_head": "a5665b020100154e",
+   "request_len": 18,
+   "reply_head": "5a005b020100f3ceb963dbfbc8fc",
+   "reply_len": 14
+  },
+  {
+   "label": "RD at capacity",
+   "request_head": "a5625c0201003e96",
+   "request_len": 18,
+   "reply_head": "5a035c0200003d42",
+   "reply_len": 8
+  },
+  {
+   "label": "RD one beat past the end",
+   "request_head": "a5625d020200d9b5",
+   "request_len": 18,
+   "reply_head": "5a035d0200008934",
+   "reply_len": 8
+  },
+  {
+   "label": "RD unaligned",
+   "request_head": "a5625e020100567b",
+   "request_len": 18,
+   "reply_head": "5a035e02000055af",
+   "reply_len": 8
+  },
+  {
+   "label": "RD arg != 0",
+   "request_head": "a5625f020100e20d",
+   "request_len": 18,
+   "reply_head": "5a035f020000e1d9",
+   "reply_len": 8
+  },
+  {
+   "label": "CRC32 unaligned",
+   "request_head": "a56660020100e37c",
+   "request_len": 18,
+   "reply_head": "5a0360020000e621",
+   "reply_len": 8
+  },
+  {
+   "label": "WR unaligned",
+   "request_head": "a56361020200537c",
+   "request_len": 50,
+   "reply_head": "5a03610200005257",
+   "reply_len": 8
+  },
+  {
+   "label": "WR one beat past the end",
+   "request_head": "a563620202008fe7",
+   "request_len": 50,
+   "reply_head": "5a03620200008ecc",
+   "reply_len": 8
+  },
+  {
+   "label": "WR 32-bit wrap",
+   "request_head": "a563630202003b91",
+   "request_len": 50,
+   "reply_head": "5a03630200003aba",
+   "reply_len": 8
+  },
+  {
+   "label": "WR at capacity",
+   "request_head": "a5636402020016c0",
+   "request_len": 50,
+   "reply_head": "5a036402000017eb",
+   "reply_len": 8
+  },
+  {
+   "label": "RD beats=0 (header only)",
+   "request_head": "a56265020000917a",
+   "request_len": 8,
+   "reply_head": "5a0365020000a39d",
+   "reply_len": 8
+  },
+  {
+   "label": "WR beats=0 (header only)",
+   "request_head": "a563660200001c4b",
+   "request_len": 8,
+   "reply_head": "5a03660200007f06",
+   "reply_len": 8
+  },
+  {
+   "label": "CRC32 beats=0 (header only)",
+   "request_head": "a56667020000ff1e",
+   "request_len": 8,
+   "reply_head": "5a0367020000cb70",
+   "reply_len": 8
+  },
+  {
+   "label": "RD beats=257 (header only)",
+   "request_head": "a562680201010760",
+   "request_len": 8,
+   "reply_head": "5a036802000025a4",
+   "reply_len": 8
+  },
+  {
+   "label": "WR beats=65535 (header only)",
+   "request_head": "a5636902fffffd82",
+   "request_len": 8,
+   "reply_head": "5a036902000091d2",
+   "reply_len": 8
+  },
+  {
+   "label": "RD after rejected requests",
+   "request_head": "a5626a0200015ebe",
+   "request_len": 18,
+   "reply_head": "5a006a020100ae943de82e4f544f721d",
+   "reply_len": 4106
+  },
+  {
+   "label": "payload bit flip, trailer recomputed (CRC32 fails)",
+   "request_head": "a5636b020200f814",
+   "request_len": 50,
+   "reply_head": "5a076b020000ffb6",
+   "reply_len": 8
+  },
+  {
+   "label": "descriptor CRC32 arg wrong",
+   "request_head": "a5636c020200d545",
+   "request_len": 50,
+   "reply_head": "5a076c020000d2e7",
+   "reply_len": 8
+  },
+  {
+   "label": "trailer CRC16 wrong",
+   "request_head": "a5636d0202006133",
+   "request_len": 50,
+   "reply_head": "5a076d0200006691",
+   "reply_len": 8
+  },
+  {
+   "label": "payload bit flip, trailer stale",
+   "request_head": "a5636e020200bda8",
+   "request_len": 50,
+   "reply_head": "5a076e020000ba0a",
+   "reply_len": 8
+  },
+  {
+   "label": "RD descriptor bit flip",
+   "request_head": "a5626f0201000b21",
+   "request_len": 18,
+   "reply_head": "5a076f0200000e7c",
+   "reply_len": 8
+  },
+  {
+   "label": "RD after CRC_ERROR writes",
+   "request_head": "a5627002000152cd",
+   "request_len": 18,
+   "reply_head": "5a0070020100a2e73de82e4f544f721d",
+   "reply_len": 4106
+  },
+  {
+   "label": "WR last 4 KiB",
+   "request_head": "a56371020001b711",
+   "request_len": 4114,
+   "reply_head": "5a00710201001691",
+   "reply_len": 8
+  },
+  {
+   "label": "RD last 4 KiB",
+   "request_head": "a562720200013a20",
+   "request_len": 18,
+   "reply_head": "5a0072020100ca0a4c54698ac5bb9a34",
+   "reply_len": 4106
+  },
+  {
+   "label": "CRC32 last 4 KiB",
+   "request_head": "a5667302000188df",
+   "request_len": 18,
+   "reply_head": "5a00730201007e7c94a1281c7e14",
+   "reply_len": 14
+  },
+  {
+   "label": "RD past the end",
+   "request_head": "a56274020001a307",
+   "request_len": 18,
+   "reply_head": "5a0374020000b0f0",
+   "reply_len": 8
+  },
+  {
+   "label": "WR last beat",
+   "request_head": "a5637502010056f8",
+   "request_len": 34,
+   "reply_head": "5a0075020100e75b",
+   "reply_len": 8
+  },
+  {
+   "label": "RD last beat",
+   "request_head": "a56276020100dbc9",
+   "request_len": 18,
+   "reply_head": "5a00760201003bc0be99b304cf1ecf58",
+   "reply_len": 26
+  },
+  {
+   "label": "RD before cancel test",
+   "request_head": "a562770200017f9c",
+   "request_len": 18,
+   "reply_head": "5a00770201008fb63de82e4f544f721d",
+   "reply_len": 4106
+  },
+  {
+   "label": "WR+CANCEL",
+   "request_len": 4122,
+   "reply_head": "5a00780201006162",
+   "reply_len": 8
+  },
+  {
+   "label": "STATUS[0]",
+   "request_head": "a5617a0200000a5b",
+   "request_len": 8,
+   "reply_head": "5a007a0203006be9",
+   "reply_len": 8
+  },
+  {
+   "label": "RD after cancel test",
+   "request_head": "a5627b0200014dd3",
+   "request_len": 18,
+   "reply_head": "5a007b020100bdf9e38cae49579d7e86",
+   "reply_len": 4106
+  },
+  {
+   "label": "rewrite after cancel test",
+   "request_head": "a5637c0200013128",
+   "request_len": 4114,
+   "reply_head": "5a007c02010090a8",
+   "reply_len": 8
+  }
+ ],
+ "stages": {
+  "caps": {
+   "result": "PASS",
+   "words": [
+    "0x4d31",
+    "0x100",
+    "0x80",
+    "0x10",
+    "0x100",
+    "0x73",
+    "0x1",
+    "0xc"
+   ],
+   "features": "0x73",
+   "exact_0x73": true
+  },
+  "status": {
+   "result": "PASS",
+   "diag7": "0x1bb",
+   "flags": "0x3",
+   "generation": 1,
+   "last_status": 0,
+   "ops": 2,
+   "undefined_range": false
+  },
+  "rd1": {
+   "result": "PASS",
+   "bytes": 16
+  },
+  "rd256": {
+   "result": "PASS",
+   "bytes": 4096
+  },
+  "wr1": {
+   "result": "PASS",
+   "addr": "0x100000"
+  },
+  "wr256": {
+   "result": "PASS",
+   "addr": "0x101000",
+   "crc32": "0x1ae63def"
+  },
+  "crc32": {
+   "result": "PASS",
+   "crc32": "0x1ae63def"
+  },
+  "invalid": {
+   "result": "PASS",
+   "cases": 14
+  },
+  "crc_error": {
+   "result": "PASS",
+   "cases": 5
+  },
+  "tail": {
+   "result": "PASS",
+   "addr": "0x7fff000"
+  },
+  "cancel": {
+   "result": "PASS",
+   "outcome": "wr_completed_cancel_dropped",
+   "status_flags": "0x3",
+   "undefined_range": null,
+   "new_beats": 256
+  }
+ },
+ "result": "PASS",
+ "disarm": {
+  "profile": "standalone_mem_bist_probe",
+  "app_version": "79a28e7-dirty",
+  "app_elf_sha256": "9bda75e5f45bbd6a43b4a2b5d4a6d1a6d4b56ce5b58716e7c583737b95b9d934",
+  "mode": "CPU",
+  "running": false,
+  "gfx_available": false,
+  "dma_available": false,
+  "mem_diag_available": true,
+  "mem_deep_diag_available": true,
+  "mem_scheduler_diag_available": true,
+  "link_armed": false,
+  "mem_session": false,
+  "configured": false,
+  "transport": "gpio_driver",
+  "fault": "none",
+  "device_status": 0,
+  "base": 0,
+  "count": 0,
+  "seed": 0,
+  "request": [
+   165,
+   99,
+   124,
+   2,
+   0,
+   1,
+   49,
+   40
+  ],
+  "response": [
+   90,
+   0,
+   124,
+   2,
+   1,
+   0,
+   144,
+   168
+  ]
+ },
+ "finished": "2026-11-05T01:36:09.110638+09:00"
+}
