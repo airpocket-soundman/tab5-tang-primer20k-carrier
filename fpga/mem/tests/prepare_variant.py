@@ -5,7 +5,7 @@ Each variant changes exactly ONE item against the baseline be42c604 sources
 Output: fpga/build/mem-variant-<id>/rtl/*.v (copies with a single textual edit).
 No hardware access. Every substitution must match exactly once or the script fails.
 
-  python fpga/mem/tests/prepare_variant.py base|cs0|rst|refwait|all
+  python fpga/mem/tests/prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|all
 """
 import sys, hashlib, json
 from pathlib import Path
@@ -23,6 +23,10 @@ VARIANTS = {
          'wire controller_reset_n=raw_reset_n&&pll_lock;'),
  'pace': ('(e) sample-like pacing: commands/write data issued only when a free-running 8-bit counter is 0 (one per 256 USER cycles), as the Sipeed tester does with work_counter==0',
           'mem_bist', 'assign app_cmd_en=app_cmd_ready && active &&', 'assign app_cmd_en=app_cmd_ready && active && pace_ok &&'),
+ 'norst': ('(g) IP ddr_rst output left open like the Sipeed sample (ip_user_reset tied 0); the IP no longer resets the USER logic',
+          'mem_top', '.ddr_rst(ip_user_reset)', '.ddr_rst()'),
+ 'readfirst': ('(h) BIST starts with the verify (read) phase instead of the fill (write) phase: tests whether the scheduler serves READ commands (mismatch errors are expected and irrelevant)',
+          'mem_bist', 'else begin busy<=1;phase<=1;base_latched<=base_byte;', 'else begin busy<=1;phase<=2;base_latched<=base_byte;'),
  'refwait': ('(d) wait 60000 USER cycles (~0.74ms @81MHz, >200 tREFI) after calibration instead of 256',
              'mem_top', 'mem_bist engine(user_clk,', 'mem_bist #(.CALIBRATION_SETTLE_CYCLES(60000)) engine(user_clk,'),
 }
@@ -46,6 +50,10 @@ def build(vid):
                 ins = ("    reg [7:0] pace_counter; wire pace_ok=pace_counter==8'd0;" + chr(10)
                        + "    always @(posedge clk or negedge reset_n) if(!reset_n) pace_counter<=0; else pace_counter<=pace_counter+1'b1;" + chr(10))
                 text = text.replace(a2, ins + a2)
+            if vid == 'norst':
+                anchor = '// USER state is only an LED observation here'
+                assert text.count(anchor) == 1
+                text = text.replace(anchor, "assign ip_user_reset=1'b0;" + chr(10) + anchor)
             if vid == 'cs0':
                 # drive the pin constant low; the IP output is no longer connected
                 anchor = '// USER state is only an LED observation here'
@@ -67,5 +75,5 @@ def build(vid):
     print('prepared', vid, '-', desc)
 
 ids = list(VARIANTS) if sys.argv[1:] == ['all'] else sys.argv[1:]
-assert ids and all(i in VARIANTS for i in ids), 'usage: prepare_variant.py base|cs0|rst|refwait|all'
+assert ids and all(i in VARIANTS for i in ids), 'usage: prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|all'
 for i in ids: build(i)
