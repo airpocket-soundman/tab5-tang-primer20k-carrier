@@ -13,7 +13,8 @@ TOP='platform/dock/tab5_dock_triangle54_filtered_phase_top.v'
 SOURCES=['link/rtl/triangle_batch.v','link/rtl/reply_clock_filter.v','link/rtl/reply_phase_delay.v','link/rtl/link_reply_raw.v','link/rtl/link_bringup_filtered.v',
  'gfx/rtl/gfx_bench.v','gfx/rtl/triangle_tile_vendor.v','gfx/rtl/tile_dpram_vendor.v','gfx/rtl/triangle_fragment.v','gfx/rtl/triangle_coverage_pipeline.v','gfx/rtl/triangle_depth.v',
  'platform/dock/dock_pll54.v','platform/dock/dock_pll216.v']
-CONSTRAINTS=['constraints/dock/tab5_dock_link_v0.cst','constraints/dock/triangle54filtered_batch_cdc.sdc']
+CONSTRAINTS=['constraints/dock/tab5_dock_link_v0.cst']
+SDC='constraints/dock/triangle54filtered_batch_cdc.sdc'
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--ticks',type=int,default=0);p.add_argument('--fine',type=int,default=0)
     a=p.parse_args()
@@ -26,7 +27,12 @@ def main():
     text,n2=re.subn(r'parameter REPLY_FINE_DLY = 0',f'parameter REPLY_FINE_DLY = {a.fine}',text)
     if n1!=1 or n2!=1:raise SystemExit('top parameter defaults not found')
     (out/'top.v').write_text(f'// Generated variant {name}: only the parameter defaults differ from {TOP}\n'+text,encoding='utf-8')
-    files=''.join(f' {(ROOT/s).as_posix()}\n' for s in SOURCES+CONSTRAINTS)
+    # The reply clock that clocks the serializer/BSRAM is core/reply_clk (the delayed net). Constrain THAT net with the
+    # same 54MHz-bound conditioned-clock definition; otherwise STA treats it as an unconstrained clock (-13ns bogus).
+    sdc=(ROOT/SDC).read_text(encoding='utf-8')
+    if sdc.count('[get_nets {core/clean_reply_clk}]')!=1:raise SystemExit('SDC clock net pattern not found exactly once')
+    (out/'variant.sdc').write_text(sdc.replace('[get_nets {core/clean_reply_clk}]','[get_nets {core/reply_clk}]'),encoding='utf-8')
+    files=''.join(f' {(ROOT/s).as_posix()}\n' for s in SOURCES+CONSTRAINTS)+f" {(out/'variant.sdc').as_posix()}\n"
     (out/'build.tcl').write_text(f'''# Generated. Experimental; synthesis/PnR only, never programs.
 create_project -name filtered_reply -dir {(out/'gowin').as_posix()} -pn GW2A-LV18PG256C8/I7 -device_version C -force
 foreach source {{
