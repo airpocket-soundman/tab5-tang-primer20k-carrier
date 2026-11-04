@@ -1,6 +1,8 @@
 # Experimental separate vendor flow; no programming. Existing outputs preserved.
+# NOTE: the metadata-CDC proof (generate_metadata_cdc_constraints.py --verify) is NOT re-run: it pins the source SHA of link_reply_raw.v /
+# reply_clock_filter.v, which this diagnostic changes. The committed exception SDC from 85bac224 is reused as-is; its 30 exact-name
+# metadata paths are unchanged by this branch, but that is not re-proven. Read the STA report, do not assume closure.
 set root [file normalize [file join [file dirname [info script]] ../..]]
-puts [exec python [file join $root tools/generate_metadata_cdc_constraints.py] --proof [file join $root validation/filtered-batch-cdc-proof-2026-11-04/structure.json] --output [file join $root constraints/dock/triangle54filtered_batch_cdc.sdc] --verify]
 set output [file join $root build filtered-edge-cdc]
 if {[file exists $output]} {error "Fresh output required: $output"}
 create_project -name filtered_reply -dir $output -pn GW2A-LV18PG256C8/I7 -device_version C -force
