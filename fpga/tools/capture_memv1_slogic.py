@@ -65,7 +65,14 @@ def main():
                 raise RuntimeError('Require the expected, disarmed MEM probe')
         finally:
             client.close()
-        command = cli + ['--config', f'logic_channels={a.logic_channels}:samplerate={a.rate}:voltage_threshold=1.7',
+        config = f'logic_channels={a.logic_channels}:samplerate={a.rate}:voltage_threshold=1.7-1.7'
+        preflight = subprocess.run(cli + ['--config', config, '--channels', a.channels,
+                                         '--get', 'samplerate'],
+                                   capture_output=True, text=True, timeout=15, check=True)
+        (out / 'config-readback.txt').write_text(preflight.stdout + preflight.stderr, encoding='utf-8')
+        if preflight.stdout.strip() != str(a.rate):
+            raise RuntimeError('Analyzer sample rate was not acknowledged')
+        command = cli + ['--config', config,
                          '--channels', a.channels, '--samples', str(a.samples),
                          '--output-format', 'srzip', '--output-file', str(out / 'capture.sr')]
         if a.trigger:

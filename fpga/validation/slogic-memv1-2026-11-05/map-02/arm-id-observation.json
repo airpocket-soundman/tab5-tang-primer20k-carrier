@@ -1,0 +1,58 @@
+{
+  "scope": "single GPIO legacy ID request, not successful CAPS qualification; exact 8-byte TX bit signatures each unique",
+  "request": [
+    165,
+    1,
+    19,
+    2,
+    0,
+    0,
+    115,
+    232
+  ],
+  "clock_candidate": 7,
+  "rises": [
+    1396120,
+    1397638,
+    1399156,
+    1400674,
+    1402191,
+    1403709,
+    1405227,
+    1406745
+  ],
+  "data_candidates": {
+    "D0": [
+      15
+    ],
+    "D1": [
+      14
+    ],
+    "D2": [
+      13
+    ],
+    "D3": [
+      12
+    ],
+    "D4": [
+      11
+    ],
+    "D5": [
+      10
+    ],
+    "D6": [
+      9
+    ],
+    "D7": [
+      8
+    ]
+  },
+  "note": "CH5 stays high during 100ms response wait; READY not identified; CH6 and CH0..4 stay low",
+  "direction_candidate": 5,
+  "clock_period_us_range": [
+    303.4,
+    303.6
+  ],
+  "observed_reply_first_byte": "0x5a",
+  "ready": "unresolved; CH0..4/CH6 remain low; P4 response_timeout"
+}
