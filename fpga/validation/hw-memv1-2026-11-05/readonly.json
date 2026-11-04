@@ -1,0 +1,271 @@
+{
+ "tool": "memv1_xfer",
+ "started": "2026-11-05T01:28:18.319366+09:00",
+ "scratch": "0x100000",
+ "seed": 19761,
+ "execute": false,
+ "stages_requested": [
+  "caps",
+  "status",
+  "rd1",
+  "rd256",
+  "wr1",
+  "wr256",
+  "crc32",
+  "invalid",
+  "crc_error",
+  "tail",
+  "cancel"
+ ],
+ "info": {
+  "profile": "standalone_mem_bist_probe",
+  "app_version": "79a28e7-dirty",
+  "app_elf_sha256": "9bda75e5f45bbd6a43b4a2b5d4a6d1a6d4b56ce5b58716e7c583737b95b9d934",
+  "mode": "CPU",
+  "running": false,
+  "gfx_available": false,
+  "dma_available": false,
+  "mem_diag_available": true,
+  "mem_deep_diag_available": true,
+  "mem_scheduler_diag_available": true,
+  "link_armed": false,
+  "mem_session": false,
+  "configured": false,
+  "transport": "gpio_driver",
+  "fault": "none",
+  "device_status": 0,
+  "base": 0,
+  "count": 0,
+  "seed": 0,
+  "request": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "response": []
+ },
+ "arm": {
+  "profile": "standalone_mem_bist_probe",
+  "app_version": "79a28e7-dirty",
+  "app_elf_sha256": "9bda75e5f45bbd6a43b4a2b5d4a6d1a6d4b56ce5b58716e7c583737b95b9d934",
+  "mode": "CPU",
+  "running": false,
+  "gfx_available": false,
+  "dma_available": false,
+  "mem_diag_available": true,
+  "mem_deep_diag_available": true,
+  "mem_scheduler_diag_available": true,
+  "link_armed": true,
+  "mem_session": true,
+  "configured": false,
+  "transport": "gpio_driver",
+  "fault": "none",
+  "device_status": 0,
+  "base": 0,
+  "count": 0,
+  "seed": 0,
+  "request": [
+   165,
+   80,
+   1,
+   2,
+   0,
+   0,
+   223,
+   161
+  ],
+  "response": [
+   90,
+   0,
+   1,
+   2,
+   77,
+   1,
+   227,
+   139
+  ]
+ },
+ "frames": [
+  {
+   "label": "CAPS[0]",
+   "request_head": "a56041020000adc3",
+   "request_len": 8,
+   "reply_head": "5a004102314d0321",
+   "reply_len": 8
+  },
+  {
+   "label": "CAPS[1]",
+   "request_head": "a56042020100406b",
+   "request_len": 8,
+   "reply_head": "5a00420200013305",
+   "reply_len": 8
+  },
+  {
+   "label": "CAPS[2]",
+   "request_head": "a56043020200a748",
+   "request_len": 8,
+   "reply_head": "5a00430280003e78",
+   "reply_len": 8
+  },
+  {
+   "label": "CAPS[3]",
+   "request_head": "a56044020300bb2a",
+   "request_len": 8,
+   "reply_head": "5a0044021000f831",
+   "reply_len": 8
+  },
+  {
+   "label": "CAPS[4]",
+   "request_head": "a5604502040098c5",
+   "request_len": 8,
+   "reply_head": "5a00450200011e54",
+   "reply_len": 8
+  },
+  {
+   "label": "CAPS[5]",
+   "request_head": "a56046020500756d",
+   "request_len": 8,
+   "reply_head": "5a0046027300e982",
+   "reply_len": 8
+  },
+  {
+   "label": "CAPS[6]",
+   "request_head": "a56047020600924e",
+   "request_len": 8,
+   "reply_head": "5a0047020100669a",
+   "reply_len": 8
+  },
+  {
+   "label": "CAPS[7]",
+   "request_head": "a560480207004da9",
+   "request_len": 8,
+   "reply_head": "5a0048020c00d438",
+   "reply_len": 8
+  },
+  {
+   "label": "CAPS[8]",
+   "request_head": "a56049020800c7cf",
+   "request_len": 8,
+   "reply_head": "5a0349020000dfe5",
+   "reply_len": 8
+  },
+  {
+   "label": "STATUS[0]",
+   "request_head": "a5614a020000e377",
+   "request_len": 8,
+   "reply_head": "5a004a020000d190",
+   "reply_len": 8
+  },
+  {
+   "label": "STATUS[1]",
+   "request_head": "a5614b0201006632",
+   "request_len": 8,
+   "reply_head": "5a004b02000065e6",
+   "reply_len": 8
+  },
+  {
+   "label": "STATUS[2]",
+   "request_head": "a5614c0202001836",
+   "request_len": 8,
+   "reply_head": "5a004c02000048b7",
+   "reply_len": 8
+  },
+  {
+   "label": "STATUS[3]",
+   "request_head": "a5614d0203009d73",
+   "request_len": 8,
+   "reply_head": "5a004d020000fcc1",
+   "reply_len": 8
+  },
+  {
+   "label": "STATUS[4]",
+   "request_head": "a5614e020400d671",
+   "request_len": 8,
+   "reply_head": "5a004e020000205a",
+   "reply_len": 8
+  },
+  {
+   "label": "STATUS[5]",
+   "request_head": "a5614f0205005334",
+   "request_len": 8,
+   "reply_head": "5a004f020000942c",
+   "reply_len": 8
+  },
+  {
+   "label": "STATUS[6]",
+   "request_head": "a5615002060049ae",
+   "request_len": 8,
+   "reply_head": "5a0050020000dde3",
+   "reply_len": 8
+  }
+ ],
+ "stages": {
+  "caps": {
+   "result": "PASS",
+   "words": [
+    "0x4d31",
+    "0x100",
+    "0x80",
+    "0x10",
+    "0x100",
+    "0x73",
+    "0x1",
+    "0xc"
+   ],
+   "features": "0x73",
+   "exact_0x73": true
+  },
+  "status": {
+   "result": "FAIL",
+   "reason": "STATUS flags 0x0: need calibrated (b0) and USER alive (b1)"
+  }
+ },
+ "result": "FAIL",
+ "disarm": {
+  "profile": "standalone_mem_bist_probe",
+  "app_version": "79a28e7-dirty",
+  "app_elf_sha256": "9bda75e5f45bbd6a43b4a2b5d4a6d1a6d4b56ce5b58716e7c583737b95b9d934",
+  "mode": "CPU",
+  "running": false,
+  "gfx_available": false,
+  "dma_available": false,
+  "mem_diag_available": true,
+  "mem_deep_diag_available": true,
+  "mem_scheduler_diag_available": true,
+  "link_armed": false,
+  "mem_session": false,
+  "configured": false,
+  "transport": "gpio_driver",
+  "fault": "none",
+  "device_status": 0,
+  "base": 0,
+  "count": 0,
+  "seed": 0,
+  "request": [
+   165,
+   97,
+   80,
+   2,
+   6,
+   0,
+   73,
+   174
+  ],
+  "response": [
+   90,
+   0,
+   80,
+   2,
+   0,
+   0,
+   221,
+   227
+  ]
+ },
+ "finished": "2026-11-05T01:28:18.709019+09:00"
+}
