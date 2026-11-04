@@ -5,7 +5,7 @@ Each variant changes exactly ONE item against the baseline be42c604 sources
 Output: fpga/build/mem-variant-<id>/rtl/*.v (copies with a single textual edit).
 No hardware access. Every substitution must match exactly once or the script fails.
 
-  python fpga/mem/tests/prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|clk400|all
+  python fpga/mem/tests/prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|clk400|sampleip|all
 """
 import sys, hashlib, json
 from pathlib import Path
@@ -28,6 +28,8 @@ VARIANTS = {
  'readfirst': ('(h) BIST starts with the verify (read) phase instead of the fill (write) phase: tests whether the scheduler serves READ commands (mismatch errors are expected and irrelevant)',
           'mem_bist', 'else begin busy<=1;phase<=1;base_latched<=base_byte;', 'else begin busy<=1;phase<=2;base_latched<=base_byte;'),
  'clk400': ('(a) memory clock 324->398.25MHz (27*59/4; IP Memory_Clock 400, as the Sipeed sample); USER 81->99.5625MHz; SYSQUERY reports 398/100. Needs MEM_IP_TAG=clk400 IP/taps/guarded flow',
+           'mem_pll', 'pll.IDIV_SEL=0', 'pll.IDIV_SEL=3'),
+ 'sampleip': ('(i) bisect: OUR user logic (mem_bist/mailbox/link, 398/100 MHz reporting, PLL 398.25MHz) on the Sipeed sample IP (GowinSynthesis 1.9.8.05 DDR3_Memory_Interface_Top, 400MHz, 14-bit row); cs fixed 0 like the sample; no scheduler taps (deep_taps tied 0). DIAGNOSTIC: blanket-async clock groups like the sample SDC',
            'mem_pll', 'pll.IDIV_SEL=0', 'pll.IDIV_SEL=3'),
  'refwait': ('(d) wait 60000 USER cycles (~0.74ms @81MHz, >200 tREFI) after calibration instead of 256',
              'mem_top', 'mem_bist engine(user_clk,', 'mem_bist #(.CALIBRATION_SETTLE_CYCLES(60000)) engine(user_clk,'),
@@ -52,7 +54,7 @@ def build(vid):
                 ins = ("    reg [7:0] pace_counter; wire pace_ok=pace_counter==8'd0;" + chr(10)
                        + "    always @(posedge clk or negedge reset_n) if(!reset_n) pace_counter<=0; else pace_counter<=pace_counter+1'b1;" + chr(10))
                 text = text.replace(a2, ins + a2)
-            if vid == 'clk400':
+            if vid in ('clk400', 'sampleip'):
                 t2 = text
                 for o, n2 in [('pll.FBDIV_SEL=11', 'pll.FBDIV_SEL=58'), ('27*(11+1)/(0+1)=324MHz; ODIV2 gives648MHz VCO.', '27*(58+1)/(3+1)=398.25MHz; ODIV2 gives796.5MHz VCO.')]:
                     assert t2.count(o) == 1, o
@@ -67,10 +69,26 @@ def build(vid):
                 anchor = '// USER state is only an LED observation here'
                 assert text.count(anchor) == 1
                 text = text.replace(anchor, "assign ddr_cs=1'b0;\n" + anchor)
-        if vid == 'clk400' and n == 'mem_top':
+        if vid in ('clk400', 'sampleip') and n == 'mem_top':
             o = 'mem_mailbox control('
             assert text.count(o) == 1
             text = text.replace(o, "mem_mailbox #(.MEM_MHZ(16'd398),.USER_MHZ(16'd100)) control(")
+        if vid == 'sampleip' and n == 'mem_top':
+            import re as _re
+            m = _re.search('MemDDR3 controller' + chr(92) + '(.*?' + chr(92) + ');' + chr(13) + '?' + chr(10), text, _re.S)
+            assert m and text.count('MemDDR3 controller(') == 1
+            inst = '''wire[13:0] sample_ddr_addr;wire sample_cs_unused,sample_cmd_en_unused;
+assign ddr_addr=sample_ddr_addr[12:0];assign ddr_cs=1'b0;assign deep_taps=64'b0;
+DDR3_Memory_Interface_Top controller(.clk(sys_clk),.memory_clk(memory_clk),.pll_lock(pll_lock),.rst_n(controller_reset_n),
+.app_burst_number(6'd0),.cmd(cmd),.cmd_en(cmd_en),.addr({1'b0,address}),.cmd_ready(cmd_ready),
+.wr_data(wr_data),.wr_data_en(wr_en),.wr_data_end(wr_end),.wr_data_mask(mask),.wr_data_rdy(wr_ready),
+.rd_data(rd_data),.rd_data_valid(rd_valid),.rd_data_end(rd_end),.sr_req(1'b0),.ref_req(1'b0),.burst(1'b1),
+.clk_out(user_clk),.ddr_rst(ip_user_reset),.init_calib_complete(calibrated),.sr_ack(),.ref_ack(),
+.O_ddr_addr(sample_ddr_addr),.O_ddr_ba(ddr_bank),.O_ddr_cs_n(sample_cs_unused),.O_ddr_ras_n(ddr_ras),.O_ddr_cas_n(ddr_cas),
+.O_ddr_we_n(ddr_we),.O_ddr_clk(ddr_ck),.O_ddr_clk_n(ddr_ck_n),.O_ddr_cke(ddr_cke),.O_ddr_odt(ddr_odt),
+.O_ddr_reset_n(ddr_reset_n),.O_ddr_dqm(ddr_dm),.IO_ddr_dq(ddr_dq),.IO_ddr_dqs(ddr_dqs),.IO_ddr_dqs_n(ddr_dqs_n));
+'''
+            text = text[:m.start()] + inst.replace(chr(10), chr(13) + chr(10) if chr(13) in text else chr(10)) + text[m.end():]
         (out / f'{n}.v').write_bytes(text.encode())
         rec['files'][n] = hashlib.sha256(text.encode()).hexdigest()
     if vid == 'cs0':
@@ -87,5 +105,5 @@ def build(vid):
     print('prepared', vid, '-', desc)
 
 ids = list(VARIANTS) if sys.argv[1:] == ['all'] else sys.argv[1:]
-assert ids and all(i in VARIANTS for i in ids), 'usage: prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|clk400|all'
+assert ids and all(i in VARIANTS for i in ids), 'usage: prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|clk400|sampleip|all'
 for i in ids: build(i)

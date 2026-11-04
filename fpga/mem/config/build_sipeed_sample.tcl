@@ -12,6 +12,9 @@ add_file [file join $src ddr3.cst]
 add_file [file join $src ddr3.sdc]
 set_option -top_module ddr3_syn_top
 set_option -output_base_name sipeed_ddr_test
+set_option -include_path $src
+# As in the main session's successful build: Dock T10/N9 share SSPI functions.
+set_option -use_sspi_as_gpio 1
 run all
 puts SIPEED_SAMPLE_BUILD_FLOW_RETURNED
 exit

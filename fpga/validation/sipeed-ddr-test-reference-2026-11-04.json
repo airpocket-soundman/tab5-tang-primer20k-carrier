@@ -1,0 +1,128 @@
+{
+  "date": "2026-11-04",
+  "kind": "reference design hardware result (Sipeed official sample run unmodified on the same Dock/Core)",
+  "source": {
+    "url": "https://github.com/sipeed/TangPrimer-20K-example/tree/e469df4c0c9c41824f405a8515decf24ef1e8e6f/DDR-test/LicheeTang20K_DDR_Test",
+    "commit": "e469df4c0c9c41824f405a8515decf24ef1e8e6f",
+    "license": "BSD 3-Clause (LAKKA, 2022), file LICENSE in that directory",
+    "redistributed_in_repo": false,
+    "note": "sources and vendor-encrypted IP stay under ignored fpga/build; this record keeps URL, commit and hashes only"
+  },
+  "files": {
+    "LICENSE": {
+      "bytes": 1513,
+      "sha256_raw_download": "7f7e99ad6124da89e7a2f19cc0e41758cf1f0eb250de37bc798ad9e7701b8ea2",
+      "sha256_lf_normalized": "7f7e99ad6124da89e7a2f19cc0e41758cf1f0eb250de37bc798ad9e7701b8ea2"
+    },
+    "ddr3_ref_design.gprj": {
+      "bytes": 771,
+      "sha256_raw_download": "1707233da8b969fd0be2f72612c812e07f805d00dc334f09867bbe1a08bee55d",
+      "sha256_lf_normalized": "1707233da8b969fd0be2f72612c812e07f805d00dc334f09867bbe1a08bee55d"
+    },
+    "src/ddr3.cst": {
+      "bytes": 5050,
+      "sha256_raw_download": "2ee91cb3984fad3b352138ea9c65ce3f9e82a5be69bd7135168f09a617771cd6",
+      "sha256_lf_normalized": "2ee91cb3984fad3b352138ea9c65ce3f9e82a5be69bd7135168f09a617771cd6"
+    },
+    "src/ddr3.sdc": {
+      "bytes": 761,
+      "sha256_raw_download": "fd6ee4ee56b2e2a64cbb8cbf8972a547c5163daa08279f25eeafc228ff35bcea",
+      "sha256_lf_normalized": "fd6ee4ee56b2e2a64cbb8cbf8972a547c5163daa08279f25eeafc228ff35bcea"
+    },
+    "src/ddr3_syn_top.v": {
+      "bytes": 5216,
+      "sha256_raw_download": "54b3430e71f31b0345213f38242f77f4ce230033206c74af268da44e6b6b4fe8",
+      "sha256_lf_normalized": "54b3430e71f31b0345213f38242f77f4ce230033206c74af268da44e6b6b4fe8"
+    },
+    "src/tester.v": {
+      "bytes": 15991,
+      "sha256_raw_download": "4c7f4794630aab01df6ba83f56bb7ae627fcbd6c326f7a4c33078e624ef78220",
+      "sha256_lf_normalized": "4c7f4794630aab01df6ba83f56bb7ae627fcbd6c326f7a4c33078e624ef78220"
+    },
+    "src/print.v": {
+      "bytes": 3908,
+      "sha256_raw_download": "67fb49742a71b854da65d87f10c1c665a219cd443e9b8791efb2a47b902ac97e",
+      "sha256_lf_normalized": "67fb49742a71b854da65d87f10c1c665a219cd443e9b8791efb2a47b902ac97e"
+    },
+    "src/uart_tx_V2.v": {
+      "bytes": 1482,
+      "sha256_raw_download": "ea1d28539e093c158ba4b2eaa545149057026479b0d2f30b44bb4c3391223f18",
+      "sha256_lf_normalized": "ea1d28539e093c158ba4b2eaa545149057026479b0d2f30b44bb4c3391223f18"
+    },
+    "src/ddr3_memory_interface/ddr3_memory_interface.ipc": {
+      "bytes": 619,
+      "sha256_raw_download": "c7ff5814db2a5b472fd951c0f54345b20ca285ae00fddb2776b57c527eb7f353",
+      "sha256_lf_normalized": "c7ff5814db2a5b472fd951c0f54345b20ca285ae00fddb2776b57c527eb7f353"
+    },
+    "src/ddr3_memory_interface/ddr3_memory_interface.v": {
+      "bytes": 885814,
+      "sha256_raw_download": "04ef287b2caf7779b8464c28f4e2176b35f24b181aab9c7509d8b3d9f734bed2",
+      "sha256_lf_normalized": "04ef287b2caf7779b8464c28f4e2176b35f24b181aab9c7509d8b3d9f734bed2"
+    },
+    "src/ddr3_memory_interface/ddr3_memory_interface.vo": {
+      "bytes": 1153700,
+      "sha256_raw_download": "569ee4f6946c7f7a7e3825140f06ff16986d4541500ecaa661bb58541e531ea7",
+      "sha256_lf_normalized": "569ee4f6946c7f7a7e3825140f06ff16986d4541500ecaa661bb58541e531ea7"
+    },
+    "src/gowin_rpll/gowin_rpll.v": {
+      "bytes": 1842,
+      "sha256_raw_download": "60169a9c34825b6b9eb8a126479e4426f7678785195fbea277990b79fa3f0708",
+      "sha256_lf_normalized": "60169a9c34825b6b9eb8a126479e4426f7678785195fbea277990b79fa3f0708"
+    },
+    "src/gowin_rpll/gowin_rpll.ipc": {
+      "bytes": 352,
+      "sha256_raw_download": "1621278131eb2e64bc4f44b5eb477baea975a917c3c9f279e943e4b5974ea85f",
+      "sha256_lf_normalized": "1621278131eb2e64bc4f44b5eb477baea975a917c3c9f279e943e4b5974ea85f"
+    }
+  },
+  "sample_ip_generated_by": "GowinSynthesis V1.9.8.05 (header of ddr3_memory_interface.v), IP type ddr3 version 3.0, MEMORY_CLK=400",
+  "sample_ipc_numeric_settings": {
+    "MEMORY_CLK": 400,
+    "CLK_RATIO": "1:4",
+    "tREFI_ps": 7800000,
+    "tRFC_ps": 160000,
+    "tRAS_ps": 37500,
+    "tRC_ps": 55000,
+    "tRCD_ps": 12500,
+    "tRP_ps": 12500,
+    "tRRD_ps": 7500,
+    "tRTP_ps": 7500,
+    "tWTR_ps": 7500,
+    "tFAW_ps": 40000,
+    "tCKE_ps": 75000,
+    "tDLLK": 512,
+    "DISABLE_IO": true,
+    "REFERENCE_CLK_code": 29
+  },
+  "build_by_main_session": {
+    "tool": "Gowin Education V1.9.11.03 (81398), gw_sh",
+    "script": "D:\\esp\\sipeed\build_sample.tcl (sources unmodified; adds set_option -use_sspi_as_gpio 1 and include_path only)",
+    "fs_sha256": "1cb850a325bcf78baf3c216af4bc0880c253d0b6c1c2e65202d349e51a6c8f09",
+    "usercode": "0x00005F34",
+    "resources": {
+      "logic": "3313/20736",
+      "register": "1918/16173",
+      "bsram": "13/46",
+      "rpll": "1/4"
+    },
+    "sta": "not parsed in this record (sample SDC declares clk_x1/clk_x4/clk asynchronous)",
+    "sources_used_note": "the clone used by the main session has CR/LF-converted text files; sha256 of LF-normalized contents equals the raw-download hashes recorded here"
+  },
+  "hardware_by_main_session": {
+    "programmed": "SRAM only, same Dock",
+    "status_after_write": "0x6020",
+    "uart": "COM27, 115200",
+    "uart_output_as_reported": [
+      "Init Complete",
+      "DDR Size: 1G",
+      "Fill Stage 1 Finished",
+      "Check Stage 1 Finished without Mismatch",
+      "Fill Stage 2 Finished",
+      "Check Stage 2 Finished without Mismatch",
+      "Test Finished"
+    ],
+    "raw_log_file": "none saved (text reported by the main session)",
+    "interpretation": "on this physical Dock/Core the reference design at ~400 MHz memory clock passes its own full write/verify; this makes a supply/part/board-wide fault unlikely under that condition but is not proof about other conditions"
+  },
+  "hardware_access_by_this_record_author": false
+}
