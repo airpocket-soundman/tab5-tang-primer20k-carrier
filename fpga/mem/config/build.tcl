@@ -29,14 +29,14 @@ foreach name {mem_deep_monitor mem_pll mem_bist mem_mailbox mem_link mem_top} {
 if {[info exists env(MEM_VARIANT)] && $env(MEM_VARIANT) eq "sampleip"} {
  # Sipeed sample IP (fetched, not committed): bisect OUR logic vs THEIR IP
  add_file [file join $fpga_root build sipeed-ddr-test-e469df4c src ddr3_memory_interface ddr3_memory_interface.v]
-} elseif {[info exists env(MEM_VARIANT)] && $env(MEM_VARIANT) eq "clk400_notap"} {
+} elseif {[info exists env(MEM_VARIANT)] && ($env(MEM_VARIANT) eq "clk400_notap" || $env(MEM_VARIANT) eq "clk400_asyncsdc")} {
  # untapped regenerated clk400 IP (deep-tap net names do not follow): no scheduler observation
  add_file [file join $fpga_root build mem-bist-ip$tag generated MemDDR3 MemDDR3.vo]
 } else {
  add_file [file join $fpga_root build mem-deep-input$tag MemDDR3_tapped.vo]
 }
 add_file [file join $fpga_root mem config mem_bist.cst]
-if {[info exists env(MEM_VARIANT)] && $env(MEM_VARIANT) eq "sampleip"} {set timing_file [file join $fpga_root mem config mem_bist_sampleip.sdc]}
+if {[info exists env(MEM_VARIANT)] && ($env(MEM_VARIANT) eq "sampleip" || $env(MEM_VARIANT) eq "clk400_asyncsdc")} {set timing_file [file join $fpga_root mem config mem_bist_sampleip.sdc]}
 add_file $timing_file
 if {[info exists env(MEM_VARIANT)] && $env(MEM_VARIANT) eq "sampleip"} {set_option -include_path [file join $fpga_root build sipeed-ddr-test-e469df4c src]}
 set_option -top_module mem_top
