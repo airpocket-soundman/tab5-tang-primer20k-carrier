@@ -83,3 +83,7 @@ python fpga/gfx/compute/tests/run_compute.py --iverilog D:/tools/oss-cad-suite/b
 ## v1拡張（2026-11-04, ブランチ claude/compute-simd）
 
 opcode 15..26：MIN/MAX/ABS/SAT8/PK565/UP565、byteアドレスのLDB/LDBS/LDH/LDHS/STB/STH、メモリポートに`mem_wmask[3:0]`、error 6（halfwordアライン違反）を追加。既存LOAD/STOREはwordアドレスのまま。設計・v2案・配置配線の試行結果は[拡張ISA設計](../../../docs/汎用GPU演算器_拡張ISA設計_2026-11-04.md)、結果は[検証JSON](../../validation/compute-simd-ext-2026-11-04.json)。上の記述でmem_wmask・新opcodeに触れていない箇所はv0の記述。配置配線ハーネス`tests/pnr_top.v`はPnR専用で実機トップではない。
+
+## v2拡張（2026-11-04）
+
+opcode 27..45（即値形式、SHR/LTU/EQ/NE/OR/SEL、MULSH、DIV/REM、ATOMADD、LDU）、`element_count`によるハード側dispatch（`groups`出力）、`rtl/compute_mem_adapter.v`（領域検査・timeout・job境界drain）を追加。レジスタファイルは書込みポートをレーンごとに1本へ統一し、グループ開始時に16クロックのCLEARで初期化する（FF単位のreset・複数書込み源を排除し、Gowin合成のLUTを約3.5分の1に縮小）。意味・試験・Gowin配置配線(`gw_sh`)の結果・burst設計・scenes要望の取り込み状況は[v2拡張とGowin配置配線](../../../docs/汎用GPU演算器_v2拡張とGowin配置配線_2026-11-04.md)。検証は[JSON](../../validation/compute-simd-v2-2026-11-04.json)、Gowin報告は`fpga/validation/compute-simd-gowin/`。`tests/tb_system.v`はcore+adapter+故障注入バックエンドの試験。上記v0/v1の記述のうち、メモリポートの`mem_wmask`、`element_count`、`groups`ポートは現行RTLに含まれる。
