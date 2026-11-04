@@ -5,6 +5,10 @@ output wire[12:0] ddr_addr,output wire[2:0] ddr_bank,
 output wire ddr_cs,ddr_ras,ddr_cas,ddr_we,ddr_ck,ddr_ck_n,ddr_cke,ddr_odt,ddr_reset_n,
 output wire[1:0] ddr_dm,inout wire[15:0] ddr_dq,inout wire[1:0] ddr_dqs,ddr_dqs_n
 );
+// BW_ENABLE=0 (default): BIST-only image, logic identical to the version without the bandwidth engine.
+// BW_ENABLE=1: adds mem_bw_port (LINK opcodes 0x60..0x6F; MEM diagnostic ABI 0x50..0x5C unchanged) sharing the native bus.
+parameter BW_ENABLE=0;
+parameter BW_ROW_PAD=0; // APP_ROW_PAD of the bandwidth engine (1 for the 14-row-bit Sipeed sample IP)
 wire memory_clk,pll_lock,user_clk,calibrated,ip_user_reset;
 mem_pll frequency(sys_clk,!reset_n,memory_clk,pll_lock);
 wire raw_reset_n=reset_n&&arm_sw;
@@ -25,8 +29,11 @@ always @(posedge user_clk or negedge user_async_reset_n)begin
 if(!user_async_reset_n)user_reset_sync<=0;else user_reset_sync<={user_reset_sync[1:0],1'b1};end
 wire user_reset_n=user_reset_sync[2];
 wire command_start,command_done;wire[7:0] op,a,b,status,out;wire[15:0] result;wire oe;
+wire mb_start,mb_done,mb_busy;wire[7:0] mb_status;wire[15:0] mb_result;
+wire[2:0] b_cmd;wire b_cmd_en,b_wr_en,b_wr_end;wire[26:0] b_address;wire[127:0] b_wr_data;wire[15:0] b_mask;
+wire[5:0] burst_number; // app_burst_number of the old (sample) IP; 0 outside bandwidth jobs
 assign data=oe?out:8'bz;
-mem_link link(sys_clk,reset_n,arm_sw,bus_clk,dir,data,out,oe,ready,
+mem_link #(.BW_ENABLE(BW_ENABLE)) link(sys_clk,reset_n,arm_sw,bus_clk,dir,data,out,oe,ready,
 command_start,op,a,b,command_done,status,result);
 wire bist_start,bist_cancel,busy,done,faulted;
 wire[31:0] base,count,seed,job,verified,errors,first,accepted;
@@ -36,14 +43,43 @@ wire[63:0] deep_taps;wire[255:0] deep_debug;
 mem_deep_monitor observer(user_clk,user_reset_n,bist_start,busy,native_debug,deep_taps,deep_debug);
 // SYS observations remain available even if PLL/user clock disappears.
 mem_mailbox control(sys_clk,raw_reset_n&&mailbox_epoch==0,user_clk,user_reset_n,
-command_start,op,a,b,command_done,status,result,recalibrate,
-calibrated,busy,done,faulted,error,phase,verified,errors,first,accepted,expected,actual,cycles,
+mb_start,op,a,b,mb_done,mb_status,mb_result,recalibrate,
+calibrated,mb_busy,done,faulted,error,phase,verified,errors,first,accepted,expected,actual,cycles,
 bist_start,bist_cancel,base,count,seed,job,user_abort,native_debug,deep_debug);
 wire[2:0] cmd;wire cmd_en,cmd_ready,wr_en,wr_end,wr_ready,rd_valid,rd_end;
 wire[26:0] address;wire[127:0] wr_data,rd_data;wire[15:0] mask;
 mem_bist engine(user_clk,user_reset_n,calibrated,bist_start,bist_cancel,base,count,seed,job,
 busy,done,faulted,error,phase,verified,errors,first,accepted,expected,actual,cycles,
-cmd,cmd_en,address,cmd_ready,wr_data,wr_en,wr_end,mask,wr_ready,rd_data,rd_valid,rd_end,native_debug);
+b_cmd,b_cmd_en,b_address,cmd_ready,b_wr_data,b_wr_en,b_wr_end,b_mask,wr_ready,rd_data,rd_valid,rd_end,native_debug);
+generate if(BW_ENABLE!=0) begin:bw
+// Bandwidth jobs own the native bus while bw_busy; the BIST command/data enables are zero when it is idle, so they are OR-ed.
+wire bw_op=op[6:4]==3'b110; // 0x60..0x6F
+wire bw_start=command_start&&bw_op;wire bw_done,bw_busy;wire[7:0] bw_status;wire[15:0] bw_result;
+reg route_bw;
+always @(posedge sys_clk or negedge raw_reset_n)begin
+if(!raw_reset_n)route_bw<=0;else if(command_start)route_bw<=bw_op;end
+assign mb_start=command_start&&!bw_op;
+assign command_done=mb_done||bw_done;
+assign status=route_bw?bw_status:mb_status;
+assign result=route_bw?bw_result:mb_result;
+wire[2:0] w_cmd;wire w_cmd_en,w_wr_en,w_wr_end;wire[26:0] w_address;wire[127:0] w_wr_data;wire[15:0] w_mask;wire[5:0] w_burst;
+mem_bw_port #(.ROW_PAD(BW_ROW_PAD)) port(.sys_clk(sys_clk),.sys_reset_n(raw_reset_n&&mailbox_epoch==0),.user_clk(user_clk),.user_reset_n(user_reset_n),
+.command_start(bw_start),.opcode(op),.a(a),.b(b),.command_done(bw_done),.status(bw_status),.result(bw_result),
+.calibrated(calibrated),.bist_busy(busy),.bw_busy(bw_busy),
+.app_cmd(w_cmd),.app_cmd_en(w_cmd_en),.app_addr(w_address),.app_burst_number(w_burst),
+.app_write_data(w_wr_data),.app_write_en(w_wr_en),.app_write_end(w_wr_end),.app_write_mask(w_mask),
+.app_cmd_ready(cmd_ready),.app_write_ready(wr_ready),.app_read_data(rd_data),.app_read_valid(rd_valid),.app_read_end(rd_end));
+assign cmd=bw_busy?w_cmd:b_cmd;assign address=bw_busy?w_address:b_address;
+assign wr_data=bw_busy?w_wr_data:b_wr_data;assign mask=bw_busy?w_mask:b_mask;
+assign cmd_en=b_cmd_en||w_cmd_en;assign wr_en=b_wr_en||w_wr_en;assign wr_end=b_wr_end||w_wr_end;
+assign burst_number=bw_busy?w_burst:6'd0;
+assign mb_busy=busy||bw_busy;
+end else begin:nobw
+assign mb_start=command_start;assign command_done=mb_done;assign status=mb_status;assign result=mb_result;
+assign cmd=b_cmd;assign cmd_en=b_cmd_en;assign address=b_address;assign wr_data=b_wr_data;
+assign wr_en=b_wr_en;assign wr_end=b_wr_end;assign mask=b_mask;assign burst_number=6'd0;
+assign mb_busy=busy;
+end endgenerate
 MemDDR3 controller(.deep_taps(deep_taps),.clk(sys_clk),.memory_clk(memory_clk),.pll_lock(pll_lock),.rst_n(controller_reset_n),
 .cmd(cmd),.cmd_en(cmd_en),.addr(address),.cmd_ready(cmd_ready),
 .wr_data(wr_data),.wr_data_en(wr_en),.wr_data_end(wr_end),.wr_data_mask(mask),.wr_data_rdy(wr_ready),

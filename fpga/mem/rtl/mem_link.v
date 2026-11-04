@@ -1,6 +1,6 @@
 // Standalone MEM image uses the established slow, SYS-synchronized LINK PHY.
 // Initial physical validation must use <=500kHz, not the GFX raw-clock ceiling.
-module mem_link #(parameter TIMEOUT=2700000)(
+module mem_link #(parameter TIMEOUT=2700000,parameter BW_ENABLE=0)(
  input wire clk,reset_n,arm,bus_clk,dir,input wire[7:0] data_i,
  output reg[7:0] data_o,output wire data_oe,ready,
  output reg command_start,output reg[7:0] opcode,a,b,
@@ -51,7 +51,10 @@ else case(request[1]&8'h7f)
 4:begin reply[4]<=8;reply[5]<=1;end
 8'h50,8'h51,8'h52,8'h53,8'h54,8'h55,8'h56,8'h57,8'h58,8'h59,8'h5a,8'h5b,8'h5c:begin
 opcode<=request[1]&8'h7f;a<=request[4];b<=request[5];command_start<=1;pending<=1;valid<=0;end
-default:reply[1]<=2;
+default:if(BW_ENABLE!=0&&(request[1]&8'h70)==8'h60)begin
+// 0x60..0x6F: DDR3 bandwidth engine (mem_bw_port); only dispatched when the image contains it
+opcode<=request[1]&8'h7f;a<=request[4];b<=request[5];command_start<=1;pending<=1;valid<=0;end
+else reply[1]<=2;
 endcase
 end else rx_index<=rx_index+1;
 end else if(dir&&dir_sync[1]&&valid)begin

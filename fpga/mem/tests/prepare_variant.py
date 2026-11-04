@@ -5,13 +5,13 @@ Each variant changes exactly ONE item against the baseline be42c604 sources
 Output: fpga/build/mem-variant-<id>/rtl/*.v (copies with a single textual edit).
 No hardware access. Every substitution must match exactly once or the script fails.
 
-  python fpga/mem/tests/prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|clk400|clk400_notap|clk400_asyncsdc|clk400dp|sampleip|sampleip_map|sampleip_map_t1|sampleip_map_t2|sampleip_map_t3|sampleip_map_t4|clk400x_scoped|clk400x_dp000|clk400x_dp1116|clk400x_drvhigh|all
+  python fpga/mem/tests/prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|clk400|clk400_notap|clk400_asyncsdc|clk400dp|sampleip|sampleip_map|sampleip_map_t1|sampleip_map_t2|sampleip_map_t3|sampleip_map_t4|sampleip_map_t4_bw|clk400x_scoped|clk400x_dp000|clk400x_dp1116|clk400x_drvhigh|all
 """
 import sys, hashlib, json
 from pathlib import Path
 root = Path(__file__).resolve().parents[2]
 rtl = root / 'mem/rtl'
-names = ['mem_deep_monitor', 'mem_pll', 'mem_bist', 'mem_mailbox', 'mem_link', 'mem_top']
+names = ['mem_deep_monitor', 'mem_pll', 'mem_bist', 'mem_bw', 'mem_bw_port', 'mem_mailbox', 'mem_link', 'mem_top']
 
 # id -> (description, file, old, new)
 VARIANTS = {
@@ -45,6 +45,8 @@ VARIANTS = {
           'mem_pll', 'pll.IDIV_SEL=0', 'pll.IDIV_SEL=3'),
  'sampleip_map_t3': ('(i5) sampleip_map_t2 plus PIPELINE=3: registered calibrated also in the native-enable gating and both timeout comparators (wait, 64-bit total) registered one cycle ahead with identical firing cycle',
           'mem_pll', 'pll.IDIV_SEL=0', 'pll.IDIV_SEL=3'),
+ 'sampleip_map_t4_bw': ('(i7) sampleip_map_t4 plus the DDR3 bandwidth engine: mem_top BW_ENABLE=1 (mem_bw_port, LINK opcodes 0x60..0x6F, native-bus sharing with the BIST), BW_ROW_PAD=1, app_burst_number driven by the engine (0 outside bandwidth jobs). DIAGNOSTIC measurement image; BIST behaviour must stay as in sampleip_map_t4',
+          'mem_pll', 'pll.IDIV_SEL=0', 'pll.IDIV_SEL=3'),
  'clk400x_dp000': ('(a5) untapped clk400 IP regenerated with Debug P1=101 (DLL CODESCAL), P2=0 (DQ IODELAY 0) - the values the generator itself uses for the official 1:2/200MHz reference. Needs MEM_IP_TAG=xdp000', 'mem_pll', 'pll.IDIV_SEL=0', 'pll.IDIV_SEL=3'),
  'clk400x_dp1116': ('(a6) untapped clk400 IP with Debug P1=111, P2=6: the generator default CODESCAL with the sample DQ IODELAY. Needs MEM_IP_TAG=xdp1116', 'mem_pll', 'pll.IDIV_SEL=0', 'pll.IDIV_SEL=3'),
  'clk400x_drvhigh': ('(a7) untapped clk400 IP with OUTPUT_DRV HIGH (RZQ/7=34 ohm); IPUG281 suggests changing it when initialisation fails. Needs MEM_IP_TAG=xdrvhigh', 'mem_pll', 'pll.IDIV_SEL=0', 'pll.IDIV_SEL=3'),
@@ -56,13 +58,14 @@ VARIANTS = {
 }
 
 def build(vid):
-    if vid in ('sampleip', 'sampleip_map', 'sampleip_map_t1', 'sampleip_map_t2', 'sampleip_map_t3', 'sampleip_map_t4'):
+    if vid in ('sampleip', 'sampleip_map', 'sampleip_map_t1', 'sampleip_map_t2', 'sampleip_map_t3', 'sampleip_map_t4', 'sampleip_map_t4_bw'):
         # The pinned Sipeed IP is not in git: refuse to prepare unless the local copy exists and matches its SHA-256.
         import importlib.util
         spec = importlib.util.spec_from_file_location('fetch_sipeed_ddr_ip', root / 'tools/fetch_sipeed_ddr_ip.py')
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
-        bad = mod.verify()
+        import os
+        bad = mod.verify(build_only=os.environ.get('SIPEED_VERIFY_SCOPE') == 'build')  # build-only: offline, reference-only files absent (documented)
         if bad:
             raise SystemExit(f'{vid}: pinned Sipeed IP missing or modified: {bad}; see docs/DDR3_旧IP保管と再現手順_2026-11-04.md')
     desc, fname, old, new = VARIANTS[vid]
@@ -83,7 +86,7 @@ def build(vid):
                 ins = ("    reg [7:0] pace_counter; wire pace_ok=pace_counter==8'd0;" + chr(10)
                        + "    always @(posedge clk or negedge reset_n) if(!reset_n) pace_counter<=0; else pace_counter<=pace_counter+1'b1;" + chr(10))
                 text = text.replace(a2, ins + a2)
-            if vid.startswith('clk400x_') or vid in ('clk400', 'sampleip', 'sampleip_map', 'sampleip_map_t1', 'sampleip_map_t2', 'sampleip_map_t3', 'sampleip_map_t4', 'clk400_notap', 'clk400_asyncsdc', 'clk400dp'):
+            if vid.startswith('clk400x_') or vid in ('clk400', 'sampleip', 'sampleip_map', 'sampleip_map_t1', 'sampleip_map_t2', 'sampleip_map_t3', 'sampleip_map_t4', 'sampleip_map_t4_bw', 'clk400_notap', 'clk400_asyncsdc', 'clk400dp'):
                 t2 = text
                 for o, n2 in [('pll.FBDIV_SEL=11', 'pll.FBDIV_SEL=58'), ('27*(11+1)/(0+1)=324MHz; ODIV2 gives648MHz VCO.', '27*(58+1)/(3+1)=398.25MHz; ODIV2 gives796.5MHz VCO.')]:
                     assert t2.count(o) == 1, o
@@ -98,14 +101,20 @@ def build(vid):
                 anchor = '// USER state is only an LED observation here'
                 assert text.count(anchor) == 1
                 text = text.replace(anchor, "assign ddr_cs=1'b0;\n" + anchor)
-        if vid in ('sampleip_map', 'sampleip_map_t1', 'sampleip_map_t2', 'sampleip_map_t3', 'sampleip_map_t4') and n == 'mem_top':
+        if vid in ('sampleip_map', 'sampleip_map_t1', 'sampleip_map_t2', 'sampleip_map_t3', 'sampleip_map_t4', 'sampleip_map_t4_bw') and n == 'mem_top':
             o = 'mem_bist engine('
             assert text.count(o) == 1
-            text = text.replace(o, 'mem_bist #(.APP_ROW_PAD(1)' + ('' if vid == 'sampleip_map' else ',.PIPELINE(' + vid[-1] + ')') + ') engine(')
-        if (vid.startswith('clk400x_') or vid in ('clk400', 'sampleip', 'sampleip_map', 'sampleip_map_t1', 'sampleip_map_t2', 'sampleip_map_t3', 'sampleip_map_t4', 'clk400_notap', 'clk400_asyncsdc', 'clk400dp')) and n == 'mem_top':
+            pipe = '4' if vid == 'sampleip_map_t4_bw' else vid[-1]
+            text = text.replace(o, 'mem_bist #(.APP_ROW_PAD(1)' + ('' if vid == 'sampleip_map' else ',.PIPELINE(' + pipe + ')') + ') engine(')
+        if (vid.startswith('clk400x_') or vid in ('clk400', 'sampleip', 'sampleip_map', 'sampleip_map_t1', 'sampleip_map_t2', 'sampleip_map_t3', 'sampleip_map_t4', 'sampleip_map_t4_bw', 'clk400_notap', 'clk400_asyncsdc', 'clk400dp')) and n == 'mem_top':
             o = 'mem_mailbox control('
             assert text.count(o) == 1
             text = text.replace(o, "mem_mailbox #(.MEM_MHZ(16'd398),.USER_MHZ(16'd100)) control(")
+            if vid == 'sampleip_map_t4_bw':
+                # bandwidth image: enable the engine (module-body parameters of mem_top), row-14 address layout, burst number to the IP
+                for po, pn in (('parameter BW_ENABLE=0;', 'parameter BW_ENABLE=1;'), ('parameter BW_ROW_PAD=0;', 'parameter BW_ROW_PAD=1;')):
+                    assert text.count(po) == 1, po
+                    text = text.replace(po, pn)
         if (vid.startswith('clk400x_') or vid in ('clk400_notap', 'clk400_asyncsdc', 'clk400dp')) and n == 'mem_top':
             o = '.deep_taps(deep_taps),'
             assert text.count(o) == 1
@@ -113,7 +122,7 @@ def build(vid):
             a = '// USER state is only an LED observation here'
             assert text.count(a) == 1
             text = text.replace(a, "assign deep_taps=64'b0;" + (chr(13) + chr(10) if chr(13) in text else chr(10)) + a)
-        if vid in ('sampleip', 'sampleip_map', 'sampleip_map_t1', 'sampleip_map_t2', 'sampleip_map_t3', 'sampleip_map_t4') and n == 'mem_top':
+        if vid in ('sampleip', 'sampleip_map', 'sampleip_map_t1', 'sampleip_map_t2', 'sampleip_map_t3', 'sampleip_map_t4', 'sampleip_map_t4_bw') and n == 'mem_top':
             import re as _re
             m = _re.search('MemDDR3 controller' + chr(92) + '(.*?' + chr(92) + ');' + chr(13) + '?' + chr(10), text, _re.S)
             assert m and text.count('MemDDR3 controller(') == 1
@@ -128,6 +137,9 @@ DDR3_Memory_Interface_Top controller(.clk(sys_clk),.memory_clk(memory_clk),.pll_
 .O_ddr_we_n(ddr_we),.O_ddr_clk(ddr_ck),.O_ddr_clk_n(ddr_ck_n),.O_ddr_cke(ddr_cke),.O_ddr_odt(ddr_odt),
 .O_ddr_reset_n(ddr_reset_n),.O_ddr_dqm(ddr_dm),.IO_ddr_dq(ddr_dq),.IO_ddr_dqs(ddr_dqs),.IO_ddr_dqs_n(ddr_dqs_n));
 '''
+            if vid == 'sampleip_map_t4_bw':
+                assert inst.count(".app_burst_number(6'd0)") == 1
+                inst = inst.replace(".app_burst_number(6'd0)", '.app_burst_number(burst_number)')
             text = text[:m.start()] + inst.replace(chr(10), chr(13) + chr(10) if chr(13) in text else chr(10)) + text[m.end():]
         (out / f'{n}.v').write_bytes(text.encode())
         rec['files'][n] = hashlib.sha256(text.encode()).hexdigest()
@@ -157,5 +169,5 @@ DDR3_Memory_Interface_Top controller(.clk(sys_clk),.memory_clk(memory_clk),.pll_
     print('prepared', vid, '-', desc)
 
 ids = list(VARIANTS) if sys.argv[1:] == ['all'] else sys.argv[1:]
-assert ids and all(i in VARIANTS for i in ids), 'usage: prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|clk400|clk400_notap|clk400_asyncsdc|clk400dp|sampleip|sampleip_map|sampleip_map_t1|sampleip_map_t2|sampleip_map_t3|sampleip_map_t4|clk400x_scoped|clk400x_dp000|clk400x_dp1116|clk400x_drvhigh|all'
+assert ids and all(i in VARIANTS for i in ids), 'usage: prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|clk400|clk400_notap|clk400_asyncsdc|clk400dp|sampleip|sampleip_map|sampleip_map_t1|sampleip_map_t2|sampleip_map_t3|sampleip_map_t4|sampleip_map_t4_bw|clk400x_scoped|clk400x_dp000|clk400x_dp1116|clk400x_drvhigh|all'
 for i in ids: build(i)
