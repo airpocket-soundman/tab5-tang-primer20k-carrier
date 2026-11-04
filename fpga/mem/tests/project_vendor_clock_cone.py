@@ -49,7 +49,7 @@ for net,value in cuts.items():body.append('assign \\'+net+' =1\'b'+value+';')
 dest=root/f'build/mem-clock-cone{SFX}';dest.mkdir(parents=True,exist_ok=True)
 (dest/'MemClockCone.v').write_text(declarations+'\n'.join(body)+'\nendmodule\n')
 tb=(root/'mem/tests/tb_vendor_init.v').read_text().replace('MemDDR3 dut(','MemClockCone dut(')
-if TAG=='clk400':
+if TAG.startswith('clk400'):
     # 27MHz sys clock, 398.25MHz memory clock (27*59/4), USER = memory/4 = 99.5625MHz: two USER periods = 20.09ns
     for old,new in [('always #1.543210 memory_clk','always #1.255331 memory_clk'),('<24.69','<20.0')]:
         assert tb.count(old)==1,old;tb=tb.replace(old,new)
