@@ -1,12 +1,15 @@
 `timescale 1ps/1ps
-// Track J: reply-clock edge counters (opcodes logical 0x4c read, 0x4d clear; sent tagged as 0xcc/0xcd so the reply is a fast prefixed one).
+// Track J v2: reply-clock edge counters measured inside the data-valid interval.
+// Opcodes: logical 0x4c read, 0x4d clear (sent tagged as 0xcc/0xcd so the reply is a fast prefixed one).
+// Scenarios (EDGE=1): healthy reply followed by a LONG idle clock tail (the real continuous-RX behaviour),
+// an extra close edge (reject), an extra edge the filter still accepts (spacing anomaly), a missing edge.
 module tb_edge_monitor;
     parameter EDGE=1;
     reg filter_clk=0;always #2315 filter_clk=~filter_clk;
     reg clk=0,reset_n=0,arm=0,bus_clk=0,dir=0,host_oe=0;
     reg [7:0] host_data=0,q[0:7],r[0:2065];
     wire [7:0] data_i=host_data,data_o;wire ready,oe;
-    integer i,waits,seqno=0,packets=0;reg [15:0] crc;
+    integer i,n,waits,seqno=0,packets=0;reg [15:0] crc;
     always #9259 clk=~clk;
     link_bringup_filtered #(.GFX_ENABLE(2),.TIMEOUT_CYCLES(5000),.CORE_CLOCK_MHZ(54),
         .CLOCK_QUERY_ENABLE(1),.FAST_REPLY_ENABLE(1),.EDGE_MONITOR_ENABLE(EDGE)) dut(clk,reset_n,arm,bus_clk,dir,data_i,data_o,oe,ready,filter_clk,reset_n && arm);
@@ -33,6 +36,10 @@ module tb_edge_monitor;
             r[i]=data_o;bus_clk=1;#(half_ps);bus_clk=0;#(half_ps);
         end end
     endtask
+    // Host keeps clocking after the reply is complete (ISR lease / READY-low tail in continuous RX).
+    task tail(input integer count,input integer half_ps);
+        begin for(n=0;n<count;n=n+1)begin bus_clk=1;#(half_ps);bus_clk=0;#(half_ps);end end
+    endtask
     task complete(input integer count);
         integer j;reg [15:0] v;
         begin
@@ -54,9 +61,9 @@ module tb_edge_monitor;
     task tile(input integer plane);
         begin make(8'hbb,0,plane);send();read_count(2066,12500);complete(2066);if(r[9]!=0)$fatal(1,"tile status");end
     endtask
-    // Read one edge-monitor register through opcode 0x4c. The value describes the
-    // reply window that closed BEFORE this query; the query's own 16-edge reply is
-    // a new window. So "window of interest, then one query" reads that window.
+    // Read one edge-monitor register through opcode 0x4c. The value describes the reply window that
+    // closed BEFORE this query; the query's own 16-edge reply is a new window. Window-specific fields
+    // (idx 4..14, 21..30, 32) are therefore only valid for the FIRST query after the window of interest.
     reg [15:0] ev;reg [7:0] st;
     task edge_get(input [7:0] idx);
         begin make(8'hcc,idx,0);send();read_count(16,12500);complete(16);st=r[9];ev={r[13],r[12]};end
@@ -65,7 +72,8 @@ module tb_edge_monitor;
         begin make(8'hcd,8'h5a,8'ha5);send();read_count(16,12500);complete(16);st=r[9];end
     endtask
     task settle; begin #2000000; end endtask
-    integer pre,post,rej,exp_n,flags,windows,bad;
+    integer K,pre,post,flags;
+    reg [7:0] kk;
     initial begin
         #100000;reset_n=1;arm=1;#200000;
         if(EDGE==0)begin
@@ -76,66 +84,113 @@ module tb_edge_monitor;
             info();clear();tile(0);tile(1);
             $display("PASS EDGE=0 opcodes 0x4c/0x4d unsupported, normal traffic unchanged");$finish;
         end
-        // Argument checking.
-        make(8'hcc,21,0);send();read_count(16,12500);complete(16);if(r[9]!=3)$fatal(1,"index range");
+`ifndef TB_EDGE0
+        // ---- argument checking ----
+        make(8'hcc,34,0);send();read_count(16,12500);complete(16);if(r[9]!=3)$fatal(1,"index range");
         make(8'hcc,0,1);send();read_count(16,12500);complete(16);if(r[9]!=3)$fatal(1,"reserved byte");
         make(8'hcd,8'h5a,8'ha4);send();read_count(16,12500);complete(16);if(r[9]!=3)$fatal(1,"clear key");
-        clear();
-        // Clean 16-edge window; each successive query reports the previous 16-edge query.
-        info();settle();
-        edge_get(0);if(st!=0||ev!==16'hed01)$fatal(1,"edge id %h st=%0d",ev,st);
-        edge_get(14);flags=ev;
-        $display("after queries: flags=%h",flags);
-        if(!flags[7])$fatal(1,"no valid snapshot");
-        edge_get(12);exp_n=ev;if(exp_n!=16)$fatal(1,"expect=%0d",exp_n);
-        edge_get(4);pre=ev;edge_get(5);post=ev;edge_get(6);rej=ev;
-        $display("16-edge window: pre=%0d post=%0d rej=%0d",pre,post,rej);
-        if(pre+post!=16)$fatal(1,"accepted rises %0d != 16",pre+post);
-        if(rej!=0)$fatal(1,"clean window reject");
-        edge_get(7);if(ev!=0)$fatal(1,"drop");edge_get(8);if(ev!=0)$fatal(1,"runt");
-        edge_get(14);flags=ev;
-        if(flags[2]||flags[1]||!flags[0]||flags[4]||flags[3])$fatal(1,"clean flags=%h",flags);
-        // Counters reset by 0x4d.
-        edge_get(1);windows=ev;if(windows==0)$fatal(1,"no windows counted");
-        edge_clear();edge_get(1);windows=ev;
-        if(windows>3)$fatal(1,"clear did not reset windows (%0d)",windows);
-        // Full tile window of 2066 edges: tile then exactly one query per register.
-        tile(0);settle();edge_get(12);
-        if(ev!=2066)$fatal(1,"tile expect=%0d",ev);
-        tile(0);settle();edge_get(4);pre=ev;
-        tile(0);settle();edge_get(5);post=ev;
-        tile(0);settle();edge_get(6);rej=ev;
-        tile(0);settle();edge_get(13);
-        $display("tile window: pre=%0d post=%0d rej=%0d done_index=%0d",pre,post,rej,ev);
-        if(rej!=0||ev==0||ev>2065)$fatal(1,"tile done_index/rej");
-        if(pre<2060||pre>2066||post>6)$fatal(1,"tile pre/post");
-        // Clean traffic must show no excess windows. (idx 20 counts aborts/short windows; checked after the abort test.)
-        edge_get(19);if(ev!=0)$fatal(1,"excess windows on a clean link: %0d",ev);
-        // Injected qualified short-spacing edge: reject/fault must be visible.
+        edge_get(0);if(st!=0||ev!==16'hed02)$fatal(1,"edge id %h st=%0d",ev,st);
+        clear();edge_clear();
+
+        // ---- (a) healthy 16-edge reply, then a 40-edge idle clock tail ----
+        make(8'hb0,0,0);send();read_count(16,12500);tail(40,12500);complete(16);settle();
+        $display("A16: pre=%0d post=%0d rej=%0d drp=%0d rnt=%0d tail=%0d flags=%h excess=%0d deficit=%0d fpos=%h spj=%0d spmin=%0d spmax=%0d minh=%0d minl=%0d",
+            dut.edge_diag.l_pre,dut.edge_diag.l_post,dut.edge_diag.l_rej,dut.edge_diag.l_drp,dut.edge_diag.l_rnt,dut.edge_diag.l_tail,
+            dut.edge_diag.l_flags,dut.edge_diag.l_excess,dut.edge_diag.l_deficit,dut.edge_diag.l_fpos,dut.edge_diag.l_spjump,
+            dut.edge_diag.l_spmin,dut.edge_diag.l_spmax,dut.edge_diag.l_minh,dut.edge_diag.l_minl);
+        if(dut.edge_diag.l_pre!=16 || dut.edge_diag.l_expect!=16)$fatal(1,"A16 valid-interval rises %0d expect %0d",dut.edge_diag.l_pre,dut.edge_diag.l_expect);
+        if(dut.edge_diag.l_post<38 || dut.edge_diag.l_post>40)$fatal(1,"A16 tail rises %0d (host sent 40)",dut.edge_diag.l_post);
+        if(dut.edge_diag.l_rej!=0||dut.edge_diag.l_drp!=0||dut.edge_diag.l_rnt!=0||dut.edge_diag.l_tail!=0)$fatal(1,"A16 anomaly counters not zero");
+        if(dut.edge_diag.l_excess!=0||dut.edge_diag.l_deficit!=0)$fatal(1,"A16 excess/deficit on a healthy window");
+        if(!dut.edge_diag.l_flags[7]||!dut.edge_diag.l_flags[6]||!dut.edge_diag.l_flags[0]||dut.edge_diag.l_flags[4:1]!=0)$fatal(1,"A16 flags=%h",dut.edge_diag.l_flags);
+        if(dut.edge_diag.l_fpos!=12'hfff||dut.edge_diag.l_spjump!=0)$fatal(1,"A16 spurious anomaly position/jump");
+        if(dut.edge_diag.l_didx!=15)$fatal(1,"A16 done_index=%0d",dut.edge_diag.l_didx);
+        if(dut.edge_diag.excess_windows!=0||dut.edge_diag.deficit_windows!=0||dut.edge_diag.bad_windows!=0)$fatal(1,"A16 history flagged a healthy window");
+        // Same window through the opcode path (first query after the window).
+        make(8'hb0,0,0);send();read_count(16,12500);tail(40,12500);complete(16);settle();
+        edge_get(21);if(st!=0||ev!=0)$fatal(1,"idx21 last excess %0d",ev);
+        edge_get(19);if(ev!=0)$fatal(1,"idx19 excess windows %0d",ev);
+        edge_get(2);if(ev!=0)$fatal(1,"idx2 bad windows %0d on a healthy link",ev);
+
+        // ---- (a) healthy 2066-edge tile reply, then a 300-edge idle clock tail ----
+        make(8'hbb,0,0);send();read_count(2066,12500);tail(300,12500);complete(2066);settle();
+        $display("A2066: pre=%0d post=%0d flags=%h ticks=%0d spj=%0d spmin=%0d spmax=%0d minh=%0d minl=%0d didx=%0d",
+            dut.edge_diag.l_pre,dut.edge_diag.l_post,dut.edge_diag.l_flags,dut.edge_diag.l_ticks,dut.edge_diag.l_spjump,
+            dut.edge_diag.l_spmin,dut.edge_diag.l_spmax,dut.edge_diag.l_minh,dut.edge_diag.l_minl,dut.edge_diag.l_didx);
+        if(dut.edge_diag.l_pre!=2066||dut.edge_diag.l_expect!=2066||dut.edge_diag.l_didx!=2065)$fatal(1,"A2066 pre/expect/didx");
+        if(dut.edge_diag.l_post<298||dut.edge_diag.l_post>300)$fatal(1,"A2066 tail rises %0d (host sent 300)",dut.edge_diag.l_post);
+        if(dut.edge_diag.l_excess!=0||dut.edge_diag.l_deficit!=0||dut.edge_diag.l_rej!=0||dut.edge_diag.l_rnt!=0||dut.edge_diag.l_spjump!=0)$fatal(1,"A2066 anomaly on a healthy window");
+        if(!dut.edge_diag.l_flags[6]||!dut.edge_diag.l_flags[0])$fatal(1,"A2066 flags=%h",dut.edge_diag.l_flags);
+        // 2065 spacings of ~5.4 sampler ticks.
+        if(dut.edge_diag.l_ticks<10800||dut.edge_diag.l_ticks>11500)$fatal(1,"A2066 valid-interval ticks=%0d",dut.edge_diag.l_ticks);
+        if(dut.edge_diag.l_spmin<5||dut.edge_diag.l_spmax>6)$fatal(1,"A2066 spacing %0d..%0d",dut.edge_diag.l_spmin,dut.edge_diag.l_spmax);
+        if(dut.edge_diag.l_minh<2||dut.edge_diag.l_minl<2)$fatal(1,"A2066 pulse widths %0d/%0d",dut.edge_diag.l_minh,dut.edge_diag.l_minl);
+        if(dut.edge_diag.excess_windows!=0||dut.edge_diag.deficit_windows!=0)$fatal(1,"A2066 history flagged a healthy window");
+
+        // ---- (b1) extra CLOSE edge inside the reply (inside the 5-sample cooldown): reject + fault ----
         edge_clear();
-        make(8'h81,0,0);send();@(negedge filter_clk);
-        bus_clk=1;#9260;bus_clk=0;#9260;bus_clk=1;#9260;bus_clk=0;#50000;
-        if(!dut.clock_filter_fault)$fatal(1,"fault not raised");
+        make(8'hb0,0,0);send();K=6;
+        for(n=0;n<K;n=n+1)begin bus_clk=1;#12500;bus_clk=0;#12500;end
+        @(negedge filter_clk);bus_clk=1;#9260;bus_clk=0;#9260;bus_clk=1;#9260;bus_clk=0;#50000;
         dir=0;#2000000;
-        edge_get(2);bad=ev;
-        $display("noise: bad_windows=%0d",bad);
-        if(bad==0)$fatal(1,"noise window not flagged bad");
-        edge_get(15);$display("worst_rej=%0d",ev);
-        if(ev==0)$fatal(1,"worst rej not recorded");
-        // A 1ns excursion never becomes a rise.
-        make(8'h81,0,0);send();bus_clk=1;#1000;bus_clk=0;#50000;
-        read_count(16,12500);complete(16);settle();
-        edge_get(4);pre=ev;
-        if(pre!=16)$fatal(1,"glitch window pre=%0d",pre);
-        // Datapath unchanged by the monitor.
+        $display("B1: pre=%0d rej=%0d drp=%0d flags=%h excess=%0d deficit=%0d fpos=%0d fkind=%0d",
+            dut.edge_diag.l_pre,dut.edge_diag.l_rej,dut.edge_diag.l_drp,dut.edge_diag.l_flags,dut.edge_diag.l_excess,dut.edge_diag.l_deficit,
+            dut.edge_diag.l_fpos,dut.edge_diag.l_fkind);
+        if(dut.edge_diag.l_rej<1)$fatal(1,"B1 reject not counted");
+        if(!dut.edge_diag.l_flags[2])$fatal(1,"B1 fault flag missing");
+        if(dut.edge_diag.l_excess!=1)$fatal(1,"B1 excess=%0d (one extra rise was rejected)",dut.edge_diag.l_excess);
+        if(dut.edge_diag.l_deficit!=16-7)$fatal(1,"B1 deficit=%0d (fault ended the interval after 7 accepted rises)",dut.edge_diag.l_deficit);
+        if(dut.edge_diag.l_fkind!=1||dut.edge_diag.l_fpos!==K+1)$fatal(1,"B1 first anomaly kind=%0d pos=%0d expected reject after byte %0d",dut.edge_diag.l_fkind,dut.edge_diag.l_fpos,K+1);
+        if(dut.edge_diag.excess_windows<1||dut.edge_diag.min_fpos!==K+1)$fatal(1,"B1 history excess_windows=%0d min_fpos=%0d",dut.edge_diag.excess_windows,dut.edge_diag.min_fpos);
+        edge_get(21);$display("B1 opcode idx21 excess=%0d",ev);if(st!=0)$fatal(1,"B1 idx21 st");
+        edge_get(19);if(ev<1)$fatal(1,"B1 idx19");edge_get(23);if(ev<1)$fatal(1,"B1 idx23 worst excess");
+        edge_get(31);if(ev!==K+1)$fatal(1,"B1 idx31 min first position=%0d",ev);
+        info();tile(0);
+
+        // ---- (b2) extra edge the filter ACCEPTS (spacing anomaly, no reject): 10MHz clock, one short extra cycle ----
+        edge_clear();
+        make(8'hb0,0,0);send();K=6;
+        for(n=0;n<K;n=n+1)begin bus_clk=1;#50000;bus_clk=0;#50000;end
+        bus_clk=1;#25000;bus_clk=0;#25000;                      // extra short cycle (period half of normal)
+        for(n=K;n<16;n=n+1)begin bus_clk=1;#50000;bus_clk=0;#50000;end
+        dir=0;#2000000;
+        $display("B2: pre=%0d post=%0d rej=%0d flags=%h excess=%0d deficit=%0d fpos=%0d fkind=%0d spj=%0d spmin=%0d spmax=%0d",
+            dut.edge_diag.l_pre,dut.edge_diag.l_post,dut.edge_diag.l_rej,dut.edge_diag.l_flags,dut.edge_diag.l_excess,dut.edge_diag.l_deficit,
+            dut.edge_diag.l_fpos,dut.edge_diag.l_fkind,dut.edge_diag.l_spjump,dut.edge_diag.l_spmin,dut.edge_diag.l_spmax);
+        if(dut.edge_diag.l_rej!=0||dut.edge_diag.l_drp!=0||dut.edge_diag.l_rnt!=0)$fatal(1,"B2 must not be a reject/drop/runt");
+        if(dut.edge_diag.l_pre!=16||!dut.edge_diag.l_flags[6])$fatal(1,"B2 the serializer still completes by count");
+        if(dut.edge_diag.l_post!=1)$fatal(1,"B2 the extra cycle shows up as one tail rise (got %0d)",dut.edge_diag.l_post);
+        if(dut.edge_diag.l_spjump<2||dut.edge_diag.l_fkind!=4)$fatal(1,"B2 spacing anomaly not detected jumps=%0d kind=%0d",dut.edge_diag.l_spjump,dut.edge_diag.l_fkind);
+        if(dut.edge_diag.l_fpos<K+1||dut.edge_diag.l_fpos>K+3)$fatal(1,"B2 first anomaly position %0d",dut.edge_diag.l_fpos);
+        if(dut.edge_diag.l_spmin>12||dut.edge_diag.l_spmax<20)$fatal(1,"B2 spacing range %0d..%0d",dut.edge_diag.l_spmin,dut.edge_diag.l_spmax);
+        if(!(dut.edge_diag.bad_windows>=1))$fatal(1,"B2 window not counted bad");
+        info();
+
+        // ---- (c) MISSING edge: one cycle fewer than the reply length, with a double-length gap ----
+        edge_clear();
+        make(8'hb0,0,0);send();K=6;
+        for(n=0;n<K;n=n+1)begin bus_clk=1;#50000;bus_clk=0;#50000;end
+        #100000;                                                  // the lost cycle
+        for(n=K;n<15;n=n+1)begin bus_clk=1;#50000;bus_clk=0;#50000;end
+        dir=0;#2000000;
+        $display("C: pre=%0d post=%0d flags=%h excess=%0d deficit=%0d fpos=%0d fkind=%0d spj=%0d spmin=%0d spmax=%0d",
+            dut.edge_diag.l_pre,dut.edge_diag.l_post,dut.edge_diag.l_flags,dut.edge_diag.l_excess,dut.edge_diag.l_deficit,
+            dut.edge_diag.l_fpos,dut.edge_diag.l_fkind,dut.edge_diag.l_spjump,dut.edge_diag.l_spmin,dut.edge_diag.l_spmax);
+        if(dut.edge_diag.l_pre!=15||dut.edge_diag.l_flags[6])$fatal(1,"C valid interval must end short: pre=%0d flags=%h",dut.edge_diag.l_pre,dut.edge_diag.l_flags);
+        if(dut.edge_diag.l_deficit!=1||dut.edge_diag.l_excess!=0)$fatal(1,"C deficit=%0d excess=%0d",dut.edge_diag.l_deficit,dut.edge_diag.l_excess);
+        if(dut.edge_diag.l_spjump<2||dut.edge_diag.l_fkind!=4||dut.edge_diag.l_spmax<40)$fatal(1,"C gap not seen jumps=%0d kind=%0d spmax=%0d",dut.edge_diag.l_spjump,dut.edge_diag.l_fkind,dut.edge_diag.l_spmax);
+        if(dut.edge_diag.deficit_windows<1)$fatal(1,"C deficit_windows not counted");
+        edge_get(22);$display("C opcode idx22 deficit=%0d",ev);if(st!=0||ev!=1)$fatal(1,"C idx22");
+        edge_get(20);if(ev<1)$fatal(1,"C idx20");
+
+        // ---- history clear and datapath unchanged by the monitor ----
+        edge_clear();edge_get(1);if(ev>3)$fatal(1,"clear did not reset windows (%0d)",ev);
+        edge_get(19);if(ev!=0)$fatal(1,"clear did not reset excess windows");
         repeat(4)begin tile(0);info();tile(1);end
-        // Abort path (DIR drops mid-frame) closes the window without done.
-        make(8'hbb,0,0);send();read_count(17,12500);dir=0;#2000000;
-        edge_get(14);flags=ev;
-        $display("abort: flags=%h",flags);
-        if(flags[0])$fatal(1,"abort window must not report done flags=%h",flags);
-        edge_get(20);if(ev==0)$fatal(1,"deficit windows not counted after abort");
-        $display("PASS EDGE=1 edge counters: clean 16/2066-edge replies counted, noise/reject/fault visible, clear/args/abort ok packets=%0d",packets);$finish;
+        settle();
+        if(dut.edge_diag.excess_windows!=0||dut.edge_diag.deficit_windows!=0||dut.edge_diag.bad_windows!=0)$fatal(1,"healthy traffic after clear flagged: bad=%0d",dut.edge_diag.bad_windows);
+        $display("PASS EDGE=1 valid-interval edge counters: healthy replies with long idle tails are clean, close edge->reject, accepted extra edge->spacing jump, missing edge->deficit; packets=%0d",packets);$finish;
+`endif
     end
     initial begin #10000000000;$fatal(1,"watchdog");end
 endmodule

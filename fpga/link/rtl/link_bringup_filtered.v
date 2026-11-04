@@ -82,47 +82,72 @@ module link_bringup_filtered #(
     wire [15:0] edge_value;
     reg edge_clear_tog;
     generate if(EDGE_MONITOR_ENABLE && FAST_REPLY_ENABLE) begin: edge_diag
-        // Diagnostic readout of the conditioned reply clock (docs/CLK_edge_monitor.md).
-        wire [11:0] e_pre,e_post,e_fall,e_expect,e_didx;
-        wire [7:0] e_rej,e_drp,e_rnt,e_minh,e_minl,e_flags;
+        // Diagnostic readout of the conditioned reply clock (docs/CLK_edge_monitor.md, v2).
+        // Everything is measured inside the reply's data-valid interval; host tail clocking is
+        // reported separately and never counts as excess.
+        wire [11:0] e_pre,e_post,e_fall,e_expect,e_didx,e_fpos;
+        wire [7:0] e_rej,e_drp,e_rnt,e_tail,e_minh,e_minl,e_spmin,e_spmax,e_spjump,e_flags;
+        wire [23:0] e_ticks;
+        wire [2:0] e_fkind;
         wire e_tog;
         wire [11:0] expect_edges=fast_metadata[49]?12'd2066:(fast_metadata[48]?12'd82:12'd16);
-        reply_edge_monitor monitor(filter_clk,filter_running,fast_offer && dir,dir,expect_edges,
-            ev_accept,ev_reject,ev_drop,ev_runt,ev_fall,clock_filter_fault,raw_done,raw_error,raw_done_index,
-            e_tog,e_pre,e_post,e_fall,e_expect,e_didx,e_rej,e_drp,e_rnt,e_minh,e_minl,e_flags);
+        wire [11:0] expect_last=fast_metadata[49]?12'd2065:(fast_metadata[48]?12'd81:12'd15);
+        reply_edge_monitor monitor(.clk(filter_clk),.reset_n(filter_running),
+            .window_async(fast_offer && dir),.dir_async(dir),.expect_edges(expect_edges),.expect_last(expect_last),
+            .ev_accept(ev_accept),.ev_reject(ev_reject),.ev_drop(ev_drop),.ev_runt(ev_runt),.ev_fall(ev_fall),
+            .filter_fault(clock_filter_fault),.ser_done(raw_done),.ser_error(raw_error),.ser_done_index(raw_done_index),
+            .snap_toggle(e_tog),.snap_pre(e_pre),.snap_post(e_post),.snap_fall(e_fall),.snap_expect(e_expect),
+            .snap_done_index(e_didx),.snap_first_pos(e_fpos),.snap_reject(e_rej),.snap_drop(e_drp),.snap_runt(e_rnt),
+            .snap_tail_noise(e_tail),.snap_min_high(e_minh),.snap_min_low(e_minl),.snap_sp_min(e_spmin),
+            .snap_sp_max(e_spmax),.snap_sp_jump(e_spjump),.snap_flags(e_flags),.snap_ticks(e_ticks),.snap_first_kind(e_fkind));
         // Toggle-synchronized bundled-data copy. The snapshot registers are written
         // together with e_tog and then stay constant until the next reply window
         // closes, many SYS cycles later; they are sampled only after the toggle
         // has crossed a 2FF synchronizer.
         (* ASYNC_REG="TRUE" *) reg [1:0] tog_sync;
         reg tog_seen,hist_pending,clear_seen;
-        reg [15:0] windows,bad_windows,seq,excess_windows,deficit_windows;
-        reg [11:0] l_pre,l_post,l_fall,l_expect,l_didx;
-        wire [12:0] l_total={1'b0,l_pre}+{1'b0,l_post};
-        reg [7:0] l_rej,l_drp,l_rnt,l_minh,l_minl,l_flags,w_rej,w_rnt,ever_minh,ever_minl;
+        reg [15:0] windows,bad_windows,seq,excess_windows,deficit_windows,mismatch_windows,w_excess;
+        reg [11:0] l_pre,l_post,l_fall,l_expect,l_didx,l_fpos,min_fpos;
+        reg [7:0] l_rej,l_drp,l_rnt,l_tail,l_minh,l_minl,l_spmin,l_spmax,l_spjump,l_flags,w_rej,w_rnt,ever_minh,ever_minl;
+        reg [23:0] l_ticks;
+        reg [2:0] l_fkind;
+        // Valid-interval accounting against the expected reply length. Accepted rises equal the length
+        // by construction (the serializer finishes on the expect-th accepted rise), so the extra edges
+        // are the qualified rises the serializer did NOT consume (reject+drop). Deficit is the number of
+        // expected rises still missing when the valid interval ended short (abort, fault, lost edge).
+        wire [13:0] l_exp14={2'b0,l_expect};
+        wire [13:0] l_excess={5'b0,{1'b0,l_rej}+{1'b0,l_drp}};
+        wire [13:0] l_deficit=(!l_flags[6] && l_exp14>{2'b0,l_pre})?(l_exp14-{2'b0,l_pre}):14'd0;
+        wire ser_mismatch=l_flags[0] && (({2'b0,l_didx}+14'd1)!=l_exp14);
+        wire anomaly=(l_rej!=0 || l_drp!=0 || l_rnt!=0 || l_spjump!=0 || l_flags[4] || l_flags[3] || l_flags[2] || l_flags[1] || !l_flags[6] || ser_mismatch);
         always @(posedge sys_clk or negedge reset_n) begin
             if(!reset_n) begin
                 tog_sync<=0;tog_seen<=0;hist_pending<=0;clear_seen<=0;
-                windows<=0;bad_windows<=0;seq<=0;excess_windows<=0;deficit_windows<=0;
-                l_pre<=0;l_post<=0;l_fall<=0;l_expect<=0;l_didx<=0;
-                l_rej<=0;l_drp<=0;l_rnt<=0;l_minh<=8'hff;l_minl<=8'hff;l_flags<=0;
+                windows<=0;bad_windows<=0;seq<=0;excess_windows<=0;deficit_windows<=0;mismatch_windows<=0;w_excess<=0;
+                l_pre<=0;l_post<=0;l_fall<=0;l_expect<=0;l_didx<=0;l_fpos<=12'hfff;min_fpos<=12'hfff;
+                l_rej<=0;l_drp<=0;l_rnt<=0;l_tail<=0;l_minh<=8'hff;l_minl<=8'hff;l_spmin<=8'hff;l_spmax<=0;l_spjump<=0;l_flags<=0;
+                l_ticks<=0;l_fkind<=0;
                 w_rej<=0;w_rnt<=0;ever_minh<=8'hff;ever_minl<=8'hff;
             end else begin
                 tog_sync<={tog_sync[0],e_tog};tog_seen<=tog_sync[1];
                 hist_pending<=0;
                 if(tog_sync[1]!=tog_seen) begin
-                    l_pre<=e_pre;l_post<=e_post;l_fall<=e_fall;l_expect<=e_expect;l_didx<=e_didx;
-                    l_rej<=e_rej;l_drp<=e_drp;l_rnt<=e_rnt;l_minh<=e_minh;l_minl<=e_minl;l_flags<=e_flags;
+                    l_pre<=e_pre;l_post<=e_post;l_fall<=e_fall;l_expect<=e_expect;l_didx<=e_didx;l_fpos<=e_fpos;l_fkind<=e_fkind;
+                    l_rej<=e_rej;l_drp<=e_drp;l_rnt<=e_rnt;l_tail<=e_tail;l_minh<=e_minh;l_minl<=e_minl;
+                    l_spmin<=e_spmin;l_spmax<=e_spmax;l_spjump<=e_spjump;l_flags<=e_flags;l_ticks<=e_ticks;
                     hist_pending<=1;
                 end
                 if(hist_pending && l_flags[7]) begin
                     seq<=seq+1'b1;
                     if(windows!=16'hffff) windows<=windows+1'b1;
-                    if((l_rej!=0 || l_drp!=0 || l_rnt!=0 || l_flags[4] || l_flags[3] || l_flags[2] || l_flags[1] || !l_flags[0]) && bad_windows!=16'hffff)
-                        bad_windows<=bad_windows+1'b1;
-                    // Per-window edge-count check against the expected reply length (decisive for extra-edge vs window-error).
-                    if(l_total>{1'b0,l_expect} && excess_windows!=16'hffff) excess_windows<=excess_windows+1'b1;
-                    if(l_total<{1'b0,l_expect} && deficit_windows!=16'hffff) deficit_windows<=deficit_windows+1'b1;
+                    if(anomaly && bad_windows!=16'hffff) bad_windows<=bad_windows+1'b1;
+                    // Decisive counters: extra qualified rises inside the valid interval (excess)
+                    // and valid intervals that ended before the expected length (deficit).
+                    if(l_excess!=0 && excess_windows!=16'hffff) excess_windows<=excess_windows+1'b1;
+                    if(!l_flags[6] && deficit_windows!=16'hffff) deficit_windows<=deficit_windows+1'b1;
+                    if(ser_mismatch && mismatch_windows!=16'hffff) mismatch_windows<=mismatch_windows+1'b1;
+                    if({2'b0,l_excess}>{2'b0,w_excess}) w_excess<=(l_excess>14'h3fff)?16'h3fff:{2'b0,l_excess};
+                    if(l_fpos<min_fpos) min_fpos<=l_fpos;
                     if(l_rej>w_rej) w_rej<=l_rej;
                     if(l_rnt>w_rnt) w_rnt<=l_rnt;
                     if(l_minh<ever_minh) ever_minh<=l_minh;
@@ -130,14 +155,15 @@ module link_bringup_filtered #(
                 end
                 if(edge_clear_tog!=clear_seen) begin
                     clear_seen<=edge_clear_tog;
-                    windows<=0;bad_windows<=0;excess_windows<=0;deficit_windows<=0;w_rej<=0;w_rnt<=0;ever_minh<=8'hff;ever_minl<=8'hff;
+                    windows<=0;bad_windows<=0;excess_windows<=0;deficit_windows<=0;mismatch_windows<=0;w_excess<=0;min_fpos<=12'hfff;
+                    w_rej<=0;w_rnt<=0;ever_minh<=8'hff;ever_minl<=8'hff;
                 end
             end
         end
         reg [15:0] ev;
         always @* begin
             case(req[4])
-                8'd0: ev=16'hed01;
+                8'd0: ev=16'hed02;
                 8'd1: ev=windows;
                 8'd2: ev=bad_windows;
                 8'd3: ev=seq;
@@ -158,6 +184,19 @@ module link_bringup_filtered #(
                 8'd18: ev={8'd0,ever_minl};
                 8'd19: ev=excess_windows;
                 8'd20: ev=deficit_windows;
+                8'd21: ev={2'b0,l_excess};
+                8'd22: ev={2'b0,l_deficit};
+                8'd23: ev=w_excess;
+                8'd24: ev=(l_fpos==12'hfff)?16'hffff:{4'd0,l_fpos};
+                8'd25: ev={13'd0,l_fkind};
+                8'd26: ev={8'd0,l_spmin};
+                8'd27: ev={8'd0,l_spmax};
+                8'd28: ev=l_ticks[15:0];
+                8'd29: ev={8'd0,l_ticks[23:16]};
+                8'd30: ev={8'd0,l_spjump};
+                8'd31: ev=(min_fpos==12'hfff)?16'hffff:{4'd0,min_fpos};
+                8'd32: ev={8'd0,l_tail};
+                8'd33: ev=mismatch_windows;
                 default: ev=16'h0000;
             endcase
         end
@@ -319,7 +358,7 @@ module link_bringup_filtered #(
                                         valid<=0; gfx_pending<=1; gfx_start<=1;
                                     end else reply[1]<=2;
                                 8'h4c: if(EDGE_MONITOR_ENABLE && FAST_REPLY_ENABLE) begin
-                                    if(req[5]!=0 || req[4]>8'd20) reply[1]<=3;
+                                    if(req[5]!=0 || req[4]>8'd33) reply[1]<=3;
                                     else begin reply[1]<=0;reply[4]<=edge_value[7:0];reply[5]<=edge_value[15:8];end
                                 end else reply[1]<=2;
                                 8'h4d: if(EDGE_MONITOR_ENABLE && FAST_REPLY_ENABLE) begin

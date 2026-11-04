@@ -11,7 +11,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='edge-monitor-')as td:
         for edge in (0,1):
             exe=Path(td)/f'e{edge}.vvp'
-            subprocess.run([a.iverilog,'-g2012','-s','tb_edge_monitor',f'-Ptb_edge_monitor.EDGE={edge}','-o',str(exe),*[str(ROOT/f)for f in FILES]],check=True,capture_output=True)
+            subprocess.run([a.iverilog,'-g2012','-s','tb_edge_monitor',f'-Ptb_edge_monitor.EDGE={edge}',*(['-DTB_EDGE0'] if edge==0 else []),'-o',str(exe),*[str(ROOT/f)for f in FILES]],check=True,capture_output=True)
             r=subprocess.run([a.vvp,str(exe)],text=True,capture_output=True,timeout=900)
             if r.returncode or 'PASS' not in r.stdout or 'FATAL' in r.stdout:raise SystemExit(f'EDGE={edge} FAILED\n'+r.stdout+r.stderr)
             out[f'EDGE={edge}']=r.stdout;print(r.stdout)
