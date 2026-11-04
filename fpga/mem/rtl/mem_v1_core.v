@@ -44,12 +44,15 @@ wire req_t,cancel_t,done_t;wire[1:0] h_op;wire[31:0] h_addr,h_arg,r_crc;wire[15:
 wire[23:0] h_tag,r_tag;wire[3:0] r_status;
 wire w_we;wire[7:0] w_addr,r_addr;wire[127:0] w_data,r_data;wire[15:0] generation;
 wire bist_busy;
+reg[7:0] uc=0;
+always @(posedge user_clk) uc<=uc+1'b1;
+wire[8:0] diag={uc[7],mailbox_epoch==0,user_abort,reset_hold==0,calibrated,user_reset_n,ip_user_reset,controller_reset_n,pll_lock};
 memv1_sys #(.TIMEOUT(LINK_TIMEOUT),.DEADLINE(DEADLINE)) link(
  sys_clk,reset_n,arm_sw,bus_clk,dir,data,out,oe,ready,
  command_start,op,a,b,command_done,status,result,
  calibrated,user_reset_n,bist_busy,
  req_t,cancel_t,h_op,h_addr,h_beats,h_arg,h_tag,done_t,r_tag,r_status,r_crc,r_beats,
- w_we,w_addr,w_data,r_addr,r_data,generation);
+ w_we,w_addr,w_data,r_addr,r_data,generation,diag);
 // ---- mailbox / BIST (unchanged blocks) ----
 wire bist_start,bist_cancel,done,faulted;
 wire[31:0] base,count,seed,job,verified,errors,first,accepted;

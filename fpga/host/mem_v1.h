@@ -30,7 +30,7 @@ enum { MEMV1_CAPS_FORMAT=0, MEMV1_CAPS_VERSION=1, MEMV1_CAPS_CAPACITY_MIB=2, MEM
 enum { MEMV1_FEAT_RD=1, MEMV1_FEAT_WR=2, MEMV1_FEAT_FILL=4, MEMV1_FEAT_COPY=8, MEMV1_FEAT_CRC32=16,
        MEMV1_FEAT_BIST=32, MEMV1_FEAT_CANCEL=64 };
 enum { MEMV1_STAT_FLAGS=0, MEMV1_STAT_GENERATION=1, MEMV1_STAT_LAST_STATUS=2, MEMV1_STAT_OP_COUNT=3,
-       MEMV1_STAT_UNDEF_ADDR_LO=4, MEMV1_STAT_UNDEF_ADDR_HI=5, MEMV1_STAT_UNDEF_BEATS=6 };
+       MEMV1_STAT_UNDEF_ADDR_LO=4, MEMV1_STAT_UNDEF_ADDR_HI=5, MEMV1_STAT_UNDEF_BEATS=6, MEMV1_STAT_RAW=7 };
 enum { MEMV1_FLAG_CALIBRATED=1, MEMV1_FLAG_USER_ALIVE=2, MEMV1_FLAG_INFLIGHT=4, MEMV1_FLAG_BIST=8,
        MEMV1_FLAG_UNDEFINED_RANGE=16 };
 
@@ -107,7 +107,7 @@ static inline int memv1_validate_response(const uint8_t *r, size_t len, const ui
     }
     switch(op) {
         case MEMV1_CAPS: return (q[4]<=7 && q[5]==0) ? 0 : -1;
-        case MEMV1_STATUS: return (q[4]<=6 && q[5]==0) ? 0 : -1;
+        case MEMV1_STATUS: return (q[4]<=7 && q[5]==0) ? 0 : -1;
         case MEMV1_CANCEL: return (q[4]==0 && q[5]==0) ? 0 : -1;
         case MEMV1_RD: case MEMV1_WR: case MEMV1_CRC32: return 0;
         case LINK_ID: case LINK_ECHO: case LINK_INVERT: case LINK_CAPS: return 0;

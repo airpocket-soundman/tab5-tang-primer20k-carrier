@@ -25,10 +25,17 @@ rec = {'ip_sha256': sha, 'files': {}}
 for n in names:
     text = (root / f'mem/rtl/{n}.v').read_bytes().decode()
     if n == 'mem_pll':
-        for o, r in [('pll.FBDIV_SEL=11', 'pll.FBDIV_SEL=58'),
+        # Same three substitutions as prepare_variant.py (clk400/sampleip*): IDIV_SEL 0->3 is REQUIRED, otherwise
+        # the memory clock is 27*59=1593MHz and the IP never calibrates (first memv1 image, 2026-11-05).
+        for o, r in [('pll.IDIV_SEL=0', 'pll.IDIV_SEL=3'), ('pll.FBDIV_SEL=11', 'pll.FBDIV_SEL=58'),
                      ('27*(11+1)/(0+1)=324MHz; ODIV2 gives648MHz VCO.', '27*(58+1)/(3+1)=398.25MHz; ODIV2 gives796.5MHz VCO.')]:
             assert text.count(o) == 1, o
             text = text.replace(o, r)
+        import re as _re
+        a = {k: int(v) for k, v in _re.findall(r'pll[.](IDIV_SEL|FBDIV_SEL|ODIV_SEL)=(\d+)', text)}
+        fclk = 27.0 * (a['FBDIV_SEL'] + 1) / (a['IDIV_SEL'] + 1)
+        assert abs(fclk - 398.25) < 0.01 and 500 <= fclk * a['ODIV_SEL'] <= 1250 and fclk <= 625, (a, fclk)
+        rec['pll'] = dict(a, memory_clk_mhz=fclk, vco_mhz=fclk * a['ODIV_SEL'], user_clk_mhz=fclk / 4)
     (out / f'{n}.v').write_bytes(text.encode())
     rec['files'][n] = hashlib.sha256(text.encode()).hexdigest()
 sdc = (root / 'mem/config/mem_bist_sampleip.sdc').read_text(encoding='utf-8')

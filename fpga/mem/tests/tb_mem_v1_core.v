@@ -191,6 +191,8 @@ initial begin
  wait_alive;
  // ---- 1. reference-model vectors (random backpressure) ----
  mode=0;run_vectors;
+ // STATUS word 7: raw signals while running: pll_lock, controller_reset_n, !ip_user_reset, user_reset_n, calibrated, reset_hold==0, epoch, USER clock alive
+ status_word(7);if(last_r!==16'h01bb&&last_r!==16'h01fb)$fatal(1,"diag word %h",last_r);checks=checks+1;
  // ---- 2. cancel in the middle of a slow write ----
  mode=3;mkwr(8'h70,64,32'h80000,32'h1111);xchg(qlen,8);if(rb[1]!=0)$fatal(1,"old pattern write");
  nw0=nwrites;mode=1;slow_period=2000;slow_cnt=0;

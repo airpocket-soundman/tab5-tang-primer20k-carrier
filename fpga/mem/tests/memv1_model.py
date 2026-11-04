@@ -170,8 +170,9 @@ def vectors(rng):
     for i in range(9):
         ex(frame(OP['CAPS'], nxt(), i))
     ex(frame(OP['CAPS'], nxt(), 0, 1))
-    for i in range(8):
+    for i in range(7):
         ex(frame(OP['STATUS'], nxt(), i))
+    ex(frame(OP['STATUS'], nxt(), 8))  # word 7 (raw signals) is device-only; 8 is INVALID
     ex(frame(OP['CANCEL'], nxt())); ex(frame(OP['CANCEL'], nxt(), 1)); ex(frame(OP['FILL'], nxt(), 1)); ex(frame(OP['COPY'], nxt(), 1))
     ex(frame(0x6f, nxt())); ex(frame(0x5d, nxt()))
     bad = bytearray(frame(OP['CAPS'], nxt())); bad[7] ^= 1

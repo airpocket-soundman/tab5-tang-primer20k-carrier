@@ -47,6 +47,8 @@ body = b'\n'.join(l for l in fs.split(b'\n') if not l.startswith(b'//'))
 console = (root / 'build/memv1-console.log').read_bytes()
 log = console.decode('utf-16') if console[:2] in (b'\xff\xfe', b'\xfe\xff') else console.decode('utf-8', errors='replace')
 assert 'MEM_BUILD_FLOW_RETURNED' in log and not re.search(r'ERROR\s*\(', log)
+# the first memv1 image had a 1593MHz memory clock: these two tool warnings flag exactly that
+assert 'PA1019) : Invalid CLKOUT' not in log and 'TA1123' not in log, 'PLL/clock frequency warning in build log'
 prep = json.loads((root / 'build/memv1/prepared.json').read_text())
 out = root / 'validation/memv1-image-2026-11-05'
 out.mkdir(parents=True, exist_ok=True)
@@ -58,7 +60,7 @@ res = {
  'tool': 'Gowin V1.9.11.03 Education (81398), gw_sh, no programming', 'part': 'GW2A-LV18PG256C8/I7', 'top': 'mem_v1_top',
  'fs_sha256': hashlib.sha256(fs).hexdigest(), 'fs_sha256_without_comment_lines': hashlib.sha256(body).hexdigest(), 'fs_bytes': len(fs),
  'usercode': re.search(r'//UserCode: (0x\w+)', fs.decode()).group(1),
- 'ip_sha256': prep['ip_sha256'], 'rtl_sha256': prep['files'], 'sdc_sha256': prep['sdc_sha256'],
+ 'pll': prep['pll'], 'ip_sha256': prep['ip_sha256'], 'rtl_sha256': prep['files'], 'sdc_sha256': prep['sdc_sha256'],
  'sta': {'sdc': 'DIAGNOSTIC mem_bist_sampleip.sdc (blanket-async clock groups, control/ -> core/control/, deep_snapshot lines dropped)',
          'setup_violated_endpoints': int(fol('Numbers of Setup Violated Endpoints')), 'hold_violated_endpoints': int(fol('Numbers of Hold Violated Endpoints')),
          'worst_setup': worst('Setup Paths Table'), 'worst_hold': worst('Hold Paths Table'), 'worst_recovery': worst('Recovery Paths Table'), 'worst_removal': worst('Removal Paths Table'),

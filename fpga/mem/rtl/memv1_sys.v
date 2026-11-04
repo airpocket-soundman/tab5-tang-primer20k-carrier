@@ -24,16 +24,21 @@ module memv1_sys #(
  // staging RAMs
  output reg w_we,output reg[7:0] w_addr,output reg[127:0] w_data,
  output wire[7:0] r_addr,input wire[127:0] r_data,
- output wire[15:0] generation
+ output wire[15:0] generation,
+ // raw diagnostic bus from the core (any domain), synchronized here: STATUS word 7
+ input wire[8:0] diag
 );
 localparam [7:0] OP_CAPS=8'h60,OP_STATUS=8'h61,OP_RD=8'h62,OP_WR=8'h63,OP_FILL=8'h64,OP_COPY=8'h65,OP_CRC32=8'h66,OP_CANCEL=8'h67;
 localparam [15:0] FORMAT=16'h4d31;
 // ---- free-running observations / generation (no reset: counts reset events too) ----
+reg[8:0] diag_s0=0,diag_s1=0,diag_p=0;reg[11:0] uclk_age=12'hfff;
 reg[2:0] rst_q=3'b111;reg[1:0] cal_s=0,urn_s=0,bist_s=0,done_s=0;reg cal_p=0,urn_p=0;reg[15:0] gen=0;
 always @(posedge clk)begin
  rst_q<={rst_q[1:0],reset_n&&arm};cal_s<={cal_s[0],cal_user};urn_s<={urn_s[0],user_rst_n_user};
  bist_s<={bist_s[0],bist_busy_user};done_s<={done_s[0],done_t};
  cal_p<=cal_s[1];urn_p<=urn_s[1];
+ diag_s0<=diag;diag_s1<=diag_s0;diag_p<=diag_s1;
+ if(diag_s1[8]!=diag_p[8])uclk_age<=0;else if(uclk_age!=12'hfff)uclk_age<=uclk_age+1'b1;
  if((rst_q[2]&&!rst_q[1])||(cal_p&&!cal_s[1])||(urn_p&&!urn_s[1]))gen<=gen+1'b1;
 end
 assign generation=gen;
@@ -213,6 +218,8 @@ end else begin
         8'd4:set_reply(8'd0,undef_addr[15:0],request[2],request[1][7],2'd0,9'd0);
         8'd5:set_reply(8'd0,undef_addr[31:16],request[2],request[1][7],2'd0,9'd0);
         8'd6:set_reply(8'd0,undef_beats,request[2],request[1][7],2'd0,9'd0);
+        // 7: raw signals {b8 USER clock alive, b7 recal epoch done, b6 user_abort, b5 reset_hold==0, b4 calibrated, b3 user_reset_n, b2 ip_user_reset, b1 controller_reset_n, b0 pll_lock}
+        8'd7:set_reply(8'd0,{6'b0,uclk_age<12'd2048,diag_s1[7:0]},request[2],request[1][7],2'd0,9'd0);
         default:set_reply(8'd3,16'd0,request[2],request[1][7],2'd0,9'd0);
         endcase
        end
