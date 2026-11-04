@@ -1,0 +1,152 @@
+Reference,Value,Footprint,DNP,LCSC,Comment
+J1,DC-005-5A-2.0,carrier:BarrelJack_XKB_C381116,False,C381116,LCSC/JLC wave-solder candidate; center-positive stabilized12V only; XKB drawing A1 2025-04-22. 5A connector rating is not board current rating. Verify actual power plug fit.
+F1,PTC 3A hold,Fuse:Fuse_1812_4532Metric,False,C47002391,
+D1,SS54,Diode_SMD:D_SMA,False,C22452,reverse-polarity + OR (DC jack)
+D2,SS54,Diode_SMD:D_SMA,False,C22452,OR (USB-C PD)
+D3,SMBJ15A,Diode_SMD:D_SMB,False,C699013,"YANGJIE 15V standoff, 24.4V specified clamp; regulated 12V PoC input only"
+C1,100u/35V,Capacitor_SMD:CP_Elec_6.3x7.7,False,C2983388,
+J2,TYPE-C-31-M-12 USB2 + PD,Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12,False,,USB2 data and PD; PROGRAM strap requests5V; no automatic power selector
+U1,CH224K,Package_SO:SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm,False,C970725,"PD sink, 12V request: CFG1=0 CFG2=0 CFG3=1(internal PU)"
+R1,10k,Resistor_SMD:R_0603_1608Metric,False,C25804,
+C2,1u/50V,Capacitor_SMD:C_0603_1608Metric,False,C15849,
+R2,1k,Resistor_SMD:R_0603_1608Metric,False,C21190,
+R4,0R,Resistor_SMD:R_0603_1608Metric,True,C21189,Must remain DNP: CFG3 internal pull-up for 12V request
+R5,0R,Resistor_SMD:R_0603_1608Metric,False,C21189,"Fitted: CFG2 low, CFG1 low, CFG3 high -> 12V"
+U2,TPS5430DDAR,Package_SO:TI_SO-PowerPAD-8_ThermalVias,False,C9864,
+C3,10n,Capacitor_SMD:C_0603_1608Metric,False,C57112,
+L1,15u/4A,Inductor_SMD:L_Bourns_SRR1260,False,C2041333,
+D4,SS54,Diode_SMD:D_SMA,False,C22452,catch diode
+R6,10k,Resistor_SMD:R_0603_1608Metric,False,C25804,
+R7,3.24k,Resistor_SMD:R_0603_1608Metric,False,C22994,Vout = 1.221*(1+10k/3.24k) = 4.99V; R7 C22994 1%
+R8,100k,Resistor_SMD:R_0603_1608Metric,False,C25803,
+R9,15k,Resistor_SMD:R_0603_1608Metric,False,C22809,External EN divider ~9.4V threshold; stays off at default USB 5V/9V
+C4,10u/50V,Capacitor_SMD:C_1206_3216Metric,False,C13585,
+C5,10u/50V,Capacitor_SMD:C_1206_3216Metric,False,C13585,
+C6,100n/50V,Capacitor_SMD:C_0603_1608Metric,False,C14663,
+C7,220u/10V POSCAP,Capacitor_Tantalum_SMD:CP_EIA-7343-40_Kemet-Y,False,C242173,"Panasonic 10TPB220M, 220uF 10V ESR max40mohm; TI reference output capacitor"
+C8,47u/10V,Capacitor_SMD:C_1206_3216Metric,True,C96123,
+C9,47u/10V,Capacitor_SMD:C_1206_3216Metric,True,C96123,
+U3,TLV1117LV33DCYR,Package_TO_SOT_SMD:SOT-223-3_TabPin2,False,C15578,"TI TLV1117LV33: ceramic-output stable, pin-compatible SOT-223"
+C10,10u/16V,Capacitor_SMD:C_1206_3216Metric,False,C13585,
+C11,22u/10V,Capacitor_SMD:C_1206_3216Metric,False,C12891,
+J3,2.54-2*15P,carrier:PinHeader_2x15_Tab5_Bottom,False,C56496,"LCSC C56496 separately purchased; mandatory manual soldering, excluded from PCBA. Bottom mating direction retained."
+R10,680R,Resistor_SMD:R_0603_1608Metric,False,C23228,Initial PoC1MHz; DATA setup/hold>=250ns; DIR deadtime>=500ns; weak drive/SLOW. New full-size routing must be re-evaluated.
+R11,680R,Resistor_SMD:R_0603_1608Metric,False,C23228,Initial PoC1MHz; DATA setup/hold>=250ns; DIR deadtime>=500ns; weak drive/SLOW. New full-size routing must be re-evaluated.
+R12,680R,Resistor_SMD:R_0603_1608Metric,False,C23228,Initial PoC1MHz; DATA setup/hold>=250ns; DIR deadtime>=500ns; weak drive/SLOW. New full-size routing must be re-evaluated.
+R13,680R,Resistor_SMD:R_0603_1608Metric,False,C23228,Initial PoC1MHz; DATA setup/hold>=250ns; DIR deadtime>=500ns; weak drive/SLOW. New full-size routing must be re-evaluated.
+R14,680R,Resistor_SMD:R_0603_1608Metric,False,C23228,Initial PoC1MHz; DATA setup/hold>=250ns; DIR deadtime>=500ns; weak drive/SLOW. New full-size routing must be re-evaluated.
+R15,680R,Resistor_SMD:R_0603_1608Metric,False,C23228,Initial PoC1MHz; DATA setup/hold>=250ns; DIR deadtime>=500ns; weak drive/SLOW. New full-size routing must be re-evaluated.
+R16,680R,Resistor_SMD:R_0603_1608Metric,False,C23228,Initial PoC1MHz; DATA setup/hold>=250ns; DIR deadtime>=500ns; weak drive/SLOW. New full-size routing must be re-evaluated.
+R17,0R,Resistor_SMD:R_0603_1608Metric,True,C21189,16-bit extension (DNP): connects G37 to FPGA
+R18,0R,Resistor_SMD:R_0603_1608Metric,True,C21189,16-bit extension (DNP): connects G38 to FPGA
+R19,680R,Resistor_SMD:R_0603_1608Metric,False,C23228,Initial PoC1MHz; DATA setup/hold>=250ns; DIR deadtime>=500ns; weak drive/SLOW. New full-size routing must be re-evaluated.
+R20,680R,Resistor_SMD:R_0603_1608Metric,False,C23228,Initial PoC1MHz; DATA setup/hold>=250ns; DIR deadtime>=500ns; weak drive/SLOW. New full-size routing must be re-evaluated.
+R21,680R,Resistor_SMD:R_0603_1608Metric,False,C23228,Initial PoC1MHz; DATA setup/hold>=250ns; DIR deadtime>=500ns; weak drive/SLOW. New full-size routing must be re-evaluated.
+R22,680R,Resistor_SMD:R_0603_1608Metric,False,C23228,Initial PoC1MHz; DATA setup/hold>=250ns; DIR deadtime>=500ns; weak drive/SLOW. New full-size routing must be re-evaluated.
+R23,680R,Resistor_SMD:R_0603_1608Metric,False,C23228,Initial PoC1MHz; DATA setup/hold>=250ns; DIR deadtime>=500ns; weak drive/SLOW. New full-size routing must be re-evaluated.
+R24,680R,Resistor_SMD:R_0603_1608Metric,False,C23228,Initial PoC1MHz; DATA setup/hold>=250ns; DIR deadtime>=500ns; weak drive/SLOW. New full-size routing must be re-evaluated.
+R25,0R,Resistor_SMD:R_0603_1608Metric,True,C21189,16-bit extension (DNP): connects G35 to FPGA
+R26,680R,Resistor_SMD:R_0603_1608Metric,False,C23228,Initial PoC1MHz; DATA setup/hold>=250ns; DIR deadtime>=500ns; weak drive/SLOW. New full-size routing must be re-evaluated.
+R27,680R,Resistor_SMD:R_0603_1608Metric,False,C23228,Initial PoC1MHz; DATA setup/hold>=250ns; DIR deadtime>=500ns; weak drive/SLOW. New full-size routing must be re-evaluated.
+J4,SOCKET XDAP-4042044-20401,carrier:DDR3_XDAP_4042044_20401,False,C22471982,"PCBA mandatory; socket only, Core module supplied by user; confirm stock/fixture"
+J5,HDMI OUT,Connector_Video:HDMI_A_Molex_208658-1001_Horizontal,False,C916313,MOLEX 2086581001; PCBA required including four through-hole shell tabs; no customer HDMI soldering. Confirm full connector assembly in supplier preview.
+C12,100n,Capacitor_SMD:C_0402_1005Metric,False,C1525,100nF AC coupling; low-profile 0402 under Core
+R28,499R,Resistor_SMD:R_0603_1608Metric,False,C23065,
+C13,100n,Capacitor_SMD:C_0402_1005Metric,False,C1525,100nF AC coupling; low-profile 0402 under Core
+R29,499R,Resistor_SMD:R_0603_1608Metric,False,C23065,
+C14,100n,Capacitor_SMD:C_0402_1005Metric,False,C1525,100nF AC coupling; low-profile 0402 under Core
+R30,499R,Resistor_SMD:R_0402_1005Metric,False,C4125,
+C15,100n,Capacitor_SMD:C_0402_1005Metric,False,C1525,100nF AC coupling; low-profile 0402 under Core
+R31,499R,Resistor_SMD:R_0402_1005Metric,False,C4125,
+C16,100n,Capacitor_SMD:C_0402_1005Metric,False,C1525,100nF AC coupling; low-profile 0402 under Core
+R32,499R,Resistor_SMD:R_0603_1608Metric,False,C23065,
+C17,100n,Capacitor_SMD:C_0402_1005Metric,False,C1525,100nF AC coupling; low-profile 0402 under Core
+R33,499R,Resistor_SMD:R_0603_1608Metric,False,C23065,
+C18,100n,Capacitor_SMD:C_0402_1005Metric,False,C1525,100nF AC coupling; low-profile 0402 under Core
+R34,499R,Resistor_SMD:R_0603_1608Metric,False,C23065,
+C19,100n,Capacitor_SMD:C_0402_1005Metric,False,C1525,100nF AC coupling; low-profile 0402 under Core
+R35,499R,Resistor_SMD:R_0603_1608Metric,False,C23065,
+U4,RCLAMP0524P,carrier:DFN2510-10L_RCLAMP0524P,False,C293965,"TMDS ESD array (DOWO DFN2510-10L): I/O 1,2,4,5, GND 3,8; the line is routed as continuous copper through strapped pads"
+U5,RCLAMP0524P,carrier:DFN2510-10L_RCLAMP0524P,False,C293965,"TMDS ESD array (DOWO DFN2510-10L): I/O 1,2,4,5, GND 3,8; the line is routed as continuous copper through strapped pads"
+U6,RCLAMP0524P,carrier:DFN2510-10L_RCLAMP0524P,False,C293965,"Independent ground-referenced ESD channels, no shared VCC steering; NC counterpart lands externally copper strapped"
+F2,PTC 500mA,Fuse:Fuse_1206_3216Metric,False,C315893,
+Q1,2N7002,Package_TO_SOT_SMD:SOT-23,False,C8545,DDC level shifter (pin1=G pin2=S pin3=D)
+Q2,2N7002,Package_TO_SOT_SMD:SOT-23,False,C8545,
+R36,10k,Resistor_SMD:R_0603_1608Metric,False,C25804,
+R37,10k,Resistor_SMD:R_0603_1608Metric,False,C25804,
+R38,2.2k,Resistor_SMD:R_0603_1608Metric,False,C4190,
+R39,2.2k,Resistor_SMD:R_0603_1608Metric,False,C4190,
+R40,47k,Resistor_SMD:R_0603_1608Metric,False,C25819,
+R41,100k,Resistor_SMD:R_0603_1608Metric,False,C25803,
+J6,PMOD1,Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical,True,,"2x6 PMOD-style, 3.3V. Pads only: pin header is hand-fitted later (DNP)"
+J7,PMOD2,Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical,True,,"2x6 PMOD-style, 3.3V. Pads only: pin header is hand-fitted later (DNP)"
+R42,1k,Resistor_SMD:R_0603_1608Metric,False,C21190,
+D5,LED,LED_SMD:LED_0603_1608Metric,False,C2286,
+R43,1k,Resistor_SMD:R_0603_1608Metric,False,C21190,
+D6,LED,LED_SMD:LED_0603_1608Metric,False,C2286,
+R44,1k,Resistor_SMD:R_0603_1608Metric,False,C21190,
+D7,LED,LED_SMD:LED_0603_1608Metric,False,C2286,
+R45,1k,Resistor_SMD:R_0603_1608Metric,False,C21190,
+D8,LED,LED_SMD:LED_0603_1608Metric,False,C2286,
+SW1,TS-1102S-B-D-B,carrier:SW_XKB_TS1102S_C480272,False,C480272,PCBA SMT; XKB C480272 H5.5mm; manufacturer12x5.9mm lands; confirm contact grouping and mechanical fit in assembly preview
+SW2,TS-1102S-B-D-B,carrier:SW_XKB_TS1102S_C480272,False,C480272,PCBA SMT; XKB C480272 H5.5mm; manufacturer12x5.9mm lands; confirm contact grouping and mechanical fit in assembly preview
+J8,GPIO pads,Connector_PinHeader_2.54mm:PinHeader_1x09_P2.54mm_Vertical,True,,"spare FPGA I/O (3.3V, bank 7): pads only, hand-fit a header or wires later"
+H1,M3,MountingHole:MountingHole_3.2mm_M3,False,,
+H2,M3,MountingHole:MountingHole_3.2mm_M3,False,,
+H3,M3,MountingHole:MountingHole_3.2mm_M3,False,,
+H4,M3,MountingHole:MountingHole_3.2mm_M3,False,,
+H5,M3,MountingHole:MountingHole_3.2mm_M3,False,,
+H6,M3,MountingHole:MountingHole_3.2mm_M3,False,,
+U7,SN74CB3Q3245PWR,Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm,False,C470961,Ioff protected 8-bit passive bus switch; OE pulled high by default
+C20,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,
+U8,SN74CB3Q3245PWR,Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm,False,C470961,Ioff protected 8-bit passive bus switch; OE pulled high by default
+C21,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,
+U9,TPS3839G33DBZR,Package_TO_SOT_SMD:SOT-23,False,C485802,"3.08V / 4.38V supervisor, 200ms typical release delay"
+C22,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,
+U10,TPS3839K50DBZR,Package_TO_SOT_SMD:SOT-23,False,C702204,"3.08V / 4.38V supervisor, 200ms typical release delay"
+C23,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,
+JP1,B-2100S02P-A110,Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical,False,C124375,"LCSC/JLC wave-solder candidate; 1x2 male2.54mm,6mm mating pins,3mm solder tails; C5305 shunt supplied separately and initially absent."
+Q3,2N7002,Package_TO_SOT_SMD:SOT-23,False,C8545,
+Q4,2N7002,Package_TO_SOT_SMD:SOT-23,False,C8545,
+R46,22k,Resistor_SMD:R_0603_1608Metric,False,C31850,
+R47,100k,Resistor_SMD:R_0603_1608Metric,False,C25803,
+R48,100k,Resistor_SMD:R_0603_1608Metric,False,C25803,
+Q5,MMBT3904,Package_TO_SOT_SMD:SOT-23,False,C20526,"Active-low HPD; input only, invert and debounce >=10ms; R52 limits off-bank charge injection, no hotplug guarantee"
+R51,47k,Resistor_SMD:R_0603_1608Metric,False,C25819,"Active-low HPD; input only, invert and debounce >=10ms; R52 limits off-bank charge injection, no hotplug guarantee"
+R52,10k,Resistor_SMD:R_0603_1608Metric,False,C25804,"Active-low HPD; input only, invert and debounce >=10ms; R52 limits off-bank charge injection, no hotplug guarantee"
+C24,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,"Active-low HPD; input only, invert and debounce >=10ms; R52 limits off-bank charge injection, no hotplug guarantee"
+JP2,MODE POWER,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical,False,,"MOVE ALL JP2/3/4 TOGETHER, ALL INPUTS UNPLUGGED. RUN1-2, PROGRAM2-3. Mixed settings can damageCore."
+JP3,MODE TAB5,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical,False,,"MOVE ALL JP2/3/4 TOGETHER, ALL INPUTS UNPLUGGED. RUN1-2, PROGRAM2-3. Mixed settings can damageCore."
+JP4,MODE PD,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical,False,,"MOVE ALL JP2/3/4 TOGETHER, ALL INPUTS UNPLUGGED. RUN1-2, PROGRAM2-3. Mixed settings can damageCore."
+R73,100k,Resistor_SMD:R_0603_1608Metric,False,,
+R74,100k,Resistor_SMD:R_0603_1608Metric,False,,
+U17,FT232HL-REEL,Package_QFP:LQFP-48_7x7mm_P0.5mm,False,,Genuine FT232HL; no EEPROM; defaultVID/PID0403:6014; openFPGALoader cableft232; MPSSE selected overUSB
+R81,12k 1%,Resistor_SMD:R_0603_1608Metric,False,,
+R82,10k,Resistor_SMD:R_0603_1608Metric,False,,
+C85,100n,Capacitor_SMD:C_0603_1608Metric,False,,
+Y1,FA-238 12MHz CL18pF 30ppm,Crystal:Crystal_SMD_SeikoEpson_FA238-4Pin_3.2x2.5mm,False,,
+C86,27p,Capacitor_SMD:C_0603_1608Metric,False,,
+C87,27p,Capacitor_SMD:C_0603_1608Metric,False,,
+C88,100n,Capacitor_SMD:C_0603_1608Metric,False,,
+C89,100n,Capacitor_SMD:C_0603_1608Metric,False,,
+C90,100n,Capacitor_SMD:C_0603_1608Metric,False,,
+C91,100n,Capacitor_SMD:C_0603_1608Metric,False,,
+C92,100n,Capacitor_SMD:C_0603_1608Metric,False,,
+C93,100n,Capacitor_SMD:C_0603_1608Metric,False,,
+C94,100n,Capacitor_SMD:C_0603_1608Metric,False,,
+C95,100n,Capacitor_SMD:C_0603_1608Metric,False,,
+C96,4.7u,Capacitor_SMD:C_0603_1608Metric,False,,
+D10,PESD5V0U1BL,Diode_SMD:D_SOD-882,False,,Nexperia low-capacitance bidirectional ESD; not PESD5V0S1UL (high capacitance)
+D11,PESD5V0U1BL,Diode_SMD:D_SOD-882,False,,Ground referenced ESD; never connect to12V VBUS
+U19,SN74LVC125APWR,Package_SO:TSSOP-14_4.4x5mm_P0.65mm,False,,
+C97,100n,Capacitor_SMD:C_0603_1608Metric,False,,
+R83,33R,Resistor_SMD:R_0603_1608Metric,False,,
+R84,33R,Resistor_SMD:R_0603_1608Metric,False,,
+R85,33R,Resistor_SMD:R_0603_1608Metric,False,,
+R86,10k,Resistor_SMD:R_0603_1608Metric,False,,
+R87,10k,Resistor_SMD:R_0603_1608Metric,False,,
+R88,100k,Resistor_SMD:R_0603_1608Metric,False,,
+R89,1M,Resistor_SMD:R_0603_1608Metric,False,,
+R90,10k,Resistor_SMD:R_0603_1608Metric,False,,
+Q7,2N7002,Package_TO_SOT_SMD:SOT-23,False,,
+Q8,2N7002,Package_TO_SOT_SMD:SOT-23,False,,

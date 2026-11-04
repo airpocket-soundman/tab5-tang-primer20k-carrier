@@ -1,0 +1,587 @@
+[
+  {
+    "ref": "U17",
+    "sym": "carrier:FT232H_5V",
+    "fp": "Package_QFP:LQFP-48_7x7mm_P0.5mm",
+    "value": "FT232HL-REEL",
+    "pins": {
+      "1": "XTAL_IN",
+      "2": "XTAL_OUT",
+      "3": "DBG_3V3",
+      "4": "GND",
+      "5": "FT_REF",
+      "6": "USB_DM",
+      "7": "USB_DP",
+      "8": "DBG_3V3",
+      "9": "GND",
+      "10": "GND",
+      "11": "GND",
+      "12": "DBG_3V3",
+      "13": "DBG_TCK",
+      "14": "DBG_TDI",
+      "15": "DBG_TDO",
+      "16": "DBG_TMS",
+      "17": null,
+      "18": null,
+      "19": null,
+      "20": null,
+      "21": "USB_PWREN_N",
+      "22": "GND",
+      "23": "GND",
+      "24": "DBG_3V3",
+      "25": null,
+      "26": null,
+      "27": null,
+      "28": null,
+      "29": null,
+      "30": null,
+      "31": "USB_VBUS_PRESENT",
+      "32": null,
+      "33": null,
+      "34": "FT_RESET_N",
+      "35": "GND",
+      "36": "GND",
+      "37": "FT_1V8A",
+      "38": "FT_1V8D",
+      "39": "DBG_3V3",
+      "40": "SYS_5V",
+      "41": "GND",
+      "42": "GND",
+      "43": "EE_DATA",
+      "44": "EE_CLK",
+      "45": "EE_CS",
+      "46": "DBG_3V3",
+      "47": "GND",
+      "48": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      27,
+      34
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "ACBUS0=PWREN# programmed in93LC56B; EEPROM blank keeps Core off on USB. genuine FTDI VID/PID0403:6014",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "R81",
+    "sym": "Device:R",
+    "fp": "Resistor_SMD:R_0603_1608Metric",
+    "value": "12k 1%",
+    "pins": {
+      "1": "FT_REF",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      22,
+      34
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "R82",
+    "sym": "Device:R",
+    "fp": "Resistor_SMD:R_0603_1608Metric",
+    "value": "10k",
+    "pins": {
+      "1": "DBG_3V3",
+      "2": "FT_RESET_N"
+    },
+    "block": "usbjtag",
+    "pos": [
+      22,
+      30
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "C85",
+    "sym": "Device:C",
+    "fp": "Capacitor_SMD:C_0603_1608Metric",
+    "value": "100n",
+    "pins": {
+      "1": "FT_RESET_N",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      22,
+      28
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "Y1",
+    "sym": "Device:Crystal_GND24",
+    "fp": "Crystal:Crystal_SMD_SeikoEpson_FA238-4Pin_3.2x2.5mm",
+    "value": "FA-238 12MHz CL18pF 30ppm",
+    "pins": {
+      "1": "XTAL_IN",
+      "3": "XTAL_OUT",
+      "2": "GND",
+      "4": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      19,
+      31.5
+    ],
+    "rot": 90,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "C86",
+    "sym": "Device:C",
+    "fp": "Capacitor_SMD:C_0603_1608Metric",
+    "value": "27p",
+    "pins": {
+      "1": "XTAL_IN",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      18,
+      29
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "C87",
+    "sym": "Device:C",
+    "fp": "Capacitor_SMD:C_0603_1608Metric",
+    "value": "27p",
+    "pins": {
+      "1": "XTAL_OUT",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      18,
+      34
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "C88",
+    "sym": "Device:C",
+    "fp": "Capacitor_SMD:C_0603_1608Metric",
+    "value": "100n",
+    "pins": {
+      "1": "DBG_3V3",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      22,
+      40
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "C89",
+    "sym": "Device:C",
+    "fp": "Capacitor_SMD:C_0603_1608Metric",
+    "value": "100n",
+    "pins": {
+      "1": "DBG_3V3",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      25,
+      43
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "C90",
+    "sym": "Device:C",
+    "fp": "Capacitor_SMD:C_0603_1608Metric",
+    "value": "100n",
+    "pins": {
+      "1": "DBG_3V3",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      28,
+      40
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "C91",
+    "sym": "Device:C",
+    "fp": "Capacitor_SMD:C_0603_1608Metric",
+    "value": "100n",
+    "pins": {
+      "1": "DBG_3V3",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      31,
+      43
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "C92",
+    "sym": "Device:C",
+    "fp": "Capacitor_SMD:C_0603_1608Metric",
+    "value": "100n",
+    "pins": {
+      "1": "DBG_3V3",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      22,
+      40
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "C93",
+    "sym": "Device:C",
+    "fp": "Capacitor_SMD:C_0603_1608Metric",
+    "value": "100n",
+    "pins": {
+      "1": "FT_1V8A",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      25,
+      43
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "C94",
+    "sym": "Device:C",
+    "fp": "Capacitor_SMD:C_0603_1608Metric",
+    "value": "100n",
+    "pins": {
+      "1": "FT_1V8D",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      28,
+      40
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "C95",
+    "sym": "Device:C",
+    "fp": "Capacitor_SMD:C_0603_1608Metric",
+    "value": "100n",
+    "pins": {
+      "1": "SYS_5V",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      31,
+      43
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "C96",
+    "sym": "Device:C",
+    "fp": "Capacitor_SMD:C_0603_1608Metric",
+    "value": "4.7u",
+    "pins": {
+      "1": "DBG_3V3",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      25,
+      44
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "D10",
+    "sym": "Device:D_TVS",
+    "fp": "Diode_SMD:D_SOD-882",
+    "value": "PESD5V0U1BL",
+    "pins": {
+      "1": "USB_DP",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      14,
+      26
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "Nexperia low-capacitance bidirectional ESD; not PESD5V0S1UL (high capacitance)",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "D11",
+    "sym": "Device:D_TVS",
+    "fp": "Diode_SMD:D_SOD-882",
+    "value": "PESD5V0U1BL",
+    "pins": {
+      "1": "USB_DM",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      14,
+      29
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "Ground referenced ESD; never connect to12V VBUS",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "U19",
+    "sym": "carrier:SN74LVC125A",
+    "fp": "Package_SO:TSSOP-14_4.4x5mm_P0.65mm",
+    "value": "SN74LVC125APWR",
+    "pins": {
+      "1": "GND",
+      "2": "DBG_TCK",
+      "3": "JTAG_TCK_PRE",
+      "4": "GND",
+      "5": "DBG_TDI",
+      "6": "JTAG_TDI_PRE",
+      "7": "GND",
+      "8": "JTAG_TMS_PRE",
+      "9": "DBG_TMS",
+      "10": "GND",
+      "11": "DBG_TDO",
+      "12": "JTAG_TDO",
+      "13": "GND",
+      "14": "+3V3"
+    },
+    "block": "usbjtag",
+    "pos": [
+      44,
+      43
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "C97",
+    "sym": "Device:C",
+    "fp": "Capacitor_SMD:C_0603_1608Metric",
+    "value": "100n",
+    "pins": {
+      "1": "+3V3",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      45,
+      46
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "R83",
+    "sym": "Device:R",
+    "fp": "Resistor_SMD:R_0603_1608Metric",
+    "value": "33R",
+    "pins": {
+      "1": "JTAG_TCK_PRE",
+      "2": "JTAG_TCK"
+    },
+    "block": "usbjtag",
+    "pos": [
+      46,
+      47
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "R84",
+    "sym": "Device:R",
+    "fp": "Resistor_SMD:R_0603_1608Metric",
+    "value": "33R",
+    "pins": {
+      "1": "JTAG_TDI_PRE",
+      "2": "JTAG_TDI"
+    },
+    "block": "usbjtag",
+    "pos": [
+      46,
+      49
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "R85",
+    "sym": "Device:R",
+    "fp": "Resistor_SMD:R_0603_1608Metric",
+    "value": "33R",
+    "pins": {
+      "1": "JTAG_TMS_PRE",
+      "2": "JTAG_TMS"
+    },
+    "block": "usbjtag",
+    "pos": [
+      46,
+      51
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "R86",
+    "sym": "Device:R",
+    "fp": "Resistor_SMD:R_0603_1608Metric",
+    "value": "10k",
+    "pins": {
+      "1": "JTAG_TCK",
+      "2": "GND"
+    },
+    "block": "usbjtag",
+    "pos": [
+      47,
+      54
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  },
+  {
+    "ref": "R87",
+    "sym": "Device:R",
+    "fp": "Resistor_SMD:R_0603_1608Metric",
+    "value": "10k",
+    "pins": {
+      "1": "+3V3",
+      "2": "JTAG_TMS"
+    },
+    "block": "usbjtag",
+    "pos": [
+      47,
+      56
+    ],
+    "rot": 0,
+    "side": "F",
+    "dnp": false,
+    "comment": "",
+    "lcsc": "",
+    "pads": null
+  }
+]

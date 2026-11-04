@@ -50,4 +50,6 @@ Linux側では双方向のコマンド・データ転送、128MB DDR3全域へ�
 
 ## Spark応募用の独立フル機能版
 
+次版のKiCad設計： [USB給電・JTAG対応 r5](spark/usb-jtag-r5/README.md)。PCのUSB 5VでCoreを書き込み、PD／バレル12VでTab5も給電する構成を別ディレクトリに設計しました。現行r4・応募公開データは保持しています。r5は未リリースで、通常USBの500mAだけではCoreと書き込み回路の動作を保証しません。
+
 従来設計とA/B/Cの計画を保持し、125×78mm・HDMI・USB PD付きの別版を [spark/](spark/README.md) で開発しています。KiCadで設計・解析してEasyEDAへ移植し、PCBAを優先、手はんだ品もLCSC調達を優先し、適合品をLCSCで調達できない場合のみ秋月電子へ集約します。[検証状況と残件](spark/design/VERIFICATION_STATUS.md)を確認してください。現行の製造データは見積・レビュー用です。

@@ -1,0 +1,146 @@
+"""r5 electrical candidate. r4 remains immutable. No manufacturing approval implied."""
+from design_r4 import *
+import design_r4 as previous
+
+VARIANT = 'spark-full-usb-jtag-r5'
+PROJECT = 'tab5-fpga-carrier-r5'
+POWER_FIXED = {  # r5 local switching loop / clock: never scatter by greedy placement
+    'U2':((27,66),0),'L1':((30.5,66),90),
+    'C72':((26.5,62),0),'C73':((31,61.5),90),
+    'C76':((26.5,69.2),0),'C77':((29,71),0),'C78':((33,71),0),
+    'Y1':((19,31.5),90),'C86':((18,29),0),'C87':((18,34),0),
+}
+
+def build():
+    cs = previous.build()
+    removed = {'U2','D1','D2','D4','L1','R6','R7','R8','R9','C3','C4','C5','C6','C7','C8','C9'}
+    cs = [c for c in cs if c.ref not in removed]
+    for c in cs:
+        if c.ref in ('D1','D2','D3','C1'):
+            c.pins = {p: ('SYS_IN' if n == 'VIN' else n) for p,n in c.pins.items()}
+        if c.ref == 'J2':
+            c.sym='Connector:USB_C_Receptacle_USB2.0_16P'
+            c.fp='Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12'
+            c.value='TYPE-C-31-M-12 USB2 + PD'; c.lcsc=''
+            c.pins={p:'GND' for p in ('A1','A12','B1','B12','SH')}
+            c.pins.update({p:'VBUS_PD' for p in ('A4','A9','B4','B9')})
+            c.pins.update({'A5':'CC1','B5':'CC2','A6':'USB_DP','B6':'USB_DP','A7':'USB_DM','B7':'USB_DM','A8':None,'B8':None})
+            c.comment='USB2 D+/D- to FT232H; CC exclusively CH224K; new connector fit requires review'
+        if c.ref=='C1':
+            c.value='DNP input bulk'; c.dnp=True
+            c.comment='No 100uF directly on USB: bulk belongs after controlled input ramp'
+        if c.ref=='D3':
+            c.comment='Transient suppressor only; TPS259470 downstream provides static OVLO; 24V not allowed'
+
+    def addpart(ref,sym,fp,val,pins,block='r5power',pos=(30,35),rot=0,comment=''):
+        c=Comp(ref,sym,fp,val,pins,block,pos=pos,rot=rot,comment=comment)
+        cs.append(c); return c
+    def r(ref,val,a,b,pos=(30,35),block='r5power'):
+        return addpart(ref,'Device:R',R0603,val,{'1':a,'2':b},block,pos)
+    def cap(ref,val,a,b='GND',pos=(30,35),block='r5power'):
+        return addpart(ref,'Device:C',C0603,val,{'1':a,'2':b},block,pos)
+
+    # Independent reverse-blocking protected inputs OR at SYS_IN; no diode drop.
+    efp='carrier:TI_RPW0010A'
+    for ref,source,out,uvhi,uvlo,tag,xy in [
+        ('U11','VBUS_PD','SYS_IN','24.9k','10k','IN',(30,52)),
+        ('U12','SYS_IN','VIN','78.7k','10k','HV',(38,52))]:
+        addpart(ref,'carrier:TPS259470A',efp,'TPS259470ARPWR',
+          {'1':tag+'_UV','2':tag+'_OV','3':tag+'_VALID','4':tag+'_FAULT_N','5':source,'6':out,'7':tag+'_SLEW','8':'GND','9':tag+'_ILIM','10':None},pos=xy,
+          comment='True reverse blocking; OVLO about13.2V. IN accepts USB5; HV rejects5/9V. ITIMER open: fastest fault response')
+        i=60 if tag=='IN' else 66
+        r('R'+str(i),uvhi,source,tag+'_UV',xy);r('R'+str(i+1),uvlo,tag+'_UV','GND',xy)
+        r('R'+str(i+2),'100k',source,tag+'_OV',xy);r('R'+str(i+3),'10k',tag+'_OV','GND',xy)
+        r('R'+str(i+4),'1.65k',tag+'_ILIM','GND',xy)
+        r('R'+str(i+5),'10k','DBG_3V3',tag+'_VALID',xy)
+        cap('C'+str(i),'47n',tag+'_SLEW',pos=xy)
+        cap('C'+str(i+1),'1u/25V',source,pos=xy)
+    for ref in ('C72','C73'):
+        c=cap(ref,'10u/25V X7R','SYS_IN');c.fp=C1206
+        c.comment='GRM31CR71E106KA12 class1206; verify combined effectiveCin>=4.7uF at12.6V'
+    cap('C74','1u/25V','VIN',pos=(40,56))
+    addpart('U21','carrier:TPS259470A',efp,'TPS259470ARPWR',
+      {'1':'DC_UV','2':'DC_OV','3':None,'4':'DC_FAULT_N','5':'DC_IN','6':'SYS_IN','7':'DC_SLEW','8':'GND','9':'DC_ILIM','10':None},
+      pos=(20,52),comment='Barrel input: reverse polarity/blocking + UVLO10.6V / OVLO13.2V; OR with USB input')
+    r('R91','78.7k','DC_IN','DC_UV',(20,55));r('R92','10k','DC_UV','GND',(20,57))
+    r('R93','100k','DC_IN','DC_OV',(24,55));r('R94','10k','DC_OV','GND',(24,57))
+    r('R95','1.65k','DC_ILIM','GND',(18,58));cap('C99','47n','DC_SLEW',pos=(18,55))
+    cap('C100','1u/25V','DC_IN',pos=(18,52))
+
+    # Fixed 5V buck-boost replaces TPS5430; tolerates USB cable/OR diode drops.
+    addpart('U2','carrier:TPS630701','carrier:TI_RNM0015A','TPS630701RNMR',
+      {'1':'SYS_IN','2':'REG_PGOOD','3':'REG_VAUX','4':'GND','5':'SYS_5V','6':None,
+       '7':'SYS_5V','8':'SYS_5V','9':'REG_L2','10':'GND','11':'REG_L1','12':'SYS_IN','13':'SYS_IN','14':'REG_EN','15':'GND'},
+      pos=(27,66),comment='Fixed5V; FB tied VOUT; VSEL low. New power stage requires loop/transient/thermal validation')
+    addpart('L1','Device:L','Inductor_SMD:L_Coilcraft_XAL4020-XXX','XAL4020-152ME 1.5uH',{'1':'REG_L1','2':'REG_L2'},pos=(32,66))
+    r('R72','100k','SYS_IN','REG_EN',(24,63));r('R73','100k','DBG_3V3','REG_PGOOD',(24,61))
+    cap('C75','100n','REG_VAUX',pos=(25,68))
+    for i,x in enumerate((30,34,38),76):
+        c=cap('C'+str(i),'22u/10V X7R','SYS_5V',pos=(x,70));c.fp='Capacitor_SMD:C_0805_2012Metric'
+    cap('C79','100n','SYS_5V',pos=(24,70))
+
+    # Power to Core and peripherals only after USB configuration OR valid HV.
+    addpart('U13','carrier:TPS2553DBV','Package_TO_SOT_SMD:SOT-23-6','TPS2553DBVR',
+      {'1':'SYS_5V','2':'GND','3':'CORE_ENABLE','4':'CORE_LIMIT_N','5':'CORE_ILIM','6':'+5V'},pos=(42,64))
+    r('R74','150k','CORE_ILIM','GND',(43,68))
+    r('R75','39k','CORE_ILIM','HV_ILIM_LOW',(46,68))
+    addpart('Q6','Transistor_FET:2N7002','Package_TO_SOT_SMD:SOT-23','2N7002',
+      {'1':'HIGH_CURRENT_GRANT','2':'GND','3':'HV_ILIM_LOW'},pos=(46,64))
+    addpart('JP2','Connector_Generic:Conn_01x03','Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical',
+      'USB CURRENT: 1-2 AUTO / 2-3 USB-C1.5A',{'1':'HV_VALID','2':'HIGH_CURRENT_GRANT','3':'DBG_3V3'},pos=(48,56),
+      comment='Default1-2: high current only on HV. 2-3 requires PC USB-C source advertising>=1.5A with C-C cable; never USB-A/default-current source. Core0.5A cannot be guaranteed in500mA total budget.')
+    r('R96','100k','HIGH_CURRENT_GRANT','GND',(47,25))
+    r('R76','100k','CORE_ENABLE','GND',(44,61));r('R77','10k','DBG_3V3','CORE_LIMIT_N',(48,61))
+    cap('C80','1u','+5V',pos=(44,70));cap('C81','100n','SYS_5V',pos=(42,60))
+    addpart('U14','74xGxx:74LVC1G04','Package_TO_SOT_SMD:SOT-23-5','SN74LVC1G04DBVR',
+      {'1':None,'2':'USB_PWREN_N','3':'GND','4':'USB_CONFIGURED','5':'DBG_3V3'},pos=(38,35))
+    addpart('U15','74xGxx:74LVC1G32','Package_TO_SOT_SMD:SOT-23-5','SN74LVC1G32DBVR',
+      {'1':'USB_CONFIGURED','2':'HV_VALID','3':'GND','4':'CORE_REQUEST','5':'DBG_3V3'},pos=(42,35))
+    addpart('U16','74xGxx:74LVC1G08','Package_TO_SOT_SMD:SOT-23-5','SN74LVC1G08DBVR',
+      {'1':'CORE_REQUEST','2':'REG_PGOOD','3':'GND','4':'CORE_ENABLE','5':'DBG_3V3'},pos=(46,35))
+    r('R78','10k','DBG_3V3','USB_PWREN_N',(38,38))
+    for i,x in enumerate((38,42,46),82):cap('C'+str(i),'100n','DBG_3V3',pos=(x,40))
+
+    # Genuine FT232H (single MPSSE); no BL702 firmware dependency.
+    fpins={str(i):None for i in range(1,49)}
+    fpins.update({str(i):'GND' for i in (4,9,10,11,22,23,35,36,41,42,47,48)})
+    fpins.update({str(i):'DBG_3V3' for i in (3,8,12,24,46)})
+    fpins.update({'1':'XTAL_IN','2':'XTAL_OUT','5':'FT_REF','6':'USB_DM','7':'USB_DP','13':'DBG_TCK','14':'DBG_TDI','15':'DBG_TDO','16':'DBG_TMS',
+      '21':'USB_PWREN_N','31':'USB_VBUS_PRESENT','34':'FT_RESET_N','37':'FT_1V8A','38':'FT_1V8D','39':'DBG_3V3','40':'SYS_5V','43':'EE_DATA','44':'EE_CLK','45':'EE_CS'})
+    addpart('U17','carrier:FT232H_5V','Package_QFP:LQFP-48_7x7mm_P0.5mm','FT232HL-REEL',fpins,'usbjtag',(27,34),
+      comment='ACBUS0=PWREN# programmed in93LC56B; EEPROM blank keeps Core off on USB. genuine FTDI VID/PID0403:6014')
+    addpart('U18','Memory_EEPROM:93LCxxB','Package_SO:SOIC-8_3.9x4.9mm_P1.27mm','93LC56B-I/SN',
+      {'1':'EE_CS','2':'EE_CLK','3':'EE_DATA','4':'EE_DO','5':'GND','6':None,'7':None,'8':'DBG_3V3'},'usbjtag',(39,25))
+    r('R79','2.2k','EE_DO','EE_DATA',(40,28),'usbjtag');r('R80','10k','EE_CS','GND',(43,28),'usbjtag')
+    r('R81','12k 1%','FT_REF','GND',(22,34),'usbjtag');r('R82','10k','DBG_3V3','FT_RESET_N',(22,30),'usbjtag')
+    cap('C85','100n','FT_RESET_N',pos=(22,28),block='usbjtag')
+    addpart('Y1','Device:Crystal_GND24','Crystal:Crystal_SMD_SeikoEpson_FA238-4Pin_3.2x2.5mm','FA-238 12MHz CL18pF 30ppm',{'1':'XTAL_IN','3':'XTAL_OUT','2':'GND','4':'GND'},'usbjtag',(25,25))
+    cap('C86','27p','XTAL_IN',pos=(23,24),block='usbjtag');cap('C87','27p','XTAL_OUT',pos=(27,24),block='usbjtag')
+    for i,net in enumerate(['DBG_3V3']*5+['FT_1V8A','FT_1V8D','SYS_5V'],88):
+        cap('C'+str(i),'100n',net,pos=(22+(i%4)*3,40+(i%2)*3),block='usbjtag')
+    cap('C96','4.7u','DBG_3V3',pos=(25,44),block='usbjtag')
+    # Ground-referenced USB ESD, no clamp connection to 12V VBUS.
+    addpart('D10','Device:D_TVS','Diode_SMD:D_SOD-882','PESD5V0U1BL',{'1':'USB_DP','2':'GND'},'usbjtag',(14,26),comment='Nexperia low-capacitance bidirectional ESD; not PESD5V0S1UL (high capacitance)')
+    addpart('D11','Device:D_TVS','Diode_SMD:D_SOD-882','PESD5V0U1BL',{'1':'USB_DM','2':'GND'},'usbjtag',(14,29),comment='Ground referenced ESD; never connect to12V VBUS')
+    # Ioff buffers powered by the switched peripheral3V3; no injection into unpowered Core.
+    addpart('U19','carrier:SN74LVC125A','Package_SO:TSSOP-14_4.4x5mm_P0.65mm','SN74LVC125APWR',
+      {'1':'GND','2':'DBG_TCK','3':'JTAG_TCK_PRE','4':'GND','5':'DBG_TDI','6':'JTAG_TDI_PRE','7':'GND','8':'JTAG_TMS_PRE','9':'DBG_TMS','10':'GND',
+       '11':'DBG_TDO','12':'JTAG_TDO','13':'GND','14':'+3V3'},'usbjtag',(44,43))
+    cap('C97','100n','+3V3',pos=(45,46),block='usbjtag')
+    for i,sig in enumerate(('TCK','TDI','TMS'),83):r('R'+str(i),'33R','JTAG_'+sig+'_PRE','JTAG_'+sig,(46,47+(i-83)*2),'usbjtag')
+    r('R86','10k','JTAG_TCK','GND',(47,54),'usbjtag');r('R87','10k','+3V3','JTAG_TMS',(47,56),'usbjtag')
+    addpart('J9','Connector_Generic:Conn_01x08','Connector_JST:JST_SH_SM08B-SRSS-TB_1x08-1MP_P1.00mm_Horizontal','Core JTAG cable',
+      {'1':None,'2':'JTAG_TMS','3':'JTAG_TDO','4':'JTAG_TCK','5':'JTAG_TDI','6':None,'7':None,'8':'GND'},'usbjtag',(43,18),
+      comment='Connect via verified8-way cable to Core JTAG/UART; pin1+5V deliberatelyNC, Core already powered viaSODIMM. Core revision/cable orientation must be checked')
+    # Isolate variable5/12V VBUS from FT232H ACBUS7. EEPROM: suspend on AC7 low.
+    r('R88','100k','VBUS_PD','VBUS_GATE',(34,21),'usbjtag')
+    r('R89','1M','VBUS_GATE','GND',(34,24),'usbjtag')
+    addpart('Q7','Transistor_FET:2N7002','Package_TO_SOT_SMD:SOT-23','2N7002',
+      {'1':'VBUS_GATE','2':'GND','3':'USB_ABSENT'},'usbjtag',(34,27))
+    r('R90','10k','DBG_3V3','USB_ABSENT',(34,30),'usbjtag')
+    addpart('U20','74xGxx:74LVC1G04','Package_TO_SOT_SMD:SOT-23-5','SN74LVC1G04DBVR',
+      {'1':None,'2':'USB_ABSENT','3':'GND','4':'USB_VBUS_PRESENT','5':'DBG_3V3'},'usbjtag',(34,33))
+    cap('C98','100n','DBG_3V3',pos=(34,36),block='usbjtag')
+    for c in cs:
+        if c.ref in POWER_FIXED:c.pos,c.rot=POWER_FIXED[c.ref]
+    return cs

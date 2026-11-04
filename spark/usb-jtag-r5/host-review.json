@@ -1,0 +1,95 @@
+{
+  "tab5-linux-fpga": {
+    "commit": "cfc9a6ecf7daa4c5e3decbe3885b22c2bd2f4cd1",
+    "files": {
+      "README.md": {
+        "exists": true,
+        "sha256": "7a30f9ef6fe5a29604ced460d524352f028d09c6fe792e5db6e290973d303ac5"
+      },
+      "docs/DEVELOPMENT_GOALS.md": {
+        "exists": true,
+        "sha256": "d0770581cfceb6638737d482ce94ab5e09543c14091fa4f3617368bc590b3525"
+      },
+      "linux/dts/easystick-stamp-p4.dts": {
+        "exists": true,
+        "sha256": "1e0b779e03036a0384c1b2cd350e92d70211c07c1fbb5bb1f60143e350179d15"
+      }
+    }
+  },
+  "tab5-meos-fpga": {
+    "commit": "26c8082961b1152901475fb56bbb2e8be192a4da",
+    "files": {
+      "README.md": {
+        "exists": true,
+        "sha256": "a9b3c7e7fd4d12220fdc3a6474aa6301d519d51669287626808d07ffa5af0374"
+      },
+      "docs/FPGA_CARRIER_REQUIREMENTS.md": {
+        "exists": true,
+        "sha256": "4c4483d2732a67148917539e40c17a197e4869a81dd3dd8998815f7f6674e345"
+      },
+      "docs/FPGA_LINK.md": {
+        "exists": true,
+        "sha256": "dd1023d2b805f7df5e389dcea88be92fe28f2be3165be923dee51a1d940435eb"
+      },
+      "drivers/fpga/fpga_gpio.c": {
+        "exists": true,
+        "sha256": "9c3219fe37313ad8466bb1986919c5dac40cdfc50beeeab8702c172603ea1fb1"
+      },
+      "drivers/fpga/fpga_link.c": {
+        "exists": true,
+        "sha256": "652b79569e2a7b3b3b75926252c0aa9044a96ff7224356aa961cab4d64d9b0af"
+      },
+      "drivers/fpga/fpga_gfx.c": {
+        "exists": true,
+        "sha256": "5f7dbd7e00533612f5266b5a9406a5c155925ff19dda5b05a3b8d923c873783c"
+      }
+    }
+  },
+  "tab5-fpga-gpu": {
+    "commit": "f8e978f3127e15200942305dc6b5f2aa8bc4f937",
+    "files": {
+      "README.md": {
+        "exists": true,
+        "sha256": "c6c609078f14728461e634a8fad45dbd215881dcec45a03f6c9606a4205974aa"
+      },
+      "docs/Project_B_Tab5_FPGA_GPU.md": {
+        "exists": true,
+        "sha256": "f5eb5a3d43a6a943ae740585074f223adf71ec74cad3928dc123486ebe1dd8d7"
+      },
+      "bringup/tab5/main/board_profile.h": {
+        "exists": true,
+        "sha256": "18b056f6c373446d6bf5388216867e0abb792ca3c143f92e64152ac3a0bf4425"
+      },
+      "bringup/tab5/main/main.c": {
+        "exists": true,
+        "sha256": "1bb0b92239adf834004f9ee3f04a920237640bc988a4aa072a06a01b22649dca"
+      }
+    }
+  },
+  "esp32p4-linux-fpga-memory": {
+    "commit": "e4aa69d09b2643d6f62fe686ef0f3284b109c541",
+    "files": {
+      "README.md": {
+        "exists": true,
+        "sha256": "ea65f2d3a931881633fbfdc271a9aa1cb6855bcba5a1364f22cb41edd23e66a9"
+      },
+      "docs/Project_A_P4_Linux_FPGA_Virtual_MMU.md": {
+        "exists": true,
+        "sha256": "f1f7de8e0734efc1ce3a582b521a250543dbd20a449e9af93061274ceb7e99da"
+      }
+    }
+  },
+  "review_conclusion": {
+    "date": "2026-11-03",
+    "variant": "manual-jumpers",
+    "protocol_and_signal_pins": "r4 unchanged inRUN",
+    "host_reflection": "power/jumper/programming instructions need update afterr5 release; host repositories not modified",
+    "linux_driver": "not found in reviewed local tree; tools/fpga-link/transport.py absent",
+    "FPGA_JTAG_reserved_SODIMM_pins": {
+      "143": "TMS B8",
+      "147": "TDO C6",
+      "149": "TCK A7",
+      "153": "TDI A6"
+    }
+  }
+}
