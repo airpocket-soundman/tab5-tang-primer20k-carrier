@@ -628,6 +628,68 @@
       },
       "sdc_lines_dropped": [],
       "archive": "validation/mem-variant-clk400_asyncsdc-2026-11-04"
+    },
+    "clk400dp": {
+      "built": true,
+      "description": "(a4) clk400_notap RTL with the IP regenerated with Debug_Parameter_Enable (P1 101 = DLL CODESCAL, P2 6 = DQ IODELAY, P3/P4 40): reproduces the sample netlist CODESCAL/DQ-IODELAY, not its cmd/addr/CK IODELAY(40) nor SCAL_EN. Needs MEM_IP_TAG=clk400dp. Tap-less",
+      "fs_sha256": "4a1823c28a15015922a3a3e490ed4f4febd82cb6b699b68d0f166712e69c9b02",
+      "fs_sha256_without_comment_lines": "aed320a4ee9c00f78341d4b56d2c4a0cbe28e0914ceb94736ce986c191d587df",
+      "usercode": "0x00004783",
+      "fs_bytes": 4620698,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": false,
+      "sta": {
+        "setup_violated_endpoints": 4018,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": -10.63,
+          "from": "controller/gw3_top_u_ddr_phy_top_ddr_rsti_reg_2_s0/Q",
+          "to": "controller/gw3_top_u_gwmc_top_gw_cmd0_mem_mem_0_7_s/DI[0]"
+        },
+        "worst_hold": {
+          "slack_ns": 0.233,
+          "from": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_oserdes_d_rr_63_s0/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_cmd_oserdes_gen[15].u_cmd_gen/D6"
+        },
+        "worst_recovery": {
+          "slack_ns": -8.991,
+          "from": "reset_hold_2_s1/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_ddr_init_internal_r_s0/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.454,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 25,
+          "Hold": 0,
+          "Recovery": 256,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 74.777,
+          "memory398": 2016.128,
+          "user100": 90.781
+        }
+      },
+      "logic": "5703/20736",
+      "registers": "5824/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "5d77a153481da33f2a49d5518f8ea991bc197c8301efae5205aa6084addb250b",
+        "mem_bist": "f5a7e3883248fdd3c206e0930405841e7fee0288b1dc2b5f334ab3508cefaa32",
+        "mem_mailbox": "00d45fba8e3a4aca26129a003b9642750195a4adb13affebd338e7620ff149f9",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "d2063519c2288de4905e189caadd6e619c019b00d02624d20112ff0596c56877"
+      },
+      "sdc_lines_dropped": [],
+      "archive": "validation/mem-variant-clk400dp-2026-11-04"
     }
   }
 }
