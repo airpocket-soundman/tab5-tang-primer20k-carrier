@@ -1,0 +1,1334 @@
+{
+ "date": "2026-11-04",
+ "scope": "offline ISA-level evaluation; no hardware, no RTL",
+ "lanes": 4,
+ "micro_tests": {
+  "div": true,
+  "isqrt": true,
+  "mulsh16": true,
+  "ltu": true,
+  "abs": true,
+  "min": true,
+  "max": true,
+  "shr7": true,
+  "eq": true,
+  "or": true
+ },
+ "fire": {
+  "octaves2": {
+   "reference_seconds": 0.1,
+   "base": {
+    "program": {
+     "static_total": 425,
+     "prologue": 77,
+     "straight": 348,
+     "loop_bodies": [],
+     "max_live_vregs": 43
+    },
+    "run": {
+     "elements": 5120,
+     "groups": 1280,
+     "group_instr": 544000,
+     "lane_instr": 2176000,
+     "loads": 5120,
+     "stores": 5120,
+     "atoms": 0,
+     "loop_iters": 0,
+     "instr_per_element": 106.25,
+     "lane_utilisation": 1.0
+    },
+    "mismatch_pixels": 0
+   },
+   "ext": {
+    "program": {
+     "static_total": 242,
+     "prologue": 53,
+     "straight": 189,
+     "loop_bodies": [],
+     "max_live_vregs": 25
+    },
+    "run": {
+     "elements": 5120,
+     "groups": 1280,
+     "group_instr": 309760,
+     "lane_instr": 1239040,
+     "loads": 5120,
+     "stores": 5120,
+     "atoms": 0,
+     "loop_iters": 0,
+     "instr_per_element": 60.5,
+     "lane_utilisation": 1.0
+    },
+    "mismatch_pixels": 0
+   },
+   "pixels": 5120
+  },
+  "octaves4": {
+   "reference_seconds": 3.7,
+   "base": {
+    "program": {
+     "static_total": 694,
+     "prologue": 88,
+     "straight": 606,
+     "loop_bodies": [],
+     "max_live_vregs": 48
+    },
+    "run": {
+     "elements": 230400,
+     "groups": 57600,
+     "group_instr": 39974400,
+     "lane_instr": 159897600,
+     "loads": 230400,
+     "stores": 230400,
+     "atoms": 0,
+     "loop_iters": 0,
+     "instr_per_element": 173.5,
+     "lane_utilisation": 1.0
+    },
+    "mismatch_pixels": 0
+   },
+   "ext": {
+    "program": {
+     "static_total": 394,
+     "prologue": 61,
+     "straight": 333,
+     "loop_bodies": [],
+     "max_live_vregs": 27
+    },
+    "run": {
+     "elements": 230400,
+     "groups": 57600,
+     "group_instr": 22694400,
+     "lane_instr": 90777600,
+     "loads": 230400,
+     "stores": 230400,
+     "atoms": 0,
+     "loop_iters": 0,
+     "instr_per_element": 98.5,
+     "lane_utilisation": 1.0
+    },
+    "mismatch_pixels": 0
+   },
+   "pixels": 230400
+  },
+  "octaves6": {
+   "reference_seconds": 0.1,
+   "base": {
+    "program": {
+     "static_total": 963,
+     "prologue": 99,
+     "straight": 864,
+     "loop_bodies": [],
+     "max_live_vregs": 53
+    },
+    "run": {
+     "elements": 5120,
+     "groups": 1280,
+     "group_instr": 1232640,
+     "lane_instr": 4930560,
+     "loads": 5120,
+     "stores": 5120,
+     "atoms": 0,
+     "loop_iters": 0,
+     "instr_per_element": 240.75,
+     "lane_utilisation": 1.0
+    },
+    "mismatch_pixels": 0
+   },
+   "ext": {
+    "program": {
+     "static_total": 546,
+     "prologue": 69,
+     "straight": 477,
+     "loop_bodies": [],
+     "max_live_vregs": 29
+    },
+    "run": {
+     "elements": 5120,
+     "groups": 1280,
+     "group_instr": 698880,
+     "lane_instr": 2795520,
+     "loads": 5120,
+     "stores": 5120,
+     "atoms": 0,
+     "loop_iters": 0,
+     "instr_per_element": 136.5,
+     "lane_utilisation": 1.0
+    },
+    "mismatch_pixels": 0
+   },
+   "pixels": 5120
+  }
+ },
+ "particles": {
+  "LIGHT": {
+   "count": 512,
+   "base": {
+    "program": {
+     "static_total": 81,
+     "prologue": 36,
+     "straight": 45,
+     "loop_bodies": [],
+     "max_live_vregs": 23
+    },
+    "run": {
+     "elements": 512,
+     "groups": 128,
+     "group_instr": 10368,
+     "lane_instr": 41472,
+     "loads": 2048,
+     "stores": 4608,
+     "atoms": 0,
+     "loop_iters": 0,
+     "instr_per_element": 20.25,
+     "lane_utilisation": 1.0
+    },
+    "mismatch_pixels": 0
+   },
+   "ext": {
+    "program": {
+     "static_total": 58,
+     "prologue": 16,
+     "straight": 42,
+     "loop_bodies": [],
+     "max_live_vregs": 7
+    },
+    "run": {
+     "elements": 512,
+     "groups": 128,
+     "group_instr": 7424,
+     "lane_instr": 29696,
+     "loads": 2048,
+     "stores": 4608,
+     "atoms": 0,
+     "loop_iters": 0,
+     "instr_per_element": 14.5,
+     "lane_utilisation": 1.0
+    },
+    "mismatch_pixels": 0
+   },
+   "drawn_pixels": 4475
+  },
+  "MEDIUM": {
+   "count": 2048,
+   "base": {
+    "program": {
+     "static_total": 81,
+     "prologue": 36,
+     "straight": 45,
+     "loop_bodies": [],
+     "max_live_vregs": 23
+    },
+    "run": {
+     "elements": 2048,
+     "groups": 512,
+     "group_instr": 41472,
+     "lane_instr": 165888,
+     "loads": 8192,
+     "stores": 18432,
+     "atoms": 0,
+     "loop_iters": 0,
+     "instr_per_element": 20.25,
+     "lane_utilisation": 1.0
+    },
+    "mismatch_pixels": 0
+   },
+   "ext": {
+    "program": {
+     "static_total": 58,
+     "prologue": 16,
+     "straight": 42,
+     "loop_bodies": [],
+     "max_live_vregs": 7
+    },
+    "run": {
+     "elements": 2048,
+     "groups": 512,
+     "group_instr": 29696,
+     "lane_instr": 118784,
+     "loads": 8192,
+     "stores": 18432,
+     "atoms": 0,
+     "loop_iters": 0,
+     "instr_per_element": 14.5,
+     "lane_utilisation": 1.0
+    },
+    "mismatch_pixels": 0
+   },
+   "drawn_pixels": 16706
+  },
+  "HEAVY": {
+   "count": 8192,
+   "base": {
+    "program": {
+     "static_total": 81,
+     "prologue": 36,
+     "straight": 45,
+     "loop_bodies": [],
+     "max_live_vregs": 23
+    },
+    "run": {
+     "elements": 8192,
+     "groups": 2048,
+     "group_instr": 165888,
+     "lane_instr": 663552,
+     "loads": 32768,
+     "stores": 73728,
+     "atoms": 0,
+     "loop_iters": 0,
+     "instr_per_element": 20.25,
+     "lane_utilisation": 1.0
+    },
+    "mismatch_pixels": 0
+   },
+   "ext": {
+    "program": {
+     "static_total": 58,
+     "prologue": 16,
+     "straight": 42,
+     "loop_bodies": [],
+     "max_live_vregs": 7
+    },
+    "run": {
+     "elements": 8192,
+     "groups": 2048,
+     "group_instr": 118784,
+     "lane_instr": 475136,
+     "loads": 32768,
+     "stores": 73728,
+     "atoms": 0,
+     "loop_iters": 0,
+     "instr_per_element": 14.5,
+     "lane_utilisation": 1.0
+    },
+    "mismatch_pixels": 0
+   },
+   "drawn_pixels": 53545
+  }
+ },
+ "galaxy": {
+  "LIGHT": {
+   "count": 1024,
+   "ext": {
+    "accum": {
+     "program": {
+      "static_total": 49,
+      "prologue": 17,
+      "straight": 32,
+      "loop_bodies": [],
+      "max_live_vregs": 12
+     },
+     "run": {
+      "elements": 1024,
+      "groups": 256,
+      "group_instr": 12544,
+      "lane_instr": 48128,
+      "loads": 6144,
+      "stores": 0,
+      "atoms": 1024,
+      "loop_iters": 0,
+      "instr_per_element": 12.25,
+      "lane_utilisation": 0.959
+     }
+    },
+    "final": {
+     "program": {
+      "static_total": 36,
+      "prologue": 13,
+      "straight": 23,
+      "loop_bodies": [],
+      "max_live_vregs": 6
+     },
+     "run": {
+      "elements": 230400,
+      "groups": 57600,
+      "group_instr": 2073600,
+      "lane_instr": 8294400,
+      "loads": 460800,
+      "stores": 460800,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 9.0,
+      "lane_utilisation": 1.0
+     }
+    },
+    "mismatch_pixels": 0
+   },
+   "base": "Unsupported: ATOMADD is not in base ISA",
+   "base_final": {
+    "program": {
+     "static_total": 55,
+     "prologue": 20,
+     "straight": 35,
+     "loop_bodies": [],
+     "max_live_vregs": 13
+    }
+   }
+  },
+  "MEDIUM": {
+   "count": 4096,
+   "ext": {
+    "accum": {
+     "program": {
+      "static_total": 49,
+      "prologue": 17,
+      "straight": 32,
+      "loop_bodies": [],
+      "max_live_vregs": 12
+     },
+     "run": {
+      "elements": 4096,
+      "groups": 1024,
+      "group_instr": 50176,
+      "lane_instr": 192512,
+      "loads": 24576,
+      "stores": 0,
+      "atoms": 4096,
+      "loop_iters": 0,
+      "instr_per_element": 12.25,
+      "lane_utilisation": 0.959
+     }
+    },
+    "final": {
+     "program": {
+      "static_total": 36,
+      "prologue": 13,
+      "straight": 23,
+      "loop_bodies": [],
+      "max_live_vregs": 6
+     },
+     "run": {
+      "elements": 230400,
+      "groups": 57600,
+      "group_instr": 2073600,
+      "lane_instr": 8294400,
+      "loads": 460800,
+      "stores": 460800,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 9.0,
+      "lane_utilisation": 1.0
+     }
+    },
+    "mismatch_pixels": 0
+   },
+   "base": "Unsupported: ATOMADD is not in base ISA",
+   "base_final": {
+    "program": {
+     "static_total": 55,
+     "prologue": 20,
+     "straight": 35,
+     "loop_bodies": [],
+     "max_live_vregs": 13
+    }
+   }
+  },
+  "HEAVY": {
+   "count": 16384,
+   "ext": {
+    "accum": {
+     "program": {
+      "static_total": 49,
+      "prologue": 17,
+      "straight": 32,
+      "loop_bodies": [],
+      "max_live_vregs": 12
+     },
+     "run": {
+      "elements": 16384,
+      "groups": 4096,
+      "group_instr": 200704,
+      "lane_instr": 770048,
+      "loads": 98304,
+      "stores": 0,
+      "atoms": 16384,
+      "loop_iters": 0,
+      "instr_per_element": 12.25,
+      "lane_utilisation": 0.959
+     }
+    },
+    "final": {
+     "program": {
+      "static_total": 36,
+      "prologue": 13,
+      "straight": 23,
+      "loop_bodies": [],
+      "max_live_vregs": 6
+     },
+     "run": {
+      "elements": 230400,
+      "groups": 57600,
+      "group_instr": 2073600,
+      "lane_instr": 8294400,
+      "loads": 460800,
+      "stores": 460800,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 9.0,
+      "lane_utilisation": 1.0
+     }
+    },
+    "mismatch_pixels": 0
+   },
+   "base": "Unsupported: ATOMADD is not in base ISA",
+   "base_final": {
+    "program": {
+     "static_total": 55,
+     "prologue": 20,
+     "straight": 35,
+     "loop_bodies": [],
+     "max_live_vregs": 13
+    }
+   }
+  }
+ },
+ "wire": {
+  "LIGHT": {
+   "count": 16,
+   "base": {
+    "xform": {
+     "program": {
+      "static_total": 173,
+      "prologue": 12,
+      "straight": 161,
+      "loop_bodies": [],
+      "max_live_vregs": 25
+     },
+     "run": {
+      "elements": 16,
+      "groups": 4,
+      "group_instr": 692,
+      "lane_instr": 2768,
+      "loads": 240,
+      "stores": 256,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 43.25,
+      "lane_utilisation": 1.0
+     }
+    },
+    "edges": {
+     "program": {
+      "static_total": 110,
+      "prologue": 18,
+      "straight": 42,
+      "loop_bodies": [
+       50
+      ],
+      "max_live_vregs": 22
+     },
+     "run": {
+      "elements": 256,
+      "groups": 64,
+      "group_instr": 108754,
+      "lane_instr": 343598,
+      "loads": 1536,
+      "stores": 8388,
+      "atoms": 0,
+      "loop_iters": 2097,
+      "instr_per_element": 424.82,
+      "lane_utilisation": 0.79
+     }
+    },
+    "mismatch_pixels": 0
+   },
+   "ext": {
+    "xform": {
+     "program": {
+      "static_total": 161,
+      "prologue": 0,
+      "straight": 161,
+      "loop_bodies": [],
+      "max_live_vregs": 21
+     },
+     "run": {
+      "elements": 16,
+      "groups": 4,
+      "group_instr": 644,
+      "lane_instr": 2576,
+      "loads": 240,
+      "stores": 256,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 40.25,
+      "lane_utilisation": 1.0
+     }
+    },
+    "edges": {
+     "program": {
+      "static_total": 72,
+      "prologue": 8,
+      "straight": 32,
+      "loop_bodies": [
+       32
+      ],
+      "max_live_vregs": 19
+     },
+     "run": {
+      "elements": 256,
+      "groups": 64,
+      "group_instr": 69728,
+      "lane_instr": 225762,
+      "loads": 1536,
+      "stores": 8388,
+      "atoms": 0,
+      "loop_iters": 2097,
+      "instr_per_element": 272.38,
+      "lane_utilisation": 0.809
+     }
+    },
+    "mismatch_pixels": 0
+   },
+   "drawn_pixels": 5908
+  },
+  "MEDIUM": {
+   "count": 64,
+   "base": {
+    "xform": {
+     "program": {
+      "static_total": 173,
+      "prologue": 12,
+      "straight": 161,
+      "loop_bodies": [],
+      "max_live_vregs": 25
+     },
+     "run": {
+      "elements": 64,
+      "groups": 16,
+      "group_instr": 2768,
+      "lane_instr": 11072,
+      "loads": 960,
+      "stores": 1024,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 43.25,
+      "lane_utilisation": 1.0
+     }
+    },
+    "edges": {
+     "program": {
+      "static_total": 110,
+      "prologue": 18,
+      "straight": 42,
+      "loop_bodies": [
+       50
+      ],
+      "max_live_vregs": 22
+     },
+     "run": {
+      "elements": 1024,
+      "groups": 256,
+      "group_instr": 238766,
+      "lane_instr": 752190,
+      "loads": 6144,
+      "stores": 17852,
+      "atoms": 0,
+      "loop_iters": 4463,
+      "instr_per_element": 233.17,
+      "lane_utilisation": 0.788
+     }
+    },
+    "mismatch_pixels": 0
+   },
+   "ext": {
+    "xform": {
+     "program": {
+      "static_total": 161,
+      "prologue": 0,
+      "straight": 161,
+      "loop_bodies": [],
+      "max_live_vregs": 21
+     },
+     "run": {
+      "elements": 64,
+      "groups": 16,
+      "group_instr": 2576,
+      "lane_instr": 10304,
+      "loads": 960,
+      "stores": 1024,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 40.25,
+      "lane_utilisation": 1.0
+     }
+    },
+    "edges": {
+     "program": {
+      "static_total": 72,
+      "prologue": 8,
+      "straight": 32,
+      "loop_bodies": [
+       32
+      ],
+      "max_live_vregs": 19
+     },
+     "run": {
+      "elements": 1024,
+      "groups": 256,
+      "group_instr": 153312,
+      "lane_instr": 495298,
+      "loads": 6144,
+      "stores": 17852,
+      "atoms": 0,
+      "loop_iters": 4463,
+      "instr_per_element": 149.72,
+      "lane_utilisation": 0.808
+     }
+    },
+    "mismatch_pixels": 0
+   },
+   "drawn_pixels": 11678
+  },
+  "HEAVY": {
+   "count": 144,
+   "base": {
+    "xform": {
+     "program": {
+      "static_total": 173,
+      "prologue": 12,
+      "straight": 161,
+      "loop_bodies": [],
+      "max_live_vregs": 25
+     },
+     "run": {
+      "elements": 144,
+      "groups": 36,
+      "group_instr": 6228,
+      "lane_instr": 24912,
+      "loads": 2160,
+      "stores": 2304,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 43.25,
+      "lane_utilisation": 1.0
+     }
+    },
+    "edges": {
+     "program": {
+      "static_total": 110,
+      "prologue": 18,
+      "straight": 42,
+      "loop_bodies": [
+       50
+      ],
+      "max_live_vregs": 22
+     },
+     "run": {
+      "elements": 2304,
+      "groups": 576,
+      "group_instr": 375886,
+      "lane_instr": 1192740,
+      "loads": 13824,
+      "stores": 27260,
+      "atoms": 0,
+      "loop_iters": 6815,
+      "instr_per_element": 163.14,
+      "lane_utilisation": 0.793
+     }
+    },
+    "mismatch_pixels": 0
+   },
+   "ext": {
+    "xform": {
+     "program": {
+      "static_total": 161,
+      "prologue": 0,
+      "straight": 161,
+      "loop_bodies": [],
+      "max_live_vregs": 21
+     },
+     "run": {
+      "elements": 144,
+      "groups": 36,
+      "group_instr": 5796,
+      "lane_instr": 23184,
+      "loads": 2160,
+      "stores": 2304,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 40.25,
+      "lane_utilisation": 1.0
+     }
+    },
+    "edges": {
+     "program": {
+      "static_total": 72,
+      "prologue": 8,
+      "straight": 32,
+      "loop_bodies": [
+       32
+      ],
+      "max_live_vregs": 19
+     },
+     "run": {
+      "elements": 2304,
+      "groups": 576,
+      "group_instr": 241696,
+      "lane_instr": 786084,
+      "loads": 13824,
+      "stores": 27260,
+      "atoms": 0,
+      "loop_iters": 6815,
+      "instr_per_element": 104.9,
+      "lane_utilisation": 0.813
+     }
+    },
+    "mismatch_pixels": 0
+   },
+   "drawn_pixels": 16875
+  }
+ },
+ "flow": {
+  "LIGHT": {
+   "count": 512,
+   "ext": {
+    "decay": {
+     "program": {
+      "static_total": 21,
+      "prologue": 4,
+      "straight": 17,
+      "loop_bodies": [],
+      "max_live_vregs": 5
+     },
+     "run": {
+      "elements": 230400,
+      "groups": 57600,
+      "group_instr": 1209600,
+      "lane_instr": 4838400,
+      "loads": 230400,
+      "stores": 230400,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 5.25,
+      "lane_utilisation": 1.0
+     }
+    },
+    "particles": {
+     "program": {
+      "static_total": 651,
+      "prologue": 82,
+      "straight": 513,
+      "loop_bodies": [
+       28,
+       28
+      ],
+      "max_live_vregs": 57
+     },
+     "run": {
+      "elements": 512,
+      "groups": 128,
+      "group_instr": 100552,
+      "lane_instr": 305474,
+      "loads": 8192,
+      "stores": 4297,
+      "atoms": 0,
+      "loop_iters": 862,
+      "instr_per_element": 196.39,
+      "lane_utilisation": 0.759
+     }
+    },
+    "present": {
+     "program": {
+      "static_total": 12,
+      "prologue": 8,
+      "straight": 4,
+      "loop_bodies": [],
+      "max_live_vregs": 3
+     },
+     "run": {
+      "elements": 230400,
+      "groups": 57600,
+      "group_instr": 691200,
+      "lane_instr": 2764800,
+      "loads": 230400,
+      "stores": 230400,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 3.0,
+      "lane_utilisation": 1.0
+     }
+    },
+    "obstacle": {
+     "program": {
+      "static_total": 31,
+      "prologue": 10,
+      "straight": 21,
+      "loop_bodies": [],
+      "max_live_vregs": 10
+     },
+     "run": {
+      "elements": 10240,
+      "groups": 2560,
+      "group_instr": 79360,
+      "lane_instr": 310813,
+      "loads": 0,
+      "stores": 3613,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 7.75,
+      "lane_utilisation": 0.979
+     }
+    }
+   },
+   "mismatch_pixels_and_state": 0,
+   "frames_checked": 12,
+   "coverage": {
+    "respawn": 35,
+    "obstacle": 53,
+    "vortex": 13965,
+    "substeps": 12273
+   },
+   "base_static": {
+    "decay": {
+     "static_total": 26,
+     "prologue": 9,
+     "straight": 17,
+     "loop_bodies": [],
+     "max_live_vregs": 10
+    },
+    "particles": {
+     "static_total": 10550,
+     "prologue": 117,
+     "straight": 10349,
+     "loop_bodies": [
+      42,
+      42
+     ],
+     "max_live_vregs": 84
+    },
+    "present": {
+     "static_total": 12,
+     "prologue": 8,
+     "straight": 4,
+     "loop_bodies": [],
+     "max_live_vregs": 3
+    },
+    "obstacle": {
+     "static_total": 43,
+     "prologue": 19,
+     "straight": 24,
+     "loop_bodies": [],
+     "max_live_vregs": 15
+    }
+   }
+  },
+  "MEDIUM": {
+   "count": 2048,
+   "ext": {
+    "decay": {
+     "program": {
+      "static_total": 21,
+      "prologue": 4,
+      "straight": 17,
+      "loop_bodies": [],
+      "max_live_vregs": 5
+     },
+     "run": {
+      "elements": 230400,
+      "groups": 57600,
+      "group_instr": 1209600,
+      "lane_instr": 4838400,
+      "loads": 230400,
+      "stores": 230400,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 5.25,
+      "lane_utilisation": 1.0
+     }
+    },
+    "particles": {
+     "program": {
+      "static_total": 651,
+      "prologue": 82,
+      "straight": 513,
+      "loop_bodies": [
+       28,
+       28
+      ],
+      "max_live_vregs": 57
+     },
+     "run": {
+      "elements": 2048,
+      "groups": 512,
+      "group_instr": 398820,
+      "lane_instr": 1230853,
+      "loads": 32768,
+      "stores": 16974,
+      "atoms": 0,
+      "loop_iters": 3327,
+      "instr_per_element": 194.74,
+      "lane_utilisation": 0.772
+     }
+    },
+    "present": {
+     "program": {
+      "static_total": 12,
+      "prologue": 8,
+      "straight": 4,
+      "loop_bodies": [],
+      "max_live_vregs": 3
+     },
+     "run": {
+      "elements": 230400,
+      "groups": 57600,
+      "group_instr": 691200,
+      "lane_instr": 2764800,
+      "loads": 230400,
+      "stores": 230400,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 3.0,
+      "lane_utilisation": 1.0
+     }
+    },
+    "obstacle": {
+     "program": {
+      "static_total": 31,
+      "prologue": 10,
+      "straight": 21,
+      "loop_bodies": [],
+      "max_live_vregs": 10
+     },
+     "run": {
+      "elements": 10240,
+      "groups": 2560,
+      "group_instr": 79360,
+      "lane_instr": 310813,
+      "loads": 0,
+      "stores": 3613,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 7.75,
+      "lane_utilisation": 0.979
+     }
+    }
+   },
+   "mismatch_pixels_and_state": 0,
+   "frames_checked": 2,
+   "coverage": {
+    "respawn": 16,
+    "obstacle": 82,
+    "vortex": 9625,
+    "substeps": 8185
+   },
+   "base_static": {
+    "decay": {
+     "static_total": 26,
+     "prologue": 9,
+     "straight": 17,
+     "loop_bodies": [],
+     "max_live_vregs": 10
+    },
+    "particles": {
+     "static_total": 10550,
+     "prologue": 117,
+     "straight": 10349,
+     "loop_bodies": [
+      42,
+      42
+     ],
+     "max_live_vregs": 84
+    },
+    "present": {
+     "static_total": 12,
+     "prologue": 8,
+     "straight": 4,
+     "loop_bodies": [],
+     "max_live_vregs": 3
+    },
+    "obstacle": {
+     "static_total": 43,
+     "prologue": 19,
+     "straight": 24,
+     "loop_bodies": [],
+     "max_live_vregs": 15
+    }
+   }
+  },
+  "HEAVY": {
+   "count": 8192,
+   "ext": {
+    "decay": {
+     "program": {
+      "static_total": 21,
+      "prologue": 4,
+      "straight": 17,
+      "loop_bodies": [],
+      "max_live_vregs": 5
+     },
+     "run": {
+      "elements": 230400,
+      "groups": 57600,
+      "group_instr": 1209600,
+      "lane_instr": 4838400,
+      "loads": 230400,
+      "stores": 230400,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 5.25,
+      "lane_utilisation": 1.0
+     }
+    },
+    "particles": {
+     "program": {
+      "static_total": 651,
+      "prologue": 82,
+      "straight": 513,
+      "loop_bodies": [
+       28,
+       28
+      ],
+      "max_live_vregs": 57
+     },
+     "run": {
+      "elements": 8192,
+      "groups": 2048,
+      "group_instr": 1594300,
+      "lane_instr": 4873986,
+      "loads": 131072,
+      "stores": 66271,
+      "atoms": 0,
+      "loop_iters": 13273,
+      "instr_per_element": 194.62,
+      "lane_utilisation": 0.764
+     }
+    },
+    "present": {
+     "program": {
+      "static_total": 12,
+      "prologue": 8,
+      "straight": 4,
+      "loop_bodies": [],
+      "max_live_vregs": 3
+     },
+     "run": {
+      "elements": 230400,
+      "groups": 57600,
+      "group_instr": 691200,
+      "lane_instr": 2764800,
+      "loads": 230400,
+      "stores": 230400,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 3.0,
+      "lane_utilisation": 1.0
+     }
+    },
+    "obstacle": {
+     "program": {
+      "static_total": 31,
+      "prologue": 10,
+      "straight": 21,
+      "loop_bodies": [],
+      "max_live_vregs": 10
+     },
+     "run": {
+      "elements": 10240,
+      "groups": 2560,
+      "group_instr": 79360,
+      "lane_instr": 310813,
+      "loads": 0,
+      "stores": 3613,
+      "atoms": 0,
+      "loop_iters": 0,
+      "instr_per_element": 7.75,
+      "lane_utilisation": 0.979
+     }
+    }
+   },
+   "mismatch_pixels_and_state": 0,
+   "frames_checked": 1,
+   "coverage": {
+    "respawn": 27,
+    "obstacle": 216,
+    "vortex": 19072,
+    "substeps": 16384
+   },
+   "base_static": {
+    "decay": {
+     "static_total": 26,
+     "prologue": 9,
+     "straight": 17,
+     "loop_bodies": [],
+     "max_live_vregs": 10
+    },
+    "particles": {
+     "static_total": 10550,
+     "prologue": 117,
+     "straight": 10349,
+     "loop_bodies": [
+      42,
+      42
+     ],
+     "max_live_vregs": 84
+    },
+    "present": {
+     "static_total": 12,
+     "prologue": 8,
+     "straight": 4,
+     "loop_bodies": [],
+     "max_live_vregs": 3
+    },
+    "obstacle": {
+     "static_total": 43,
+     "prologue": 19,
+     "straight": 24,
+     "loop_bodies": [],
+     "max_live_vregs": 15
+    }
+   }
+  }
+ },
+ "ablation": {
+  "fire(oct4)": {
+   "full": 394,
+   "imm": 25,
+   "minmax": 9,
+   "or": 0,
+   "shr": 36,
+   "sel": 0,
+   "mulqs": 177,
+   "div": 0,
+   "sqrt": 0,
+   "atom": 0,
+   "ltu": 0,
+   "cmp": 0,
+   "base": 694
+  },
+  "particles": {
+   "full": 58,
+   "imm": 16,
+   "minmax": 0,
+   "or": 0,
+   "shr": 7,
+   "sel": 0,
+   "mulqs": 0,
+   "div": 0,
+   "sqrt": 0,
+   "atom": 0,
+   "ltu": 0,
+   "cmp": 0,
+   "base": 81
+  },
+  "galaxy_accum": {
+   "full": 49,
+   "imm": 11,
+   "minmax": 0,
+   "or": 0,
+   "shr": 0,
+   "sel": 3,
+   "mulqs": 0,
+   "div": 0,
+   "sqrt": 0,
+   "atom": null,
+   "ltu": 0,
+   "cmp": 0,
+   "base": null
+  },
+  "galaxy_final": {
+   "full": 36,
+   "imm": 7,
+   "minmax": 3,
+   "or": 0,
+   "shr": 0,
+   "sel": 0,
+   "mulqs": 0,
+   "div": 0,
+   "sqrt": 0,
+   "atom": 0,
+   "ltu": 0,
+   "cmp": 0,
+   "base": 55
+  },
+  "wire_xform": {
+   "full": 161,
+   "imm": 12,
+   "minmax": 0,
+   "or": 0,
+   "shr": 0,
+   "sel": 0,
+   "mulqs": 0,
+   "div": 0,
+   "sqrt": 0,
+   "atom": 0,
+   "ltu": 0,
+   "cmp": 0,
+   "base": 173
+  },
+  "wire_edges": {
+   "full": 72,
+   "imm": 5,
+   "minmax": 4,
+   "or": 0,
+   "shr": 0,
+   "sel": 6,
+   "mulqs": 0,
+   "div": 0,
+   "sqrt": 0,
+   "atom": 0,
+   "ltu": 8,
+   "cmp": 8,
+   "base": 110
+  },
+  "flow_decay": {
+   "full": 21,
+   "imm": 5,
+   "minmax": 0,
+   "or": 0,
+   "shr": 0,
+   "sel": 0,
+   "mulqs": 0,
+   "div": 0,
+   "sqrt": 0,
+   "atom": 0,
+   "ltu": 0,
+   "cmp": 0,
+   "base": 26
+  },
+  "flow_particles": {
+   "full": 651,
+   "imm": 14,
+   "minmax": 14,
+   "or": 0,
+   "shr": 14,
+   "sel": 12,
+   "mulqs": 0,
+   "div": 8872,
+   "sqrt": 115,
+   "atom": 0,
+   "ltu": 12,
+   "cmp": 16,
+   "base": 10550
+  },
+  "flow_obstacle": {
+   "full": 31,
+   "imm": 9,
+   "minmax": 0,
+   "or": 0,
+   "shr": 0,
+   "sel": 3,
+   "mulqs": 0,
+   "div": 0,
+   "sqrt": 0,
+   "atom": 0,
+   "ltu": 0,
+   "cmp": 0,
+   "base": 43
+  }
+ },
+ "features": {
+  "imm": "ADDI/ANDI/SHLI/SARI/SHRI/MULI/LTI: レジスタ演算のb側16bit即値形式",
+  "minmax": "MIN/MAX/ABS",
+  "or": "OR (bit演算)",
+  "shr": "SHR (論理右shift)",
+  "sel": "SEL d,a,b : r15!=0 ? a : b ではなく3オペランド選択 (c=述語レジスタ)",
+  "mulqs": "MULQS d,a,b,#sh : 符号付き64bit積を任意shift(0..31)して下位32bit",
+  "div": "DIV d,a,b : 符号付き32bit除算(0へ丸め)",
+  "sqrt": "ISQRT d,a : 符号なし32bit整数平方根(floor)",
+  "atom": "ATOMADD [a+imm],r[d] : メモリへの原子加算(レーン直列)",
+  "ltu": "LTU: 符号なし比較",
+  "cmp": "EQ/NE: 等値比較"
+ },
+ "elapsed_seconds": 71.5,
+ "all_match": true
+}
