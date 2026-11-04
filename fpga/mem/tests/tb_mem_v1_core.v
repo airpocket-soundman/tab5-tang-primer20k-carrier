@@ -5,21 +5,27 @@
 // model vectors (memv1_model.py), then hand-written cases: cancel, timeout, calibration loss, reset in flight,
 // stale completion, BIST coexistence/BUSY. Not a DRAM/hardware proof.
 module tb_mem_v1_core;
+parameter FAST_REPLY_ENABLE=0;
+parameter real RX_HALF=150.0,TX_HALF=150.0,SYS_PHASE=0.0,DATA_DELAY=0.0,SAMPLE_OFFSET=0.0;
+parameter QUICK=0;
 parameter VEC_DEFAULT="memv1_vectors.hex";
 reg sys_clk=0,user_clk=0;
-always #18.5185 sys_clk=~sys_clk;
+initial begin #SYS_PHASE;forever #18.5185 sys_clk=~sys_clk;end
+reg reply_sample_reset=1;
+reg reply_sample_clk=0;always #2.314815 reply_sample_clk=~reply_sample_clk;
 always #5.0219 user_clk=~user_clk;
 reg reset_n=0,arm=1,bus=0,dir=0,drive=0;reg[7:0] di=0;wire[7:0] data;
 assign data=drive?di:8'bz;
+wire [7:0] sampled_data;assign #(DATA_DELAY) sampled_data=data;
 wire ready;wire[3:0] led;wire controller_reset_n;
 wire[2:0] cmd;wire cmd_en;wire[26:0] address;wire[127:0] wr_data;wire wr_en,wr_end;wire[15:0] mask;
 reg cmd_ready=0,wr_ready=0,rd_valid=0,rd_end=1;reg[127:0] rd_data=0;
 reg calibrated=0,cal_override=0;
-mem_v1_core #(.RESET_HOLD_INIT(16'd40),.RECAL_HOLD(16'd40),.LINK_TIMEOUT(20000000),.DEADLINE(20000000),
+mem_v1_core #(.FAST_REPLY_ENABLE(FAST_REPLY_ENABLE),.RESET_HOLD_INIT(16'd40),.RECAL_HOLD(16'd40),.LINK_TIMEOUT(20000000),.DEADLINE(20000000),
  .ADAPTER_TIMEOUT(3000),.ADAPTER_SETTLE(4),.BIST_SETTLE(4),.CAL_GUARD(16),.MAILBOX_DEADLINE(20000000)) dut(
  sys_clk,reset_n,arm,bus,dir,4'b0,data,ready,led,
  1'b1,user_clk,1'b0,calibrated,controller_reset_n,
- cmd,cmd_en,address,cmd_ready,wr_data,wr_en,wr_end,mask,wr_ready,rd_data,rd_valid,rd_end);
+ cmd,cmd_en,address,cmd_ready,wr_data,wr_en,wr_end,mask,wr_ready,rd_data,rd_valid,rd_end,reply_sample_clk,reset_n&&reply_sample_reset);
 // ---- IP calibration emulation ----
 integer cal_cnt=0;
 always @(posedge user_clk)begin
@@ -69,7 +75,8 @@ end else begin pc=0;pd=0;pr=0;end
 // ---- host BFM ----
 localparam HT=150;
 reg[7:0] qb[0:4199],rb[0:4199],ex[0:4199];
-task pulse;begin #HT bus=1;#HT bus=0;end endtask
+task pulse;begin #TX_HALF bus=1;#TX_HALF bus=0;end endtask
+task receive_byte;output [7:0] b;begin #RX_HALF;bus=1;#SAMPLE_OFFSET;b=sampled_data;#(RX_HALF-SAMPLE_OFFSET);bus=0;end endtask
 task send_byte;input[7:0] b;begin di=b;pulse;end endtask
 integer checks=0,i,n,k;reg[7:0] last_status;reg[15:0] last_r;
 // Sends qn bytes, waits for READY, reads rn bytes into rb. Returns without checking contents.
@@ -82,7 +89,7 @@ begin
  if(!ready)begin $display("FAIL no reply (qn=%0d)",qn);$fatal(1,"no reply");end
  dir=1;#300;
  if(data===8'hxx)begin end
- for(i=0;i<rn;i=i+1)begin rb[i]=data;pulse;end
+ for(i=0;i<rn;i=i+1)begin receive_byte(rb[i]);end
  #300;
  if(ready)begin $display("FAIL reply longer than expected");$fatal(1,"long reply");end
  dir=0;#300;
@@ -175,7 +182,7 @@ task read_reply8;
 begin
  n=0;while(!ready&&n<200000)begin #100;n=n+1;end
  if(!ready)$fatal(1,"no reply");
- dir=1;#300;for(i=0;i<8;i=i+1)begin rb[i]=data;pulse;end
+ dir=1;#300;for(i=0;i<8;i=i+1)begin receive_byte(rb[i]);end
  #300;if(ready)$fatal(1,"reply too long");dir=0;#300;
  last_status=rb[1];last_r={rb[5],rb[4]};
 end endtask
@@ -190,7 +197,49 @@ initial begin
  #500;reset_n=1;
  wait_alive;
  // ---- 1. reference-model vectors (random backpressure) ----
- mode=0;run_vectors;
+ mode=0;vid=0;if(QUICK!=2)run_vectors;
+ if(QUICK)begin
+  // Maximum request and response, full 4KiB payload, high-entropy pattern.
+  mode=3;mkwr(8'h31,256,32'h100000,32'h314159);xchg(qlen,8);expect_st(0,100);
+  mkrd(8'h62,8'h32,256,32'h100000,0);xchg(qlen,4106);check_rd(256,32'h314159);
+  // Tagged full reply: training prefix and same bound payload CRC.
+  mkrd(8'he2,8'h33,256,32'h100000,0);xchg(qlen,4114);
+  for(k=0;k<8;k=k+1)if(rb[k]!==8'hc3)$fatal(1,"tag prefix");
+  for(k=0;k<4106;k=k+1)rb[k]=rb[k+8];check_rd(256,32'h314159);
+  // CRC32 extended response and nonzero status header.
+  mkrd(8'h66,8'h34,256,32'h100000,0);xchg(qlen,14);expect_st(0,101);
+  if({rb[11],rb[10],rb[9],rb[8]}!==c32)$fatal(1,"crc32 result");
+  tc=16'hffff;for(k=0;k<6;k=k+1)tc=crc16(tc,rb[k]);
+  for(k=8;k<12;k=k+1)tc=crc16(tc,rb[k]);if({rb[13],rb[12]}!==tc)$fatal(1,"crc32 trailer");
+  mkframe(0,8'h60,8'h35,0,1);xchg(8,8);expect_st(3,102);
+  // A stopped clock preserves the current response; DIR abort releases OE.
+  mkrd(8'h62,8'h36,256,32'h100000,0);send_only(qlen);wait(ready);dir=1;#300;
+  for(k=0;k<4;k=k+1)receive_byte(rb[k]);#2000;
+  if(!ready)$fatal(1,"stopped clock lost response");
+  dir=0;#1;if(data!==8'bz)$fatal(1,"DIR did not release bus");#500;
+  if(ready)$fatal(1,"DIR abort kept ready");lcmd(8'h60,0,0);expect_st(0,103);
+  // ARM/reset must kill OE/READY without another reply clock edge.
+  mkrd(8'h62,8'h37,256,32'h100000,0);send_only(qlen);wait(ready);dir=1;#300;
+  receive_byte(rb[0]);arm=0;#1;if(ready||data!==8'bz)$fatal(1,"ARM failed immediate kill");
+  dir=0;#2000;arm=1;wait_alive;lcmd(8'h60,0,0);expect_st(0,104);
+  // Calibration loss after READY invalidates even an already prepared reply.
+  mkrd(8'h62,8'h38,256,32'h100000,0);send_only(qlen);wait(ready);dir=1;#300;
+  receive_byte(rb[0]);cal_override=1;#500;
+  if(ready||data!==8'bz)$fatal(1,"generation loss did not abort reply");
+  dir=0;cal_override=0;wait_alive;lcmd(8'h60,0,0);expect_st(0,105);
+  // Sampler lock/reset loss must kill OE without bus clocks, and recover.
+  mkrd(8'h62,8'h39,256,32'h100000,0);send_only(qlen);wait(ready);dir=1;#300;
+  receive_byte(rb[0]);reply_sample_reset=0;#1;
+  if(ready||data!==8'bz)$fatal(1,"sampler reset did not kill OE");
+  dir=0;#500;reply_sample_reset=1;#500;lcmd(8'h60,0,0);expect_st(0,106);
+  // Sub-SYS lock pulse must stay latched through the next SYS edge.
+  mkrd(8'h62,8'h3a,256,32'h100000,0);send_only(qlen);wait(ready);dir=1;#300;
+  receive_byte(rb[0]);@(negedge sys_clk);#1;reply_sample_reset=0;#1;reply_sample_reset=1;#1;
+  if(ready||data!==8'bz)$fatal(1,"short sampler reset reoffered old reply");
+  #200;if(ready)$fatal(1,"short sampler fault not retained");
+  dir=0;#500;lcmd(8'h60,0,0);expect_st(0,107);
+  $display("PASS memv1 fast fullpath RXhalf=%0f TXhalf=%0f SYSphase=%0f checks=%0d vectors=%0d",RX_HALF,TX_HALF,SYS_PHASE,checks,vid);$finish;
+ end
  // STATUS word 7: raw signals while running: pll_lock, controller_reset_n, !ip_user_reset, user_reset_n, calibrated, reset_hold==0, epoch, USER clock alive
  status_word(7);if(last_r!==16'h01bb&&last_r!==16'h01fb)$fatal(1,"diag word %h",last_r);checks=checks+1;
  // ---- 2. cancel in the middle of a slow write ----

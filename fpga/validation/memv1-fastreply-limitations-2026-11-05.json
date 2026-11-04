@@ -1,0 +1,42 @@
+[
+  {
+    "name": "tx5mhz",
+    "args": [
+      "python",
+      "fpga/mem/tests/run_fastreply.py",
+      "--iverilog",
+      "D:/tools/oss-cad-suite/bin/iverilog.exe",
+      "--vvp",
+      "D:/tools/oss-cad-suite/bin/vvp.exe",
+      "--quick",
+      "--tx-mhz",
+      "5"
+    ],
+    "returncode": 1,
+    "expected_failure": "FAIL case 100 status 1 want 0",
+    "stdout": "wrote 192 records, 39952 bytes\nWARNING: D:\\github\\airpocket-soundman\\tab5-carrier-memv1-fastreply\\fpga\\mem\\tests\\tb_mem_v1_core.v:196: $readmemh(D:\\github\\airpocket-soundman\\tab5-carrier-memv1-fastreply\\fpga\\build\\memv1-fast-tests\\vectors.hex): Not enough words in the file for the requested range [0:262143].\nFAIL case 100 status 1 want 0\nFATAL: D:\\github\\airpocket-soundman\\tab5-carrier-memv1-fastreply\\fpga\\mem\\tests\\tb_mem_v1_core.v:193: status\n       Time: 831000000  Scope: tb_mem_v1_core.expect_st\n",
+    "stderr": "Traceback (most recent call last):\n  File \"D:\\github\\airpocket-soundman\\tab5-carrier-memv1-fastreply\\fpga\\mem\\tests\\run_fastreply.py\", line 18, in <module>\n    if r.returncode or ('PASS mem_v1_core' if args.full_regression else 'PASS memv1 fast fullpath') not in r.stdout:raise RuntimeError(r.stdout+r.stderr)\n                                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: WARNING: D:\\github\\airpocket-soundman\\tab5-carrier-memv1-fastreply\\fpga\\mem\\tests\\tb_mem_v1_core.v:196: $readmemh(D:\\github\\airpocket-soundman\\tab5-carrier-memv1-fastreply\\fpga\\build\\memv1-fast-tests\\vectors.hex): Not enough words in the file for the requested range [0:262143].\nFAIL case 100 status 1 want 0\nFATAL: D:\\github\\airpocket-soundman\\tab5-carrier-memv1-fastreply\\fpga\\mem\\tests\\tb_mem_v1_core.v:193: status\n       Time: 831000000  Scope: tb_mem_v1_core.expect_st\n\n",
+    "qualification": "failure characterization; not a pass",
+    "memv1_sys_sha256": "4c1b4f043a411c1ac9a8958d94346e0454415dd7f087dca3044f48cab27c4a95"
+  },
+  {
+    "name": "rx20mhz_sample25ns",
+    "args": [
+      "python",
+      "fpga/mem/tests/run_fastreply.py",
+      "--iverilog",
+      "D:/tools/oss-cad-suite/bin/iverilog.exe",
+      "--vvp",
+      "D:/tools/oss-cad-suite/bin/vvp.exe",
+      "--quick",
+      "--sample-offset-ns",
+      "25"
+    ],
+    "returncode": 1,
+    "expected_failure": "FAIL case 100 status 49 want 0",
+    "stdout": "wrote 192 records, 39952 bytes\nWARNING: D:\\github\\airpocket-soundman\\tab5-carrier-memv1-fastreply\\fpga\\mem\\tests\\tb_mem_v1_core.v:196: $readmemh(D:\\github\\airpocket-soundman\\tab5-carrier-memv1-fastreply\\fpga\\build\\memv1-fast-tests\\vectors.hex): Not enough words in the file for the requested range [0:262143].\nFAIL case 100 status 49 want 0\nFATAL: D:\\github\\airpocket-soundman\\tab5-carrier-memv1-fastreply\\fpga\\mem\\tests\\tb_mem_v1_core.v:193: status\n       Time: 2078300000  Scope: tb_mem_v1_core.expect_st\n",
+    "stderr": "Traceback (most recent call last):\n  File \"D:\\github\\airpocket-soundman\\tab5-carrier-memv1-fastreply\\fpga\\mem\\tests\\run_fastreply.py\", line 18, in <module>\n    if r.returncode or ('PASS mem_v1_core' if args.full_regression else 'PASS memv1 fast fullpath') not in r.stdout:raise RuntimeError(r.stdout+r.stderr)\n                                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: WARNING: D:\\github\\airpocket-soundman\\tab5-carrier-memv1-fastreply\\fpga\\mem\\tests\\tb_mem_v1_core.v:196: $readmemh(D:\\github\\airpocket-soundman\\tab5-carrier-memv1-fastreply\\fpga\\build\\memv1-fast-tests\\vectors.hex): Not enough words in the file for the requested range [0:262143].\nFAIL case 100 status 49 want 0\nFATAL: D:\\github\\airpocket-soundman\\tab5-carrier-memv1-fastreply\\fpga\\mem\\tests\\tb_mem_v1_core.v:193: status\n       Time: 2078300000  Scope: tb_mem_v1_core.expect_st\n\n",
+    "qualification": "failure characterization; not a pass",
+    "memv1_sys_sha256": "4c1b4f043a411c1ac9a8958d94346e0454415dd7f087dca3044f48cab27c4a95"
+  }
+]

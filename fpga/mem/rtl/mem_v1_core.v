@@ -3,6 +3,7 @@
 // memv1_sys (LINK + control), memv1_bridge (CDC) and mem_adapter (USER). The native interface is shared:
 // the adapter owns it while the bridge is active, otherwise the BIST (the SYS side never runs both).
 module mem_v1_core #(
+ parameter FAST_REPLY_ENABLE=0,
  parameter [15:0] RESET_HOLD_INIT=16'hffff,
  parameter [15:0] RECAL_HOLD=16'd27000,
  parameter [15:0] MEM_MHZ=16'd398,parameter [15:0] USER_MHZ=16'd100,
@@ -18,7 +19,8 @@ module mem_v1_core #(
  output wire controller_reset_n,
  output wire[2:0] cmd,output wire cmd_en,output wire[26:0] address,input wire cmd_ready,
  output wire[127:0] wr_data,output wire wr_en,wr_end,output wire[15:0] mask,input wire wr_ready,
- input wire[127:0] rd_data,input wire rd_valid,rd_end
+ input wire[127:0] rd_data,input wire rd_valid,rd_end,
+ input wire reply_sample_clk,reply_sample_reset_n
 );
 wire raw_reset_n=reset_n&&arm_sw;
 reg[15:0] reset_hold=RESET_HOLD_INIT;reg[23:0] heartbeat=0;
@@ -47,12 +49,13 @@ wire bist_busy;
 reg[7:0] uc=0;
 always @(posedge user_clk) uc<=uc+1'b1;
 wire[8:0] diag={uc[7],mailbox_epoch==0,user_abort,reset_hold==0,calibrated,user_reset_n,ip_user_reset,controller_reset_n,pll_lock};
-memv1_sys #(.TIMEOUT(LINK_TIMEOUT),.DEADLINE(DEADLINE)) link(
+wire reply_read_clk;
+memv1_sys #(.FAST_REPLY_ENABLE(FAST_REPLY_ENABLE),.TIMEOUT(LINK_TIMEOUT),.DEADLINE(DEADLINE)) link(
  sys_clk,reset_n,arm_sw,bus_clk,dir,data,out,oe,ready,
  command_start,op,a,b,command_done,status,result,
  calibrated,user_reset_n,bist_busy,
  req_t,cancel_t,h_op,h_addr,h_beats,h_arg,h_tag,done_t,r_tag,r_status,r_crc,r_beats,
- w_we,w_addr,w_data,r_addr,r_data,generation,diag);
+ w_we,w_addr,w_data,r_addr,r_data,generation,diag,reply_sample_clk,reply_sample_reset_n,reply_read_clk);
 // ---- mailbox / BIST (unchanged blocks) ----
 wire bist_start,bist_cancel,done,faulted;
 wire[31:0] base,count,seed,job,verified,errors,first,accepted;
@@ -83,7 +86,7 @@ mem_adapter #(.APP_ROW_PAD(APP_ROW_PAD),.TIMEOUT_CYCLES(ADAPTER_TIMEOUT),.SETTLE
  a_cmd,a_cmd_en,a_app_addr,cmd_ready,a_wr_data,a_wr_en,a_wr_end,a_mask,wr_ready,rd_data,rd_valid,rd_end);
 // write staging: SYS writes, USER reads. read buffer: USER writes, SYS reads.
 memv1_dpram #(.AW(8),.DW(128)) write_stage(sys_clk,w_we,w_addr,w_data,user_clk,s_raddr,s_rdata);
-memv1_dpram #(.AW(8),.DW(128)) read_buffer(user_clk,s_we,s_waddr,s_wdata,sys_clk,r_addr,r_data);
+memv1_dpram #(.AW(8),.DW(128)) read_buffer(user_clk,s_we,s_waddr,s_wdata,reply_read_clk,r_addr,r_data);
 // ---- native interface sharing ----
 assign cmd=bridge_active?a_cmd:b_cmd;
 assign address=bridge_active?a_app_addr:b_addr;
