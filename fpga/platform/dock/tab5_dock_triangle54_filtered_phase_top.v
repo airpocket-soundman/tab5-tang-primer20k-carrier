@@ -37,7 +37,7 @@ module tab5_dock_triangle54_filtered_phase_top #(
         assign data_pad=data_o;
     end else begin: fine_delay
         genvar i;
-        for(i=0;i<8;i=i+1) begin: bit
+        for(i=0;i<8;i=i+1) begin: dly_bit
             IODELAY #(.C_STATIC_DLY(REPLY_FINE_DLY)) odly(
                 .DI(data_o[i]),.SDTAP(1'b0),.SETN(1'b0),.VALUE(1'b0),.DO(data_pad[i]),.DF());
         end
