@@ -36,7 +36,11 @@ module reply_edge_monitor #(parameter TIMEOUT_BIT = 21)(
     reg open,first,fault_seen,sat_seen;
     reg [11:0] pre,post,fall_cnt,exp_l;
     reg [7:0] rej,drp,rnt,min_h,min_l,run_len;
-    reg [TIMEOUT_BIT:0] age;
+    // 216MHz timing: a 22-bit carry chain is too slow. Low byte + registered carry into a high counter.
+    reg [7:0] age_lo;reg age_tick;reg [TIMEOUT_BIT-8:0] age_hi;
+    wire timeout=age_hi[TIMEOUT_BIT-8];
+    // Registered near-saturation flags (one cycle late is safe: accepted rises are >=5 ticks apart).
+    reg pre_full,post_full,fall_full,rej_full,drp_full,rnt_full;
     wire any_rise=ev_accept|ev_reject|ev_drop;
     wire any_trans=any_rise|ev_fall;
     always @(posedge clk or negedge reset_n) begin
@@ -44,7 +48,8 @@ module reply_edge_monitor #(parameter TIMEOUT_BIT = 21)(
             win_s<=0;dir_s<=0;done_s<=0;err_s<=0;
             open<=0;first<=1;fault_seen<=0;sat_seen<=0;
             pre<=0;post<=0;fall_cnt<=0;exp_l<=0;
-            rej<=0;drp<=0;rnt<=0;min_h<=8'hff;min_l<=8'hff;run_len<=0;age<=0;
+            rej<=0;drp<=0;rnt<=0;min_h<=8'hff;min_l<=8'hff;run_len<=0;age_lo<=0;age_tick<=0;age_hi<=0;
+            pre_full<=0;post_full<=0;fall_full<=0;rej_full<=0;drp_full<=0;rnt_full<=0;
             snap_toggle<=0;snap_pre<=0;snap_post<=0;snap_fall<=0;snap_expect<=0;snap_done_index<=0;
             snap_reject<=0;snap_drop<=0;snap_runt<=0;snap_min_high<=8'hff;snap_min_low<=8'hff;snap_flags<=0;
         end else begin
@@ -55,21 +60,24 @@ module reply_edge_monitor #(parameter TIMEOUT_BIT = 21)(
             if(run_len!=8'hff) run_len<=run_len+1'b1;
             if(!open) begin
                 if(win_s[1]) begin
-                    open<=1;first<=1;fault_seen<=0;sat_seen<=0;age<=0;run_len<=0;
+                    open<=1;first<=1;fault_seen<=0;sat_seen<=0;age_lo<=0;age_tick<=0;age_hi<=0;run_len<=0;
                     pre<=0;post<=0;fall_cnt<=0;rej<=0;drp<=0;rnt<=0;min_h<=8'hff;min_l<=8'hff;
                     exp_l<=expect_edges;
                 end
             end else begin
-                age<=age+1'b1;
+                age_lo<=age_lo+1'b1;age_tick<=&age_lo;
+                if(age_tick) age_hi<=age_hi+1'b1;
+                pre_full<=(pre>=12'hffe);post_full<=(post>=12'hffe);fall_full<=(fall_cnt>=12'hffe);
+                rej_full<=(rej>=8'hfe);drp_full<=(drp>=8'hfe);rnt_full<=(rnt>=8'hfe);
                 if(filter_fault) fault_seen<=1;
                 if(ev_accept) begin
-                    if(!done_s[1]) begin if(&pre) sat_seen<=1; else pre<=pre+1'b1; end
-                    else begin if(&post) sat_seen<=1; else post<=post+1'b1; end
+                    if(!done_s[1]) begin if(pre_full) sat_seen<=1; else pre<=pre+1'b1; end
+                    else begin if(post_full) sat_seen<=1; else post<=post+1'b1; end
                 end
-                if(ev_reject) begin if(&rej) sat_seen<=1; else rej<=rej+1'b1; end
-                if(ev_drop) begin if(&drp) sat_seen<=1; else drp<=drp+1'b1; end
-                if(ev_runt) begin if(&rnt) sat_seen<=1; else rnt<=rnt+1'b1; end
-                if(ev_fall) begin if(&fall_cnt) sat_seen<=1; else fall_cnt<=fall_cnt+1'b1; end
+                if(ev_reject) begin if(rej_full) sat_seen<=1; else rej<=rej+1'b1; end
+                if(ev_drop) begin if(drp_full) sat_seen<=1; else drp<=drp+1'b1; end
+                if(ev_runt) begin if(rnt_full) sat_seen<=1; else rnt<=rnt+1'b1; end
+                if(ev_fall) begin if(fall_full) sat_seen<=1; else fall_cnt<=fall_cnt+1'b1; end
                 if(any_trans) begin
                     first<=0;run_len<=1;
                     // The run that just ended started at the previous transition.
@@ -80,13 +88,13 @@ module reply_edge_monitor #(parameter TIMEOUT_BIT = 21)(
                         else begin if(run_len<min_l) min_l<=run_len; end
                     end
                 end
-                if(!dir_s[1] || age[TIMEOUT_BIT]) begin
+                if(!dir_s[1] || timeout) begin
                     open<=0;
                     snap_pre<=pre;snap_post<=post;snap_fall<=fall_cnt;snap_expect<=exp_l;
                     snap_done_index<=ser_done_index;
                     snap_reject<=rej;snap_drop<=drp;snap_runt<=rnt;
                     snap_min_high<=min_h;snap_min_low<=min_l;
-                    snap_flags<={1'b1,1'b0,first,sat_seen,age[TIMEOUT_BIT],fault_seen,err_s[1],done_s[1]};
+                    snap_flags<={1'b1,1'b0,first,sat_seen,timeout,fault_seen,err_s[1],done_s[1]};
                     snap_toggle<=~snap_toggle;
                 end
             end
