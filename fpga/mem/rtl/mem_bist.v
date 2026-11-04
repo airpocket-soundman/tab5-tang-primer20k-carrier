@@ -2,7 +2,15 @@
 // Independent command/data acceptance; no fixed read latency assumption.
 module mem_bist #(
     parameter TIMEOUT_CYCLES=8100000,
-    parameter [63:0] TOTAL_TIMEOUT_CYCLES=64'd4860000000
+    parameter [63:0] TOTAL_TIMEOUT_CYCLES=64'd4860000000,
+    // IPUG281 4.4.6: write data may sit at most one cycle before, in, or one
+    // cycle after the command cycle. 1 issues command and data together, only
+    // while BOTH ready inputs are high (the vendor DDR-test pattern). 0 keeps
+    // the earlier independent-channel behavior for regression comparison.
+    parameter PAIRED_WRITE=1,
+    // The vendor DDR-test waits 256 clk_out cycles after init_calib_complete
+    // before its first command.
+    parameter CALIBRATION_SETTLE_CYCLES=256
 )(
     input wire clk,reset_n,calibrated,start,cancel,
     input wire [31:0] base_byte,beat_count,seed,job_id,
@@ -29,14 +37,23 @@ module mem_bist #(
     reg command_sent,data_sent,read_pending,gap;
     wire writing=phase==1 || phase==3;
     wire reading=phase==2 || phase==4;
-    wire active=reset_n && calibrated && busy && !faulted && !cancel && !gap;
+    reg [15:0] settle_count;
+    wire settled=settle_count>=CALIBRATION_SETTLE_CYCLES;
+    always @(posedge clk or negedge reset_n)begin
+        if(!reset_n)settle_count<=0;
+        else if(!calibrated)settle_count<=0;
+        else if(!settled)settle_count<=settle_count+1'b1;
+    end
+    wire active=reset_n && calibrated && settled && busy && !faulted && !cancel && !gap;
     wire [31:0] byte_address=base_latched+(index<<4);
     wire [25:0] linear_word=byte_address[26:1];
     // Linear row-bank-column order converted to native rank-bank-row-column.
     assign app_addr={1'b0,linear_word[12:10],linear_word[25:13],linear_word[9:0]};
     assign app_cmd=writing?3'b000:3'b001;
-    assign app_cmd_en=app_cmd_ready && active && ((writing&&!command_sent)||(reading&&!read_pending));
-    assign app_write_en=app_write_ready && active && writing && !data_sent;
+    assign app_cmd_en=app_cmd_ready && active &&
+        ((writing&&!command_sent&&(!PAIRED_WRITE||app_write_ready))||(reading&&!read_pending));
+    assign app_write_en=app_write_ready && active && writing && !data_sent &&
+        (!PAIRED_WRITE||app_cmd_ready);
     assign app_write_end=app_write_en;
     assign app_write_mask=phase==3?16'haaaa:16'h0000;
     wire command_fire=app_cmd_en && app_cmd_ready;

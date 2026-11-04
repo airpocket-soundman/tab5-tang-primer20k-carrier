@@ -1,5 +1,6 @@
 `timescale 1ns/1ps
 module tb_mem_bist;
+parameter PAIRED=0;
 reg clk=0; always #5 clk=~clk;
 reg rst=0,cal=1,start=0,cancel=0;
 reg [31:0] base=0,count=17,seed=32'h1234abcd,job=1;
@@ -7,11 +8,11 @@ wire[175:0] debug;wire busy,done,fault;wire[7:0] error;wire[2:0] phase,cmd;
 wire[31:0] verified,errors,first,accepted;wire[127:0] expected,actual,wd;
 wire[63:0] cycles;wire ce,we,wend;wire[26:0] addr;wire[15:0] mask;
 reg cr=0,wr=0,rv=0,re=1;reg[127:0] rd=0;
-mem_bist #(.TIMEOUT_CYCLES(60),.TOTAL_TIMEOUT_CYCLES(50000)) dut(
+mem_bist #(.TIMEOUT_CYCLES(60),.TOTAL_TIMEOUT_CYCLES(50000),.PAIRED_WRITE(PAIRED),.CALIBRATION_SETTLE_CYCLES(4)) dut(
 clk,rst,cal,start,cancel,base,count,seed,job,busy,done,fault,error,phase,
 verified,errors,first,accepted,expected,actual,cycles,cmd,ce,addr,cr,wd,we,wend,mask,wr,rd,rv,re,debug);
 reg deadline_start=0;wire deadline_done;wire[7:0] deadline_error;
-mem_bist #(.TIMEOUT_CYCLES(100),.TOTAL_TIMEOUT_CYCLES(5)) deadline_dut(
+mem_bist #(.TIMEOUT_CYCLES(100),.TOTAL_TIMEOUT_CYCLES(5),.CALIBRATION_SETTLE_CYCLES(0)) deadline_dut(
 .clk(clk),.reset_n(rst),.calibrated(1'b1),.start(deadline_start),.cancel(1'b0),
 .base_byte(32'b0),.beat_count(32'd1),.seed(32'b0),.job_id(32'd9),
 .app_cmd_ready(1'b0),.app_write_ready(1'b0),.app_read_data(128'b0),.app_read_valid(1'b0),.app_read_end(1'b0),
@@ -22,6 +23,9 @@ reg[26:0] saved_addr;reg[127:0] saved_data;reg[15:0] saved_mask;
 integer tick=0,delay_read=0,writes=0,reads=0,b,slot;
 integer mode=0,checks=0;
 reg corrupt=0;
+integer cal_run=0;wire settled_seen=cal_run>=4;
+// Independent count of clocks since calibration rose (reset by rst/cal low).
+always @(posedge clk)begin if(!rst||!cal)cal_run<=0;else if(cal_run<4)cal_run<=cal_run+1;end
 reg[175:0] saved_debug;
 reg[127:0] golden;reg[31:0] ga,g0,g1,g2,g3;integer gi;
 // Independent controller shim: command and data channels stall differently.
@@ -46,6 +50,8 @@ always @(negedge clk) begin
 end
 always @(posedge clk) if(rst) begin
  if((ce&&!cr)||(we&&!wr))$fatal(1,"enable without native ready");
+ if(PAIRED&&((ce&&cmd==0&&!we)||(we&&!(ce&&cmd==0))))$fatal(1,"write command and data not in the same cycle");
+ if(!settled_seen&&(ce||we))$fatal(1,"native enable before calibration settle");
  if(ce&&cr)begin
  if(cmd==0&&base==32'h3ff0&&writes==0&&addr!=27'h38003f8)$fatal(1,"row-boundary first native address");
  if(cmd==0&&base==32'h3ff0&&writes==1&&addr!=27'h400)$fatal(1,"row-boundary next native address");
@@ -89,11 +95,13 @@ initial begin
  reset;mode=1;launch;finish;if(error!=3||!fault)$fatal(1,"write timeout");
  launch;repeat(5)@(negedge clk);if(busy)$fatal(1,"fault rearmed without reset");
  reset;base=0;count=17;mode=5;launch;finish;
- if(error!=3||debug[15:12]!=3||!debug[11]||!debug[4]||debug[5]||debug[0]||debug[2]||debug[79:48]!=1||debug[111:80]!=0||debug[47:16]!=0)$fatal(1,"command-only stall evidence");
+ if(!PAIRED&&(error!=3||debug[15:12]!=3||!debug[11]||!debug[4]||debug[5]||debug[0]||debug[2]||debug[79:48]!=1||debug[111:80]!=0||debug[47:16]!=0))$fatal(1,"command-only stall evidence");
+ if(PAIRED&&(error!=3||debug[15:12]!=3||!debug[11]||debug[4]||debug[5]||debug[0]||debug[2]||debug[79:48]!=0||debug[111:80]!=0||debug[47:16]!=0))$fatal(1,"paired: command-ready-only must issue nothing");
  saved_debug=debug;cancel=1;@(negedge clk);cancel=0;@(negedge clk);
  if(error!=7||debug!==saved_debug)$fatal(1,"cleanup CANCEL overwrote first fault");
  reset;mode=6;launch;finish;
- if(error!=3||debug[15:12]!=3||debug[4]||!debug[5]||debug[0]||debug[2]||debug[79:48]!=0||debug[111:80]!=1)$fatal(1,"data-only stall evidence");
+ if(!PAIRED&&(error!=3||debug[15:12]!=3||debug[4]||!debug[5]||debug[0]||debug[2]||debug[79:48]!=0||debug[111:80]!=1))$fatal(1,"data-only stall evidence");
+ if(PAIRED&&(error!=3||debug[15:12]!=3||debug[4]||debug[5]||debug[0]||debug[2]||debug[79:48]!=0||debug[111:80]!=0))$fatal(1,"paired: data-ready-only must issue nothing");
  reset;mode=7;launch;finish;
  if(error!=3||debug[47:16]!=8||debug[79:48]!=8||debug[111:80]!=8||debug[175:144]!=56)$fatal(1,"eight-beat stall evidence");
  reset;mode=2;launch;finish;if(error!=4||!fault)$fatal(1,"read timeout");
@@ -106,6 +114,6 @@ initial begin
  reset;launch;repeat(5)@(negedge clk);rst=0;#1;if(ce||we)$fatal(1,"reset outputs");
  reset;mode=0;@(negedge clk);deadline_start=1;@(negedge clk);deadline_start=0;
  repeat(8)@(negedge clk);if(!deadline_done||deadline_error!=9)$fatal(1,"total deadline classification");checks=checks+1;
- $display("PASS mem_bist %0d scenarios: independent backpressure, native mapping, masks, mismatch, range, timeout, cancel/reset",checks);$finish;
+ $display("PASS mem_bist%s %0d scenarios: independent backpressure, native mapping, masks, mismatch, range, timeout, cancel/reset",PAIRED?" paired":"",checks);$finish;
 end
 endmodule
