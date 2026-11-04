@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "source_commit": "3f53d1662889994c5f7f105c52aa9874e335d35c",
+  "hardware_access": false,
+  "qualification": "offline only; hardware tests pending",
+  "tests": {
+    "native_mem_xferx_checks": 326,
+    "python_unittest_methods": 15,
+    "mem_finite_clock_hz": [
+      500000,
+      1000000,
+      2000000,
+      5000000,
+      8000000,
+      10000000,
+      16000000,
+      20000000
+    ],
+    "mem_finite_rejected_hz": [
+      3000000,
+      25000000
+    ]
+  },
+  "source_sha256": {
+    "main/mem_xferx.hpp": "ba77f75154312e25442492e640f3ada4d0c2e222488c0750467f26c40725f8ed",
+    "main/dock_gpu.cpp": "2fbe16f45af704d5bcdfa06113ddf8fba9907a02a385b7e315e5d003ccae3883",
+    "main/dock_gpu.hpp": "b089da6c2ba2dc17068f667f43404b070797c538f09fb1db8ed3282639502b00",
+    "main/dock_rx_clock_plan.cpp": "6ccbd59127c79cc99e8913f07592833dd226567bcc3cc37e1f8c84132496bb5b",
+    "main/mem_probe_main.cpp": "b5c7de16b7cf42d993e9c93a0d990f43486bc398f7a67e22cc93ae89acc54971",
+    "tools/memv1_xfer.py": "ce2b085c5b5784bbffbf004d2db48f06f57be98d9b64f30b39fa6b5628378512",
+    "tools/test_mem_xferx.cpp": "c8b7793b02800b6bdad2052fad0c5127d9de875f2595fcad4850561f781c815a",
+    "tools/test_memv1_xfer.py": "897ae196dccc2775fcaae850c08c36bc8f2c3de3dd99205c2c601c9b051e56c1"
+  },
+  "esp_idf_build": {
+    "passed": true,
+    "build_dir": "D:\\github\\airpocket-soundman\\tab5-fpga-gpu-cancel\\build\\mem-probe-split-rates-20261105",
+    "app_version": "3f53d16",
+    "files": {
+      "tab5_gpu_lab.bin": {
+        "sha256": "3c1ea58a131f2933534746e3f3956b0de9907013a32616cd114beb61dd6b34dd",
+        "bytes": 439600
+      },
+      "tab5_gpu_lab.elf": {
+        "sha256": "ea98777e43cbc926d342ecd8ab8386fa7e881c3a8b02cc1864734eae72246712",
+        "bytes": 7526548
+      },
+      "bootloader/bootloader.bin": {
+        "sha256": "7f0d10225b7a1b2653aaaa270ebe155c9c276c0377a35656cfb4b00e38e4914b",
+        "bytes": 23088
+      },
+      "partition_table/partition-table.bin": {
+        "sha256": "fd8026bff850ca0dee41c41305160317fffe604dda30a9bd5a701ac82d96fa17",
+        "bytes": 3072
+      },
+      "flash_args": {
+        "sha256": "63aafc9e5e5bb7f4922023b5c8d4b1b037431cbc641ee4cf6856cc8a276f3668",
+        "bytes": 157
+      },
+      "sdkconfig": {
+        "sha256": "c312748f82ec50d667a9b5134ee85ed988c808aff5c6df7cf3137329dd57b9e2",
+        "bytes": 96694
+      }
+    }
+  }
+}
