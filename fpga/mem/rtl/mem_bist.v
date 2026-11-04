@@ -22,6 +22,10 @@ module mem_bist #(
     //    (calibration loss is then detected one cycle later; native enables still use the raw input).
     // 3: additionally uses the registered `calibrated` in the native-enable gating and registers the two
     //    timeout comparators (wait and 64-bit total) one cycle ahead (identical firing cycle).
+    // 4: additionally takes the native enables from registered wants (state evaluated one cycle earlier),
+    //    so that each enable is a 3-input AND of the IP ready flops, the registered want and !cancel; a
+    //    registered fire flag blocks the stale want right after a command/data was accepted. One extra idle
+    //    cycle per beat; a fault stops the enables immediately (wants are cleared by fail_job).
     // 0: original structure (kept bit-identical for the earlier images).
     parameter PIPELINE=0
 )(
@@ -49,6 +53,7 @@ module mem_bist #(
     reg [31:0] base_latched,count_latched,seed_latched,index,wait_cycles;
     // PIPELINE=1 registers (unused and removed when PIPELINE=0)
     reg start_q,range_ok_q,rd_v1,rd_last1,rd_v2,rd_last2,mm_q,drain,cal_q,wait_hit_q,tot_hit_q;
+    reg want_cmd_q,want_wr_q,cmdfire_q,datafire_q;
     always @(posedge clk or negedge reset_n) if(!reset_n) cal_q<=0; else cal_q<=calibrated;
     wire cal_i=(PIPELINE>=2)?cal_q:calibrated;
     reg [31:0] base_q,count_q,seed_q,job_q,addr_q;
@@ -83,10 +88,17 @@ module mem_bist #(
     assign app_addr=APP_ROW_PAD?{linear_word[12:10],1'b0,linear_word[25:13],linear_word[9:0]}:
         {1'b0,linear_word[12:10],linear_word[25:13],linear_word[9:0]};
     assign app_cmd=writing?3'b000:3'b001;
-    assign app_cmd_en=app_cmd_ready && active &&
-        ((writing&&!command_sent&&(!PAIRED_WRITE||app_write_ready))||(reading&&!read_pending));
-    assign app_write_en=app_write_ready && active && writing && !data_sent &&
-        (!PAIRED_WRITE||app_cmd_ready);
+    wire active_ns=((PIPELINE>=2)?1'b1:reset_n) && ((PIPELINE>=3)?cal_q:calibrated) && settled && busy && !faulted && !gap && !drain;
+    wire want_cmd_c=active_ns && ((writing&&!command_sent)||(reading&&!read_pending));
+    wire want_wr_c=active_ns && writing && !data_sent;
+    assign app_cmd_en=(PIPELINE>=4)?
+        (app_cmd_ready && want_cmd_q && !cmdfire_q && !cancel && (!PAIRED_WRITE||!writing||app_write_ready)):
+        (app_cmd_ready && active &&
+        ((writing&&!command_sent&&(!PAIRED_WRITE||app_write_ready))||(reading&&!read_pending)));
+    assign app_write_en=(PIPELINE>=4)?
+        (app_write_ready && want_wr_q && !datafire_q && !cancel && (!PAIRED_WRITE||app_cmd_ready)):
+        (app_write_ready && active && writing && !data_sent &&
+        (!PAIRED_WRITE||app_cmd_ready));
     assign app_write_end=app_write_en;
     assign app_write_mask=phase==3?16'haaaa:16'h0000;
     wire command_fire=app_cmd_en && app_cmd_ready;
@@ -133,7 +145,7 @@ module mem_bist #(
               if(!debug_fault_valid)begin debug_fault_valid<=1;
                   debug_fault_flags<={code[3:0],1'b1,debug_live_flags[10:0]};end
               busy<=0;done<=1;faulted<=1;error_code<=code;
-              command_sent<=0;data_sent<=0;read_pending<=0;gap<=0;drain<=0;rd_v1<=0;rd_v2<=0;rd_last1<=0;rd_last2<=0;wait_hit_q<=0;tot_hit_q<=0;end
+              command_sent<=0;data_sent<=0;read_pending<=0;gap<=0;drain<=0;rd_v1<=0;rd_v2<=0;rd_last1<=0;rd_last2<=0;wait_hit_q<=0;tot_hit_q<=0;want_cmd_q<=0;want_wr_q<=0;end
     endtask
     always @(posedge clk or negedge reset_n) begin
         if(!reset_n) begin
@@ -144,7 +156,10 @@ module mem_bist #(
             base_latched<=0;count_latched<=0;seed_latched<=0;index<=0;wait_cycles<=0;
             command_sent<=0;data_sent<=0;read_pending<=0;gap<=0;
             drain<=0;rd_v1<=0;rd_v2<=0;rd_last1<=0;rd_last2<=0;mm_q<=0;rd_q<=0;exp_q<=0;addr_q<=0;wait_hit_q<=0;tot_hit_q<=0;
-        end else if(cancel) fail_job(8'd7);
+            want_cmd_q<=0;want_wr_q<=0;cmdfire_q<=0;datafire_q<=0;
+        end else begin
+        want_cmd_q<=want_cmd_c;want_wr_q<=want_wr_c;cmdfire_q<=command_fire;datafire_q<=data_fire;
+        if(cancel) fail_job(8'd7);
         else if(start_i && !busy && !faulted) begin
             done<=0;phase<=0;error_code<=0;verified_beats<=0;error_beats<=0;
             first_bad_byte<=0;first_expected<=0;first_actual<=0;elapsed_cycles<=0;
@@ -214,6 +229,7 @@ module mem_bist #(
                     end else index<=index+1'b1;
                 end
             end
+        end
         end
     end
 endmodule
