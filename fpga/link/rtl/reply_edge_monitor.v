@@ -76,15 +76,18 @@ module reply_edge_monitor #(parameter TIMEOUT_BIT = 21)(
     // Accepted-rise spacing, pipelined over three ticks (accepted rises are >=5 ticks apart).
     reg [7:0] sp_len,sp_val,sp_prev,sp_min,sp_max,sp_jump,sp_diff;
     reg sp_have,sp_prev_valid,sp_ge;
-    reg [2:0] sp_pipe;
-    // Run-length compare pipeline (qualified transitions are >=2 ticks apart).
-    reg rl_pend,rl_fall;reg [7:0] rl_val;
+    reg [3:0] sp_pipe;
+    // Run-length compare pipeline: capture, compare, update (qualified transitions are >=2 ticks apart,
+    // so rl_val is stable for the three stages).
+    reg rl_pend,rl_fall,rl_pend2,rl_fall2,rl_lt_h,rl_lt_l;reg [7:0] rl_val;
+    // Registered end-of-valid hit and spacing-jump result (keeps vact/first_* next-state logic shallow).
+    reg last_hit,jump_r,sp_lt_min,sp_gt_max;
     // Registered near-saturation flags.
     reg pre_full,post_full,fall_full,rej_full,drp_full,rnt_full,tail_full,jump_full;
     wire any_trans=ev_accept|ev_reject|ev_drop|ev_fall;
     wire anom_ev=g_v&(ev_reject|ev_drop|ev_runt);
     wire [2:0] anom_kind=ev_reject?3'd1:(ev_drop?3'd2:3'd3);
-    wire jump_ev=sp_pipe[2]&sp_prev_valid&(|sp_diff[7:2]);
+    wire jump_ev=jump_r;
     wire acc_v=ev_accept&g_v;
     always @(posedge clk or negedge reset_n) begin
         if(!reset_n) begin
@@ -97,6 +100,7 @@ module reply_edge_monitor #(parameter TIMEOUT_BIT = 21)(
             t_lo<=0;t_mid<=0;t_top<=0;t_en<=0;t_c1<=0;t_c2<=0;
             sp_len<=0;sp_val<=0;sp_prev<=0;sp_min<=8'hff;sp_max<=0;sp_jump<=0;sp_diff<=0;
             sp_have<=0;sp_prev_valid<=0;sp_ge<=0;sp_pipe<=0;rl_pend<=0;rl_fall<=0;rl_val<=0;
+            rl_pend2<=0;rl_fall2<=0;rl_lt_h<=0;rl_lt_l<=0;last_hit<=0;jump_r<=0;sp_lt_min<=0;sp_gt_max<=0;
             pre_full<=0;post_full<=0;fall_full<=0;rej_full<=0;drp_full<=0;rnt_full<=0;tail_full<=0;jump_full<=0;
             snap_toggle<=0;snap_pre<=0;snap_post<=0;snap_fall<=0;snap_expect<=0;snap_done_index<=0;snap_first_pos<=12'hfff;
             snap_reject<=0;snap_drop<=0;snap_runt<=0;snap_tail_noise<=0;snap_min_high<=8'hff;snap_min_low<=8'hff;
@@ -121,7 +125,7 @@ module reply_edge_monitor #(parameter TIMEOUT_BIT = 21)(
                     pre<=0;post<=0;fall_cnt<=0;rej<=0;drp<=0;rnt<=0;tailn<=0;min_h<=8'hff;min_l<=8'hff;
                     first_pos<=12'hfff;first_kind<=0;acc_last<=0;
                     sp_len<=0;sp_val<=0;sp_prev<=0;sp_min<=8'hff;sp_max<=0;sp_jump<=0;sp_diff<=0;
-                    sp_have<=0;sp_prev_valid<=0;sp_ge<=0;sp_pipe<=0;rl_pend<=0;
+                    sp_have<=0;sp_prev_valid<=0;sp_ge<=0;sp_pipe<=0;rl_pend<=0;rl_pend2<=0;last_hit<=0;jump_r<=0;
                     exp_l<=expect_edges;last_l<=expect_last;
                 end
             end else begin
@@ -145,11 +149,14 @@ module reply_edge_monitor #(parameter TIMEOUT_BIT = 21)(
                 if(vact & filter_fault) fault_seen<=1;
                 // Early end of the valid interval: the serializer finished without
                 // the expected number of accepted rises (abort, error, fault).
-                if(vact & done_s[1]) begin vact<=0;t_en<=0; end
+                if(vact & done_s[1]) vact<=0;
                 // ---- accepted rises ----
                 if(ev_accept & g_pre) pre<=pre+1'b1;
                 if(ev_accept & g_post) post<=post+1'b1;
-                if(acc_v & acc_last) begin vact<=0;vend_cnt<=1;t_en<=0; end
+                // The expect-th accepted rise ends the valid interval one tick later (registered hit).
+                last_hit<=acc_v&acc_last;
+                if(last_hit) begin vact<=0;vend_cnt<=1; end
+                if(last_hit | (vact & done_s[1])) t_en<=0;
                 else if(acc_v & ~sp_have) t_en<=1;
                 // ---- spacing of accepted rises ----
                 sp_pipe[0]<=acc_v&sp_have;
@@ -168,22 +175,25 @@ module reply_edge_monitor #(parameter TIMEOUT_BIT = 21)(
                     // transition of a window ends a run of unknown start: not recorded.
                     rl_pend<=g_v&~first;rl_fall<=ev_fall;rl_val<=run_len;
                 end else rl_pend<=0;
-                if(rl_pend) begin
-                    if(rl_fall) begin if(rl_val<min_h) min_h<=rl_val; end
-                    else begin if(rl_val<min_l) min_l<=rl_val; end
+                rl_pend2<=rl_pend;rl_fall2<=rl_fall;
+                rl_lt_h<=(rl_val<min_h);rl_lt_l<=(rl_val<min_l);
+                if(rl_pend2) begin
+                    if(rl_fall2) begin if(rl_lt_h) min_h<=rl_val; end
+                    else begin if(rl_lt_l) min_l<=rl_val; end
                 end
                 // ---- spacing pipeline: stage1 compare/min/max, stage2 |diff|, stage3 jump ----
-                sp_pipe[1]<=sp_pipe[0];sp_pipe[2]<=sp_pipe[1];
-                if(sp_pipe[0]) begin
-                    sp_ge<=(sp_val>=sp_prev);
-                    if(sp_val<sp_min) sp_min<=sp_val;
-                    if(sp_val>sp_max) sp_max<=sp_val;
+                sp_pipe[1]<=sp_pipe[0];sp_pipe[2]<=sp_pipe[1];sp_pipe[3]<=sp_pipe[2];
+                // stage1: comparisons (registered); stage2: min/max update and |diff|;
+                // stage3: jump decision (registered); stage4: counter/first-position use.
+                sp_ge<=(sp_val>=sp_prev);sp_lt_min<=(sp_val<sp_min);sp_gt_max<=(sp_val>sp_max);
+                if(sp_pipe[1]) begin
+                    if(sp_lt_min) sp_min<=sp_val;
+                    if(sp_gt_max) sp_max<=sp_val;
+                    sp_diff<=sp_ge?(sp_val-sp_prev):(sp_prev-sp_val);
                 end
-                if(sp_pipe[1]) sp_diff<=sp_ge?(sp_val-sp_prev):(sp_prev-sp_val);
-                if(sp_pipe[2]) begin
-                    sp_prev<=sp_val;sp_prev_valid<=1;
-                    if(jump_ev & ~jump_full) sp_jump<=sp_jump+1'b1;
-                end
+                jump_r<=sp_pipe[2]&sp_prev_valid&(|sp_diff[7:2]);
+                if(sp_pipe[2]) begin sp_prev<=sp_val;sp_prev_valid<=1; end
+                if(jump_r & ~jump_full) sp_jump<=sp_jump+1'b1;
                 // ---- first anomaly position ----
                 if(first_none) begin
                     if(jump_ev) begin first_none<=0;first_pos<=pre;first_kind<=3'd4; end
@@ -191,7 +201,7 @@ module reply_edge_monitor #(parameter TIMEOUT_BIT = 21)(
                 end
                 // ---- window end ----
                 if(!dir_s[1] || timeout) begin
-                    open<=0;vact<=0;
+                    open<=0;
                     snap_pre<=pre;snap_post<=post;snap_fall<=fall_cnt;snap_expect<=exp_l;
                     snap_done_index<=ser_done_index;snap_first_pos<=first_pos;snap_first_kind<=first_kind;
                     snap_reject<=rej;snap_drop<=drp;snap_runt<=rnt;snap_tail_noise<=tailn;
