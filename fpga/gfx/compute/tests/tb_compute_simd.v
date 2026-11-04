@@ -1,10 +1,10 @@
 `timescale 1ns/1ps
 module tb_compute_simd;
-    parameter LANES=4;
+    parameter LANES=4, PCB=8, MEMW=256, TRACEW=4096, MAXTICKS=300000;
     reg clk=0;
     always #5 clk=~clk;
     reg reset=1, program_we=0, start=0;
-    reg [7:0] program_addr=0;
+    reg [PCB-1:0] program_addr=0;
     reg [31:0] program_data=0, group_base=0, instruction_limit=10000, element_count=0;
     reg [15:0] entry=0;
     wire busy,done;
@@ -25,15 +25,15 @@ module tb_compute_simd;
     reg [15:0] saved_entry;
     reg [31:0] saved_limit;
     wire mem_ready=!pending && !rsp_valid && !force_stall && (!stall_mode || rng[1:0]==0);
-    reg [31:0] memory[0:255], expected[0:255], code[0:255], present[0:255];
+    reg [31:0] memory[0:MEMW-1], expected[0:MEMW-1], code[0:(1<<PCB)-1], present[0:(1<<PCB)-1];
     reg [31:0] expected_regs[0:LANES*16-1];
-    reg [31:0] trace_write[0:4095],trace_addr[0:4095],trace_data[0:4095],trace_mask[0:4095];
+    reg [31:0] trace_write[0:TRACEW-1],trace_addr[0:TRACEW-1],trace_data[0:TRACEW-1],trace_mask[0:TRACEW-1];
     reg held=0, held_write;
     reg [3:0] held_mask, accepted_mask;
     reg [31:0] byte_mask;
     reg [31:0] held_addr,held_data;
     reg [4095:0] directory;
-    compute_simd #(.LANES(LANES)) dut(.*);
+    compute_simd #(.LANES(LANES),.PC_BITS(PCB)) dut(.*);
 
     always @(posedge clk) begin
         if (reset) begin
@@ -42,7 +42,7 @@ module tb_compute_simd;
         end else begin
             ticks<=ticks+1;
             rng<={rng[30:0],rng[31]^rng[21]^rng[1]^rng[0]};
-            if (ticks>300000) $fatal(1,"simulation timeout");
+            if (ticks>MAXTICKS) $fatal(1,"simulation timeout");
             if (held && (!mem_valid || mem_word_addr!==held_addr || mem_wdata!==held_data || mem_write!==held_write || mem_wmask!==held_mask))
                 $fatal(1,"request changed under backpressure");
             held<=mem_valid && !mem_ready;
@@ -60,9 +60,9 @@ module tb_compute_simd;
                 if (delay_left!=0) delay_left<=delay_left-1;
                 else begin
                     pending<=0; rsp_valid<=1;
-                    rsp_error<=accepted_addr>=256 || accepted_addr==fault_address;
+                    rsp_error<=accepted_addr>=MEMW || accepted_addr==fault_address;
                     rsp_data<=0;
-                    if (accepted_addr<256 && accepted_addr!=fault_address) begin
+                    if (accepted_addr<MEMW && accepted_addr!=fault_address) begin
                         if (accepted_write) begin
                             byte_mask = {{8{accepted_mask[3]}},{8{accepted_mask[2]}},{8{accepted_mask[1]}},{8{accepted_mask[0]}}};
                             memory[accepted_addr]<=(memory[accepted_addr] & ~byte_mask) | (accepted_data & byte_mask);
@@ -75,7 +75,7 @@ module tb_compute_simd;
     end
 
     task write_program;
-        input [7:0] address;
+        input [PCB-1:0] address;
         input [31:0] value;
         begin
             @(negedge clk); program_we=1; program_addr=address; program_data=value;
@@ -143,8 +143,8 @@ module tb_compute_simd;
             if(busy || error!==expected_error[3:0] || instructions!==expected_instructions)
                 $fatal(1,"completion mismatch error=%0d instructions=%0d expected=%0d/%0d",error,instructions,expected_error,expected_instructions);
             if(requests!=expected_requests) $fatal(1,"request count mismatch");
-            for(j=0;j<256;j=j+1) if(memory[j]!==expected[j]) $fatal(1,"memory %0d got=%h expected=%h",j,memory[j],expected[j]);
-            if(entry<256 && instruction_limit!=0)
+            for(j=0;j<MEMW;j=j+1) if(memory[j]!==expected[j]) $fatal(1,"memory %0d got=%h expected=%h",j,memory[j],expected[j]);
+            if(entry<(1<<PCB) && instruction_limit!=0)
                 for(j=0;j<LANES*16;j=j+1) if(dut.regs[j]!==expected_regs[j]) $fatal(1,"register %0d got=%h expected=%h",j,dut.regs[j],expected_regs[j]);
             $display("PASS run=%0d lanes=%0d cycles=%0d instructions=%0d requests=%0d error=%0d",run_index,LANES,cycles,instructions,requests,error);
             @(negedge clk); if(done) $fatal(1,"done must pulse once");
