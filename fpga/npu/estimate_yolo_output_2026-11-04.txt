@@ -1,0 +1,117 @@
+[見積もり] YOLOv8 n/s/m/l/x、INT8、BN融合後。層構成はultralytics yamlから再構成(計算値)
+DDR3: 理論 1.593GB/s、BIST実測換算 51〜103MB/s(約31サイクル/ビート/相; 相の解釈は未確認)
+
+== (1) モデル諸元 ==
+      解像度 |   param(計算)     公表 |   重みMiB |   GMAC(計算)    公表/2 |    活性低MiB    活性高MiB
+n     640 |       3.15M   3.2M |     3.0 |       4.37    4.35 |      2.73      2.73
+n     320 |       3.15M   3.2M |     3.0 |       1.09    1.09 |      0.68      0.68
+s     640 |      11.16M  11.2M |    10.6 |      14.30   14.30 |      4.69      4.88
+s     320 |      11.16M  11.2M |    10.6 |       3.58    3.58 |      1.17      1.22
+m     640 |      25.89M  25.9M |    24.7 |      39.47   39.45 |      7.03      7.25
+m     320 |      25.89M  25.9M |    24.7 |       9.87    9.86 |      1.76      1.81
+l     640 |      43.67M  43.7M |    41.6 |      82.57   82.60 |     10.94     10.94
+l     320 |      43.67M  43.7M |    41.6 |      20.64   20.65 |      2.73      2.73
+x     640 |      68.20M  68.2M |    65.0 |     128.90  128.90 |     13.67     13.67
+x     320 |      68.20M  68.2M |    65.0 |      32.23   32.23 |      3.42      3.42
+
+== (2) 1枚あたりレイテンシ(FPGA、通信20MB/s込み)とP4単体 ==
+
+YOLOv8n 640x640: 4.37GMAC, 重み3.0MiB, P4必要メモリ 5.7〜5.7MiB/32MiB -> 載る; DDR3 128MiBには載る
+   P4単体の推定: 2.6s〜6.5s
+   FPGA 最良(理論DDR3帯域)      : 1.5s〜1.5s (compute 1.4s, DDR3転送 45〜70MB, 通信 97ms)
+   FPGA 目標(理論の60%)        : 1.5s〜1.5s (compute 1.4s, DDR3転送 45〜70MB, 通信 97ms)
+   FPGA 中間(理論の30%)        : 3.0s〜3.1s (compute 2.8s, DDR3転送 45〜70MB, 通信 97ms)
+   FPGA 計算最良x BIST実測(上)   : 1.9s〜2.2s (compute 1.4s, DDR3転送 45〜70MB, 通信 97ms)
+   FPGA 計算最良x BIST実測(下)   : 2.4s〜2.9s (compute 1.4s, DDR3転送 45〜70MB, 通信 97ms)
+   FPGA BIST実測(上側解釈)      : 11.8s〜12.0s (compute 11.2s, DDR3転送 45〜70MB, 通信 97ms)
+   FPGA BIST実測(下側解釈)      : 12.2s〜12.7s (compute 11.2s, DDR3転送 45〜70MB, 通信 97ms)
+
+YOLOv8n 320x320: 1.09GMAC, 重み3.0MiB, P4必要メモリ 3.7〜3.7MiB/32MiB -> 載る; DDR3 128MiBには載る
+   P4単体の推定: 658ms〜1.6s
+   FPGA 最良(理論DDR3帯域)      : 376ms〜376ms (compute 351ms, DDR3転送 13〜19MB, 通信 24ms)
+   FPGA 目標(理論の60%)        : 376ms〜376ms (compute 351ms, DDR3転送 13〜19MB, 通信 24ms)
+   FPGA 中間(理論の30%)        : 754ms〜767ms (compute 703ms, DDR3転送 13〜19MB, 通信 24ms)
+   FPGA 計算最良x BIST実測(上)   : 502ms〜563ms (compute 351ms, DDR3転送 13〜19MB, 通信 24ms)
+   FPGA 計算最良x BIST実測(下)   : 628ms〜751ms (compute 351ms, DDR3転送 13〜19MB, 通信 24ms)
+   FPGA BIST実測(上側解釈)      : 3.0s〜3.0s (compute 2.8s, DDR3転送 13〜19MB, 通信 24ms)
+   FPGA BIST実測(下側解釈)      : 3.1s〜3.2s (compute 2.8s, DDR3転送 13〜19MB, 通信 24ms)
+
+YOLOv8s 640x640: 14.30GMAC, 重み10.6MiB, P4必要メモリ 15.3〜15.5MiB/32MiB -> 載る; DDR3 128MiBには載る
+   P4単体の推定: 8.6s〜1.7min
+   FPGA 最良(理論DDR3帯域)      : 4.7s〜4.7s (compute 4.6s, DDR3転送 149〜287MB, 通信 97ms)
+   FPGA 目標(理論の60%)        : 4.7s〜4.7s (compute 4.6s, DDR3転送 149〜287MB, 通信 97ms)
+   FPGA 中間(理論の30%)        : 9.6s〜9.9s (compute 9.2s, DDR3転送 149〜287MB, 通信 97ms)
+   FPGA 計算最良x BIST実測(上)   : 6.1s〜7.5s (compute 4.6s, DDR3転送 149〜287MB, 通信 97ms)
+   FPGA 計算最良x BIST実測(下)   : 7.6s〜10.3s (compute 4.6s, DDR3転送 149〜287MB, 通信 97ms)
+   FPGA BIST実測(上側解釈)      : 38.3s〜39.7s (compute 36.8s, DDR3転送 149〜287MB, 通信 97ms)
+   FPGA BIST実測(下側解釈)      : 39.8s〜42.5s (compute 36.8s, DDR3転送 149〜287MB, 通信 97ms)
+
+YOLOv8s 320x320: 3.58GMAC, 重み10.6MiB, P4必要メモリ 11.8〜11.9MiB/32MiB -> 載る; DDR3 128MiBには載る
+   P4単体の推定: 2.2s〜25.5s
+   FPGA 最良(理論DDR3帯域)      : 1.2s〜1.2s (compute 1.1s, DDR3転送 45〜80MB, 通信 24ms)
+   FPGA 目標(理論の60%)        : 1.2s〜1.2s (compute 1.1s, DDR3転送 45〜80MB, 通信 24ms)
+   FPGA 中間(理論の30%)        : 2.4s〜2.5s (compute 2.3s, DDR3転送 45〜80MB, 通信 24ms)
+   FPGA 計算最良x BIST実測(上)   : 1.6s〜1.9s (compute 1.1s, DDR3転送 45〜80MB, 通信 24ms)
+   FPGA 計算最良x BIST実測(下)   : 2.1s〜2.7s (compute 1.1s, DDR3転送 45〜80MB, 通信 24ms)
+   FPGA BIST実測(上側解釈)      : 9.7s〜10.0s (compute 9.2s, DDR3転送 45〜80MB, 通信 24ms)
+   FPGA BIST実測(下側解釈)      : 10.1s〜10.8s (compute 9.2s, DDR3転送 45〜80MB, 通信 24ms)
+
+YOLOv8m 640x640: 39.47GMAC, 重み24.7MiB, P4必要メモリ 31.7〜31.9MiB/32MiB -> ぎりぎり/不確実; DDR3 128MiBには載る
+   P4単体の推定: 23.8s〜4.7min
+   FPGA 最良(理論DDR3帯域)      : 12.8s〜12.8s (compute 12.7s, DDR3転送 389〜830MB, 通信 97ms)
+   FPGA 目標(理論の60%)        : 12.8s〜12.8s (compute 12.7s, DDR3転送 389〜830MB, 通信 97ms)
+   FPGA 中間(理論の30%)        : 26.3s〜27.2s (compute 25.4s, DDR3転送 389〜830MB, 通信 97ms)
+   FPGA 計算最良x BIST実測(上)   : 16.6s〜20.9s (compute 12.7s, DDR3転送 389〜830MB, 通信 97ms)
+   FPGA 計算最良x BIST実測(下)   : 20.4s〜28.9s (compute 12.7s, DDR3転送 389〜830MB, 通信 97ms)
+   FPGA BIST実測(上側解釈)      : 1.8min〜1.8min (compute 1.7min, DDR3転送 389〜830MB, 通信 97ms)
+   FPGA BIST実測(下側解釈)      : 1.8min〜2.0min (compute 1.7min, DDR3転送 389〜830MB, 通信 97ms)
+
+YOLOv8m 320x320: 9.87GMAC, 重み24.7MiB, P4必要メモリ 26.4〜26.5MiB/32MiB -> ぎりぎり/不確実; DDR3 128MiBには載る
+   P4単体の推定: 5.9s〜70.5s
+   FPGA 最良(理論DDR3帯域)      : 3.2s〜3.2s (compute 3.2s, DDR3転送 116〜227MB, 通信 24ms)
+   FPGA 目標(理論の60%)        : 3.2s〜3.2s (compute 3.2s, DDR3転送 116〜227MB, 通信 24ms)
+   FPGA 中間(理論の30%)        : 6.6s〜6.8s (compute 6.3s, DDR3転送 116〜227MB, 通信 24ms)
+   FPGA 計算最良x BIST実測(上)   : 4.3s〜5.4s (compute 3.2s, DDR3転送 116〜227MB, 通信 24ms)
+   FPGA 計算最良x BIST実測(下)   : 5.5s〜7.6s (compute 3.2s, DDR3転送 116〜227MB, 通信 24ms)
+   FPGA BIST実測(上側解釈)      : 26.5s〜27.6s (compute 25.4s, DDR3転送 116〜227MB, 通信 24ms)
+   FPGA BIST実測(下側解釈)      : 27.7s〜29.8s (compute 25.4s, DDR3転送 116〜227MB, 通信 24ms)
+
+YOLOv8l 640x640: 82.57GMAC, 重み41.6MiB, P4必要メモリ 52.6〜52.6MiB/32MiB -> 載らない; DDR3 128MiBには載る
+   P4単体の推定: 49.7s〜9.8min  (参考。実際は動かない)
+   FPGA 最良(理論DDR3帯域)      : 26.6s〜26.6s (compute 26.5s, DDR3転送 886〜1941MB, 通信 97ms)
+   FPGA 目標(理論の60%)        : 26.6s〜26.6s (compute 26.5s, DDR3転送 886〜1941MB, 通信 97ms)
+   FPGA 中間(理論の30%)        : 55.0s〜57.3s (compute 53.1s, DDR3転送 886〜1941MB, 通信 97ms)
+   FPGA 計算最良x BIST実測(上)   : 35.3s〜45.5s (compute 26.5s, DDR3転送 886〜1941MB, 通信 97ms)
+   FPGA 計算最良x BIST実測(下)   : 43.9s〜64.4s (compute 26.5s, DDR3転送 886〜1941MB, 通信 97ms)
+   FPGA BIST実測(上側解釈)      : 3.7min〜3.9min (compute 3.5min, DDR3転送 886〜1941MB, 通信 97ms)
+   FPGA BIST実測(下側解釈)      : 3.8min〜4.2min (compute 3.5min, DDR3転送 886〜1941MB, 通信 97ms)
+
+YOLOv8l 320x320: 20.64GMAC, 重み41.6MiB, P4必要メモリ 44.4〜44.4MiB/32MiB -> 載らない; DDR3 128MiBには載る
+   P4単体の推定: 12.4s〜2.5min  (参考。実際は動かない)
+   FPGA 最良(理論DDR3帯域)      : 6.7s〜6.7s (compute 6.6s, DDR3転送 254〜520MB, 通信 24ms)
+   FPGA 目標(理論の60%)        : 6.7s〜6.7s (compute 6.6s, DDR3転送 254〜520MB, 通信 24ms)
+   FPGA 中間(理論の30%)        : 13.8s〜14.4s (compute 13.3s, DDR3転送 254〜520MB, 通信 24ms)
+   FPGA 計算最良x BIST実測(上)   : 9.1s〜11.7s (compute 6.6s, DDR3転送 254〜520MB, 通信 24ms)
+   FPGA 計算最良x BIST実測(下)   : 11.6s〜16.8s (compute 6.6s, DDR3転送 254〜520MB, 通信 24ms)
+   FPGA BIST実測(上側解釈)      : 55.6s〜58.2s (compute 53.1s, DDR3転送 254〜520MB, 通信 24ms)
+   FPGA BIST実測(下側解釈)      : 58.1s〜63.2s (compute 53.1s, DDR3転送 254〜520MB, 通信 24ms)
+
+YOLOv8x 640x640: 128.90GMAC, 重み65.0MiB, P4必要メモリ 78.7〜78.7MiB/32MiB -> 載らない; DDR3 128MiBには載る
+   P4単体の推定: 77.7s〜15.3min  (参考。実際は動かない)
+   FPGA 最良(理論DDR3帯域)      : 41.5s〜41.5s (compute 41.4s, DDR3転送 1583〜3614MB, 通信 97ms)
+   FPGA 目標(理論の60%)        : 41.5s〜41.5s (compute 41.4s, DDR3転送 1583〜3614MB, 通信 97ms)
+   FPGA 中間(理論の30%)        : 86.3s〜90.5s (compute 82.9s, DDR3転送 1583〜3614MB, 通信 97ms)
+   FPGA 計算最良x BIST実測(上)   : 56.9s〜76.7s (compute 41.4s, DDR3転送 1583〜3614MB, 通信 97ms)
+   FPGA 計算最良x BIST実測(下)   : 72.3s〜1.9min (compute 41.4s, DDR3転送 1583〜3614MB, 通信 97ms)
+   FPGA BIST実測(上側解釈)      : 5.8min〜6.1min (compute 5.5min, DDR3転送 1583〜3614MB, 通信 97ms)
+   FPGA BIST実測(下側解釈)      : 6.0min〜6.7min (compute 5.5min, DDR3転送 1583〜3614MB, 通信 97ms)
+
+YOLOv8x 320x320: 32.23GMAC, 重み65.0MiB, P4必要メモリ 68.5〜68.5MiB/32MiB -> 載らない; DDR3 128MiBには載る
+   P4単体の推定: 19.4s〜3.8min  (参考。実際は動かない)
+   FPGA 最良(理論DDR3帯域)      : 10.4s〜10.4s (compute 10.4s, DDR3転送 446〜952MB, 通信 24ms)
+   FPGA 目標(理論の60%)        : 10.4s〜10.4s (compute 10.4s, DDR3転送 446〜952MB, 通信 24ms)
+   FPGA 中間(理論の30%)        : 21.7s〜22.7s (compute 20.7s, DDR3転送 446〜952MB, 通信 24ms)
+   FPGA 計算最良x BIST実測(上)   : 14.7s〜19.7s (compute 10.4s, DDR3転送 446〜952MB, 通信 24ms)
+   FPGA 計算最良x BIST実測(下)   : 19.1s〜28.9s (compute 10.4s, DDR3転送 446〜952MB, 通信 24ms)
+   FPGA BIST実測(上側解釈)      : 87.2s〜92.2s (compute 82.9s, DDR3転送 446〜952MB, 通信 24ms)
+   FPGA BIST実測(下側解釈)      : 91.6s〜1.7min (compute 82.9s, DDR3転送 446〜952MB, 通信 24ms)
