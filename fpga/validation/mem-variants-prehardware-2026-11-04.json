@@ -938,6 +938,192 @@
       },
       "sdc_lines_dropped": [],
       "archive": "validation/mem-variant-sampleip_map_t3-2026-11-04"
+    },
+    "clk400x_dp000": {
+      "built": true,
+      "description": "(a5) untapped clk400 IP regenerated with Debug P1=101 (DLL CODESCAL), P2=0 (DQ IODELAY 0) - the values the generator itself uses for the official 1:2/200MHz reference. Needs MEM_IP_TAG=xdp000",
+      "fs_sha256": "80dddcb92d79e6ac915251b4510e6644741cb5c81151fa613cabfda6981af122",
+      "fs_sha256_without_comment_lines": "21472dd04d8da44978b13b581375ae15b2b423f6c15372cde9be7968cbc1858a",
+      "usercode": "0x00009DDB",
+      "fs_bytes": 4620698,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": false,
+      "sta": {
+        "setup_violated_endpoints": 4018,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": -10.63,
+          "from": "controller/gw3_top_u_ddr_phy_top_ddr_rsti_reg_2_s0/Q",
+          "to": "controller/gw3_top_u_gwmc_top_gw_cmd0_mem_mem_0_7_s/DI[0]"
+        },
+        "worst_hold": {
+          "slack_ns": 0.233,
+          "from": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_oserdes_d_rr_63_s0/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_cmd_oserdes_gen[15].u_cmd_gen/D6"
+        },
+        "worst_recovery": {
+          "slack_ns": -8.991,
+          "from": "reset_hold_2_s1/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_ddr_init_internal_r_s0/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.454,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 25,
+          "Hold": 0,
+          "Recovery": 256,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 74.777,
+          "memory398": 2016.128,
+          "user100": 90.781
+        }
+      },
+      "logic": "5703/20736",
+      "registers": "5824/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "5d77a153481da33f2a49d5518f8ea991bc197c8301efae5205aa6084addb250b",
+        "mem_bist": "3e4ea6756b597f178a88e29d2e60eb0c5e61ac961715db63edf5e058363a55ea",
+        "mem_mailbox": "00d45fba8e3a4aca26129a003b9642750195a4adb13affebd338e7620ff149f9",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "d2063519c2288de4905e189caadd6e619c019b00d02624d20112ff0596c56877"
+      },
+      "sdc_lines_dropped": [],
+      "archive": "validation/mem-variant-clk400x_dp000-2026-11-04"
+    },
+    "clk400x_dp1116": {
+      "built": true,
+      "description": "(a6) untapped clk400 IP with Debug P1=111, P2=6: the generator default CODESCAL with the sample DQ IODELAY. Needs MEM_IP_TAG=xdp1116",
+      "fs_sha256": "63d4db3c5dd86484f12ce794acd3685a6a86b4fc3e01a877d8702b12aa3adc58",
+      "fs_sha256_without_comment_lines": "eb899b9503ae46ac333ce39440dc361eac846a399a76c3bb92367c8ac4f299a3",
+      "usercode": "0x0000C783",
+      "fs_bytes": 4620698,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": false,
+      "sta": {
+        "setup_violated_endpoints": 4018,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": -10.63,
+          "from": "controller/gw3_top_u_ddr_phy_top_ddr_rsti_reg_2_s0/Q",
+          "to": "controller/gw3_top_u_gwmc_top_gw_cmd0_mem_mem_0_7_s/DI[0]"
+        },
+        "worst_hold": {
+          "slack_ns": 0.233,
+          "from": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_oserdes_d_rr_63_s0/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_cmd_oserdes_gen[15].u_cmd_gen/D6"
+        },
+        "worst_recovery": {
+          "slack_ns": -8.991,
+          "from": "reset_hold_2_s1/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_ddr_init_internal_r_s0/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.454,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 25,
+          "Hold": 0,
+          "Recovery": 256,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 74.777,
+          "memory398": 2016.128,
+          "user100": 90.781
+        }
+      },
+      "logic": "5703/20736",
+      "registers": "5824/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "5d77a153481da33f2a49d5518f8ea991bc197c8301efae5205aa6084addb250b",
+        "mem_bist": "3e4ea6756b597f178a88e29d2e60eb0c5e61ac961715db63edf5e058363a55ea",
+        "mem_mailbox": "00d45fba8e3a4aca26129a003b9642750195a4adb13affebd338e7620ff149f9",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "d2063519c2288de4905e189caadd6e619c019b00d02624d20112ff0596c56877"
+      },
+      "sdc_lines_dropped": [],
+      "archive": "validation/mem-variant-clk400x_dp1116-2026-11-04"
+    },
+    "clk400x_drvhigh": {
+      "built": true,
+      "description": "(a7) untapped clk400 IP with OUTPUT_DRV HIGH (RZQ/7=34 ohm); IPUG281 suggests changing it when initialisation fails. Needs MEM_IP_TAG=xdrvhigh",
+      "fs_sha256": "637a6a164e3a8f9f1184916be513e74569028b718445b97a22e44ead0964171e",
+      "fs_sha256_without_comment_lines": "0bc7ca8ec0f1d82b293e3356c893c154796cb803b45f4158cff39862ea65a5ca",
+      "usercode": "0x0000A6D4",
+      "fs_bytes": 4620698,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": false,
+      "sta": {
+        "setup_violated_endpoints": 3710,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": -8.184,
+          "from": "controller/gw3_top_u_ddr_phy_top_ddr_rsti_reg_2_s0/Q",
+          "to": "controller/gw3_top_u_gwmc_top_gw_cmd0_mem_mem_0_7_s/DI[0]"
+        },
+        "worst_hold": {
+          "slack_ns": 0.234,
+          "from": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_oserdes_d_rr_55_s0/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_cmd_oserdes_gen[13].u_cmd_gen/D6"
+        },
+        "worst_recovery": {
+          "slack_ns": -8.369,
+          "from": "reset_hold_2_s1/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_eye_calib_start_rr_s0/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.323,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 25,
+          "Hold": 0,
+          "Recovery": 256,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 79.274,
+          "memory398": 2016.128,
+          "user100": 99.701
+        }
+      },
+      "logic": "5675/20736",
+      "registers": "5824/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "5d77a153481da33f2a49d5518f8ea991bc197c8301efae5205aa6084addb250b",
+        "mem_bist": "3e4ea6756b597f178a88e29d2e60eb0c5e61ac961715db63edf5e058363a55ea",
+        "mem_mailbox": "00d45fba8e3a4aca26129a003b9642750195a4adb13affebd338e7620ff149f9",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "d2063519c2288de4905e189caadd6e619c019b00d02624d20112ff0596c56877"
+      },
+      "sdc_lines_dropped": [],
+      "archive": "validation/mem-variant-clk400x_drvhigh-2026-11-04"
     }
   }
 }
