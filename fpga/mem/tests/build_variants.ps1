@@ -1,7 +1,7 @@
 # Builds base + DDR3 isolation variants with Gowin Education 1.9.11.03. Never programs any device.
 # Prereq (once): gw_sh fpga/mem/config/generate_ip.tcl ; python fpga/mem/tests/prepare_deep_taps.py ;
 #   run_tests.py ; prepare_guarded.py   (MEM_VO_SHA256 must be set if MemDDR3.vo SHA differs from 4d37c875...)
-param([string[]]$Ids=@('base','cs0','rst','refwait','pace','norst','readfirst','sampleip'),
+param([string[]]$Ids=@('base','cs0','rst','refwait','pace','norst','readfirst','sampleip','clk400_notap'),
       [string]$GwBin='D:\Gowin\edu-x\Gowin_V1.9.11.03_Education_x64\IDE\bin')
 $ErrorActionPreference='Continue'  # gw_sh writes to stderr; do not abort the loop on that
 $repo=Split-Path (Split-Path (Split-Path $PSScriptRoot -Parent) -Parent) -Parent

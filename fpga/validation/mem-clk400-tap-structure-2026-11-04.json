@@ -1,0 +1,277 @@
+{
+ "cmd_wptr": {
+  "old": "gw3_top/u_gwmc_top/gw_cmd0/waddr",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "cmd_rptr": {
+  "old": "gw3_top/u_gwmc_top/gw_cmd0/raddr",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "cmd_full": {
+  "old": "gw3_top/full",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "cmd_empty": {
+  "old": "gw3_top/u_gwmc_top/cmd_empty_Z",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "full_r": {
+  "old": "gw3_top/u_gwmc_top/gw_cmd0/full_r",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "full_rr": {
+  "old": "gw3_top/u_gwmc_top/gw_cmd0/full_rr",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "cmd_accept": {
+  "old": "gw3_top/u_gwmc_top/cmd_accept_Z",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "send_wr": {
+  "old": "gw3_top/u_gwmc_top/send_wr",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "write_full": {
+  "old": "gw3_top/u_gwmc_top/gw_wr_data0/wr_buf_full",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "write_empty": {
+  "old": "gw3_top/u_gwmc_top/gw_wr_data0/wr_fifo/wr_buf_empt",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "eye_cmd": {
+  "old": "gw3_top/u_gwmc_top/eye_calib_start_cmd",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "eye_addr": {
+  "old": "gw3_top/u_gwmc_top/eye_calib_start_addr",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "write_rptr": {
+  "old": "gw3_top/u_gwmc_top/gw_wr_data0/wr_fifo/rbin",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "write_wptr": {
+  "old": "gw3_top/u_gwmc_top/gw_wr_data0/wr_fifo/wbin",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "head_write": {
+  "old": "gw3_top/u_gwmc_top/cmd_buf_dou [27]",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "head_read": {
+  "old": "gw3_top/u_gwmc_top/cmd_buf_dou [28]",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "pre_info_valid": {
+  "old": "gw3_top/u_gwmc_top/gwmc_bank_ctrl/pre_info_valid",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "issue_write": {
+  "old": "gw3_top/u_gwmc_top/n219_4",
+  "in_old": true,
+  "in_new": false,
+  "auto": true,
+  "old_driver": [
+   {
+    "kind": "LUT4",
+    "inst": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n219_s1",
+    "ins": {
+     "I0": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n219_14",
+     "I1": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n219_7",
+     "I2": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n219_8",
+     "I3": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n219_9"
+    },
+    "init": "16'h8000"
+   }
+  ],
+  "new_candidates": [
+   {
+    "inst": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n1816_s0",
+    "out": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n1816_3",
+    "ins": {
+     "I0": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n1816_4",
+     "I1": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n1816_5",
+     "I2": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n1816_6",
+     "I3": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/act_one_bank_5"
+    }
+   },
+   {
+    "inst": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n2189_s0",
+    "out": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n2189_3",
+    "ins": {
+     "I0": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n2189_4",
+     "I1": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n2189_5",
+     "I2": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/act_one_bank_5",
+     "I3": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n2189_6"
+    }
+   },
+   {
+    "inst": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n223_s1",
+    "out": "\\gw3_top/u_gwmc_top/n223_4",
+    "ins": {
+     "I0": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n2189_4",
+     "I1": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n223_6",
+     "I2": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n223_7",
+     "I3": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n223_8"
+    }
+   },
+   {
+    "inst": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n1692_s2",
+    "out": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n1692_5",
+    "ins": {
+     "I0": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n1692_8",
+     "I1": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n1692_9",
+     "I2": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n1692_10",
+     "I3": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n1692_11"
+    }
+   },
+   {
+    "inst": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n2189_s2",
+    "out": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n2189_5",
+    "ins": {
+     "I0": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n1816_9",
+     "I1": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n1816_10",
+     "I2": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n223_7",
+     "I3": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n1816_7"
+    }
+   },
+   {
+    "inst": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/tRFC_cnt_4_s4",
+    "out": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/tRFC_cnt_4_9",
+    "ins": {
+     "I0": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n223_6",
+     "I1": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/tRFC_cnt_4_12",
+     "I2": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/tRFC_cnt_4_13",
+     "I3": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/tRFC_cnt_4_16"
+    }
+   }
+  ],
+  "n_candidates": 98
+ },
+ "issue_read": {
+  "old": "gw3_top/u_gwmc_top/n219_5",
+  "in_old": true,
+  "in_new": false,
+  "auto": true,
+  "old_driver": [
+   {
+    "kind": "LUT4",
+    "inst": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n219_s2",
+    "ins": {
+     "I0": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/gwmc_pstate [10]",
+     "I1": "\\gw3_top/u_gwmc_top/idle3",
+     "I2": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n219_10",
+     "I3": "\\gw3_top/u_gwmc_top/gwmc_bank_ctrl/n219_11"
+    },
+    "init": "16'h4000"
+   }
+  ],
+  "new_candidates": [],
+  "n_candidates": 0
+ },
+ "init_done": {
+  "old": "gw3_top/u_gwmc_top/gwmc_bank_ctrl/init_done_r",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "bank_state": {
+  "old": "gw3_top/u_gwmc_top/gwmc_bank_ctrl/gwmc_pstate",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "refresh_request": {
+  "old": "gw3_top/u_gwmc_top/refresh_request_Z",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "self_refresh": {
+  "old": "gw3_top/u_gwmc_top/sre_request_Z",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "idle1": {
+  "old": "gw3_top/u_gwmc_top/idle1",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "idle2": {
+  "old": "gw3_top/u_gwmc_top/idle2",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "idle3": {
+  "old": "gw3_top/u_gwmc_top/idle3",
+  "in_old": true,
+  "in_new": true,
+  "auto": false
+ },
+ "init_enable": {
+  "old": "gw3_top/u_gwmc_top/n107_3",
+  "in_old": true,
+  "in_new": true,
+  "auto": true,
+  "old_driver": [
+   {
+    "kind": "LUT2",
+    "inst": "\\gw3_top/u_gwmc_top/n107_s0",
+    "ins": {
+     "I0": "\\gw3_top/ddr_init_internal",
+     "I1": "\\gw3_top/eye_calib_start_Z"
+    },
+    "init": "4'hE"
+   }
+  ],
+  "new_candidates": [
+   {
+    "inst": "\\gw3_top/u_gwmc_top/n107_s0",
+    "out": "\\gw3_top/u_gwmc_top/n107_3",
+    "ins": {
+     "I0": "\\gw3_top/ddr_init_internal",
+     "I1": "\\gw3_top/eye_calib_start_Z"
+    }
+   }
+  ],
+  "n_candidates": 1
+ }
+}
