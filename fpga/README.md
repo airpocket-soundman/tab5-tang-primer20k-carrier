@@ -1,5 +1,9 @@
 # FPGAソース
 
+2026-11-04：実機なしで進める[汎用SIMD演算器の試作](gfx/compute/README.md)を追加。
+Juliaと配列演算を同じRTLへロードする命令列で実行する。既存LINK/GFX・DDR3・GPU LABには未統合。
+試験・部品合成とホスト要求の照合は[開発記録](../docs/汎用GPU演算器_オフライン開発_2026-11-04.md)を参照。
+
 Tang Primer 20K Core（GW2A-LV18PG256C8/I7）上のFPGAデバイスのソースと制約を管理する。役割分担は[リポジトリ分担と参照ルール](../docs/リポジトリ分担と参照ルール.md)、機能とビットストリームの構成は[FPGAデバイス構成](../docs/FPGAデバイス構成_ビットストリームと機能.md)。
 
 状態（2026-10-28）：tab5-fpga-gpuからRTLと試験を移管済み（[移管記録](MIGRATION.md)）。Dock LINK/GFXはOSSツールで合成・配置配線・packを完了し、`.fs`を生成。内部27MHzの条件を通過し、GFXの画像RAMはBSRAM 1個。RTL全8スイートと、限定試験モデルによる合成後GFXの1,554通信・1,024画素照合が成功。Gowin EDA、外部I/Oタイミング・実機は未検証。[検証記録](validation/README.md)。
