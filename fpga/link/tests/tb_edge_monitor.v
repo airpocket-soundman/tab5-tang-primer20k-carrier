@@ -72,6 +72,30 @@ module tb_edge_monitor;
         begin make(8'hcd,8'h5a,8'ha5);send();read_count(16,12500);complete(16);st=r[9];end
     endtask
     task settle; begin #2000000; end endtask
+    // Continuous-RX style host: the clock is already running (free) when the FPGA offers the reply, so the
+    // first reply edge lands at an arbitrary phase relative to the offer / DIR rise (period 50ns = 10.8 ticks).
+    // mode 0: READY already offered, DIR rises `phase` ps after the free clock starts.
+    // mode 1: DIR and the free clock start together `phase` ps after the request, before READY.
+    reg run_clk=0;
+    always begin if(run_clk)begin bus_clk=1;#25000;bus_clk=0;#25000;end else #1000; end
+    task cont_reply(input [7:0] op,input integer mode,input integer phase,input integer total_edges);
+        begin
+            make(op,0,0);
+            dir=0;bus_clk=0;#200000;host_oe=1;
+            for(i=0;i<8;i=i+1)begin host_data=q[i];#500000;bus_clk=1;#500000;bus_clk=0;#500000;end
+            host_oe=0;
+            if(mode==0)begin
+                waits=0;while(!ready && waits<200000)begin #1000;waits=waits+1;end
+                if(!ready)$fatal(1,"READY timeout");
+                run_clk=1;#(phase);dir=1;
+            end else begin
+                #(phase);dir=1;run_clk=1;
+            end
+            #(total_edges*50000);
+            // The host stops its clock first, then releases DIR (a clock edge after DIR=0 would be read as a request byte).
+            run_clk=0;#100000;dir=0;#200000;bus_clk=0;#2000000;
+        end
+    endtask
     integer K,pre,post,flags;
     reg [7:0] kk;
     initial begin
@@ -182,6 +206,37 @@ module tb_edge_monitor;
         if(dut.edge_diag.deficit_windows<1)$fatal(1,"C deficit_windows not counted");
         edge_get(22);$display("C opcode idx22 deficit=%0d",ev);if(st!=0||ev!=1)$fatal(1,"C idx22");
         edge_get(20);if(ev<1)$fatal(1,"C idx20");
+
+        // ---- (d) continuous-RX style start: free-running host clock, offer/DIR at every phase ----
+        // The serializer consumes every edge after its offer, so done_index+1 is the true consumed length.
+        // Hardware showed ~91% of tile windows "deficit" while the pixels were perfect: the monitor window
+        // opens a few sampler ticks after the offer and used to lose the first edge(s).
+        edge_clear();
+        begin : sweep
+            integer m,ph,lost,bad_sweep,deficit_sweep,runs;reg [15:0] seq0;
+            lost=0;bad_sweep=0;deficit_sweep=0;runs=0;
+            for(m=0;m<2;m=m+1)
+                for(ph=0;ph<50000;ph=ph+2315)begin
+                    seq0=dut.edge_diag.seq;
+                    cont_reply(8'hb0,m,100000+ph,16+60);
+                    if(dut.edge_diag.seq==seq0)$display("D NOTE: no new window for mode %0d phase %0d (didx=%0d flags=%h)",m,ph,dut.edge_diag.l_didx,dut.edge_diag.l_flags);
+                    runs=runs+1;
+                    if(dut.edge_diag.l_didx!=15 || !dut.edge_diag.l_flags[0])$fatal(1,"D serializer did not finish exactly 16 edges: didx=%0d flags=%h (mode %0d phase %0d)",dut.edge_diag.l_didx,dut.edge_diag.l_flags,m,ph);
+                    if(dut.edge_diag.l_pre!=16)lost=lost+1;
+                    if(dut.edge_diag.l_deficit!=0)deficit_sweep=deficit_sweep+1;
+                    if(dut.edge_diag.anomaly)bad_sweep=bad_sweep+1;
+                end
+            $display("D sweep: %0d starts, monitor pre!=16 in %0d (leading edge not counted), deficit windows %0d, abnormal windows %0d, history windows=%0d deficit=%0d bad=%0d",
+                runs,lost,deficit_sweep,bad_sweep,dut.edge_diag.windows,dut.edge_diag.deficit_windows,dut.edge_diag.bad_windows);
+            if(deficit_sweep!=0)$fatal(1,"D deficit reported on %0d healthy continuous-RX replies",deficit_sweep);
+            if(bad_sweep!=0)$fatal(1,"D %0d healthy continuous-RX replies flagged abnormal",bad_sweep);
+            if(dut.edge_diag.deficit_windows!=0||dut.edge_diag.bad_windows!=0)$fatal(1,"D history flagged healthy replies");
+        end
+        // Same with the full tile reply length.
+        cont_reply(8'hbb,0,100000+11111,2066+300);
+        $display("D tile: pre=%0d post=%0d didx=%0d flags=%h deficit=%0d excess=%0d runt=%0d",dut.edge_diag.l_pre,dut.edge_diag.l_post,dut.edge_diag.l_didx,
+            dut.edge_diag.l_flags,dut.edge_diag.l_deficit,dut.edge_diag.l_excess,dut.edge_diag.l_rnt);
+        if(dut.edge_diag.l_didx!=2065||dut.edge_diag.l_deficit!=0||dut.edge_diag.anomaly)$fatal(1,"D tile healthy window flagged");
 
         // ---- history clear and datapath unchanged by the monitor ----
         edge_clear();edge_get(1);if(ev>3)$fatal(1,"clear did not reset windows (%0d)",ev);

@@ -115,11 +115,19 @@ module link_bringup_filtered #(
         // by construction (the serializer finishes on the expect-th accepted rise), so the extra edges
         // are the qualified rises the serializer did NOT consume (reject+drop). Deficit is the number of
         // expected rises still missing when the valid interval ended short (abort, fault, lost edge).
+        // Completeness is judged by the SERIALIZER's own consumed-edge count (done_index+1): it counts
+        // every edge after its offer. The monitor window opens a few sampler ticks after the offer, so
+        // when the host clock is already running (continuous RX) the monitor's own `pre` can miss the
+        // first edge(s); it is informational only and is not used for deficit.
         wire [13:0] l_exp14={2'b0,l_expect};
+        wire [13:0] l_didx14={2'b0,l_didx}+14'd1;
+        wire ser_ok=l_flags[0] && !l_flags[1] && (l_didx14==l_exp14);
+        wire [13:0] l_cons14=l_flags[0]?l_didx14:{2'b0,l_pre};
         wire [13:0] l_excess={5'b0,{1'b0,l_rej}+{1'b0,l_drp}};
-        wire [13:0] l_deficit=(!l_flags[6] && l_exp14>{2'b0,l_pre})?(l_exp14-{2'b0,l_pre}):14'd0;
-        wire ser_mismatch=l_flags[0] && (({2'b0,l_didx}+14'd1)!=l_exp14);
-        wire anomaly=(l_rej!=0 || l_drp!=0 || l_rnt!=0 || l_spjump!=0 || l_flags[4] || l_flags[3] || l_flags[2] || l_flags[1] || !l_flags[6] || ser_mismatch);
+        wire [13:0] l_deficit=(!ser_ok && l_exp14>l_cons14)?(l_exp14-l_cons14):14'd0;
+        wire ser_mismatch=l_flags[0] && (l_didx14!=l_exp14);
+        // Runts are glitches the 2-sample qualification already removes: counted, not abnormal.
+        wire anomaly=(l_rej!=0 || l_drp!=0 || l_spjump!=0 || l_flags[4] || l_flags[3] || l_flags[2] || l_flags[1] || !ser_ok);
         always @(posedge sys_clk or negedge reset_n) begin
             if(!reset_n) begin
                 tog_sync<=0;tog_seen<=0;hist_pending<=0;clear_seen<=0;
@@ -144,7 +152,7 @@ module link_bringup_filtered #(
                     // Decisive counters: extra qualified rises inside the valid interval (excess)
                     // and valid intervals that ended before the expected length (deficit).
                     if(l_excess!=0 && excess_windows!=16'hffff) excess_windows<=excess_windows+1'b1;
-                    if(!l_flags[6] && deficit_windows!=16'hffff) deficit_windows<=deficit_windows+1'b1;
+                    if(!ser_ok && deficit_windows!=16'hffff) deficit_windows<=deficit_windows+1'b1;
                     if(ser_mismatch && mismatch_windows!=16'hffff) mismatch_windows<=mismatch_windows+1'b1;
                     if({2'b0,l_excess}>{2'b0,w_excess}) w_excess<=(l_excess>14'h3fff)?16'h3fff:{2'b0,l_excess};
                     if(l_fpos<min_fpos) min_fpos<=l_fpos;

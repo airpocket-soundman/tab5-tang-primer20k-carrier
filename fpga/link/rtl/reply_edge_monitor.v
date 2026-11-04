@@ -17,8 +17,10 @@
 //          and never count as excess.
 //
 // Counted inside VALID only (so a healthy reply gives all-zero anomaly counters):
-//   pre       accepted rises (== bytes consumed by the serializer, == expect when
-//             the interval completed by count)
+//   pre       accepted rises seen by THIS monitor. The window opens a few sampler
+//             ticks after the offer, so with an already-running host clock the
+//             first edge(s) can be missed: informational, completeness is judged
+//             from the serializer's done_index in the SYS domain.
 //   reject    qualified rises inside the 5-sample cooldown (also trips fault)
 //   drop      qualified rises swallowed after a fault inside the window
 //   runt      one-sample excursions rejected by the 2-sample qualification
@@ -28,9 +30,9 @@
 //             number of times it stepped by >=4 ticks from the previous spacing
 //             (an extra or missing edge that the filter still accepted)
 //   ticks     ticks from the first accepted rise to the end of VALID
-//   first_pos/first_kind  accepted-rise count when the first anomaly was seen
+//   first_pos/first_kind  accepted-rise count when the first data-affecting anomaly was seen
 //             (the anomaly sits after byte #first_pos) and its kind:
-//             1 reject  2 drop  3 runt  4 spacing jump   (first_pos=0xFFF: none)
+//             1 reject  2 drop  4 spacing jump   (first_pos=0xFFF: none; runts are only counted)
 // Counted after VALID:
 //   post      accepted rises after the interval (host tail clocking)
 //   tail_noise  reject+drop+runt after the interval
@@ -38,7 +40,7 @@
 // snap_flags: [0] serializer done seen   [1] serializer error   [2] filter fault
 //             [3] timeout close          [4] counter at/near saturation
 //             [5] no edges at all
-//             [6] VALID completed by count (expect_edges accepted rises seen)
+//             [6] monitor itself counted expect_edges accepted rises (informational)
 //             [7] valid snapshot (0 after reset)
 // A pulse narrower than the 216MHz sampling can alias; these counters are not an
 // analog measurement. Spacing saturates at 255 ticks (below ~0.85MHz).
@@ -85,8 +87,9 @@ module reply_edge_monitor #(parameter TIMEOUT_BIT = 21)(
     // Registered near-saturation flags.
     reg pre_full,post_full,fall_full,rej_full,drp_full,rnt_full,tail_full,jump_full;
     wire any_trans=ev_accept|ev_reject|ev_drop|ev_fall;
-    wire anom_ev=g_v&(ev_reject|ev_drop|ev_runt);
-    wire [2:0] anom_kind=ev_reject?3'd1:(ev_drop?3'd2:3'd3);
+    // Runts are harmless (the filter already removed them) and are not a first-anomaly position.
+    wire anom_ev=g_v&(ev_reject|ev_drop);
+    wire [2:0] anom_kind=ev_reject?3'd1:3'd2;
     wire jump_ev=jump_r;
     wire acc_v=ev_accept&g_v;
     always @(posedge clk or negedge reset_n) begin
