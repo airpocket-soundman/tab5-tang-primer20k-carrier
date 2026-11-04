@@ -26,6 +26,31 @@ def fpga_time(lanes, clk_hz, util, ddr_bw, traffic_bytes):
     tm = traffic_bytes / ddr_bw if ddr_bw else 0.0
     return max(tc, tm), tc, tm
 
+
+# ---- 上位FPGA比較 (公開仕様。DSPの9x9分割・クロック・DDR3帯域は仮定) ----
+# (名前, LUT4, 18x18乗算器数, BSRAM[Kbit], DDR3搭載)
+BOARDS = [
+    ("Tang Primer 20K (GW2A-18)", 20736, 48, 828, "あり(128MB, 現状未動作)"),
+    ("Tang Primer 25K (GW5A-25)", 23040, 28, 1008, "なし(SDRAMアドオンのみ)"),
+    ("Tang Mega 60K (GW5AT-60)", 59904, None, None, "未確認"),
+    ("Tang Mega 138K Pro (GW5AST-138)", 138240, 298, 6120, "1GB(512MBx2, 1333Mbps/pin)"),
+]
+
+def board_table(p4_target_ms=(36.8, 91.1), link_mbs=10.0):
+    print("\n== 上位FPGA比較 (見積もり。9x9分割で乗算器数x2と仮定) ==")
+    comm = (IN_BYTES + OUT_BYTES) / (link_mbs * 1e6)
+    for name, lut, mul, bram, ddr in BOARDS:
+        if mul is None:
+            print(f"{name}: LUT {lut}, 乗算器/BSRAM/DDR3は未確認のため計算せず"); continue
+        lanes = mul * 2
+        w_fit = "重み0.6MBがBSRAMに収まる" if bram * 1024 / 8 >= WEIGHT_BYTES else "重みはBSRAMに入らない"
+        print(f"{name}: LUT {lut}, BSRAM {bram/8:.0f}KB({w_fit}), DDR3 {ddr}")
+        for clk in (54e6, 100e6, 150e6):
+            for util in (0.3, 0.6):
+                tc = MODEL_MAC / (lanes * clk * util)
+                print(f"    {lanes:4d}レーン {clk/1e6:4.0f}MHz 稼働{util:.1f}: {lanes*clk*util/1e9:5.1f} GMAC/s, "
+                      f"compute {tc*1e3:6.1f} ms, 通信{link_mbs:.0f}MB/s込み {(tc+comm)*1e3:6.1f} ms")
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--json")
@@ -66,6 +91,7 @@ def main():
                 print(f"   vs {p4name} ({tp4*1e3:.0f}ms): 必要 {need/1e9:.2f} GMAC/s = {need/clk:.0f} 有効レーン@{clk/1e6:.0f}MHz")
     print("\n注: DSP上限は96レーン(9x9, 未検証)。有効レーン=レーン数x稼働率。"
           "\n    LUT: int8_requantize約2361セルはレーン複製不可(共有/時分割が必要)。全て見積もり。")
+    board_table()
     if a.json:
         json.dump(rows, open(a.json, "w"), indent=1)
 
