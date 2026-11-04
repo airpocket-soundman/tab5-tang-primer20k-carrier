@@ -1,0 +1,90 @@
+create_clock -name sys27 -period 37.037037 [get_ports {sys_clk}]
+// clk400 variant: memory clock 27MHz*59/4=398.25MHz (PLL IDIV3/FBDIV58/ODIV2), USER=memory/4=99.5625MHz.
+// STA at this USER frequency is UNVERIFIED until the official build reports it.
+create_generated_clock -name memory398 -source [get_ports {sys_clk}] -multiply_by 59 -divide_by 4 [get_nets {memory_clk}]
+create_generated_clock -name user100 -source [get_nets {memory_clk}] -divide_by 4 [get_nets {user_clk}]
+// No blanket asynchronous exception between related memory324/user81 clocks.
+// First implementation timing report remains a review gate, not a waiver.
+// Held request bundle: launched with SYS toggle, sampled no earlier than
+// two USER periods later (20.09ns at 99.5625MHz). Bound route+clock delay to20ns (margin only 0.09ns).
+set_max_delay -from [get_regs {control/held_base* control/held_count* control/held_seed* control/held_job*}] -to [get_regs {control/job_base* control/job_count* control/job_seed* control/job_id*}] 20
+set_false_path -hold -from [get_regs {control/held_base* control/held_count* control/held_seed* control/held_job*}] -to [get_regs {control/job_base* control/job_count* control/job_seed* control/job_id*}]
+// Snapshot bundle: USER captures once, acks next USER edge; SYS then has
+// two sync stages plus explicit settle cycle. Minimum stable time exceeds
+// 3*37.037+12.346=123.457ns. Enforce60ns max, and exempt only hold on
+// these held bundles; same-domain paths and all vendor DDR paths stay timed.
+set_max_delay -from [get_regs {control/user_snapshot*}] -to [get_regs {control/sys_snapshot*}] 60
+set_false_path -hold -from [get_regs {control/user_snapshot*}] -to [get_regs {control/sys_snapshot*}]
+// Diagnostic bank uses the very same SNAPSHOT request/ack/settle contract.
+set_max_delay -from [get_regs {control/user_debug_snapshot*}] -to [get_regs {control/sys_debug_snapshot*}] 60
+set_false_path -hold -from [get_regs {control/user_debug_snapshot*}] -to [get_regs {control/sys_debug_snapshot*}]
+// Only the first sampling stage accepts metastability. Stage0->stage1 and
+// all subsequent logic remain timed; these seven D pins are explicit.
+set_false_path -to [get_pins {control/request_sync_0_s0/D control/ack_sync_0_s0/D control/cal_sync_0_s0/D control/busy_sync_0_s0/D control/fault_sync_0_s0/D control/user_ready_sync_0_s0/D control/heartbeat_sync_0_s0/D}]
+report_timing -setup -max_paths 25
+report_timing -hold -max_paths 25
+report_timing -recovery -max_paths 256 -max_common_paths 1
+report_timing -removal -max_paths 25
+report_timing -setup -from [get_regs {control/user_snapshot*}] -to [get_regs {control/sys_snapshot*}] -max_paths 512
+report_timing -setup -from [get_regs {control/user_debug_snapshot*}] -to [get_regs {control/sys_debug_snapshot*}] -max_paths 176
+report_timing -setup -from [get_regs {control/held_base* control/held_count* control/held_seed* control/held_job*}] -to [get_regs {control/job_base* control/job_count* control/job_seed* control/job_id*}] -max_paths 128
+
+// Output-only deep observation shares the same held snapshot handshake.
+set_max_delay -from [get_regs {control/user_deep_snapshot*}] -to [get_regs {control/sys_deep_snapshot*}] 60
+set_false_path -hold -from [get_regs {control/user_deep_snapshot*}] -to [get_regs {control/sys_deep_snapshot*}]
+report_timing -setup -from [get_regs {control/user_deep_snapshot*}] -to [get_regs {control/sys_deep_snapshot*}] -max_paths 256
+
+// ======================================================================
+// PROPOSAL (NOT VALIDATED): scoped sys27 -> user100 exceptions for clk400.
+// Everything above this line is the unchanged mem_bist_clk400.sdc.
+// Rationale and classification: docs/DDR3_clk400_SDC限定例外案_2026-11-04.md
+// Gowin priority (SUG940 3.8, low->high): max/min_delay < false_path < clock_groups.
+// => set_clock_groups is deliberately NOT used: it would silently override the
+//    set_max_delay checks on held_*/user_*snapshot above. The false paths below
+//    use only source registers outside control/held_* and control/user_*snapshot*,
+//    so they never overlap those set_max_delay paths.
+// All false paths use -setup, which Gowin applies to setup AND recovery only;
+// hold/removal stay analysed (the build reported 0 hold violations).
+// If a wildcard matches nothing, the build log/constraint report must show it:
+// check the "Timing Constraints" table for state Actived and a non-empty match.
+// ======================================================================
+
+// ---- E1 (IP-internal, sys27-launched) -----------------------------------
+// Sources observed: ddr_rsti_reg_2 (reset sync, fanout ~3000) and ddr_sync_ddr_init_st.
+// Wildcards also cover sibling regs of the same IP sync block (not seen in the
+// truncated report; must be confirmed by the extended report).
+// Destinations limited to the vendor IP hierarchy controller/*.
+set_false_path -setup -from [get_regs {controller/gw3_top_u_ddr_phy_top_ddr_rsti_reg* controller/gw3_top_u_ddr_phy_top_ddr_sync_*}] -to [get_regs {controller/*}]
+
+// ---- E2 (our reset_hold -> IP reset-type pins, recovery) -----------------
+// rst_n of the IP is controller_reset_n = raw_reset_n & pll_lock & (reset_hold==0),
+// released by sys_clk registers, i.e. synchronously to the IP clk (IPUG281 4.4.3).
+set_false_path -setup -from [get_regs {reset_hold*}] -to [get_regs {controller/*}]
+
+// ---- E3 (our async-assert / sync-release reset synchronisers) ------------
+// user_reset_sync[2:0] (3-flop, async assert, sync release in user_clk).
+// Sources: reset_hold (above) and the sys-domain abort flags that feed
+// user_async_reset_n. ip_user_reset (ddr_rst) is USER-domain and stays timed.
+set_false_path -setup -from [get_regs {reset_hold* control/mailbox_timeout* control/reset_loss*}] -to [get_pins {user_reset_sync_0_s0/CLEAR user_reset_sync_1_s0/CLEAR user_reset_sync_2_s0/CLEAR}]
+// epoch_reset_sync[2:0] (3-flop) in mem_mailbox; sys_reset_n = raw_reset_n & (mailbox_epoch==0).
+set_false_path -setup -from [get_regs {mailbox_epoch*}] -to [get_pins {control/epoch_reset_sync_0_s0/CLEAR control/epoch_reset_sync_1_s0/CLEAR control/epoch_reset_sync_2_s0/CLEAR}]
+
+// ---- E4 (OUR logic, NOT an IP exception): held_op bundle -----------------
+// held_op is written in the same SYS cycle as held_base/count/seed/job and the
+// request_toggle, but is missing from the existing held-bundle set_max_delay,
+// so it is timed as a plain 27->99.56MHz path (-6.27ns). Give it the SAME
+// contract as the other held_* members (stable >= 2 USER periods, bound 20ns)
+// instead of a false path. Destinations are every USER register that decodes held_op.
+set_max_delay -from [get_regs {control/held_op*}] -to [get_regs {control/bist_start* control/bist_cancel* control/job_base* control/job_count* control/job_seed* control/job_id* control/user_snapshot* control/user_debug_snapshot* control/user_deep_snapshot*}] 20
+set_false_path -hold -from [get_regs {control/held_op*}] -to [get_regs {control/bist_start* control/bist_cancel* control/job_base* control/job_count* control/job_seed* control/job_id* control/user_snapshot* control/user_debug_snapshot* control/user_deep_snapshot*}]
+
+// ---- E5/E6 (added after the first official STA run with E1-E4 left 5 setup + 3 recovery paths; UNVERIFIED reasoning) ----
+// E5: IP-internal sys27-launched reset/load synchronisers -> DQS RLOADN/WLOADN and the command FIFO memory DI pins
+set_false_path -setup -from [get_regs {controller/gw3_top_u_ddr_phy_top_ddr_rsti_reg* controller/gw3_top_u_ddr_phy_top_ddr_sync_* controller/gw3_top_u_ddr_phy_top_wloadn_*}] -to [get_pins {controller/*u_dqs/RLOADN controller/*u_dqs/WLOADN controller/gw3_top_u_gwmc_top_gw_cmd0_mem_mem_*_s/DI*}]
+// E6: IP reset synchroniser (ddr_rst source) -> our async-assert/sync-release user_reset_sync CLEAR (recovery only)
+set_false_path -setup -from [get_regs {controller/gw3_top_u_ddr_phy_top_ddr_rsti_reg*}] -to [get_pins {user_reset_sync_0_s0/CLEAR user_reset_sync_1_s0/CLEAR user_reset_sync_2_s0/CLEAR}]
+
+// ---- Verification reports (needed because default reports truncate) ------
+report_timing -setup -from_clock [get_clocks {sys27}] -to_clock [get_clocks {user100}] -max_paths 2000 -max_common_paths 1
+report_timing -recovery -from_clock [get_clocks {sys27}] -to_clock [get_clocks {user100}] -max_paths 2000 -max_common_paths 1
+report_timing -setup -from_clock [get_clocks {user100}] -to_clock [get_clocks {sys27}] -max_paths 500 -max_common_paths 1

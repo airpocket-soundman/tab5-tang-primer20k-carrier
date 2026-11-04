@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-04",
+  "branch": "claude/track-d-ddr3",
+  "base": "main 03eb39a",
+  "scope": "offline candidate only: RTL simulation, official Education 1.9.11.03 synthesis/PnR/STA. No programmer, no UART, no DRAM access by the producing agent. Physical DDR behavior unverified.",
+  "change": {
+    "PAIRED_WRITE": 1,
+    "CALIBRATION_SETTLE_CYCLES": 256,
+    "reason": "IPUG281 4.4.6 command/write-data placement; vendor DDR-test pairing and 256-cycle wait",
+    "abi_change": false
+  },
+  "image": {
+    "path_not_committed": "fpga/build/mem-scheduler-diag/mem_bist/impl/pnr/mem_bist.fs",
+    "sha256": "be42c604aeb3217cbcf7743f46c49a585dbfe414b1900bace6bf703f197ebeea",
+    "usercode": "0x0000B317",
+    "part": "GW2A-LV18PG256C8/I7",
+    "tool": "Gowin Education V1.9.11.03",
+    "sram_only_intent": true
+  },
+  "sta": {
+    "setup_ns": 0.106,
+    "hold_ns": 0.234,
+    "recovery_ns": 1.364,
+    "removal_ns": 0.58,
+    "user81_fmax_mhz": 81.7,
+    "memory324_fmax_mhz": 2016.128,
+    "sys27_fmax_mhz": 68.831,
+    "tns": "0 for all listed clocks/analyses"
+  },
+  "resources": {
+    "logic": "6534/20736",
+    "register": "6477/16173",
+    "rpll": "1/4"
+  },
+  "tests": {
+    "runner": "fpga/mem/tests/run_tests.py with --zig and --primitive-lib",
+    "pass": [
+      "deep monitor",
+      "mem_bist 21 scenarios (PAIRED_WRITE=0)",
+      "mem_bist paired 21 scenarios (PAIRED_WRITE=1)",
+      "mem_mailbox 122",
+      "mem_link 7",
+      "mem_heartbeat_abort 39",
+      "mem_protocol 622",
+      "vendor initialization model"
+    ]
+  },
+  "not_run": {
+    "record_build.py --guarded": "needs ready_equivalence.json, which compares against legacy 08ef3a4 and is no longer valid by design",
+    "run_ready_equivalence.py": "historical proof for the earlier ready-strobe candidate"
+  },
+  "vendor_ip_sha256": {
+    "MemDDR3.vo": "4d37c875c609a5fa849033d8fbea3e63d3da8270322a663deff01f44874719ed",
+    "note": "identical to frozen 4d37c875...; regenerating changes only the Created Time comment"
+  },
+  "source_sha256": {
+    "fpga/mem/rtl/mem_bist.v": "f5a7e3883248fdd3c206e0930405841e7fee0288b1dc2b5f334ab3508cefaa32",
+    "fpga/mem/rtl/mem_top.v": "4be53a40bfaee965600dc2d92652e317caadbbeab73923f1d4a5a678aee85822",
+    "fpga/mem/rtl/mem_mailbox.v": "10094dd8705fd7babc098e2f30a9a1540d937c957dfc525f2d2753561f960e02",
+    "fpga/mem/rtl/mem_link.v": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+    "fpga/mem/rtl/mem_deep_monitor.v": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+    "fpga/mem/rtl/mem_pll.v": "e1f4fe7715d8ddf1487938dd85db939b22222c5a03c82b13dc74835d1458aa2a",
+    "fpga/mem/tests/tb_mem_bist.v": "eed77e0dee05dba4fa1d005f0ceb9209f349f8beb269bf0a4d133fee0e342aa6",
+    "fpga/mem/tests/run_tests.py": "ef2d2bee098e1efa4b3275a42c692ca1ad248aa455faad349db01c4e306259d4",
+    "fpga/mem/config/build.tcl": "0307341ab4960ffefc08da1a169c344aea9cba1500023dafdd2b0ed1d7f1a960",
+    "fpga/mem/config/mem_bist.cst": "30ad69d4444572557d1b6e5b4d24261945c965694876f50c1d71eb2c676e4916",
+    "fpga/mem/config/mem_bist.sdc": "fc26c0451853871b9c4cc0130fbe21c3093abb280b1a85b868b0c786380b6249",
+    "fpga/mem/config/configuration.json": "48a8b0a6b13c256e3feb1a12dd327c25a24f2fce1d4beceb64a5a653ea03f485"
+  },
+  "hardware_access": false
+}

@@ -1,5 +1,6 @@
 `timescale 1ns/1ps
 module tb_mem_heartbeat_abort;
+parameter PIPE=0;
 reg sys=0,user=0,run_user=1,reset=0,force_user_reset=0;always #18.5185 sys=~sys;always #6.17284 if(run_user)user=~user;
 wire[175:0] native_debug;wire abort_user;wire asynchronous_user_reset=reset&&!abort_user&&!force_user_reset;
 reg[2:0] release_user=0;
@@ -14,7 +15,7 @@ reg stall=1,rv=0;reg[127:0] memory=0,rd=0;reg pending=0;integer delay_read=0,i,c
 integer native_commands=0,native_data=0,saved_commands=0,saved_data=0;
 mem_mailbox #(.DEADLINE(200)) control(sys,reset,user,user_reset,cs,op,a,b,cd,status,result,recal,
 1'b1,busy,done,fault,error,phase,verified,errors,first,accepted,expected,actual,cycles,bs,bc,base,count,seed,job,abort_user,native_debug,256'b0);
-mem_bist engine(user,user_reset,1'b1,bs,bc,base,count,seed,job,busy,done,fault,error,phase,
+mem_bist #(.PIPELINE(PIPE)) engine(user,user_reset,1'b1,bs,bc,base,count,seed,job,busy,done,fault,error,phase,
 verified,errors,first,accepted,expected,actual,cycles,cmd,ce,addr,!stall,wd,we,wend,mask,!stall,rd,rv,1'b1,native_debug);
 always @(posedge user)begin
 if((ce&&!stall)||(we&&!stall))begin

@@ -2,8 +2,21 @@
 from pathlib import Path
 import hashlib,json,re
 root=Path(__file__).resolve().parents[2]
-p=root/'build/mem-bist-ip/generated/MemDDR3/MemDDR3.vo'
-b=p.read_bytes();assert hashlib.sha256(b).hexdigest()=='4d37c875c609a5fa849033d8fbea3e63d3da8270322a663deff01f44874719ed'
+import os
+TAG=os.environ.get('MEM_IP_TAG','');SFX=('-'+TAG) if TAG else ''
+p=root/f'build/mem-bist-ip{SFX}/generated/MemDDR3/MemDDR3.vo'
+b=p.read_bytes()
+# Regeneration only changes the 'Created Time' header comment (documented). A different VO hash is accepted
+# only when named explicitly in MEM_VO_SHA256 AND the IP config + parameter hashes are the recorded ones.
+import os
+_actual=hashlib.sha256(b).hexdigest()
+if TAG:
+    # tagged (e.g. clk400) IP: no recorded reference; the exact SHA must be named explicitly, then net names are audited below
+    assert os.environ.get('MEM_VO_SHA256')==_actual,'tagged IP: set MEM_VO_SHA256 to the actual MemDDR3.vo SHA-256'
+elif _actual!='4d37c875c609a5fa849033d8fbea3e63d3da8270322a663deff01f44874719ed':
+    assert os.environ.get('MEM_VO_SHA256')==_actual,'unrecorded MemDDR3.vo; set MEM_VO_SHA256 to accept explicitly'
+    assert hashlib.sha256((p.parent/'MemDDR3.ipc').read_bytes()).hexdigest()=='fa56267f970dc5aa4ee064214a9dec0e6a747fab1d9702cd84d7249827fe87d9'
+    assert hashlib.sha256((p.parent/'temp/DDR3/gwmc_param.v').read_bytes()).hexdigest()=='725dea6c780eb03c5f88c0326da031f056010622528471df696dd3c3eb5a2e76'
 s=b.decode().replace('\r\n','\n');prefix='gw3_top/u_gwmc_top/'
 fields=[('cmd_wptr',0,3,'gw_cmd0/waddr'),('cmd_rptr',3,3,'gw_cmd0/raddr'),('cmd_full',6,1,'@gw3_top/full'),('cmd_empty',7,1,'cmd_empty_Z'),('cmd_full_delayed',8,1,'gw_cmd0/full_r'),('cmd_full_delayed2',9,1,'gw_cmd0/full_rr'),('cmd_accept',10,1,'cmd_accept_Z'),('send_wr',11,1,'send_wr'),('write_full',12,1,'gw_wr_data0/wr_buf_full'),('write_empty',13,1,'gw_wr_data0/wr_fifo/wr_buf_empt'),('eye_cmd_owner',14,1,'eye_calib_start_cmd'),('eye_addr_owner',15,1,'eye_calib_start_addr'),('write_rptr',16,5,'gw_wr_data0/wr_fifo/rbin'),('write_wptr',21,5,'gw_wr_data0/wr_fifo/wbin')]
 fields += [('head_write',26,1,'cmd_buf_dou [27]'),('head_read',27,1,'cmd_buf_dou [28]'),
@@ -85,7 +98,7 @@ def scalar_cone(net,seen=None):
   else:result+=scalar_cone(value,seen)
  return sorted(set(result))
 cones={name:scalar_cone(prefix+net) for name,_,_,net in fields if name in ['issue_write','issue_read','init_enable']}
-q=root/'build/mem-deep-input';q.mkdir(parents=True,exist_ok=True)
+q=root/f'build/mem-deep-input{SFX}';q.mkdir(parents=True,exist_ok=True)
 (q/'MemDDR3_tapped.vo').write_text(out)
 (q/'tap_audit.json').write_text(json.dumps({'source_sha256':hashlib.sha256(b).hexdigest(),'original_logic_byte_exact':True,'fields':audit,'combinational_clock_boundaries':cones,'state_availability':state_audit},indent=2)+'\n')
 print('PASS output-only64 observed bits; original netlist byte-equivalent')
