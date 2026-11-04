@@ -23,6 +23,19 @@ def lf_sha(data):
     return hashlib.sha256(data.replace(b'\r\n', b'\n')).hexdigest()
 
 
+def verify(dest=DEST):
+    """Return a list of (file, problem); empty means every pinned file is present and matches."""
+    files = json.loads(RECORD.read_text(encoding='utf-8'))['files']
+    bad = []
+    for rel, info in files.items():
+        path = dest / rel
+        if not path.exists():
+            bad.append((rel, 'missing'))
+        elif lf_sha(path.read_bytes()) != info['sha256_lf_normalized']:
+            bad.append((rel, 'sha256 mismatch'))
+    return bad
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--download', action='store_true')
@@ -39,7 +52,7 @@ def main():
             bad.append((rel, 'missing'))
         elif lf_sha(path.read_bytes()) != info['sha256_lf_normalized']:
             bad.append((rel, 'sha256 mismatch'))
-    print('OK: all', len(files), 'files match the pinned hashes' if not bad else f'FAIL: {bad}')
+    print(f'OK: all {len(files)} files match the pinned hashes' if not bad else f'FAIL: {bad}')
     return 1 if bad else 0
 
 

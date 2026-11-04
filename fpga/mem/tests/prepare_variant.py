@@ -44,6 +44,15 @@ VARIANTS = {
 }
 
 def build(vid):
+    if vid in ('sampleip', 'sampleip_map'):
+        # The pinned Sipeed IP is not in git: refuse to prepare unless the local copy exists and matches its SHA-256.
+        import importlib.util
+        spec = importlib.util.spec_from_file_location('fetch_sipeed_ddr_ip', root / 'tools/fetch_sipeed_ddr_ip.py')
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        bad = mod.verify()
+        if bad:
+            raise SystemExit(f'{vid}: pinned Sipeed IP missing or modified: {bad}; see docs/DDR3_旧IP保管と再現手順_2026-11-04.md')
     desc, fname, old, new = VARIANTS[vid]
     out = root / f'build/mem-variant-{vid}/rtl'
     out.mkdir(parents=True, exist_ok=True)
