@@ -42,6 +42,16 @@ def build(vid):
                 text = text.replace(anchor, "assign ddr_cs=1'b0;\n" + anchor)
         (out / f'{n}.v').write_bytes(text.encode())
         rec['files'][n] = hashlib.sha256(text.encode()).hexdigest()
+    if vid == 'cs0':
+        # With O_ddr_cs_n unconnected, synthesis removes the cmd-lane OSER8 that drove it
+        # (cmd_oserdes_gen[0]); the guarded SDC's recovery exception on its RESET pin then
+        # has no object (TA2003). Drop exactly the exceptions on that removed cell.
+        src = root / 'build/mem-scheduler-diag-input/mem_bist.sdc'
+        lines = src.read_text().splitlines()
+        drop = [l for l in lines if 'cmd_oserdes_gen[0].u_cmd_gen/' in l]
+        assert len(drop) >= 1, 'prepare_guarded.py must run first'
+        (out.parent / 'mem_bist.sdc').write_text(chr(10).join(l for l in lines if l not in drop) + chr(10))
+        rec['sdc_lines_dropped'] = drop
     (out.parent / 'variant.json').write_text(json.dumps(rec, indent=2) + '\n')
     print('prepared', vid, '-', desc)
 

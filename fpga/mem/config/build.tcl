@@ -16,6 +16,8 @@ set rtl_dir [file join $fpga_root mem rtl]
 if {[info exists env(MEM_VARIANT)] && $env(MEM_VARIANT) ne ""} {
 set rtl_dir [file join $fpga_root build mem-variant-$env(MEM_VARIANT) rtl]
  set output [file join $fpga_root build mem-variant-$env(MEM_VARIANT) out]
+ set variant_sdc [file join $fpga_root build mem-variant-$env(MEM_VARIANT) mem_bist.sdc]
+ if {[file exists $variant_sdc]} {set timing_file $variant_sdc}
 }
 create_project -name mem_bist -dir $output -pn GW2A-LV18PG256C8/I7 -device_version C -force
 foreach name {mem_deep_monitor mem_pll mem_bist mem_mailbox mem_link mem_top} {
