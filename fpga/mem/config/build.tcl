@@ -26,7 +26,7 @@ create_project -name mem_bist -dir $output -pn GW2A-LV18PG256C8/I7 -device_versi
 foreach name {mem_deep_monitor mem_pll mem_bist mem_mailbox mem_link mem_top} {
  add_file [file join $rtl_dir ${name}.v]
 }
-if {[info exists env(MEM_VARIANT)] && $env(MEM_VARIANT) eq "sampleip"} {
+if {[info exists env(MEM_VARIANT)] && ($env(MEM_VARIANT) eq "sampleip" || $env(MEM_VARIANT) eq "sampleip_map")} {
  # Sipeed sample IP (fetched, not committed): bisect OUR logic vs THEIR IP
  add_file [file join $fpga_root build sipeed-ddr-test-e469df4c src ddr3_memory_interface ddr3_memory_interface.v]
 } elseif {[info exists env(MEM_VARIANT)] && ($env(MEM_VARIANT) eq "clk400_notap" || $env(MEM_VARIANT) eq "clk400_asyncsdc" || $env(MEM_VARIANT) eq "clk400dp")} {
@@ -36,9 +36,9 @@ if {[info exists env(MEM_VARIANT)] && $env(MEM_VARIANT) eq "sampleip"} {
  add_file [file join $fpga_root build mem-deep-input$tag MemDDR3_tapped.vo]
 }
 add_file [file join $fpga_root mem config mem_bist.cst]
-if {[info exists env(MEM_VARIANT)] && ($env(MEM_VARIANT) eq "sampleip" || $env(MEM_VARIANT) eq "clk400_asyncsdc")} {set timing_file [file join $fpga_root mem config mem_bist_sampleip.sdc]}
+if {[info exists env(MEM_VARIANT)] && (($env(MEM_VARIANT) eq "sampleip" || $env(MEM_VARIANT) eq "sampleip_map") || $env(MEM_VARIANT) eq "clk400_asyncsdc")} {set timing_file [file join $fpga_root mem config mem_bist_sampleip.sdc]}
 add_file $timing_file
-if {[info exists env(MEM_VARIANT)] && $env(MEM_VARIANT) eq "sampleip"} {set_option -include_path [file join $fpga_root build sipeed-ddr-test-e469df4c src]}
+if {[info exists env(MEM_VARIANT)] && ($env(MEM_VARIANT) eq "sampleip" || $env(MEM_VARIANT) eq "sampleip_map")} {set_option -include_path [file join $fpga_root build sipeed-ddr-test-e469df4c src]}
 set_option -top_module mem_top
 set_option -output_base_name mem_bist
 # SUG100 PDF129: existing Dock T10 reset/N9 AUX share SSPI functions.

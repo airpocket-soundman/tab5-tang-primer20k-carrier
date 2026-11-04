@@ -690,6 +690,68 @@
       },
       "sdc_lines_dropped": [],
       "archive": "validation/mem-variant-clk400dp-2026-11-04"
+    },
+    "sampleip_map": {
+      "built": true,
+      "description": "(i2) sampleip with the BIST address placed for the sample IP row14 layout {bank3,row14(MSB 0),col10} (APP_ROW_PAD=1), so bank/row/capacity tests address the right bank bits; everything else as sampleip",
+      "fs_sha256": "626ada6e559bdd3f63c487e7b99eebcd127995dd5f7944b603597e8a5e02c1c3",
+      "fs_sha256_without_comment_lines": "41e6977e26a3bcdbc72bfa2108002c502e7202c8cb5542f403a702fdd462243c",
+      "usercode": "0x00004C2B",
+      "fs_bytes": 7264154,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": false,
+      "sta": {
+        "setup_violated_endpoints": 117,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": -0.526,
+          "from": "engine/index_3_s0/Q",
+          "to": "engine/first_expected_49_s0/CE"
+        },
+        "worst_hold": {
+          "slack_ns": 0.223,
+          "from": "controller/gw3_top/i4/u_ddr_phy_wd/u_fifo_ctrl/of_rbin_1_s0/Q",
+          "to": "controller/gw3_top/i4/u_ddr_phy_wd/data_lane_gen[0].u_ddr3_phy_data_lane/u_out_fifo/mem4_mem4_0_2_s/ADB[6]"
+        },
+        "worst_recovery": {
+          "slack_ns": 8.15,
+          "from": "user_reset_sync_2_s0/Q",
+          "to": "engine/debug_fault_flags_11_s5/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.575,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 25,
+          "Hold": 0,
+          "Recovery": 0,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 57.106,
+          "memory398": 2016.128,
+          "user100": 94.605
+        }
+      },
+      "logic": "4984/20736",
+      "registers": "3950/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "5d77a153481da33f2a49d5518f8ea991bc197c8301efae5205aa6084addb250b",
+        "mem_bist": "4846795ba8941c5bae632dc1df4d12877df7d58d9b89080c86581ecd83e852a1",
+        "mem_mailbox": "00d45fba8e3a4aca26129a003b9642750195a4adb13affebd338e7620ff149f9",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "df348cea7aec5480f9e4397084999dcc65250d6fa47e8775a85225a63a919816"
+      },
+      "sdc_lines_dropped": [],
+      "archive": "validation/mem-variant-sampleip_map-2026-11-04"
     }
   }
 }

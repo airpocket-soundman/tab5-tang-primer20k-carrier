@@ -29,3 +29,14 @@
 - 受理コマンド1（読出し1件、アドレス0）、受理書込みデータ0、受信読出しデータ0、first fault code 4（読出し待ちのwatchdog）。
 - コマンドFIFOの write pointer 1・read pointer 0・full 偽・empty 偽、`send_wr` 0、`head_read` 真、`issue_read` 偽、`pre_info_valid` 偽、`scheduler_init_done` 真、`refresh_request` 真。書込みデータFIFOは空（24／24）。
 - **読出しコマンド1件でも、コントローラは取り出さない。** 停止は書込み特有でも、FIFO満杯特有でもない（`command_ready` は真のまま）。原因は未確定。
+
+## clk400系と sampleip の実機結果（メインセッション、2026-11-04）
+| イメージ | FS（先頭） | USERCODE | 段階1 | 段階2 |
+|---|---|---|---|---|
+| clk400_notap | `ad174e10` | 0x8D47 | **calibrated 偽**、snapshot_fresh 偽、native flags 0x20a、sys_flags 2136、word30/31=100/333、deep語0 | 未実施（校正未完了） |
+| clk400_asyncsdc | `39d18671` | 0x3ED4 | 同上（clk400_notapと完全に同じ） | 未実施 |
+| **sampleip** | `70470c82` | 0xDEF5 | **calibrated 真**、snapshot_fresh 真、native flags 0x60a、sys_flags 905、word30/31=100/333（deepは0） | **PASS**：error 0、phase 5、verified_beats 128（＝64ビート×2相）、mismatching_beats 0、user_cycles 4014（約40µs、USER 99.5625MHz） |
+
+- `sampleip`＝自前のBIST／mailbox／LINK＋**サンプルの旧IP（400MHz）**。先頭1KB（base 0、64ビート）の書込み・読戻しが通った。**未試験**：パターン各種、境界、容量全域、連続転送、長時間、温度・電源条件。STAは setup 違反が残る（最悪 −0.560ns、user100内）。
+- 再生成IP（新ツール）版は 400MHz で校正が完了しない。324MHz版は完了するが BIST は停止する（先の記録）。
+- 記録JSON：`sampleip-stage1.json`、`sampleip-stage2.json`、`clk400_notap-stage1*.json`、`clk400_asyncsdc-stage1.json`。

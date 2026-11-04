@@ -67,5 +67,14 @@ print(completed.stdout.strip())
 results.append({'name':'mem_bist_paired','output':completed.stdout.strip(),
                 'sources':{str(s.relative_to(root)):hashlib.sha256(s.read_bytes()).hexdigest() for s in sources}})
 report={'scope':'RTL simulations, not physical DDR proof','tests':results}
+sources=[root/'mem/rtl/mem_bist.v',root/'mem/tests/tb_mem_bist_rowpad.v']
+image=build/'mem_bist_rowpad.vvp'
+subprocess.run([args.iverilog,'-g2012','-s','tb_mem_bist_rowpad','-o',str(image),*map(str,sources)],check=True,env=env)
+completed=subprocess.run([args.vvp,str(image)],capture_output=True,text=True,check=True,env=env)
+if 'PASS mem_bist row-pad' not in completed.stdout:
+    raise RuntimeError(completed.stdout+completed.stderr)
+print(completed.stdout.strip())
+results.append({'name':'mem_bist_rowpad','output':completed.stdout.strip(),
+                'sources':{str(s.relative_to(root)):hashlib.sha256(s.read_bytes()).hexdigest() for s in sources}})
 (build/'results.json').write_text(json.dumps(report,indent=2)+'\n')
 

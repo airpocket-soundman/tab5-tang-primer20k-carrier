@@ -10,7 +10,10 @@ module mem_bist #(
     parameter PAIRED_WRITE=1,
     // The vendor DDR-test waits 256 clk_out cycles after init_calib_complete
     // before its first command.
-    parameter CALIBRATION_SETTLE_CYCLES=256
+    parameter CALIBRATION_SETTLE_CYCLES=256,
+    // 1: place a zero row MSB between bank and row (IP with 14 row bits, e.g. the Sipeed sample IP:
+    // app address {bank3,row14,col10}); the 1Gbit part has 13 row bits. 0: {rank0,bank3,row13,col10}.
+    parameter APP_ROW_PAD=0
 )(
     input wire clk,reset_n,calibrated,start,cancel,
     input wire [31:0] base_byte,beat_count,seed,job_id,
@@ -48,7 +51,8 @@ module mem_bist #(
     wire [31:0] byte_address=base_latched+(index<<4);
     wire [25:0] linear_word=byte_address[26:1];
     // Linear row-bank-column order converted to native rank-bank-row-column.
-    assign app_addr={1'b0,linear_word[12:10],linear_word[25:13],linear_word[9:0]};
+    assign app_addr=APP_ROW_PAD?{linear_word[12:10],1'b0,linear_word[25:13],linear_word[9:0]}:
+        {1'b0,linear_word[12:10],linear_word[25:13],linear_word[9:0]};
     assign app_cmd=writing?3'b000:3'b001;
     assign app_cmd_en=app_cmd_ready && active &&
         ((writing&&!command_sent&&(!PAIRED_WRITE||app_write_ready))||(reading&&!read_pending));
