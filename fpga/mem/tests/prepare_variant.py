@@ -5,7 +5,7 @@ Each variant changes exactly ONE item against the baseline be42c604 sources
 Output: fpga/build/mem-variant-<id>/rtl/*.v (copies with a single textual edit).
 No hardware access. Every substitution must match exactly once or the script fails.
 
-  python fpga/mem/tests/prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|clk400|clk400_notap|clk400_asyncsdc|clk400dp|sampleip|sampleip_map|sampleip_map_t1|sampleip_map_t2|sampleip_map_t3|sampleip_map_t4|clk400x_scoped|clk400x_dp000|clk400x_dp1116|clk400x_drvhigh|all
+  python fpga/mem/tests/prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|clk400|clk400_notap|clk400_asyncsdc|clk400dp|sampleip|sampleip_map|sampleip_map_t1|sampleip_map_t2|sampleip_map_t3|sampleip_map_t4|clk400x_scoped|clk400x_dp000|clk400x_dp1116|clk400x_drvhigh|nip_b_324_drvhigh|nip_d_300|nip_e_360|all
 """
 import sys, hashlib, json
 from pathlib import Path
@@ -55,6 +55,18 @@ VARIANTS = {
              'mem_top', 'mem_bist engine(user_clk,', 'mem_bist #(.CALIBRATION_SETTLE_CYCLES(60000)) engine(user_clk,'),
 }
 
+# Second regenerated-IP (Education 1.9.11.03) variant batch, 2026-11-05. id -> (ip_tag, idiv, fbdiv, mem_mhz, user_mhz, description).
+# Scheduler taps are KEPT (tapped MemDDR3 via prepare_deep_taps with MEM_IP_TAG=<tag>). PLL: 27*(fbdiv+1)/(idiv+1), ODIV 2.
+# Addr_Cmd_Mode 2T could NOT be generated: the Education 1.9.11.03 generator rejects every value except 1T (see docs/DDR3_再生成IP追加変種_2026-11-05.md).
+NIP = {
+ 'nip_b_324_drvhigh': ('n2b', 0, 11, 324, 81, 'regenerated IP, Memory_Clock 324, OUTPUT_DRV HIGH, 1T, taps kept (deep words available)'),
+ 'nip_d_297': ('n2d', 0, 10, 297, 74, 'regenerated IP, Memory_Clock 297 (300 is not reachable: FBDIV_SEL max 63; PLL 27*11/1, USER 74.25MHz), 1T, taps kept'),
+ 'nip_e_360': ('n2e', 2, 39, 360, 90, 'regenerated IP, Memory_Clock 360 (PLL 27*40/3, USER 90MHz), 1T (2T not generatable), taps kept'),
+}
+for _k, _v in NIP.items():
+    VARIANTS[_k] = ('(nip) ' + _v[5] + '. SYSQUERY reports %d/%d (host MEM probe accepts only 324/81 and 398/100)' % (_v[3], _v[4]),
+                    'mem_pll', 'pll.IDIV_SEL=0', 'pll.IDIV_SEL=%d' % _v[1])
+
 def build(vid):
     if vid in ('sampleip', 'sampleip_map', 'sampleip_map_t1', 'sampleip_map_t2', 'sampleip_map_t3', 'sampleip_map_t4'):
         # The pinned Sipeed IP is not in git: refuse to prepare unless the local copy exists and matches its SHA-256.
@@ -69,6 +81,7 @@ def build(vid):
     out = root / f'build/mem-variant-{vid}/rtl'
     out.mkdir(parents=True, exist_ok=True)
     rec = {'id': vid, 'description': desc, 'files': {}}
+    if vid in NIP: rec['ip_tag'] = NIP[vid][0]
     for n in names:
         text = (rtl / f'{n}.v').read_bytes().decode()
         if n == fname:
@@ -89,6 +102,12 @@ def build(vid):
                     assert t2.count(o) == 1, o
                     t2 = t2.replace(o, n2)
                 text = t2
+            if vid in NIP:
+                t2 = text
+                for o, n2 in [('pll.FBDIV_SEL=11', 'pll.FBDIV_SEL=%d' % NIP[vid][2]), ('27*(11+1)/(0+1)=324MHz; ODIV2 gives648MHz VCO.', '27*(%d+1)/(%d+1)=%dMHz; ODIV2 gives%dMHz VCO.' % (NIP[vid][2], NIP[vid][1], NIP[vid][3], 2*NIP[vid][3]))]:
+                    assert t2.count(o) == 1, o
+                    t2 = t2.replace(o, n2)
+                text = t2
             if vid == 'norst':
                 anchor = '// USER state is only an LED observation here'
                 assert text.count(anchor) == 1
@@ -106,6 +125,10 @@ def build(vid):
             o = 'mem_mailbox control('
             assert text.count(o) == 1
             text = text.replace(o, "mem_mailbox #(.MEM_MHZ(16'd398),.USER_MHZ(16'd100)) control(")
+        if vid in NIP and n == 'mem_top' and (NIP[vid][3], NIP[vid][4]) != (324, 81):
+            o = 'mem_mailbox control('
+            assert text.count(o) == 1
+            text = text.replace(o, "mem_mailbox #(.MEM_MHZ(16'd%d),.USER_MHZ(16'd%d)) control(" % (NIP[vid][3], NIP[vid][4]))
         if (vid.startswith('clk400x_') or vid in ('clk400_notap', 'clk400_asyncsdc', 'clk400dp')) and n == 'mem_top':
             o = '.deep_taps(deep_taps),'
             assert text.count(o) == 1
@@ -157,5 +180,5 @@ DDR3_Memory_Interface_Top controller(.clk(sys_clk),.memory_clk(memory_clk),.pll_
     print('prepared', vid, '-', desc)
 
 ids = list(VARIANTS) if sys.argv[1:] == ['all'] else sys.argv[1:]
-assert ids and all(i in VARIANTS for i in ids), 'usage: prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|clk400|clk400_notap|clk400_asyncsdc|clk400dp|sampleip|sampleip_map|sampleip_map_t1|sampleip_map_t2|sampleip_map_t3|sampleip_map_t4|clk400x_scoped|clk400x_dp000|clk400x_dp1116|clk400x_drvhigh|all'
+assert ids and all(i in VARIANTS for i in ids), 'usage: prepare_variant.py base|cs0|rst|refwait|pace|norst|readfirst|clk400|clk400_notap|clk400_asyncsdc|clk400dp|sampleip|sampleip_map|sampleip_map_t1|sampleip_map_t2|sampleip_map_t3|sampleip_map_t4|clk400x_scoped|clk400x_dp000|clk400x_dp1116|clk400x_drvhigh|nip_b_324_drvhigh|nip_d_300|nip_e_360|all'
 for i in ids: build(i)

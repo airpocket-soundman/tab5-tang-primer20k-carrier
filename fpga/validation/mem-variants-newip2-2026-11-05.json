@@ -1,0 +1,238 @@
+{
+  "scope": "offline builds only; no programmer/UART/DRAM access; physical DDR behaviour unverified; STA is internal-constrained, not external DDR timing",
+  "tool": "Gowin V1.9.11.03 Education (81398), gw_sh, no programming",
+  "part": "GW2A-LV18PG256C8/I7",
+  "device_version": "C",
+  "memdd3_vo_sha256": null,
+  "memdd3_vo_note": "differs from frozen 4d37c875...; MemDDR3.ipc and gwmc_param.v hashes equal the recorded ones; only the Created Time header is believed to differ (base FS reproduces be42c604 apart from its Created Time comment).",
+  "reference_be42c604": "be42c604aeb3217cbcf7743f46c49a585dbfe414b1900bace6bf703f197ebeea",
+  "variants": {
+    "_ip": {
+      "nip_b_324_drvhigh": {
+        "tag": "n2b",
+        "memddr3_vo_sha256": "fca0fdea55c129377d6bd4c81b673c5cf2227ce619c11cd07b3e582272eb83b7",
+        "gwmc_param_sha256": "90b3383dac951e8b4f6bb0a9148d2fff8efb5f764d4369a49e4768408a7e47cf",
+        "ipc_sha256": "c4481c12e68aec4140ac971492a21a662c491c84b945809e5a1323fdbc3ddc80",
+        "gwmc_param_selected": {
+          "tCK": "3086",
+          "CL": "6",
+          "CWL": "5",
+          "ADDR_CMD_MODE": "1T",
+          "OUTPUT_DRV": "HIGH"
+        }
+      },
+      "nip_d_297": {
+        "tag": "n2d",
+        "memddr3_vo_sha256": "85cf4a0bdd011c2596593a7ec3e29290ca8795efe0adc5cff442640eccdf350f",
+        "gwmc_param_sha256": "7d08a13220c0cb306bde85de876de84063b0935ba87c4e7cc229615166ac9762",
+        "ipc_sha256": "282d7d8ffd25f745b26ac3264f1b20ca1dcb021a29ffff1b5863b36f0541f6ae",
+        "gwmc_param_selected": {
+          "tCK": "3367",
+          "CL": "6",
+          "CWL": "5",
+          "ADDR_CMD_MODE": "1T",
+          "OUTPUT_DRV": "LOW"
+        }
+      },
+      "nip_e_360": {
+        "tag": "n2e",
+        "memddr3_vo_sha256": "132045dbcbe28617b2bd8b6393b40802f3c790ab0aa741682ae61ca02da0ba99",
+        "gwmc_param_sha256": "b4a05267284060fab992ec445a07813402eaa44b5d02f67a805acceddc164673",
+        "ipc_sha256": "2a2650e109e3baaab6ac4a060de0d86ad79eb542894fd5f875b227d33d41aff3",
+        "gwmc_param_selected": {
+          "tCK": "2777",
+          "CL": "6",
+          "CWL": "5",
+          "ADDR_CMD_MODE": "1T",
+          "OUTPUT_DRV": "LOW"
+        }
+      }
+    },
+    "nip_b_324_drvhigh": {
+      "built": true,
+      "description": "(nip) regenerated IP, Memory_Clock 324, OUTPUT_DRV HIGH, 1T, taps kept (deep words available). SYSQUERY reports 324/81 (host MEM probe accepts only 324/81 and 398/100)",
+      "fs_sha256": "b27abd80addebb5dc52c70963a7538fd6c9712bf6773672864b356adb3439a90",
+      "fs_sha256_without_comment_lines": "6876b4bc14b40c71781e966632fea68447956a66312110de80fd7bf4041958da",
+      "usercode": "0x00004316",
+      "fs_bytes": 4620698,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": null,
+      "sta": {
+        "setup_violated_endpoints": 0,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": 0.176,
+          "from": "controller/gw3_top_u_ddr_phy_top_u_ddr_init_ddr_init_complete_d_3_s0/Q",
+          "to": "engine/first_expected_69_s0/CE"
+        },
+        "worst_hold": {
+          "slack_ns": 0.233,
+          "from": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_oserdes_d_rr_61_s0/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_cmd_oserdes_gen[15].u_cmd_gen/D2"
+        },
+        "worst_recovery": {
+          "slack_ns": 1.462,
+          "from": "reset_hold_1_s1/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_ddr_init_internal_r_s0/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.702,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 0,
+          "Hold": 0,
+          "Recovery": 0,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 74.543,
+          "memory324": 2016.128,
+          "user81": 82.168
+        }
+      },
+      "logic": "6482/20736",
+      "registers": "6469/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "e1f4fe7715d8ddf1487938dd85db939b22222c5a03c82b13dc74835d1458aa2a",
+        "mem_bist": "e6a7fe6647f83391eed266c98d61ae1f5cd6179211ae904b9a8dbba427ec5913",
+        "mem_mailbox": "00d45fba8e3a4aca26129a003b9642750195a4adb13affebd338e7620ff149f9",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "4be53a40bfaee965600dc2d92652e317caadbbeab73923f1d4a5a678aee85822"
+      },
+      "sdc_lines_dropped": [],
+      "archive": "validation/mem-variant-nip_b_324_drvhigh-2026-11-05"
+    },
+    "nip_d_297": {
+      "built": true,
+      "description": "(nip) regenerated IP, Memory_Clock 297 (300 is not reachable: FBDIV_SEL max 63; PLL 27*11/1, USER 74.25MHz), 1T, taps kept. SYSQUERY reports 297/74 (host MEM probe accepts only 324/81 and 398/100)",
+      "fs_sha256": "748f7860f31ce41f92ccb915ab2b44543deb0a1ab56ebfe7c55283ff805021c9",
+      "fs_sha256_without_comment_lines": "5edb588c5a63f3e81138a76e1607aa6c0e0579f3a5657c799b7941b5826d23b3",
+      "usercode": "0x00001F0E",
+      "fs_bytes": 4620698,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": null,
+      "sta": {
+        "setup_violated_endpoints": 3859,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": -6.163,
+          "from": "controller/gw3_top_u_ddr_phy_top_ddr_rsti_reg_2_s0/Q",
+          "to": "controller/gw3_top_u_gwmc_top_gw_cmd0_mem_mem_0_7_s/DI[0]"
+        },
+        "worst_hold": {
+          "slack_ns": 0.233,
+          "from": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_oserdes_d_rr_55_s0/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_cmd_oserdes_gen[13].u_cmd_gen/D6"
+        },
+        "worst_recovery": {
+          "slack_ns": -4.749,
+          "from": "reset_hold_2_s1/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_ddr_init_internal_r_s0/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.58,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 25,
+          "Hold": 0,
+          "Recovery": 256,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 69.338,
+          "memory297": 2016.128,
+          "user74": 84.326
+        }
+      },
+      "logic": "6513/20736",
+      "registers": "6474/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "7fbcf9a34100f98027f3d6b75ad73d8b42a112120552ade7dd7a4604422f9add",
+        "mem_bist": "e6a7fe6647f83391eed266c98d61ae1f5cd6179211ae904b9a8dbba427ec5913",
+        "mem_mailbox": "00d45fba8e3a4aca26129a003b9642750195a4adb13affebd338e7620ff149f9",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "62bd22ad659482f40d8c61c73b3b049227c50c74b08fc3f27b01184bd35389d0"
+      },
+      "sdc_lines_dropped": [],
+      "archive": "validation/mem-variant-nip_d_297-2026-11-05"
+    },
+    "nip_e_360": {
+      "built": true,
+      "description": "(nip) regenerated IP, Memory_Clock 360 (PLL 27*40/3, USER 90MHz), 1T (2T not generatable), taps kept. SYSQUERY reports 360/90 (host MEM probe accepts only 324/81 and 398/100)",
+      "fs_sha256": "b60bd1c2bf55ddd400f464485baaa033b35febbbc69ffdde681cb239f55b548f",
+      "fs_sha256_without_comment_lines": "dae9904887cf94b6c8999f2025c3eb56d71703f6cbb081f5b1857e1817374616",
+      "usercode": "0x0000DC96",
+      "fs_bytes": 4620698,
+      "usercode_equals_reference_be42c604": false,
+      "fs_body_identical_to_base": null,
+      "sta": {
+        "setup_violated_endpoints": 3861,
+        "hold_violated_endpoints": 0,
+        "worst_setup": {
+          "slack_ns": -6.626,
+          "from": "controller/gw3_top_u_ddr_phy_top_ddr_rsti_reg_2_s0/Q",
+          "to": "controller/gw3_top_u_gwmc_top_gw_cmd0_mem_mem_0_7_s/DI[0]"
+        },
+        "worst_hold": {
+          "slack_ns": 0.234,
+          "from": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_oserdes_d_rr_39_s0/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_u_ddr_phy_wds_u_ddr_phy_cmd_lane_u_ddr_phy_cmd_io_cmd_oserdes_gen[9].u_cmd_gen/D6"
+        },
+        "worst_recovery": {
+          "slack_ns": -5.602,
+          "from": "reset_hold_3_s1/Q",
+          "to": "controller/gw3_top_u_ddr_phy_top_eye_calib_start_rr_s0/CLEAR"
+        },
+        "worst_removal": {
+          "slack_ns": 0.453,
+          "from": "control/epoch_reset_sync_2_s0/Q",
+          "to": "control/user_epoch_used_s0/CLEAR"
+        },
+        "negative_paths": {
+          "Setup": 25,
+          "Hold": 0,
+          "Recovery": 256,
+          "Removal": 0
+        },
+        "fmax_mhz": {
+          "sys27": 67.074,
+          "memory360": 2016.128,
+          "user90": 90.43
+        }
+      },
+      "logic": "6452/20736",
+      "registers": "6476/16173",
+      "pin_audit": {
+        "constrained_ports": 66,
+        "mismatches": [],
+        "passed": true
+      },
+      "rtl_sha256": {
+        "mem_deep_monitor": "f9dec047a5dc01ed32f475c9d30867346f96f79393f1fe2c71ca54b0d412e4fd",
+        "mem_pll": "e8357bbf12ba3a7e5705211666236ee194b90e9550734fba43a51a2b4183201b",
+        "mem_bist": "e6a7fe6647f83391eed266c98d61ae1f5cd6179211ae904b9a8dbba427ec5913",
+        "mem_mailbox": "00d45fba8e3a4aca26129a003b9642750195a4adb13affebd338e7620ff149f9",
+        "mem_link": "626ee3ddc5fb2bd752269bf93b8bc65090bf71fb46c1d59b68e15a036100dff4",
+        "mem_top": "a10934a6bd675ad96d16cd8629026d16d5c83203321dc54b484fe83ae6791a03"
+      },
+      "sdc_lines_dropped": [],
+      "archive": "validation/mem-variant-nip_e_360-2026-11-05"
+    }
+  }
+}

@@ -12,6 +12,9 @@ set dbg_cfg ""
 if {[info exists env(MEM_DEBUG_PARAMS)] && $env(MEM_DEBUG_PARAMS) eq "1"} {set dbg_cfg "CONFIG.Debug_Parameter_Enable true CONFIG.Debug_Parameter1_Value 101 CONFIG.Debug_Parameter2_Value 6 CONFIG.Debug_Parameter3_Value 40 CONFIG.Debug_Parameter4_Value 40"}
 # MEM_EXTRA_CFG: extra "CONFIG.Name value ..." pairs appended last (exploration of generator options).
 if {[info exists env(MEM_EXTRA_CFG)] && $env(MEM_EXTRA_CFG) ne ""} {append dbg_cfg " $env(MEM_EXTRA_CFG)"}
+# MEM_ADDR_CMD (1T|2T): replaces the baseline Addr_Cmd_Mode value (an extra CONFIG.Addr_Cmd_Mode in MEM_EXTRA_CFG would be a duplicate key and was not honoured).
+set addr_mode 1T
+if {[info exists env(MEM_ADDR_CMD)] && $env(MEM_ADDR_CMD) ne ""} {set addr_mode $env(MEM_ADDR_CMD)}
 set output [file normalize [file join $fpga_root build mem-bist-ip$tag]]
 create_project -name memconfig -dir $output -pn GW2A-LV18PG256C8/I7 -device_version C -force
 create_ipc -name ddr3 -module_name MemDDR3 -dir [file join $output generated] -force
@@ -21,7 +24,7 @@ set_property -dict [subst {
  CONFIG.Rank_Address 1 CONFIG.Bank_Address 3 CONFIG.Row_Address 13 CONFIG.Column_Address 10
  CONFIG.Burst_Mode 8 CONFIG.Burst_Type SEQ CONFIG.CAS_Latency 6 CONFIG.CW_Latency 5
  CONFIG.Additive_Latency 0 CONFIG.Wrire_Recovery 8
- CONFIG.Rtt_Nom 40 CONFIG.Rtt_Wr OFF CONFIG.Addr_Cmd_Mode 1T
+ CONFIG.Rtt_Nom 40 CONFIG.Rtt_Wr OFF CONFIG.Addr_Cmd_Mode $addr_mode
  CONFIG.User_Refresh false CONFIG.tRTP_Period 15000 CONFIG.tRP_Period 20000
  CONFIG.tWTR_Period 15000 CONFIG.tRC_Period 75000 CONFIG.tRAS_Period 50000
  CONFIG.tRCD_Period 20000 CONFIG.tFAW_Period 60000 CONFIG.tRRD_Period 15000

@@ -25,9 +25,30 @@ fields += [('head_write',26,1,'cmd_buf_dou [27]'),('head_read',27,1,'cmd_buf_dou
  ('refresh_request',58,1,'refresh_request_Z'),('self_refresh_request',59,1,'sre_request_Z'),
  ('idle1',60,1,'idle1'),('idle2',61,1,'idle2'),('idle3',62,1,'idle3'),('init_enable',63,1,'n107_3')]
 
+# Re-synthesised IPs (Education 1.9.11.03 regenerations) no longer contain the n219_4/n219_5 nets: cmd_accept = !cmd_empty & X
+# is a LUT2 and X (the "a command is being issued" level, = issue_write | issue_read of the older netlist) is the only
+# remaining observable. Then bit29 carries X (named issue_any) and bit30 (issue_read) is a constant 0; head_write/head_read
+# (bits 26/27) still distinguish the command type. Recorded in tap_audit.json ("issue_resolution").
+issue_resolution='n219_4/n219_5 present (older netlist)'
+_bs=chr(92)
+if (_bs+prefix+'n219_4 ') not in s:
+    _cells0=list(re.finditer('^(' + _bs + 'w+) ' + _bs*2 + '([^' + _bs + 'n]+?)' + _bs + 's+' + _bs + '(' + _bs + 'n(.*?)^' + _bs + ');',s,re.M|re.S))
+    _acc=[c for c in _cells0 if re.search(r'\.F\(' + re.escape(_bs+prefix+'cmd_accept_Z ') + r'\)',c[3])]
+    assert len(_acc)==1,[c[1] for c in _acc]
+    _net=None
+    if _acc[0][1]=='LUT2':
+        _ins=[v.strip() for _,v in re.findall(r'\.(I\d)\(([^\n]*)\)',_acc[0][3])]
+        _other=[v for v in _ins if v!=_bs+prefix+'cmd_empty_Z']
+        assert len(_other)==1 and _other[0].startswith(_bs+prefix),_ins
+        _net=_other[0][len(_bs+prefix):]
+    # LUT3/LUT4 drivers (other regenerations): the write/read issue terms are inlined or ambiguous -> both bits constant 0; bit10 cmd_accept is still observed.
+    fields=[(('issue_any' if (n=='issue_write' and _net) else n),lo,w,((_net if _net else '=0') if n=='issue_write' else ('=0' if n=='issue_read' else net))) for n,lo,w,net in fields]
+    issue_resolution=('cmd_accept_Z = LUT2(cmd_empty_Z, %s): bit29 issue_any=%s, bit30 issue_read constant 0'%(_net,_net)) if _net else ('cmd_accept_Z driver is %s (issue terms inlined/ambiguous): bits 29/30 constant 0, bit10 cmd_accept observed'%_acc[0][1])
 assigns=[];audit=[]
 cells=list(re.finditer(r'^(\w+) \\([^\n]+?)\s+\(\n(.*?)^\);',s,re.M|re.S))
 for name,lo,width,net in fields:
+ if net=='=0':
+  assigns.append("assign deep_taps[%d+:%d] = 1'b0;"%(lo,width));audit.append({'name':name,'bit':lo,'width':width,'net':'constant 0','drivers':[]});continue
  net=net[1:] if net.startswith('@') else prefix+net
  token='\\'+net+' '
  if ' [' in net:token='\\'+net.split(' [')[0]+' ['+net.split(' [')[1]
@@ -97,9 +118,9 @@ def scalar_cone(net,seen=None):
    result.append(ds[0][2].strip())
   else:result+=scalar_cone(value,seen)
  return sorted(set(result))
-cones={name:scalar_cone(prefix+net) for name,_,_,net in fields if name in ['issue_write','issue_read','init_enable']}
+cones={name:scalar_cone(prefix+net) for name,_,_,net in fields if name in ['issue_write','issue_any','init_enable'] and not net.startswith('=')}
 q=root/f'build/mem-deep-input{SFX}';q.mkdir(parents=True,exist_ok=True)
 (q/'MemDDR3_tapped.vo').write_text(out)
-(q/'tap_audit.json').write_text(json.dumps({'source_sha256':hashlib.sha256(b).hexdigest(),'original_logic_byte_exact':True,'fields':audit,'combinational_clock_boundaries':cones,'state_availability':state_audit},indent=2)+'\n')
+(q/'tap_audit.json').write_text(json.dumps({'issue_resolution':issue_resolution,'source_sha256':hashlib.sha256(b).hexdigest(),'original_logic_byte_exact':True,'fields':audit,'combinational_clock_boundaries':cones,'state_availability':state_audit},indent=2)+'\n')
 print('PASS output-only64 observed bits; original netlist byte-equivalent')
 
