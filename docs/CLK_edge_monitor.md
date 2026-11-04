@@ -1,84 +1,130 @@
-# CLKエッジ数カウンタ（トラックJ、診断専用）
+# CLKエッジ数カウンタ v2（トラックJ2、診断専用）
 
-2026-11-04。実機に触れないオフライン作業の成果。**RTLシミュレーションと `yosys synth_gowin` の通過のみ。Gowin配置配線・タイミング解析・実機書込みは未実施で、実機での動作は未検証。**
+2026-11-05。v1（USERCODE `0x4ABF`）の実機結果を受けた再設計。**RTLシミュレーションとGowin配置配線・STAのみ。v2は実機未検証。** ビルド記録は `fpga/validation/edge-counter-v2-2026-11-05/`。
 
-## 目的
+## v1の実機結果と、なぜ再設計したか
 
-25MHz以上のDMA RX失敗が「受信窓のずれ（仮説A）」か「FPGAが数える余分なCLKエッジ（仮説B）」かを、FPGA側で応答ごとに数えて切り分ける（ホスト側 `tab5-fpga-gpu` track-c `docs/dma-25mhz-isolation-plan.md` の実験4）。
+連続RXの実機（85bac224基準、Jイメージ `0x4ABF`）：
 
-- 期待値（16バイト応答なら16、2066バイトのタイル応答なら2066）より多く受理されていれば仮説B。
-- 期待値と一致し、本体だけ誤るなら仮説A。
-- 注意: 216MHz（周期4.63ns）の標本化なので、これより短いパルスは見えない／折り返す。アナログ測定ではない。**CLKの余分なエッジ**が標本化に載る程度の幅で来た場合のみ数えられる。
+| | 20MHz NEG（合格） | 25MHz POS（初フレームで失敗） |
+|---|---|---|
+| 窓数／異常窓／excess窓／deficit窓 | 720／720／720／0 | 12／12／12／0 |
+| reject最大／runt最大 | 0／2 | ―／1 |
+| HIGH最短／LOW最短（tick） | 5／3 | 2／2 |
+
+**健全な点でも全窓が excess になった。** 原因：v1の窓は「オファー開始〜DIR下降」で、連続RXのホスト（P4）は応答が終わった後もISRリース／READY低下後のテール取り込みのためにクロックを出し続ける。そのテールの立上りを「受理立上りの総数」に入れて期待長と比べたため、正常でも必ず超過になった。さらに `pre`（serializer done前の受理立上り）は、serializerが期待個数目の受理立上りで終了する構造上、**構成上ほぼ期待長に等しく**、余分なエッジの指標にならない。
+
+## v2の考え方
+
+「応答のデータが有効な区間（VALID）」の内側だけで数え、テールを分ける。
+
+- **窓（WINDOW）**：`fast_offer && dir` の立上り〜 raw DIR の立下り（安全タイムアウト約9.7ms）。ここでスナップショットを閉じる。
+- **データ有効区間（VALID）**：窓の開始から、**`expect_edges` 個目の受理立上り**（16バイト応答なら16、タイル応答なら2066。これが serializer の最後のバイト）まで。それより早く serializer が done した（中断・エラー）場合はそこまで。
+- **テール（TAIL）**：VALID終了後の窓内の立上り。ホストが出し続けるクロックで、**正常でも起きる。超過に数えない。**
+- 応答前の訓練クロック：serializerの先頭8バイト（`c3`）は応答長に含まれ、1対1で数える。オファー前（`fast_offer && dir` 以前）のクロックは窓の外で数えない。
+
+### VALID内で数えるもの（健全な応答は異常系がすべて0になる）
+
+| 量 | 意味 |
+|---|---|
+| `pre`（accepted） | 受理立上り。serializerが消費したバイト数。VALIDが個数で完了すれば `expect` に一致 |
+| `reject` | 5サンプルのクールダウン内に来た立上り（リンギング疑い。faultも立つ） |
+| `drop` | fault後の同一窓内で捨てた立上り |
+| `runt` | 2サンプル判定で捨てた1サンプルだけの突起 |
+| `fall` | 受理した立下り |
+| `min_high` / `min_low` | 修飾後信号のHIGH／LOWの最短区間（216MHz tick＝4.63ns） |
+| `sp_min` / `sp_max` / `sp_jump` | 受理立上り間隔の最小／最大（tick）と、直前の間隔から4tick以上ずれた回数。**フィルタを通った余分／欠落エッジ**の検出用 |
+| `ticks` | 最初の受理立上りからVALID終了までのtick数（平均周波数の確認用） |
+| `first_pos` / `first_kind` | 最初の異常が出たときの受理立上り数（＝何バイト目の後か）と種類（1 reject／2 drop／3 runt／4 間隔ずれ）。`0xFFF`＝なし |
+
+### TAILで数えるもの
+
+`post`（テールの受理立上り）、`tail_noise`（テールのreject＋drop＋runt）。テールのノイズは応答データに影響しないので、`bad` や `excess` には入れない。
+
+### 超過・不足の定義（54MHz側で算術）
+
+- **excess（超過）= reject + drop**：VALID内で、フィルタが検出したが serializer が消費しなかった**余分な立上り**。受理立上りは構成上ちょうど期待長なので、受理数との差では余分が見えない。
+- **deficit（不足）**：VALIDが個数で完了しなかった窓で、`expect − pre`（abort／fault／欠落エッジ）。完了した窓は 0。
+- 履歴：超過のあった窓の数（idx19）、不足のあった窓の数（idx20）、最大超過（idx23）、最も早かった最初の異常位置（idx31）。クリアで消える。
+
+**限界（誤読を避けるため）**：(1) 受理されて serializer が消費した余分なエッジは、reject にならない（間隔が5tick以上あるもの）。これは `sp_jump`／`sp_min`／`sp_max` で見る。ホストの視点では、その場合 FPGAが期待長に早く到達し、ホストの最後のクロックが `post` に入る。(2) 216MHz標本化より細いパルスは見えない／折り返す。アナログ測定ではない。(3) 間隔は255 tickで飽和（約0.85MHz以下）。(4) 端の±1：done同期（2サイクル）ではなくカウントでVALIDを閉じるので、VALID終了の直後（数tick）に来たrejectは TAIL側に入る。
 
 ## 構成
 
-`link_bringup_filtered` に `EDGE_MONITOR_ENABLE`（既定0）を追加。0なら従来と同一（新opcodeは未対応＝status 2）。1かつ `FAST_REPLY_ENABLE=1` のときだけ、診断用の `reply_edge_monitor`（216MHz側）が `reply_clock_filter` の1tickストローブを数える。`clean_clk`・`fault`・シリアライザ入力には一切影響しない（既存出力は不変）。
+`link_bringup_filtered` に `EDGE_MONITOR_ENABLE`（既定0）。0なら従来と同一で、新opcodeは未対応（status 2）。1かつ `FAST_REPLY_ENABLE=1` のときだけ、216MHz側の `reply_edge_monitor` が `reply_clock_filter` の1tickストローブ（accept／reject／drop／runt／fall）と `link_reply_raw` の `done_index` を読む。`clean_clk`・`fault`・serializer入力には影響しない（既存出力は不変）。スナップショットは窓の終了時に確定し、トグル同期（2FF）でSYS側へ渡す。
 
-イメージ: `platform/dock/tab5_dock_triangle54_filtered_edge_top.v`（`filtered_top` と同ピン・同構成にEDGE=1を足しただけ）。ビルド: `builds/dock/build_filtered_edge.tcl`（Gowin IDE。**未実行**）。
+イメージ：`platform/dock/tab5_dock_triangle54_filtered_edge_top.v`。ビルド：`builds/dock/build_filtered_edge_cdc.tcl`（Gowin Education 1.9.11.03、85bac224のCDC例外SDCを再利用）。
 
-## 問合せ
+## 問合せ（ホスト）
 
-`opcode 0x4c`（応答は通常の高速プレフィックス形式なので、ホストは `0x80 | 0x4c = 0xCC` で送る。他の高速応答opcodeと同じ規則）。
-
-- 要求 `a5 CC seq 02 idx 00 crc`。`idx > 20` または 5バイト目≠0 は status 3。
-- 応答のペイロード（byte12/13）= 16bit値（下位が先）。
-
-`opcode 0x4d` = 履歴クリア（`0xCD`、引数 `5a a5` 以外は status 3）。窓カウンタ・最悪値のみクリア。直近スナップショットは残る。
+`opcode 0x4c`（高速プレフィックス形式なのでホストは `0x80|0x4c = 0xCC` で送る）。要求 `a5 CC seq 02 idx 00 crc`。`idx > 33` または5バイト目≠0 は status 3。応答ペイロード（byte12/13）＝16bit値（下位が先）。`0x4d`（`0xCD`、引数 `5a a5`）＝履歴クリア（窓カウンタ・最悪値のみ。直近スナップショットは残る）。
 
 | idx | 内容 |
 |---|---|
-| 0 | 識別 `0xED01` |
-| 1 | 閉じた応答窓の総数（飽和） |
-| 2 | 異常窓の数（reject/drop/runt/fault/タイムアウト/飽和/doneなしのいずれか） |
-| 3 | 窓の通し番号（クリアでは消えない、窓が閉じるたび+1） |
-| 4 | 直近窓: serializer done より前に受理されたCLK立上り数（pre） |
-| 5 | 直近窓: done以降に受理された立上り数（post） |
-| 6 | 直近窓: reject（5サンプル未満の間隔で来た立上り＝リンギング疑い。faultも立つ） |
-| 7 | 直近窓: drop（fault後に捨てた立上り） |
-| 8 | 直近窓: runt（1サンプルだけの突起） |
-| 9 | 直近窓: 受理した立下り数 |
-| 10/11 | 直近窓: HIGH／LOWの最短区間（216MHz tick、0xFF=未観測） |
-| 12 | 直近窓の期待エッジ数（16／82／2066） |
+| 0 | 識別 **`0xED02`**（v1は `0xED01`） |
+| 1 | 閉じた窓の総数（飽和） |
+| 2 | 異常窓の数（VALID内の reject/drop/runt/間隔ずれ/fault/serializer error/タイムアウト/飽和/VALID未完/done位置不一致） |
+| 3 | 窓の通し番号（クリアで消えない） |
+| 4 | 直近窓: VALID内の受理立上り（`pre`） |
+| 5 | 直近窓: TAILの受理立上り（`post`） |
+| 6/7/8 | 直近窓: VALID内の reject／drop／runt |
+| 9 | 直近窓: VALID内の受理立下り数 |
+| 10/11 | 直近窓: VALID内のHIGH／LOW最短（tick、`0xFF`＝未観測） |
+| 12 | 直近窓の期待立上り数（16／82／2066） |
 | 13 | serializerがdoneした時点のバイト番号 |
-| 14 | フラグ: bit0 done / bit1 serializer error / bit2 filter fault / bit3 タイムアウト閉じ / bit4 カウンタ飽和 / bit5 エッジ無し / bit7 有効スナップショット |
-| 15/16 | クリア以降のreject／runtの最大値 |
-| 17/18 | クリア以降のHIGH／LOW最短区間 |
-| 19 | クリア以降: 受理した立上り数が期待長より**多かった**窓の数（excess。仮説Bの決め手） |
-| 20 | クリア以降: 期待長より**少なかった**窓の数（deficit。中断・欠落含む） |
+| 14 | フラグ: bit0 serializer done／bit1 serializer error／bit2 fault（VALID内）／bit3 タイムアウト閉じ／bit4 カウンタ飽和／bit5 エッジなし／**bit6 VALIDが個数で完了**／bit7 有効スナップショット |
+| 15/16 | クリア以降の reject／runt の最大（VALID内） |
+| 17/18 | クリア以降のHIGH／LOW最短 |
+| 19 | クリア以降: 超過（reject+drop>0）のあった窓の数 |
+| 20 | クリア以降: 不足（VALID未完）の窓の数 |
+| **21** | 直近窓の超過数（reject+drop） |
+| **22** | 直近窓の不足数（期待−受理、VALID未完のとき） |
+| **23** | クリア以降の最大超過 |
+| **24** | 直近窓の最初の異常位置（受理立上り数。`0xFFFF`＝なし） |
+| **25** | 直近窓の最初の異常の種類（0なし／1 reject／2 drop／3 runt／4 間隔ずれ） |
+| **26/27** | 直近窓: 受理立上り間隔の最小／最大（tick） |
+| **28/29** | 直近窓: VALIDのtick数の下位16bit／上位8bit |
+| **30** | 直近窓: 間隔ずれの回数 |
+| **31** | クリア以降の最も早い最初の異常位置（`0xFFFF`＝なし） |
+| **32** | 直近窓: TAILのnoise（reject+drop+runt） |
+| **33** | クリア以降: serializerのdone位置と期待長が食い違った窓の数 |
 
-**読み方の注意:** 値は「問合せの直前に閉じた窓」の結果。問合せ自体も16エッジの応答窓なので、調べたい窓の直後に1回だけ問い合わせる（連続で複数idxを読むと2回目以降は問合せ窓の値になる。長い窓の複数項目を見たいときは、同じ負荷を繰り返して項目ごとに1回ずつ読む）。
+太字はv2で追加。idx4〜14と6〜9、21〜30、32は「問合せの直前に閉じた窓」の値で、問合せ自体も16エッジの窓になる。**窓単位の値は調べたい窓の直後の1回しか意味がない。実験では集計（idx1, 2, 15〜20, 23, 31, 33）を使う。**
 
-判定: `pre+post == idx12` かつ reject/drop/runt==0 かつ bit0=1 → CLKは健全。`pre+post > idx12`、または reject>0 → 仮説B（余分／近接エッジ）。`pre+post == idx12` なのに本体CRCだけ外れる → 仮説A（受信窓）。
+### 判定の流れ（実機）
 
-## シミュレーション結果
+1. `0xCD` でクリア → 同条件で描画（N枚）→ idx1（窓数）、2（異常窓）、19（超過窓）、20（不足窓）、23（最大超過）、31（最初の異常位置）、33。
+2. **idx19＞0 または idx15＞0** → VALID内に近接／余分な立上りがある（仮説B：リンギング・クロストーク）。idx31が応答中の位置を示す。
+3. **idx2＞0 だが idx19=0、idx20=0** → 間隔異常（受理された余分／欠落エッジ）か、runt。直近窓のidx30/26/27/25を直後に1回読む。
+4. **idx19=0、idx20=0、idx2=0 で、本体CRCだけ外れる** → FPGAが見るクロックは健全。受信窓（P4側のサンプリング位相）の問題（仮説A）。
+5. 健全点の対照（20MHz NEG等）で idx2/19/20 が0であることを先に確認する。テールは excess にならないので、v1のように「全窓が異常」にはならない。
 
-`python fpga/link/tests/run_edge_monitor.py --iverilog <iverilog.exe> --vvp <vvp.exe>`（OSS CAD Suiteの `bin` と `lib` をPATHに入れる。`vvp` が DLL 不足で終了コード0xC0000135になる場合は `lib` が必要）。
+## シミュレーション結果（`python fpga/link/tests/run_edge_monitor.py --iverilog <exe> --vvp <exe>`）
 
-- EDGE=0: 0x4c/0x4d が status 2、通常通信は不変。
-- EDGE=1: 16エッジ応答と2066エッジのタイル応答がそれぞれ正確に数えられる（pre+post=16／2066、reject=0、done_index=2065）、引数エラー、クリア、近接エッジ注入でfaultとreject、1nsの突起が立上りにならないこと、DIR中断時のdoneなし、モニタ有無でデータ経路が変わらないこと。
-- 既存 `tb_filteredreply_control`（EDGE=0）も合格。シミュレーションでは Gowin の `LUT1` を `link/tests/lut1_model.v` の挙動モデルに置換している（実機ビルドは本物のプリミティブ）。
+実機ではない。Icarus（sampler 216MHz、SYS 54MHz、ホストCLK 40MHz／10MHz）。
+
+| シナリオ | 結果 |
+|---|---|
+| 正常16エッジ＋40本のアイドルクロック | `pre=16`、`post=40`、reject/drop/runt/tail=0、excess=0、deficit=0、フラグ `0xC1`、`first_pos=0xFFF`、間隔 5〜6 tick、history 0 |
+| 正常タイル2066エッジ＋300本のアイドルクロック | `pre=2066`、`post=300`、done位置2065、ticks=11150、間隔 5〜6、`sp_jump=0`、異常0 |
+| 近接する余分な立上り（6エッジ後） | `rej=1`、`excess=1`、`deficit=9`、`first_pos=7`、`first_kind=1`、fault旗、履歴に反映 |
+| フィルタを通る余分なエッジ（10MHz、短い余分な1周期） | reject=0のまま `sp_jump=2`、`first_kind=4`、間隔 11〜22 tick、`pre=16`／`post=1` |
+| 欠落エッジ（2倍長のギャップ） | `pre=15`、VALID未完、`deficit=1`、`sp_max=43`、`sp_jump=2`、`first_kind=4` |
+| opcode経由の読出し（idx 0/2/19/20/21/22/23/31）、引数エラー、クリア、モニタ有無でのデータ経路 | 一致 |
+| EDGE=0（既定） | 0x4c/0x4dはstatus 2（未対応）、通常通信は不変 |
+
+既存RTL試験10スイート（bringup、dock_gfx、triangle_tile、triangle_rows、coverage、depth、fragment、mac、requant、dot）と、EDGE=0 の `tb_fastreply_control`（`PASS RAW control packets=41`）も合格。Gowin `LUT1` はシミュレーションでは `link/tests/lut1_model.v` の挙動モデルに置換（実機ビルドは本物のプリミティブ）。
 
 ## 未検証・リスク
 
-- 配置配線・STAは未実施。モニタは216MHz側のカウンタ（約100レジスタ）を足すので、タイミング余裕と収容は実ビルドで要確認。
-- SYS（54MHz）側へのスナップショット渡しはトグル同期で、スナップショットは次の窓終了まで不変だが、CDC例外制約（`.sdc`）は追加していない。ビルド時に監査が必要。
-- 実機試験はメインセッションが1変数ずつ行う（末尾の手順案）。
+- **実機未検証**：v2のカウンタが実機の信号で期待どおり動くかは未確認。まず合格点（20MHz NEG）で「異常窓0、超過0、不足0、`post`が数十〜数百」を確認すること（確認できなければ25MHzの結果は解釈しない）。
+- STA／資源はビルド記録を参照。216MHz側のロジックが増えるため余裕は小さい。
+- CDC例外SDCは85bac224のものを再利用（`reply_edge_monitor` からSYS側への新しいトグル同期の経路は例外に入れていない。スナップショットは窓終了時に一度だけ書かれ、次の窓終了まで不変）。**ソース固定の証明は再実行していない。**
+- 間隔ずれの閾値（4tick）は固定。分数分周（12.5MHz等）で健全でも間隔が交互に変わり得るが、標準の整数分周（5/8/10/16/20MHz）では健全時 `sp_jump=0`（シミュレーションは10MHz／40MHzで確認）。
 
-## 実機での試験手順案（メインセッション用、1変数ずつ）
+## ホスト側の変更案（`tab5-fpga-gpu`、このブランチでは変更しない）
 
-前提: 各ステップの前に FPGAを書込んだイメージのSHA-256とUSERCODEを記録。最初の失敗で止める。再送・自動fallbackなし。
-
-1. `filtered_edge` イメージをSRAMへ書込み（`programmer_cli`）。Tab5は基準の20MHz連続RX構成のまま（周波数・位相・駆動強度は変更しない）。
-2. 20MHz（合格点）で通常描画→`0xCD`でクリア→タイル1回→`0xCC idx=12,4,5,6,14` を各1回（その都度タイルを繰り返す）。期待: pre+post=2066、reject=0、bit0=1。これでモニタ自体が実機で正しく動くことを確認（未確認なら25MHzの結果は解釈しない）。
-3. 周波数のみ25MHzに変更（NEG／POSを別々に）。タイルごとに上の項目を読み、判定（上記）を記録。
-4. 結果が「pre+post==2066でCRC失敗」→トラックN（応答位相）へ。「>2066またはreject>0」→track-m（駆動強度）、直列抵抗の変更へ。
-
-## 追加: 集計での使い方（ホスト実装あり）
-
-ホスト `tab5-fpga-gpu` の `claude/track-m-midrate-drive`（7778407以降）に `link action=edge_read index=N` / `edge_clear` を実装（armed・idle のときのみ）。通常描画の最後の窓は別の応答になるため、**窓単位の値(idx4〜14)は直後の1回しか意味がなく、実験では集計(idx1,2,15〜20)を使う**:
-
-1. `edge_clear` → 同条件で描画（N枚） → `edge_read` で idx1(窓数)、2(異常窓)、19(excess)、20(deficit)、15/16(reject/runt最大)、17/18(最短区間)。
-2. 判定: idx19>0 または idx15>0 → 余分／近接エッジあり（仮説B）。idx19==0 かつ idx15==0 かつ idx20==0 で本体CRCだけ外れる → エッジ数は正常、受信窓の問題（仮説A）。
-3. 注意: `edge_read` 自体も16エッジの窓になる（数に入る）。クリア直後の窓数には、クリア応答と読出し応答が混じる。
-
-STA: 85bac224のCDC例外を再利用して違反0（setup最小 +0.298ns）。記録は `fpga/validation/edge-counter-image-2026-11-04/`。
+1. `link action=edge_read index=N` の許容範囲を `0..20` から **`0..33`** に広げる（応答は16bit、statusが3なら範囲外）。`edge_clear` は変更なし。
+2. 判定ツールは識別 `0xED02` を確認し、idx0が `0xED01`（v1）ならv1の意味で扱う（互換）。
+3. 比較スクリプトは、各条件の前に `edge_clear`、描画N枚、集計として idx1/2/19/20/23/31/33 を保存する（窓単位の idx21/22/24〜30/32 は直後の1回だけ）。25MHz失敗時の最初のフレームでは、失敗した窓の直後に idx24/25/26/27/30 を1回ずつ読むため、同じ失敗条件を項目数だけ繰り返す。
+4. ホストが保持する「実際に出したクロック数」と `post`／`pre` を突き合わせる（ホストが `expect` 個の有効クロックのあとに出したテール本数＝`post` のはず。ずれは余分／欠落）。
