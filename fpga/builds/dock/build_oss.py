@@ -10,12 +10,16 @@ import sys
 import uuid
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCES = [ROOT / p for p in ('link/rtl/triangle_batch.v','link/rtl/link_bringup.v', 'gfx/rtl/gfx_bench.v',
+SOURCES = [ROOT / p for p in ('link/rtl/triangle_batch.v','link/rtl/triangle_model.v','link/rtl/link_bringup.v', 'gfx/rtl/gfx_bench.v',
            'platform/dock/tab5_dock_top.v', 'platform/dock/tab5_dock_gfx_top.v',
            'platform/dock/tab5_dock_triangle_top.v', 'gfx/rtl/triangle_tile.v',
            'gfx/rtl/triangle_fragment.v', 'gfx/rtl/triangle_coverage.v', 'gfx/rtl/triangle_depth.v',
            'platform/dock/dock_pll54.v', 'platform/dock/tab5_dock_triangle54_top.v',
-           'link/rtl/link_reply_raw.v', 'platform/dock/tab5_dock_triangle54_fast_top.v')]
+           'link/rtl/link_reply_raw.v', 'platform/dock/tab5_dock_triangle54_fast_top.v','platform/dock/tab5_dock_triangle54_model_top.v','platform/dock/tab5_dock_triangle_model_top.v')]
+# triangle54model = triangle54fast + resident model (MODEL_ENABLE=1); same constraints and clock plan.
+# trianglemodel   = 27 MHz triangle image + resident model (slow-clock functional bring-up).
+TRI54 = ('triangle54','triangle54fast','triangle54model')
+FAST_LIKE = ('triangle54fast','triangle54model')
 CST = ROOT / 'constraints/dock/tab5_dock_link_v0.cst'
 DEVICE = 'GW2A-LV18PG256C8/I7'
 FAMILY = 'GW2A-18'
@@ -36,9 +40,9 @@ def build(variant, yosys, nextpnr, pack, output):
     run_dir = output / 'runs' / (datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ-') + uuid.uuid4().hex[:12])
     run_dir.mkdir(parents=True)
     manifest_file = output / 'manifest.json'
-    manifest = {'variant': variant, 'device': DEVICE, 'family': FAMILY, 'target_mhz': 54 if variant in ('triangle54','triangle54fast') else 27,
+    manifest = {'variant': variant, 'device': DEVICE, 'family': FAMILY, 'target_mhz': 54 if variant in TRI54 else 27,
                 'input_clock_mhz':27,
-                'clock_constraints':({'sys_clk_mhz':27,'core_clk_mhz':54,'external_bus_target_mhz':40 if variant=='triangle54fast' else None,'format':'explicit nextpnr SDC create_clock'} if variant in ('triangle54','triangle54fast') else {'sys_clk_mhz':27}),
+                'clock_constraints':({'sys_clk_mhz':27,'core_clk_mhz':54,'external_bus_target_mhz':40 if variant in FAST_LIKE else None,'format':'explicit nextpnr SDC create_clock'} if variant in TRI54 else {'sys_clk_mhz':27}),
                 'hardware_access': 'none', 'status': 'running', 'run_dir': str(run_dir),
                 'sources': {}, 'tools': {}, 'stages': {k: {'status': 'not_run'} for k in ('synthesis', 'pnr', 'pack')},
                 'artifacts': {}}
@@ -47,7 +51,7 @@ def build(variant, yosys, nextpnr, pack, output):
     save()
     try:
         for source in [*SOURCES, CST, Path(__file__).resolve(),
-                       *([ROOT/('constraints/dock/triangle54fast.sdc' if variant=='triangle54fast' else 'constraints/dock/triangle54.sdc'),ROOT/('constraints/dock/triangle54fast_reference.sdc' if variant=='triangle54fast' else 'constraints/dock/triangle54_reference.sdc')] if variant in ('triangle54','triangle54fast') else [])]:
+                       *([ROOT/('constraints/dock/triangle54fast.sdc' if variant in FAST_LIKE else 'constraints/dock/triangle54.sdc'),ROOT/('constraints/dock/triangle54fast_reference.sdc' if variant in FAST_LIKE else 'constraints/dock/triangle54_reference.sdc')] if variant in TRI54 else [])]:
             manifest['sources'][str(source)] = digest(source)
         executables = {'yosys': str(Path(yosys).resolve()), 'nextpnr': str(Path(nextpnr).resolve()), 'pack': str(Path(pack).resolve())}
         for name, exe in executables.items():
@@ -64,14 +68,14 @@ def build(variant, yosys, nextpnr, pack, output):
         netlist = run_dir / 'synth.json'
         routed = run_dir / 'output.pnr.json'
         image = run_dir / 'output.fs'
-        top = {'gfx':'tab5_dock_gfx_top', 'triangle':'tab5_dock_triangle_top', 'link':'tab5_dock_top','triangle54':'tab5_dock_triangle54_top','triangle54fast':'tab5_dock_triangle54_fast_top'}[variant]
+        top = {'gfx':'tab5_dock_gfx_top', 'triangle':'tab5_dock_triangle_top', 'link':'tab5_dock_top','triangle54':'tab5_dock_triangle54_top','triangle54fast':'tab5_dock_triangle54_fast_top','triangle54model':'tab5_dock_triangle54_model_top','trianglemodel':'tab5_dock_triangle_model_top'}[variant]
         script = 'read_verilog ' + ' '.join(yosys_quote(p) for p in SOURCES)
         script += '; synth_gowin -family gw2a -top ' + top + ' -json ' + yosys_quote(netlist)
         commands = [
             ('synthesis', [executables['yosys'], '-p', script], netlist),
             ('pnr', [executables['nextpnr'], '--json', netlist.as_posix(), '--write', routed.as_posix(),
                      '--device', DEVICE, '--vopt', 'family='+FAMILY, '--vopt', 'cst='+CST.as_posix(), '--freq', str(manifest['target_mhz']),
-                     *(['--sdc',(ROOT/('constraints/dock/triangle54fast.sdc' if variant=='triangle54fast' else 'constraints/dock/triangle54.sdc')).as_posix()] if variant in ('triangle54','triangle54fast') else [])], routed),
+                     *(['--sdc',(ROOT/('constraints/dock/triangle54fast.sdc' if variant in FAST_LIKE else 'constraints/dock/triangle54.sdc')).as_posix()] if variant in TRI54 else [])], routed),
             # Key_0/T10 is SI/D2: release SSPI pins to user GPIO after config.
             # Keep JTAG, MSPI and RECONFIG dedicated for programming/recovery.
             ('pack', [executables['pack'], '-d', FAMILY, '--sspi_as_gpio', str(routed), '-o', str(image)], image),
@@ -88,12 +92,12 @@ def build(variant, yosys, nextpnr, pack, output):
                     raise RuntimeError(f'{stage} failed with exit code {result.returncode}')
                 if not artifact.is_file() or artifact.stat().st_size == 0:
                     raise RuntimeError(f'{stage} did not produce a nonempty {artifact.name}')
-                if stage=='synthesis' and variant in ('triangle54','triangle54fast'):
+                if stage=='synthesis' and variant in TRI54:
                     synthesized=json.loads(artifact.read_text(encoding='utf-8'))
                     names=synthesized['modules'][top]['netnames']
                     if 'sys_clk' not in names or 'core_clk' not in names:
                         raise RuntimeError('Required explicit oscillator/PLL clock net missing from netlist')
-                if stage=='pnr' and variant in ('triangle54','triangle54fast') and 'matched no objects' in (result.stdout or ''):
+                if stage=='pnr' and variant in TRI54 and 'matched no objects' in (result.stdout or ''):
                     raise RuntimeError('Explicit clock SDC matched no objects; refusing unconstrained image')
                 entry['status'] = 'passed'
                 manifest['artifacts'][stage] = {'path': str(artifact), 'sha256': digest(artifact)}
@@ -113,7 +117,7 @@ def build(variant, yosys, nextpnr, pack, output):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('variant', choices=('link', 'gfx', 'triangle','triangle54','triangle54fast'))
+    parser.add_argument('variant', choices=('link', 'gfx', 'triangle','triangle54','triangle54fast','triangle54model','trianglemodel'))
     parser.add_argument('--yosys', required=True, help='Path to an existing Yosys executable')
     parser.add_argument('--nextpnr', required=True, help='Path to an existing nextpnr-himbaechel executable')
     parser.add_argument('--pack', required=True, help='Path to an existing gowin_pack executable')
