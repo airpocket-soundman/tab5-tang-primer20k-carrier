@@ -1,0 +1,55 @@
+{
+  "hardware_access": false,
+  "name": "edge_counter_v2",
+  "source_commit": "0d89736f9bb2206dc24524ff5ea7156a0099c4b8",
+  "note": "Track J2 v2 (0d89736): valid-interval edge counters (0xED02). Gowin Education 1.9.11.03, 85bac224 CDC-exception SDC reused, not re-proven. Not programmed.",
+  "fs_sha256": "79d143a9fac5b82835cc83af7d6de4367d503fd9b0fb075ad6935e2b681a7073",
+  "fs_sha256_created_time_stripped": "b236e471e62b9432c8e37f4c38ad58f264eef1622dda57ee05d0067ac07e989b",
+  "bin_sha256": "c31d34efa85685227964f4a21b3d9213c8d377275dc5a0618acd3560e0f8be83",
+  "usercode": "0x0000D535",
+  "checksum": "0xD535",
+  "sta_counts": {
+    "Numbers of Paths Analyzed": 25471,
+    "Numbers of Endpoints Analyzed": 8491,
+    "Numbers of Setup Violated Endpoints": 0,
+    "Numbers of Hold Violated Endpoints": 0
+  },
+  "clock_domains": {
+    "conditioned_reply54": {
+      "target_mhz": 54.0,
+      "fmax_mhz": 79.849
+    },
+    "core54": {
+      "target_mhz": 54.0,
+      "fmax_mhz": 67.71
+    },
+    "sampler216": {
+      "target_mhz": 216.0,
+      "fmax_mhz": 218.261
+    }
+  },
+  "min_slack_ns": {
+    "Setup Paths Table": 0.048,
+    "Hold Paths Table": 0.074,
+    "Recovery Paths Table": 2.211,
+    "Removal Paths Table": 1.074
+  },
+  "sta_closed": true,
+  "report_files": {
+    "filtered_edge.bin": "c31d34efa85685227964f4a21b3d9213c8d377275dc5a0618acd3560e0f8be83",
+    "filtered_edge.fs": "79d143a9fac5b82835cc83af7d6de4367d503fd9b0fb075ad6935e2b681a7073",
+    "filtered_edge.pin.html": "a215741fc0de49ca79d3c00186c0f47eeaa0d0cb74d8b22be44c3e575f146432",
+    "filtered_edge.power.html": "81d1125dd9a4c429b41f7670fce7c8c7087ef29ca6a1964139d5ef8cff9267a6",
+    "filtered_edge.rpt.html": "f35df9346bc29016a9c674cd90625cdddd8d48f530d71908034d57a3448705db",
+    "filtered_edge.rpt.txt": "a6b6fc7e6464f6b6618019b635cd315cc946a6c57c48e539210897f81c7ad3db",
+    "filtered_edge.sdf": "f22f88d71a940964c7a542d11f35b11780236d96214a693275bf00ac1a8635f3",
+    "filtered_edge.tr.html": "dbf7dd4ca48ee83d2687d5d0c010ecb130946d98db929c4e352e3f7179827c87",
+    "filtered_edge.vo": "0652eb31a4af1fd266d73a566e5d696a28588e6f65cea7b0252295ccf144b379",
+    "filtered_edge_tr_cata.html": "39d2af6ee3c8c0f43f11808e0795112407e3f7db2e9e3d741ba0c0073138d1e2",
+    "filtered_edge_tr_content.html": "ab043535b141d55ff57721b19aa6707cf14b9ebed244329ba79d8a3e69722daf"
+  },
+  "limitations": [
+    "Offline P&R/STA only; not programmed or tested on hardware",
+    "Violations are recorded, not hidden"
+  ]
+}
