@@ -7,7 +7,9 @@ from pathlib import Path
 import re,json,hashlib
 
 root=Path(__file__).resolve().parents[2]
-vo=root/'build/mem-bist-ip/generated/MemDDR3/MemDDR3.vo'
+import os
+TAG=os.environ.get('MEM_IP_TAG','');SFX=('-'+TAG) if TAG else ''
+vo=root/f'build/mem-bist-ip{SFX}/generated/MemDDR3/MemDDR3.vo'
 text=vo.read_text()
 rx=r'^(\w+) (\\[^\n]+?|\w+)\s+\(\n(.*?)^\);'
 cells=[];drivers={}
@@ -44,9 +46,13 @@ for index in sorted(selected):
     kind,inst,source,ports,out=cells[index];body.append(source)
     body.extend(re.findall(r'^defparam '+re.escape(inst)+r'\s+\.[^\n]+',text,re.M))
 for net,value in cuts.items():body.append('assign \\'+net+' =1\'b'+value+';')
-dest=root/'build/mem-clock-cone';dest.mkdir(parents=True,exist_ok=True)
+dest=root/f'build/mem-clock-cone{SFX}';dest.mkdir(parents=True,exist_ok=True)
 (dest/'MemClockCone.v').write_text(declarations+'\n'.join(body)+'\nendmodule\n')
 tb=(root/'mem/tests/tb_vendor_init.v').read_text().replace('MemDDR3 dut(','MemClockCone dut(')
+if TAG=='clk400':
+    # 27MHz sys clock, 398.25MHz memory clock (27*59/4), USER = memory/4 = 99.5625MHz: two USER periods = 20.09ns
+    for old,new in [('always #1.543210 memory_clk','always #1.255331 memory_clk'),('<24.69','<20.0')]:
+        assert tb.count(old)==1,old;tb=tb.replace(old,new)
 (dest/'tb_vendor_init.v').write_text(tb)
 record={'scope':'clock initialization cone only, not full DDR calibration',
  'generated_source_sha256':hashlib.sha256(vo.read_bytes()).hexdigest(),

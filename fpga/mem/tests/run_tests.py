@@ -14,7 +14,9 @@ p.add_argument('--primitive-lib',help='Optional official GW2A prim_sim.v for clo
 p.add_argument('--zig',help='Optional Zig executable for portable C codec checks')
 args=p.parse_args()
 root=Path(__file__).resolve().parents[2]
-build=root/'build/mem-tests'
+import os
+SFX=('-'+os.environ['MEM_IP_TAG']) if os.environ.get('MEM_IP_TAG') else ''
+build=root/f'build/mem-tests{SFX}'
 build.mkdir(parents=True,exist_ok=True)
 env=os.environ.copy()
 tool=Path(args.iverilog).resolve().parent
@@ -44,7 +46,7 @@ if args.zig:
                     'sources':{str(s.relative_to(root)):hashlib.sha256(s.read_bytes()).hexdigest() for s in sources}})
 if args.primitive_lib:
     subprocess.run([sys.executable,str(root/'mem/tests/project_vendor_clock_cone.py')],check=True)
-    cone=root/'build/mem-clock-cone'
+    cone=root/f'build/mem-clock-cone{SFX}'
     sources=[cone/'tb_vendor_init.v',cone/'MemClockCone.v',Path(args.primitive_lib)]
     image=cone/'test.vvp'
     subprocess.run([args.iverilog,'-g2012','-s','tb_vendor_init','-o',str(image),*map(str,sources)],check=True,env=env,timeout=30)

@@ -15,3 +15,17 @@ foreach($id in $Ids){
   Write-Host "== $id done: $log"
 }
 Remove-Item Env:MEM_VARIANT
+
+# ---- (a) clk400: gw_sh call order (run by the main session; nothing here programs a device) ----
+# Prepare IP (gw_sh), taps, RTL tests, guarded SDC, then build. Net names in prepare_deep_taps.py /
+# project_vendor_clock_cone.py (n219_4, n1426_3 ...) are auto-generated; if the new MemDDR3.vo differs,
+# those scripts fail loudly -> record "taps not following", do not edit names blindly.
+#   $env:MEM_IP_TAG='clk400'; $env:MEM_CLK='400'
+#   gw_sh fpga/mem/config/generate_ip.tcl                       # -> fpga/build/mem-bist-ip-clk400/generated/MemDDR3/MemDDR3.vo
+#   (Get-FileHash fpga/build/mem-bist-ip-clk400/generated/MemDDR3/MemDDR3.vo).Hash.ToLower()   # -> $env:MEM_VO_SHA256
+#   python fpga/mem/tests/prepare_deep_taps.py                  # needs MEM_VO_SHA256 = that hash
+#   python fpga/mem/tests/run_tests.py --iverilog <..> --vvp <..> --primitive-lib <IDE/simlib/gw2a/prim_sim.v>
+#   python fpga/mem/tests/prepare_guarded.py                    # base SDC: fpga/mem/config/mem_bist_clk400.sdc
+#   python fpga/mem/tests/prepare_variant.py clk400
+#   $env:MEM_BIST_GUARDED='1'; $env:MEM_VARIANT='clk400'; gw_sh fpga/mem/config/build.tcl
+#   python fpga/mem/tests/record_variant.py clk400              # STA at USER 99.5625MHz is NOT assumed to pass
