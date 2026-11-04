@@ -1,52 +1,52 @@
 {
   "hardware_access": false,
   "name": "edge_counter_j",
-  "source_commit": "b425701",
-  "note": "EDGE_MONITOR_ENABLE=1; CDC SDC of 85bac224 reused (proof not re-run)",
-  "fs_sha256": "f78990a369ff3a3dc1c96a62738dd62e36324dbd966119495b1478e99c7e723e",
-  "fs_sha256_created_time_stripped": "da76201018086cb7243c353d87cc085ce3934cdf440d4f599d8c9ca3a3b6e52a",
-  "bin_sha256": "5311c108def8c23ca8f12f98fd9ecf4319c2c3e47f04ac04ff45432346fe4178",
-  "usercode": "0x00000ABA",
-  "checksum": "0x0ABA",
+  "source_commit": "cc09c6b",
+  "note": "EDGE_MONITOR_ENABLE=1 with idx19/20; CDC SDC of 85bac224 reused (proof not re-run)",
+  "fs_sha256": "80dba2afd27cbe2ebf7de8425eb7dd9ed42feff47d4a80670a7708ab6baf724a",
+  "fs_sha256_created_time_stripped": "f1c6246bbfacec998138abe195a0e38560ca74be8ebf0da9003564bc623dc006",
+  "bin_sha256": "3e21916c76252626e3f53ef713b915f0155bea1096cd18ffb79058a81a5856c2",
+  "usercode": "0x00004ABF",
+  "checksum": "0x4ABF",
   "sta_counts": {
-    "Numbers of Paths Analyzed": 22692,
-    "Numbers of Endpoints Analyzed": 7435,
+    "Numbers of Paths Analyzed": 22914,
+    "Numbers of Endpoints Analyzed": 7529,
     "Numbers of Setup Violated Endpoints": 0,
     "Numbers of Hold Violated Endpoints": 0
   },
   "clock_domains": {
     "conditioned_reply54": {
       "target_mhz": 54.0,
-      "fmax_mhz": 79.426
+      "fmax_mhz": 82.24
     },
     "core54": {
       "target_mhz": 54.0,
-      "fmax_mhz": 66.457
+      "fmax_mhz": 64.669
     },
     "sampler216": {
       "target_mhz": 216.0,
-      "fmax_mhz": 217.181
+      "fmax_mhz": 230.88
     }
   },
   "min_slack_ns": {
-    "Setup Paths Table": 0.025,
-    "Hold Paths Table": 0.074,
-    "Recovery Paths Table": 1.822,
-    "Removal Paths Table": 1.127
+    "Setup Paths Table": 0.298,
+    "Hold Paths Table": 0.213,
+    "Recovery Paths Table": 2.211,
+    "Removal Paths Table": 1.291
   },
   "sta_closed": true,
   "report_files": {
-    "filtered_edge.bin": "5311c108def8c23ca8f12f98fd9ecf4319c2c3e47f04ac04ff45432346fe4178",
-    "filtered_edge.fs": "f78990a369ff3a3dc1c96a62738dd62e36324dbd966119495b1478e99c7e723e",
-    "filtered_edge.pin.html": "4f3ab9eb4b053c6cb38cffc3f816cebe57a39eab87f4381da63efeb6abcd4382",
-    "filtered_edge.power.html": "6cdc89088a5b7db0d37bdc17afe26bd3e3e3ba8c6d27781c02ecf9f4eea4640f",
-    "filtered_edge.rpt.html": "5e9b0e6cda9d3ecba23997e0d3475f7b2a7b1c3da1079301e619994aeb3ab73e",
-    "filtered_edge.rpt.txt": "d1ff4e740901734e2e7b07c30b358404eead892febc4e2487729cc4291f79e32",
-    "filtered_edge.sdf": "e8bb0f19e639d33456166e8101a3b2212e3c57646e7f4bf00418ee3524f12e52",
+    "filtered_edge.bin": "3e21916c76252626e3f53ef713b915f0155bea1096cd18ffb79058a81a5856c2",
+    "filtered_edge.fs": "80dba2afd27cbe2ebf7de8425eb7dd9ed42feff47d4a80670a7708ab6baf724a",
+    "filtered_edge.pin.html": "5d01536a93c8d7d451b73e6eb378b79c1190273f5bfda73c083d73b3da3b53a0",
+    "filtered_edge.power.html": "847b656013882d2dcfa266a8f7da532f5696504ce3a45c6ad3dec6648fd0ce82",
+    "filtered_edge.rpt.html": "468b1fd567d8157ea29527acaa324302403d212ce485d3bb0dc3aa85b237a724",
+    "filtered_edge.rpt.txt": "e9111af5a58e0cca70d7b435122daa59671a9032d5874b6c9ab5a9b468e106f9",
+    "filtered_edge.sdf": "9d3164edb591250b9618c8da847b4c0bb9054ac61ff7b2db5f72a5d01075e351",
     "filtered_edge.tr.html": "dbf7dd4ca48ee83d2687d5d0c010ecb130946d98db929c4e352e3f7179827c87",
-    "filtered_edge.vo": "9fff60a7163c3dca6ba273d8ee34f0161100a51e9efe8c475be0ca79f02ff07b",
+    "filtered_edge.vo": "e6f6cccf827e071dc12b5e0725fc9fd243693dff709cce6fbf90aa7ab2d3cc71",
     "filtered_edge_tr_cata.html": "39d2af6ee3c8c0f43f11808e0795112407e3f7db2e9e3d741ba0c0073138d1e2",
-    "filtered_edge_tr_content.html": "4a4c8baf6b6988f0c7db9b35e91f48cf55f03042668f2662444e72e98ce4434b"
+    "filtered_edge_tr_content.html": "f3ba41fa13c8de13b13d40332ebeea8fdb5a1073b417a54e58cf23508a287bc6"
   },
   "limitations": [
     "Offline P&R/STA only; not programmed or tested on hardware",
