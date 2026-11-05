@@ -1,0 +1,53 @@
+esptool.py --chip esp32p4 -p COM4 -b 460800 --before default_reset --after hard_reset write_flash --flash_mode dio --flash_freq 80m --flash_size 16MB 0x2000 bootloader/bootloader.bin 0x10000 tab5_gpu_lab.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.13.0
+Serial port COM4
+Connecting...
+Chip is ESP32-P4 (revision v1.3)
+Features: High-Performance MCU
+Crystal is 40MHz
+USB mode: USB-Serial/JTAG
+MAC: 30:ed:a0:e2:fe:c0
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00002000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x000a1fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+SHA digest in image updated
+Compressed 23088 bytes to 14202...
+Writing at 0x00002000... (100 %)
+Wrote 23088 bytes (14202 compressed) at 0x00002000 in 0.2 seconds (effective 975.6 kbit/s)...
+Hash of data verified.
+Compressed 597824 bytes to 321952...
+Writing at 0x00010000... (5 %)
+Writing at 0x0001c0b5... (10 %)
+Writing at 0x00026305... (15 %)
+Writing at 0x000302a3... (20 %)
+Writing at 0x00036258... (25 %)
+Writing at 0x0003d2fd... (30 %)
+Writing at 0x00043582... (35 %)
+Writing at 0x0004929a... (40 %)
+Writing at 0x0004f6b3... (45 %)
+Writing at 0x0005600c... (50 %)
+Writing at 0x0005d66b... (55 %)
+Writing at 0x00063f2c... (60 %)
+Writing at 0x000698c8... (65 %)
+Writing at 0x0006fd33... (70 %)
+Writing at 0x00077824... (75 %)
+Writing at 0x0007e664... (80 %)
+Writing at 0x00084cdd... (85 %)
+Writing at 0x0008aa71... (90 %)
+Writing at 0x00090e26... (95 %)
+Writing at 0x0009736e... (100 %)
+Wrote 597824 bytes (321952 compressed) at 0x00010000 in 2.4 seconds (effective 1972.7 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 105...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (105 compressed) at 0x00008000 in 0.0 seconds (effective 831.2 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
