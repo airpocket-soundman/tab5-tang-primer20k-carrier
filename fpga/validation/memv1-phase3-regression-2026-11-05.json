@@ -1,0 +1,35 @@
+{
+  "scope": "RTL full path with independent native controller model; host samples at raw rising edge plus specified offset; not P4 NEG/POS qualification or physical timing/DDR proof",
+  "results": [
+    {
+      "rx_mhz": 20,
+      "tx_mhz": 2,
+      "reply_phase_ticks": 3,
+      "sys_phase_ns": 0,
+      "output_delay_ns": 0.0,
+      "sample_offset_ns": 0,
+      "full_regression": true,
+      "output": [
+        "PASS mem_v1_core 209 checks, 192 vector records, 1267 native writes, 2291 reads: vectors, cancel, timeout, calibration-loss STALE, stale completion, reset in flight, BIST coexistence"
+      ]
+    },
+    {
+      "control_fault_test": true,
+      "output": "PASS memv1 fast fault: cooldown fault kills OE/READY, no automatic resume, new request recovers, same-edge gen STALE is delivered\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-phase3\\fpga\\mem\\tests\\tb_memv1_fast_fault.v:47: $finish called at 33501000 (1ps)"
+    }
+  ],
+  "sources": {
+    "mem\\rtl\\memv1_crc32b.v": "69f8ba2760ff9dd49e4d5a5d12970ba93e643479ad31eb09a527847f14bd07b4",
+    "mem\\rtl\\mem_adapter.v": "5e11f425b6199a7311e5b654e8d975b80e8826f71411f016596c052f271e7a96",
+    "mem\\rtl\\memv1_bridge.v": "75e0da118a942b90b688acfff578c4edce40fd7a815347df5bcd6f5ce14dcac4",
+    "mem\\rtl\\memv1_sys.v": "2ccc80977d688cf5a2d217d1bccbe3d61706dcea29b02d2573dd5ebc2b431125",
+    "mem\\rtl\\memv1_reply_raw.v": "0319dc6cd81bc4d77546fb0e96ae93478a691439740c7df5334a4fa16761f609",
+    "mem\\rtl\\mem_mailbox.v": "22a0a6306368527b5a74c94db555666805eee57e06b9dee7c4143ee19c68ee4f",
+    "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+    "mem\\rtl\\mem_v1_core.v": "c3676f33c619f5287e20f3041d0e3b125413a27c980ed809404dd41d0c211419",
+    "link\\rtl\\reply_clock_filter.v": "dd9d4f92f6dbeb0b3d8601ab77ac94aab86f410753112a9fa6dde529e6575cb1",
+    "link\\rtl\\reply_phase_delay.v": "84ae5ba63ae99dae1fc812e523030f3f4bb5ff5abfdbe66fa6efc5b498d9a018",
+    "mem\\tests\\tb_mem_v1_core.v": "8db4fc1086b30f540242bab06391c042af98207c9ed0cd3aaebb89d66e3fe947",
+    "mem\\tests\\tb_memv1_fast_fault.v": "056b1fc778a60260907c3926824bac863288ed39bbe5b122cb16e00db32de09b"
+  }
+}

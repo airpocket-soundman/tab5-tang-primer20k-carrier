@@ -6,6 +6,7 @@
 // stale completion, BIST coexistence/BUSY. Not a DRAM/hardware proof.
 module tb_mem_v1_core;
 parameter FAST_REPLY_ENABLE=0;
+parameter REPLY_PHASE_TICKS=0;
 parameter real RX_HALF=150.0,TX_HALF=150.0,SYS_PHASE=0.0,DATA_DELAY=0.0,SAMPLE_OFFSET=0.0;
 parameter QUICK=0;
 parameter VEC_DEFAULT="memv1_vectors.hex";
@@ -21,7 +22,7 @@ wire ready;wire[3:0] led;wire controller_reset_n;
 wire[2:0] cmd;wire cmd_en;wire[26:0] address;wire[127:0] wr_data;wire wr_en,wr_end;wire[15:0] mask;
 reg cmd_ready=0,wr_ready=0,rd_valid=0,rd_end=1;reg[127:0] rd_data=0;
 reg calibrated=0,cal_override=0;
-mem_v1_core #(.FAST_REPLY_ENABLE(FAST_REPLY_ENABLE),.RESET_HOLD_INIT(16'd40),.RECAL_HOLD(16'd40),.LINK_TIMEOUT(20000000),.DEADLINE(20000000),
+mem_v1_core #(.FAST_REPLY_ENABLE(FAST_REPLY_ENABLE),.REPLY_PHASE_TICKS(REPLY_PHASE_TICKS),.RESET_HOLD_INIT(16'd40),.RECAL_HOLD(16'd40),.LINK_TIMEOUT(20000000),.DEADLINE(20000000),
  .ADAPTER_TIMEOUT(3000),.ADAPTER_SETTLE(4),.BIST_SETTLE(4),.CAL_GUARD(16),.MAILBOX_DEADLINE(20000000)) dut(
  sys_clk,reset_n,arm,bus,dir,4'b0,data,ready,led,
  1'b1,user_clk,1'b0,calibrated,controller_reset_n,

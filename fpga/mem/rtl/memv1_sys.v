@@ -5,7 +5,7 @@
 // + CRC16 trailer over header[0..5]+descriptor+payload. Extended success replies = 8-byte header + payload + CRC16
 // trailer over reply[0..5]+payload (same "bound CRC" construction as TRI_TILE_READ).
 module memv1_sys #(
- parameter FAST_REPLY_ENABLE=0,
+ parameter REPLY_PHASE_TICKS=0,parameter FAST_REPLY_ENABLE=0,
  parameter TIMEOUT=2700000,         // no-strobe LINK timeout (SYS cycles)
  parameter DEADLINE=2700000,        // wait for the USER completion (SYS cycles)
  parameter [15:0] CAP_MIB=16'd128,
@@ -67,6 +67,7 @@ wire[31:0] pcrc_n;
 memv1_crc32b c32(pcrc,data_i,pcrc_n);
 wire [7:0] fast_data,fast_r_addr;
 wire fast_done,fast_started,fast_progress,fast_error,filter_fault,clean_reply_clk;
+(* keep = "true" *) wire phase_reply_clk;
 reg fast_offer;
 reg [1:0] fast_prepare;
 (* ASYNC_REG="TRUE" *) reg [1:0] fast_done_sync,fast_started_sync,fast_progress_sync,fast_error_sync,filter_fault_sync;
@@ -99,15 +100,20 @@ wire fast_reset_n=filter_reset_n&&!sampler_fault;
 wire fast_valid=fast_reset_n&&fast_offer&&!fast_done&&!fast_error&&!filter_fault&&fast_generation==gen;
 assign ready=reset_n&&arm&&valid&&(!FAST_REPLY_ENABLE||fast_valid);
 assign data_oe=reset_n&&arm&&dir&&dir_sync[1]&&valid&&(!FAST_REPLY_ENABLE||fast_valid);
-assign reply_read_clk=FAST_REPLY_ENABLE?clean_reply_clk:clk;
+assign reply_read_clk=FAST_REPLY_ENABLE?phase_reply_clk:clk;
 generate if(FAST_REPLY_ENABLE)begin: fast_reply
  reply_clock_filter conditioner(reply_sample_clk,filter_reset_n,bus_clk,reply_active_sync[1],clean_reply_clk,filter_fault);
- memv1_reply_raw serializer(clean_reply_clk,fast_reset_n&&fast_offer,dir,
+ if(REPLY_PHASE_TICKS==0)begin: phase_none
+  assign phase_reply_clk=clean_reply_clk;
+ end else begin: phase_shift
+  reply_phase_delay #(.TICKS(REPLY_PHASE_TICKS)) delay(reply_sample_clk,filter_reset_n,clean_reply_clk,phase_reply_clk);
+ end
+ memv1_reply_raw serializer(phase_reply_clk,fast_reset_n&&fast_offer,dir,
   fast_header,fast_kind,fast_beats,fast_crc32,fast_prefix,r_data,
   fast_data,fast_r_addr,fast_done,fast_started,fast_progress,fast_error);
 end else begin: slow_reply
  assign fast_data=0;assign fast_r_addr=0;assign fast_done=0;assign fast_started=0;
- assign fast_progress=0;assign fast_error=0;assign clean_reply_clk=0;assign filter_fault=0;
+ assign fast_progress=0;assign fast_error=0;assign clean_reply_clk=0;assign phase_reply_clk=0;assign filter_fault=0;
 end endgenerate
 wire prefacing=prefix&&tx_index<8;
 wire[12:0] li=tx_index-(prefix?13'd8:13'd0);

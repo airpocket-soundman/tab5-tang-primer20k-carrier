@@ -2,6 +2,7 @@
 set fpga_root [file normalize [file join [file dirname [info script]] ../..]]
 set build_name memv1
 if {[info exists ::env(MEMV1_FAST_REPLY)] && $::env(MEMV1_FAST_REPLY) eq "1"} {set build_name memv1-fast}
+if {$build_name eq "memv1-fast" && [info exists ::env(MEMV1_REPLY_PHASE_TICKS)] && $::env(MEMV1_REPLY_PHASE_TICKS) eq "3"} {set build_name memv1-fast-phase3}
 set rtl_dir [file join $fpga_root build $build_name rtl]
 set output [file join $fpga_root build $build_name out]
 set sample [file join $fpga_root build sipeed-ddr-test-e469df4c src]
@@ -9,8 +10,8 @@ create_project -name mem_bist -dir $output -pn GW2A-LV18PG256C8/I7 -device_versi
 foreach name {memv1_crc32b mem_pll mem_bist mem_mailbox mem_adapter memv1_bridge memv1_sys mem_v1_core mem_v1_top} {
  add_file [file join $rtl_dir ${name}.v]
 }
-if {$build_name eq "memv1-fast"} {
- foreach name {memv1_reply_raw reply_clock_filter dock_pll216} {add_file [file join $rtl_dir ${name}.v]}
+if {[string match "memv1-fast*" $build_name]} {
+ foreach name {memv1_reply_raw reply_clock_filter dock_pll216 reply_phase_delay} {add_file [file join $rtl_dir ${name}.v]}
 }
 if {![file exists [file join $sample ddr3_memory_interface ddr3_memory_interface.v]]} {error "pinned Sipeed IP missing: run prepare_memv1.py --ip-src"}
 add_file [file join $sample ddr3_memory_interface ddr3_memory_interface.v]

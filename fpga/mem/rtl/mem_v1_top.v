@@ -1,7 +1,7 @@
 // MEMV1 image top: Sipeed sample DDR3 IP (e469df4c, 400MHz, DDR3_Memory_Interface_Top, 14-bit row, not in git)
 // with the established 398.25MHz PLL (see fpga/mem/tests/prepare_memv1.py: FBDIV 58). Port list and pin
 // names equal mem_top, so fpga/mem/config/mem_bist.cst applies unchanged.
-module mem_v1_top #(parameter FAST_REPLY_ENABLE=0)(
+module mem_v1_top #(parameter REPLY_PHASE_TICKS=0,parameter FAST_REPLY_ENABLE=0)(
 input wire sys_clk,reset_n,arm_sw,bus_clk,dir,input wire[3:0] aux,
 inout wire[7:0] data,output wire ready,output wire[3:0] led,
 output wire[12:0] ddr_addr,output wire[2:0] ddr_bank,
@@ -18,7 +18,7 @@ end else begin: no_reply_sampler
 end endgenerate
 wire[2:0] cmd;wire cmd_en,cmd_ready,wr_en,wr_end,wr_ready,rd_valid,rd_end;
 wire[26:0] address;wire[127:0] wr_data,rd_data;wire[15:0] mask;
-mem_v1_core #(.FAST_REPLY_ENABLE(FAST_REPLY_ENABLE)) core(sys_clk,reset_n,arm_sw,bus_clk,dir,aux,data,ready,led,
+mem_v1_core #(.FAST_REPLY_ENABLE(FAST_REPLY_ENABLE),.REPLY_PHASE_TICKS(REPLY_PHASE_TICKS)) core(sys_clk,reset_n,arm_sw,bus_clk,dir,aux,data,ready,led,
  pll_lock,user_clk,ip_user_reset,calibrated,controller_reset_n,
  cmd,cmd_en,address,cmd_ready,wr_data,wr_en,wr_end,mask,wr_ready,rd_data,rd_valid,rd_end,reply_sample_clk,reset_n&&reply_sample_lock);
 wire[13:0] sample_ddr_addr;wire sample_cs_unused;

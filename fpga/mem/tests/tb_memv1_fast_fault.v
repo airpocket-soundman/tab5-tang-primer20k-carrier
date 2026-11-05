@@ -2,11 +2,12 @@
 // Conditioned-clock fault must kill output ownership, then allow an explicit
 // new request. No DDR3 vendor model is involved in this control-path test.
 module tb_memv1_fast_fault;
+parameter REPLY_PHASE_TICKS=0;
 reg cal=1;
 reg sys=0,sample=0,bus=0,reset_n=0,arm=1,dir=0;reg [7:0] di=0;
 always #18.5185 sys=~sys;always #2.314815 sample=~sample;
 wire [7:0] data_o;wire oe,ready;
-memv1_sys #(.FAST_REPLY_ENABLE(1)) dut(.clk(sys),.reset_n(reset_n),.arm(arm),.bus_clk(bus),.dir(dir),.data_i(di),
+memv1_sys #(.FAST_REPLY_ENABLE(1),.REPLY_PHASE_TICKS(REPLY_PHASE_TICKS)) dut(.clk(sys),.reset_n(reset_n),.arm(arm),.bus_clk(bus),.dir(dir),.data_i(di),
  .data_o(data_o),.data_oe(oe),.ready(ready),.command_done(1'b0),.command_status(8'b0),.command_result(16'b0),
  .cal_user(cal),.user_rst_n_user(1'b1),.bist_busy_user(1'b0),.done_t(1'b0),.r_tag(24'b0),.r_status(4'b0),
  .r_crc(32'b0),.r_beats(16'b0),.r_data(128'b0),.diag(9'b0),.reply_sample_clk(sample),.reply_sample_reset_n(reset_n));

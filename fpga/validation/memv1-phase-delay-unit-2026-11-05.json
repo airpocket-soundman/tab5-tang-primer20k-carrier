@@ -1,0 +1,39 @@
+{
+  "scope": "digital delay/reset contract only, not physical timing",
+  "tests": [
+    {
+      "ticks": 0,
+      "output": "PASS reply phase ticks=0: 200 exact-delay pulses, width preserved, stopped-clock reset and no stale resume\nfpga/link/tests/tb_memv1_reply_phase.v:30: $finish called at 10275357 (1ps)",
+      "compile_command": [
+        "D:/tools/oss-cad-suite/bin/iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_memv1_reply_phase",
+        "-Ptb_memv1_reply_phase.TICKS=0",
+        "-o",
+        "fpga\\build\\memv1-fast-tests-phase0\\delay.vvp",
+        "fpga/link/rtl/reply_phase_delay.v",
+        "fpga/link/tests/tb_memv1_reply_phase.v"
+      ]
+    },
+    {
+      "ticks": 3,
+      "output": "PASS reply phase ticks=3: 200 exact-delay pulses, width preserved, stopped-clock reset and no stale resume\nfpga/link/tests/tb_memv1_reply_phase.v:30: $finish called at 10289247 (1ps)",
+      "compile_command": [
+        "D:/tools/oss-cad-suite/bin/iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_memv1_reply_phase",
+        "-Ptb_memv1_reply_phase.TICKS=3",
+        "-o",
+        "fpga\\build\\memv1-fast-tests-phase3\\delay.vvp",
+        "fpga/link/rtl/reply_phase_delay.v",
+        "fpga/link/tests/tb_memv1_reply_phase.v"
+      ]
+    }
+  ],
+  "sources": {
+    "fpga/link/rtl/reply_phase_delay.v": "84ae5ba63ae99dae1fc812e523030f3f4bb5ff5abfdbe66fa6efc5b498d9a018",
+    "fpga/link/tests/tb_memv1_reply_phase.v": "b3e4466c898899540bd2897ab3376cac4f00ccfc39e4df6a4763866725974ac7"
+  }
+}

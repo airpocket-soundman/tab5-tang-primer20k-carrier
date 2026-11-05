@@ -8,7 +8,9 @@ root = Path(__file__).resolve().parents[2]
 ap = argparse.ArgumentParser()
 ap.add_argument('--ip-src', help='path of a verified ddr3_memory_interface.v to copy into the ignored build tree')
 ap.add_argument('--fast-reply',action='store_true',help='Experimental conditioned response clock and 216MHz sampler PLL')
+ap.add_argument('--reply-phase-ticks',type=int,choices=(0,3),default=0)
 cli = ap.parse_args()
+if cli.reply_phase_ticks and not cli.fast_reply:ap.error('--reply-phase-ticks requires --fast-reply')
 ref = json.loads((root / 'validation/sipeed-ddr-test-reference-2026-11-04.json').read_text(encoding='utf-8'))['files']
 rel = 'src/ddr3_memory_interface/ddr3_memory_interface.v'
 dest = root / 'build/sipeed-ddr-test-e469df4c' / rel
@@ -19,14 +21,14 @@ data = dest.read_bytes() if dest.exists() else b''
 sha = hashlib.sha256(data.replace(b'\r\n', b'\n')).hexdigest()
 if sha != ref[rel]['sha256_lf_normalized']:
     raise SystemExit(f'pinned Sipeed IP missing or modified ({sha}); see docs/DDR3_旧IP保管と再現手順_2026-11-04.md')
-out = root / ('build/memv1-fast/rtl' if cli.fast_reply else 'build/memv1/rtl')
+out = root / (('build/memv1-fast-phase3/rtl' if cli.reply_phase_ticks else 'build/memv1-fast/rtl') if cli.fast_reply else 'build/memv1/rtl')
 out.mkdir(parents=True, exist_ok=True)
 names = ['memv1_crc32b', 'mem_pll', 'mem_bist', 'mem_mailbox', 'mem_adapter', 'memv1_bridge', 'memv1_sys', 'mem_v1_core', 'mem_v1_top']
-rec = {'ip_sha256': sha, 'fast_reply':cli.fast_reply,'files': {}}
+rec = {'ip_sha256': sha, 'fast_reply':cli.fast_reply,'reply_phase_ticks':cli.reply_phase_ticks,'files': {}}
 for n in names:
     text = (root / f'mem/rtl/{n}.v').read_bytes().decode()
     if n=='mem_v1_top' and cli.fast_reply:
-        text=text.replace('parameter FAST_REPLY_ENABLE=0','parameter FAST_REPLY_ENABLE=1')
+        text=text.replace('parameter FAST_REPLY_ENABLE=0','parameter FAST_REPLY_ENABLE=1').replace('parameter REPLY_PHASE_TICKS=0',f'parameter REPLY_PHASE_TICKS={cli.reply_phase_ticks}')
     if n == 'mem_pll':
         # Same three substitutions as prepare_variant.py (clk400/sampleip*): IDIV_SEL 0->3 is REQUIRED, otherwise
         # the memory clock is 27*59=1593MHz and the IP never calibrates (first memv1 image, 2026-11-05).
@@ -42,7 +44,7 @@ for n in names:
     (out / f'{n}.v').write_bytes(text.encode())
     rec['files'][n] = hashlib.sha256(text.encode()).hexdigest()
 if cli.fast_reply:
-    for source in ('mem/rtl/memv1_reply_raw.v','link/rtl/reply_clock_filter.v','platform/dock/dock_pll216.v'):
+    for source in ('mem/rtl/memv1_reply_raw.v','link/rtl/reply_clock_filter.v','platform/dock/dock_pll216.v','link/rtl/reply_phase_delay.v'):
         p=root/source;shutil.copyfile(p,out/p.name);rec['files'][p.stem]=hashlib.sha256(p.read_bytes()).hexdigest()
 sdc = (root / 'mem/config/mem_bist_sampleip.sdc').read_text(encoding='utf-8')
 # the mailbox instance is `control` in mem_top but `core/control` in mem_v1_top
@@ -55,7 +57,7 @@ if cli.fast_reply:
     sdc += """
 // Experimental fast response clocks. No physical/STA qualification implied.
 create_generated_clock -name reply216 -source [get_ports {sys_clk}] -multiply_by 8 [get_nets {reply_sample_clk}]
-create_clock -name conditioned_reply -period 18.518519 [get_nets {core/link/fast_reply.conditioner/reply_read_clk}]
+create_clock -name conditioned_reply -period 18.518519 [get_nets {core/link/phase_reply_clk}]
 // Only the first SYS/host-to-sampler activity sampling stage is asynchronous.
 set_false_path -to [get_pins {core/link/reply_active_sync_0_s0/D}]
 // Return indications are CDC observations; only stage0 D is exempt.
@@ -77,6 +79,9 @@ report_timing -setup -from [get_regs {core/link/fast_prefix*}] -to [get_regs {co
 report_timing -setup -from [get_clocks {reply216}] -max_paths 100
 report_timing -setup -from [get_clocks {conditioned_reply}] -max_paths 100
 """
+if cli.fast_reply:
+    reply_net='core/link/fast_reply.phase_shift.delay/reply_read_clk' if cli.reply_phase_ticks else 'core/link/fast_reply.conditioner/reply_read_clk'
+    sdc=sdc.replace('core/link/phase_reply_clk',reply_net)
 (out.parent / 'mem_v1.sdc').write_text(sdc, encoding='utf-8')
 rec['sdc_sha256'] = hashlib.sha256(sdc.encode()).hexdigest()
 (out.parent / 'prepared.json').write_text(json.dumps(rec, indent=2) + '\n')

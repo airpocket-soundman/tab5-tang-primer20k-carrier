@@ -3,7 +3,7 @@
 // memv1_sys (LINK + control), memv1_bridge (CDC) and mem_adapter (USER). The native interface is shared:
 // the adapter owns it while the bridge is active, otherwise the BIST (the SYS side never runs both).
 module mem_v1_core #(
- parameter FAST_REPLY_ENABLE=0,
+ parameter REPLY_PHASE_TICKS=0,parameter FAST_REPLY_ENABLE=0,
  parameter [15:0] RESET_HOLD_INIT=16'hffff,
  parameter [15:0] RECAL_HOLD=16'd27000,
  parameter [15:0] MEM_MHZ=16'd398,parameter [15:0] USER_MHZ=16'd100,
@@ -50,7 +50,7 @@ reg[7:0] uc=0;
 always @(posedge user_clk) uc<=uc+1'b1;
 wire[8:0] diag={uc[7],mailbox_epoch==0,user_abort,reset_hold==0,calibrated,user_reset_n,ip_user_reset,controller_reset_n,pll_lock};
 wire reply_read_clk;
-memv1_sys #(.FAST_REPLY_ENABLE(FAST_REPLY_ENABLE),.TIMEOUT(LINK_TIMEOUT),.DEADLINE(DEADLINE)) link(
+memv1_sys #(.FAST_REPLY_ENABLE(FAST_REPLY_ENABLE),.REPLY_PHASE_TICKS(REPLY_PHASE_TICKS),.TIMEOUT(LINK_TIMEOUT),.DEADLINE(DEADLINE)) link(
  sys_clk,reset_n,arm_sw,bus_clk,dir,data,out,oe,ready,
  command_start,op,a,b,command_done,status,result,
  calibrated,user_reset_n,bist_busy,
