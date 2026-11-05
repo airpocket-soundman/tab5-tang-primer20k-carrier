@@ -4,7 +4,7 @@
 // Synthesis/placement is deliberately unqualified: mapped CLK/DATA sampling
 // cells (including possible shift-register RAM inference) must be inspected
 // before integration. RTL register syntax alone does not prove DFF mapping.
-module request_capture_fifo #(parameter ADDR_BITS=4,parameter PHYSICAL_FF=0)(
+module request_capture_fifo #(parameter ADDR_BITS=4,parameter PHYSICAL_FF=0,parameter PIPELINED_READ=0)(
  input wire sample_clk,sys_clk,reset_n,arm,dir,raw_clk,
  input wire [7:0] data_i,input wire byte_ready,
  output wire byte_valid,output reg [7:0] byte_data,output wire overflow
@@ -63,6 +63,8 @@ module request_capture_fifo #(parameter ADDR_BITS=4,parameter PHYSICAL_FF=0)(
  wire write_accept=write_event && !full;
  wire [ADDR_BITS:0] next_write_binary=write_binary+1'b1;
  wire [ADDR_BITS:0] next_read_binary=read_binary+1'b1;
+ wire [ADDR_BITS:0] next_read_gray=(next_read_binary>>1)^next_read_binary;
+ wire next_available=next_read_gray!=write_gray_sampled;
  assign overflow=overflow_sync[1];
  assign byte_valid=holding && session_reset_n && sys_reset_n && !overflow;
 
@@ -93,7 +95,14 @@ module request_capture_fifo #(parameter ADDR_BITS=4,parameter PHYSICAL_FF=0)(
    write_gray_meta<=write_gray;write_gray_sampled<=write_gray_meta;
    if(overflow)holding<=0;
    else if(holding)begin
-    if(byte_ready)begin holding<=0;read_binary<=next_read_binary;read_gray<=(next_read_binary>>1)^next_read_binary;end
+    if(byte_ready)begin
+     // Release only the byte actually consumed. Prefetch does not publish
+     // an extra slot; stalled holding/data and the read pointer stay fixed.
+     read_binary<=next_read_binary;read_gray<=next_read_gray;
+     if(PIPELINED_READ && next_available)begin
+      byte_data<=memory[next_read_binary[ADDR_BITS-1:0]];holding<=1;
+     end else holding<=0;
+    end
    end else if(!empty)begin
     // Registered RAM read. One fetch clock plus one consume clock gives a
     // peak27MB/s at54MHz; stalls hold both data and valid until acceptance.

@@ -8,6 +8,11 @@ module tb_tx_request_window;
  always #9259 clk=~clk; // 18518ps approximation of 54MHz.
  always #2315 sampler=~sampler;
  GSR GSR(1'b1);
+`ifdef REQUEST_FIFO_PIPE
+ localparam REQUEST_PIPE=1;
+`else
+ localparam REQUEST_PIPE=0;
+`endif
  `ifdef REQUEST_FIFO
  localparam REQUEST_FIFO=1;
 `else
@@ -18,7 +23,7 @@ module tb_tx_request_window;
 `else
  localparam REQUEST_FF=0;
 `endif
- link_bringup_filtered #(.REQUEST_DATA_FF(REQUEST_FF),.REQUEST_CAPTURE_FIFO(REQUEST_FIFO),.GFX_ENABLE(2),.ALL_SCENES_ENABLE(1),.REQUEST_DATA_PIPELINE(1),
+ link_bringup_filtered #(.REQUEST_DATA_FF(REQUEST_FF),.REQUEST_CAPTURE_FIFO(REQUEST_FIFO),.REQUEST_FIFO_PIPELINED_READ(REQUEST_PIPE),.GFX_ENABLE(2),.ALL_SCENES_ENABLE(1),.REQUEST_DATA_PIPELINE(1),
   .REPLY_ACTIVE_PIPELINE(1),.FAST_FILTER_SYNC(1),.FAST_REPLY_ENABLE(1),.CORE_CLOCK_MHZ(54),
   .TIMEOUT_CYCLES(100000)) dut(clk,reset_n,arm,bus_clk,dir,data_i,data_o,oe,ready,sampler,reset_n && arm);
  reg [7:0] q[0:1289],expected[0:7],got[0:7],pre[0:7];

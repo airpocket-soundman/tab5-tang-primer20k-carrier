@@ -4,6 +4,7 @@ from pathlib import Path
 p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('--netlist',type=Path,required=True)
 p.add_argument('--output',type=Path,required=True)
+p.add_argument('--expected-memory-cells',type=int,default=2)
 a=p.parse_args();s=a.netlist.read_text();cells=[]
 for typ,name,body in re.findall(r'^([A-Za-z0-9_]+)\s+(\\\S+)\s+\((.*?)\);',s,re.M|re.S):
     ports={k:v.strip() for k,v in re.findall(r'\.(\w+)\((.*?)\)',body)}
@@ -32,7 +33,7 @@ for group in ('read_gray','write_gray'):
 clocks=[c for c in cells if 'physical_capture.clock' in c[1]]
 assert len(clocks)==3 and all(c[0]=='DFFC' and c[2]['CLK']=='filter_clk' for c in clocks)
 mem=[n for t,n,ps in cells if t=='RAM16SDP4' and 'request_fifo.capture' in n]
-assert len(mem)==2
+assert len(mem)==a.expected_memory_cells
 out=dict(gray_pairs=gray,capture_clock_dffc=3,storage_ram16sdp4=mem,hardware_access=False,netlist_sha256=hashlib.sha256(a.netlist.read_bytes()).hexdigest(),mapped_dffc_count=len(ff),request_ram16s4=ram,stage0_only_stage1_fanout=True,lanes=lanes)
 a.output.write_text(json.dumps(out,indent=2))
 print('DFFC16, request RAM16S4=0, stage0 sole-stage1 fanout PASS')

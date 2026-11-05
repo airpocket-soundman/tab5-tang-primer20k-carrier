@@ -21,10 +21,12 @@ def main():
     p.add_argument('--fast-filter', action='store_true')
     p.add_argument('--request-ff', action='store_true')
     p.add_argument('--request-fifo', action='store_true')
+    p.add_argument('--request-fifo-pipe', action='store_true')
     p.add_argument('--registered-reply', action='store_true')
     p.add_argument('--registered-input', action='store_true')
     p.add_argument('--vendor-primitive-lib', type=Path)
     a = p.parse_args()
+    a.request_fifo=a.request_fifo or a.request_fifo_pipe
     if sum([a.fast_filter,a.raw_bypass,a.registered_reply])>1:
         p.error('Independent reply candidates must be tested separately')
     a.output.mkdir(parents=True, exist_ok=True)
@@ -171,6 +173,7 @@ def main():
         sources.append('link/rtl/reply_clock_filter.v')
         shared_flags.extend(['-DREQUEST_FF'] if a.request_ff else [])
         shared_flags.extend(['-DREQUEST_FIFO'] if a.request_fifo else [])
+        shared_flags.extend(['-DREQUEST_FIFO_PIPE'] if a.request_fifo_pipe else [])
         shared_flags.append('-DREGISTERED_REPLY' if a.registered_reply else '-DFAST_FILTER' if a.fast_filter else '-DRAW_BYPASS')
     if a.registered_input:
         shared_flags.append('-DREGISTERED_INPUT')

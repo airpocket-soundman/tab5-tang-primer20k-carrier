@@ -1,0 +1,39 @@
+{
+  "selected_usercode": "7375",
+  "fs_sha256": "4aaac60cf35ec9effa1eb48aec657c8d29c9ea18655eca7c0d20a0667af8427b",
+  "flash_type": "SRAM only",
+  "host_elf_sha256": "db939ca49a08684dc8569dc1d8edc5e9e44920cfeaf35f70879d30462300ab90",
+  "profile": {
+    "tx_hz_configured": 40000000,
+    "rx_hz_configured": 16000000,
+    "rx_edge": "negative",
+    "esp_clock_drive_cap": 3,
+    "esp_data_drive_caps": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "fpga_data_drive": 8,
+    "frame_timing": true,
+    "fast_pack": true,
+    "triangle_batch": true,
+    "tile_bins": true,
+    "empty_tiles": true,
+    "host_prefill_skip": true
+  },
+  "verified": {
+    "single_frame_image_cases": 33,
+    "max_triangle_batch_repeats": 1000,
+    "max_triangle_batch_words": 2048000,
+    "max_triangle_batch_elapsed_s": 69.078,
+    "communication_errors_increase": 0,
+    "live_switch_seconds": 20,
+    "tab5_reboot_profile": true
+  },
+  "scope": "Image/runtime qualification on ESP-IDF host; not long full-frame soak, all-host physical qualification, measured pin frequency, or jumper cable ceiling."
+}

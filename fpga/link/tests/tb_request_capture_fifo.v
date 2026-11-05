@@ -1,6 +1,7 @@
 `timescale 1ps/1ps
 module tb_request_capture_fifo;
  parameter integer PHYSICAL_FF=0;
+ parameter integer PIPELINED_READ=0,LOW_PS=25000,HIGH_PS=25000;
 `ifdef VENDOR_FF
  GSR GSR(1'b1);
 `endif
@@ -10,7 +11,7 @@ module tb_request_capture_fifo;
  reg [7:0] data_i=0;reg byte_ready=0;
  wire byte_valid,overflow;wire [7:0] byte_data;
  wire received_clk;assign #(CLK_SKEW_PS) received_clk=raw_clk;
- request_capture_fifo #(.PHYSICAL_FF(PHYSICAL_FF)) dut(.raw_clk(received_clk),.*);
+ request_capture_fifo #(.PHYSICAL_FF(PHYSICAL_FF),.PIPELINED_READ(PIPELINED_READ)) dut(.raw_clk(received_clk),.*);
  always #2315 sample_clk=~sample_clk;
  initial begin #(SYS_PHASE_PS);forever #9260 sys_clk=~sys_clk;end
  integer received=0,sent=0,sys_ticks=0,i,n,full_packets=0;
@@ -56,7 +57,7 @@ module tb_request_capture_fifo;
  task send_bytes;
   input integer count;
   begin
-   for(i=0;i<count;i=i+1)begin data_i=expected[i];#25000;raw_clk=1;#25000;raw_clk=0;sent=sent+1;end
+   for(i=0;i<count;i=i+1)begin data_i=expected[i];#(LOW_PS);raw_clk=1;#(HIGH_PS);raw_clk=0;sent=sent+1;end
   end
  endtask
  task complete_packet;
@@ -77,7 +78,7 @@ module tb_request_capture_fifo;
   complete_packet();
   // Aborted request and reply clocks cannot contaminate the next request.
   scoring=0;send_bytes(100);dir=1;raw_clk=0;#1;if(byte_valid)$fatal(1,"DIR did not kill valid");
-  for(n=0;n<20;n=n+1)begin #25000;raw_clk=1;#25000;raw_clk=0;end
+  for(n=0;n<20;n=n+1)begin #(LOW_PS);raw_clk=1;#(HIGH_PS);raw_clk=0;end
   raw_clk=1;wait_quiet(10);dir=0;assert_empty();raw_clk=0;#500000;complete_packet();
   // ARM drop while bytes remain queued; rearm with a stopped HIGH clock.
   send_bytes(100);arm=0;raw_clk=1;#1;if(byte_valid)$fatal(1,"ARM did not kill valid");
@@ -93,7 +94,7 @@ module tb_request_capture_fifo;
   arm=0;wait_quiet(4);arm=1;raw_clk=0;#500000;
   if(overflow)$fatal(1,"explicit rearm failed to clear overflow");
   complete_packet();
-  $display("REQUEST FIFO PASS: SYSphase%0dps CLKskew%0dps packets%0d exactbytes%0d at20MHz, stalled parser, DIR/ARM/reset, stoppedCLK, overflow/rearm",SYS_PHASE_PS,CLK_SKEW_PS,full_packets,full_packets*1290);
+  $display("REQUEST FIFO PASS: SYSphase%0dps CLKskew%0dps packets%0d exactbytes%0d period%0dps pipe%0d, stalled parser, DIR/ARM/reset, stoppedCLK, overflow/rearm",SYS_PHASE_PS,CLK_SKEW_PS,full_packets,full_packets*1290,LOW_PS+HIGH_PS,PIPELINED_READ);
   $finish;
  end
  initial begin #1000000000;$fatal(1,"watchdog");end

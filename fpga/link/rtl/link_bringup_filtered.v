@@ -12,6 +12,7 @@ module link_bringup_filtered #(
     parameter REQUEST_DATA_PIPELINE = 0,
     parameter REQUEST_DATA_FF = 0,
     parameter REQUEST_CAPTURE_FIFO = 0,
+    parameter REQUEST_FIFO_PIPELINED_READ = 0,
     parameter REPLY_ACTIVE_PIPELINE = 0,
     parameter CORE_CLOCK_MHZ = 27,
     parameter CLOCK_QUERY_ENABLE = 0,
@@ -36,7 +37,7 @@ module link_bringup_filtered #(
     wire capture_overflow,capture_valid,capture_ready;
     wire request_event=REQUEST_CAPTURE_FIFO ? capture_valid && capture_ready : rise;
     generate if(REQUEST_CAPTURE_FIFO) begin: request_fifo
-        request_capture_fifo #(.PHYSICAL_FF(1)) capture(filter_clk,sys_clk,reset_n,arm,dir,bus_clk,data_i,capture_ready,capture_valid,request_data,capture_overflow);
+        request_capture_fifo #(.PHYSICAL_FF(1),.PIPELINED_READ(REQUEST_FIFO_PIPELINED_READ)) capture(filter_clk,sys_clk,reset_n,arm,dir,bus_clk,data_i,capture_ready,capture_valid,request_data,capture_overflow);
     end else if(REQUEST_DATA_PIPELINE) begin: request_pipe
         if(REQUEST_DATA_FF) begin: physical_ff
             wire [7:0] meta,sampled;

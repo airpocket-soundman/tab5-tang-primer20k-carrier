@@ -1,4 +1,4 @@
-"""TX frequency/SYS phase/DATA window sweep on the immutable 8877 RTL snapshot."""
+"""TX frequency/SYS phase/DATA window sweep on the explicitly selected RTL source."""
 import argparse
 import hashlib
 import json
@@ -22,7 +22,9 @@ def main():
     p.add_argument('--quick',action='store_true')
     p.add_argument('--request-ff',action='store_true')
     p.add_argument('--request-fifo',action='store_true')
-    a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
+    p.add_argument('--request-fifo-pipe',action='store_true')
+    p.add_argument('--high-tx',action='store_true')
+    a=p.parse_args();a.request_fifo=a.request_fifo or a.request_fifo_pipe;a.output.mkdir(parents=True,exist_ok=True)
     rows=[]
     packets=[]
     q=request(2,0x11,0x5a,0xa5);packets.append((q,seal(bytes([0x5a,0,q[2],2,0x5a,0xa5])),0))
@@ -46,6 +48,7 @@ def main():
     env=dict(os.environ,PATH=str(a.tools.resolve())+os.pathsep+os.environ['PATH'])
     plans=[(10000000,100000,50000),(16000000,62500,31250),(20000000,50000,25000)]
     if not a.quick:plans += [(26666667,37500,18750),(32000000,31250,12500)]
+    if a.high_tx:plans=[(32000000,31250,12500),(40000000,25000,12500)]
     for hz,period,high in plans:
         profiles=[('falling_edge',period-high,high)]
         if not a.quick:profiles += [('short_hold_8ns',period-high,8000),('late_data_2ns',-2000,high),('same_edge',0,high)]
@@ -54,7 +57,7 @@ def main():
                 label=f'{hz}-{profile}-{phase}';exe=(a.output/'test.vvp').resolve()
                 params=dict(PERIOD_PS=period,HIGH_PS=high,SETUP_PS=setup,HOLD_PS=hold,PHASE_PS=phase)
                 cmd=[str(a.tools/'iverilog.exe'),'-g2012','-s','tb_tx_request_window',*[f'-Ptb_tx_request_window.{k}={v}'for k,v in params.items()],
-                     *(['-DREQUEST_FF'] if a.request_ff else []),*(['-DREQUEST_FIFO'] if a.request_fifo else []),'-o',str(exe),*map(str,sources),str(bench),str(a.primitive_lib.resolve())]
+                     *(['-DREQUEST_FF'] if a.request_ff else []),*(['-DREQUEST_FIFO'] if a.request_fifo else []),*(['-DREQUEST_FIFO_PIPE'] if a.request_fifo_pipe else []),'-o',str(exe),*map(str,sources),str(bench),str(a.primitive_lib.resolve())]
                 r=subprocess.run(cmd,cwd=ROOT,env=env,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=30)
                 if r.returncode:raise RuntimeError(r.stdout)
                 r=subprocess.run([str(a.tools/'vvp.exe'),str(exe),'+vectors='+str(vf.resolve())],cwd=ROOT,env=env,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=60)
@@ -73,7 +76,7 @@ def main():
         for profile in sorted({r['profile']for r in rows if r['configured_hz']==hz}):
             group=[r for r in rows if r['configured_hz']==hz and r['profile']==profile]
             summary.append(dict(configured_hz=hz,profile=profile,passed=sum(r['response_exact']and r['all_640_staging_words_exact']for r in group),cases=len(group)))
-    report=dict(hardware_access=False,scope='digital RTL on immutable 8877 source, ideal pin levels, no analog setup/hold or MTBF/physical qualification',
+    report=dict(hardware_access=False,scope='digital RTL on selected hashed source, ideal pin levels, no analog setup/hold or MTBF/physical qualification',
                 rtl_snapshot=str(a.rtl_root.resolve()),sys_period_ps=18518,sampler_period_ps=4630,
                 packet_kinds=['scalar8','TRI_BATCH64/1290bytes','R2_BATCH64/1290bytes','UPLOAD64/1290bytes'],
                 poison_outside_data_window=True,sources_sha256={str(p):hashlib.sha256(p.read_bytes()).hexdigest()for p in sources+[bench]},
