@@ -1,5 +1,8 @@
 # Tab5 × Tang Primer 20K 接続キャリア基板
 
+2026-11-06：GPU全8シーン/TX40・RX16検証記録とMEM DMA検証・復元資料をmainへ統合。[現在地・全host適合範囲・整理方針](docs/INTEGRATION_2026-11-06.md)を参照。RX20、長時間soak、DDR付きGFX/NPUは未完了。
+
+
 M5Stack Tab5のM5-BusとTang Primer 20K Coreを接続する専用キャリア基板の設計リポジトリです。
 
 ## 状態
