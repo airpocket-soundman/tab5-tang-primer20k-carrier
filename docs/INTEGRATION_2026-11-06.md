@@ -48,3 +48,8 @@ Linux/MeOSは新GFX機能へ自動追従させず、採用時に能力・codec�
 ## 実機接続の読み取り確認
 
 統合作業中に対象Tab5（COM4/30:ED:A0:E2:FE:C0）、FTDI機器、SLogic16U3（202512191855）を列挙。host info/statusだけを読み、ELFf073cfba…、CPU/LIVE、DISARM、TX40/RX16設定、last_step_error=noneを確認。保存資料の旧LIVE最終状態を現在状態へ転用しない。FPGA USERCodeの再読やflash/reset/ARMはこの段階で実施していない。
+
+
+## ブランチ整理の完了
+
+2026-11-06、mainへの包含と各tip一致を確認してGPU/MEM関連の完了済みリモートbranch21本を削除。記録は branch-cleanup-result.json。基板/電源/PCB/claude等の別作業branchと未マージ候補を保持し、ローカルworktreeは削除していない。host側もmain包含確認後18本を整理。今後はmainを基点に必要な実験branchだけを作り、実績と候補を区別して統合する。
