@@ -1,0 +1,811 @@
+{
+  "date": "2026-11-05",
+  "hardware_access": false,
+  "references": {
+    "carrier": {
+      "path": "D:\\github\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready",
+      "commit": "995b3ca4849ea8d529031384311b1b8a9680d2cd"
+    },
+    "esp-idf": {
+      "path": "D:\\github\\airpocket-soundman\\tab5-fpga-gpu-offline-ready",
+      "commit": "dc2e9c434bdd35e608692b5de9e6a8273ee02bd9"
+    },
+    "meos": {
+      "path": "D:\\GitHub\\tab5-meos-fpga",
+      "commit": "78274b4625e889f13360a024988cb01c1b9351b6"
+    },
+    "linux": {
+      "path": "D:\\GitHub\\tab5-linux-fpga",
+      "commit": "cfc9a6ecf7daa4c5e3decbe3885b22c2bd2f4cd1"
+    },
+    "memory-research": {
+      "path": "D:\\GitHub\\esp32p4-linux-fpga-memory",
+      "commit": "e84b59e8bf462ab1e2023f9e28f7915c152cbbdb"
+    }
+  },
+  "kit_manifest": {
+    "schema": 1,
+    "hardware_access": false,
+    "carrier_commit": "995b3ca4849ea8d529031384311b1b8a9680d2cd",
+    "host_commit": "dc2e9c434bdd35e608692b5de9e6a8273ee02bd9",
+    "firmware": {
+      "gpu": {
+        "build": "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-offline-ready\\build\\demo-dma-scaled-visual-vivid-640x360-reviewed",
+        "bin_files": [
+          {
+            "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu\\bootloader\\bootloader.bin",
+            "sha256": "0a70320c3c75e785dc8209c0f8570e2edd05874800a4de5f5350597cdf81f2db",
+            "bytes": 23088
+          },
+          {
+            "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu\\tab5_gpu_lab.bin",
+            "sha256": "832ed5af53501bb35f54c75640afb049b5f3704cf1e341f24920139d46751ef0",
+            "bytes": 977504
+          },
+          {
+            "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu\\partition_table\\partition-table.bin",
+            "sha256": "fd8026bff850ca0dee41c41305160317fffe604dda30a9bd5a701ac82d96fa17",
+            "bytes": 3072
+          },
+          {
+            "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu\\sdkconfig",
+            "sha256": "c342e9f443890764f81313bcbacb3f4e2e299f19be7931ced5042797daeb98c3"
+          },
+          {
+            "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu\\project_description.json",
+            "sha256": "7b98ec6b7bea6d869bf7768f6221b49d5f525610a45758d131c9dbb4b969a34d"
+          }
+        ],
+        "elf_sha256": "d7f80eaf970aea7da6e58c51ac63e12afa71eb0b7d6c17f410ba261c4261e24d",
+        "flash_python_args": [
+          "-m",
+          "esptool",
+          "--chip",
+          "esp32p4",
+          "-p",
+          "{PORT}",
+          "-b",
+          "460800",
+          "--before",
+          "default_reset",
+          "--after",
+          "hard_reset",
+          "write_flash",
+          "--flash_mode",
+          "dio",
+          "--flash_freq",
+          "80m",
+          "--flash_size",
+          "16MB",
+          "0x2000",
+          "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu\\bootloader\\bootloader.bin",
+          "0x10000",
+          "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu\\tab5_gpu_lab.bin",
+          "0x8000",
+          "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu\\partition_table\\partition-table.bin"
+        ],
+        "project": "dc2e9c4"
+      },
+      "mem": {
+        "build": "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-offline-ready\\build\\mem-probe-offline-ready",
+        "bin_files": [
+          {
+            "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\mem\\bootloader\\bootloader.bin",
+            "sha256": "89209eaa49cc55f6058c0ba30fb9c92265121ea42b406a1fb1e53f80c064e497",
+            "bytes": 23088
+          },
+          {
+            "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\mem\\tab5_gpu_lab.bin",
+            "sha256": "a38285956946d827020f7f0e72b8f7b6fd5040f94a6f8e0e613a7323bae676ed",
+            "bytes": 438112
+          },
+          {
+            "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\mem\\partition_table\\partition-table.bin",
+            "sha256": "fd8026bff850ca0dee41c41305160317fffe604dda30a9bd5a701ac82d96fa17",
+            "bytes": 3072
+          },
+          {
+            "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\mem\\sdkconfig",
+            "sha256": "c312748f82ec50d667a9b5134ee85ed988c808aff5c6df7cf3137329dd57b9e2"
+          },
+          {
+            "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\mem\\project_description.json",
+            "sha256": "8182f2f6c919f43593eef7d17866d95a55cd7a92c2b62e7d61b18116979ebb50"
+          }
+        ],
+        "elf_sha256": "fb6a83f03bbe9aa01e61040bace291c83aefa9aeb2cacd656554c9a1fd3c69a2",
+        "flash_python_args": [
+          "-m",
+          "esptool",
+          "--chip",
+          "esp32p4",
+          "-p",
+          "{PORT}",
+          "-b",
+          "460800",
+          "--before",
+          "default_reset",
+          "--after",
+          "hard_reset",
+          "write_flash",
+          "--flash_mode",
+          "dio",
+          "--flash_freq",
+          "80m",
+          "--flash_size",
+          "16MB",
+          "0x2000",
+          "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\mem\\bootloader\\bootloader.bin",
+          "0x10000",
+          "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\mem\\tab5_gpu_lab.bin",
+          "0x8000",
+          "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\mem\\partition_table\\partition-table.bin"
+        ],
+        "project": "dc2e9c4"
+      },
+      "gpu-highrate": {
+        "build": "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-offline-ready\\build\\demo-dma-scaled-highrate-visual-vivid-640x360-reviewed",
+        "bin_files": [
+          {
+            "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu-highrate\\bootloader\\bootloader.bin",
+            "sha256": "89209eaa49cc55f6058c0ba30fb9c92265121ea42b406a1fb1e53f80c064e497",
+            "bytes": 23088
+          },
+          {
+            "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu-highrate\\tab5_gpu_lab.bin",
+            "sha256": "a01b9427f0693cb047d8fd746704a90d876d6899011ce40a3267019bcda1e894",
+            "bytes": 978112
+          },
+          {
+            "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu-highrate\\partition_table\\partition-table.bin",
+            "sha256": "fd8026bff850ca0dee41c41305160317fffe604dda30a9bd5a701ac82d96fa17",
+            "bytes": 3072
+          },
+          {
+            "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu-highrate\\sdkconfig",
+            "sha256": "d7aef8150dedb1f5d48099b7cfcae5ed39cb54b61c5ef23747c33e135829b2ca"
+          },
+          {
+            "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu-highrate\\project_description.json",
+            "sha256": "2fab8ec7162e1ec958bb0ca9761c02faefbe5eba99ed94689724f975b803d9b4"
+          }
+        ],
+        "elf_sha256": "350394c9f918f67bca820da8cecea8fe69fd8f893ab48f91a30d0dadd5b85054",
+        "flash_python_args": [
+          "-m",
+          "esptool",
+          "--chip",
+          "esp32p4",
+          "-p",
+          "{PORT}",
+          "-b",
+          "460800",
+          "--before",
+          "default_reset",
+          "--after",
+          "hard_reset",
+          "write_flash",
+          "--flash_mode",
+          "dio",
+          "--flash_freq",
+          "80m",
+          "--flash_size",
+          "16MB",
+          "0x2000",
+          "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu-highrate\\bootloader\\bootloader.bin",
+          "0x10000",
+          "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu-highrate\\tab5_gpu_lab.bin",
+          "0x8000",
+          "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu-highrate\\partition_table\\partition-table.bin"
+        ],
+        "project": "dc2e9c4"
+      }
+    },
+    "profiles": {
+      "gpu-baseline": {
+        "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu-baseline.fs",
+        "sha256": "85bac22420a81bbaaef26a2edff81a3deb0e2bb114a97f106c1deede8062d717",
+        "usercode": "0000E368",
+        "host": "gpu",
+        "firmware_ready": true,
+        "sram_programmer_args": [
+          "--device",
+          "GW2A-18C",
+          "--cable-index",
+          "{CABLE}",
+          "--location",
+          "{LOCATION}",
+          "--frequency",
+          "2.5MHz",
+          "--operation_index",
+          "2",
+          "--fsFile",
+          "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu-baseline.fs"
+        ],
+        "read_usercode_args": [
+          "--device",
+          "GW2A-18C",
+          "--cable-index",
+          "{CABLE}",
+          "--location",
+          "{LOCATION}",
+          "--frequency",
+          "2.5MHz",
+          "--operation_index",
+          "73"
+        ],
+        "read_status_args": [
+          "--device",
+          "GW2A-18C",
+          "--cable-index",
+          "{CABLE}",
+          "--location",
+          "{LOCATION}",
+          "--frequency",
+          "2.5MHz",
+          "--operation_index",
+          "74"
+        ],
+        "expected_status": "00006020"
+      },
+      "gpu-phase4": {
+        "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu-phase4.fs",
+        "sha256": "05c51ab257d4af24e50b52a47dc110b995ae87b6552bfcbdee9cba1059317bb8",
+        "usercode": "00003194",
+        "host": "gpu-highrate",
+        "firmware_ready": true,
+        "sram_programmer_args": [
+          "--device",
+          "GW2A-18C",
+          "--cable-index",
+          "{CABLE}",
+          "--location",
+          "{LOCATION}",
+          "--frequency",
+          "2.5MHz",
+          "--operation_index",
+          "2",
+          "--fsFile",
+          "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\gpu-phase4.fs"
+        ],
+        "read_usercode_args": [
+          "--device",
+          "GW2A-18C",
+          "--cable-index",
+          "{CABLE}",
+          "--location",
+          "{LOCATION}",
+          "--frequency",
+          "2.5MHz",
+          "--operation_index",
+          "73"
+        ],
+        "read_status_args": [
+          "--device",
+          "GW2A-18C",
+          "--cable-index",
+          "{CABLE}",
+          "--location",
+          "{LOCATION}",
+          "--frequency",
+          "2.5MHz",
+          "--operation_index",
+          "74"
+        ],
+        "expected_status": "00006020"
+      },
+      "memv1": {
+        "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\memv1.fs",
+        "sha256": "8dd9890743db8c3993b19bf169f42a9c882ec76fd8f07ff08ec3491aa6f26203",
+        "usercode": "0000A692",
+        "host": "mem",
+        "firmware_ready": true,
+        "sram_programmer_args": [
+          "--device",
+          "GW2A-18C",
+          "--cable-index",
+          "{CABLE}",
+          "--location",
+          "{LOCATION}",
+          "--frequency",
+          "2.5MHz",
+          "--operation_index",
+          "2",
+          "--fsFile",
+          "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\memv1.fs"
+        ],
+        "read_usercode_args": [
+          "--device",
+          "GW2A-18C",
+          "--cable-index",
+          "{CABLE}",
+          "--location",
+          "{LOCATION}",
+          "--frequency",
+          "2.5MHz",
+          "--operation_index",
+          "73"
+        ],
+        "read_status_args": [
+          "--device",
+          "GW2A-18C",
+          "--cable-index",
+          "{CABLE}",
+          "--location",
+          "{LOCATION}",
+          "--frequency",
+          "2.5MHz",
+          "--operation_index",
+          "74"
+        ],
+        "expected_status": "00006020"
+      },
+      "mem-bandwidth": {
+        "path": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\mem-bandwidth.fs",
+        "sha256": "4eb0f8868054fd90d992f6702c3f95ec2b9d1a152482a04065f0365fa4082823",
+        "usercode": "000000AF",
+        "host": "mem",
+        "firmware_ready": true,
+        "sram_programmer_args": [
+          "--device",
+          "GW2A-18C",
+          "--cable-index",
+          "{CABLE}",
+          "--location",
+          "{LOCATION}",
+          "--frequency",
+          "2.5MHz",
+          "--operation_index",
+          "2",
+          "--fsFile",
+          "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\offline-ready\\kit\\mem-bandwidth.fs"
+        ],
+        "read_usercode_args": [
+          "--device",
+          "GW2A-18C",
+          "--cable-index",
+          "{CABLE}",
+          "--location",
+          "{LOCATION}",
+          "--frequency",
+          "2.5MHz",
+          "--operation_index",
+          "73"
+        ],
+        "read_status_args": [
+          "--device",
+          "GW2A-18C",
+          "--cable-index",
+          "{CABLE}",
+          "--location",
+          "{LOCATION}",
+          "--frequency",
+          "2.5MHz",
+          "--operation_index",
+          "74"
+        ],
+        "expected_status": "00006020"
+      }
+    },
+    "placeholders": [
+      "PORT",
+      "CABLE",
+      "LOCATION"
+    ],
+    "limits": [
+      "No current device/ARM/USB identity is assumed.",
+      "BW and MEMV1 opcode spaces overlap; never interchange test tools.",
+      "MEMV1 cancel remains a known DMA sequence-classification issue; excluded from initial test stages.",
+      "New firmware builds are offline candidates, not physical passes."
+    ],
+    "test_commands": {
+      "gpu-baseline": [
+        "tools/compare_dock_demo.py",
+        "--port",
+        "{PORT}",
+        "--dma-rx-hz",
+        "5000000",
+        "--rx-mode",
+        "continuous",
+        "--stream-profile",
+        "scaled_1024x4",
+        "--dma-scope",
+        "bulk",
+        "--readout",
+        "tile",
+        "--triangle-batch",
+        "on",
+        "--empty-tiles",
+        "on",
+        "--tile-bins",
+        "on",
+        "--tx-mode",
+        "persistent_dma",
+        "--tx-hz",
+        "5000000",
+        "--tx-phase",
+        "positive",
+        "--tx-scope",
+        "batch",
+        "--rx-sample-edge",
+        "negative",
+        "--scenes",
+        "1",
+        "2",
+        "3",
+        "--loads",
+        "0",
+        "2",
+        "--frames",
+        "17",
+        "--repeats",
+        "2",
+        "--output",
+        "{RESULT}.json",
+        "--half-ns",
+        "25",
+        "--setup-ns",
+        "25",
+        "--guard-ns",
+        "2000"
+      ],
+      "memv1-readonly": [
+        "tools/memv1_xfer.py",
+        "--port",
+        "{PORT}",
+        "--mode",
+        "dma",
+        "--hz",
+        "500000",
+        "--tx-phase",
+        "positive",
+        "--edge",
+        "positive",
+        "--stages",
+        "caps,status,rd1,rd256",
+        "--expected-elf-sha",
+        "fb6a83f03bbe9aa01e61040bace291c83aefa9aeb2cacd656554c9a1fd3c69a2",
+        "--record",
+        "{RESULT}.json"
+      ],
+      "memv1-2mhz": [
+        "tools/memv1_xfer.py",
+        "--port",
+        "{PORT}",
+        "--mode",
+        "dma",
+        "--hz",
+        "2000000",
+        "--tx-phase",
+        "positive",
+        "--edge",
+        "positive",
+        "--execute",
+        "--stages",
+        "caps,status,rd1,rd256,wr1,wr256,crc32,invalid,crc_error,tail",
+        "--expected-elf-sha",
+        "fb6a83f03bbe9aa01e61040bace291c83aefa9aeb2cacd656554c9a1fd3c69a2",
+        "--record",
+        "{RESULT}.json"
+      ],
+      "mem-bandwidth": [
+        "tools/probe_mem_bw.py",
+        "--execute",
+        "--port",
+        "{PORT}",
+        "--mib",
+        "1",
+        "--bist-after",
+        "--expected-elf-sha",
+        "fb6a83f03bbe9aa01e61040bace291c83aefa9aeb2cacd656554c9a1fd3c69a2",
+        "--output",
+        "{RESULT}.json"
+      ],
+      "gpu-baseline-20mhz": [
+        "tools/compare_dock_demo.py",
+        "--port",
+        "{PORT}",
+        "--dma-rx-hz",
+        "20000000",
+        "--rx-mode",
+        "continuous",
+        "--stream-profile",
+        "scaled_1024x4",
+        "--dma-scope",
+        "bulk",
+        "--readout",
+        "tile",
+        "--triangle-batch",
+        "on",
+        "--empty-tiles",
+        "on",
+        "--tile-bins",
+        "on",
+        "--tx-mode",
+        "persistent_dma",
+        "--tx-hz",
+        "5000000",
+        "--tx-phase",
+        "positive",
+        "--tx-scope",
+        "batch",
+        "--rx-sample-edge",
+        "negative",
+        "--scenes",
+        "1",
+        "2",
+        "3",
+        "--loads",
+        "0",
+        "2",
+        "--frames",
+        "17",
+        "--repeats",
+        "2",
+        "--output",
+        "{RESULT}.json",
+        "--half-ns",
+        "25",
+        "--setup-ns",
+        "25",
+        "--guard-ns",
+        "2000"
+      ],
+      "gpu-phase4-25mhz": [
+        "tools/compare_dock_demo.py",
+        "--port",
+        "{PORT}",
+        "--dma-rx-hz",
+        "25000000",
+        "--rx-mode",
+        "continuous",
+        "--stream-profile",
+        "scaled_1024x4",
+        "--dma-scope",
+        "bulk",
+        "--readout",
+        "tile",
+        "--triangle-batch",
+        "on",
+        "--empty-tiles",
+        "on",
+        "--tile-bins",
+        "on",
+        "--tx-mode",
+        "persistent_dma",
+        "--tx-hz",
+        "5000000",
+        "--tx-phase",
+        "positive",
+        "--tx-scope",
+        "batch",
+        "--rx-sample-edge",
+        "negative",
+        "--scenes",
+        "1",
+        "2",
+        "3",
+        "--loads",
+        "0",
+        "2",
+        "--frames",
+        "17",
+        "--repeats",
+        "2",
+        "--output",
+        "{RESULT}.json",
+        "--half-ns",
+        "25",
+        "--setup-ns",
+        "25",
+        "--guard-ns",
+        "2000"
+      ]
+    }
+  },
+  "kit_validation": {
+    "hardware_access": false,
+    "commands_parsed": 6,
+    "all_bundle_hashes_match": true,
+    "image_checks": {
+      "gpu": {
+        "embedded_elf_sha_matches": true,
+        "esp32p4": true,
+        "bin_sha256": "832ed5af53501bb35f54c75640afb049b5f3704cf1e341f24920139d46751ef0"
+      },
+      "mem": {
+        "embedded_elf_sha_matches": true,
+        "esp32p4": true,
+        "bin_sha256": "a38285956946d827020f7f0e72b8f7b6fd5040f94a6f8e0e613a7323bae676ed"
+      },
+      "gpu-highrate": {
+        "embedded_elf_sha_matches": true,
+        "esp32p4": true,
+        "bin_sha256": "a01b9427f0693cb047d8fd746704a90d876d6899011ce40a3267019bcda1e894"
+      }
+    }
+  },
+  "checks": {
+    "host_unittest": {
+      "passed": 63,
+      "skipped": 0
+    },
+    "tools_unittest": {
+      "passed": 61,
+      "skipped": 0
+    },
+    "mem_rtl_and_codec": {
+      "passed": true,
+      "recorded_groups": 23
+    },
+    "bw_rtl": {
+      "passed": true,
+      "model_checked_core_jobs": 660,
+      "limitation": "sampleip-generated t4 BW variants skipped because the pinned IP is not in this fresh worktree; generic integrated stand-in configurations passed"
+    },
+    "standalone": {
+      "normal_records": 26,
+      "corrupt_rejected_at_job": 3,
+      "dropped_write_rejected_at_job": 3
+    },
+    "firmware_builds": 3,
+    "fpga_images_hash_verified": 4,
+    "prepared_cli_plans_parsed_without_uart": 6
+  },
+  "archives": {
+    "tab5-tang-primer20k-carrier-offline-ready": [
+      {
+        "archive": "mem-tests.log.gz",
+        "sha256": "49bc590dc02af0efb73a7450429d7f6218bbc3ed78ea9c9b3e67e5fb9819ae18",
+        "bytes": 6240
+      },
+      {
+        "archive": "bw-tests.log.gz",
+        "sha256": "b21bea548d84f1b493a0b8a8acc9ba8a9890c1d85be7ee3cd6169832115b6420",
+        "bytes": 18860
+      },
+      {
+        "archive": "standalone-normal.json.gz",
+        "sha256": "7b3cddb7f43b7e8acb446135a7351858ed6c541877c6af052df9d7d137a93f53",
+        "bytes": 11954
+      },
+      {
+        "archive": "standalone-corrupt.json.gz",
+        "sha256": "dcd0351a5e588c4e484ee028a7c4efac0c1a34e9091c4bea5964849293da8e18",
+        "bytes": 1936
+      },
+      {
+        "archive": "standalone-dropwrite.json.gz",
+        "sha256": "ff6c928084bdbdf7e6a607047a49546d45e5b28ce02332211656cd02d9e1e396",
+        "bytes": 1936
+      },
+      {
+        "archive": "standalone-checks.json.gz",
+        "sha256": "8f7fef9c3070a69a1bdfd8888afdf5ae35d15f4be773841968b678f108bea260",
+        "bytes": 884
+      },
+      {
+        "archive": "gpu-image-info.log.gz",
+        "sha256": "109840af1d5789b6347b0151bcb72b02f9491ff5815d8084d490558319891782",
+        "bytes": 1599
+      },
+      {
+        "archive": "mem-image-info.log.gz",
+        "sha256": "e164927c11053a8bf39e2314043fb368d7bb54d2d2832bc6a805f1c6ce7de725",
+        "bytes": 1537
+      },
+      {
+        "archive": "gpu-highrate-image-info.log.gz",
+        "sha256": "d088e36e6716d5869c5fb80a166de7e923bc3a0066ccb42a950c9b8408078f34",
+        "bytes": 1599
+      },
+      {
+        "archive": "mem-results.json.gz",
+        "sha256": "49455851be9e38c6c003a504d6b9ad4208f53732c905b575b052276a47ae92f6",
+        "bytes": 14316
+      }
+    ],
+    "tab5-fpga-gpu-offline-ready": [
+      {
+        "archive": "host-tests.log.gz",
+        "sha256": "de0f2597351fe3994ecb4ffe2bab399c90a32d81cb290202d8675dd5137db827",
+        "bytes": 7705
+      },
+      {
+        "archive": "tools-tests.log.gz",
+        "sha256": "783baece93401627bbd81a205ca533f53d5a907db8da6bdb9edd31e133c1e2c5",
+        "bytes": 16398
+      },
+      {
+        "archive": "demo-build.log.gz",
+        "sha256": "2c8f994c60cffa98945affba093641f5d034cdc8d48fc3a7c727c4a935c5812b",
+        "bytes": 240465
+      },
+      {
+        "archive": "mem-build.log.gz",
+        "sha256": "29ea01514c56233bc3ee30e8379d7e9a4b952af98ba54e2e3d3dcd26f39d2be9",
+        "bytes": 238501
+      },
+      {
+        "archive": "highrate-build.log.gz",
+        "sha256": "4db5189336d569857d90eec8c315647bc8fe461101ff37caa078fb4c3aca40ed",
+        "bytes": 241090
+      },
+      {
+        "archive": "gpu/bootloader/bootloader.bin.gz",
+        "sha256": "0a70320c3c75e785dc8209c0f8570e2edd05874800a4de5f5350597cdf81f2db",
+        "bytes": 23088
+      },
+      {
+        "archive": "gpu/tab5_gpu_lab.bin.gz",
+        "sha256": "832ed5af53501bb35f54c75640afb049b5f3704cf1e341f24920139d46751ef0",
+        "bytes": 977504
+      },
+      {
+        "archive": "gpu/partition_table/partition-table.bin.gz",
+        "sha256": "fd8026bff850ca0dee41c41305160317fffe604dda30a9bd5a701ac82d96fa17",
+        "bytes": 3072
+      },
+      {
+        "archive": "gpu/sdkconfig.gz",
+        "sha256": "c342e9f443890764f81313bcbacb3f4e2e299f19be7931ced5042797daeb98c3",
+        "bytes": 96728
+      },
+      {
+        "archive": "gpu/project_description.json.gz",
+        "sha256": "7b98ec6b7bea6d869bf7768f6221b49d5f525610a45758d131c9dbb4b969a34d",
+        "bytes": 331187
+      },
+      {
+        "archive": "gpu-highrate/bootloader/bootloader.bin.gz",
+        "sha256": "89209eaa49cc55f6058c0ba30fb9c92265121ea42b406a1fb1e53f80c064e497",
+        "bytes": 23088
+      },
+      {
+        "archive": "mem/tab5_gpu_lab.bin.gz",
+        "sha256": "a38285956946d827020f7f0e72b8f7b6fd5040f94a6f8e0e613a7323bae676ed",
+        "bytes": 438112
+      },
+      {
+        "archive": "gpu/partition_table/partition-table.bin.gz",
+        "sha256": "fd8026bff850ca0dee41c41305160317fffe604dda30a9bd5a701ac82d96fa17",
+        "bytes": 3072
+      },
+      {
+        "archive": "mem/sdkconfig.gz",
+        "sha256": "c312748f82ec50d667a9b5134ee85ed988c808aff5c6df7cf3137329dd57b9e2",
+        "bytes": 96694
+      },
+      {
+        "archive": "mem/project_description.json.gz",
+        "sha256": "8182f2f6c919f43593eef7d17866d95a55cd7a92c2b62e7d61b18116979ebb50",
+        "bytes": 328516
+      },
+      {
+        "archive": "gpu-highrate/bootloader/bootloader.bin.gz",
+        "sha256": "89209eaa49cc55f6058c0ba30fb9c92265121ea42b406a1fb1e53f80c064e497",
+        "bytes": 23088
+      },
+      {
+        "archive": "gpu-highrate/tab5_gpu_lab.bin.gz",
+        "sha256": "a01b9427f0693cb047d8fd746704a90d876d6899011ce40a3267019bcda1e894",
+        "bytes": 978112
+      },
+      {
+        "archive": "gpu/partition_table/partition-table.bin.gz",
+        "sha256": "fd8026bff850ca0dee41c41305160317fffe604dda30a9bd5a701ac82d96fa17",
+        "bytes": 3072
+      },
+      {
+        "archive": "gpu-highrate/sdkconfig.gz",
+        "sha256": "d7aef8150dedb1f5d48099b7cfcae5ed39cb54b61c5ef23747c33e135829b2ca",
+        "bytes": 96717
+      },
+      {
+        "archive": "gpu-highrate/project_description.json.gz",
+        "sha256": "2fab8ec7162e1ec958bb0ca9761c02faefbe5eba99ed94689724f975b803d9b4",
+        "bytes": 332249
+      }
+    ]
+  }
+}
