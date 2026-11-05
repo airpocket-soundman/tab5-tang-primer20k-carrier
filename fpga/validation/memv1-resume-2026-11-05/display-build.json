@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "hardware_access": false,
+  "qualification": "offline build and tests only; LCD physical verification pending",
+  "source_commit": "51e3a32334779fae794c6adc53a84e4806dd0b36",
+  "app_version": "51e3a32",
+  "build_dir": "D:\\github\\airpocket-soundman\\tab5-fpga-gpu-display\\build\\mem-probe-status-display-20261105",
+  "tests": {
+    "python_unittest_methods": 20,
+    "native_status_renderer": "PASS: bounds, exact formatted rates/time, result colors, framebuffer guards",
+    "preview": "PC render visually inspected; physical LCD orientation unverified"
+  },
+  "source_sha256": {
+    "main/CMakeLists.txt": "be3aa2094b6c7617f9e8007cc1f20bfa1dc8cfad152eb5822ba08540ea4261cf",
+    "main/mem_probe_main.cpp": "2b7c375adffd7a9093147cabaaa31e37ec3e9f2f21897ee4f740200c4a51c33e",
+    "main/mem_status_display.cpp": "ff8be4392305fff5165b7287ffc2ea98be666921b3de0fe925930e811c053c7c",
+    "main/mem_status_display.hpp": "07cb33f26d03734f7f40f671c46e1e3cba2e535d6b9f618e8595b1690c3a7579",
+    "main/mem_status_model.hpp": "10b7515ad869688b303f5df7d97910fbc214f5320c3955d18ff6887a63c8a32c",
+    "main/mem_status_render.hpp": "2f54cc4b7b90b759638f02c9eca1c5ff8cb54cffc5a6e5cfb425056f89b08386",
+    "mem-probe.defaults": "ba570d4c4062afd9e2acffcb678e6efd6ebbe18b6b4afd2a3b90753f582fd587",
+    "tools/memv1_xfer.py": "59ae034437dd75d3322a02d1483e4a76fd87fe8c90e470f990d9bb777ab9cd93",
+    "tools/test_memv1_xfer.py": "79c8d7c38fd9c34845656b74d8451935c0271998a846075076e4e7981d9cdd5c",
+    "tools/test_mem_status.cpp": "e9de0d2db61e374643e91c6480ffe30bd4a7a363d790a0baf78a270beb78b441"
+  },
+  "files": {
+    "tab5_gpu_lab.bin": {
+      "sha256": "cd7ab0e8206b8146ebc9fe908131111d79e0b8402971ad4430e1327be96bee0b",
+      "bytes": 528032
+    },
+    "tab5_gpu_lab.elf": {
+      "sha256": "eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782",
+      "bytes": 8719544
+    },
+    "bootloader/bootloader.bin": {
+      "sha256": "e471c99e9a4825149bb386fc18fab8a084ef3f51e152db26989590cd402ea49d",
+      "bytes": 23088
+    },
+    "partition_table/partition-table.bin": {
+      "sha256": "fd8026bff850ca0dee41c41305160317fffe604dda30a9bd5a701ac82d96fa17",
+      "bytes": 3072
+    },
+    "flash_args": {
+      "sha256": "63aafc9e5e5bb7f4922023b5c8d4b1b037431cbc641ee4cf6856cc8a276f3668",
+      "bytes": 157
+    },
+    "sdkconfig": {
+      "sha256": "582c2f5c5dcdd3e14d21eb996debd13d2bce605b04f5da2be4347f4380835359",
+      "bytes": 96705
+    }
+  },
+  "build_log_sha256": "1a218cb4a0a6c7ac9089c208e34313dad895bad74d8a3319f5fb4239cd3b5d54",
+  "display_configuration": {
+    "drawing_dma2d": false,
+    "framebuffers": 1,
+    "default_on": true,
+    "static_scan_dma_when_on": true,
+    "ui_task": false
+  }
+}

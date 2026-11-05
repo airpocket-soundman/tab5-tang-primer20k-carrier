@@ -1,0 +1,40 @@
+[
+  {
+    "request": {
+      "v": 1,
+      "id": 1,
+      "cmd": "mem",
+      "action": "xferx_mode",
+      "mode": "dma",
+      "tx_hz": 2000000,
+      "rx_hz": 20000000,
+      "tx_phase": "positive",
+      "sample_edge": "positive"
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"3f53d16\",\"app_elf_sha256\":\"ea98777e43cbc926d342ecd8ab8386fa7e881c3a8b02cc1864734eae72246712\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"link_armed\":false,\"mem_session\":false,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,230,169,2,1,0,224,30],\"response\":[90,0,169,2,1,0,214,188,52,108,155,215,78,30]},\"v\":1,\"id\":1}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 2,
+      "cmd": "mem",
+      "action": "arm"
+    }
+  },
+  {
+    "raw": "{\"ok\":false,\"error\":\"link_arm_failed\",\"message\":\"response_crc_status_or_sequence\",\"device_status\":0,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"link_armed\":false,\"v\":1,\"id\":2}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 3,
+      "cmd": "mem",
+      "action": "disarm"
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"3f53d16\",\"app_elf_sha256\":\"ea98777e43cbc926d342ecd8ab8386fa7e881c3a8b02cc1864734eae72246712\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"link_armed\":false,\"mem_session\":false,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"link_arm_failed\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,1,41,2,0,0,49,172],\"response\":[90,1,9,2,0,0,192,207]},\"v\":1,\"id\":3}"
+  }
+]

@@ -30,7 +30,11 @@ def main():
     p.add_argument('--trigger', help='optional sigrok trigger, after channel mapping')
     p.add_argument('--prearm', action='store_true', help='finish GPIO ARM before capture, so triggers select CAPS')
     p.add_argument('--stages', default='caps', help='comma-separated read-only stages: caps,status,rd1,rd256')
+    p.add_argument('--display-status', action='store_true', help='Opt in to start/final LCD status; requires display-capable host firmware/tool')
+    p.add_argument('--test-name', default='MEMV1 SLOGIC CAPTURE', help='LCD test name, at most 40 printable ASCII characters')
     a = p.parse_args()
+    if len(a.test_name) > 40 or any(ord(c) < 32 or ord(c) > 126 for c in a.test_name):
+        p.error('--test-name must contain at most 40 printable ASCII characters')
     if a.rate <= 0 or a.samples <= 0 or a.samples / a.rate > 5:
         p.error('capture duration must be positive and at most 5 seconds')
     stages = a.stages.split(',')
@@ -45,6 +49,8 @@ def main():
                   logic_channels=a.logic_channels, threshold_v=1.7, trigger=a.trigger)
     record['prearm'] = a.prearm
     record['stages_requested'] = stages
+    record['display_status'], record['test_name'] = a.display_status, a.test_name
+    caps = None
     capture = None
     active_client = None
     host_started = False
@@ -72,6 +78,10 @@ def main():
             if (info.get('profile') != 'standalone_mem_bist_probe' or
                     info.get('app_elf_sha256') != a.expected_elf or info.get('link_armed')):
                 raise RuntimeError('Require the expected, disarmed MEM probe')
+            if a.prearm and a.display_status and info.get('mem_status_display') is not True:
+                raise RuntimeError('Firmware does not advertise the status display; nothing changed')
+            if a.prearm and a.display_status:
+                record['display_initial'] = info.get('display')
         finally:
             client.close()
         config = f'logic_channels={a.logic_channels}:samplerate={a.rate}:voltage_threshold=1.7-1.7'
@@ -88,6 +98,15 @@ def main():
                                               tx_phase='positive', sample_edge=a.edge)
             if (record['mode'].get('xferx_tx_hz'), record['mode'].get('xferx_rx_hz')) != (a.tx_hz, a.rx_hz):
                 raise RuntimeError('DMA clock settings were not acknowledged')
+            if a.display_status:
+                if record['mode'].get('link_armed') is not False or record['mode'].get('mem_session') is not False:
+                    raise RuntimeError('Display requires an acknowledged disarmed idle session')
+                try:
+                    record['display_start'] = active_client.call('mem', action='display', test_name=a.test_name,
+                        stage='LINK CHECK + TRANSFER', step=0, total=len(stages), result='RUNNING', transfer_us=0)
+                except Exception as exc:
+                    record['display_error'] = repr(exc)
+                    raise
             host_started = True
             record['arm'] = active_client.call('mem', action='arm')
         command = cli + ['--loglevel', '5', '--config', config,
@@ -118,6 +137,8 @@ def main():
                             '--rx-hz', str(a.rx_hz), '--tx-phase', 'positive', '--edge', a.edge,
                             '--stages', a.stages, '--expected-elf-sha', a.expected_elf,
                             '--record', str(out / 'caps.json')]
+            if a.display_status and not a.prearm:
+                host_command += ['--display-status', '--test-name', a.test_name]
             record['host_command'] = host_command
             if a.prearm:
                 from memv1_xfer import Runner, BridgeXfer
@@ -138,29 +159,54 @@ def main():
                     record['host_exit_code'] = host.returncode
             record['capture_exit_code'] = capture.wait(timeout=15)
         record['result'] = 'PASS' if record['capture_exit_code'] == record['host_exit_code'] == 0 else 'FAIL'
-        return 0 if record['result'] == 'PASS' else 1
     except Exception as exc:
         record['result'], record['error'] = 'FAIL', repr(exc)
-        return 1
     finally:
         if active_client is not None:
             try:
                 record['prearm_disarm'] = active_client.call('mem', action='disarm')
+                if a.display_status:
+                    state = record['prearm_disarm']
+                    if state.get('link_armed') is not False or state.get('mem_session') is not False:
+                        raise RuntimeError('DISARM was not acknowledged; final display suppressed')
             except Exception as exc:
                 record['prearm_cleanup_error'] = repr(exc)
-            (out / 'usb-trace.json').write_text(json.dumps(active_client.trace, indent=2) + '\n', encoding='utf-8')
-            active_client.close()
+                record['result'] = 'FAIL'
+            # Every render request is before ARM or after an acknowledged DISARM.
+            # If cleanup failed, do not ask the firmware to render while bus ownership is uncertain.
+            if a.display_status and 'display_start' in record and 'prearm_cleanup_error' not in record:
+                result = record.get('result', 'FAIL')
+                frames = (caps or {}).get('frames', [])
+                transfer_us = int((frames[-1].get('timing') or {}).get('total_us', 0)) if frames else 0
+                completed = (caps or {}).get('stages_completed', sum(
+                    stage.get('result') == 'PASS' for stage in (caps or {}).get('stages', {}).values()))
+                final_stage = ('LINK CHECK FAILED' if 'arm' not in record else
+                               'COMPLETE' if result == 'PASS' else
+                               'CAPTURE FAILED' if (caps or {}).get('result') == 'PASS' else
+                               'FAILED: ' + (caps or {}).get('active_stage', 'CAPTURE').upper())
+                try:
+                    record['display_finish'] = active_client.call('mem', action='display', test_name=a.test_name,
+                        stage=final_stage, step=min(len(stages), max(0, int(completed))), total=len(stages),
+                        result='PASS' if result == 'PASS' else 'FAIL', transfer_us=transfer_us)
+                except Exception as exc:
+                    record['display_error'] = repr(exc)
+                    record['result'] = 'FAIL'
+            try:
+                (out / 'usb-trace.json').write_text(json.dumps(active_client.trace, indent=2) + '\n', encoding='utf-8')
+            finally:
+                active_client.close()
         if capture is not None and capture.poll() is None:
             # Only the process tree launched by this invocation is terminated.
             subprocess.run(['taskkill', '/PID', str(capture.pid), '/T', '/F'], capture_output=True)
             capture.wait(timeout=10)
-        if host_started:
+        if host_started and not (a.prearm and a.display_status):
             client = None
             try:
                 client = Client(port, timeout=8)
                 record['disarm'] = client.call('mem', action='disarm')
             except Exception as exc:
                 record['cleanup_error'] = repr(exc)
+                record['result'] = 'FAIL'
             finally:
                 if client is not None:
                     client.close()
@@ -168,6 +214,8 @@ def main():
         (out / 'run.json').write_text(json.dumps(record, indent=2) + '\n', encoding='utf-8')
         print(json.dumps({'output': str(out), 'result': record.get('result'),
                           'error': record.get('error')}, ensure_ascii=False))
+    # Evaluate only after cleanup/UI errors have had a chance to mark the run FAIL.
+    return 0 if record.get('result') == 'PASS' else 1
 
 
 if __name__ == '__main__':
