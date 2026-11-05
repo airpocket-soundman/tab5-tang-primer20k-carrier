@@ -1,0 +1,67 @@
+{
+  "scope": "Planning model only; no hardware/source/pin changes. 8MB/s aggregate useful WR+RD goal, decimal units. Fixed costs are empirical residuals, not all CPU or independently additive.",
+  "target_MBps": 8,
+  "target_us_per_4KiB": 512.0,
+  "nominal_clocks_per_4KiB_mixed_request": 4140.0,
+  "at8MHz": {
+    "wire_us": 517.5,
+    "protocol_only_MBps": 7.914975845410628,
+    "measured_TX_api_us": 1116.821,
+    "measured_RX_api_us": 998.2152,
+    "mean_api_us": 1057.5181,
+    "api_nonwire_residual_us": 540.0181,
+    "complete_job_us_per_request": 1253.04775,
+    "outer_nonoverlapped_residual_us": 195.52964999999995,
+    "job_nonwire_residual_us": 735.54775,
+    "worker_CPU_us_per_request": 985.0925,
+    "same_CPU_work_one_core_budget_MBps_estimate": 4.157985163829792,
+    "CPU_work_reduction_needed_pct_if_same_work_and_core": 48.025185452127594
+  },
+  "frequency_budgets": [
+    {
+      "MHz": 8,
+      "raw8bit_MBps": 8,
+      "nominal_wire_us_per_request": 517.5,
+      "protocol_only_MBps": 7.914975845410628,
+      "nonoverlapped_time_budget_us_at_8MBps": -5.5,
+      "current_PHY_qualified": true,
+      "note": "8MHz qualified in bounded trials;10MHz firstWR FORMAT;16/20/40 not qualified/current requestPHY redesign required"
+    },
+    {
+      "MHz": 10,
+      "raw8bit_MBps": 10,
+      "nominal_wire_us_per_request": 414.0,
+      "protocol_only_MBps": 9.893719806763285,
+      "nonoverlapped_time_budget_us_at_8MBps": 98.0,
+      "current_PHY_qualified": false,
+      "note": "8MHz qualified in bounded trials;10MHz firstWR FORMAT;16/20/40 not qualified/current requestPHY redesign required"
+    },
+    {
+      "MHz": 16,
+      "raw8bit_MBps": 16,
+      "nominal_wire_us_per_request": 258.75,
+      "protocol_only_MBps": 15.829951690821256,
+      "nonoverlapped_time_budget_us_at_8MBps": 253.25,
+      "current_PHY_qualified": false,
+      "note": "8MHz qualified in bounded trials;10MHz firstWR FORMAT;16/20/40 not qualified/current requestPHY redesign required"
+    },
+    {
+      "MHz": 20,
+      "raw8bit_MBps": 20,
+      "nominal_wire_us_per_request": 207.0,
+      "protocol_only_MBps": 19.78743961352657,
+      "nonoverlapped_time_budget_us_at_8MBps": 305.0,
+      "current_PHY_qualified": false,
+      "note": "8MHz qualified in bounded trials;10MHz firstWR FORMAT;16/20/40 not qualified/current requestPHY redesign required"
+    },
+    {
+      "MHz": 40,
+      "raw8bit_MBps": 40,
+      "nominal_wire_us_per_request": 103.5,
+      "protocol_only_MBps": 39.57487922705314,
+      "nonoverlapped_time_budget_us_at_8MBps": 408.5,
+      "current_PHY_qualified": false,
+      "note": "8MHz qualified in bounded trials;10MHz firstWR FORMAT;16/20/40 not qualified/current requestPHY redesign required"
+    }
+  ]
+}

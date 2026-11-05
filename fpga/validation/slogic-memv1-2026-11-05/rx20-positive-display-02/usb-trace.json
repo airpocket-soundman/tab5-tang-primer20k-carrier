@@ -1,0 +1,425 @@
+[
+  {
+    "request": {
+      "v": 1,
+      "id": 1,
+      "cmd": "mem",
+      "action": "xferx_mode",
+      "mode": "dma",
+      "tx_hz": 2000000,
+      "rx_hz": 20000000,
+      "tx_phase": "positive",
+      "sample_edge": "positive"
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":false,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":10,\"test_name\":\"LCD RX16 A-B CHECK\",\"stage\":\"ON 100 PASS / OFF 100 PASS\",\"result\":\"PASS\",\"step\":200,\"total\":200,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":16000000},\"link_armed\":false,\"mem_session\":false,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,230,169,2,1,0,224,30],\"response\":[90,0,169,2,1,0,214,188,52,108,155,215,78,30]},\"v\":1,\"id\":1}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 2,
+      "cmd": "mem",
+      "action": "display",
+      "test_name": "RX20 POSITIVE CHECK",
+      "stage": "LINK CHECK + TRANSFER",
+      "step": 0,
+      "total": 4,
+      "result": "RUNNING",
+      "transfer_us": 0
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":false,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":false,\"mem_session\":false,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,230,169,2,1,0,224,30],\"response\":[90,0,169,2,1,0,214,188,52,108,155,215,78,30]},\"v\":1,\"id\":2}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 3,
+      "cmd": "mem",
+      "action": "arm"
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,80,9,2,0,0,28,36],\"response\":[90,0,9,2,77,1,32,14]},\"v\":1,\"id\":3}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 4,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e0410200007de1",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,65,2,0,0,125,225],\"response\":[90,0,65,2,49,77,3,33],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":3326,\"tx_us\":1438,\"rx_config_us\":557,\"ready_wait_us\":3,\"turnaround_us\":18,\"rx_us\":470,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a004102314d0321\",\"inline_bytes\":8},\"v\":1,\"id\":4}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 5,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e0420201009049",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,66,2,1,0,144,73],\"response\":[90,0,66,2,0,1,51,5],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1474,\"tx_us\":391,\"rx_config_us\":178,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":183,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a00420200013305\",\"inline_bytes\":8},\"v\":1,\"id\":5}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 6,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e043020200776a",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,67,2,2,0,119,106],\"response\":[90,0,67,2,128,0,62,120],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1379,\"tx_us\":352,\"rx_config_us\":163,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":160,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a00430280003e78\",\"inline_bytes\":8},\"v\":1,\"id\":6}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 7,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e0440203006b08",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,68,2,3,0,107,8],\"response\":[90,0,68,2,16,0,248,49],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1386,\"tx_us\":345,\"rx_config_us\":164,\"ready_wait_us\":2,\"turnaround_us\":15,\"rx_us\":162,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a0044021000f831\",\"inline_bytes\":8},\"v\":1,\"id\":7}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 8,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e04502040048e7",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,69,2,4,0,72,231],\"response\":[90,0,69,2,0,1,30,84],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1376,\"tx_us\":356,\"rx_config_us\":160,\"ready_wait_us\":2,\"turnaround_us\":8,\"rx_us\":155,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a00450200011e54\",\"inline_bytes\":8},\"v\":1,\"id\":8}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 9,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e046020500a54f",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,70,2,5,0,165,79],\"response\":[90,0,70,2,115,0,233,130],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1381,\"tx_us\":347,\"rx_config_us\":171,\"ready_wait_us\":2,\"turnaround_us\":8,\"rx_us\":158,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a0046027300e982\",\"inline_bytes\":8},\"v\":1,\"id\":9}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 10,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e047020600426c",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,71,2,6,0,66,108],\"response\":[90,0,71,2,1,0,102,154],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1374,\"tx_us\":353,\"rx_config_us\":160,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":156,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a0047020100669a\",\"inline_bytes\":8},\"v\":1,\"id\":10}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 11,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e0480207009d8b",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,72,2,7,0,157,139],\"response\":[90,0,72,2,12,0,212,56],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1368,\"tx_us\":345,\"rx_config_us\":160,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":158,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a0048020c00d438\",\"inline_bytes\":8},\"v\":1,\"id\":11}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 12,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e04902080017ed",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,73,2,8,0,23,237],\"response\":[90,3,73,2,0,0,223,229],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":true,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1372,\"tx_us\":352,\"rx_config_us\":159,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":155,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a0349020000dfe5\",\"inline_bytes\":8},\"v\":1,\"id\":12}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 13,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e14a0200003355",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,225,74,2,0,0,51,85],\"response\":[90,0,74,2,19,0,241,198],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1374,\"tx_us\":345,\"rx_config_us\":159,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":161,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a004a021300f1c6\",\"inline_bytes\":8},\"v\":1,\"id\":13}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 14,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e14b020100b610",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,225,75,2,1,0,182,16],\"response\":[90,0,75,2,1,0,84,213],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1377,\"tx_us\":349,\"rx_config_us\":164,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":159,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a004b02010054d5\",\"inline_bytes\":8},\"v\":1,\"id\":14}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 15,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e14c020200c814",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,225,76,2,2,0,200,20],\"response\":[90,0,76,2,0,0,72,183],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1372,\"tx_us\":345,\"rx_config_us\":166,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":155,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a004c02000048b7\",\"inline_bytes\":8},\"v\":1,\"id\":15}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 16,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e14d0203004d51",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,225,77,2,3,0,77,81],\"response\":[90,0,77,2,37,7,8,72],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1380,\"tx_us\":352,\"rx_config_us\":160,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":163,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a004d0225070848\",\"inline_bytes\":8},\"v\":1,\"id\":16}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 17,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e14e0204000653",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,225,78,2,4,0,6,83],\"response\":[90,0,78,2,0,16,17,72],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1370,\"tx_us\":349,\"rx_config_us\":160,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":154,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a004e0200101148\",\"inline_bytes\":8},\"v\":1,\"id\":17}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 18,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e14f0205008316",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,225,79,2,5,0,131,22],\"response\":[90,0,79,2,16,0,231,47],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1370,\"tx_us\":345,\"rx_config_us\":160,\"ready_wait_us\":2,\"turnaround_us\":8,\"rx_us\":160,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a004f021000e72f\",\"inline_bytes\":8},\"v\":1,\"id\":18}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 19,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e150020600998c",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,225,80,2,6,0,153,140],\"response\":[90,0,80,2,79,0,47,254],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1376,\"tx_us\":351,\"rx_config_us\":160,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":158,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a0050024f002ffe\",\"inline_bytes\":8},\"v\":1,\"id\":19}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 20,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e1510207001cc9",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,225,81,2,7,0,28,201],\"response\":[90,0,81,2,187,1,191,71],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1372,\"tx_us\":351,\"rx_config_us\":160,\"ready_wait_us\":3,\"turnaround_us\":9,\"rx_us\":154,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a005102bb01bf47\",\"inline_bytes\":8},\"v\":1,\"id\":20}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 21,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e252020100b41600001000000000004994",
+      "response_bytes": 26
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,226,82,2,1,0,180,22],\"response\":[90,0,82,2,1,0,132,61,89,226,35,15,225,55,244,211,13,0,171,254,170,59,170,2,87,223],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":26,\"request_bytes\":18,\"received\":26,\"captured\":42,\"capture_bytes\":42,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1386,\"tx_us\":363,\"rx_config_us\":159,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":158,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a0052020100843d59e2230fe137f4d30d00abfeaa3baa0257df\",\"inline_bytes\":26},\"v\":1,\"id\":21}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 22,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e253020001104300001000000000005a13",
+      "response_bytes": 4106
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,226,83,2,0,1,16,67],\"response\":[90,0,83,2,1,0,48,75,89,226,35,15,225,55,244,211,13,0,171,254,170,59,170,2,190,209,254,233,250,171,250,202,123,138,239,141,121,191,141,203,162,251,164,172,251,174,110,47,238,165,241,54,162,205,121,63,239,57,250,138,99,171,225,252,251,227,211,139,106,60,250,246,234,76,79,47,167,217,41,150,63,171,128,175,238,226,228,106,237,137,203,91,204,178,154,190,179,255,190,118,250,239,252,251,47,243,55,62,130,234,223,163,250,108,70,43,33,171,184,249,90,194,141,183,179,34,187,192],\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"requested\":4106,\"request_bytes\":18,\"received\":4106,\"captured\":4122,\"capture_bytes\":4122,\"sync_offset\":9,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"total_us\":1685,\"tx_us\":369,\"rx_config_us\":170,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":380,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"positive\",\"tx_preamble\":0,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a0053020100304b59e2230fe137f4d30d00abfeaa3baa02bed1fee9faabfaca7b8aef8d79bf8dcba2fba4acfbae6e2feea5f136a2cd793fef39fa8a63abe1fcfbe3d38b6a3cfaf6ea4c4f2fa7d929963fab80afeee2e46aed89cb5bccb29abeb3ffbe76faeffcfb2ff3373e82eadfa3fa6c462b21abb8f95ac28db7b322bbc07b28fd897dfae1ca78695efdce2deebffbee2e2ebf273febe2c8c09abf1afeb7bbbe29aba17e9af96229f5ffea9a3a85e66fa2ee3de2afeefbacb592dedfbe79c86baad78ffae9a6ed23e21a617fa6cfe78fee4eaecfabe7ff1fab3f8bfa5ce98d8bdb93e68daff6d6f797fc0beeba8fbaaa7fee67e8f6e83e5e7eefd38b92df\",\"inline_bytes\":256},\"v\":1,\"id\":22}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 23,
+      "cmd": "mem",
+      "action": "xferx_get",
+      "offset": 256,
+      "length": 512
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"received\":4106,\"offset\":256,\"response_hex\":\"95beeebebb83f80b6e3fb1df27397eecb2eff767bf29c6bc55bbefbb9ebe8faf6afbbfe3fdba2f2befbbea07b74b623aec7fdde6fbbaaa7c4318fdea9f613baafe0efcfb49fbb8beff7e3efe6b3faeb8a959ab73ebbbcc6d6dbfeafb8f3b9ba6ebb3abbea8ed9a81238863862b25ee663b82b02ebc5ef0334bc7d7bafa6b97b7a5224f8769eb9ebd64ebeea898bfcebeeb022aa7fe7ad52cbaadbfb99febb3f3339ea9f432afe1e1a2dbaf6cfbaedafaefbee7532359bdfb2f5bdef812b8ff857faf8b9fa37b96ff56ac9aa968e7aea8e6fa297f23ea6e6f63ff97c28b0a97dbd99abfaabaa8f617fbded897fb9f3abaeed6ec3e3eaca2b3ab79e1e9b06205fbe671e7bbfef9ac1deaac3e7f9632fe2ce7ab9c4e76f9ea6ff9e29eb6a5988fb081afbf9e7ac2fabbf27a71c6e628dfabc3ffe7e5eee40a35fcfc7abe8f6fe78b734accaef2baeff94eef1bffa6ffe3bf3779cf3a7e87c313ab0f6b29b8cb9b3fa8ff9ebe5daedfbfb0bd49bf8193e8f938deb74fa8ee6b66b7ecbd799bb069b11076d8bfeb3edbdbff69dfa3fac0bafcc50afb9fe94b83dfeb6bdfa29babb072afc3a98dbb7ced29eff2ea1abeff6ae755bbedfbaff72ef7b5f9bf9fd0f39ddfa2f7aeb3fb2f73bfeb3bb1e47a8fa8b7afbeeebdefadfbefbecb7b0b2fbcace83feba5e79beb3af95afdebeaf8e71738e6abeaa82937e62eabbbceabb67b8f6a\"},\"v\":1,\"id\":23}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 24,
+      "cmd": "mem",
+      "action": "xferx_get",
+      "offset": 768,
+      "length": 512
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"received\":4106,\"offset\":768,\"response_hex\":\"dbab6d1f2a3eabeba3f63aabeef9e2c8ae2fec7fce387a8bfc34fa6eeba9a88a8197fa892dfabefeeef5eeafce73fe93627a2a6296fa15ac6cf605cb6bf9cdaee3e68e5937d09dffbb3babdfefe76d75886aaab2bafadf679a4cda55f8d33e232ea9dbf6adce5a1ed41fbfee68deaecf8b2dbe2fd9fb4be5fdbc377ffdbbfeedaefab9c7ea7afba0a47b9796efffbae7bbfd6c0a296ec7ebd86e8ede2fc5d01a3dc8fd7fbfb226ea7c76fc3ba6e3fbbf4b0ba12f6ae298f36a39f26ee3bd3ee69f5f9aeb77df857faff66eefaf1ed6afbd78ca168b2977248c9785ffbc5ff38f973bebedb8bfaeefbfe6e89aaebdc7f883b817e6ef8be6eeafae7eefba89fcd6d3ddd2dbadd83bfffabe3aeaefeaf6b22e036fa7c0eebfeacfaee73bbf9fbb9e1e3affb234cbedf6bbaaa7e84e9cc6e7fbe1b20ea9b1eb5ae2bc4bfafef39af397ff31e2a6fe82ac77da1a2b6f53abf2fe2abffe6de5bf7cae93cc2918b7ebd2d1d4c3db82dfcfb1fbded7ee6a83a9f8a7b27bbbbebea3ea9eead9bebbe9ac135afe8ce669bae6b1b5bfefef062eedc2f3afaffea23fa299b5aeff0beb6b7beba8fbf67c6a3aa9bd3eddb7b7a2eb3e7efbfeaabfaf3b69fed9e68bda9ebdbb9afaebb6748bbfa12f73eb3c1f76f8ead63aeb8fec36bb5034398bbfdcee3d1fdbe6eacae7daabbb8aee62af39f4af21a7e2a927fe6fb4eafcdcdbf1fefe3aa0bd\"},\"v\":1,\"id\":24}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 25,
+      "cmd": "mem",
+      "action": "xferx_get",
+      "offset": 1280,
+      "length": 512
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"received\":4106,\"offset\":1280,\"response_hex\":\"df993fff8debf9bd9c1a6afece9e70afbe3affbef5ae8c7e9e4922faef8d61fd8fd60edfbbd0d7f1e14f3b9a9ab4ef2aeeebee66e57feee0cad9bbdfebcf9bb3eb7ae2fa59feabe3be03f5d7efffa3bbb125a5e6a6f24bf63eb3bbeffeb0ebb8b83b3afb12fa38eb7b64abfc3fae27e3e178cb6b7e6dcfbd8f42ba93abea7aee7b9df79b5ee4f66be6c083caebe79db5dba7fa3136a2f38adb8efe3b2fdb8bfef97ba2ffc067afa3df9e2a2dbeade48c8adfaab4fff8f5fef8bfeee87ea96deeb7ab0aaf9dea247feae6df6fdded6fdd7f6e6e0fe36b2aa3bd4f8bc1bf350ba26d8bef1bba781a3efef6ea4e2eec192a7fe98faa37f217aee8e46ff542f7e5dbbcabdf6eb2068baaf92fdbaecf7fceeddfb223e0aef55bc9b0bbd3b3dbfe8398e6239bfbfe9aef18840f69acebe3f6e8aece6e0aaa549effbfb3a7da99a9fef3ecaeebd3eaad8b783ebe96edf0fe6a4a5ef2ff308fb339c52eabfc8b6eeeababbee0d0b7cbe4ae988efe98fe0e964f9a68e88fff3fd8fed4dbe7ea3bde283fda1829dea6b4abdfa93b7bc9beeef2f29f6cb6f72d16d2beae239aeb94fe397f3a9fb7ed818baab5efe6fdc6baf4ea68b6a6ac2d7f2eabb26afe9cabd9377fddab9affb9bf44f8a7f8eeeabb6b03f2fe07703abba55a36affda73a3f479cfdfafef8bf29ab6efb98fbbefb7ff515aebeb3d6fbbdb0fffe7a96ffee6fb5f3cf23a7\"},\"v\":1,\"id\":25}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 26,
+      "cmd": "mem",
+      "action": "xferx_get",
+      "offset": 1792,
+      "length": 512
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"received\":4106,\"offset\":1792,\"response_hex\":\"8ebe5faa273c8ae8ef287b9b43efa7bfafea63aa7fa85fff7f1ef9bf21e71d5d8fe8c5cfab23f3b0e68efee36baeadefc9ae1bfce57d26f7f0fefaad9ffd5a93b1bcecbba9ebfeec7bfffb46fbf97baa9f6eff6333eb2b734aaef8bca5b1dfdbbf4a98bfb1cbb0dbbae9be782ccdea8da37ba9beafe7d9fe2dbace6d814278d9bacaee5d5affbeeae7ef96fbbaefe97f8d6e7eeae4cdaccba6be6b08cfabecf0bad4ff8edba2acaee99eeea6a2b84aeca2f6bb3db6ef0e813e8b8fb3aa3bfbfb26e1bfebda2a96ffeb7f8dbe8bce3febeefeeaf7fab47e27fc2be2a66bfa5bebe7b99a4dadbd8ffeeceeee8f2203a43bf633f33ebbae24ceb2bbabb7cb8f98d9f13eadbd86bb7cebb5a607ced2aab76ebef6320ffe6ef6f8fcdfb9faa88ffbaa997887aaffff72e7e6b7fdace3f4dbbee227a79f2b5e6cfb799ea3befcaf4bfee8ea9322ddef4aa8e8de6beac8c7bbac8fcfcd2aa97be2d6f66bbef2bb2abcaeb8a95a0bfba47adeb78afc684ba6fdff8c06178bf86bbeea7fcaeefbbd1bfb9dcb693efba6ada2ae6b77ae26e3bc548dccbb72e57279efb1abe8f997aaff1bff972623eebf29eeb730efeed2abf0a73abbeeb1aa696caacaff95af2d59beefae4e9cffbfa66b98b96eaa20efaeabc3fbbaa2ba2f8faed4ee89fdbaac39f3fdde3bd37ba5ebfdbbfa760e2efdaa6a73bbefc66ae7eaf2afcaea62dffe06dc796c\"},\"v\":1,\"id\":26}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 27,
+      "cmd": "mem",
+      "action": "xferx_get",
+      "offset": 2304,
+      "length": 512
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"received\":4106,\"offset\":2304,\"response_hex\":\"bfab91c39a584aba8b692e4c2af2a2ffad9af63acb2e7daaff2efba2a91b3e8ffe9f0222ee7fe7a29b7e8ebc7dfa726a7ae7d93a6d2fffde2df96fb0fbdbaad7aefa28f7bb1ebbbfecfcbbaaefc71eb6fbbd6ab5aab7e529eb8b6ae9378b2f991aa99fcee9f7682ea61aa62ae5a6567f2bb32bfed6e2afaa76979af7ed7bb851aefb0aba8cbdee2ba776b8bbaca7dceeaecac9e9c3ae3feba7ebfae3a92eaec45eeaebebc99bda98cbce1a3e27ee25cbfa2aa0ffaaebc6e63aa2de9bb1fbeffbefacdf933cedda0fc4e6aeb9aaed7efbebe8efe9f7e13bf721b3af38f1bfa3be1ddca8cca4bb0884bb6a4befbbc7ffc9c9a21ee8ac32dec219fdfa8f6e8b9bfe5a0cbc93bd7bb4cb2ef26dc2daefd0970fa4743ba6be2aefb9b1abcc2ee9d1e3dc838aeceeb99bfefbbfa22cbe33b6bfcefcebf8bf1eb3a11af7d6a2be872a9aebff9addbe6eb1b519723efe1d7eeeaf76eefbea8aeca9dc03a81fcb3e2896fb33ffba2bf983fbb8eaefaa3adabf6ae6777ae2edcbf5aab832d987faae2ec2bdd53b4dcdeba7ebeaefc18b8fdbdf5b2f2ffac7f9da7a92e7b6e88b3b2c6bb3f6da2adb9e9a7b4d8cdd6fdbedb7a7fbdeed2ad1fecab6e8e76cf6fa67e2ede96eabeba86d1eded55afc3fea2bea3642bbdf711e9bc37e22ec3eb9becbff79016fefba2cb2a1fb7e9feeaca72eae06bbad3ef6b8a2622fba2a3c4eb6adf2bbf6d9\"},\"v\":1,\"id\":27}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 28,
+      "cmd": "mem",
+      "action": "xferx_get",
+      "offset": 2816,
+      "length": 512
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"received\":4106,\"offset\":2816,\"response_hex\":\"aad66a3feae989f83dd7afe762bd8b7abcff966aabbe23f825be0feb96ac87d911ae38ae1129c87baffba2666e6aeabe8ebcbcee0ec9e8afba9fd2baed29abf2dbbee9a85ae6b4bfb0eef9e89a38be7aaadfe9beb3ec2e1db93fe96e9aeaa9af87ab0bbb2de0a91fa8b7ae8da9aa26ea5fff4abae3f9f8aba3e24d8ca8e9ba8e691aae7ad6e8ef9dd6adffcbee0beedfaaef9ec8ffe1dcbdaa3e782bd7aeebfeb8db1feb7abaf3a32d6a1baccad61ee729e6aeaa9bd83a98bb3a868e9d78f78fa5fb695bbffeb7ef0abd6fd7a8b7807abf3aa7bba6d87ba2e4fa3fbe1a8e838fbe9ef9ae99fed2b43abacee2e13eea166bda2ff68fd66a58e04abbcaffdfbf77e30baebe3aebfb8b2c3f7cfb9b09babebb7bb8deacfef6a7c7f78fdb6ec9f0dba89f20a92ab63ebb6ee21fbfc2aefec6b36d1a7eb4a4ba59fff339fef2a9529daf0a2ec6b7fbf8c8aee9e7faeaee32ea7b3b699baefb87aaa5ab4b7eec9df8fec7acb8bef398827beb3feeeffeab4b8e7a6cbbada8fc83bce33eefbbedee8bbfc5fc8fbff6ca8aa69a432ffe42eeebfbedfe9c82da2b40aefa7eaaafaf9bbaff9cbcaebbca1b6dc17ce88c9a7bc4a77a96bf688fc27fc3a793cdcbfeea7aebb6c6b9bfbac30fb71e96a7a9e68ffead6fcb0adf7fbdd6f11ca81c0b69f1e27ac3a8fdf8943ecba9ebee877df674d7ddfaa7eaae4bfb62fd6aa9e9bbceeaebedae\"},\"v\":1,\"id\":28}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 29,
+      "cmd": "mem",
+      "action": "xferx_get",
+      "offset": 3328,
+      "length": 512
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"received\":4106,\"offset\":3328,\"response_hex\":\"2cd90fef9395a3cbaaf48ea0aabfeb37bb7225abfdb7ba8ef18daf81bf6e3fb1b3efe3ff5fbfabeaebea4738297feaae66897e2edaeae6acb4a3cb2ab3be3dfa6eedeb1ac1b6932f5e46ffbbffe2f75a32f2eeff83ee7eebfcbdf9fbbb23ab0eeddaabee3a1aeebe4fafbeebac0e83a7ba32eb0f3b6fdae7bdffffdb39bebe78f85fcbedaa9ffffb3ece3c77d70ef1ca8b99ab7ae1abafaabadbb2daeebff13fe6a8bcff92a2faa9932cfb9fa8f8ebeae3f3b7be6e37c2bbaae8efeb7ef3a405befbefdcd5eb6eec62ac6fa3a67ceaf6824bee82febf6e6abbbffdaaf9fbaba6ba02d89fafb9eb2aeab7ea26bf3f1aeecbf2e5ee8fe8ff9abeffea4acae929ebf71f30ff3bfae7a8a1efaffe6ebaeaeff977da42be2ee7ee90ce40dabb9cfc1e83f6abaedbf88baa640abb257da7aed1bab9ebdcacafb146fd7cfb3b1c142ca82bcbba9ba6bbb3fbeb7f62a362efff6cb6af6bfcfabebacf94ab1a9deba9b8b2f6bba6fa7bbbe26ef2ffaaeeaabf22ae9c6aa3ebee6fe723beebee833d8e7f8fb5e83b3bcafbd8cd4368a6832e3ff8a2936a2f7a5ee3de7782abbed97f49fe3ef70fdf8bede4b7bb2fdac7017abe6c2144a8d73a8bfb2eac9bb3fadfdbaf0bcaefffbeba9d8bf8cb87efe3fca00a1efbbcacf76fcbfbe3b7e7ffebf921debafb6df3ca5aebfb99ab9c6bf897a1ccb6ed62a8a26aeeaac1e6adcfbfbe97be5b8b\"},\"v\":1,\"id\":29}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 30,
+      "cmd": "mem",
+      "action": "xferx_get",
+      "offset": 3840,
+      "length": 266
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"received\":4106,\"offset\":3840,\"response_hex\":\"abeb45e7ff92e8fcda8a3b2e8e7fbebf8e7ffb3abdf13aa5e7fb7ee4f81cafdaa6fef9bdf94bfebf89bf92edaa2ad3869e5bfad89ab7c3bc0ad7e88f34b7eefe1c7bcbc3a8b7ff49686c2a06693fffe2e68ec8ffbb5a272ae3fb6ebfacb6b6ae595e7fcbdbfdb9a84eaeaeeea4eeff231e1a2aa43ebc7f8c37a7367abafeb43ebe83aa727eb9edba2a056b8442abbb3bf3afa63bc6f99ea6aa5bb83ec0ca6b2fb33afcc0ebfcce7dbec6262eaab8dbf7efa2a6efc1af27e6a3d5effa3eaaff6dabb0eedfc8835acdf9e8bfaa3bbe6eff315e285febf4eeaacdc7b0a9bbff1dbacdafbeadb9d38b8ebeba7f60a8f4fbfbc3b3e5fb3e7f4b977e963a43ef7dafffa0f43efab9a739981d4f\"},\"v\":1,\"id\":30}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 31,
+      "cmd": "mem",
+      "action": "disarm"
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":false,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":11,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"LINK CHECK + TRANSFER\",\"result\":\"RUNNING\",\"step\":0,\"total\":4,\"transfer_us\":0,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":false,\"mem_session\":false,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,226,83,2,0,1,16,67],\"response\":[90,0,83,2,1,0,48,75,89,226,35,15,225,55,244,211,13,0,171,254,170,59,170,2,190,209,254,233,250,171,250,202,123,138,239,141,121,191,141,203,162,251,164,172,251,174,110,47,238,165,241,54,162,205,121,63,239,57,250,138,99,171,225,252,251,227,211,139,106,60,250,246,234,76,79,47,167,217,41,150,63,171,128,175,238,226,228,106,237,137,203,91,204,178,154,190,179,255,190,118,250,239,252,251,47,243,55,62,130,234,223,163,250,108,70,43,33,171,184,249,90,194,141,183,179,34,187,192]},\"v\":1,\"id\":31}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 32,
+      "cmd": "mem",
+      "action": "display",
+      "test_name": "RX20 POSITIVE CHECK",
+      "stage": "CAPTURE FAILED",
+      "step": 4,
+      "total": 4,
+      "result": "FAIL",
+      "transfer_us": 1685
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"51e3a32\",\"app_elf_sha256\":\"eacc8c0d17827a57d7bd0cea9d7b6206ba14f49ef14501624ace44d64ff33782\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":2000000,\"xferx_rx_hz\":20000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":0,\"mem_status_display\":true,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":false,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":12,\"test_name\":\"RX20 POSITIVE CHECK\",\"stage\":\"CAPTURE FAILED\",\"result\":\"FAIL\",\"step\":4,\"total\":4,\"transfer_us\":1685,\"tx_hz\":2000000,\"rx_hz\":20000000},\"link_armed\":false,\"mem_session\":false,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,226,83,2,0,1,16,67],\"response\":[90,0,83,2,1,0,48,75,89,226,35,15,225,55,244,211,13,0,171,254,170,59,170,2,190,209,254,233,250,171,250,202,123,138,239,141,121,191,141,203,162,251,164,172,251,174,110,47,238,165,241,54,162,205,121,63,239,57,250,138,99,171,225,252,251,227,211,139,106,60,250,246,234,76,79,47,167,217,41,150,63,171,128,175,238,226,228,106,237,137,203,91,204,178,154,190,179,255,190,118,250,239,252,251,47,243,55,62,130,234,223,163,250,108,70,43,33,171,184,249,90,194,141,183,179,34,187,192]},\"v\":1,\"id\":32}"
+  }
+]

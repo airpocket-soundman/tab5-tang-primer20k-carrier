@@ -1,0 +1,167 @@
+{
+  "result": "complete",
+  "mapping": {
+    "CLK": {
+      "channel": 7,
+      "candidates": [
+        7
+      ],
+      "status": "identified"
+    },
+    "D0": {
+      "channel": 15,
+      "candidates": [
+        15
+      ],
+      "status": "identified"
+    },
+    "D1": {
+      "channel": 14,
+      "candidates": [
+        14
+      ],
+      "status": "identified"
+    },
+    "D2": {
+      "channel": 13,
+      "candidates": [
+        13
+      ],
+      "status": "identified"
+    },
+    "D3": {
+      "channel": 12,
+      "candidates": [
+        12
+      ],
+      "status": "identified"
+    },
+    "D4": {
+      "channel": 11,
+      "candidates": [
+        11
+      ],
+      "status": "identified"
+    },
+    "D5": {
+      "channel": 10,
+      "candidates": [
+        10
+      ],
+      "status": "identified"
+    },
+    "D6": {
+      "channel": 9,
+      "candidates": [
+        9
+      ],
+      "status": "identified"
+    },
+    "D7": {
+      "channel": 8,
+      "candidates": [
+        8
+      ],
+      "status": "identified"
+    },
+    "DIR": {
+      "channel": 5,
+      "candidates": [
+        5
+      ],
+      "status": "identified"
+    },
+    "READY": {
+      "channel": 6,
+      "candidates": [
+        6
+      ],
+      "status": "identified"
+    }
+  },
+  "evidence": {
+    "frames": 9,
+    "caps_first_index": 0,
+    "sequence_first": 65,
+    "clock_period_samples": 10.0,
+    "tx_physical_clocks": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+    ],
+    "rx_physical_clocks": [
+      44,
+      44,
+      44,
+      44,
+      44,
+      44,
+      44,
+      44,
+      44
+    ],
+    "max_rx_clocks": 256,
+    "rx_protocol_bytes": 16,
+    "rx_requested_capture_bytes": 24,
+    "rx_post_protocol_physical_clocks": [
+      28,
+      28,
+      28,
+      28,
+      28,
+      28,
+      28,
+      28,
+      28
+    ],
+    "clock_rule": "8 periodic TX rising edges followed by 24..max_rx_clocks physical RX rising edges; tail retained",
+    "data_rule": "all TX bytes and RX first16 prefix/header bytes match independent tagged CAPS and CRC16",
+    "control_rule": "DIR low for all TX/high for all RX; READY TX-low, RX first2-high/last3-low",
+    "tx_first_sample": 1507754,
+    "rx_last_sample": 2489331
+  },
+  "limits": [
+    "Digital sampled levels only; not analog signal-integrity proof",
+    "Unconnected/duplicate/unsampled signals remain unknown or ambiguous",
+    "A matching probe signature is valid only for this known traffic capture"
+  ],
+  "input": "D:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\validation\\slogic-memv1-2026-11-05\\map-04\\capture.sr",
+  "input_sha256": "a062b5fe092119204da423b48aa524618df4907773654f6a5dbaeaea597bc0b3",
+  "samplerate": 5000000.0,
+  "samples": 10000000,
+  "archive": {
+    "chunks": [
+      "logic-1-1",
+      "logic-1-2",
+      "logic-1-3",
+      "logic-1-4",
+      "logic-1-5"
+    ],
+    "probe_names": {
+      "0": "D0",
+      "1": "D1",
+      "2": "D2",
+      "3": "D3",
+      "4": "D4",
+      "5": "D5",
+      "6": "D6",
+      "7": "D7",
+      "8": "D8",
+      "9": "D9",
+      "10": "D10",
+      "11": "D11",
+      "12": "D12",
+      "13": "D13",
+      "14": "D14",
+      "15": "D15"
+    },
+    "probes": 16
+  },
+  "scope": "offline inference only; no device operations"
+}

@@ -1,0 +1,18 @@
+{
+  "host_source": "94d9392",
+  "host_branch": "codex/memv1-dma-integration",
+  "project_serial": "30:ED:A0:E2:FE:C0",
+  "port": "COM4",
+  "fpga_usercode": "A0A9",
+  "policy": "retain + full_apb_restore_tx (APB/Core/FIFO resets retained); two slots; TXNEG/preamble1 RXPOS guard2",
+  "qualified_trials": "5/5MHz matched control/reuse1000; 8/8MHz1000 and10000 WRRD iterations, read1000, legacy11, cancel and rearm; bounded trials only",
+  "unqualified": "10/10MHz first request FORMAT; rx_only_reset remains unqualified",
+  "hashes": {
+    "tab5_gpu_lab.elf": "22e8dbc21e87c89efdcaa7945286c468dbf08f9c839cc47c98c8aeb45af3e293",
+    "tab5_gpu_lab.bin": "da97d590cffba4545bc8cffd26d3ec36387a7f3a3f055a9c489f94048f794dba",
+    "sdkconfig": "4d3747f35ec8e6dc32c00237b93e7382adb2577fd213ae4ed197abfd40267067",
+    "flash_args": "63aafc9e5e5bb7f4922023b5c8d4b1b037431cbc641ee4cf6856cc8a276f3668"
+  },
+  "backup": "D:\\github\\airpocket-soundman\\tab5-fpga-gpu-display\\build\\known-tx-reuse-94d9392",
+  "final_disarmed": true
+}

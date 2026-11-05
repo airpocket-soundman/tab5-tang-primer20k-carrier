@@ -1,0 +1,100 @@
+{
+  "scope": "ESP-IDF-only full APB reset with retained TX unit register restore, optional explicit 8/10MHz experiments. No pins, power, commands-on-wire or FPGA changes. Linux and MeOS revisions rechecked unchanged; their implementation is separate and not qualified by ESP-IDF results.",
+  "repositories": {
+    "linux": {
+      "head": "f1deceb282d48c1899c74e763400118350e0410e",
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "9844a20a172a1cdc6ae3b4a109ab16f72e1ea9cf517d586ec985304475495d9b"
+        },
+        {
+          "path": "docs/DEVELOPMENT_GOALS.md",
+          "sha256": "309aa4a945cced1e8c5fbd7b128a3b442427cacb41109be19e882341506d45eb"
+        },
+        {
+          "path": "linux/dts/tab5-fpga-dock.dtsi",
+          "sha256": "79791a535b530f3fe45d9e105f6f008be88668c0d5f160146569f68754ee7b07"
+        },
+        {
+          "path": "linux/tab5/fpga-link/tab5_parallel_linux.c",
+          "sha256": "655f627dd89aebc45d1ed20febed6c9464be5db88b54cfca89e2ba959bdd53c2"
+        },
+        {
+          "path": "linux/tab5/fpga-link/tab5_parallel.c",
+          "sha256": "881f19c755b8bf9750db5075c74c40ad1c06c13704f05527ae6aac7305695dd3"
+        }
+      ]
+    },
+    "meos": {
+      "head": "c3519d8a93bc44eaff5500c117576e5c9dbef42f",
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "8830dcd8c49f0450c34b5e894b6a0dd2bbf2595312f22d3220cdb930b69260fa"
+        },
+        {
+          "path": "docs/FPGA_CARRIER_REQUIREMENTS.md",
+          "sha256": "364495173dbcd6086be6e7c398702303333dd35923ef0da405f4cf52ea75557c"
+        },
+        {
+          "path": "kernel/include/m5os/hal_parlio.h",
+          "sha256": "29ac81e83c609c73b9d7aba4b86f6943430a5254c893c7b90e49cd04a750a0ca"
+        },
+        {
+          "path": "hal/esp32p4/parlio_native.c",
+          "sha256": "70e2bb33dabfa8d3979dc0476559aa1a2e08f76a12e5133515e97028d35b7a1c"
+        },
+        {
+          "path": "hal/esp32p4/parlio_native_rx.inc",
+          "sha256": "54c001a1b7156f3990db4828739d4f2dd789544690ed73461e872c861436de2f"
+        }
+      ]
+    },
+    "research": {
+      "head": "e84b59e8bf462ab1e2023f9e28f7915c152cbbdb",
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "756a8761127e8eab9b2b3988bc7be6b1bfb7b5596a2e82036d0ef045adcd838d"
+        },
+        {
+          "path": "docs/Project_A_P4_Linux_FPGA_Virtual_MMU.md",
+          "sha256": "d8d4b59369b4d3ff441bf48d84ff39dcf7462f70929052557ac09a1c81693de0"
+        }
+      ]
+    },
+    "espidf-main": {
+      "head": "dc2e9c434bdd35e608692b5de9e6a8273ee02bd9",
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "d553ccc1bfe8115f6a301b4898c7da0a62d234cbf9d07b9fb4c1a6ebf47f3b6d"
+        },
+        {
+          "path": "docs/Project_B_Tab5_FPGA_GPU.md",
+          "sha256": "ce05b55e4b5c09e2834a52a717536f088ad1e4be5e00b2f6ec463936cde077d2"
+        }
+      ]
+    }
+  },
+  "this_iteration": {
+    "host_base": "2c9128c",
+    "integration": "94d9392",
+    "linux_head_unchanged": true,
+    "meos_head_unchanged": true,
+    "research_head_unchanged": true,
+    "esp_refs": [
+      "README.md",
+      "docs/Project_B_Tab5_FPGA_GPU.md",
+      "main/dock_gpu.cpp",
+      "main/mem_probe_main.cpp"
+    ],
+    "meos_implementation_checked": [
+      "hal/esp32p4/parlio_native.c",
+      "hal/esp32p4/parlio_native_rx.inc",
+      "drivers/fpga/fpga_link.c"
+    ],
+    "research_plan": "docs/Project_A_P4_Linux_FPGA_Virtual_MMU.md"
+  }
+}

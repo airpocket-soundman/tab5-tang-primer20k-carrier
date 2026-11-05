@@ -1,0 +1,587 @@
+{
+ "tool": "memv1_xfer",
+ "started": "2026-11-05T08:01:58.421632+09:00",
+ "scratch": "0x100000",
+ "seed": 19761,
+ "execute": false,
+ "stages_requested": [
+  "caps",
+  "status",
+  "rd1",
+  "rd256"
+ ],
+ "mode": "gpio",
+ "hz": null,
+ "dma_options": null,
+ "info": {
+  "profile": "standalone_mem_bist_probe",
+  "app_version": "6c1510f-dirty",
+  "app_elf_sha256": "f2a278aae59b361ed97f8a7efedacfe7cc8ae4b9e0b858950068274752aba7c4",
+  "mode": "CPU",
+  "running": false,
+  "gfx_available": false,
+  "dma_available": false,
+  "mem_diag_available": true,
+  "mem_deep_diag_available": true,
+  "mem_scheduler_diag_available": true,
+  "mem_bw_available": true,
+  "mem_bw_op_first": 96,
+  "mem_bw_op_last": 111,
+  "mem_dma_compiled": true,
+  "xferx_mode": "gpio",
+  "xferx_hz": 0,
+  "link_armed": false,
+  "mem_session": false,
+  "configured": false,
+  "transport": "gpio_driver",
+  "fault": "none",
+  "device_status": 0,
+  "base": 0,
+  "count": 0,
+  "seed": 0,
+  "request": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "response": []
+ },
+ "xferx_mode": {
+  "profile": "standalone_mem_bist_probe",
+  "app_version": "6c1510f-dirty",
+  "app_elf_sha256": "f2a278aae59b361ed97f8a7efedacfe7cc8ae4b9e0b858950068274752aba7c4",
+  "mode": "CPU",
+  "running": false,
+  "gfx_available": false,
+  "dma_available": false,
+  "mem_diag_available": true,
+  "mem_deep_diag_available": true,
+  "mem_scheduler_diag_available": true,
+  "mem_bw_available": true,
+  "mem_bw_op_first": 96,
+  "mem_bw_op_last": 111,
+  "mem_dma_compiled": true,
+  "xferx_mode": "gpio",
+  "xferx_hz": 0,
+  "link_armed": false,
+  "mem_session": false,
+  "configured": false,
+  "transport": "gpio_driver",
+  "fault": "none",
+  "device_status": 0,
+  "base": 0,
+  "count": 0,
+  "seed": 0,
+  "request": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "response": []
+ },
+ "arm": {
+  "profile": "standalone_mem_bist_probe",
+  "app_version": "6c1510f-dirty",
+  "app_elf_sha256": "f2a278aae59b361ed97f8a7efedacfe7cc8ae4b9e0b858950068274752aba7c4",
+  "mode": "CPU",
+  "running": false,
+  "gfx_available": false,
+  "dma_available": false,
+  "mem_diag_available": true,
+  "mem_deep_diag_available": true,
+  "mem_scheduler_diag_available": true,
+  "mem_bw_available": true,
+  "mem_bw_op_first": 96,
+  "mem_bw_op_last": 111,
+  "mem_dma_compiled": true,
+  "xferx_mode": "gpio",
+  "xferx_hz": 0,
+  "link_armed": true,
+  "mem_session": true,
+  "configured": false,
+  "transport": "gpio_driver",
+  "fault": "none",
+  "device_status": 0,
+  "base": 0,
+  "count": 0,
+  "seed": 0,
+  "request": [
+   165,
+   80,
+   1,
+   2,
+   0,
+   0,
+   223,
+   161
+  ],
+  "response": [
+   90,
+   0,
+   1,
+   2,
+   77,
+   1,
+   227,
+   139
+  ]
+ },
+ "frames": [
+  {
+   "label": "CAPS[0]",
+   "request_head": "a56041020000adc3",
+   "request_len": 8,
+   "reply_head": "5a004102314d0321",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 19935,
+    "request_len": 8,
+    "total_us": 5813
+   }
+  },
+  {
+   "label": "CAPS[1]",
+   "request_head": "a56042020100406b",
+   "request_len": 8,
+   "reply_head": "5a00420200013305",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 21008,
+    "request_len": 8,
+    "total_us": 5720
+   }
+  },
+  {
+   "label": "CAPS[2]",
+   "request_head": "a56043020200a748",
+   "request_len": 8,
+   "reply_head": "5a00430280003e78",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 21002,
+    "request_len": 8,
+    "total_us": 5715
+   }
+  },
+  {
+   "label": "CAPS[3]",
+   "request_head": "a56044020300bb2a",
+   "request_len": 8,
+   "reply_head": "5a0044021000f831",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 20354,
+    "request_len": 8,
+    "total_us": 5717
+   }
+  },
+  {
+   "label": "CAPS[4]",
+   "request_head": "a5604502040098c5",
+   "request_len": 8,
+   "reply_head": "5a00450200011e54",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 20889,
+    "request_len": 8,
+    "total_us": 5716
+   }
+  },
+  {
+   "label": "CAPS[5]",
+   "request_head": "a56046020500756d",
+   "request_len": 8,
+   "reply_head": "5a0046027300e982",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 20743,
+    "request_len": 8,
+    "total_us": 5716
+   }
+  },
+  {
+   "label": "CAPS[6]",
+   "request_head": "a56047020600924e",
+   "request_len": 8,
+   "reply_head": "5a0047020100669a",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 20663,
+    "request_len": 8,
+    "total_us": 5719
+   }
+  },
+  {
+   "label": "CAPS[7]",
+   "request_head": "a560480207004da9",
+   "request_len": 8,
+   "reply_head": "5a0048020c00d438",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 19966,
+    "request_len": 8,
+    "total_us": 5716
+   }
+  },
+  {
+   "label": "CAPS[8]",
+   "request_head": "a56049020800c7cf",
+   "request_len": 8,
+   "reply_head": "5a0349020000dfe5",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 20653,
+    "request_len": 8,
+    "total_us": 5715
+   }
+  },
+  {
+   "label": "STATUS[0]",
+   "request_head": "a5614a020000e377",
+   "request_len": 8,
+   "reply_head": "5a004a02030082c5",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 19794,
+    "request_len": 8,
+    "total_us": 5716
+   }
+  },
+  {
+   "label": "STATUS[1]",
+   "request_head": "a5614b0201006632",
+   "request_len": 8,
+   "reply_head": "5a004b02010054d5",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 19738,
+    "request_len": 8,
+    "total_us": 5716
+   }
+  },
+  {
+   "label": "STATUS[2]",
+   "request_head": "a5614c0202001836",
+   "request_len": 8,
+   "reply_head": "5a004c02000048b7",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 19951,
+    "request_len": 8,
+    "total_us": 5716
+   }
+  },
+  {
+   "label": "STATUS[3]",
+   "request_head": "a5614d0203009d73",
+   "request_len": 8,
+   "reply_head": "5a004d020000fcc1",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 19715,
+    "request_len": 8,
+    "total_us": 5715
+   }
+  },
+  {
+   "label": "STATUS[4]",
+   "request_head": "a5614e020400d671",
+   "request_len": 8,
+   "reply_head": "5a004e020000205a",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 20633,
+    "request_len": 8,
+    "total_us": 5717
+   }
+  },
+  {
+   "label": "STATUS[5]",
+   "request_head": "a5614f0205005334",
+   "request_len": 8,
+   "reply_head": "5a004f020000942c",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 21309,
+    "request_len": 8,
+    "total_us": 5716
+   }
+  },
+  {
+   "label": "STATUS[6]",
+   "request_head": "a5615002060049ae",
+   "request_len": 8,
+   "reply_head": "5a0050020000dde3",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 19966,
+    "request_len": 8,
+    "total_us": 5715
+   }
+  },
+  {
+   "label": "STATUS[7]",
+   "request_head": "a56151020700cceb",
+   "request_len": 8,
+   "reply_head": "5a005102bb01bf47",
+   "reply_len": 8,
+   "timing": {
+    "host_us": 21695,
+    "request_len": 8,
+    "total_us": 5716
+   }
+  },
+  {
+   "label": "RD 1 beat",
+   "request_head": "a562520201006434",
+   "request_len": 18,
+   "reply_head": "5a0052020100843d2cf2ef2ee7e32ea6",
+   "reply_len": 26,
+   "timing": {
+    "host_us": 31765,
+    "request_len": 18,
+    "total_us": 14226
+   }
+  },
+  {
+   "label": "RD 256 beats",
+   "request_head": "a56253020001c061",
+   "request_len": 18,
+   "reply_head": "5a0053020100304b2cf2ef2ee7e32ea6",
+   "reply_len": 4106,
+   "timing": {
+    "host_us": 1285885,
+    "request_len": 18,
+    "total_us": 1253715
+   }
+  }
+ ],
+ "stages": {
+  "caps": {
+   "result": "PASS",
+   "words": [
+    "0x4d31",
+    "0x100",
+    "0x80",
+    "0x10",
+    "0x100",
+    "0x73",
+    "0x1",
+    "0xc"
+   ],
+   "features": "0x73",
+   "exact_0x73": true
+  },
+  "status": {
+   "result": "PASS",
+   "diag7": "0x1bb",
+   "flags": "0x3",
+   "generation": 1,
+   "last_status": 0,
+   "ops": 0,
+   "undefined_range": false
+  },
+  "rd1": {
+   "result": "PASS",
+   "bytes": 16
+  },
+  "rd256": {
+   "result": "PASS",
+   "bytes": 4096
+  }
+ },
+ "result": "PASS",
+ "transfer_4kib": {
+  "RD 256 beats": {
+   "payload_bytes": 4096,
+   "request_len": 18,
+   "reply_len": 4106,
+   "roundtrip_us": 1253715,
+   "mb_per_s": 0.0033,
+   "host_us": 1285885,
+   "tx_us": null,
+   "rx_us": null,
+   "ready_wait_us": null,
+   "rx_config_us": null,
+   "sync_offset": null
+  }
+ },
+ "disarm": {
+  "profile": "standalone_mem_bist_probe",
+  "app_version": "6c1510f-dirty",
+  "app_elf_sha256": "f2a278aae59b361ed97f8a7efedacfe7cc8ae4b9e0b858950068274752aba7c4",
+  "mode": "CPU",
+  "running": false,
+  "gfx_available": false,
+  "dma_available": false,
+  "mem_diag_available": true,
+  "mem_deep_diag_available": true,
+  "mem_scheduler_diag_available": true,
+  "mem_bw_available": true,
+  "mem_bw_op_first": 96,
+  "mem_bw_op_last": 111,
+  "mem_dma_compiled": true,
+  "xferx_mode": "gpio",
+  "xferx_hz": 0,
+  "link_armed": false,
+  "mem_session": false,
+  "configured": false,
+  "transport": "gpio_driver",
+  "fault": "none",
+  "device_status": 0,
+  "base": 0,
+  "count": 0,
+  "seed": 0,
+  "request": [
+   165,
+   98,
+   83,
+   2,
+   0,
+   1,
+   192,
+   97
+  ],
+  "response": [
+   90,
+   0,
+   83,
+   2,
+   1,
+   0,
+   48,
+   75,
+   44,
+   242,
+   239,
+   46,
+   231,
+   227,
+   46,
+   166,
+   166,
+   248,
+   243,
+   198,
+   103,
+   228,
+   206,
+   216,
+   190,
+   209,
+   254,
+   233,
+   250,
+   171,
+   250,
+   202,
+   123,
+   138,
+   239,
+   141,
+   121,
+   191,
+   141,
+   203,
+   162,
+   251,
+   164,
+   172,
+   251,
+   174,
+   110,
+   47,
+   238,
+   165,
+   241,
+   54,
+   162,
+   205,
+   121,
+   63,
+   239,
+   57,
+   250,
+   138,
+   99,
+   171,
+   225,
+   252,
+   251,
+   227,
+   211,
+   139,
+   106,
+   60,
+   250,
+   246,
+   234,
+   76,
+   79,
+   47,
+   167,
+   217,
+   41,
+   150,
+   63,
+   171,
+   128,
+   175,
+   238,
+   226,
+   228,
+   106,
+   237,
+   137,
+   203,
+   91,
+   204,
+   178,
+   154,
+   190,
+   179,
+   255,
+   190,
+   118,
+   250,
+   239,
+   252,
+   251,
+   47,
+   243,
+   55,
+   62,
+   130,
+   234,
+   223,
+   163,
+   250,
+   108,
+   70,
+   43,
+   33,
+   171,
+   184,
+   249,
+   90,
+   194,
+   141,
+   183,
+   179,
+   34,
+   187,
+   192
+  ]
+ },
+ "finished": "2026-11-05T08:02:00.506948+09:00"
+}

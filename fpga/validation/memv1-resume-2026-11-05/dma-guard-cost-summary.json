@@ -1,0 +1,150 @@
+{
+  "scope": "After link establishment, 4096-byte request firmware total_us includes DMA preparation, transfers, guards, wait and release; ARM startup, display rendering and PC USB excluded. No sample filtering. All medians of 100 transfers.",
+  "fpga_usercode": "A0A9",
+  "elf_sha256": "a5b369f689e5c867f10fd920548cbdafdfd85614df6b359c802fd78baed11776",
+  "tx_hz": 5000000,
+  "rx_hz": 5000000,
+  "tx_phase": "negative",
+  "tx_preamble": 1,
+  "rx_edge": "positive",
+  "runs": {
+    "200": {
+      "result": "PASS",
+      "stages_completed": 202,
+      "frames": 617,
+      "disarmed": true,
+      "WR 256 beats": {
+        "n": 100,
+        "total_median_us": 2347.0,
+        "total_min_us": 2341,
+        "total_max_us": 2364,
+        "firmware_full_MBps": 1.7452,
+        "component_medians_us": {
+          "guard_total_us": 603.0,
+          "tx_config_us": 1.0,
+          "tx_transfer_us": 1184.0,
+          "tx_release_us": 66.5,
+          "rx_config_us": 161.0,
+          "rx_us": 157.0,
+          "rx_release_us": 55.0,
+          "finish_us": 203.0,
+          "unwrap_copy_us": 3.0,
+          "inputs_us": 26.0,
+          "usb_until_inline_us": 60369.0,
+          "usb_full_us": 60392.0
+        }
+      },
+      "RD after WR 256 beats": {
+        "n": 100,
+        "total_median_us": 2244.0,
+        "total_min_us": 2237,
+        "total_max_us": 2256,
+        "firmware_full_MBps": 1.8253,
+        "component_medians_us": {
+          "guard_total_us": 603.0,
+          "tx_config_us": 1.0,
+          "tx_transfer_us": 281.0,
+          "tx_release_us": 66.0,
+          "rx_config_us": 168.0,
+          "rx_us": 1000.0,
+          "rx_release_us": 56.0,
+          "finish_us": 203.0,
+          "unwrap_copy_us": 10.0,
+          "inputs_us": 26.0,
+          "usb_until_inline_us": 50856.5,
+          "usb_full_us": 178213.0
+        }
+      },
+      "CRC32 256 beats": {
+        "n": 100,
+        "total_median_us": 1388.0,
+        "total_min_us": 1380,
+        "total_max_us": 1403,
+        "firmware_full_MBps": null,
+        "component_medians_us": {
+          "guard_total_us": 603.0,
+          "tx_config_us": 1.0,
+          "tx_transfer_us": 282.0,
+          "tx_release_us": 66.0,
+          "rx_config_us": 161.0,
+          "rx_us": 158.0,
+          "rx_release_us": 55.0,
+          "finish_us": 203.0,
+          "unwrap_copy_us": 2.0,
+          "inputs_us": 26.0,
+          "usb_until_inline_us": 36144.0,
+          "usb_full_us": 36155.0
+        }
+      }
+    },
+    "2": {
+      "result": "PASS",
+      "stages_completed": 202,
+      "frames": 617,
+      "disarmed": true,
+      "WR 256 beats": {
+        "n": 100,
+        "total_median_us": 1753.0,
+        "total_min_us": 1745,
+        "total_max_us": 1766,
+        "firmware_full_MBps": 2.3366,
+        "component_medians_us": {
+          "guard_total_us": 9.0,
+          "tx_config_us": 1.0,
+          "tx_transfer_us": 1183.0,
+          "tx_release_us": 67.0,
+          "rx_config_us": 161.0,
+          "rx_us": 157.0,
+          "rx_release_us": 55.0,
+          "finish_us": 5.0,
+          "unwrap_copy_us": 3.0,
+          "inputs_us": 26.0,
+          "usb_until_inline_us": 60219.5,
+          "usb_full_us": 60231.0
+        }
+      },
+      "RD after WR 256 beats": {
+        "n": 100,
+        "total_median_us": 1650.5,
+        "total_min_us": 1643,
+        "total_max_us": 1658,
+        "firmware_full_MBps": 2.4817,
+        "component_medians_us": {
+          "guard_total_us": 9.0,
+          "tx_config_us": 1.0,
+          "tx_transfer_us": 281.0,
+          "tx_release_us": 66.0,
+          "rx_config_us": 167.0,
+          "rx_us": 1000.0,
+          "rx_release_us": 55.0,
+          "finish_us": 5.0,
+          "unwrap_copy_us": 10.0,
+          "inputs_us": 26.0,
+          "usb_until_inline_us": 51116.0,
+          "usb_full_us": 181176.0
+        }
+      },
+      "CRC32 256 beats": {
+        "n": 100,
+        "total_median_us": 794.0,
+        "total_min_us": 787,
+        "total_max_us": 802,
+        "firmware_full_MBps": null,
+        "component_medians_us": {
+          "guard_total_us": 9.0,
+          "tx_config_us": 1.0,
+          "tx_transfer_us": 281.0,
+          "tx_release_us": 66.0,
+          "rx_config_us": 161.0,
+          "rx_us": 157.0,
+          "rx_release_us": 55.0,
+          "finish_us": 5.0,
+          "unwrap_copy_us": 2.0,
+          "inputs_us": 26.0,
+          "usb_until_inline_us": 35921.0,
+          "usb_full_us": 35932.5
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,640 @@
+{
+  "scope": "offline digital probe waveform; no repair, device operation, or inference of P4 internal phase",
+  "script_sha256": "6144844d92dd885cb08d759167debedc77204c944295473ca004def31a1b95bf",
+  "mapping_module_sha256": "de0834b9852108f6c77041afb1efe4713a084018b2ba2703b2a7617965e60d90",
+  "capture_path": "D:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\validation\\slogic-memv1-2026-11-05\\rx16-rd256-01\\capture.sr",
+  "capture_sha256": "9e97dfef7f941c1ba3ff1d269d748bc65759bbc6e2b69d96c0b3fd0e6569549d",
+  "sample_rate": 100000000.0,
+  "total_samples": 100000000,
+  "retained_roi_samples": 447304,
+  "all_dir_intervals": 19,
+  "mapping": {
+    "CLK": 7,
+    "DIR": 5,
+    "READY": 6,
+    "D0..D7": [
+      15,
+      14,
+      13,
+      12,
+      11,
+      10,
+      9,
+      8
+    ]
+  },
+  "canonical": {
+    "physical_edge": "falling",
+    "offset_ns": 0,
+    "dir_interval_index": 18,
+    "header_hex": "5a0053020100304b",
+    "length": 4106,
+    "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+    "bound_crc": "4f1d",
+    "header_crc_valid": true,
+    "bound_crc_valid": true
+  },
+  "groups": [
+    {
+      "dir_interval_index": 18,
+      "dir_start_sample": 9949415,
+      "dir_end_sample": 10004918,
+      "raw_rising_edges": 4757,
+      "raw_falling_edges": 4758,
+      "rising_period_samples": {
+        "6": 3567,
+        "7": 1189
+      },
+      "high_width_samples": {
+        "3": 4097,
+        "4": 659,
+        "524": 1
+      },
+      "mean_period_ns": 62.5,
+      "short_interval_indices": [],
+      "long_interval_indices": [],
+      "ready_transitions": [
+        {
+          "sample": 9985764,
+          "level": 0,
+          "rising_edges_before_transition": 4114
+        }
+      ],
+      "phases": [
+        {
+          "physical_edge": "rising",
+          "offset_ns": -30,
+          "header_candidates": [
+            {
+              "header_offset": 9,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "4f1d",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": true
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4",
+          "valid_candidate_count": 1,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+          "p4_differing_bytes": 8,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 8,
+            "different_bytes": 4076,
+            "D1_different_bits": 1638,
+            "D6_different_bits": 2078
+          }
+        },
+        {
+          "physical_edge": "rising",
+          "offset_ns": -20,
+          "header_candidates": [],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c3c3180053020030304b59e2230fe534f4",
+          "valid_candidate_count": 0,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 8,
+            "different_bytes": 4006,
+            "D1_different_bits": 1413,
+            "D6_different_bits": 2020
+          }
+        },
+        {
+          "physical_edge": "rising",
+          "offset_ns": -10,
+          "header_candidates": [],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a0013120000303a59e2232f2137f4f4",
+          "valid_candidate_count": 0,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 8,
+            "different_bytes": 2139,
+            "D1_different_bits": 402,
+            "D6_different_bits": 668
+          }
+        },
+        {
+          "physical_edge": "rising",
+          "offset_ns": 0,
+          "header_candidates": [
+            {
+              "header_offset": 8,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "7ab3",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": false
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4d3",
+          "valid_candidate_count": 0,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 8,
+            "different_bytes": 19,
+            "D1_different_bits": 4,
+            "D6_different_bits": 3
+          }
+        },
+        {
+          "physical_edge": "rising",
+          "offset_ns": 10,
+          "header_candidates": [
+            {
+              "header_offset": 8,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "4f1d",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": true
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4d3",
+          "valid_candidate_count": 1,
+          "valid_at_fixed_byte_clock_alignment": true,
+          "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+          "p4_differing_bytes": 8,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 8,
+            "different_bytes": 0,
+            "D1_different_bits": 0,
+            "D6_different_bits": 0
+          }
+        },
+        {
+          "physical_edge": "rising",
+          "offset_ns": 20,
+          "header_candidates": [
+            {
+              "header_offset": 8,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "4f1d",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": true
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4d3",
+          "valid_candidate_count": 1,
+          "valid_at_fixed_byte_clock_alignment": true,
+          "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+          "p4_differing_bytes": 8,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 8,
+            "different_bytes": 0,
+            "D1_different_bits": 0,
+            "D6_different_bits": 0
+          }
+        },
+        {
+          "physical_edge": "rising",
+          "offset_ns": 30,
+          "header_candidates": [
+            {
+              "header_offset": 8,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "4f1d",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": true
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4d3",
+          "valid_candidate_count": 1,
+          "valid_at_fixed_byte_clock_alignment": true,
+          "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+          "p4_differing_bytes": 8,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 8,
+            "different_bytes": 0,
+            "D1_different_bits": 0,
+            "D6_different_bits": 0
+          }
+        },
+        {
+          "physical_edge": "rising",
+          "offset_ns": 40,
+          "header_candidates": [
+            {
+              "header_offset": 8,
+              "header_hex": "5a0053020130304b",
+              "prefix8_valid": true,
+              "header_crc_valid": false,
+              "bound_crc_calculated": "bcb9",
+              "bound_crc_received": "4f0d",
+              "bound_crc_valid": false
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a0053020130304b59e2230fe134f4d3",
+          "valid_candidate_count": 0,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 8,
+            "different_bytes": 237,
+            "D1_different_bits": 64,
+            "D6_different_bits": 2
+          }
+        },
+        {
+          "physical_edge": "falling",
+          "offset_ns": -30,
+          "header_candidates": [
+            {
+              "header_offset": 9,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "e488",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": false
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4",
+          "valid_candidate_count": 0,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 9,
+            "different_bytes": 3,
+            "D1_different_bits": 0,
+            "D6_different_bits": 1
+          }
+        },
+        {
+          "physical_edge": "falling",
+          "offset_ns": -20,
+          "header_candidates": [
+            {
+              "header_offset": 9,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "4f1d",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": true
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4",
+          "valid_candidate_count": 1,
+          "valid_at_fixed_byte_clock_alignment": true,
+          "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+          "p4_differing_bytes": 8,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 9,
+            "different_bytes": 0,
+            "D1_different_bits": 0,
+            "D6_different_bits": 0
+          }
+        },
+        {
+          "physical_edge": "falling",
+          "offset_ns": -10,
+          "header_candidates": [
+            {
+              "header_offset": 9,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "4f1d",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": true
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4",
+          "valid_candidate_count": 1,
+          "valid_at_fixed_byte_clock_alignment": true,
+          "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+          "p4_differing_bytes": 8,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 9,
+            "different_bytes": 0,
+            "D1_different_bits": 0,
+            "D6_different_bits": 0
+          }
+        },
+        {
+          "physical_edge": "falling",
+          "offset_ns": 0,
+          "header_candidates": [
+            {
+              "header_offset": 9,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "4f1d",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": true
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4",
+          "valid_candidate_count": 1,
+          "valid_at_fixed_byte_clock_alignment": true,
+          "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+          "p4_differing_bytes": 8,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 9,
+            "different_bytes": 0,
+            "D1_different_bits": 0,
+            "D6_different_bits": 0
+          }
+        },
+        {
+          "physical_edge": "falling",
+          "offset_ns": 10,
+          "header_candidates": [
+            {
+              "header_offset": 9,
+              "header_hex": "5a0053020130304b",
+              "prefix8_valid": true,
+              "header_crc_valid": false,
+              "bound_crc_calculated": "1a67",
+              "bound_crc_received": "4f0d",
+              "bound_crc_valid": false
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c3c35a0053020130304b59e2230fe134f4",
+          "valid_candidate_count": 0,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 9,
+            "different_bytes": 480,
+            "D1_different_bits": 131,
+            "D6_different_bits": 10
+          }
+        },
+        {
+          "physical_edge": "falling",
+          "offset_ns": 20,
+          "header_candidates": [],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a1813120000303a5959232f21e5f4f4",
+          "valid_candidate_count": 0,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 9,
+            "different_bytes": 3641,
+            "D1_different_bits": 1149,
+            "D6_different_bits": 1217
+          }
+        },
+        {
+          "physical_edge": "falling",
+          "offset_ns": 30,
+          "header_candidates": [
+            {
+              "header_offset": 8,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "a2ad",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": false
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4d3",
+          "valid_candidate_count": 0,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 9,
+            "different_bytes": 4075,
+            "D1_different_bits": 1624,
+            "D6_different_bits": 2067
+          }
+        },
+        {
+          "physical_edge": "falling",
+          "offset_ns": 40,
+          "header_candidates": [
+            {
+              "header_offset": 8,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "4f1d",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": true
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4d3",
+          "valid_candidate_count": 1,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+          "p4_differing_bytes": 8,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 9,
+            "different_bytes": 4075,
+            "D1_different_bits": 1638,
+            "D6_different_bits": 2078
+          }
+        }
+      ]
+    }
+  ],
+  "stability": {
+    "D1": {
+      "stable_before_canonical_sample": {
+        "count": 1638,
+        "min_ns": 30.0,
+        "median_ns": 40.0,
+        "max_ns": 50.0
+      },
+      "stable_after_canonical_sample": {
+        "count": 1638,
+        "min_ns": 10.0,
+        "median_ns": 20.0,
+        "max_ns": 40.0
+      }
+    },
+    "D6": {
+      "stable_before_canonical_sample": {
+        "count": 2078,
+        "min_ns": 20.0,
+        "median_ns": 40.0,
+        "max_ns": 50.0
+      },
+      "stable_after_canonical_sample": {
+        "count": 2078,
+        "min_ns": 10.0,
+        "median_ns": 20.0,
+        "max_ns": 40.0
+      }
+    },
+    "D7": {
+      "stable_before_canonical_sample": {
+        "count": 1632,
+        "min_ns": 30.0,
+        "median_ns": 40.0,
+        "max_ns": 50.0
+      },
+      "stable_after_canonical_sample": {
+        "count": 1632,
+        "min_ns": 10.0,
+        "median_ns": 20.0,
+        "max_ns": 40.0
+      }
+    },
+    "D4": {
+      "stable_before_canonical_sample": {
+        "count": 2051,
+        "min_ns": 30.0,
+        "median_ns": 40.0,
+        "max_ns": 50.0
+      },
+      "stable_after_canonical_sample": {
+        "count": 2051,
+        "min_ns": 10.0,
+        "median_ns": 20.0,
+        "max_ns": 30.0
+      }
+    }
+  },
+  "limitations": [
+    "10ns digital threshold sampling; sub-sample glitches and analog setup/hold are unresolved",
+    "Physical probe CLK edges are not direct observations of the P4 internal sampling phase",
+    "Probe loading, threshold, READY reconnection and PLL/reprogramming can change conditions",
+    "Clock tails after READY are retained and not repaired or discarded"
+  ],
+  "capture_conditions": {
+    "run_source_sha256": "21815658017d0d1f0318987b0ee644a567c2cf63a9a8f54c7f720a7573209bef",
+    "threshold_v": 1.7,
+    "prearm": true,
+    "trigger": null,
+    "host_command": [
+      "C:\\Users\\yamashita_y00031\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "D:\\github\\airpocket-soundman\\tab5-fpga-gpu-cancel\\tools\\memv1_xfer.py",
+      "--port",
+      "COM4",
+      "--mode",
+      "dma",
+      "--tx-hz",
+      "2000000",
+      "--rx-hz",
+      "16000000",
+      "--tx-phase",
+      "positive",
+      "--edge",
+      "positive",
+      "--stages",
+      "caps,status,rd1,rd256",
+      "--expected-elf-sha",
+      "ea98777e43cbc926d342ecd8ab8386fa7e881c3a8b02cc1864734eae72246712",
+      "--record",
+      "D:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\validation\\slogic-memv1-2026-11-05\\rx16-rd256-01\\caps.json"
+    ],
+    "host_requested_edge_label": "positive"
+  },
+  "firmware_claim": {
+    "result": "FAIL",
+    "dma_options": null,
+    "rx_hz": 16000000,
+    "tx_hz": 2000000,
+    "rd256": {
+      "label": "RD 256 beats",
+      "request_head": "a5e2530200011043",
+      "request_len": 18,
+      "reply_head": "5a0053020100304b59e2230fe137f4d3",
+      "reply_len": 4106,
+      "timing": {
+        "host_us": 7294,
+        "request_len": 18,
+        "total_us": 1721,
+        "tx_us": 360,
+        "rx_config_us": 169,
+        "ready_wait_us": 2,
+        "turnaround_us": 9,
+        "rx_us": 427,
+        "sync_offset": 9,
+        "captured": 4122,
+        "bus_after_dir": 195,
+        "ready_after_dir": 1,
+        "ready_after_rx": 0
+      }
+    },
+    "rd256_stage": {
+      "result": "FAIL",
+      "reason": "RD 256 beats: malformed reply: reply trailer CRC16 mismatch; head=5a0053020100304b59e2230fe137f4d3"
+    },
+    "source_sha256": "5149e23547a20169f913415dcb1e288098721abb5e0abc4709f2f045459ed833"
+  },
+  "phase_alignment_note": "Window mismatch counts keep rising header clock8/falling9 fixed. A CRC-valid candidate at another header clock is a whole-byte phase wrap, not evidence that the same byte is valid at that clock.",
+  "p4_response_available": true,
+  "p4_response_path": "D:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\validation\\slogic-memv1-2026-11-05\\rx16-rd256-01\\p4-response.bin",
+  "p4_response_sha256": "efbccb8342af6875fb81e448a12617ad7391fdd3505df1cf013d67e29e83fccf",
+  "comparison": {
+    "wire_length": 4106,
+    "p4_length": 4106,
+    "differing_bytes": 8,
+    "differences": [
+      {
+        "response_offset": 276,
+        "payload_offset": 268,
+        "wire": "bf",
+        "p4": "3f",
+        "xor": "80"
+      },
+      {
+        "response_offset": 526,
+        "payload_offset": 518,
+        "wire": "fe",
+        "p4": "7e",
+        "xor": "80"
+      },
+      {
+        "response_offset": 678,
+        "payload_offset": 670,
+        "wire": "ed",
+        "p4": "6d",
+        "xor": "80"
+      },
+      {
+        "response_offset": 1379,
+        "payload_offset": 1371,
+        "wire": "fb",
+        "p4": "bb",
+        "xor": "40"
+      },
+      {
+        "response_offset": 1973,
+        "payload_offset": 1965,
+        "wire": "ef",
+        "p4": "af",
+        "xor": "40"
+      },
+      {
+        "response_offset": 3491,
+        "payload_offset": 3483,
+        "wire": "ff",
+        "p4": "bf",
+        "xor": "40"
+      },
+      {
+        "response_offset": 4047,
+        "payload_offset": 4039,
+        "wire": "ff",
+        "p4": "7f",
+        "xor": "80"
+      },
+      {
+        "response_offset": 4095,
+        "payload_offset": 4087,
+        "wire": "ff",
+        "p4": "ef",
+        "xor": "10"
+      }
+    ],
+    "one_to_zero_bits": {
+      "7": 4,
+      "6": 3,
+      "4": 1
+    },
+    "zero_to_one_bits": {},
+    "p4_header_crc_valid": true,
+    "p4_bound_crc_calculated": "3c15",
+    "p4_bound_crc_received": "4f1d"
+  },
+  "wire_frame_path": "D:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\validation\\slogic-memv1-2026-11-05\\rx16-rd256-01\\wire-frame.bin"
+}

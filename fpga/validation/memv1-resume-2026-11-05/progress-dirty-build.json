@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "source_commit": "38147a0fc8a221d86d21c68b995b8285979e66a9",
+  "app_version": "38147a0",
+  "hardware_access": false,
+  "qualification": "offline only; performance impact requires parent hardware comparison",
+  "tests": {
+    "python_methods": 23,
+    "delta_transitions": 204,
+    "full_render_pixel_equality": true,
+    "all_changed_pixels_in_aligned_flush_ranges": true,
+    "flushes_in_bounds": true,
+    "unchanged_view_flush_calls": 0,
+    "mean_flush_bytes_at_128byte_alignment": 30960,
+    "full_frame_bytes": 1843200,
+    "preserved_preview_pixel_equality": true
+  },
+  "source_sha256": {
+    "main/mem_status_render.hpp": "976a003737707fff7f1c00de88a0e65642fe5b7beec29efd3f14d41eca10052d",
+    "main/mem_status_display.cpp": "6b7942c69dba14883cd2aea28d6a04d6ab1f16bd01f56050a411f22638de120b",
+    "main/mem_status_display.hpp": "c6cdeda258ad19252d1c35ed14c7b757dd14004f990cce7869e39f633d1e3262",
+    "main/mem_probe_main.cpp": "01425119f397cecba603c766a53ec925d0628619ed0515d8e641f5a991aa2af7",
+    "tools/memv1_xfer.py": "1ae13be9088f1df813e9509e7b293eeb318daa66174b682d84cca9876c51466d",
+    "tools/test_mem_status.cpp": "f208d76ec22d5c9007a2dbe923facd947971f503bc8b33c771478e03ea50cd84"
+  },
+  "files": {
+    "tab5_gpu_lab.bin": {
+      "sha256": "71b49a05db4228a64debe0b1e39f2b173350250127b48443e8e593b1f9f69f5b",
+      "bytes": 533632
+    },
+    "tab5_gpu_lab.elf": {
+      "sha256": "65862751664836779a7dfc56373cfac1fcdb8b2c5d6db2bb74bb997dee0e47fb",
+      "bytes": 8758868
+    },
+    "flash_args": {
+      "sha256": "63aafc9e5e5bb7f4922023b5c8d4b1b037431cbc641ee4cf6856cc8a276f3668",
+      "bytes": 157
+    },
+    "sdkconfig": {
+      "sha256": "582c2f5c5dcdd3e14d21eb996debd13d2bce605b04f5da2be4347f4380835359",
+      "bytes": 96705
+    }
+  },
+  "build_log_sha256": "d90310f993a3427a06012d48034776c768dab2ece39f7fd72d79c96addce18c6"
+}

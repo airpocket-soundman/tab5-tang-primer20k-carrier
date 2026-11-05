@@ -1,0 +1,383 @@
+{
+  "start": {
+    "active": true,
+    "cleanup_quarantined": false,
+    "result": "RUNNING",
+    "error": "none",
+    "tx_hz": 5000000,
+    "rx_hz": 5000000,
+    "tx_phase": "negative",
+    "tx_preamble": 1,
+    "rx_edge": "positive",
+    "guard_us": 2,
+    "slot_count": 2,
+    "retain": true,
+    "rx_only_reset": false,
+    "reset_policy": "full_apb_core_fifo",
+    "workload": "write_read",
+    "iterations": 5,
+    "transfers_requested": 10,
+    "completed": 0,
+    "prepared": 0,
+    "failed_ordinal": 0,
+    "job_wall_us": 220,
+    "payload_bytes": 0,
+    "prepare_us": 0,
+    "transfer_us": 0,
+    "validate_us": 0,
+    "timing_scope": "job start through ARM, preparation, complete validation, producer drain, DISARM and session cleanup; USB and LCD excluded",
+    "job_MBps": null,
+    "write_transfer_total_us": 0,
+    "read_transfer_total_us": 0,
+    "write_transfer_count": 0,
+    "read_transfer_count": 0,
+    "per_direction_scope": "All attempted synchronous transfer calls only, including failed call; excludes producer preparation and reply validation; job_MBps is complete successful job metric",
+    "dma_activity_available": false,
+    "dma_activity_delta": null,
+    "dma_activity_scope": "Cumulative module/driver counter differences before ARM/session begin through session end/DISARM; null if hook absent or counter reset detected",
+    "producer_queue_wait_wall_us": 0,
+    "consumer_queue_wait_wall_us": 0,
+    "producer_drain_wait_wall_us": 0,
+    "dma_wait_wall_us": null,
+    "wait_scope": "Measured blocking call wall durations, including scheduler wake latency; overlap across workers, not subtracted from wall to infer CPU",
+    "runtime_granularity": "End snapshot follows taskYIELD; scheduler runtime counter resolution and snapshot overhead apply; final return-to-wait tail is not represented",
+    "runtime_stats_available": false,
+    "producer_runtime_counter": null,
+    "consumer_runtime_counter": null,
+    "cpu_scope": "FreeRTOS task runtime counter deltas for producer and consumer; ESP_TIMER microseconds required; one-core equivalent worker activity/wall, not whole-chip CPU; ISR may be charged to scheduled task; excludes USB/display",
+    "callback_counts_available": false,
+    "tx_callback_count": null,
+    "rx_callback_count": null,
+    "failure_snapshot": null
+  },
+  "last": {
+    "active": false,
+    "cleanup_quarantined": false,
+    "result": "IDLE",
+    "error": "none",
+    "tx_hz": 5000000,
+    "rx_hz": 5000000,
+    "tx_phase": "negative",
+    "tx_preamble": 1,
+    "rx_edge": "positive",
+    "guard_us": 2,
+    "slot_count": 0,
+    "retain": false,
+    "rx_only_reset": false,
+    "reset_policy": "full_apb_core_fifo",
+    "workload": "read",
+    "iterations": 0,
+    "transfers_requested": 0,
+    "completed": 0,
+    "prepared": 0,
+    "failed_ordinal": 0,
+    "job_wall_us": 0,
+    "payload_bytes": 0,
+    "prepare_us": 0,
+    "transfer_us": 0,
+    "validate_us": 0,
+    "timing_scope": "job start through ARM, preparation, complete validation, producer drain, DISARM and session cleanup; USB and LCD excluded",
+    "job_MBps": null,
+    "write_transfer_total_us": 0,
+    "read_transfer_total_us": 0,
+    "write_transfer_count": 0,
+    "read_transfer_count": 0,
+    "per_direction_scope": "All attempted synchronous transfer calls only, including failed call; excludes producer preparation and reply validation; job_MBps is complete successful job metric",
+    "dma_activity_available": false,
+    "dma_activity_delta": null,
+    "dma_activity_scope": "Cumulative module/driver counter differences before ARM/session begin through session end/DISARM; null if hook absent or counter reset detected",
+    "producer_queue_wait_wall_us": 0,
+    "consumer_queue_wait_wall_us": 0,
+    "producer_drain_wait_wall_us": 0,
+    "dma_wait_wall_us": null,
+    "wait_scope": "Measured blocking call wall durations, including scheduler wake latency; overlap across workers, not subtracted from wall to infer CPU",
+    "runtime_granularity": "End snapshot follows taskYIELD; scheduler runtime counter resolution and snapshot overhead apply; final return-to-wait tail is not represented",
+    "runtime_stats_available": false,
+    "producer_runtime_counter": null,
+    "consumer_runtime_counter": null,
+    "cpu_scope": "FreeRTOS task runtime counter deltas for producer and consumer; ESP_TIMER microseconds required; one-core equivalent worker activity/wall, not whole-chip CPU; ISR may be charged to scheduled task; excludes USB/display",
+    "callback_counts_available": false,
+    "tx_callback_count": null,
+    "rx_callback_count": null,
+    "failure_snapshot": null
+  },
+  "trace": [
+    {
+      "request": {
+        "v": 1,
+        "id": 1,
+        "cmd": "info"
+      }
+    },
+    {
+      "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"7d3ca3e\",\"app_elf_sha256\":\"b0e0156e28e15ad754e13b84d19a0a1cbc228cd4655b35ce41d199d9a1fc0d60\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":0,\"xferx_rx_hz\":0,\"mem_dma_compiled\":true,\"xferx_mode\":\"gpio\",\"xferx_hz\":0,\"mem_status_display\":true,\"mem_status_progress\":true,\"mem_rx_integer9_experimental\":true,\"mem_rx_integer65_experimental\":true,\"mem_rx_integer4_experimental\":true,\"mem_dma_pipeline\":true,\"mem_dma_guard_tuning\":true,\"xferx_dma_guard_us\":200,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":false,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":1,\"synced_bytes\":1843200,\"sync_calls\":1,\"full_redraw\":true,\"test_name\":\"MEMORY TEST\",\"stage\":\"WAITING\",\"result\":\"READY\",\"step\":0,\"total\":0,\"transfer_us\":0,\"tx_hz\":0,\"rx_hz\":0,\"progress_token\":false,\"transfer_active\":false},\"link_armed\":false,\"mem_session\":false,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[0,0,0,0,0,0,0,0],\"response\":[],\"display_progress_idle\":{\"failure_mask\":60,\"clock_matrix\":1722,\"dir_matrix\":1280,\"output_enabled\":\"0x180400000\",\"output_levels\":\"0x8800180090004\",\"ready\":0,\"transport_released\":true,\"transfer_active\":false,\"staged_bytes\":0,\"completed_token\":false,\"data_matrix\":[1280,1280,1280,1280,1280,1280,1280,1280]}},\"v\":1,\"id\":1}"
+    },
+    {
+      "request": {
+        "v": 1,
+        "id": 2,
+        "cmd": "mem",
+        "action": "pipeline_start",
+        "iterations": 5,
+        "slots": 2,
+        "address": 1048576,
+        "workload": "write_read",
+        "execute": true,
+        "retain": true
+      }
+    },
+    {
+      "raw": "{\"ok\":true,\"data\":{\"active\":true,\"cleanup_quarantined\":false,\"result\":\"RUNNING\",\"error\":\"none\",\"tx_hz\":5000000,\"rx_hz\":5000000,\"tx_phase\":\"negative\",\"tx_preamble\":1,\"rx_edge\":\"positive\",\"guard_us\":2,\"slot_count\":2,\"retain\":true,\"rx_only_reset\":false,\"reset_policy\":\"full_apb_core_fifo\",\"workload\":\"write_read\",\"iterations\":5,\"transfers_requested\":10,\"completed\":0,\"prepared\":0,\"failed_ordinal\":0,\"job_wall_us\":220,\"payload_bytes\":0,\"prepare_us\":0,\"transfer_us\":0,\"validate_us\":0,\"timing_scope\":\"job start through ARM, preparation, complete validation, producer drain, DISARM and session cleanup; USB and LCD excluded\",\"job_MBps\":null,\"write_transfer_total_us\":0,\"read_transfer_total_us\":0,\"write_transfer_count\":0,\"read_transfer_count\":0,\"per_direction_scope\":\"All attempted synchronous transfer calls only, including failed call; excludes producer preparation and reply validation; job_MBps is complete successful job metric\",\"dma_activity_available\":false,\"dma_activity_delta\":null,\"dma_activity_scope\":\"Cumulative module/driver counter differences before ARM/session begin through session end/DISARM; null if hook absent or counter reset detected\",\"producer_queue_wait_wall_us\":0,\"consumer_queue_wait_wall_us\":0,\"producer_drain_wait_wall_us\":0,\"dma_wait_wall_us\":null,\"wait_scope\":\"Measured blocking call wall durations, including scheduler wake latency; overlap across workers, not subtracted from wall to infer CPU\",\"runtime_granularity\":\"End snapshot follows taskYIELD; scheduler runtime counter resolution and snapshot overhead apply; final return-to-wait tail is not represented\",\"runtime_stats_available\":false,\"producer_runtime_counter\":null,\"consumer_runtime_counter\":null,\"cpu_scope\":\"FreeRTOS task runtime counter deltas for producer and consumer; ESP_TIMER microseconds required; one-core equivalent worker activity/wall, not whole-chip CPU; ISR may be charged to scheduled task; excludes USB/display\",\"callback_counts_available\":false,\"tx_callback_count\":null,\"rx_callback_count\":null,\"failure_snapshot\":null},\"v\":1,\"id\":2}"
+    },
+    {
+      "request": {
+        "v": 1,
+        "id": 3,
+        "cmd": "mem",
+        "action": "pipeline_status"
+      }
+    },
+    {
+      "raw": "{\"ok\":true,\"data\":{\"active\":true,\"cleanup_quarantined\":false,\"result\":\"RUNNING\",\"error\":\"none\",\"tx_hz\":5000000,\"rx_hz\":5000000,\"tx_phase\":\"negative\",\"tx_preamble\":1,\"rx_edge\":\"positive\",\"guard_us\":2,\"slot_count\":2,\"retain\":true,\"rx_only_reset\":false,\"reset_policy\":\"full_apb_core_fifo\",\"workload\":\"write_read\",\"iterations\":5,\"transfers_requested\":10,\"completed\":0,\"prepared\":0,\"failed_ordinal\":0,\"job_wall_us\":132217,\"payload_bytes\":0,\"prepare_us\":0,\"transfer_us\":0,\"validate_us\":0,\"timing_scope\":\"job start through ARM, preparation, complete validation, producer drain, DISARM and session cleanup; USB and LCD excluded\",\"job_MBps\":null,\"write_transfer_total_us\":0,\"read_transfer_total_us\":0,\"write_transfer_count\":0,\"read_transfer_count\":0,\"per_direction_scope\":\"All attempted synchronous transfer calls only, including failed call; excludes producer preparation and reply validation; job_MBps is complete successful job metric\",\"dma_activity_available\":false,\"dma_activity_delta\":null,\"dma_activity_scope\":\"Cumulative module/driver counter differences before ARM/session begin through session end/DISARM; null if hook absent or counter reset detected\",\"producer_queue_wait_wall_us\":0,\"consumer_queue_wait_wall_us\":0,\"producer_drain_wait_wall_us\":0,\"dma_wait_wall_us\":null,\"wait_scope\":\"Measured blocking call wall durations, including scheduler wake latency; overlap across workers, not subtracted from wall to infer CPU\",\"runtime_granularity\":\"End snapshot follows taskYIELD; scheduler runtime counter resolution and snapshot overhead apply; final return-to-wait tail is not represented\",\"runtime_stats_available\":false,\"producer_runtime_counter\":null,\"consumer_runtime_counter\":null,\"cpu_scope\":\"FreeRTOS task runtime counter deltas for producer and consumer; ESP_TIMER microseconds required; one-core equivalent worker activity/wall, not whole-chip CPU; ISR may be charged to scheduled task; excludes USB/display\",\"callback_counts_available\":false,\"tx_callback_count\":null,\"rx_callback_count\":null,\"failure_snapshot\":null},\"v\":1,\"id\":3}"
+    },
+    {
+      "request": {
+        "v": 1,
+        "id": 4,
+        "cmd": "mem",
+        "action": "pipeline_status"
+      }
+    },
+    {
+      "raw": "ESP-ROM:esp32p4-eco2-20240710\r"
+    },
+    {
+      "raw": "Build:Jul 10 2024\r"
+    },
+    {
+      "raw": "rst:0xc (SW_CPU_RESET),boot:0x20c (SPI_FAST_FLASH_BOOT)\r"
+    },
+    {
+      "raw": "Core0 Saved PC:0x4ff0459c\r"
+    },
+    {
+      "raw": "Core1 Saved PC:0x4ff0a73c\r"
+    },
+    {
+      "raw": "SPI mode:DIO, clock div:1\r"
+    },
+    {
+      "raw": "load:0x4ff33ce0,len:0x164c\r"
+    },
+    {
+      "raw": "load:0x4ff29ed0,len:0xe08\r"
+    },
+    {
+      "raw": "load:0x4ff2cbd0,len:0x3588\r"
+    },
+    {
+      "raw": "entry 0x4ff29eda\r"
+    },
+    {
+      "raw": "I (28) boot: ESP-IDF v5.5.2 2nd stage bootloader\r"
+    },
+    {
+      "raw": "I (28) boot: compile time Nov  5 2026 13:43:23\r"
+    },
+    {
+      "raw": "I (29) boot: Multicore bootloader\r"
+    },
+    {
+      "raw": "I (30) boot: chip revision: v1.3\r"
+    },
+    {
+      "raw": "I (31) boot: efuse block revision: v0.3\r"
+    },
+    {
+      "raw": "I (35) boot.esp32p4: SPI Speed      : 80MHz\r"
+    },
+    {
+      "raw": "I (39) boot.esp32p4: SPI Mode       : DIO\r"
+    },
+    {
+      "raw": "I (42) boot.esp32p4: SPI Flash Size : 16MB\r"
+    },
+    {
+      "raw": "I (46) boot: Enabling RNG early entropy source...\r"
+    },
+    {
+      "raw": "I (51) boot: Partition Table:\r"
+    },
+    {
+      "raw": "I (53) boot: ## Label            Usage          Type ST Offset   Length\r"
+    },
+    {
+      "raw": "I (60) boot:  0 nvs              WiFi data        01 02 00009000 00006000\r"
+    },
+    {
+      "raw": "I (66) boot:  1 phy_init         RF data          01 01 0000f000 00001000\r"
+    },
+    {
+      "raw": "I (73) boot:  2 factory          factory app      00 00 00010000 00400000\r"
+    },
+    {
+      "raw": "I (80) boot: End of partition table\r"
+    },
+    {
+      "raw": "I (83) esp_image: segment 0: paddr=00010020 vaddr=40050020 size=1e2b8h (123576) map\r"
+    },
+    {
+      "raw": "I (108) esp_image: segment 1: paddr=0002e2e0 vaddr=30100000 size=00068h (   104) load\r"
+    },
+    {
+      "raw": "I (110) esp_image: segment 2: paddr=0002e350 vaddr=4ff00000 size=01cc8h (  7368) load\r"
+    },
+    {
+      "raw": "I (114) esp_image: segment 3: paddr=00030020 vaddr=40000020 size=4ee40h (323136) map\r"
+    },
+    {
+      "raw": "I (165) esp_image: segment 4: paddr=0007ee68 vaddr=4ff01cc8 size=13728h ( 79656) load\r"
+    },
+    {
+      "raw": "I (180) esp_image: segment 5: paddr=00092598 vaddr=4ff15400 size=06e48h ( 28232) load\r"
+    },
+    {
+      "raw": "I (186) esp_image: segment 6: paddr=000993e8 vaddr=50108080 size=00020h (    32) load\r"
+    },
+    {
+      "raw": "I (193) boot: Loaded app from partition at offset 0x10000\r"
+    },
+    {
+      "raw": "I (193) boot: Disabling RNG early entropy source...\r"
+    },
+    {
+      "raw": "I (208) hex_psram: vendor id    : 0x0d (AP)\r"
+    },
+    {
+      "raw": "I (208) hex_psram: Latency      : 0x01 (Fixed)\r"
+    },
+    {
+      "raw": "I (209) hex_psram: DriveStr.    : 0x00 (25 Ohm)\r"
+    },
+    {
+      "raw": "I (210) hex_psram: dev id       : 0x03 (generation 4)\r"
+    },
+    {
+      "raw": "I (214) hex_psram: density      : 0x07 (256 Mbit)\r"
+    },
+    {
+      "raw": "I (218) hex_psram: good-die     : 0x06 (Pass)\r"
+    },
+    {
+      "raw": "I (222) hex_psram: SRF          : 0x02 (Slow Refresh)\r"
+    },
+    {
+      "raw": "I (227) hex_psram: BurstType    : 0x00 ( Wrap)\r"
+    },
+    {
+      "raw": "I (231) hex_psram: BurstLen     : 0x03 (2048 Byte)\r"
+    },
+    {
+      "raw": "I (236) hex_psram: BitMode      : 0x01 (X16 Mode)\r"
+    },
+    {
+      "raw": "I (240) hex_psram: Readlatency  : 0x04 (14 cycles@Fixed)\r"
+    },
+    {
+      "raw": "I (245) hex_psram: DriveStrength: 0x00 (1/1)\r"
+    },
+    {
+      "raw": "I (249) MSPI Timing: Enter psram timing tuning\r"
+    },
+    {
+      "raw": "I (422) esp_psram: Found 32MB PSRAM device\r"
+    },
+    {
+      "raw": "I (422) esp_psram: Speed: 200MHz\r"
+    },
+    {
+      "raw": "I (423) hex_psram: psram CS IO is dedicated\r"
+    },
+    {
+      "raw": "I (424) cpu_start: Multicore app\r"
+    },
+    {
+      "raw": "I (1330) esp_psram: SPI SRAM memory test OK\r"
+    },
+    {
+      "raw": "I (1340) cpu_start: GPIO 38 and 37 are used as console UART I/O pins\r"
+    },
+    {
+      "raw": "I (1340) cpu_start: Pro cpu start user code\r"
+    },
+    {
+      "raw": "I (1340) cpu_start: cpu freq: 360000000 Hz\r"
+    },
+    {
+      "raw": "I (1342) app_init: Application information:\r"
+    },
+    {
+      "raw": "I (1346) app_init: Project name:     tab5_gpu_lab\r"
+    },
+    {
+      "raw": "I (1351) app_init: App version:      7d3ca3e\r"
+    },
+    {
+      "raw": "I (1355) app_init: Compile time:     Nov  5 2026 13:44:24\r"
+    },
+    {
+      "raw": "I (1360) app_init: ELF file SHA256:  b0e0156e2...\r"
+    },
+    {
+      "raw": "I (1364) app_init: ESP-IDF:          v5.5.2\r"
+    },
+    {
+      "raw": "I (1368) efuse_init: Min chip rev:     v1.0\r"
+    },
+    {
+      "raw": "I (1372) efuse_init: Max chip rev:     v1.99 \r"
+    },
+    {
+      "raw": "I (1376) efuse_init: Chip rev:         v1.3\r"
+    },
+    {
+      "raw": "I (1380) heap_init: Initializing. RAM available for dynamic allocation:\r"
+    },
+    {
+      "raw": "I (1386) heap_init: At 4FF2B1D0 len 0000FDF0 (63 KiB): RETENT_RAM\r"
+    },
+    {
+      "raw": "I (1392) heap_init: At 4FF3AFC0 len 00004BF0 (18 KiB): RAM\r"
+    },
+    {
+      "raw": "I (1397) heap_init: At 4FF40450 len 0005FBB0 (382 KiB): RAM\r"
+    },
+    {
+      "raw": "I (1403) heap_init: At 501080A0 len 00007F60 (31 KiB): RTCRAM\r"
+    },
+    {
+      "raw": "I (1408) heap_init: At 30100068 len 00001F98 (7 KiB): TCM\r"
+    },
+    {
+      "raw": "I (1413) esp_psram: Adding pool of 32768K of PSRAM memory to heap allocator\r"
+    },
+    {
+      "raw": "I (1421) spi_flash: detected chip: generic\r"
+    },
+    {
+      "raw": "I (1424) spi_flash: flash io: dio\r"
+    },
+    {
+      "raw": "I (1427) sleep_gpio: Configure to isolate all GPIO pins in sleep state\r"
+    },
+    {
+      "raw": "I (1433) sleep_gpio: Enable automatic switching of GPIO sleep configuration\r"
+    },
+    {
+      "raw": "I (1443) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations\r"
+    },
+    {
+      "raw": "{\"ok\":true,\"data\":{\"active\":false,\"cleanup_quarantined\":false,\"result\":\"IDLE\",\"error\":\"none\",\"tx_hz\":5000000,\"rx_hz\":5000000,\"tx_phase\":\"negative\",\"tx_preamble\":1,\"rx_edge\":\"positive\",\"guard_us\":2,\"slot_count\":0,\"retain\":false,\"rx_only_reset\":false,\"reset_policy\":\"full_apb_core_fifo\",\"workload\":\"read\",\"iterations\":0,\"transfers_requested\":0,\"completed\":0,\"prepared\":0,\"failed_ordinal\":0,\"job_wall_us\":0,\"payload_bytes\":0,\"prepare_us\":0,\"transfer_us\":0,\"validate_us\":0,\"timing_scope\":\"job start through ARM, preparation, complete validation, producer drain, DISARM and session cleanup; USB and LCD excluded\",\"job_MBps\":null,\"write_transfer_total_us\":0,\"read_transfer_total_us\":0,\"write_transfer_count\":0,\"read_transfer_count\":0,\"per_direction_scope\":\"All attempted synchronous transfer calls only, including failed call; excludes producer preparation and reply validation; job_MBps is complete successful job metric\",\"dma_activity_available\":false,\"dma_activity_delta\":null,\"dma_activity_scope\":\"Cumulative module/driver counter differences before ARM/session begin through session end/DISARM; null if hook absent or counter reset detected\",\"producer_queue_wait_wall_us\":0,\"consumer_queue_wait_wall_us\":0,\"producer_drain_wait_wall_us\":0,\"dma_wait_wall_us\":null,\"wait_scope\":\"Measured blocking call wall durations, including scheduler wake latency; overlap across workers, not subtracted from wall to infer CPU\",\"runtime_granularity\":\"End snapshot follows taskYIELD; scheduler runtime counter resolution and snapshot overhead apply; final return-to-wait tail is not represented\",\"runtime_stats_available\":false,\"producer_runtime_counter\":null,\"consumer_runtime_counter\":null,\"cpu_scope\":\"FreeRTOS task runtime counter deltas for producer and consumer; ESP_TIMER microseconds required; one-core equivalent worker activity/wall, not whole-chip CPU; ISR may be charged to scheduled task; excludes USB/display\",\"callback_counts_available\":false,\"tx_callback_count\":null,\"rx_callback_count\":null,\"failure_snapshot\":null},\"v\":1,\"id\":4}"
+    }
+  ]
+}

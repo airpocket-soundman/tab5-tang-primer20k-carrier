@@ -1,0 +1,43 @@
+{
+  "scope": "SLogic probes attached; TX2MHz positive / RX16MHz negative; 100 write/read/CRC32 cycles, no retries",
+  "input_sha256": "dbcedbe899c13f839dd6f82649465f88b0754b6a0abc25f9d60dcb968e5f9dfc",
+  "result": "PASS",
+  "frame_count": 617,
+  "completed_frames": {
+    "WR 256 beats": 100,
+    "RD after WR 256 beats": 100,
+    "CRC32 256 beats": 100,
+    "CRC32 first 128": 100,
+    "CRC32 chained second 128": 100,
+    "CRC32 1 beat": 100
+  },
+  "disarmed": true,
+  "status_at_start": {
+    "result": "PASS",
+    "diag7": "0x1bb",
+    "flags": "0x13",
+    "generation": 1,
+    "last_status": 0,
+    "ops": 27,
+    "undefined_range": true
+  },
+  "note": "STATUS undefined-range flag was retained from prior deliberate CANCEL outside this test address; not a full M1/M2 sign-off",
+  "WR 256 beats": {
+    "min_us": 3490,
+    "median_us": 3498.0,
+    "max_us": 3509,
+    "payload_MBps_at_median": 1.1709548313321898
+  },
+  "RD after WR 256 beats": {
+    "min_us": 1655,
+    "median_us": 1707.5,
+    "max_us": 1722,
+    "payload_MBps_at_median": 2.3988286969253294
+  },
+  "CRC32 256 beats": {
+    "min_us": 1364,
+    "median_us": 1372.0,
+    "max_us": 1376,
+    "payload_MBps_at_median": null
+  }
+}
