@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-05",
+  "scope": "FPGA DDR3 internal bandwidth only; no Tab5 firmware/parallel LINK changes",
+  "baseline_internal_MBps": {
+    "write": 511.57098125689083,
+    "read": 513.5767175985596
+  },
+  "baseline_memory_hz": 398250000,
+  "user_hz": 99562500,
+  "hosts": {
+    "tab5-linux-fpga": {
+      "head": "f1deceb282d48c1899c74e763400118350e0410e",
+      "read_files": [
+        "README.md",
+        "docs/DEVELOPMENT_GOALS.md",
+        "linux/dts/easystick-stamp-p4.dts",
+        "tools/fpga-link/fpga_link.c"
+      ],
+      "impact": "No wire/pin/power/device-command change; standalone internal measurement only. No host update required.",
+      "DDR_backend": "No physical DDR backend validated in inspected Linux implementation."
+    },
+    "tab5-meos-fpga": {
+      "head": "fab6f83670e48cd5aca82a621623f4f9027236d3",
+      "read_files": [
+        "README.md",
+        "docs/FPGA_CARRIER_REQUIREMENTS.md",
+        "drivers/fpga/fpga_link.c"
+      ],
+      "impact": "No wire/pin/power/device-command change; standalone internal measurement only. No host update required.",
+      "DDR_backend": "DDR3 integration pending per README."
+    },
+    "tab5-fpga-gpu": {
+      "head": "dc2e9c434bdd35e608692b5de9e6a8273ee02bd9",
+      "read_files": [
+        "README.md",
+        "docs/Project_B_Tab5_FPGA_GPU.md",
+        "main/dock_gpu.cpp",
+        "main/mem_probe_main.cpp"
+      ],
+      "impact": "No wire/pin/power/device-command change; standalone internal measurement only. No host update required."
+    },
+    "esp32p4-linux-fpga-memory": {
+      "head": "e84b59e8bf462ab1e2023f9e28f7915c152cbbdb",
+      "read_files": [
+        "README.md",
+        "docs/Project_A_P4_Linux_FPGA_Virtual_MMU.md"
+      ],
+      "impact": "No wire/pin/power/device-command change; standalone internal measurement only. No host update required.",
+      "DDR_backend": "Plan only; implementation absent per README."
+    }
+  },
+  "hardware_before": {
+    "fpga_usercode": "0xA0A9",
+    "fpga_status": "0x6020",
+    "tab5_serial": "30:ED:A0:E2:FE:C0",
+    "tab5_elf_sha256": "ea98777e43cbc926d342ecd8ab8386fa7e881c3a8b02cc1864734eae72246712",
+    "tab5_armed": false,
+    "parallel_fault": "link_arm_failed; excluded from this RAM-only test"
+  },
+  "restore": {
+    "file": "D:/github/airpocket-soundman/tab5-carrier-memv1-fastreply/fpga/build/memv1-fast/out/mem_bist/impl/pnr/mem_bist.fs",
+    "sha256": "46dbb0b99e3b2d79660d6c9c6ac5226dd0c4a84bb937531317aaa04c06e7a114"
+  }
+}

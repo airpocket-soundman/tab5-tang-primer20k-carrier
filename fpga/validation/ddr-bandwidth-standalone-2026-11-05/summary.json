@@ -1,0 +1,124 @@
+{
+  "final_trials": [
+    "trial-02",
+    "trial-03",
+    "trial-04"
+  ],
+  "all_jobs_pass": true,
+  "total_jobs": 78,
+  "bytes_per_job": 1048576,
+  "old_ip_unchanged": true,
+  "memory_clock_unchanged": true,
+  "parallel_link_used": false,
+  "summary": [
+    {
+      "beats_per_command": 1,
+      "bytes_per_command": 16,
+      "write_MBps": {
+        "mean": 511.57599486458275,
+        "min": 511.57599486458275,
+        "max": 511.57599486458275
+      },
+      "read_MBps": {
+        "mean": 513.6297790482,
+        "min": 513.6297790482,
+        "max": 513.6297790482
+      }
+    },
+    {
+      "beats_per_command": 2,
+      "bytes_per_command": 32,
+      "write_MBps": {
+        "mean": 765.4211182310072,
+        "min": 765.4211182310072,
+        "max": 765.4211182310072
+      },
+      "read_MBps": {
+        "mean": 768.3674073201787,
+        "min": 768.3674073201787,
+        "max": 768.3674073201787
+      }
+    },
+    {
+      "beats_per_command": 4,
+      "bytes_per_command": 64,
+      "write_MBps": {
+        "mean": 1018.0883133094086,
+        "min": 1018.0883133094086,
+        "max": 1018.0883133094086
+      },
+      "read_MBps": {
+        "mean": 1021.9751355796151,
+        "min": 1021.9751355796151,
+        "max": 1021.9751355796151
+      }
+    },
+    {
+      "beats_per_command": 8,
+      "bytes_per_command": 128,
+      "write_MBps": {
+        "mean": 1219.185425668574,
+        "min": 1219.185425668574,
+        "max": 1219.185425668574
+      },
+      "read_MBps": {
+        "mean": 1223.8160035636415,
+        "min": 1223.8160035636415,
+        "max": 1223.8160035636415
+      }
+    },
+    {
+      "beats_per_command": 16,
+      "bytes_per_command": 256,
+      "write_MBps": {
+        "mean": 1353.3334370381892,
+        "min": 1353.3334370381892,
+        "max": 1353.3334370381892
+      },
+      "read_MBps": {
+        "mean": 1357.8924859851984,
+        "min": 1357.8924859851984,
+        "max": 1357.8924859851984
+      }
+    },
+    {
+      "beats_per_command": 32,
+      "bytes_per_command": 512,
+      "write_MBps": {
+        "mean": 1431.1014119259767,
+        "min": 1431.1014119259767,
+        "max": 1431.1014119259767
+      },
+      "read_MBps": {
+        "mean": 1437.3869009100797,
+        "min": 1437.3869009100797,
+        "max": 1437.3869009100797
+      }
+    },
+    {
+      "beats_per_command": 64,
+      "bytes_per_command": 1024,
+      "write_MBps": {
+        "mean": 1475.8524131301422,
+        "min": 1475.8524131301422,
+        "max": 1475.8524131301422
+      },
+      "read_MBps": {
+        "mean": 1481.423090021569,
+        "min": 1481.423090021569,
+        "max": 1481.423090021569
+      }
+    }
+  ],
+  "max_write_speedup": 2.8849133421923154,
+  "max_read_speedup": 2.88422352139857,
+  "write_theoretical_fraction": 0.9264610251915519,
+  "read_theoretical_fraction": 0.9299579975025543,
+  "restored_usercode": "0xA0A9",
+  "limitations": [
+    "1MiB sequential only; three SRAM reconfiguration trials, not power-cycle trials",
+    "No full-range/temperature/long-duration qualification",
+    "Standalone diagnostic only; no application adapter burst integration",
+    "Diagnostic clock-group exceptions; worst setup slack +0.027ns"
+  ]
+}
