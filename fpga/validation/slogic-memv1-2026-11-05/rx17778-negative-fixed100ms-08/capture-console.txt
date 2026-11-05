@@ -1,0 +1,623 @@
+sr: [00:00.000061] log: libsigrok loglevel set to 5.
+sr: [00:00.000128] backend: libsigrok 0.6.0/4:0:0.
+sr: [00:00.000204] backend: Libs: glib 2.90.1 (rt: 2.90.1/9001:1), zlib 1.3.2, libzip 1.12, minilzo 2.10, libserialport 0.1.1/1:0:1 (rt: 0.1.1/1:0:1), libusb-1.0 1.0.30.12037 API 0x0100010c, hidapi 0.15.0, libftdi 1.5.
+sr: [00:00.000244] backend: Host: x86_64-w64-mingw32, little-endian.
+sr: [00:00.000281] backend: SCPI backends: TCP, serial, USBTMC.
+sr: [00:00.000324] backend: Firmware search paths:
+sr: [00:00.004275] backend:  - C:\Users\yamashita_y00031\AppData\Local\sigrok-firmware
+sr: [00:00.004318] backend:  - C:\ProgramData\sigrok-firmware
+sr: [00:00.004362] backend:  - C:\Users\Public\Documents\sigrok-firmware
+sr: [00:00.005051] backend:  - D:\tools\slogic-2.3.2\runtime\SLogic\sigrok-cli-73180c8c9d3dc907\share\sigrok-firmware
+sr: [00:00.005094] backend:  - D:\tools\slogic-2.3.2\runtime\SLogic\sigrok-cli-73180c8c9d3dc907\share\sigrok-firmware
+sr: [00:00.005125] backend:  - D:\tools\slogic-2.3.2\runtime\SLogic\sigrok-cli-73180c8c9d3dc907\share\sigrok-firmware
+sr: [00:00.005165] backend: Sanity-checking all drivers.
+sr: [00:00.005193] backend: Sanity-checking all input modules.
+sr: [00:00.005222] backend: Sanity-checking all output modules.
+sr: [00:00.005257] backend: Sanity-checking all transform modules.
+srd: libsigrokdecode loglevel set to 5.
+sr: [00:00.057793] usb: Found USB device (VID:PID = 359f:3031, bus.address = 1.15).
+sr: [00:00.057856] usb: Trying to open USB device 1.15.
+sr: [00:00.079989] usb: Opened USB device (VID:PID = 359f:3031, bus.address = 1.15).
+sr: [00:00.081801] usb: Closed USB device 1.15.
+sr: [00:00.105719] hwdriver: Scan found 1 devices (sipeed-slogic-analyzer).
+sr: [00:00.105803] device: sipeed-slogic-analyzer: Opening device instance.
+sr: [00:00.130031] sipeed-slogic-analyzer: RAW_IO enabled on ep 0x82, max_raw_io=2097152
+sr: [00:00.192063] sipeed-slogic-analyzer: opened SLogic16U3 on SUPER(USB3-5G) link
+sr: [00:00.192172] hwdriver: sr_config_set(): key 30027 (logic_channels) sdi 0000021a56386f20 cg NULL -> 16
+sr: [00:00.192273] hwdriver: sr_config_set(): key 30023 (voltage_threshold) sdi 0000021a56386f20 cg NULL -> (1.7, 1.7)
+sr: [00:00.192316] hwdriver: sr_config_set(): key 30000 (samplerate) sdi 0000021a56386f20 cg NULL -> uint64 100000000
+sr: [00:00.192369] hwdriver: sr_config_set(): key 50001 (limit_samples) sdi 0000021a56386f20 cg NULL -> uint64 50000000
+sr: [00:00.192432] session: Using thread-default main context.
+sr: [00:00.192459] session: Starting.
+sr: [00:00.192492] hwdriver: sipeed-slogic-analyzer: Starting acquisition.
+sr: [00:00.192519] sipeed-slogic-analyzer: Need 50000000x 16ch@100MHz.
+sr: [00:00.209863] sipeed-slogic-analyzer: capture: 16ch@100MHz limit=50000000 xfer=524288x16 (2ms)
+sr: [00:00.209921] session: bus: Received SR_DF_HEADER packet.
+cli: Received SR_DF_HEADER.
+sr: [00:00.210132] hwdriver: sr_config_get(): key 30000 (samplerate) sdi 0000021a56386f20 cg NULL -> uint64 100000000
+sr: [00:00.212505] sipeed-slogic-analyzer: slow transfer completion
+sr: [00:00.212558] sipeed-slogic-analyzer: slogic-xfer t_ms=2.776 len=524288 cum=524288 st=0
+sr: [00:00.215567] sipeed-slogic-analyzer: slogic-xfer t_ms=5.835 len=524288 cum=1048576 st=0
+sr: [00:00.217741] sipeed-slogic-analyzer: slogic-xfer t_ms=8.014 len=524288 cum=1572864 st=0
+sr: [00:00.220361] sipeed-slogic-analyzer: slogic-xfer t_ms=10.634 len=524288 cum=2097152 st=0
+sr: [00:00.222580] session: bus: Received SR_DF_LOGIC packet (524284 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524284 bytes, unitsize = 2).
+sr: sr: [00:00.222993] sipeed-slogic-analyzer: slogic-xfer t_ms=13.229 len=524288 cum=2621440 st=0
+[00:00.222972] hwdriver: sr_config_get(): key 30000 (samplerate) sdi 0000021a56386f20 cg NULL -> uint64 100000000
+sr: [00:00.225611] sipeed-slogic-analyzer: slogic-xfer t_ms=15.886 len=524288 cum=3145728 st=0
+sr: [00:00.226679] output/srzip: output unit size 2, feed unit size 2.
+sr: [00:00.226716] output/srzip: Matching unit size, passing logic data as is.
+sr: [00:00.226933] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.227436] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.227910] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.228426] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.228798] sipeed-slogic-analyzer: slogic-xfer t_ms=19.016 len=524288 cum=3670016 st=0
+sr: [00:00.228956] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.229430] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.231030] sipeed-slogic-analyzer: slogic-xfer t_ms=21.305 len=524288 cum=4194304 st=0
+sr: [00:00.233439] sipeed-slogic-analyzer: slogic-xfer t_ms=23.708 len=524288 cum=4718592 st=0
+sr: [00:00.236109] sipeed-slogic-analyzer: slogic-xfer t_ms=26.370 len=524288 cum=5242880 st=0
+sr: [00:00.238170] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.238764] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.239135] sipeed-slogic-analyzer: slogic-xfer t_ms=29.178 len=524288 cum=5767168 st=0
+sr: [00:00.241340] sipeed-slogic-analyzer: slogic-xfer t_ms=31.616 len=524288 cum=6291456 st=0
+sr: [00:00.243935] sipeed-slogic-analyzer: slogic-xfer t_ms=34.210 len=524288 cum=6815744 st=0
+sr: [00:00.246956] sipeed-slogic-analyzer: slogic-xfer t_ms=37.228 len=524288 cum=7340032 st=0
+sr: [00:00.249183] sipeed-slogic-analyzer: slogic-xfer t_ms=39.457 len=524288 cum=7864320 st=0
+sr: [00:00.251761] sipeed-slogic-analyzer: slogic-xfer t_ms=42.037 len=524288 cum=8388608 st=0
+sr: [00:00.254397] sipeed-slogic-analyzer: slogic-xfer t_ms=44.670 len=524288 cum=8912896 st=0
+sr: [00:00.257001] sipeed-slogic-analyzer: slogic-xfer t_ms=47.279 len=524288 cum=9437184 st=0
+sr: [00:00.259642] sipeed-slogic-analyzer: slogic-xfer t_ms=49.920 len=524288 cum=9961472 st=0
+sr: [00:00.262236] sipeed-slogic-analyzer: slogic-xfer t_ms=52.519 len=524288 cum=10485760 st=0
+sr: [00:00.264925] sipeed-slogic-analyzer: slogic-xfer t_ms=55.186 len=524288 cum=11010048 st=0
+sr: sr: [00:00.264992] [00:00.265027] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+sipeed-slogic-analyzer: slogic-rate t_ms=55 got=11.0MB mbps=200.7 exp_mbps=200.0 fit_n=21
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.265516] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.265924] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.266318] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.266732] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.267140] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.267503] sipeed-slogic-analyzer: slogic-xfer t_ms=57.780 len=524288 cum=11534336 st=0
+sr: [00:00.267544] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.267941] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.270279] sipeed-slogic-analyzer: slogic-xfer t_ms=60.558 len=524288 cum=12058624 st=0
+sr: [00:00.272730] sipeed-slogic-analyzer: slogic-xfer t_ms=63.005 len=524288 cum=12582912 st=0
+sr: [00:00.275346] sipeed-slogic-analyzer: slogic-xfer t_ms=65.624 len=524288 cum=13107200 st=0
+sr: [00:00.277962] sipeed-slogic-analyzer: slogic-xfer t_ms=68.241 len=524288 cum=13631488 st=0
+sr: [00:00.280588] sipeed-slogic-analyzer: slogic-xfer t_ms=70.867 len=524288 cum=14155776 st=0
+sr: [00:00.283212] sipeed-slogic-analyzer: slogic-xfer t_ms=73.489 len=524288 cum=14680064 st=0
+sr: [00:00.285869] sipeed-slogic-analyzer: slogic-xfer t_ms=76.144 len=524288 cum=15204352 st=0
+sr: [00:00.288453] sipeed-slogic-analyzer: slogic-xfer t_ms=78.731 len=524288 cum=15728640 st=0
+sr: [00:00.291122] sipeed-slogic-analyzer: slogic-xfer t_ms=81.403 len=524288 cum=16252928 st=0
+sr: [00:00.293694] sipeed-slogic-analyzer: slogic-xfer t_ms=83.975 len=524288 cum=16777216 st=0
+sr: [00:00.296358] sipeed-slogic-analyzer: slogic-xfer t_ms=86.637 len=524288 cum=17301504 st=0
+sr: [00:00.298993] sipeed-slogic-analyzer: slogic-xfer t_ms=89.267 len=524288 cum=17825792 st=0
+sr: [00:00.301605] sipeed-slogic-analyzer: slogic-xfer t_ms=91.884 len=524288 cum=18350080 st=0
+sr: [00:00.304212] sipeed-slogic-analyzer: slogic-xfer t_ms=94.495 len=524288 cum=18874368 st=0
+sr: [00:00.306825] sipeed-slogic-analyzer: slogic-xfer t_ms=97.109 len=524288 cum=19398656 st=0
+sr: [00:00.309454] sipeed-slogic-analyzer: slogic-xfer t_ms=99.739 len=524288 cum=19922944 st=0
+sr: [00:00.311742] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.312120] sipeed-slogic-analyzer: slogic-xfer t_ms=102.360 len=524288 cum=20447232 st=0
+sr: [00:00.312163] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.312570] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.312986] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.313385] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.313794] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.314205] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.314669] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.315040] sipeed-slogic-analyzer: slogic-xfer t_ms=105.012 len=524288 cum=20971520 st=0
+sr: [00:00.317298] sipeed-slogic-analyzer: slogic-xfer t_ms=107.580 len=524288 cum=21495808 st=0
+sr: [00:00.319912] sipeed-slogic-analyzer: slogic-xfer t_ms=110.192 len=524288 cum=22020096 st=0
+sr: [00:00.322529] sipeed-slogic-analyzer: slogic-xfer t_ms=112.810 len=524288 cum=22544384 st=0
+sr: [00:00.325152] sipeed-slogic-analyzer: slogic-xfer t_ms=115.433 len=524288 cum=23068672 st=0
+sr: [00:00.327770] sipeed-slogic-analyzer: slogic-xfer t_ms=118.053 len=524288 cum=23592960 st=0
+sr: [00:00.330404] sipeed-slogic-analyzer: slogic-xfer t_ms=120.684 len=524288 cum=24117248 st=0
+sr: [00:00.333294] sipeed-slogic-analyzer: slogic-xfer t_ms=123.562 len=524288 cum=24641536 st=0
+sr: [00:00.335656] sipeed-slogic-analyzer: slogic-xfer t_ms=125.933 len=524288 cum=25165824 st=0
+sr: [00:00.338315] sipeed-slogic-analyzer: slogic-xfer t_ms=128.597 len=524288 cum=25690112 st=0
+sr: [00:00.340884] sipeed-slogic-analyzer: slogic-xfer t_ms=131.168 len=524288 cum=26214400 st=0
+sr: [00:00.343497] sipeed-slogic-analyzer: slogic-xfer t_ms=133.782 len=524288 cum=26738688 st=0
+sr: [00:00.346121] sipeed-slogic-analyzer: slogic-xfer t_ms=136.405 len=524288 cum=27262976 st=0
+sr: [00:00.348787] sipeed-slogic-analyzer: slogic-xfer t_ms=139.064 len=524288 cum=27787264 st=0
+sr: [00:00.351453] sipeed-slogic-analyzer: slogic-xfer t_ms=141.727 len=524288 cum=28311552 st=0
+sr: [00:00.354014] sipeed-slogic-analyzer: slogic-xfer t_ms=144.298 len=524288 cum=28835840 st=0
+sr: [00:00.356633] sipeed-slogic-analyzer: slogic-xfer t_ms=146.917 len=524288 cum=29360128 st=0
+sr: [00:00.359262] sipeed-slogic-analyzer: slogic-xfer t_ms=149.542 len=524288 cum=29884416 st=0
+sr: [00:00.359594] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.359996] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.360402] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.360794] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.361185] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.361581] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: sr: [00:00.361984] sipeed-slogic-analyzer: slogic-xfer t_ms=152.181 len=524288 cum=30408704 st=0
+[00:00.361991] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.362431] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.364494] sipeed-slogic-analyzer: slogic-xfer t_ms=154.773 len=524288 cum=30932992 st=0
+sr: [00:00.367186] sipeed-slogic-analyzer: slogic-xfer t_ms=157.459 len=524288 cum=31457280 st=0
+sr: [00:00.369740] sipeed-slogic-analyzer: slogic-xfer t_ms=160.025 len=524288 cum=31981568 st=0
+sr: [00:00.372376] sipeed-slogic-analyzer: slogic-xfer t_ms=162.655 len=524288 cum=32505856 st=0
+sr: [00:00.374991] sipeed-slogic-analyzer: slogic-xfer t_ms=165.275 len=524288 cum=33030144 st=0
+sr: [00:00.377612] sipeed-slogic-analyzer: slogic-xfer t_ms=167.898 len=524288 cum=33554432 st=0
+sr: [00:00.380252] sipeed-slogic-analyzer: slogic-xfer t_ms=170.532 len=524288 cum=34078720 st=0
+sr: [00:00.382860] sipeed-slogic-analyzer: slogic-xfer t_ms=173.142 len=524288 cum=34603008 st=0
+sr: [00:00.385478] sipeed-slogic-analyzer: slogic-xfer t_ms=175.762 len=524288 cum=35127296 st=0
+sr: [00:00.388210] sipeed-slogic-analyzer: slogic-xfer t_ms=178.491 len=524288 cum=35651584 st=0
+sr: [00:00.390823] sipeed-slogic-analyzer: slogic-xfer t_ms=181.104 len=524288 cum=36175872 st=0
+sr: [00:00.393444] sipeed-slogic-analyzer: slogic-xfer t_ms=183.727 len=524288 cum=36700160 st=0
+sr: [00:00.396162] sipeed-slogic-analyzer: slogic-xfer t_ms=186.445 len=524288 cum=37224448 st=0
+sr: [00:00.398583] sipeed-slogic-analyzer: slogic-xfer t_ms=188.867 len=524288 cum=37748736 st=0
+sr: [00:00.401206] sipeed-slogic-analyzer: slogic-xfer t_ms=191.490 len=524288 cum=38273024 st=0
+sr: [00:00.403824] sipeed-slogic-analyzer: slogic-xfer t_ms=194.109 len=524288 cum=38797312 st=0
+sr: [00:00.405881] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.406310] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: sr: [00:00.406729] sipeed-slogic-analyzer: slogic-xfer t_ms=196.735 len=524288 cum=39321600 st=0
+[00:00.406737] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.407191] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.407591] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.408080] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.408515] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.408920] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.409284] sipeed-slogic-analyzer: slogic-xfer t_ms=199.378 len=524288 cum=39845888 st=0
+sr: [00:00.411769] sipeed-slogic-analyzer: slogic-xfer t_ms=202.037 len=524288 cum=40370176 st=0
+sr: [00:00.414379] sipeed-slogic-analyzer: slogic-xfer t_ms=204.645 len=524288 cum=40894464 st=0
+sr: [00:00.416998] sipeed-slogic-analyzer: slogic-xfer t_ms=207.265 len=524288 cum=41418752 st=0
+sr: [00:00.419607] sipeed-slogic-analyzer: slogic-xfer t_ms=209.877 len=524288 cum=41943040 st=0
+sr: [00:00.423067] sipeed-slogic-analyzer: slogic-xfer t_ms=213.322 len=524288 cum=42467328 st=0
+sr: [00:00.424853] sipeed-slogic-analyzer: slogic-xfer t_ms=215.133 len=524288 cum=42991616 st=0
+sr: [00:00.427477] sipeed-slogic-analyzer: slogic-xfer t_ms=217.750 len=524288 cum=43515904 st=0
+sr: [00:00.430080] sipeed-slogic-analyzer: slogic-xfer t_ms=220.360 len=524288 cum=44040192 st=0
+sr: [00:00.432767] sipeed-slogic-analyzer: slogic-xfer t_ms=223.046 len=524288 cum=44564480 st=0
+sr: [00:00.435304] sipeed-slogic-analyzer: slogic-xfer t_ms=225.583 len=524288 cum=45088768 st=0
+sr: [00:00.437918] sipeed-slogic-analyzer: slogic-xfer t_ms=228.196 len=524288 cum=45613056 st=0
+sr: [00:00.440660] sipeed-slogic-analyzer: slogic-xfer t_ms=230.938 len=524288 cum=46137344 st=0
+sr: [00:00.443253] sipeed-slogic-analyzer: slogic-xfer t_ms=233.532 len=524288 cum=46661632 st=0
+sr: [00:00.445872] sipeed-slogic-analyzer: slogic-xfer t_ms=236.156 len=524288 cum=47185920 st=0
+sr: [00:00.448394] sipeed-slogic-analyzer: slogic-xfer t_ms=238.678 len=524288 cum=47710208 st=0
+sr: [00:00.451034] sipeed-slogic-analyzer: slogic-xfer t_ms=241.310 len=524288 cum=48234496 st=0
+sr: [00:00.452009] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.452424] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.452821] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.453211] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.453602] sr: [00:00.453636] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sipeed-slogic-analyzer: slogic-xfer t_ms=243.901 len=524288 cum=48758784 st=0
+sr: [00:00.454070] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.454469] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.454872] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.456344] sipeed-slogic-analyzer: slogic-xfer t_ms=246.618 len=524288 cum=49283072 st=0
+sr: [00:00.458912] sipeed-slogic-analyzer: slogic-xfer t_ms=249.177 len=524288 cum=49807360 st=0
+sr: [00:00.461549] sipeed-slogic-analyzer: slogic-xfer t_ms=251.823 len=524288 cum=50331648 st=0
+sr: [00:00.464125] sipeed-slogic-analyzer: slogic-xfer t_ms=254.404 len=524288 cum=50855936 st=0
+sr: [00:00.466748] sipeed-slogic-analyzer: slogic-xfer t_ms=257.023 len=524288 cum=51380224 st=0
+sr: [00:00.466785] sipeed-slogic-analyzer: slogic-rate t_ms=257 got=51.4MB mbps=200.0 exp_mbps=200.0 fit_n=98
+sr: [00:00.469368] sipeed-slogic-analyzer: slogic-xfer t_ms=259.645 len=524288 cum=51904512 st=0
+sr: [00:00.472000] sipeed-slogic-analyzer: slogic-xfer t_ms=262.276 len=524288 cum=52428800 st=0
+sr: [00:00.474623] sipeed-slogic-analyzer: slogic-xfer t_ms=264.899 len=524288 cum=52953088 st=0
+sr: [00:00.477230] sipeed-slogic-analyzer: slogic-xfer t_ms=267.503 len=524288 cum=53477376 st=0
+sr: [00:00.479889] sipeed-slogic-analyzer: slogic-xfer t_ms=270.161 len=524288 cum=54001664 st=0
+sr: [00:00.482555] sipeed-slogic-analyzer: slogic-xfer t_ms=272.821 len=524288 cum=54525952 st=0
+sr: [00:00.485129] sipeed-slogic-analyzer: slogic-xfer t_ms=275.396 len=524288 cum=55050240 st=0
+sr: [00:00.487750] sipeed-slogic-analyzer: slogic-xfer t_ms=278.024 len=524288 cum=55574528 st=0
+sr: [00:00.490373] sipeed-slogic-analyzer: slogic-xfer t_ms=280.645 len=524288 cum=56098816 st=0
+sr: [00:00.493017] sipeed-slogic-analyzer: slogic-xfer t_ms=283.285 len=524288 cum=56623104 st=0
+sr: [00:00.495616] sipeed-slogic-analyzer: slogic-xfer t_ms=285.895 len=524288 cum=57147392 st=0
+sr: [00:00.498175] sipeed-slogic-analyzer: slogic-xfer t_ms=288.454 len=524288 cum=57671680 st=0
+sr: [00:00.499036] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.499442] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.499838] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.500248] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.500634] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: sr: [00:00.501039] sipeed-slogic-analyzer: slogic-xfer t_ms=291.128 len=524288 cum=58195968 st=0
+[00:00.501047] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.501491] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.501886] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.503460] sipeed-slogic-analyzer: slogic-xfer t_ms=293.739 len=524288 cum=58720256 st=0
+sr: [00:00.506098] sipeed-slogic-analyzer: slogic-xfer t_ms=296.377 len=524288 cum=59244544 st=0
+sr: [00:00.508728] sipeed-slogic-analyzer: slogic-xfer t_ms=299.003 len=524288 cum=59768832 st=0
+sr: [00:00.511341] sipeed-slogic-analyzer: slogic-xfer t_ms=301.622 len=524288 cum=60293120 st=0
+sr: [00:00.513963] sipeed-slogic-analyzer: slogic-xfer t_ms=304.242 len=524288 cum=60817408 st=0
+sr: [00:00.516596] sipeed-slogic-analyzer: slogic-xfer t_ms=306.870 len=524288 cum=61341696 st=0
+sr: [00:00.519207] sipeed-slogic-analyzer: slogic-xfer t_ms=309.488 len=524288 cum=61865984 st=0
+sr: [00:00.521785] sipeed-slogic-analyzer: slogic-xfer t_ms=312.064 len=524288 cum=62390272 st=0
+sr: [00:00.524510] sipeed-slogic-analyzer: slogic-xfer t_ms=314.790 len=524288 cum=62914560 st=0
+sr: [00:00.527039] sipeed-slogic-analyzer: slogic-xfer t_ms=317.322 len=524288 cum=63438848 st=0
+sr: [00:00.529757] sipeed-slogic-analyzer: slogic-xfer t_ms=320.036 len=524288 cum=63963136 st=0
+sr: [00:00.532279] sipeed-slogic-analyzer: slogic-xfer t_ms=322.562 len=524288 cum=64487424 st=0
+sr: [00:00.535033] sipeed-slogic-analyzer: slogic-xfer t_ms=325.311 len=524288 cum=65011712 st=0
+sr: [00:00.537520] sipeed-slogic-analyzer: slogic-xfer t_ms=327.788 len=524288 cum=65536000 st=0
+sr: [00:00.540260] sipeed-slogic-analyzer: slogic-xfer t_ms=330.539 len=524288 cum=66060288 st=0
+sr: [00:00.542851] sipeed-slogic-analyzer: slogic-xfer t_ms=333.135 len=524288 cum=66584576 st=0
+sr: [00:00.545379] sipeed-slogic-analyzer: slogic-xfer t_ms=335.663 len=524288 cum=67108864 st=0
+sr: [00:00.546462] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.546881] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.547273] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.547664] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.548029] sipeed-slogic-analyzer: slogic-xfer t_ms=338.306 len=524288 cum=67633152 st=0
+sr: [00:00.548067] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.548474] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.548871] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.549271] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.550730] sipeed-slogic-analyzer: slogic-xfer t_ms=341.008 len=524288 cum=68157440 st=0
+sr: [00:00.553285] sipeed-slogic-analyzer: slogic-xfer t_ms=343.566 len=524288 cum=68681728 st=0
+sr: [00:00.555906] sipeed-slogic-analyzer: slogic-xfer t_ms=346.186 len=524288 cum=69206016 st=0
+sr: [00:00.558526] sipeed-slogic-analyzer: slogic-xfer t_ms=348.807 len=524288 cum=69730304 st=0
+sr: [00:00.561148] sipeed-slogic-analyzer: slogic-xfer t_ms=351.429 len=524288 cum=70254592 st=0
+sr: [00:00.563771] sipeed-slogic-analyzer: slogic-xfer t_ms=354.051 len=524288 cum=70778880 st=0
+sr: [00:00.566420] sipeed-slogic-analyzer: slogic-xfer t_ms=356.696 len=524288 cum=71303168 st=0
+sr: [00:00.568982] sipeed-slogic-analyzer: slogic-xfer t_ms=359.265 len=524288 cum=71827456 st=0
+sr: [00:00.571756] sipeed-slogic-analyzer: slogic-xfer t_ms=362.036 len=524288 cum=72351744 st=0
+sr: [00:00.574312] sipeed-slogic-analyzer: slogic-xfer t_ms=364.597 len=524288 cum=72876032 st=0
+sr: [00:00.576934] sipeed-slogic-analyzer: slogic-xfer t_ms=367.219 len=524288 cum=73400320 st=0
+sr: [00:00.579450] sipeed-slogic-analyzer: slogic-xfer t_ms=369.735 len=524288 cum=73924608 st=0
+sr: [00:00.582083] sipeed-slogic-analyzer: slogic-xfer t_ms=372.368 len=524288 cum=74448896 st=0
+sr: [00:00.584861] sipeed-slogic-analyzer: slogic-xfer t_ms=375.146 len=524288 cum=74973184 st=0
+sr: [00:00.587327] sipeed-slogic-analyzer: slogic-xfer t_ms=377.612 len=524288 cum=75497472 st=0
+sr: [00:00.589946] sipeed-slogic-analyzer: slogic-xfer t_ms=380.232 len=524288 cum=76021760 st=0
+sr: [00:00.592594] sipeed-slogic-analyzer: slogic-xfer t_ms=382.858 len=524288 cum=76546048 st=0
+sr: [00:00.593049] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.593440] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.593859] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.594242] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.594621] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.595011] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.595396] sr: sipeed-slogic-analyzer: slogic-xfer t_ms=385.495 len=524288 cum=77070336 st=0
+[00:00.595421] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.595815] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.597821] sipeed-slogic-analyzer: slogic-xfer t_ms=388.101 len=524288 cum=77594624 st=0
+sr: [00:00.600468] sipeed-slogic-analyzer: slogic-xfer t_ms=390.747 len=524288 cum=78118912 st=0
+sr: [00:00.603117] sipeed-slogic-analyzer: slogic-xfer t_ms=393.366 len=524288 cum=78643200 st=0
+sr: [00:00.605696] sipeed-slogic-analyzer: slogic-xfer t_ms=395.962 len=524288 cum=79167488 st=0
+sr: [00:00.608298] sipeed-slogic-analyzer: slogic-xfer t_ms=398.578 len=524288 cum=79691776 st=0
+sr: [00:00.610954] sipeed-slogic-analyzer: slogic-xfer t_ms=401.235 len=524288 cum=80216064 st=0
+sr: [00:00.613569] sipeed-slogic-analyzer: slogic-xfer t_ms=403.851 len=524288 cum=80740352 st=0
+sr: [00:00.640423] sipeed-slogic-analyzer: slogic-xfer t_ms=406.469 len=524288 cum=81264640 st=0
+sr: [00:00.640596] sipeed-slogic-analyzer: slogic-xfer t_ms=430.880 len=524288 cum=81788928 st=0
+sr: [00:00.640746] sipeed-slogic-analyzer: slogic-xfer t_ms=431.035 len=524288 cum=82313216 st=0
+sr: [00:00.640865] sipeed-slogic-analyzer: slogic-xfer t_ms=431.155 len=524288 cum=82837504 st=0
+sr: [00:00.640981] sipeed-slogic-analyzer: slogic-xfer t_ms=431.269 len=524288 cum=83361792 st=0
+sr: [00:00.641099] sipeed-slogic-analyzer: slogic-xfer t_ms=431.389 len=524288 cum=83886080 st=0
+sr: [00:00.641211] sipeed-slogic-analyzer: slogic-xfer t_ms=431.501 len=524288 cum=84410368 st=0
+sr: [00:00.641327] sipeed-slogic-analyzer: slogic-xfer t_ms=431.616 len=524288 cum=84934656 st=0
+sr: [00:00.641443] sipeed-slogic-analyzer: slogic-xfer t_ms=431.732 len=524288 cum=85458944 st=0
+sr: [00:00.641549] sipeed-slogic-analyzer: slogic-xfer t_ms=431.839 len=524288 cum=85983232 st=0
+sr: [00:00.642386] sipeed-slogic-analyzer: slogic-xfer t_ms=432.667 len=524288 cum=86507520 st=0
+sr: [00:00.642441] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.642837] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.643219] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.643603] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.643986] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.644414] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.644803] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: sr: [00:00.645228] sipeed-slogic-analyzer: slogic-xfer t_ms=435.295 len=524288 cum=87031808 st=0
+[00:00.645235] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.647635] sipeed-slogic-analyzer: slogic-xfer t_ms=437.914 len=524288 cum=87556096 st=0
+sr: [00:00.650285] sipeed-slogic-analyzer: slogic-xfer t_ms=440.563 len=524288 cum=88080384 st=0
+sr: [00:00.652922] sipeed-slogic-analyzer: slogic-xfer t_ms=443.203 len=524288 cum=88604672 st=0
+sr: [00:00.655522] sipeed-slogic-analyzer: slogic-xfer t_ms=445.803 len=524288 cum=89128960 st=0
+sr: [00:00.658126] sipeed-slogic-analyzer: slogic-xfer t_ms=448.406 len=524288 cum=89653248 st=0
+sr: [00:00.660761] sipeed-slogic-analyzer: slogic-xfer t_ms=451.043 len=524288 cum=90177536 st=0
+sr: [00:00.663350] sipeed-slogic-analyzer: slogic-xfer t_ms=453.631 len=524288 cum=90701824 st=0
+sr: [00:00.665972] sipeed-slogic-analyzer: slogic-xfer t_ms=456.252 len=524288 cum=91226112 st=0
+sr: [00:00.668798] sipeed-slogic-analyzer: slogic-xfer t_ms=459.079 len=524288 cum=91750400 st=0
+sr: [00:00.668832] sipeed-slogic-analyzer: slogic-rate t_ms=459 got=91.8MB mbps=198.6 exp_mbps=200.0 fit_n=175
+sr: [00:00.671274] sipeed-slogic-analyzer: slogic-xfer t_ms=461.542 len=524288 cum=92274688 st=0
+sr: [00:00.673879] sipeed-slogic-analyzer: slogic-xfer t_ms=464.158 len=524288 cum=92798976 st=0
+sr: [00:00.676592] sipeed-slogic-analyzer: slogic-xfer t_ms=466.871 len=524288 cum=93323264 st=0
+sr: [00:00.679206] sipeed-slogic-analyzer: slogic-xfer t_ms=469.487 len=524288 cum=93847552 st=0
+sr: [00:00.681704] sipeed-slogic-analyzer: slogic-xfer t_ms=471.986 len=524288 cum=94371840 st=0
+sr: [00:00.684428] sipeed-slogic-analyzer: slogic-xfer t_ms=474.709 len=524288 cum=94896128 st=0
+sr: [00:00.686921] sipeed-slogic-analyzer: slogic-xfer t_ms=477.205 len=524288 cum=95420416 st=0
+sr: [00:00.688232] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.688625] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.689013] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.689391] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: sr: [00:00.689776] sipeed-slogic-analyzer: slogic-xfer t_ms=479.856 len=524288 cum=95944704 st=0
+[00:00.689783] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.690244] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.690642] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.691033] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.692158] sipeed-slogic-analyzer: slogic-xfer t_ms=482.441 len=524288 cum=96468992 st=0
+sr: [00:00.694815] sipeed-slogic-analyzer: slogic-xfer t_ms=485.095 len=524288 cum=96993280 st=0
+sr: [00:00.697461] sipeed-slogic-analyzer: slogic-xfer t_ms=487.742 len=524288 cum=97517568 st=0
+sr: [00:00.700092] sipeed-slogic-analyzer: slogic-xfer t_ms=490.372 len=524288 cum=98041856 st=0
+sr: [00:00.702705] sipeed-slogic-analyzer: slogic-xfer t_ms=492.986 len=524288 cum=98566144 st=0
+sr: [00:00.705295] sipeed-slogic-analyzer: slogic-xfer t_ms=495.577 len=524288 cum=99090432 st=0
+sr: [00:00.708000] sipeed-slogic-analyzer: slogic-xfer t_ms=498.248 len=524288 cum=99614720 st=0
+sr: [00:00.710572] sipeed-slogic-analyzer: slogic-xfer t_ms=500.854 len=524288 cum=100139008 st=0
+sr: [00:00.735187] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.735583] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.735963] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.736344] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.736726] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.737156] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.737536] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.737915] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.782233] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.782676] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.783064] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.783456] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.783855] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.784237] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.784634] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.785031] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.829592] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.829989] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.830372] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.830753] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.831132] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.831536] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.831960] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.832343] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.878164] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.878566] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.878952] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.879338] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.879727] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.880343] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.880734] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.881203] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.922831] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.923324] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.923710] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.924197] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.924601] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.925078] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.925464] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.926156] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.970440] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.970914] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.971310] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.971781] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.972165] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.972642] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.973445] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:00.973877] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.017142] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.017637] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.018045] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.018525] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.018909] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.019379] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.019852] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.020251] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.077517] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.077974] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.078464] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.078897] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.079370] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.079877] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.080305] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.080683] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.128933] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.129327] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.129838] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.130376] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.130914] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.131306] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.131818] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.132248] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.176079] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.176565] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.176948] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.177420] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.177895] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.178597] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.179353] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.180162] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.222592] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.223098] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.223539] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.224002] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.224453] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.224902] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.225376] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.225802] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.276553] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.276951] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.277461] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.277952] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.278400] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.278825] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.279254] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.279676] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.315533] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.316064] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.316882] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.317664] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.318114] session: bus: Received SR_DF_LOGIC packet (524288 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (524288 bytes, unitsize = 2).
+sr: [00:01.318926] session: bus: Received SR_DF_LOGIC packet (385284 bytes, unitsize = 2).
+cli: Received SR_DF_LOGIC (385284 bytes, unitsize = 2).
+sr: [00:01.320119] sipeed-slogic-analyzer: slogic-report v1 model=SLogic16U3 ch=16 rate_mhz=100 end=ok samples=50000000/50000000 bytes=100139008 mbps=199.1 exp_mbps=200.0 fit_n=191 span_ms=498.1 cold_ms=0.0 xfer=524288x16 rearms=0 trig=none q_peak_mb=53.5
+sr: [00:01.322328] session: bus: Received SR_DF_END packet.
+cli: Received SR_DF_END.
+sr: [00:01.362007] session: fd_source_finalize: key ffffffffda9c790d
+sr: [00:01.362068] session: Stopped.
+sr: [00:01.362113] hwdriver: Cleaning up all drivers.

@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "source_commit": "20e7416a32c5a9af3e28215bb4d42ccd16d0a363",
+  "app_version": "20e7416",
+  "hardware_access": false,
+  "qualification": "EXPERIMENTAL; physical qualification parent-owned; not stable-rate publication",
+  "tests": {
+    "python_methods": 25,
+    "real_sdk_clock_planner_points": 9,
+    "old_rates_preserved": true,
+    "integer9_rejects_fractional_or_wrong_source": true,
+    "readback_required_in_tool": true
+  },
+  "files": {
+    "tab5_gpu_lab.bin": {
+      "sha256": "73d2c931ffa84d7ef09ea65f8567f523695be555974d93665e2592ac7f2d6d38",
+      "bytes": 534224
+    },
+    "tab5_gpu_lab.elf": {
+      "sha256": "0195a00bd1ef4ab4f667e6f4b155eaaeba4dabffc07e57b0d10a88ffa20471d6",
+      "bytes": 8760676
+    },
+    "bootloader/bootloader.bin": {
+      "sha256": "e471c99e9a4825149bb386fc18fab8a084ef3f51e152db26989590cd402ea49d",
+      "bytes": 23088
+    },
+    "partition_table/partition-table.bin": {
+      "sha256": "fd8026bff850ca0dee41c41305160317fffe604dda30a9bd5a701ac82d96fa17",
+      "bytes": 3072
+    },
+    "flash_args": {
+      "sha256": "63aafc9e5e5bb7f4922023b5c8d4b1b037431cbc641ee4cf6856cc8a276f3668",
+      "bytes": 157
+    },
+    "sdkconfig": {
+      "sha256": "582c2f5c5dcdd3e14d21eb996debd13d2bce605b04f5da2be4347f4380835359",
+      "bytes": 96705
+    }
+  },
+  "source_sha256": {
+    "main/mem_xferx.hpp": "d272f545c06999b4d907f435f41bba8b0f69523bfcd73ad4a4ca7212989da460",
+    "main/dock_rx_clock_plan.cpp": "d45c3ec7078afc078481305dac5dbd5272bd297c774f75d75a7891ff73b5b785",
+    "main/dock_dma_rx.cpp": "b0ae90ce6be974e60578308a8d215f7e8b05601826b408649f842e10a83310bf",
+    "main/dock_dma_rx.hpp": "e75bd636ce00122c46092108bd14ea80a8193491b7a0fc0eee623196078dd143",
+    "main/dock_gpu.cpp": "953626c0fefd3b6254557d32d95fd00241eb78c296dfac256423299b715b1b7f",
+    "main/dock_gpu.hpp": "c528e41250aa72efbc237b1d10eac072324627c67ce82f7f2a81d9887f2c2a76",
+    "main/mem_probe_main.cpp": "994f3195fc65fdbc939ea9c6b015c4cec0952c7e07af5ece46db9a4251500856",
+    "tools/memv1_xfer.py": "fd3150f59e8446d3ac04f17277a46cb4e206147db8accd307cc10c638a554671",
+    "tools/test_dma_clock_plan.py": "45a52435af958988cbaef68d07bfa6246fa8893474f8cdbcd064895f9dc74129",
+    "tests/mem_rx_integer9_test.cpp": "90785dbf813d3e40c0a343308bde8a5baa50f7dc5e82825127bb5dc14ea7652b",
+    "tools/test_memv1_xfer.py": "aedc8e8f21924a368dbbbdc559814049381fde482cb3878673f2dac856186eb5"
+  },
+  "known_previous_backup": {
+    "path": "D:\\github\\airpocket-soundman\\tab5-fpga-gpu-display\\build\\known-display-delta-38147a0",
+    "manifest": {
+      "tab5_gpu_lab.bin": "71b49a05db4228a64debe0b1e39f2b173350250127b48443e8e593b1f9f69f5b",
+      "tab5_gpu_lab.elf": "65862751664836779a7dfc56373cfac1fcdb8b2c5d6db2bb74bb997dee0e47fb",
+      "bootloader/bootloader.bin": "e471c99e9a4825149bb386fc18fab8a084ef3f51e152db26989590cd402ea49d",
+      "partition_table/partition-table.bin": "fd8026bff850ca0dee41c41305160317fffe604dda30a9bd5a701ac82d96fa17",
+      "flash_args": "63aafc9e5e5bb7f4922023b5c8d4b1b037431cbc641ee4cf6856cc8a276f3668",
+      "sdkconfig": "582c2f5c5dcdd3e14d21eb996debd13d2bce605b04f5da2be4347f4380835359",
+      "project_description.json": "54674b4a25f8246f9d29f50a25359070a7067f1cc771fc8da891c384912403f9"
+    }
+  },
+  "build_log_sha256": "cc9c7e3d801f3d3c623cd647a9f8902312055ed829c0d94ee70dff904f4c0230"
+}
