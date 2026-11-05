@@ -1,0 +1,81 @@
+{
+  "date": "2026-11-05",
+  "hardware_access": false,
+  "local_carrier_main": "c3b222f42cea36608da73a9e0d05026c5e450b56",
+  "remote_carrier_main": "325299e90bb13ecf3198dbe6f5d4f5cda8ea3992",
+  "local_host_main": "ae32eaa4997c64309dc632f98eb44e31b6447723",
+  "remote_host_main": "dc2e9c434bdd35e608692b5de9e6a8273ee02bd9",
+  "local_ahead": {
+    "carrier": 31,
+    "host": 66
+  },
+  "other_thread_dirty_carrier_files_preserved": "M README.md\n?? \"docs/GPU\\346\\216\\245\\347\\266\\232\\350\\251\\246\\351\\250\\223\\346\\272\\226\\345\\202\\231_2026-11-05.md\"\n?? fpga/tools/prepare_gpu_connection.py",
+  "gpu_connection_plan": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\gpu-connection-recheck-20261105\\connection-plan.json",
+  "gpu_plan_sha256": "e4e0eb3fc1f0c3d05831bd043731ecb7e0816c8df089ca98bfe36d3730e13f87",
+  "target_serial": "30:ED:A0:E2:FE:C0",
+  "excluded_serial": "E8:F6:0A:E3:21:CF",
+  "gpu_elf_sha256": "39b2c92ebe0c19084f786eca07ac9c8a087e2318e5da3248dc7afc0e2c835516",
+  "checks": {
+    "gpu_compare_mock_tests": 34,
+    "memv1_mock_tests": 34,
+    "gpu_zip_and_files_hashes_verified": 7,
+    "mem_handoff_files_hashes_verified": 9,
+    "control_and_pilot_cli_parsed_without_uart": 2,
+    "gpu_built_source_application_diff_from_latest_main": ""
+  },
+  "mem_restoration": {
+    "path": "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\validation\\memv1-pc-handoff-2026-11-05",
+    "files": {
+      "fpga-A0A9.fs": {
+        "bytes": 7264154,
+        "sha256": "46dbb0b99e3b2d79660d6c9c6ac5226dd0c4a84bb937531317aaa04c06e7a114"
+      },
+      "fpga-D7F5-phase3.fs": {
+        "bytes": 7264154,
+        "sha256": "a4c91ae01fc6fd0e0aec9eb6db7d371106f9484448a24a2bb29f6eab3bbd72a9"
+      },
+      "host-a72b75e/flash_args": {
+        "bytes": 157,
+        "sha256": "63aafc9e5e5bb7f4922023b5c8d4b1b037431cbc641ee4cf6856cc8a276f3668"
+      },
+      "host-a72b75e/manifest.json": {
+        "bytes": 1079,
+        "sha256": "aa443f0d8201cc0123eb58977f15ded44b261521d20e815a5da99e9bb841c148"
+      },
+      "host-a72b75e/sdkconfig": {
+        "bytes": 96974,
+        "sha256": "4d3747f35ec8e6dc32c00237b93e7382adb2577fd213ae4ed197abfd40267067"
+      },
+      "host-a72b75e/tab5_gpu_lab.bin": {
+        "bytes": 597824,
+        "sha256": "0d3b28717c5ae51a8f73026fd81313e1a7eeed3d8322ab4247242340d4febd5c"
+      },
+      "host-a72b75e/tab5_gpu_lab.elf": {
+        "bytes": 9215956,
+        "sha256": "e7bb3f8a483db08a5922e5551e22f26ff45233c892d912e9cbb20e5a8283c527"
+      },
+      "host-a72b75e/bootloader/bootloader.bin": {
+        "bytes": 23088,
+        "sha256": "2a14d8f22bf999374899a7459f9147038dd7c9104edaaba1c7ace1cca913cbde"
+      },
+      "host-a72b75e/partition_table/partition-table.bin": {
+        "bytes": 3072,
+        "sha256": "fd8026bff850ca0dee41c41305160317fffe604dda30a9bd5a701ac82d96fa17"
+      }
+    },
+    "qualified_profile": "A0A9 / host a72b75e / TX8 RX8, 20000 requests historical PASS",
+    "next_candidate": "D7F5 TX8/RX20; unverified"
+  },
+  "changes_from_previous_preparation": [
+    "Local main contains new code not yet pushed; origin/main alone is insufficient.",
+    "MEM CANCEL classification fixed in new source; old prepared binaries still contain old behavior.",
+    "MEM retained/pipeline, split clocks, status and fixed-route options added; do not apply MEM options to GFX.",
+    "GPU TX8/RX20 uses a new opt-in binary; not physically qualified.",
+    "Use control -> pilot -> 54-case benchmark with E368, preserving current MEM restoration artifacts."
+  ],
+  "limits": [
+    "Control and pilot differ in phase/scope/route as well as TX frequency; do not attribute difference to frequency alone.",
+    "Other-thread main branches and dirty files were not merged, edited or pushed.",
+    "Original offline-ready kit is retained as an older baseline; it is not the current merged main."
+  ]
+}
