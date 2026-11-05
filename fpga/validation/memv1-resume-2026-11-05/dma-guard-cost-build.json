@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "source_commit": "17afae889fa1a60722ea1afa8aa8868c4737d8f2",
+  "app_version": "17afae8",
+  "hardware_access": false,
+  "qualification": "offline; guard20/2 physical tests parent-owned",
+  "tests": {
+    "python_methods": 33,
+    "native_mem_xferx_checks": 335,
+    "guard_default_us": 200,
+    "guard_bounds_us": [
+      2,
+      2000
+    ],
+    "legacy_gpio_guard_default_us": 200,
+    "full_usb_timer_after_all_get": true,
+    "caps_first_device_error_stops": true
+  },
+  "files": {
+    "tab5_gpu_lab.bin": {
+      "sha256": "4cdc94bcabb576aecbb15c1bf4686055994008382c6a4d5056f342e747b82a18",
+      "bytes": 535856
+    },
+    "tab5_gpu_lab.elf": {
+      "sha256": "a5b369f689e5c867f10fd920548cbdafdfd85614df6b359c802fd78baed11776",
+      "bytes": 8771368
+    },
+    "bootloader/bootloader.bin": {
+      "sha256": "e471c99e9a4825149bb386fc18fab8a084ef3f51e152db26989590cd402ea49d",
+      "bytes": 23088
+    },
+    "partition_table/partition-table.bin": {
+      "sha256": "fd8026bff850ca0dee41c41305160317fffe604dda30a9bd5a701ac82d96fa17",
+      "bytes": 3072
+    },
+    "flash_args": {
+      "sha256": "63aafc9e5e5bb7f4922023b5c8d4b1b037431cbc641ee4cf6856cc8a276f3668",
+      "bytes": 157
+    },
+    "sdkconfig": {
+      "sha256": "582c2f5c5dcdd3e14d21eb996debd13d2bce605b04f5da2be4347f4380835359",
+      "bytes": 96705
+    }
+  },
+  "source_sha256": {
+    "main/dock_gpu.cpp": "3bd85128bf12eea0c318c7b8323d1dcc384b98fd3902348afe1591c742453736",
+    "main/dock_gpu.hpp": "14fade05bc31df495661cf8eef47186a5a02e8c24356dcb37c753731a06ae86c",
+    "main/mem_xferx.hpp": "95f7c02b08c05b473d0e86ec3405f4d4d357bb8fa8c5681036ba98306f4033b0",
+    "main/mem_probe_main.cpp": "e5ec1d38c7e68618bbb978943d7ab1701fab21bb8b9134b8aaf6dba2fcbaa9d9",
+    "tools/memv1_xfer.py": "108b885ae4a3eae4d84ce9891a6a6121595e2e706a87b9e413df38c4102b17ef",
+    "tools/test_memv1_xfer.py": "7d99449a2dd323378f830dd5fabd8afdf16c13859f7774fd42ca8ef6f0cb7fc5",
+    "tools/test_mem_xferx.cpp": "1a4b98a8713c1a10cf75a94fe7729f5cc909d60733741158b99f3cda66d312a2"
+  },
+  "backups": {
+    "known-rx-integer65-7613b6c": {
+      "tab5_gpu_lab.bin": "1585f47f0838cd8048b4024fcdb0391360045cd9a3423d171c9e81cbe9015c49",
+      "tab5_gpu_lab.elf": "f751a5644116187b5d7655cd20f79abe2fd65da9ba3af1da8874e77d4dd6bcff",
+      "bootloader/bootloader.bin": "e471c99e9a4825149bb386fc18fab8a084ef3f51e152db26989590cd402ea49d",
+      "partition_table/partition-table.bin": "fd8026bff850ca0dee41c41305160317fffe604dda30a9bd5a701ac82d96fa17",
+      "flash_args": "63aafc9e5e5bb7f4922023b5c8d4b1b037431cbc641ee4cf6856cc8a276f3668",
+      "sdkconfig": "582c2f5c5dcdd3e14d21eb996debd13d2bce605b04f5da2be4347f4380835359",
+      "project_description.json": "de3a6903088ef2cc4d48a6929205bc243f8ec1f88af7cabba2bcc921015ffedd"
+    },
+    "known-rx-integer4-b1a6015": {
+      "tab5_gpu_lab.bin": "ed27303b323e0723af6513074a17952ab58a2c6ed3e4d1b48be267ab85011134",
+      "tab5_gpu_lab.elf": "57ee1b437c1a6c2afef2386da7df7be8bfa1f2b5b6f0925f9039de8421b41735",
+      "bootloader/bootloader.bin": "e471c99e9a4825149bb386fc18fab8a084ef3f51e152db26989590cd402ea49d",
+      "partition_table/partition-table.bin": "fd8026bff850ca0dee41c41305160317fffe604dda30a9bd5a701ac82d96fa17",
+      "flash_args": "63aafc9e5e5bb7f4922023b5c8d4b1b037431cbc641ee4cf6856cc8a276f3668",
+      "sdkconfig": "582c2f5c5dcdd3e14d21eb996debd13d2bce605b04f5da2be4347f4380835359",
+      "project_description.json": "eb483d2d5e9ac4bd4deab4e9dbe437c869cd729907295585679f6c2ac2649cc6"
+    }
+  },
+  "build_log_sha256": "d7a410071ae713b8126a41b30fa45a329344182a1034fb4e932d45ff13169f23"
+}

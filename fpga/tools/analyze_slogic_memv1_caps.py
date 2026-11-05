@@ -12,11 +12,18 @@ from map_slogic_memv1 import crc16,request,response
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
     ap.add_argument('folder',type=Path);ap.add_argument('--output',type=Path)
+    ap.add_argument('--tx-hz',type=float,help='Expected TX clock; defaults to host tx_hz')
+    ap.add_argument('--tx-preamble',type=int,choices=range(5),help='Explicit physical zero-byte preamble; defaults to recorded host option, otherwise zero')
     ap.add_argument('--bus-hz',type=float,help='Expected RX clock for comparison only; defaults to host requested rx_hz; never rescales samples')
     a=ap.parse_args();p=a.folder
     run=json.loads((p/'run.json').read_text());host=json.loads((p/'caps.json').read_text())
     rate,total,short=regions(p/'capture.sr');sample_ns=1e9/rate
     bus_hz=a.bus_hz or host.get('rx_hz')
+    tx_hz=a.tx_hz or host.get('tx_hz',2000000)
+    tx_preamble=a.tx_preamble if a.tx_preamble is not None else host.get('dma_options',{}).get('tx_preamble',0)
+    if tx_hz<=0:raise ValueError('tx-hz must be positive')
+    if tx_preamble not in range(5):raise ValueError('recorded tx preamble must be 0..4')
+    tx_wire_length=8+tx_preamble
     if bus_hz is not None and bus_hz<=0:raise ValueError('bus-hz must be positive')
     windows=[(max(0,span[0]-int(rate*.002)),span[1]+64) for span,_,_ in short]
     buf=[[] for _ in windows]
@@ -31,26 +38,37 @@ def main():
             'timebase_policy':'nominal metadata time only; compare TX period to expected; common-factor mismatch has no assigned cause',
             'script_sha256':sha(__file__),'helper_sha256':sha(Path(__file__).with_name('analyze_slogic_memv1.py')),
             'capture_sha256':sha(p/'capture.sr'),'run_sha256':sha(p/'run.json'),'host_sha256':sha(p/'caps.json'),
-            'expected_rx_bus_hz':bus_hz,'expected_rx_period_samples':rate/bus_hz if bus_hz else None,'sample_rate':rate,'sample_ns':sample_ns,'stored_samples':total,'requested_samples':run.get('samples'),
+            'expected_tx_bus_hz':tx_hz,'tx_preamble_bytes':tx_preamble,'expected_rx_bus_hz':bus_hz,'expected_rx_period_samples':rate/bus_hz if bus_hz else None,'sample_rate':rate,'sample_ns':sample_ns,'stored_samples':total,'requested_samples':run.get('samples'),
             'capture_exit_code':run.get('capture_exit_code'),'host_result':host.get('result'),'mapping':MAPPING,
             'limits':[f'{sample_ns:g}ns digitizer resolution cannot prove internal setup/hold or analog edges','Probe edges are not internal P4 sampling events','Each phase samples one whole frame; no per-byte choice or deleted edges'], 'frames':[]}
     for i,((span,_,_),window,parts) in enumerate(zip(short,windows,buf)):
         if i>=9:raise ValueError('more than 9 DIR intervals: refuse CAPS sequence assumption')
         lo,hi=window;v=np.concatenate(parts);values=data_bytes(v);clk=(v&128)!=0
         rises=np.flatnonzero(clk[1:]&~clk[:-1])+1;falls=np.flatnonzero(~clk[1:]&clk[:-1])+1
-        txr=rises[rises<span[0]-lo];txperiod=rate/host.get('tx_hz',2000000)
+        txr=rises[rises<span[0]-lo];txperiod=rate/tx_hz
         cuts=np.flatnonzero(np.abs(np.diff(txr)-txperiod)>max(1.1,txperiod*.15))+1
-        groups=[g for g in np.split(txr,cuts) if len(g)==8]
+        groups=[g for g in np.split(txr,cuts) if len(g)==tx_wire_length]
         tx=bytes(values[groups[-1]-1]) if groups else b''
-        observed_period=float(np.median(np.diff(txr))) if len(txr)>=8 else None
+        observed_period=float(np.median(np.diff(txr))) if len(txr)>=tx_wire_length else None
         observed_cuts=np.flatnonzero(np.abs(np.diff(txr)-observed_period)>1.1)+1 if observed_period else []
-        observed_groups=[g for g in np.split(txr,observed_cuts) if len(g)==8]
+        observed_groups=[g for g in np.split(txr,observed_cuts) if len(g)==tx_wire_length]
         observed_tx=bytes(values[observed_groups[-1]-1]) if observed_groups else b''
         rxrise=rises[(rises>=span[0]-lo)&(rises<span[1]-lo)];rxfall=falls[(falls>=span[0]-lo)&(falls<span[1]-lo)]
-        expected=response(i);row={'index':i,'seq':0x41+i,'request_hex':tx.hex(),'expected_request_hex':request(i).hex(),'request_crc_valid':len(tx)==8 and crc16(tx[:6])==int.from_bytes(tx[6:],'little'),
-             'observed_period_request_hex':observed_tx.hex(),'observed_period_request_exact':observed_tx==request(i),'observed_tx_period_samples':observed_period,'nominal_tx_period_samples':txperiod,'timebase_ratio_observed_to_nominal':observed_period/txperiod if observed_period else None,'request_exact_match':tx==request(i),'pre_dir_tx_rising_period_samples':histogram(np.diff(txr[-20:])), 'pre_dir_tx_last_group_lengths':[len(g) for g in np.split(txr,cuts)][-5:],'expected_reply_hex':expected[8:].hex(),'expected_status':expected[9],
+        expected=response(i);expected_tx=bytes(tx_preamble)+request(i);row={'index':i,'seq':0x41+i,'request_hex':tx.hex(),'expected_request_hex':expected_tx.hex(),'physical_request_length':tx_wire_length,'request_preamble_valid':tx[:tx_preamble]==bytes(tx_preamble),'request_crc_valid':len(tx)==tx_wire_length and crc16(tx[tx_preamble:tx_preamble+6])==int.from_bytes(tx[tx_preamble+6:],'little'),
+             'observed_period_request_hex':observed_tx.hex(),'observed_period_request_exact':observed_tx==expected_tx,'observed_tx_period_samples':observed_period,'nominal_tx_period_samples':txperiod,'timebase_ratio_observed_to_nominal':observed_period/txperiod if observed_period else None,'request_exact_match':tx==expected_tx,'pre_dir_tx_rising_period_samples':histogram(np.diff(txr[-20:])), 'pre_dir_tx_last_group_lengths':[len(g) for g in np.split(txr,cuts)][-5:],'expected_reply_hex':expected[8:].hex(),'expected_status':expected[9],
              'raw_rising_edges':len(rxrise),'raw_falling_edges':len(rxfall),'rising_period_samples':histogram(np.diff(rxrise)),
              'dir_start_sample':span[0],'dir_end_sample':span[1],'phases':[]}
+        row['tx_primary_sampling']='physical rising edge minus one acquired sample; not FPGA internal capture'
+        row['tx_high_width_samples']=histogram([falls[np.searchsorted(falls,t,side='right')]-t for t in (observed_groups[-1] if observed_groups else []) if np.searchsorted(falls,t,side='right')<len(falls)])
+        row['tx_whole_frame_phases']=[]
+        for txedge,txpositions in [('rising',txr),('falling',falls[falls<span[0]-lo])]:
+            if len(txpositions)<tx_wire_length:continue
+            txcuts=np.flatnonzero(np.abs(np.diff(txpositions)-observed_period)>1.1)+1
+            txgroups=[g for g in np.split(txpositions,txcuts) if len(g)==tx_wire_length]
+            if not txgroups:continue
+            for shift in [-2,-1,0,1,2]:
+                frame=bytes(values[txgroups[-1]+shift])
+                row['tx_whole_frame_phases'].append({'physical_edge':txedge,'offset_ns':shift*sample_ns,'hex':frame.hex(),'exact_expected':frame==expected_tx})
         for edge,positions in [('rising',rxrise),('falling',rxfall)]:
             for shift in [-2,-1,0,1,2]:
                 stream=bytes(values[positions+shift]);heads=[]

@@ -1,0 +1,134 @@
+{
+  "scope": "parent hardware measurements; link-established per-4KiB API time including firmware preparation and cleanup, excludes ARM startup and PC USB debug path",
+  "hardware_operated_by_this_agent": false,
+  "runs": {
+    "dma-guard200-tx5-rx5-static-100.json": {
+      "source_path": "D:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\validation\\memv1-resume-2026-11-05\\dma-guard200-tx5-rx5-static-100.json",
+      "source_sha256": "5941a0186a8293d2087e5d99eb11b83800cd824e2180a156f99585f6fa38ab5d",
+      "result": "PASS",
+      "elf_sha256": "a5b369f689e5c867f10fd920548cbdafdfd85614df6b359c802fd78baed11776",
+      "tx_hz": 5000000,
+      "rx_hz": 5000000,
+      "dma_options": {
+        "guard_us": 200,
+        "edge": "positive",
+        "margin": 16,
+        "rx_delay_us": 0,
+        "rx_invert": false,
+        "order": "tx_first",
+        "tx_phase": "negative",
+        "tx_preamble": 1,
+        "tx_settle_us": 0
+      },
+      "frames": 617,
+      "display_progress_updates": 0,
+      "link_armed_after": false,
+      "payload_frames": {
+        "WR 256 beats": {
+          "n": 100,
+          "median": {
+            "total_us": 2347.0,
+            "guard_total_us": 603.0,
+            "tx_config_us": 1.0,
+            "tx_transfer_us": 1184.0,
+            "tx_release_us": 66.5,
+            "rx_config_us": 161.0,
+            "rx_us": 157.0,
+            "rx_release_us": 55.0,
+            "finish_us": 203.0,
+            "unwrap_copy_us": 3.0,
+            "inputs_us": 26.0,
+            "usb_full_us": 60392.0
+          },
+          "payload_bytes": 4096,
+          "firmware_full_mb_per_s": 1.7452066467831273,
+          "usb_debug_payload_mb_per_s": 0.0678235527884488
+        },
+        "RD after WR 256 beats": {
+          "n": 100,
+          "median": {
+            "total_us": 2244.0,
+            "guard_total_us": 603.0,
+            "tx_config_us": 1.0,
+            "tx_transfer_us": 281.0,
+            "tx_release_us": 66.0,
+            "rx_config_us": 168.0,
+            "rx_us": 1000.0,
+            "rx_release_us": 56.0,
+            "finish_us": 203.0,
+            "unwrap_copy_us": 10.0,
+            "inputs_us": 26.0,
+            "usb_full_us": 178213.0
+          },
+          "payload_bytes": 4096,
+          "firmware_full_mb_per_s": 1.8253119429590017,
+          "usb_debug_payload_mb_per_s": 0.02298373294877478
+        }
+      }
+    },
+    "dma-guard2-tx5-rx5-static-100.json": {
+      "source_path": "D:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\validation\\memv1-resume-2026-11-05\\dma-guard2-tx5-rx5-static-100.json",
+      "source_sha256": "d4a9b451e65215cff8736d57ad2cc90f26b2a69510f6634db0cdcd949e775b9c",
+      "result": "PASS",
+      "elf_sha256": "a5b369f689e5c867f10fd920548cbdafdfd85614df6b359c802fd78baed11776",
+      "tx_hz": 5000000,
+      "rx_hz": 5000000,
+      "dma_options": {
+        "guard_us": 2,
+        "edge": "positive",
+        "margin": 16,
+        "rx_delay_us": 0,
+        "rx_invert": false,
+        "order": "tx_first",
+        "tx_phase": "negative",
+        "tx_preamble": 1,
+        "tx_settle_us": 0
+      },
+      "frames": 617,
+      "display_progress_updates": 0,
+      "link_armed_after": false,
+      "payload_frames": {
+        "WR 256 beats": {
+          "n": 100,
+          "median": {
+            "total_us": 1753.0,
+            "guard_total_us": 9.0,
+            "tx_config_us": 1.0,
+            "tx_transfer_us": 1183.0,
+            "tx_release_us": 67.0,
+            "rx_config_us": 161.0,
+            "rx_us": 157.0,
+            "rx_release_us": 55.0,
+            "finish_us": 5.0,
+            "unwrap_copy_us": 3.0,
+            "inputs_us": 26.0,
+            "usb_full_us": 60231.0
+          },
+          "payload_bytes": 4096,
+          "firmware_full_mb_per_s": 2.33656588705077,
+          "usb_debug_payload_mb_per_s": 0.0680048480018595
+        },
+        "RD after WR 256 beats": {
+          "n": 100,
+          "median": {
+            "total_us": 1650.5,
+            "guard_total_us": 9.0,
+            "tx_config_us": 1.0,
+            "tx_transfer_us": 281.0,
+            "tx_release_us": 66.0,
+            "rx_config_us": 167.0,
+            "rx_us": 1000.0,
+            "rx_release_us": 55.0,
+            "finish_us": 5.0,
+            "unwrap_copy_us": 10.0,
+            "inputs_us": 26.0,
+            "usb_full_us": 181176.0
+          },
+          "payload_bytes": 4096,
+          "firmware_full_mb_per_s": 2.4816722205392305,
+          "usb_debug_payload_mb_per_s": 0.022607850929482934
+        }
+      }
+    }
+  }
+}
