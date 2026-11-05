@@ -1,0 +1,76 @@
+{
+  "date": "2026-11-05",
+  "device_actions": [
+    "SLogic scan/config normal input capture",
+    "Tab5 read-only info",
+    "Gowin cable scan only"
+  ],
+  "fpga_programmed": false,
+  "tab5_flashed": false,
+  "arm_command_sent": false,
+  "tab5": {
+    "port": "COM4",
+    "serial": "30:ED:A0:E2:FE:C0",
+    "runtime_elf_sha256": "e7bb3f8a483db08a5922e5551e22f26ff45233c892d912e9cbb20e5a8283c527",
+    "profile": "standalone_mem_bist_probe",
+    "link_armed": false
+  },
+  "slogic": {
+    "serial": "202512191855",
+    "usb": "5G",
+    "release": "2.3.2",
+    "exe_sha256": "6a9f146db0400e90630028d41ab0656f77e8f3b24ac02083fdd7a95ab807f76e",
+    "wrapper": "D:\\tools\\slogic-2.3.2\\run-sigrok.ps1",
+    "sample_rate": 100000000,
+    "channels": 16,
+    "samples": 1000000,
+    "threshold_v": 1.7,
+    "capture_validated": true,
+    "scope": "idle input capture only; probe mapping and communication waveforms not yet validated",
+    "firmware_or_driver_changed": false
+  },
+  "fpga": {
+    "jtag_usb_detected": false,
+    "programmer_scan_exit_code": 48,
+    "scan_output": " Cost 0.02 second(s)\n  \n",
+    "current_usercode": "unknown"
+  },
+  "next": "Waiting for FPGA Dock USB-JTAG enumeration; identify UserCode before any bus test/reflash. User asked asynchronously to confirm JTAG cable connection.",
+  "artifacts": [
+    {
+      "archive": "idle-100msps-16ch.sr.gz",
+      "sha256": "b29e366f824fa570ee629bb4b3afc3be539a4568c9be6624ebdf0be8f5aa7cc7",
+      "bytes": 2434
+    },
+    {
+      "archive": "idle-capture.json.gz",
+      "sha256": "d5f45dc146f89e007f1d9e58c3cd9931b7b9066d89bb4c30a5ae96dd1e4c29b0",
+      "bytes": 740
+    },
+    {
+      "archive": "idle-capture.log.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "archive": "jtag-scan.txt.gz",
+      "sha256": "8abc931af7648d98d9c0a1e7960b43179936e087d56bf78f192ee805d03ba9f2",
+      "bytes": 26
+    },
+    {
+      "archive": "rate.txt.gz",
+      "sha256": "7c1df69aeeebf00d6d38b786a2702fde9c41052197227f61c1b6b018a424372d",
+      "bytes": 11
+    },
+    {
+      "archive": "scan.txt.gz",
+      "sha256": "2b03563b14689f37b1bdd1d733554e867f82aa6ec5401d675b6d14bd8457db24",
+      "bytes": 177
+    },
+    {
+      "archive": "tab5-info.json.gz",
+      "sha256": "d3b34606cb215e1d338016a19d54f2b7019bb1c0804656b121e191914d632e0e",
+      "bytes": 2800
+    }
+  ]
+}
