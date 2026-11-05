@@ -1,0 +1,537 @@
+{
+  "scope": "offline digital probe waveform; no repair, device operation, or inference of P4 internal phase",
+  "script_sha256": "6144844d92dd885cb08d759167debedc77204c944295473ca004def31a1b95bf",
+  "mapping_module_sha256": "de0834b9852108f6c77041afb1efe4713a084018b2ba2703b2a7617965e60d90",
+  "capture_path": "D:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\validation\\slogic-memv1-2026-11-05\\rx16-negative-01\\capture.sr",
+  "capture_sha256": "ef4e6f3ccdae9e0a13cfc5736151d5436d95529cf36437bcb8c7416379fc2b3b",
+  "sample_rate": 100000000.0,
+  "total_samples": 100000000,
+  "retained_roi_samples": 442376,
+  "all_dir_intervals": 19,
+  "mapping": {
+    "CLK": 7,
+    "DIR": 5,
+    "READY": 6,
+    "D0..D7": [
+      15,
+      14,
+      13,
+      12,
+      11,
+      10,
+      9,
+      8
+    ]
+  },
+  "canonical": {
+    "physical_edge": "falling",
+    "offset_ns": 0,
+    "dir_interval_index": 18,
+    "header_hex": "5a0053020100304b",
+    "length": 4106,
+    "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+    "bound_crc": "4f1d",
+    "header_crc_valid": true,
+    "bound_crc_valid": true
+  },
+  "groups": [
+    {
+      "dir_interval_index": 18,
+      "dir_start_sample": 10450248,
+      "dir_end_sample": 10500159,
+      "raw_rising_edges": 4755,
+      "raw_falling_edges": 4756,
+      "rising_period_samples": {
+        "6": 3567,
+        "7": 1187
+      },
+      "high_width_samples": {
+        "3": 4046,
+        "4": 709
+      },
+      "mean_period_ns": 62.49684476230542,
+      "short_interval_indices": [],
+      "long_interval_indices": [],
+      "ready_transitions": [
+        {
+          "sample": 10486612,
+          "level": 0,
+          "rising_edges_before_transition": 4114
+        }
+      ],
+      "phases": [
+        {
+          "physical_edge": "rising",
+          "offset_ns": -30,
+          "header_candidates": [
+            {
+              "header_offset": 9,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "4f1d",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": true
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4",
+          "valid_candidate_count": 1,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+          "fixed_alignment_to_canonical": {
+            "header_offset": 8,
+            "different_bytes": 4076,
+            "D1_different_bits": 1638,
+            "D6_different_bits": 2078
+          }
+        },
+        {
+          "physical_edge": "rising",
+          "offset_ns": -20,
+          "header_candidates": [],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c352180053000000304b59e2230de537f4",
+          "valid_candidate_count": 0,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 8,
+            "different_bytes": 4009,
+            "D1_different_bits": 1458,
+            "D6_different_bits": 2015
+          }
+        },
+        {
+          "physical_edge": "rising",
+          "offset_ns": -10,
+          "header_candidates": [],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a0010120000303a59e0222fe137b4f4",
+          "valid_candidate_count": 0,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 8,
+            "different_bytes": 2123,
+            "D1_different_bits": 414,
+            "D6_different_bits": 731
+          }
+        },
+        {
+          "physical_edge": "rising",
+          "offset_ns": 0,
+          "header_candidates": [
+            {
+              "header_offset": 8,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "3d87",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": false
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4d3",
+          "valid_candidate_count": 0,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 8,
+            "different_bytes": 4,
+            "D1_different_bits": 1,
+            "D6_different_bits": 0
+          }
+        },
+        {
+          "physical_edge": "rising",
+          "offset_ns": 10,
+          "header_candidates": [
+            {
+              "header_offset": 8,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "4f1d",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": true
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4d3",
+          "valid_candidate_count": 1,
+          "valid_at_fixed_byte_clock_alignment": true,
+          "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+          "fixed_alignment_to_canonical": {
+            "header_offset": 8,
+            "different_bytes": 0,
+            "D1_different_bits": 0,
+            "D6_different_bits": 0
+          }
+        },
+        {
+          "physical_edge": "rising",
+          "offset_ns": 20,
+          "header_candidates": [
+            {
+              "header_offset": 8,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "4f1d",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": true
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4d3",
+          "valid_candidate_count": 1,
+          "valid_at_fixed_byte_clock_alignment": true,
+          "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+          "fixed_alignment_to_canonical": {
+            "header_offset": 8,
+            "different_bytes": 0,
+            "D1_different_bits": 0,
+            "D6_different_bits": 0
+          }
+        },
+        {
+          "physical_edge": "rising",
+          "offset_ns": 30,
+          "header_candidates": [
+            {
+              "header_offset": 8,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "4f1d",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": true
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4d3",
+          "valid_candidate_count": 1,
+          "valid_at_fixed_byte_clock_alignment": true,
+          "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+          "fixed_alignment_to_canonical": {
+            "header_offset": 8,
+            "different_bytes": 0,
+            "D1_different_bits": 0,
+            "D6_different_bits": 0
+          }
+        },
+        {
+          "physical_edge": "rising",
+          "offset_ns": 40,
+          "header_candidates": [],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c3180053020000304b59e2230fe537f4d3",
+          "valid_candidate_count": 0,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 8,
+            "different_bytes": 180,
+            "D1_different_bits": 38,
+            "D6_different_bits": 2
+          }
+        },
+        {
+          "physical_edge": "falling",
+          "offset_ns": -30,
+          "header_candidates": [
+            {
+              "header_offset": 9,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "58ee",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": false
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4",
+          "valid_candidate_count": 0,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 9,
+            "different_bytes": 2,
+            "D1_different_bits": 0,
+            "D6_different_bits": 0
+          }
+        },
+        {
+          "physical_edge": "falling",
+          "offset_ns": -20,
+          "header_candidates": [
+            {
+              "header_offset": 9,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "4f1d",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": true
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4",
+          "valid_candidate_count": 1,
+          "valid_at_fixed_byte_clock_alignment": true,
+          "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+          "fixed_alignment_to_canonical": {
+            "header_offset": 9,
+            "different_bytes": 0,
+            "D1_different_bits": 0,
+            "D6_different_bits": 0
+          }
+        },
+        {
+          "physical_edge": "falling",
+          "offset_ns": -10,
+          "header_candidates": [
+            {
+              "header_offset": 9,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "4f1d",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": true
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4",
+          "valid_candidate_count": 1,
+          "valid_at_fixed_byte_clock_alignment": true,
+          "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+          "fixed_alignment_to_canonical": {
+            "header_offset": 9,
+            "different_bytes": 0,
+            "D1_different_bits": 0,
+            "D6_different_bits": 0
+          }
+        },
+        {
+          "physical_edge": "falling",
+          "offset_ns": 0,
+          "header_candidates": [
+            {
+              "header_offset": 9,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "4f1d",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": true
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4",
+          "valid_candidate_count": 1,
+          "valid_at_fixed_byte_clock_alignment": true,
+          "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+          "fixed_alignment_to_canonical": {
+            "header_offset": 9,
+            "different_bytes": 0,
+            "D1_different_bits": 0,
+            "D6_different_bits": 0
+          }
+        },
+        {
+          "physical_edge": "falling",
+          "offset_ns": 10,
+          "header_candidates": [],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c352180053000000304b59e2230de537f4",
+          "valid_candidate_count": 0,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 9,
+            "different_bytes": 439,
+            "D1_different_bits": 101,
+            "D6_different_bits": 21
+          }
+        },
+        {
+          "physical_edge": "falling",
+          "offset_ns": 20,
+          "header_candidates": [],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a0010120000303a59e0222fe137b4f4",
+          "valid_candidate_count": 0,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 9,
+            "different_bytes": 3633,
+            "D1_different_bits": 1139,
+            "D6_different_bits": 1172
+          }
+        },
+        {
+          "physical_edge": "falling",
+          "offset_ns": 30,
+          "header_candidates": [
+            {
+              "header_offset": 8,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "d2d8",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": false
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4d3",
+          "valid_candidate_count": 0,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "fixed_alignment_to_canonical": {
+            "header_offset": 9,
+            "different_bytes": 4075,
+            "D1_different_bits": 1632,
+            "D6_different_bits": 2075
+          }
+        },
+        {
+          "physical_edge": "falling",
+          "offset_ns": 40,
+          "header_candidates": [
+            {
+              "header_offset": 8,
+              "header_hex": "5a0053020100304b",
+              "prefix8_valid": true,
+              "header_crc_valid": true,
+              "bound_crc_calculated": "4f1d",
+              "bound_crc_received": "4f1d",
+              "bound_crc_valid": true
+            }
+          ],
+          "first_24_observed_bytes_hex": "c3c3c3c3c3c3c3c35a0053020100304b59e2230fe137f4d3",
+          "valid_candidate_count": 1,
+          "valid_at_fixed_byte_clock_alignment": false,
+          "frame_sha256": "f03a4a07406cac044ccc928d08491b8179c593e717d3f363787768fd7910f7aa",
+          "fixed_alignment_to_canonical": {
+            "header_offset": 9,
+            "different_bytes": 4075,
+            "D1_different_bits": 1638,
+            "D6_different_bits": 2078
+          }
+        }
+      ]
+    }
+  ],
+  "stability": {
+    "D1": {
+      "stable_before_canonical_sample": {
+        "count": 1638,
+        "min_ns": 30.0,
+        "median_ns": 40.0,
+        "max_ns": 50.0
+      },
+      "stable_after_canonical_sample": {
+        "count": 1638,
+        "min_ns": 10.0,
+        "median_ns": 20.0,
+        "max_ns": 40.0
+      }
+    },
+    "D6": {
+      "stable_before_canonical_sample": {
+        "count": 2078,
+        "min_ns": 30.0,
+        "median_ns": 40.0,
+        "max_ns": 50.0
+      },
+      "stable_after_canonical_sample": {
+        "count": 2078,
+        "min_ns": 10.0,
+        "median_ns": 20.0,
+        "max_ns": 40.0
+      }
+    },
+    "D7": {
+      "stable_before_canonical_sample": {
+        "count": 1632,
+        "min_ns": 20.0,
+        "median_ns": 40.0,
+        "max_ns": 50.0
+      },
+      "stable_after_canonical_sample": {
+        "count": 1632,
+        "min_ns": 10.0,
+        "median_ns": 20.0,
+        "max_ns": 40.0
+      }
+    },
+    "D4": {
+      "stable_before_canonical_sample": {
+        "count": 2051,
+        "min_ns": 30.0,
+        "median_ns": 40.0,
+        "max_ns": 50.0
+      },
+      "stable_after_canonical_sample": {
+        "count": 2051,
+        "min_ns": 10.0,
+        "median_ns": 20.0,
+        "max_ns": 30.0
+      }
+    }
+  },
+  "limitations": [
+    "10ns digital threshold sampling; sub-sample glitches and analog setup/hold are unresolved",
+    "Physical probe CLK edges are not direct observations of the P4 internal sampling phase",
+    "Probe loading, threshold, READY reconnection and PLL/reprogramming can change conditions",
+    "Clock tails after READY are retained and not repaired or discarded"
+  ],
+  "capture_conditions": {
+    "run_source_sha256": "11468c93e2a9b09e025fe57e556a62cbd56e749bd3feab4b22281528fc11969a",
+    "threshold_v": 1.7,
+    "prearm": true,
+    "trigger": null,
+    "host_command": [
+      "C:\\Users\\yamashita_y00031\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "D:\\github\\airpocket-soundman\\tab5-fpga-gpu-cancel\\tools\\memv1_xfer.py",
+      "--port",
+      "COM4",
+      "--mode",
+      "dma",
+      "--tx-hz",
+      "2000000",
+      "--rx-hz",
+      "16000000",
+      "--tx-phase",
+      "positive",
+      "--edge",
+      "negative",
+      "--stages",
+      "caps,status,rd1,rd256",
+      "--expected-elf-sha",
+      "ea98777e43cbc926d342ecd8ab8386fa7e881c3a8b02cc1864734eae72246712",
+      "--record",
+      "D:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\validation\\slogic-memv1-2026-11-05\\rx16-negative-01\\caps.json"
+    ],
+    "host_requested_edge_label": "negative"
+  },
+  "firmware_claim": {
+    "result": "PASS",
+    "dma_options": null,
+    "rx_hz": 16000000,
+    "tx_hz": 2000000,
+    "rd256": {
+      "label": "RD 256 beats",
+      "request_head": "a5e2530200011043",
+      "request_len": 18,
+      "reply_head": "5a0053020100304b59e2230fe137f4d3",
+      "reply_len": 4106,
+      "timing": {
+        "host_us": 7361,
+        "request_len": 18,
+        "total_us": 1663,
+        "tx_us": 354,
+        "rx_config_us": 173,
+        "ready_wait_us": 2,
+        "turnaround_us": 9,
+        "rx_us": 427,
+        "sync_offset": 8,
+        "captured": 4122,
+        "bus_after_dir": 195,
+        "ready_after_dir": 1,
+        "ready_after_rx": 0
+      }
+    },
+    "rd256_stage": {
+      "result": "PASS",
+      "bytes": 4096
+    },
+    "source_sha256": "195dc23f7355f9896db64c8a909ae07ffe0d979e9fadd3f97876c5269a32798c"
+  },
+  "phase_alignment_note": "Window mismatch counts keep rising header clock8/falling9 fixed. A CRC-valid candidate at another header clock is a whole-byte phase wrap, not evidence that the same byte is valid at that clock.",
+  "p4_response_available": false,
+  "wire_frame_path": "D:\\github\\airpocket-soundman\\tab5-carrier-memv1-resume\\fpga\\validation\\slogic-memv1-2026-11-05\\rx16-negative-01\\wire-frame.bin"
+}

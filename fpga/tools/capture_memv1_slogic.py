@@ -28,9 +28,14 @@ def main():
     p.add_argument('--logic-channels', type=int, choices=(4, 8, 16), default=16)
     p.add_argument('--channels', default=','.join(f'D{i}' for i in range(16)))
     p.add_argument('--trigger', help='optional sigrok trigger, after channel mapping')
+    p.add_argument('--prearm', action='store_true', help='finish GPIO ARM before capture, so triggers select CAPS')
+    p.add_argument('--stages', default='caps', help='comma-separated read-only stages: caps,status,rd1,rd256')
     a = p.parse_args()
     if a.rate <= 0 or a.samples <= 0 or a.samples / a.rate > 5:
         p.error('capture duration must be positive and at most 5 seconds')
+    stages = a.stages.split(',')
+    if not stages or any(stage not in ('caps', 'status', 'rd1', 'rd256') for stage in stages):
+        p.error('only read-only stages caps,status,rd1,rd256 are allowed')
     out = a.output.resolve()
     out.mkdir(parents=True, exist_ok=False)
     record = dict(started=datetime.now(timezone(timedelta(hours=9))).isoformat(),
@@ -38,10 +43,14 @@ def main():
                   project_serial=a.project_serial, analyzer_serial=a.analyzer_serial,
                   sample_rate=a.rate, samples=a.samples, channels=a.channels,
                   logic_channels=a.logic_channels, threshold_v=1.7, trigger=a.trigger)
+    record['prearm'] = a.prearm
+    record['stages_requested'] = stages
     capture = None
+    active_client = None
     host_started = False
     sys.path.insert(0, str(a.host.resolve() / 'tools'))
     from gpu_lab import Client
+    from probe_mem_bist import Client as ProbeClient
     import serial.tools.list_ports
     ports = [x for x in serial.tools.list_ports.comports()
              if (x.serial_number or '').upper() == a.project_serial.upper()]
@@ -72,7 +81,16 @@ def main():
         (out / 'config-readback.txt').write_text(preflight.stdout + preflight.stderr, encoding='utf-8')
         if preflight.stdout.strip() != str(a.rate):
             raise RuntimeError('Analyzer sample rate was not acknowledged')
-        command = cli + ['--config', config,
+        if a.prearm:
+            active_client = ProbeClient(port, timeout=8)
+            record['mode'] = active_client.call('mem', action='xferx_mode', mode='dma',
+                                              tx_hz=a.tx_hz, rx_hz=a.rx_hz,
+                                              tx_phase='positive', sample_edge=a.edge)
+            if (record['mode'].get('xferx_tx_hz'), record['mode'].get('xferx_rx_hz')) != (a.tx_hz, a.rx_hz):
+                raise RuntimeError('DMA clock settings were not acknowledged')
+            host_started = True
+            record['arm'] = active_client.call('mem', action='arm')
+        command = cli + ['--loglevel', '5', '--config', config,
                          '--channels', a.channels, '--samples', str(a.samples),
                          '--output-format', 'srzip', '--output-file', str(out / 'capture.sr')]
         if a.trigger:
@@ -81,19 +99,43 @@ def main():
         with (out / 'capture-console.txt').open('w', encoding='utf-8') as log:
             capture = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT,
                                        creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
-            time.sleep(0.5)
-            if capture.poll() is not None:
-                raise RuntimeError('Capture exited before the exchange; inspect capture-console.txt')
+            marker = 'Starting acquisition.' if a.trigger else 'Received SR_DF_LOGIC'
+            deadline = time.monotonic() + 5
+            while time.monotonic() < deadline:
+                text = (out / 'capture-console.txt').read_text(encoding='utf-8', errors='replace')
+                if marker in text:
+                    record['capture_ready_marker'] = marker
+                    if a.trigger:
+                        time.sleep(0.05)
+                    break
+                if capture.poll() is not None:
+                    raise RuntimeError('Capture exited before the exchange; inspect capture-console.txt')
+                time.sleep(0.01)
+            else:
+                raise RuntimeError('No acquisition readiness marker; no exchange sent')
             host_command = [sys.executable, str(a.host.resolve() / 'tools/memv1_xfer.py'),
                             '--port', port, '--mode', 'dma', '--tx-hz', str(a.tx_hz),
                             '--rx-hz', str(a.rx_hz), '--tx-phase', 'positive', '--edge', a.edge,
-                            '--stages', 'caps', '--expected-elf-sha', a.expected_elf,
+                            '--stages', a.stages, '--expected-elf-sha', a.expected_elf,
                             '--record', str(out / 'caps.json')]
             record['host_command'] = host_command
-            with (out / 'caps-console.txt').open('w', encoding='utf-8') as host_log:
-                host_started = True
-                host = subprocess.run(host_command, stdout=host_log, stderr=subprocess.STDOUT, timeout=15)
-                record['host_exit_code'] = host.returncode
+            if a.prearm:
+                from memv1_xfer import Runner, BridgeXfer
+                caps = dict(mode='dma', tx_hz=a.tx_hz, rx_hz=a.rx_hz,
+                            info=record['info'], execute=False, stages_requested=stages)
+                try:
+                    result = Runner(BridgeXfer(active_client), 0x100000, 0x4d31, False,
+                                    caps, dma=True).run(stages)
+                    record['host_exit_code'] = 0 if result == 'PASS' else 1
+                except Exception as exc:
+                    caps['result'], caps['error'] = 'FAIL', getattr(exc, 'reply', repr(exc))
+                    record['host_exit_code'] = 1
+                (out / 'caps.json').write_text(json.dumps(caps, indent=2) + '\n', encoding='utf-8')
+            else:
+                with (out / 'caps-console.txt').open('w', encoding='utf-8') as host_log:
+                    host_started = True
+                    host = subprocess.run(host_command, stdout=host_log, stderr=subprocess.STDOUT, timeout=15)
+                    record['host_exit_code'] = host.returncode
             record['capture_exit_code'] = capture.wait(timeout=15)
         record['result'] = 'PASS' if record['capture_exit_code'] == record['host_exit_code'] == 0 else 'FAIL'
         return 0 if record['result'] == 'PASS' else 1
@@ -101,6 +143,13 @@ def main():
         record['result'], record['error'] = 'FAIL', repr(exc)
         return 1
     finally:
+        if active_client is not None:
+            try:
+                record['prearm_disarm'] = active_client.call('mem', action='disarm')
+            except Exception as exc:
+                record['prearm_cleanup_error'] = repr(exc)
+            (out / 'usb-trace.json').write_text(json.dumps(active_client.trace, indent=2) + '\n', encoding='utf-8')
+            active_client.close()
         if capture is not None and capture.poll() is None:
             # Only the process tree launched by this invocation is terminated.
             subprocess.run(['taskkill', '/PID', str(capture.pid), '/T', '/F'], capture_output=True)

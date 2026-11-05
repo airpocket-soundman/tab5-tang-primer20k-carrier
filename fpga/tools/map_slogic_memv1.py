@@ -32,6 +32,13 @@ def request(index, first_seq=0x41):
     return head + crc16(head).to_bytes(2, "little")
 
 
+def response(index, first_seq=0x41):
+    values = (0x4d31, 0x0100, 128, 16, 256, 0x0073, 1, 12)
+    status, value = (0, values[index]) if index < len(values) else (3, 0)
+    head = bytes((0x5a, status, (first_seq + index) & 255, 2, value & 255, value >> 8))
+    return bytes([0xc3]) * 8 + head + crc16(head).to_bytes(2, "little")
+
+
 def rate_number(text):
     match = re.fullmatch(r"\s*([0-9.]+)\s*([kKmMgG]?)\s*(?:Hz|hz)?\s*", text)
     if not match:
@@ -74,14 +81,14 @@ def bursts(samples, channel, period):
     intervals = np.diff(rises)
     # Split on any nonperiodic edge: never skip or fix an edge to make a frame.
     cuts = np.flatnonzero(np.abs(intervals - period) > max(1.1, period * .15)) + 1
-    return [g for g in np.split(rises, cuts) if 8 <= len(g) <= 25]
+    return [g for g in np.split(rises, cuts) if len(g) >= 8]
 
 
-def paired_bursts(groups):
+def paired_bursts(groups, max_rx_clocks=256):
     pairs = []
     for index in range(len(groups) - 1):
         tx, rx = groups[index:index + 2]
-        if len(tx) == 8 and len(rx) == 24:
+        if len(tx) == 8 and 24 <= len(rx) <= max_rx_clocks:
             pairs.append((tx, rx))
     return pairs
 
@@ -97,13 +104,13 @@ def choose(candidates):
 
 
 def analyze(samples, samplerate, bus_hz=500000, first_seq=0x41, count=9,
-            min_frames=3, probes=16):
+            min_frames=3, probes=16, max_rx_clocks=256):
     period = samplerate / bus_hz
     if period < 6:
         raise ValueError("need >=6 samples per bus period; use a slower diagnostic transfer")
     clock_candidates = []
     for channel in range(probes):
-        pairs = paired_bursts(bursts(samples, channel, period))
+        pairs = paired_bursts(bursts(samples, channel, period), max_rx_clocks)
         if len(pairs) < min_frames:
             continue
         # A capture may start or end partway through the known CAPS sequence.
@@ -113,13 +120,17 @@ def analyze(samples, samplerate, bus_hz=500000, first_seq=0x41, count=9,
         for start_pair in range(len(pairs) - span + 1):
             selected = pairs[start_pair:start_pair + span]
             observed_edges = np.concatenate([tx - 1 for tx, _ in selected])
+            observed_rx = np.concatenate([rx[:16] - 1 for _, rx in selected])
             for first_index in range(count - span + 1):
                 expected = np.frombuffer(b"".join(request(first_index + k, first_seq) for k in range(span)), dtype=np.uint8)
+                expected_rx = np.frombuffer(b"".join(response(first_index + k, first_seq) for k in range(span)), dtype=np.uint8)
                 mappings = {}
                 matched_signatures = set()
                 for bit in range(8):
                     want = (expected >> bit) & 1
-                    mappings["D" + str(bit)] = [ch for ch in range(probes) if ch != channel and np.array_equal(level(samples, observed_edges, ch), want)]
+                    mappings["D" + str(bit)] = [ch for ch in range(probes) if ch != channel
+                                               and np.array_equal(level(samples, observed_edges, ch), want)
+                                               and np.array_equal(level(samples, observed_rx, ch), (expected_rx >> bit) & 1)]
                     if mappings["D" + str(bit)]:
                         matched_signatures.add(want.tobytes())
                 if len(matched_signatures) < 2:
@@ -134,7 +145,7 @@ def analyze(samples, samplerate, bus_hz=500000, first_seq=0x41, count=9,
         best = [x for x in alternatives if x[0] == best_score]
         clock_candidates.append({"channel": channel, "score": best_score, "alternatives": best, "pairs": len(pairs)})
     if not clock_candidates:
-        return {"result": "insufficient_evidence", "reason": "no clock with >=minimum exact TX8/RX24 pairs and >=2 matching data bits",
+        return {"result": "insufficient_evidence", "reason": "no unique model with minimum TX8/RX24-or-longer pairs and >=2 independent matching TX/RX data bits",
                 "mapping": {s: choose([]) for s in ["CLK", "DIR", "READY"] + ["D" + str(i) for i in range(8)]}}
     score = max(c["score"] for c in clock_candidates)
     best_clocks = [c for c in clock_candidates if c["score"] == score]
@@ -170,16 +181,24 @@ def analyze(samples, samplerate, bus_hz=500000, first_seq=0x41, count=9,
     return {"result": "complete" if complete else "partial", "mapping": mapping,
             "evidence": {"frames": len(pairs), "caps_first_index": first_index,
                          "sequence_first": (first_seq + first_index) & 255, "clock_period_samples": period,
-                         "clock_rule": "8 periodic TX rising edges followed by 24 periodic RX rising edges",
-                         "data_rule": "all TX edge-preceding samples match independent tagged CAPS header+CRC16",
+                         "tx_physical_clocks": [len(tx) for tx, _ in pairs],
+                         "rx_physical_clocks": [len(rx) for _, rx in pairs],
+                         "max_rx_clocks": max_rx_clocks, "rx_protocol_bytes": 16,
+                         "rx_requested_capture_bytes": 24,
+                         "rx_post_protocol_physical_clocks": [len(rx) - 16 for _, rx in pairs],
+                         "clock_rule": "8 periodic TX rising edges followed by 24..max_rx_clocks physical RX rising edges; tail retained",
+                         "data_rule": "all TX bytes and RX first16 prefix/header bytes match independent tagged CAPS and CRC16",
                          "control_rule": "DIR low for all TX/high for all RX; READY TX-low, RX first2-high/last3-low",
                          "tx_first_sample": int(pairs[0][0][0]), "rx_last_sample": int(pairs[-1][1][-1])},
             "limits": ["Digital sampled levels only; not analog signal-integrity proof", "Unconnected/duplicate/unsampled signals remain unknown or ambiguous", "A matching probe signature is valid only for this known traffic capture"]}
 
 
-def synthetic(mapping, frames=9, omit=(), duplicate=None):
+def synthetic(mapping, frames=9, omit=(), duplicate=None, extra_rx_clocks=0):
     period = 10
-    samples = np.zeros(200 + frames * 700, dtype="<u2")
+    tails = [extra_rx_clocks] * frames if isinstance(extra_rx_clocks, int) else list(extra_rx_clocks)
+    assert len(tails) == frames and min(tails) >= 0
+    stride = 400 + (24 + max(tails)) * period
+    samples = np.zeros(200 + frames * stride, dtype="<u2")
     def set_signal(signal, lo, hi, state):
         if signal in omit or signal not in mapping:
             return
@@ -188,18 +207,23 @@ def synthetic(mapping, frames=9, omit=(), duplicate=None):
             if state:
                 samples[lo:hi] |= np.uint16(1 << ch)
     for index in range(frames):
-        start = 100 + index * 700
+        start = 100 + index * stride
         for j, byte in enumerate(request(index)):
             edge = start + j * period + period // 2
             set_signal("CLK", edge, edge + period // 2, 1)
             for bit in range(8):
                 set_signal("D" + str(bit), edge - period // 2, edge + period // 2, (byte >> bit) & 1)
         rx_start = start + 180
-        set_signal("DIR", rx_start - 15, rx_start + 245, 1)
-        set_signal("READY", start + 100, rx_start + 200, 1)
-        for j in range(24):
+        rx_clocks = 24 + tails[index]
+        set_signal("DIR", rx_start - 15, rx_start + rx_clocks * period + 5, 1)
+        set_signal("READY", start + 100, rx_start + 160, 1)
+        reply = response(index)
+        for j in range(rx_clocks):
             edge = rx_start + j * period + period // 2
             set_signal("CLK", edge, edge + period // 2, 1)
+            if j < len(reply):
+                for bit in range(8):
+                    set_signal("D" + str(bit), edge - period // 2, edge + period // 2, (reply[j] >> bit) & 1)
     return samples
 
 
@@ -230,6 +254,24 @@ def self_test():
     assert result["result"] == "ambiguous" and result["mapping"]["CLK"]["channel"] is None
     checks += 1
     assert analyze(synthetic(four, frames=2), 5000000)["result"] == "insufficient_evidence"
+    checks += 1
+    # Finite DMA capture can leave free-running clocks after the requested
+    # capture bytes. Preserve all physical RX clocks, including a varying tail.
+    full = dict(zip(signals, range(len(signals))))
+    for tails in (20, [0, 20, 7, 32, 1, 40, 0, 20, 4]):
+        result = analyze(synthetic(full, extra_rx_clocks=tails), 5000000)
+        assert result["result"] == "complete", result
+        wanted = [44] * 9 if isinstance(tails, int) else [24 + n for n in tails]
+        assert result["evidence"]["rx_physical_clocks"] == wanted
+        checks += 1
+        result = analyze(synthetic(four, extra_rx_clocks=tails), 5000000)
+        assert result["result"] == "partial" and all(result["mapping"][key]["channel"] == ch for key, ch in four.items()), result
+        checks += 1
+    # A mismatching observed reply is not repaired by the known expectation.
+    damaged = synthetic(full, extra_rx_clocks=20)
+    rx_edge = 100 + 180 + 8 * 10 + 5
+    damaged[rx_edge - 1] ^= np.uint16(1 << full["D3"])
+    assert analyze(damaged, 5000000)["mapping"]["D3"]["channel"] is None
     checks += 1
     one_bit = {"CLK": 0, "READY": 1, "D1": 2}
     assert analyze(synthetic(one_bit, duplicate=("D1", 15)), 5000000)["result"] == "insufficient_evidence"
@@ -269,16 +311,18 @@ def main(argv=None):
     parser.add_argument("--first-seq", type=lambda s: int(s, 0), default=0x41)
     parser.add_argument("--count", type=int, default=9)
     parser.add_argument("--min-frames", type=int, default=3)
+    parser.add_argument("--max-rx-clocks", type=int, default=256,
+                        help="maximum physical RX burst edges, including free-running tail (default 256)")
     parser.add_argument("--self-test", action="store_true")
     args = parser.parse_args(argv)
     if args.self_test:
         self_test(); return 0
     if not args.input:
         parser.error("input capture or --self-test required")
-    if args.bus_hz <= 0 or not 3 <= args.min_frames <= args.count <= 64 or not 0 <= args.first_seq <= 255:
-        parser.error("positive bus rate, 3<=min-frames<=count<=64 and first-seq 0..255 required")
+    if args.bus_hz <= 0 or not 3 <= args.min_frames <= args.count <= 9 or not 0 <= args.first_seq <= 255 or not 24 <= args.max_rx_clocks <= 4096:
+        parser.error("positive bus rate, 3<=min-frames<=count<=9, first-seq 0..255, max-rx-clocks 24..4096 required")
     samples, rate, info = load_capture(args.input, args.sample_rate)
-    result = analyze(samples, rate, args.bus_hz, args.first_seq, args.count, args.min_frames, info["probes"])
+    result = analyze(samples, rate, args.bus_hz, args.first_seq, args.count, args.min_frames, info["probes"], args.max_rx_clocks)
     result.update({"input": str(args.input.resolve()), "input_sha256": hashlib.sha256(args.input.read_bytes()).hexdigest(),
                    "samplerate": rate, "samples": len(samples), "archive": info,
                    "scope": "offline inference only; no device operations"})
