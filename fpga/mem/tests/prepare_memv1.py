@@ -8,7 +8,7 @@ root = Path(__file__).resolve().parents[2]
 ap = argparse.ArgumentParser()
 ap.add_argument('--ip-src', help='path of a verified ddr3_memory_interface.v to copy into the ignored build tree')
 ap.add_argument('--fast-reply',action='store_true',help='Experimental conditioned response clock and 216MHz sampler PLL')
-ap.add_argument('--reply-phase-ticks',type=int,choices=(0,3),default=0)
+ap.add_argument('--reply-phase-ticks',type=int,choices=(0,1,2,3),default=0)
 cli = ap.parse_args()
 if cli.reply_phase_ticks and not cli.fast_reply:ap.error('--reply-phase-ticks requires --fast-reply')
 ref = json.loads((root / 'validation/sipeed-ddr-test-reference-2026-11-04.json').read_text(encoding='utf-8'))['files']
@@ -21,7 +21,7 @@ data = dest.read_bytes() if dest.exists() else b''
 sha = hashlib.sha256(data.replace(b'\r\n', b'\n')).hexdigest()
 if sha != ref[rel]['sha256_lf_normalized']:
     raise SystemExit(f'pinned Sipeed IP missing or modified ({sha}); see docs/DDR3_旧IP保管と再現手順_2026-11-04.md')
-out = root / (('build/memv1-fast-phase3/rtl' if cli.reply_phase_ticks else 'build/memv1-fast/rtl') if cli.fast_reply else 'build/memv1/rtl')
+out = root / ((f'build/memv1-fast-phase{cli.reply_phase_ticks}/rtl' if cli.reply_phase_ticks else 'build/memv1-fast/rtl') if cli.fast_reply else 'build/memv1/rtl')
 out.mkdir(parents=True, exist_ok=True)
 names = ['memv1_crc32b', 'mem_pll', 'mem_bist', 'mem_mailbox', 'mem_adapter', 'memv1_bridge', 'memv1_sys', 'mem_v1_core', 'mem_v1_top']
 rec = {'ip_sha256': sha, 'fast_reply':cli.fast_reply,'reply_phase_ticks':cli.reply_phase_ticks,'files': {}}

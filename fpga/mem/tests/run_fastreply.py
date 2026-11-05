@@ -1,7 +1,7 @@
 """Offline MEMV1 full-path frequency checks; never opens a device."""
 import argparse,hashlib,json,os,subprocess,sys
 from pathlib import Path
-ap=argparse.ArgumentParser();ap.add_argument('--iverilog',default='iverilog');ap.add_argument('--vvp',default='vvp');ap.add_argument('--report');ap.add_argument('--quick',action='store_true');ap.add_argument('--full-regression',action='store_true');ap.add_argument('--tx-mhz',type=float,default=2);ap.add_argument('--sample-offset-ns',type=float,default=0);ap.add_argument('--phase-ticks',type=int,choices=(0,3),default=0);args=ap.parse_args()
+ap=argparse.ArgumentParser();ap.add_argument('--iverilog',default='iverilog');ap.add_argument('--vvp',default='vvp');ap.add_argument('--report');ap.add_argument('--quick',action='store_true');ap.add_argument('--full-regression',action='store_true');ap.add_argument('--tx-mhz',type=float,default=2);ap.add_argument('--sample-offset-ns',type=float,default=0);ap.add_argument('--phase-ticks',type=int,choices=(0,1,2,3),default=0);args=ap.parse_args()
 root=Path(__file__).resolve().parents[2];build=root/f'build/memv1-fast-tests-phase{args.phase_ticks}';build.mkdir(parents=True,exist_ok=True)
 env=os.environ.copy();td=Path(args.iverilog).resolve().parent;env['PATH']=str(td)+os.pathsep+str(td.parent/'lib')+os.pathsep+env['PATH']
 vectors=build/'vectors.hex';subprocess.run([sys.executable,str(root/'mem/tests/memv1_model.py'),'--vectors',str(vectors)],check=True,env=env)

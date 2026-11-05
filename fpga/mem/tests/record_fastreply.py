@@ -1,8 +1,8 @@
 """Record a locally built fast MEMV1 candidate; never copies vendor RTL/bitstreams."""
 import argparse,gzip,hashlib,html,json,re
 from pathlib import Path
-ap=argparse.ArgumentParser();ap.add_argument('--output',required=True);ap.add_argument('--phase-ticks',type=int,choices=(0,3),default=0);args=ap.parse_args()
-root=Path(__file__).resolve().parents[2];build=root/('build/memv1-fast-phase3' if args.phase_ticks else 'build/memv1-fast');pnr=build/'out/mem_bist/impl/pnr'
+ap=argparse.ArgumentParser();ap.add_argument('--output',required=True);ap.add_argument('--phase-ticks',type=int,choices=(0,1,2,3),default=0);args=ap.parse_args()
+root=Path(__file__).resolve().parents[2];build=root/(f'build/memv1-fast-phase{args.phase_ticks}' if args.phase_ticks else 'build/memv1-fast');pnr=build/'out/mem_bist/impl/pnr'
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def cells(row):return [html.unescape(re.sub('<[^>]*>','',x)).strip() for x in re.findall(r'<t[dh][^>]*>(.*?)</t[dh]>',row,re.S)]
 s=(pnr/'mem_bist_tr_content.html').read_text(encoding='utf-8')
@@ -23,12 +23,14 @@ for family in ('fast_header','fast_kind','fast_beats','fast_crc32','fast_prefix'
  assert found[0]['min_slack_ns']>=0,(family,found)
 validations={}
 names=('memv1-phase3-offline-2026-11-05.json','memv1-phase3-regression-2026-11-05.json','memv1-phase0-regression-2026-11-05.json','memv1-phase3-falling-2026-11-05.json') if args.phase_ticks else ('memv1-fastreply-offline-2026-11-05.json','memv1-fastreply-regression-2026-11-05.json')
+if args.phase_ticks in (1,2):names=tuple(f'memv1-phase{args.phase_ticks}-{kind}-2026-11-05.json' for kind in ('regression','short-control','highrate-falling','highrate-rising'))
 for name in names:
  file=root/'validation'/name;data=json.loads(file.read_text(encoding='utf-8'))
- for source,expected in data['sources'].items():assert sha(root/source)==expected,('stale RTL result',name,source)
- validations[name]={'sha256':sha(file),'results':data['results']}
+ for source,expected in data['sources'].items():assert sha(root/source)==(expected['sha256'] if isinstance(expected,dict) else expected),('stale RTL result',name,source)
+ validations[name]={'sha256':sha(file),'results':data.get('results',data.get('conditions'))}
 fs=pnr/'mem_bist.fs';fs_text=fs.read_text(encoding='utf-8')
 prepared=json.loads((build/'prepared.json').read_text(encoding='utf-8'))
+assert prepared.get('reply_phase_ticks',0)==args.phase_ticks,('wrong build phase',prepared.get('reply_phase_ticks'),args.phase_ticks)
 for name,expected in prepared['files'].items():assert sha(build/'rtl'/f'{name}.v')==expected,('modified build input',name)
 sources={str(p.relative_to(root)):sha(p) for p in (root/'mem/rtl').glob('mem*v*.v')}
 for name in ('memv1_sys','mem_v1_core'):

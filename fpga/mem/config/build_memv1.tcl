@@ -2,7 +2,10 @@
 set fpga_root [file normalize [file join [file dirname [info script]] ../..]]
 set build_name memv1
 if {[info exists ::env(MEMV1_FAST_REPLY)] && $::env(MEMV1_FAST_REPLY) eq "1"} {set build_name memv1-fast}
-if {$build_name eq "memv1-fast" && [info exists ::env(MEMV1_REPLY_PHASE_TICKS)] && $::env(MEMV1_REPLY_PHASE_TICKS) eq "3"} {set build_name memv1-fast-phase3}
+if {$build_name eq "memv1-fast" && [info exists ::env(MEMV1_REPLY_PHASE_TICKS)] && $::env(MEMV1_REPLY_PHASE_TICKS) ne "0"} {
+ if {$::env(MEMV1_REPLY_PHASE_TICKS) ni {1 2 3}} {error "MEMV1_REPLY_PHASE_TICKS must be0,1,2,3"}
+ set build_name memv1-fast-phase$::env(MEMV1_REPLY_PHASE_TICKS)
+}
 set rtl_dir [file join $fpga_root build $build_name rtl]
 set output [file join $fpga_root build $build_name out]
 set sample [file join $fpga_root build sipeed-ddr-test-e469df4c src]
