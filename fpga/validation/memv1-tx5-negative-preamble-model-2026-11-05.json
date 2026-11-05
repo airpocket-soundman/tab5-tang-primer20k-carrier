@@ -1,0 +1,40 @@
+{
+  "scope": "Offline SYS27 request/data-hold and complete-DIR-boundary test; not hardware/clock-jitter signoff",
+  "results": [
+    {
+      "tx_hz": 5000000,
+      "tx_negative_with_physical_preamble1": false,
+      "rx_hz": 5000000,
+      "rx_model": "host samples old data at raw rising, not P4 IO timing qualification",
+      "passed": false,
+      "expected_failure_control": true,
+      "output": "WARNING: D:\\github\\airpocket-soundman\\tab5-carrier-memv1-tx-hold-model\\fpga\\mem\\tests\\tb_mem_v1_core.v:203: $readmemh(D:\\github\\airpocket-soundman\\tab5-carrier-memv1-tx-hold-model\\fpga\\build\\memv1-tx-hold\\vectors.hex): Not enough words in the file for the requested range [0:262143].\nFAIL case 100 status 1 want 0\nFATAL: D:\\github\\airpocket-soundman\\tab5-carrier-memv1-tx-hold-model\\fpga\\mem\\tests\\tb_mem_v1_core.v:200: status\n       Time: 832200000  Scope: tb_mem_v1_core.expect_st\n",
+      "stderr": "",
+      "scope": "one preamble per complete physical burst; DIR1 boundary clears partial RX; never insert a new preamble mid-WR/CANCEL"
+    },
+    {
+      "tx_hz": 5000000,
+      "tx_negative_with_physical_preamble1": true,
+      "rx_hz": 5000000,
+      "rx_model": "host samples old data at raw rising, not P4 IO timing qualification",
+      "passed": true,
+      "expected_failure_control": false,
+      "output": "WARNING: D:\\github\\airpocket-soundman\\tab5-carrier-memv1-tx-hold-model\\fpga\\mem\\tests\\tb_mem_v1_core.v:203: $readmemh(D:\\github\\airpocket-soundman\\tab5-carrier-memv1-tx-hold-model\\fpga\\build\\memv1-tx-hold\\vectors.hex): Not enough words in the file for the requested range [0:262143].\nPASS memv1 fast fullpath RXhalf=100.000000 TXhalf=100.000000 SYSphase=0.000000 checks=12 vectors=0\nD:\\github\\airpocket-soundman\\tab5-carrier-memv1-tx-hold-model\\fpga\\mem\\tests\\tb_mem_v1_core.v:262: $finish called at 3651138478 (1ps)\n",
+      "stderr": "",
+      "scope": "one preamble per complete physical burst; DIR1 boundary clears partial RX; never insert a new preamble mid-WR/CANCEL"
+    }
+  ],
+  "sources": {
+    "mem\\rtl\\memv1_crc32b.v": "69f8ba2760ff9dd49e4d5a5d12970ba93e643479ad31eb09a527847f14bd07b4",
+    "mem\\rtl\\mem_adapter.v": "5e11f425b6199a7311e5b654e8d975b80e8826f71411f016596c052f271e7a96",
+    "mem\\rtl\\memv1_bridge.v": "75e0da118a942b90b688acfff578c4edce40fd7a815347df5bcd6f5ce14dcac4",
+    "mem\\rtl\\memv1_sys.v": "2ccc80977d688cf5a2d217d1bccbe3d61706dcea29b02d2573dd5ebc2b431125",
+    "mem\\rtl\\memv1_reply_raw.v": "0319dc6cd81bc4d77546fb0e96ae93478a691439740c7df5334a4fa16761f609",
+    "mem\\rtl\\mem_mailbox.v": "22a0a6306368527b5a74c94db555666805eee57e06b9dee7c4143ee19c68ee4f",
+    "mem\\rtl\\mem_bist.v": "e2d01458b7fea95c620ea8c491d0f9d356d2c2c718275623fa9ba75d2453f0ea",
+    "mem\\rtl\\mem_v1_core.v": "c3676f33c619f5287e20f3041d0e3b125413a27c980ed809404dd41d0c211419",
+    "link\\rtl\\reply_clock_filter.v": "dd9d4f92f6dbeb0b3d8601ab77ac94aab86f410753112a9fa6dde529e6575cb1",
+    "link\\rtl\\reply_phase_delay.v": "84ae5ba63ae99dae1fc812e523030f3f4bb5ff5abfdbe66fa6efc5b498d9a018",
+    "mem\\tests\\tb_mem_v1_core.v": "105e1f7d07a9af187e19444cadaa6c43b7e1108a7c348e3f7d06e0fdb6f5f359"
+  }
+}

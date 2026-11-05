@@ -6,6 +6,7 @@
 // stale completion, BIST coexistence/BUSY. Not a DRAM/hardware proof.
 module tb_mem_v1_core;
 parameter FAST_REPLY_ENABLE=0;
+parameter TX_NEG_PREAMBLE=0;
 parameter REPLY_PHASE_TICKS=0;
 parameter real RX_HALF=150.0,TX_HALF=150.0,SYS_PHASE=0.0,DATA_DELAY=0.0,SAMPLE_OFFSET=0.0;
 parameter QUICK=0;
@@ -78,13 +79,17 @@ localparam HT=150;
 reg[7:0] qb[0:4199],rb[0:4199],ex[0:4199];
 task pulse;begin #TX_HALF bus=1;#TX_HALF bus=0;end endtask
 task receive_byte;output [7:0] b;begin #RX_HALF;bus=1;#SAMPLE_OFFSET;b=sampled_data;#(RX_HALF-SAMPLE_OFFSET);bus=0;end endtask
-task send_byte;input[7:0] b;begin di=b;pulse;end endtask
+task send_byte;input[7:0] b;begin
+ if(TX_NEG_PREAMBLE)begin #TX_HALF;bus=1;di=b;#TX_HALF;bus=0;end
+ else begin di=b;pulse;end
+end endtask
 integer checks=0,i,n,k;reg[7:0] last_status;reg[15:0] last_r;
 // Sends qn bytes, waits for READY, reads rn bytes into rb. Returns without checking contents.
 task xchg;input integer qn,rn;
 begin
- dir=0;drive=1;#300;
+ dir=0;drive=1;if(TX_NEG_PREAMBLE)di=0;#300;
  for(i=0;i<qn;i=i+1)send_byte(qb[i]);
+ if(TX_NEG_PREAMBLE)begin pulse;#2000;end // Trailing idle edge and actual driver last-CRC hold.
  drive=0;
  n=0;while(!ready&&n<200000)begin #100;n=n+1;end
  if(!ready)begin $display("FAIL no reply (qn=%0d)",qn);$fatal(1,"no reply");end
@@ -94,6 +99,7 @@ begin
  #300;
  if(ready)begin $display("FAIL reply longer than expected");$fatal(1,"long reply");end
  dir=0;#300;
+ if(TX_NEG_PREAMBLE&&(dut.link.rx_cnt!==0||dut.link.ext_rx!==0))$fatal(1,"partial request survived DIR roundtrip");
  last_status=rb[1];last_r={rb[5],rb[4]};
 end endtask
 task compare;input integer rn;input integer id;
@@ -203,6 +209,20 @@ initial begin
   // Maximum request and response, full 4KiB payload, high-entropy pattern.
   mode=3;mkwr(8'h31,256,32'h100000,32'h314159);xchg(qlen,8);expect_st(0,100);
   mkrd(8'h62,8'h32,256,32'h100000,0);xchg(qlen,4106);check_rd(256,32'h314159);
+  if(TX_NEG_PREAMBLE)begin
+   reg [31:0] saved_c32;saved_c32=c32;
+   // Exactly one physical dummy for one DMA burst: tagged WR4KiB + tagged CANCEL.
+   // No extra dummy/idle pulse is inserted between the two logical frames.
+   mode=1;slow_period=2000;slow_cnt=0;mkwr(8'h3b,256,32'h110000,32'habcdef);
+   mkframe(0,8'he3,8'h3b,0,1);fc=16'hffff;
+   for(k=0;k<6;k=k+1)fc=crc16(fc,qb[k]);for(k=8;k<qlen-2;k=k+1)fc=crc16(fc,qb[k]);
+   qb[qlen-2]=fc[7:0];qb[qlen-1]=fc[15:8];mkframe(qlen,8'he7,8'h3c,0,0);
+   xchg(qlen+8,16);for(k=0;k<8;k=k+1)if(rb[k]!==8'hc3)$fatal(1,"cancel prefix");
+   for(k=0;k<8;k=k+1)rb[k]=rb[k+8];last_status=rb[1];last_r={rb[5],rb[4]};
+   expect_st(0,108);if(rb[2]!==8'h3c||last_r!==1)$fatal(1,"combined CANCEL not acknowledged");
+   fc=16'hffff;for(k=0;k<6;k=k+1)fc=crc16(fc,rb[k]);if({rb[7],rb[6]}!==fc)$fatal(1,"cancel crc");
+   mode=3;lcmd(8'h60,0,0);expect_st(0,109);c32=saved_c32;
+  end
   // Tagged full reply: training prefix and same bound payload CRC.
   mkrd(8'he2,8'h33,256,32'h100000,0);xchg(qlen,4114);
   for(k=0;k<8;k=k+1)if(rb[k]!==8'hc3)$fatal(1,"tag prefix");
