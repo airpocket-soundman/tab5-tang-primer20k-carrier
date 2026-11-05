@@ -1,7 +1,7 @@
 // Isolated explicit-DPB variant; parent9c314f3 engine/maths unchanged.
 // Diagnostic 32x32 color/depth tile. Exact G0 fragment unit, one pixel in flight.
 // No DDR3, no performance claim. Abort invalidates RAM until a complete clear.
-module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE=0, parameter RAW_READ_ENABLE=0)(
+module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE=0, parameter RAW_READ_ENABLE=0, parameter ALL_SCENES_ENABLE=0)(
     input wire clk, reset_n, abort, start,
     input wire [7:0] opcode, a, b,
     output reg done,
@@ -16,8 +16,10 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
     localparam IDLE=0, CLEAR=1, READ_WAIT=2, READ_DONE=3,
                SCAN_WAIT=4, SUBMIT=5, WAIT_RESULT=6, COMPLETE=7,
                ROW_WAIT=8, ROW_CAPTURE=9,
-               FRACTAL_BEGIN=10, FRACTAL_MULT=11, FRACTAL_STEP=12, FRACTAL_WRITE=13, TILE_PREFETCH_WAIT=14, TILE_PREFETCH_CAPTURE=15;
-    reg [3:0] state;
+               FRACTAL_BEGIN=10, FRACTAL_MULT=11, FRACTAL_STEP=12, FRACTAL_WRITE=13, TILE_PREFETCH_WAIT=14, TILE_PREFETCH_CAPTURE=15,
+               RASTER_BEGIN=16, RASTER_WAIT=17, UPLOAD_WRITE=18,
+               FADE_WAIT=19, FADE_WRITE=20, FIRE_BEGIN=21, FIRE_WAIT=22;
+    reg [4:0] state;
     reg initialized, read_depth;
     reg tile_stream;
     reg [15:0] tile_words[0:1];
@@ -25,7 +27,22 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
     reg prefetch_slot;
     reg [1:0] prefetch_pending;
     reg [9:0] address;
-    wire [9:0] ram_read_address=tile_stream ? prefetch_address : address;
+    reg [15:0] raster_params[0:9],fire_params[0:6];
+    reg [7:0] raster_configured;
+    reg [6:0] fire_configured;
+    reg [10:0] upload_cursor;
+    reg upload_active;
+    reg [15:0] upload_word;
+    wire raster_busy,raster_done,raster_write,fire_busy,fire_done,fire_write;
+    wire [9:0] raster_read_address,raster_write_address,fire_write_address;
+    wire [15:0] raster_write_color,fire_write_color;
+    wire raster_running=state==RASTER_BEGIN || state==RASTER_WAIT;
+    wire fire_running=state==FIRE_BEGIN || state==FIRE_WAIT;
+    wire raster_writing=state==RASTER_WAIT && raster_write;
+    wire fire_writing=state==FIRE_WAIT && fire_write;
+    wire [9:0] ram_read_address=tile_stream ? prefetch_address :
+        raster_running ? (raster_write?raster_write_address:raster_read_address) :
+        fire_writing ? fire_write_address : address;
     reg [9:0] configured;
     reg [15:0] params[0:9];
     reg [4:0] scan_x0, scan_x1, scan_y1;
@@ -262,6 +279,34 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
     wire [9:0] out_x;
     wire [8:0] out_y;
     wire active = reset_n && !abort;
+    generate if(ALL_SCENES_ENABLE) begin: all_scene_engines
+        raster2d raster(.clk(clk),.reset_n(reset_n),.abort(abort),.start(state==RASTER_BEGIN),
+            .kind(raster_params[7][1:0]),.x0(raster_params[0]),.y0(raster_params[1]),
+            .x1(raster_params[2]),.y1(raster_params[3]),.color(raster_params[4]),
+            .add_rgb({raster_params[5],raster_params[6][7:0]}),
+            .busy(raster_busy),.done(raster_done),.read_address(raster_read_address),.read_color(color_q),
+            .write_enable(raster_write),.write_address(raster_write_address),.write_color(raster_write_color));
+        fire_tile fire(.clk(clk),.reset_n(reset_n),.abort(abort),.start(state==FIRE_BEGIN),
+            .origin_x(fire_params[0]),.origin_y(fire_params[1]),.width(fire_params[2]),.height(fire_params[3]),
+            .frame({fire_params[5],fire_params[4]}),.load(fire_params[6][1:0]),
+            .busy(fire_busy),.done(fire_done),.write_enable(fire_write),
+            .write_address(fire_write_address),.write_color(fire_write_color));
+    end else begin: no_all_scene_engines
+        assign raster_busy=0;assign raster_done=0;assign raster_write=0;
+        assign raster_read_address=0;assign raster_write_address=0;assign raster_write_color=0;
+        assign fire_busy=0;assign fire_done=0;assign fire_write=0;
+        assign fire_write_address=0;assign fire_write_color=0;
+    end endgenerate
+    function [15:0] fade_color;
+        input [15:0] old;
+        reg [10:0] r,g,b;
+        begin
+            r={6'b0,old[15:11]}*11'd29;
+            g={5'b0,old[10:5]}*11'd29;
+            b={6'b0,old[4:0]}*11'd29;
+            fade_color={r[9:5],g[10:5],b[9:5]};
+        end
+    endfunction
     triangle_fragment fragment(
         .clk(clk), .reset_n(active), .in_valid(state==SUBMIT), .in_ready(fragment_ready),
         .ax(params[0]), .ay(params[1]), .bx(params[2]), .by(params[3]),
@@ -273,8 +318,11 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
         .depth_pass(depth_pass), .write_enable(fragment_write),
         .new_depth(new_depth), .out_color(out_color), .out_x(out_x), .out_y(out_y)
     );
-    wire sys_writing=active && (state==CLEAR || (state==WAIT_RESULT && fragment_write) || state==FRACTAL_WRITE);
-    wire [15:0] vendor_color_write=state==CLEAR?clear_color:(state==WAIT_RESULT?out_color:fractal_color);
+    wire sys_writing=active && (state==CLEAR || (state==WAIT_RESULT && fragment_write) || state==FRACTAL_WRITE ||
+        raster_writing || fire_writing || state==UPLOAD_WRITE || state==FADE_WRITE);
+    wire [15:0] vendor_color_write=raster_writing?raster_write_color:fire_writing?fire_write_color:
+        state==UPLOAD_WRITE?upload_word:state==FADE_WRITE?fade_color(color_q):
+        state==CLEAR?clear_color:(state==WAIT_RESULT?out_color:fractal_color);
     wire [15:0] vendor_depth_write=state==WAIT_RESULT?new_depth:16'b0;
     wire [15:0] vendor_raw_color,vendor_raw_depth;
     tile_dpram_vendor color_memory(clk,sys_writing,ram_read_address,vendor_color_write,color_q,raw_clk,raw_enable && RAW_READ_ENABLE,raw_address,vendor_raw_color);
@@ -286,10 +334,14 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
             state<=IDLE; initialized<=0; tile_stream<=0; prefetch_pending<=0; prefetch_address<=0; stream_word_seen<=0; prefetch_slot<=0; configured<=0; fractal_configured<=0; address<=0;
             done<=0; status<=0; result<=0; written<=0; read_depth<=0; clear_color<=0;
             fractal_cycles<=0; last_fractal_cycles<=0;
+            raster_configured<=0;fire_configured<=0;upload_cursor<=0;upload_active<=0;upload_word<=0;
+            raster_params[8]<=0;raster_params[9]<=0;
         end else if(abort) begin
             state<=IDLE; initialized<=0; tile_stream<=0; prefetch_pending<=0; prefetch_address<=0; stream_word_seen<=0; prefetch_slot<=0; configured<=0; fractal_configured<=0; address<=0;
             done<=0; status<=0; result<=0; written<=0;
             fractal_cycles<=0; last_fractal_cycles<=0;
+            raster_configured<=0;fire_configured<=0;upload_cursor<=0;upload_active<=0;upload_word<=0;
+            raster_params[8]<=0;raster_params[9]<=0;
         end else begin
             done<=0;
             // Cache the next word before its byte index is presented. The
@@ -317,8 +369,66 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
                     end else if(opcode>=8'h31 && opcode<=8'h36) begin
                         fractal_params[opcode-8'h31]<={b,a};
                         fractal_configured[opcode-8'h31]<=1; result<={b,a}; done<=1;
+                    end else if(ALL_SCENES_ENABLE && opcode>=8'h61 && opcode<=8'h6a) begin
+                        if((opcode>=8'h69 && {b,a}!=0) || (opcode==8'h67 && b!=0) ||
+                           (opcode==8'h68 && (b!=0 || a>3))) status<=3;
+                        else begin
+                            raster_params[opcode-8'h61]<={b,a};
+                            if(opcode<=8'h68) raster_configured[opcode-8'h61]<=1;
+                            result<={b,a};
+                        end
+                        done<=1;
+                    end else if(ALL_SCENES_ENABLE && opcode>=8'h71 && opcode<=8'h77) begin
+                        fire_params[opcode-8'h71]<={b,a};fire_configured[opcode-8'h71]<=1;
+                        result<={b,a};done<=1;
                     end else case(opcode)
                         8'h20: begin result<=16'h2020; done<=1; end
+                        8'h5e: begin
+                            if(!ALL_SCENES_ENABLE) status<=2;
+                            else if(a!=0 || b!=0) status<=3;
+                            done<=1;
+                        end
+                        8'h60,8'h70: begin
+                            if(!ALL_SCENES_ENABLE) status<=2;
+                            else if(a!=0 || b!=0) status<=3;
+                            else result<=opcode==8'h60 ? 16'h011f : 16'h0101;
+                            done<=1;
+                        end
+                        8'h6b: begin
+                            if(!ALL_SCENES_ENABLE) begin status<=2;done<=1;end
+                            else if(a!=0 || b!=0) begin status<=3;done<=1;end
+                            else if(!initialized || !(&raster_configured)) begin status<=5;done<=1;end
+                            else begin written<=0;state<=RASTER_BEGIN;end
+                        end
+                        8'h6d: begin
+                            if(!ALL_SCENES_ENABLE) status<=2;
+                            else if(a!=0 || b!=0) status<=3;
+                            else begin upload_cursor<=0;upload_active<=1;initialized<=0;end
+                            done<=1;
+                        end
+                        8'h6c: begin
+                            if(!ALL_SCENES_ENABLE) begin status<=2;done<=1;end
+                            else if(upload_cursor==1024) begin status<=3;done<=1;end
+                            else if(!upload_active) begin status<=5;done<=1;end
+                            else begin upload_word<={b,a};address<=upload_cursor[9:0];state<=UPLOAD_WRITE;end
+                        end
+                        8'h6f: begin
+                            if(!ALL_SCENES_ENABLE) begin status<=2;done<=1;end
+                            else if(a!=0 || b!=0) begin status<=3;done<=1;end
+                            else if(!initialized) begin status<=5;done<=1;end
+                            else begin address<=0;written<=0;state<=FADE_WAIT;end
+                        end
+                        8'h78: begin
+                            if(!ALL_SCENES_ENABLE) begin status<=2;done<=1;end
+                            else if(a!=0 || b!=0) begin status<=3;done<=1;end
+                            else if(!(&fire_configured)) begin status<=5;done<=1;end
+                            else if(!((fire_params[2]==640 && fire_params[3]==360) ||
+                                      (fire_params[2]==320 && fire_params[3]==180) ||
+                                      (fire_params[2]==160 && fire_params[3]==96)) ||
+                                    fire_params[0]>=fire_params[2] || fire_params[1]>=fire_params[3] ||
+                                    fire_params[6]>2) begin status<=3;done<=1;end
+                            else begin initialized<=0;upload_active<=0;written<=0;state<=FIRE_BEGIN;end
+                        end
                         8'h3c: begin
                             if(a!=0 || b!=0) status<=3;
                             else result<=16'h0103;
@@ -358,7 +468,7 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
                                     tile_end_x>32767 || tile_end_y>32767) begin status<=3; done<=1; end
                             else begin initialized<=0; address<=0; written<=0; fractal_cycles<=0; last_fractal_cycles<=0; state<=FRACTAL_BEGIN; end
                         end
-                        8'h2b: begin address<=0; clear_color<={b,a}; written<=0; initialized<=0; state<=CLEAR; end
+                        8'h2b: begin address<=0; clear_color<={b,a}; written<=0; initialized<=0;upload_active<=0;state<=CLEAR;end
                         8'h2c: begin
                             if(a!=0 || b!=0) begin status<=3; done<=1; end
                             else if(!initialized || !(&configured)) begin status<=5; done<=1; end
@@ -389,6 +499,27 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
                         end
                         default: begin status<=2; done<=1; end
                     endcase
+                end
+                RASTER_BEGIN:state<=RASTER_WAIT;
+                RASTER_WAIT:begin
+                    if(raster_write) written<=written+1'b1;
+                    if(raster_done) begin written<=1024;state<=COMPLETE;end
+                end
+                UPLOAD_WRITE:begin
+                    upload_cursor<=upload_cursor+1'b1;result<=upload_cursor+1'b1;
+                    if(upload_cursor==1023) begin initialized<=1;upload_active<=0;end
+                    done<=1;state<=IDLE;
+                end
+                FADE_WAIT:state<=FADE_WRITE;
+                FADE_WRITE:begin
+                    written<=written+1'b1;
+                    if(address==1023) state<=COMPLETE;
+                    else begin address<=address+1'b1;state<=FADE_WAIT;end
+                end
+                FIRE_BEGIN:state<=FIRE_WAIT;
+                FIRE_WAIT:begin
+                    if(fire_write) written<=written+1'b1;
+                    if(fire_done) begin initialized<=1;state<=COMPLETE;end
                 end
                 CLEAR: if(address==1023) begin initialized<=1; state<=COMPLETE; end
                        else address<=address+1'b1;

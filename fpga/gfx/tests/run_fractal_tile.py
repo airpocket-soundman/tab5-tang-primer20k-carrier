@@ -63,10 +63,9 @@ def main():
         paths=[str(ROOT/s)for s in sources]
         if args.pipeline_coverage:paths[sources.index('gfx/rtl/triangle_coverage.v')]=str(ROOT/'gfx/rtl/triangle_coverage_pipeline.v')
         if args.vendor_primitive_lib:
-            paths[2]=str(ROOT/'gfx/rtl/triangle_tile_vendor.v')
+            paths[sources.index('gfx/rtl/triangle_tile.v')]=str(ROOT/'gfx/rtl/triangle_tile_vendor.v')
             bench=td/'vendor_bench.v';text=(ROOT/sources[-1]).read_text();text=text.replace('    reg clk=0,',"    GSR GSR(1'b1);\n    reg clk=0,",1);bench.write_text(text)
             paths[-1]=str(bench);paths +=[str(ROOT/'gfx/rtl/tile_dpram_vendor.v'),str(args.vendor_primitive_lib)]
-        paths +=[str(ROOT/'link/rtl/triangle_batch.v')]
         subprocess.run([args.iverilog,'-g2012','-Wall','-s','tb_fractal_tile','-o',str(exe),*paths],check=True)
         subprocess.run([args.vvp,str(exe),'+vectors='+str(vf),'+palette='+str(palette_file)],check=True,timeout=180)
     print(f'PASS fractal {len(vectors)} oracle transactions, {pixel_count} color/depth pixels, 12 legacy/vivid viewports with exact stable DRAW cycles; no hardware access')

@@ -1,0 +1,1295 @@
+{
+  "schema": 1,
+  "archived_utc": "2026-11-05T12:11:51.067931+00:00",
+  "hardware_access_by_archiver": false,
+  "repository_head": "f403b052733daa418eddd23d05537478bb807803",
+  "selected": {
+    "version": "v5",
+    "fs_sha256": "7660c5be31dd99c7522ddb46cfcaf31ffd088314ec0e8d5aef0f10cc90969b9f",
+    "usercode": "0x000094F0",
+    "status": "0x00006020",
+    "resources": {
+      "logic": "6759/20736",
+      "registers": "2952/16173",
+      "bsram": "5/46",
+      "dsp": "16.5/24"
+    },
+    "sta": {
+      "counts": {
+        "Numbers of Paths Analyzed": 27611,
+        "Numbers of Endpoints Analyzed": 9087,
+        "Numbers of Setup Violated Endpoints": 0,
+        "Numbers of Hold Violated Endpoints": 0
+      },
+      "worst_setup_path": {
+        "slack_ns": 0.933,
+        "source": "core/triangle.renderer/all_scene_engines.fire/state_0_s1/Q",
+        "endpoint": "core/triangle.renderer/all_scene_engines.fire/fy_8_s0/D",
+        "from_clock": "core54:[R]",
+        "to_clock": "core54:[R]"
+      }
+    },
+    "metadata_exception_count": 30,
+    "no_new_waivers": true,
+    "configuration": {
+      "ALL_SCENES_ENABLE": 1,
+      "REQUEST_DATA_PIPELINE": 1,
+      "REGISTER_INPUT": 1,
+      "REPLY_ACTIVE_PIPELINE": 1
+    }
+  },
+  "source_snapshot": {
+    "scope": "Current archive-time sources, NOT a pre-build source hash capture",
+    "project_input_paths": [
+      "fpga/gfx/rtl/fire_tile.v",
+      "fpga/gfx/rtl/gfx_bench.v",
+      "fpga/gfx/rtl/raster2d.v",
+      "fpga/gfx/rtl/tile_dpram_vendor.v",
+      "fpga/gfx/rtl/triangle_coverage_pipeline.v",
+      "fpga/gfx/rtl/triangle_depth.v",
+      "fpga/gfx/rtl/triangle_fragment.v",
+      "fpga/gfx/rtl/triangle_tile_vendor.v",
+      "fpga/link/rtl/link_bringup_filtered.v",
+      "fpga/link/rtl/link_reply_raw.v",
+      "fpga/link/rtl/reply_clock_filter.v",
+      "fpga/link/rtl/triangle_batch.v",
+      "fpga/platform/dock/dock_pll216.v",
+      "fpga/platform/dock/dock_pll54.v",
+      "fpga/platform/dock/tab5_dock_all_scenes_top.v",
+      "fpga/constraints/dock/tab5_dock_link_v0.cst",
+      "fpga/constraints/dock/all_scenes.sdc"
+    ],
+    "current_sha256": {
+      "fpga/builds/dock/build_all_scenes.tcl": "b6c2416cfb397c5674e18bc461a2923e5d6f19645575a901cbc6e1ba766ee04f",
+      "fpga/builds/dock/build_all_scenes_aligned_input.tcl": "56163dc65ded4f059ff8b012998db724d3ba45c3ab926e304ad970166d5babd6",
+      "fpga/builds/dock/build_all_scenes_pipeline.tcl": "64d498e4b6db793d798f1c5a6ca3fb00ecfd7bd72aed952b8af5cd58bd8add52",
+      "fpga/builds/dock/build_all_scenes_registered_input.tcl": "3d0248c2bb653381ddeb9e1eddd3a0f597c4e67f5499639cb4b2ccd841da4dd0",
+      "fpga/builds/dock/build_all_scenes_route0.tcl": "3fd51f77a82f492618a0d89b2748c4dcd45b5a614b9bbde9947293beddf55e19",
+      "fpga/constraints/dock/all_scenes.sdc": "d397886fd34976da015d93e511ab80921082542cbd740eab60dd8cfe6227a4fe",
+      "fpga/constraints/dock/tab5_dock_link_v0.cst": "ebc2cc10587f201c489b14703ac7843a24476481103e6566ff1aec02f6036c61",
+      "fpga/gfx/rtl/fire_tile.v": "c11dd05106af56af5f41813ef0a179ff94f525f4f4efcdbbaec2ff167829be71",
+      "fpga/gfx/rtl/gfx_bench.v": "841a4f50baa9e3200bbda1cd61bc9511db36909f76e854a9b66b331ebda2c392",
+      "fpga/gfx/rtl/raster2d.v": "b9703b7090f83069ab516cc04c230bbecc928c8d68f9caa44423e89dccb707fe",
+      "fpga/gfx/rtl/tile_dpram_vendor.v": "b133181cd254c9059c54e19fc03f06b506ca280d374dd6fa6ae321bc0159135e",
+      "fpga/gfx/rtl/triangle_coverage_pipeline.v": "612d9f92858e0f3a58d0b20471c05d3c1d5a98005a145b450b55b5ae70935e1b",
+      "fpga/gfx/rtl/triangle_depth.v": "de970c1412f827a1bac67d840b7f0345128ad669a67cd3d3e66029c2b5ffe06f",
+      "fpga/gfx/rtl/triangle_fragment.v": "164a23321804c2109fdc963de7e18f1ad13270671e73feadef46a621d9077c4e",
+      "fpga/gfx/rtl/triangle_tile.v": "e255e63477196827d8f09e54088509253d025b9e2ee79a48361c99c4b8808b3c",
+      "fpga/gfx/rtl/triangle_tile_vendor.v": "16991c3a155b0030f1a65376b81ff98d738b2f22b5f04ffb0050dd56851bfda7",
+      "fpga/gfx/tests/fire_fixed_contract.md": "cd313c541ab9dc3b9598d740192cc94450a6cdfb13e2fd89c4e2bc0b88c5486d",
+      "fpga/gfx/tests/fire_fixed_vectors.c": "1d09379cd7d4a36239b0ba00f91df9911ca967966b82e32e86017f00dcd73072",
+      "fpga/gfx/tests/run_all_scenes_tile.py": "770064830d0aa66f7b258706f3b669a239e8cc63ef186b827e762c422aeab441",
+      "fpga/gfx/tests/run_fire_tile.py": "489da688487a9a7e01e65ea00d32a8ab5baa26d8272c79c4107c74635d9b8b9c",
+      "fpga/gfx/tests/tb_all_scenes_tile.v": "42bf6e59c6c841c884722c7f95f4e62448a7c59da2bc9a63a726c3ca0361e692",
+      "fpga/gfx/tests/tb_fire_tile.v": "b5fab12c3cde6b6ff2e280f7a7c9ea1575eaea2fa1bf6318477d9fea0c88543f",
+      "fpga/host/fire_fixed.h": "1b300e0516c8d1bb0a8371a229535dbc369f29c96b147a7cba5eae419f32d779",
+      "fpga/host/link_protocol.h": "3b71f0b0c112f48f14f84783d83e69b6adaf829eb2c3e0cf4a0063de8a8427b9",
+      "fpga/host/raster2d_protocol.h": "5d347be838c5ee0ee90ed6b0950242a2b3fd6dfe9086d36726b2e102a18f152f",
+      "fpga/link/rtl/link_bringup.v": "716a141e3a044430fb39fa926d26ed13006dca6365188b2b65531b60d06c5669",
+      "fpga/link/rtl/link_bringup_filtered.v": "5f9ba5ccd9bb93eaa503f0eed4ab085933900aa142a794925f206c9331dcfd0a",
+      "fpga/link/rtl/link_reply_raw.v": "c1df039c17f5ca8b6708f2455c1d52c1727feb8dfaac2fe401d5ab2f660094a8",
+      "fpga/link/rtl/reply_clock_filter.v": "af84ea5e7b74bb7f39cc805c4f471efb4c09ffa645d31204f9d5351e53a16aec",
+      "fpga/link/rtl/triangle_batch.v": "725cc261daab445ac46cd735c3b70569a1c1e2482cacb70c78ca8d07d070ce65",
+      "fpga/link/tests/run_all_scenes_gate.py": "4c1ba2a01ef8b68d5a02ecce53b03a7fc947e39c379aedf9fd962b7e5d472eba",
+      "fpga/link/tests/run_all_scenes_link.py": "c6281493f5c3671d4bbf6280af9d3aba63687ca30a71e87686056dee3e178885",
+      "fpga/link/tests/run_reply_clock_filter_active.py": "d5e8d4e8d867ceace5dd968d56a23270b95ff55585110bc9e94ed1730f4f2a37",
+      "fpga/link/tests/run_request_data_alignment.py": "8ffb85e0241c99ba7cf78290974c5651381751f61507b11760cedb356bfa48e6",
+      "fpga/link/tests/tb_all_scenes_gate.v": "40c67794229f071b9a92a36a381ee90530c1101fc62f8d951bb45034b055e214",
+      "fpga/link/tests/tb_all_scenes_link.v": "479bbc391700acf1260575eb906b7a7f656be48fd0c59888d13d65978624198d",
+      "fpga/link/tests/tb_reply_clock_filter_active.v": "7003b5778ce68026ab5cb09b609411f96fc8b052d27011644b4f6e69fe98d73a",
+      "fpga/link/tests/tb_request_data_alignment.v": "413a8fd032a1bfce3a02ce2148abd3990a4d3efb3772733428f60c4daeaf4784",
+      "fpga/platform/dock/dock_pll216.v": "7a6b8e3421955bb4f22b08594f900e86b3051f1e9a33d1ff3c742bf84aac2456",
+      "fpga/platform/dock/dock_pll54.v": "a39b06768797c12ac8e72a58e1ff1bbfbf01a24c079309982cd8c89a9adc7879",
+      "fpga/platform/dock/tab5_dock_all_scenes_top.v": "86a90247f3796d8bd6868e6ea4a1c6fec133ff406767d9569b6279d0be5f702c",
+      "fpga/tools/record_all_scenes.py": "18da8b6f954d4301943bce1571f02b7d85a2d4c0118a5fd4ddf7ed509da22226"
+    },
+    "source_zip_sha256": "5f99bf639000a7df866d3ad4784d69b666252fd847c4682e175d2fd9bf1c0ae4",
+    "selected_gprj_sha256": "faca2d8a5c07f62514035248f9447ee3135533a0c79282dc8f608f002d2b5533",
+    "selected_synthesized_netlist_sha256": "8684e595cda7506beed439abd7a8c42b0b072df2353f086bf14ee97d24f9b588",
+    "build_tool_executable_sha256": {
+      "D:\\Gowin\\Gowin_V1.9.11.03_Education_x64\\IDE\\bin\\gw_sh.exe": "4c172d4c0d2a4c7ef5c764d091a315cbcde2127573554bfd7d09ac6f2e5ea535",
+      "D:\\Gowin\\Gowin_V1.9.12.04_x64\\Programmer\\bin\\programmer_cli.exe": "ca28fe178b04fd99780267787f61b0e0ec3729d579fe237ff454c1a0353e8ef6"
+    },
+    "historical_v1_v4_sources": "No original pre-build source snapshots; do not equate the current source ZIP with historical builds"
+  },
+  "candidates": [
+    {
+      "version": "v1",
+      "sta": {
+        "counts": {
+          "Numbers of Paths Analyzed": 28686,
+          "Numbers of Endpoints Analyzed": 9044,
+          "Numbers of Setup Violated Endpoints": 1,
+          "Numbers of Hold Violated Endpoints": 0
+        },
+        "worst_setup_path": {
+          "slack_ns": -0.035,
+          "source": "core/fast_offer_s1/Q",
+          "endpoint": "core/clock_conditioner/clean_clk_s1/CE",
+          "from_clock": "core54:[R]",
+          "to_clock": "sampler216:[R]"
+        }
+      },
+      "programmed": false,
+      "selected": false,
+      "source_snapshot": "archive-time current source only; original version-specific source contents were not snapshotted before this build",
+      "fs_omitted_reason": "Never programmed; failed setup timing; reports retained"
+    },
+    {
+      "version": "v2",
+      "sta": {
+        "counts": {
+          "Numbers of Paths Analyzed": 28686,
+          "Numbers of Endpoints Analyzed": 9044,
+          "Numbers of Setup Violated Endpoints": 1,
+          "Numbers of Hold Violated Endpoints": 0
+        },
+        "worst_setup_path": {
+          "slack_ns": -0.04,
+          "source": "core/fast_offer_s1/Q",
+          "endpoint": "core/clock_conditioner/clean_clk_s1/CE",
+          "from_clock": "core54:[R]",
+          "to_clock": "sampler216:[R]"
+        }
+      },
+      "programmed": false,
+      "selected": false,
+      "source_snapshot": "archive-time current source only; original version-specific source contents were not snapshotted before this build",
+      "fs_omitted_reason": "Never programmed; failed setup timing; reports retained"
+    },
+    {
+      "version": "v3",
+      "sta": {
+        "counts": {
+          "Numbers of Paths Analyzed": 28669,
+          "Numbers of Endpoints Analyzed": 9045,
+          "Numbers of Setup Violated Endpoints": 0,
+          "Numbers of Hold Violated Endpoints": 0
+        },
+        "worst_setup_path": {
+          "slack_ns": 2.137,
+          "source": "core/clock_conditioner/sampled_s0/Q",
+          "endpoint": "core/clock_conditioner/cooldown_0_s3/D",
+          "from_clock": "sampler216:[R]",
+          "to_clock": "sampler216:[R]"
+        }
+      },
+      "programmed": true,
+      "selected": false,
+      "source_snapshot": "archive-time current source only; original version-specific source contents were not snapshotted before this build",
+      "fs_sha256": "502f08f6a915be800e3450e903ccb3ba0f4adcf44856b7dc8968d1c0c4d2dc50"
+    },
+    {
+      "version": "v4",
+      "sta": {
+        "counts": {
+          "Numbers of Paths Analyzed": 28232,
+          "Numbers of Endpoints Analyzed": 9078,
+          "Numbers of Setup Violated Endpoints": 0,
+          "Numbers of Hold Violated Endpoints": 0
+        },
+        "worst_setup_path": {
+          "slack_ns": 2.106,
+          "source": "core/clock_conditioner/cooldown_2_s5/Q",
+          "endpoint": "core/clock_conditioner/clean_clk_s1/CE",
+          "from_clock": "sampler216:[R]",
+          "to_clock": "sampler216:[R]"
+        }
+      },
+      "programmed": true,
+      "selected": false,
+      "source_snapshot": "archive-time current source only; original version-specific source contents were not snapshotted before this build",
+      "fs_sha256": "2aff6734f7c78ecb67dfbd0845c4911d0ddba82eac9f1f1537a2b72fcb86532a"
+    },
+    {
+      "version": "v5",
+      "sta": {
+        "counts": {
+          "Numbers of Paths Analyzed": 27611,
+          "Numbers of Endpoints Analyzed": 9087,
+          "Numbers of Setup Violated Endpoints": 0,
+          "Numbers of Hold Violated Endpoints": 0
+        },
+        "worst_setup_path": {
+          "slack_ns": 0.933,
+          "source": "core/triangle.renderer/all_scene_engines.fire/state_0_s1/Q",
+          "endpoint": "core/triangle.renderer/all_scene_engines.fire/fy_8_s0/D",
+          "from_clock": "core54:[R]",
+          "to_clock": "core54:[R]"
+        }
+      },
+      "programmed": true,
+      "selected": true,
+      "source_snapshot": "archive-time current source only; original version-specific source contents were not snapshotted before this build",
+      "fs_sha256": "7660c5be31dd99c7522ddb46cfcaf31ffd088314ec0e8d5aef0f10cc90969b9f"
+    }
+  ],
+  "hardware_comparisons": [
+    {
+      "run": "all8-hardware-640-20261105",
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-matched-tx-bench\\build\\all8-hardware-640-20261105\\result.json",
+      "sha256": "45476a3a3ef35ec1b5d4e8d0f632b2c4322ab98bd9375fafa9f7fe0e4900adef",
+      "passed": false,
+      "error": "Single frame failed: 2d_batch_response_crc_status_or_sequence",
+      "cases": 1,
+      "elf_sha256": "183b576c5fc9cb584f44618d0f31d879b716c065538883f0136a1ed8eb74258c"
+    },
+    {
+      "run": "all8-hardware-640-registered-20261105",
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-matched-tx-bench\\build\\all8-hardware-640-registered-20261105\\result.json",
+      "sha256": "cda3001763a3e35de69c2763d04a574cf2245cb0ae94f92f95a0ad55bb9da628",
+      "passed": false,
+      "error": "Single frame failed: 2d_batch_response_crc_status_or_sequence",
+      "cases": 1,
+      "elf_sha256": "8793810267d96bf41a3536d5c9806f46e9e2ef648de70a124622b5d3e1c0614d"
+    },
+    {
+      "run": "all8-hardware-640-tx5-20261105",
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-matched-tx-bench\\build\\all8-hardware-640-tx5-20261105\\result.json",
+      "sha256": "d772960a7693db9875c6b5dbde909b85d0d20df8e3e5ad5eb747352f1d83dd61",
+      "passed": true,
+      "error": null,
+      "cases": 24,
+      "elf_sha256": "8793810267d96bf41a3536d5c9806f46e9e2ef648de70a124622b5d3e1c0614d"
+    },
+    {
+      "run": "all8-flow-continuation-640-tx5-20261105",
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-matched-tx-bench\\build\\all8-flow-continuation-640-tx5-20261105\\result.json",
+      "sha256": "03204de778acd45507273fb0697c3cbfa019ef0ec650775a7b6ef7334e7ec2f6",
+      "passed": true,
+      "error": null,
+      "cases": 3,
+      "elf_sha256": "8793810267d96bf41a3536d5c9806f46e9e2ef648de70a124622b5d3e1c0614d"
+    },
+    {
+      "run": "all8-hardware-640-aligned-tx8-20261105",
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-matched-tx-bench\\build\\all8-hardware-640-aligned-tx8-20261105\\result.json",
+      "sha256": "e03d7a49d09ad7bbdafa4dd31bbc88c5024fa9cae8cd68037d4fd4469f8fe4a6",
+      "passed": true,
+      "error": null,
+      "cases": 24,
+      "elf_sha256": "8793810267d96bf41a3536d5c9806f46e9e2ef648de70a124622b5d3e1c0614d"
+    },
+    {
+      "run": "all8-flow-continuation-640-tx8-20261105",
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-matched-tx-bench\\build\\all8-flow-continuation-640-tx8-20261105\\result.json",
+      "sha256": "af06a3a1bf3d1d4dd0e8a8082e7769fe03fce97c3d0fd7428641eac455a3e4b7",
+      "passed": true,
+      "error": null,
+      "cases": 3,
+      "elf_sha256": "8793810267d96bf41a3536d5c9806f46e9e2ef648de70a124622b5d3e1c0614d"
+    }
+  ],
+  "qualified_scope": "640x360 TX8/RX5 frame0 all8x3 exact pixels, Flow frame1 all3loads exact pixels; not a completed120-frame full suite claim",
+  "excluded": "No Gowin primitive library, encrypted netlist/IP, DDR controller IP, executables, or nonselected output netlist is copied",
+  "artifacts": [
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v1\\all_scenes\\impl\\pnr\\all_scenes_tr_content.html",
+      "archived": "builds/v1/impl/pnr/all_scenes_tr_content.html.gz",
+      "source_sha256": "ab2c4880e6ce73ac2d27423f17ed3cee546b457753a35e6ca6506c2aba4d9c40",
+      "archived_sha256": "331b6fc5cadddb0936edbc36aaf9280268b23f3ec291a07d86279ac7ad911bfc",
+      "bytes": 1410621
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v1\\all_scenes\\impl\\pnr\\all_scenes.rpt.txt",
+      "archived": "builds/v1/impl/pnr/all_scenes.rpt.txt.gz",
+      "source_sha256": "baabb151850560478e50fca56c468a41bcd0657b8fe0eb0f8dd81bdbe1b2f2f2",
+      "archived_sha256": "77f3999ea707f608ce4c87294375bc9601daf8775b31a37b094a279598decadb",
+      "bytes": 50433
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v1\\all_scenes\\impl\\pnr\\all_scenes.rpt.html",
+      "archived": "builds/v1/impl/pnr/all_scenes.rpt.html.gz",
+      "source_sha256": "3c6633a826e4c7207a0396a937416c87d3023ccd353f2103f222e7d887ad19fb",
+      "archived_sha256": "ac4a2ecd0ff1bda2ed1e88cbba89a16cf4dea9c30ff23e1ade5301b056c789f1",
+      "bytes": 66481
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v1\\all_scenes\\impl\\pnr\\all_scenes.pin.html",
+      "archived": "builds/v1/impl/pnr/all_scenes.pin.html.gz",
+      "source_sha256": "aed3436a88c769b0ee8b7d57c5f2ec197d28f83cea42015554294f68671cdb9e",
+      "archived_sha256": "08fb7d2e0ff40443410a1e532fbd21db61fbe36ed3bc985ddc7a2ae5a65a7ea8",
+      "bytes": 60141
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v1\\all_scenes\\all_scenes.gprj",
+      "archived": "builds/v1/all_scenes.gprj.gz",
+      "source_sha256": "54afc200e2c954850ce82f9d3ac7355db916b397877b400fb947cc4fc5502b6b",
+      "archived_sha256": "7c4920a5b43e555ab739b5ab550242ece3870f9904ebb25df43f19eb5958576c",
+      "bytes": 2958
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v1\\all_scenes\\impl\\gwsynthesis\\all_scenes_syn_rsc.xml",
+      "archived": "builds/v1/impl/gwsynthesis/all_scenes_syn_rsc.xml.gz",
+      "source_sha256": "b78ccbe80b6846ab82d70e4448ee8f15ed41a3ebd841aeae21a1b98bebf6cb5c",
+      "archived_sha256": "23250b5a1685931dc32141b6ec00fdf7843e75b5a9c03736face26aa9f62defd",
+      "bytes": 2746
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v1\\all_scenes\\impl\\gwsynthesis\\all_scenes_syn.rpt.html",
+      "archived": "builds/v1/impl/gwsynthesis/all_scenes_syn.rpt.html.gz",
+      "source_sha256": "33a548928e23d10f9736aae94422ae4d5b0553770125729050dcc4ef507143b5",
+      "archived_sha256": "178adeb03fc5eaa61ac50e002df7273b0509829b38b6d93fb3d890ceb18c6864",
+      "bytes": 46613
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v1\\all_scenes\\impl\\gwsynthesis\\all_scenes.log",
+      "archived": "builds/v1/impl/gwsynthesis/all_scenes.log.gz",
+      "source_sha256": "65ccfc184e4ab7454cd541c6fa93dedc9fb67237c2ee639c9426a5eef474613d",
+      "archived_sha256": "12cff81e4784e4b5a3ff27170a43fb0d500bfe48037c19dc5d5f47bdeef9a9fa",
+      "bytes": 10183
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v1\\all_scenes\\impl\\pnr\\all_scenes.log",
+      "archived": "builds/v1/impl/pnr/all_scenes.log.gz",
+      "source_sha256": "a2dae16c7626b7b925e16043d5ab37154f33d1f08f43d7937e041e8ae71bec0b",
+      "archived_sha256": "417fb364bffe0388613bd56fca96398e2acc8fec0524ea451028b129c00eb69d",
+      "bytes": 2292
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-build-v1.log",
+      "archived": "builds/v1/build.log.gz",
+      "source_sha256": "58485af926070b6d3f417934373c4dc3c15e976312682d54dd3f2200f5d7d849",
+      "archived_sha256": "56353c9ae32786de52df325cb94b65ad5bfb0d4f9312be3e63d30d107c9f0cc5",
+      "bytes": 14784
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v2\\all_scenes\\impl\\pnr\\all_scenes_tr_content.html",
+      "archived": "builds/v2/impl/pnr/all_scenes_tr_content.html.gz",
+      "source_sha256": "050c8a2707fde805b0b7c43711c2efa9bc9bdaedc3e140a893070960e6f74999",
+      "archived_sha256": "19d170878b6a69b641763924b603829596e853b3fbf0ef0cb0d88462531fd9fd",
+      "bytes": 1431320
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v2\\all_scenes\\impl\\pnr\\all_scenes.rpt.txt",
+      "archived": "builds/v2/impl/pnr/all_scenes.rpt.txt.gz",
+      "source_sha256": "3f06ef88d876ae6e969f06c1760ef8d2339a7286efaecefad1bd5979f6a5a476",
+      "archived_sha256": "82dc342ee80957483449abff905207de0ddce84828a62c2486bdc1a7259d9ed1",
+      "bytes": 50433
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v2\\all_scenes\\impl\\pnr\\all_scenes.rpt.html",
+      "archived": "builds/v2/impl/pnr/all_scenes.rpt.html.gz",
+      "source_sha256": "9f1c25f7501eba25bd988850b91065325135f0e9fb12c66c03d22f3c3975b3ab",
+      "archived_sha256": "4cc8615152b1ef9fcfcc74c4650f74be998b8297698fdc3f43e373e8eb341356",
+      "bytes": 66481
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v2\\all_scenes\\impl\\pnr\\all_scenes.pin.html",
+      "archived": "builds/v2/impl/pnr/all_scenes.pin.html.gz",
+      "source_sha256": "d0670c9607867fcb2ccaea2bf6c3c5cfb86e0a9572838dd89adcada56ea657e7",
+      "archived_sha256": "78edbe0051589a87bf0aa59805578677a0f2e4eb3870221ad4141bb5c7ebdb97",
+      "bytes": 60141
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v2\\all_scenes\\all_scenes.gprj",
+      "archived": "builds/v2/all_scenes.gprj.gz",
+      "source_sha256": "54afc200e2c954850ce82f9d3ac7355db916b397877b400fb947cc4fc5502b6b",
+      "archived_sha256": "7c4920a5b43e555ab739b5ab550242ece3870f9904ebb25df43f19eb5958576c",
+      "bytes": 2958
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v2\\all_scenes\\impl\\gwsynthesis\\all_scenes_syn_rsc.xml",
+      "archived": "builds/v2/impl/gwsynthesis/all_scenes_syn_rsc.xml.gz",
+      "source_sha256": "b78ccbe80b6846ab82d70e4448ee8f15ed41a3ebd841aeae21a1b98bebf6cb5c",
+      "archived_sha256": "23250b5a1685931dc32141b6ec00fdf7843e75b5a9c03736face26aa9f62defd",
+      "bytes": 2746
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v2\\all_scenes\\impl\\gwsynthesis\\all_scenes_syn.rpt.html",
+      "archived": "builds/v2/impl/gwsynthesis/all_scenes_syn.rpt.html.gz",
+      "source_sha256": "4b5a2a99df150259928f25b8c4a0891b25d49760fed7b981aebfb995604c5ef8",
+      "archived_sha256": "570e93434ab3e89b6cb888b2da3bb489a2d84f142307c67076a20fb52495ece6",
+      "bytes": 46587
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v2\\all_scenes\\impl\\gwsynthesis\\all_scenes.log",
+      "archived": "builds/v2/impl/gwsynthesis/all_scenes.log.gz",
+      "source_sha256": "8f8da052b18ce1b76b0d11ca8bdf5f30b1c98cdfe54b363942098bc1303a1863",
+      "archived_sha256": "9de4a58d6847a785ed99e9b14a872997340c5cfefbfdb634acea5eddffbd327d",
+      "bytes": 10183
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v2\\all_scenes\\impl\\pnr\\all_scenes.log",
+      "archived": "builds/v2/impl/pnr/all_scenes.log.gz",
+      "source_sha256": "aed62e735db2a1e97e8f441fdd89a143750502313c6a30e343333a5990daf5d6",
+      "archived_sha256": "8bdba8933fa3963f6792c768c1cacf02650f9b5de8921545f48a84e89e7e9351",
+      "bytes": 2292
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-build-v2.log",
+      "archived": "builds/v2/build.log.gz",
+      "source_sha256": "3a5da4e82645ff0688a44d909daa188e86860848d50372fb49b8a9099d6a5e31",
+      "archived_sha256": "670e2fd0155d4018a850df09d2d932f9ee8b1e553e9bd8869333f8dc74554da7",
+      "bytes": 14784
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v3\\all_scenes\\impl\\pnr\\all_scenes_tr_content.html",
+      "archived": "builds/v3/impl/pnr/all_scenes_tr_content.html.gz",
+      "source_sha256": "0f3469dbbb17e2234255bc318ecedb0b11baa9034f7af39d5ecddaa9ea2106bc",
+      "archived_sha256": "c858ba5b71e2d7ed114b0ff3fa498c3dfe4cdb3fc04daf68f14073fd9dabe717",
+      "bytes": 1383903
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v3\\all_scenes\\impl\\pnr\\all_scenes.rpt.txt",
+      "archived": "builds/v3/impl/pnr/all_scenes.rpt.txt.gz",
+      "source_sha256": "bf9627c46eb2b1afdc6f218fc9d57712ba79017cd7e8123816f7f50c4899d789",
+      "archived_sha256": "f19c2589e77dd3cfed8fd06e9534e8c9dd069130306db7b677cd81f0283c8943",
+      "bytes": 50376
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v3\\all_scenes\\impl\\pnr\\all_scenes.rpt.html",
+      "archived": "builds/v3/impl/pnr/all_scenes.rpt.html.gz",
+      "source_sha256": "5c0ca86766891f2e8fb9efce3dc6e0605c207d45714f8dca9dae3a14e5141844",
+      "archived_sha256": "ef77a49b5a00e4c851cd340fdc0a75b7d2a78f936ce63bc6ee9a92af2c4e167c",
+      "bytes": 66424
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v3\\all_scenes\\impl\\pnr\\all_scenes.pin.html",
+      "archived": "builds/v3/impl/pnr/all_scenes.pin.html.gz",
+      "source_sha256": "1117904f9959669bd86ca9868970a1d3d8e89011c1371c57e3545df9b01a9c69",
+      "archived_sha256": "1f506bd1108d8df4b49328b6c0f73715e1a7e61494b553f2f78efda0ce0f9297",
+      "bytes": 60123
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v3\\all_scenes\\all_scenes.gprj",
+      "archived": "builds/v3/all_scenes.gprj.gz",
+      "source_sha256": "faca2d8a5c07f62514035248f9447ee3135533a0c79282dc8f608f002d2b5533",
+      "archived_sha256": "f392cec4b06a7fc62fded756f06c86d0de9be7ad1bc9934e24bceacbd4d827b2",
+      "bytes": 2940
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v3\\all_scenes\\impl\\gwsynthesis\\all_scenes_syn_rsc.xml",
+      "archived": "builds/v3/impl/gwsynthesis/all_scenes_syn_rsc.xml.gz",
+      "source_sha256": "fe6c61f9337c503e7d75e8b7a533edb0ec1be5eca31f5cdf1e5bc78d69fc8403",
+      "archived_sha256": "f2e8fe86b46a4286f89d639748944ce174a84d02c3c105166fc448a194e4bf02",
+      "bytes": 2746
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v3\\all_scenes\\impl\\gwsynthesis\\all_scenes_syn.rpt.html",
+      "archived": "builds/v3/impl/gwsynthesis/all_scenes_syn.rpt.html.gz",
+      "source_sha256": "b4636a0f5d07179d877c3cf473376a104d7d2c062ceddc31649565afc343c71b",
+      "archived_sha256": "d9e817e15c7419bbf1ce0fecf682e4690f4897e803f4adcc4b353eea50e0d1e4",
+      "bytes": 43936
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v3\\all_scenes\\impl\\gwsynthesis\\all_scenes.log",
+      "archived": "builds/v3/impl/gwsynthesis/all_scenes.log.gz",
+      "source_sha256": "7ddf6ce3282f60088bcb6aa2f770adbce8409136998ba70d5d749f18d5d6e631",
+      "archived_sha256": "e54a3f11e63a00f6ba73ba7af7548f0c399a7115698540f50c53ff060e79731c",
+      "bytes": 10226
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v3\\all_scenes\\impl\\pnr\\all_scenes.log",
+      "archived": "builds/v3/impl/pnr/all_scenes.log.gz",
+      "source_sha256": "56a58c6fba0c90fc02b86cdc17cae58abf40a7ec4520a0fc45903b000c118ab3",
+      "archived_sha256": "ab86230000eb61d27380e191012d4160237e6214c2397d860287dc4085319055",
+      "bytes": 2292
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-build-v3.log",
+      "archived": "builds/v3/build.log.gz",
+      "source_sha256": "19561827fb067f0275bb73d82e1bf94e4c7b7e013f4275a4a4ab6f55ca09ef10",
+      "archived_sha256": "3812259130cb54cfd85e31aebf7486bf06a21a616ac1a7a8deddf0d3868abd1b",
+      "bytes": 14797
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v3\\all_scenes\\impl\\pnr\\all_scenes.fs",
+      "archived": "builds/v3/all_scenes.fs.gz",
+      "source_sha256": "502f08f6a915be800e3450e903ccb3ba0f4adcf44856b7dc8968d1c0c4d2dc50",
+      "archived_sha256": "711aae400548fea8859edaa0dd664df157611fc2f91834f95be4cda23879c63a",
+      "bytes": 7264154
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v4\\all_scenes\\impl\\pnr\\all_scenes_tr_content.html",
+      "archived": "builds/v4/impl/pnr/all_scenes_tr_content.html.gz",
+      "source_sha256": "c856404a0133a575497aecca806267368dd67178507f6e47dea60acff59b4a04",
+      "archived_sha256": "d5c6714f796892848b1b661e8254421fc2076a5bee530339c17954ef41e12db7",
+      "bytes": 1448925
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v4\\all_scenes\\impl\\pnr\\all_scenes.rpt.txt",
+      "archived": "builds/v4/impl/pnr/all_scenes.rpt.txt.gz",
+      "source_sha256": "d8395f8e598a1c5f26e763b77eda1a7ad4a89fc92b57108a4db0df33f36b2399",
+      "archived_sha256": "0473bef11090e9eb3b65fef63308ec0f72b2c6b6abc2a2b6c0a1f6115c5b4a53",
+      "bytes": 50421
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v4\\all_scenes\\impl\\pnr\\all_scenes.rpt.html",
+      "archived": "builds/v4/impl/pnr/all_scenes.rpt.html.gz",
+      "source_sha256": "43a2f31f24531bfe7a6a367e80bce45e26420c5df33f09bdcb197fd2f6084f12",
+      "archived_sha256": "30b1f787b3a51cd3fade6b006794e466b39a58d29cb86fe868298b597b081efc",
+      "bytes": 66469
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v4\\all_scenes\\impl\\pnr\\all_scenes.pin.html",
+      "archived": "builds/v4/impl/pnr/all_scenes.pin.html.gz",
+      "source_sha256": "30901abcfde3b3b84214350eb099df6d902f84164b767a73ba14510e1bc3222c",
+      "archived_sha256": "15d7873f7156d967c4ddff686f8f8d09727f77b4d803d5247dfce56c4bfeebd1",
+      "bytes": 60123
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v4\\all_scenes\\all_scenes.gprj",
+      "archived": "builds/v4/all_scenes.gprj.gz",
+      "source_sha256": "faca2d8a5c07f62514035248f9447ee3135533a0c79282dc8f608f002d2b5533",
+      "archived_sha256": "f392cec4b06a7fc62fded756f06c86d0de9be7ad1bc9934e24bceacbd4d827b2",
+      "bytes": 2940
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v4\\all_scenes\\impl\\gwsynthesis\\all_scenes_syn_rsc.xml",
+      "archived": "builds/v4/impl/gwsynthesis/all_scenes_syn_rsc.xml.gz",
+      "source_sha256": "0d5368531dd4f2d45e483a6508b9b239b26e2657fac9e28e2407dbd0968ab49a",
+      "archived_sha256": "eedeca8aaf95998adf46723c2c398b6d94c04b3943cc6cccb7e789d6f24b84c7",
+      "bytes": 2746
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v4\\all_scenes\\impl\\gwsynthesis\\all_scenes_syn.rpt.html",
+      "archived": "builds/v4/impl/gwsynthesis/all_scenes_syn.rpt.html.gz",
+      "source_sha256": "cecdcb53b2fcf3531dd8dc521fd473bb89db09809b96a7192b40c376ba7fda8f",
+      "archived_sha256": "1d45a8b104f0645bc42139e8649dc755d4a60e29096a091fa944b8752ec9dcae",
+      "bytes": 45486
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v4\\all_scenes\\impl\\gwsynthesis\\all_scenes.log",
+      "archived": "builds/v4/impl/gwsynthesis/all_scenes.log.gz",
+      "source_sha256": "5612e596c98172e2c6f0ed588afa39f0b632370a0c5ffe83a0d707c27f5ecb1e",
+      "archived_sha256": "a219126381e2609884f3c67d4f952155aeb7cbdc903a438a144f6f20c0766553",
+      "bytes": 10260
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v4\\all_scenes\\impl\\pnr\\all_scenes.log",
+      "archived": "builds/v4/impl/pnr/all_scenes.log.gz",
+      "source_sha256": "0bf024a698f3e0be63a79b2862cf75e753a17887b26a56beeb25fd4909ec7ec0",
+      "archived_sha256": "17f85088a26bd847a2c2ac1befdd77d9a5d6a2aee500f36b0fbfcea0c323964c",
+      "bytes": 2292
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-build-v4.log",
+      "archived": "builds/v4/build.log.gz",
+      "source_sha256": "83395b6b0e9d4ed5f32b4e42a9486832a0d9aa615983de5c103e8543e313af3a",
+      "archived_sha256": "9535d9d5a6ecc72ee38abc501259da845026ce4eda878430a1d5ab8bd096f507",
+      "bytes": 14831
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v4\\all_scenes\\impl\\pnr\\all_scenes.fs",
+      "archived": "builds/v4/all_scenes.fs.gz",
+      "source_sha256": "2aff6734f7c78ecb67dfbd0845c4911d0ddba82eac9f1f1537a2b72fcb86532a",
+      "archived_sha256": "a4aff651618beb540a5c75208188f98d3242cc10c810d6a2b5d7a2e2059ffd0a",
+      "bytes": 7264154
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v5\\all_scenes\\impl\\pnr\\all_scenes_tr_content.html",
+      "archived": "builds/v5/impl/pnr/all_scenes_tr_content.html.gz",
+      "source_sha256": "f1580fe5f018b3b29c9d2a0b0a248da778f9f88f038879ddf6f4e99f738ac2e8",
+      "archived_sha256": "5b230cdddb98bcaae699949fe34f2878ea388df918a6678e9ba3c36add74c4df",
+      "bytes": 1451926
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v5\\all_scenes\\impl\\pnr\\all_scenes.rpt.txt",
+      "archived": "builds/v5/impl/pnr/all_scenes.rpt.txt.gz",
+      "source_sha256": "e454f7243f37c7a92074ec6258f0b1f917836f21d0d5c8069e3eae381f206ad8",
+      "archived_sha256": "737f31bf4b3a0f6f47792aade6761a7e174fedabd16c92d70bfb2ddef8239eae",
+      "bytes": 50376
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v5\\all_scenes\\impl\\pnr\\all_scenes.rpt.html",
+      "archived": "builds/v5/impl/pnr/all_scenes.rpt.html.gz",
+      "source_sha256": "ce9834d2cb140c9c16df77a1eb879da57ee4fa5a8b57ee16ff2727b4f6959f20",
+      "archived_sha256": "78da5e18d4a903ac45e8df75bac262069efab535ba28ad945473119abb9265e3",
+      "bytes": 66424
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v5\\all_scenes\\impl\\pnr\\all_scenes.pin.html",
+      "archived": "builds/v5/impl/pnr/all_scenes.pin.html.gz",
+      "source_sha256": "01436fc1d8387a52a5dbd0de2fa2c53c7a1f15d779995a69663df62a885d3c94",
+      "archived_sha256": "b4cdfe8837c63e690743e71446dff14d4e06a5abea0264b5e132fd767dd1a5d6",
+      "bytes": 60123
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v5\\all_scenes\\all_scenes.gprj",
+      "archived": "builds/v5/all_scenes.gprj.gz",
+      "source_sha256": "faca2d8a5c07f62514035248f9447ee3135533a0c79282dc8f608f002d2b5533",
+      "archived_sha256": "f392cec4b06a7fc62fded756f06c86d0de9be7ad1bc9934e24bceacbd4d827b2",
+      "bytes": 2940
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v5\\all_scenes\\impl\\gwsynthesis\\all_scenes_syn_rsc.xml",
+      "archived": "builds/v5/impl/gwsynthesis/all_scenes_syn_rsc.xml.gz",
+      "source_sha256": "73cac6b65e7f9db834177f34d222da7f1c101781de648fafd3d2904a4012145c",
+      "archived_sha256": "e350b506718edb2b9f44e34ac9b4388faac645e8b0b9ada258a1984dbc30f211",
+      "bytes": 2756
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v5\\all_scenes\\impl\\gwsynthesis\\all_scenes_syn.rpt.html",
+      "archived": "builds/v5/impl/gwsynthesis/all_scenes_syn.rpt.html.gz",
+      "source_sha256": "066c7c9d1e41f3b2ee967ac9eb4fedc46d96c2e587543fd00f04ddd895f4c8f7",
+      "archived_sha256": "56f844365bc0187a4a7d505d14f8d0bdb3b9f0f1618a995873ec4e3b118e8d0a",
+      "bytes": 47127
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v5\\all_scenes\\impl\\gwsynthesis\\all_scenes.log",
+      "archived": "builds/v5/impl/gwsynthesis/all_scenes.log.gz",
+      "source_sha256": "dafb00c2716ef448044e9bd4b6495fadace70c053103fe431850804ae594cfee",
+      "archived_sha256": "52a22f38ae80a23db14ffc45441626f2e0a04ba8c96b507383d95c7dbc1e35ab",
+      "bytes": 10284
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v5\\all_scenes\\impl\\pnr\\all_scenes.log",
+      "archived": "builds/v5/impl/pnr/all_scenes.log.gz",
+      "source_sha256": "dea5dee6375c9177ce6095c76b5d555478c42b1f4b71c09abf153f4669a8e9ce",
+      "archived_sha256": "de6335bcd40de83da0f6c40b611da1b8b3a0ac066809c88a0b8d0e46dae42288",
+      "bytes": 2292
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-build-v5.log",
+      "archived": "builds/v5/build.log.gz",
+      "source_sha256": "40d3f5e8f09612d0f713ceaebf441492f231fd43f5dfe930dd00c0f98dc6e838",
+      "archived_sha256": "b39bcedc82beb9275d90d4fcc456ab01d9f409ecbce7e73135c07249ba5e0ba8",
+      "bytes": 14855
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v5\\all_scenes\\impl\\pnr\\all_scenes.fs",
+      "archived": "builds/v5/all_scenes.fs.gz",
+      "source_sha256": "7660c5be31dd99c7522ddb46cfcaf31ffd088314ec0e8d5aef0f10cc90969b9f",
+      "archived_sha256": "310319df8edae144c3c50ce2b04b9133ad0f10036643c24bfc06398714b93302",
+      "bytes": 7264154
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-gfx-v5\\all_scenes\\impl\\pnr\\all_scenes.vo",
+      "archived": "builds/v5/all_scenes.vo.gz",
+      "source_sha256": "54cabdb547844d14151061f8fa5c5d22b8e37c7bd1ed6b5c716d299ec5e890d0",
+      "archived_sha256": "d593b6068f2e03d241fe7fcbf2689811f1f938471ed1eb8dd9200f55c33feb23",
+      "bytes": 3975214
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-20261105\\after-info.json",
+      "archived": "evidence/all-scenes-hardware-20261105/after-info.json.gz",
+      "source_sha256": "c78e572eec000595dfb3c157d1634be75e19136628f0408447267c0146b22238",
+      "archived_sha256": "d17f342b1e96df096a1c85aa52c88198e1f4544582a538f81b4c6b3563a15574",
+      "bytes": 1902
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-20261105\\before-info.json",
+      "archived": "evidence/all-scenes-hardware-20261105/before-info.json.gz",
+      "source_sha256": "f9e5097c4585e1bd9ab7b3d10c04b1845eaec263955553f55f18e084cd8ea4ed",
+      "archived_sha256": "486cfa10e29c2db0172a4bbd1326629383474caddb1585aa86702f15106b78c6",
+      "bytes": 1834
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-20261105\\fpga-sram.log",
+      "archived": "evidence/all-scenes-hardware-20261105/fpga-sram.log.gz",
+      "source_sha256": "e9a891b30ec26b02694b612e6d6933d97ac0fdae0823c1ab40fadb5997540987",
+      "archived_sha256": "1fa46d03a3682144a1a42bc9596198de58024e30fa13052c9634fd9be6a4113c",
+      "bytes": 6415
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-20261105\\fpga-status.log",
+      "archived": "evidence/all-scenes-hardware-20261105/fpga-status.log.gz",
+      "source_sha256": "02bf43ed8e9151ffac47e9b42b6f0c3c3922cf2cc558d5cdcfb298a91ad4fc56",
+      "archived_sha256": "86c4b4c6d640ec1563bb18f850ea7dd6e3fcc94a3051e158a4f6400f1ce0e9c7",
+      "bytes": 200
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-20261105\\fpga-usercode.log",
+      "archived": "evidence/all-scenes-hardware-20261105/fpga-usercode.log.gz",
+      "source_sha256": "d1a59fad448ff5138d19f169e175e68737e76e7aace206fa557fed577955a645",
+      "archived_sha256": "772da90b87cbfbfcd2ddec4ccb0efd393751065dc3c294174d795d27b25de441",
+      "bytes": 192
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-20261105\\operations.json",
+      "archived": "evidence/all-scenes-hardware-20261105/operations.json.gz",
+      "source_sha256": "1598810a33cbc2ef63b35a51994edefd28d91a798c9dba5824df8cf81245c755",
+      "archived_sha256": "e7dff5eeb604dd55b0bb2ddac1967a516629a0d55026ba2f857918702d5a963b",
+      "bytes": 1917
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-20261105\\p4-rom.log",
+      "archived": "evidence/all-scenes-hardware-20261105/p4-rom.log.gz",
+      "source_sha256": "b294bf7144de6e51f79b8dcb889b51b06827bb926163f96c09117103f8262aee",
+      "archived_sha256": "6ab7f5db53a93d19b753612f9ffe1055cf6e9bbcfd62fdc0df4c2d09063c8fd5",
+      "bytes": 279
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-20261105\\tab5-flash.log",
+      "archived": "evidence/all-scenes-hardware-20261105/tab5-flash.log.gz",
+      "source_sha256": "aa99ad1f74de2bdd382ab23f29c7ad647121b98b8401e3cbbb4a932b73c51227",
+      "archived_sha256": "4b882d5bc6e43c9bf459fc8661eeb2560f64aa145a9da7e22cf2e9285abd3b7b",
+      "bytes": 2485
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-v4-20261105\\operations.json",
+      "archived": "evidence/all-scenes-hardware-v4-20261105/operations.json.gz",
+      "source_sha256": "9a6ec234ab0b5d868cd7ff7886cb6c1740d9609af79a96fbfd03ae08f2bb3b29",
+      "archived_sha256": "9f377e882d7b17bb6b30383c9b49b56c9fd457a37ecb0ebfb261b60743833de1",
+      "bytes": 1845
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-v4-20261105\\p4-restart.log",
+      "archived": "evidence/all-scenes-hardware-v4-20261105/p4-restart.log.gz",
+      "source_sha256": "7d41bd24cf0c23d92d8bc017e01c4c8e26873d501bdf13011c323366273424b7",
+      "archived_sha256": "92407d994f45fd49dfb4f09f8edd3a950c530e8521a31204bb3f0c1e268d7ee6",
+      "bytes": 417
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-v4-20261105\\p4-rom.log",
+      "archived": "evidence/all-scenes-hardware-v4-20261105/p4-rom.log.gz",
+      "source_sha256": "b294bf7144de6e51f79b8dcb889b51b06827bb926163f96c09117103f8262aee",
+      "archived_sha256": "6ab7f5db53a93d19b753612f9ffe1055cf6e9bbcfd62fdc0df4c2d09063c8fd5",
+      "bytes": 279
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-v4-20261105\\sram.log",
+      "archived": "evidence/all-scenes-hardware-v4-20261105/sram.log.gz",
+      "source_sha256": "ae8f3befbb0993ae51ad7c02fd277a7d862ca243edefecea1933e2a1461a5090",
+      "archived_sha256": "b11ea5685c5f494c0d744722fa15a93bb90ad4a03690d2ba1c0eac7b95e3fb3e",
+      "bytes": 6415
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-v4-20261105\\status.log",
+      "archived": "evidence/all-scenes-hardware-v4-20261105/status.log.gz",
+      "source_sha256": "8a06a4c85541245779472c7972060f9e49890d1bf85281212f854043bd99e35d",
+      "archived_sha256": "5eb67a4c688bf76cb38fe1604a8c3de00c78ae68933781e1d8d9100921f792f8",
+      "bytes": 200
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-v4-20261105\\usercode.log",
+      "archived": "evidence/all-scenes-hardware-v4-20261105/usercode.log.gz",
+      "source_sha256": "b8c84f599f5c8b80ae5871141e85421df250b2c991e94051a32f020be059176d",
+      "archived_sha256": "0dc28a2317a22782e253673486c974d9ac19435687e990a366e8054f0251377e",
+      "bytes": 192
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-v5-20261105\\operations.json",
+      "archived": "evidence/all-scenes-hardware-v5-20261105/operations.json.gz",
+      "source_sha256": "7210b380d6a71e3a109b11fb99638a1e9b10f64c992e9060ff0c8b6bd4b3844c",
+      "archived_sha256": "e63a6ff2dec6238327f5885f82af7c793d5f45c4482bb981c3b70a9591641778",
+      "bytes": 1845
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-v5-20261105\\p4-restart.log",
+      "archived": "evidence/all-scenes-hardware-v5-20261105/p4-restart.log.gz",
+      "source_sha256": "7d41bd24cf0c23d92d8bc017e01c4c8e26873d501bdf13011c323366273424b7",
+      "archived_sha256": "92407d994f45fd49dfb4f09f8edd3a950c530e8521a31204bb3f0c1e268d7ee6",
+      "bytes": 417
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-v5-20261105\\p4-rom.log",
+      "archived": "evidence/all-scenes-hardware-v5-20261105/p4-rom.log.gz",
+      "source_sha256": "b294bf7144de6e51f79b8dcb889b51b06827bb926163f96c09117103f8262aee",
+      "archived_sha256": "6ab7f5db53a93d19b753612f9ffe1055cf6e9bbcfd62fdc0df4c2d09063c8fd5",
+      "bytes": 279
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-v5-20261105\\sram.log",
+      "archived": "evidence/all-scenes-hardware-v5-20261105/sram.log.gz",
+      "source_sha256": "77a5a212fd31b48c3381914126a42ce08d0fc8834d8c747584f5213426d66626",
+      "archived_sha256": "fd39fbdfba3104fba6e1a6065e9d5f78c375b38b5202a5fc09603e13043f4255",
+      "bytes": 6415
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-v5-20261105\\status.log",
+      "archived": "evidence/all-scenes-hardware-v5-20261105/status.log.gz",
+      "source_sha256": "8a06a4c85541245779472c7972060f9e49890d1bf85281212f854043bd99e35d",
+      "archived_sha256": "5eb67a4c688bf76cb38fe1604a8c3de00c78ae68933781e1d8d9100921f792f8",
+      "bytes": 200
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-hardware-v5-20261105\\usercode.log",
+      "archived": "evidence/all-scenes-hardware-v5-20261105/usercode.log.gz",
+      "source_sha256": "f6e433013a1fe36ed3cc96687952e648888e6c785f748e0ad66117d0ead24c06",
+      "archived_sha256": "bd8faccbbec3681f6243b9b3dcaae5c572d525e11afe9b7458633fece0b24d4d",
+      "bytes": 192
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-fast-vendor-tests\\disabled-compile.log",
+      "archived": "evidence/all-scenes-link-fast-vendor-tests/disabled-compile.log.gz",
+      "source_sha256": "6d47c8462d4f715a56c4fb5f02df2e0f667dec88110375f90e7fafad40a2dfc3",
+      "archived_sha256": "b152a224049dd7c8d38b91061ea9f406cff0bc1817d7f0f3c1ac8f0bc6ca5c1d",
+      "bytes": 3952
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-fast-vendor-tests\\disabled-run.log",
+      "archived": "evidence/all-scenes-link-fast-vendor-tests/disabled-run.log.gz",
+      "source_sha256": "713569d3425cb3e6704c29ec3ff191733798241093a462fdfda1b02c7a5fc705",
+      "archived_sha256": "8995328499f510a6c7f847dfec808cccb753482ec4585ee10d13993cf2aca290",
+      "bytes": 247
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-fast-vendor-tests\\disabled.txt",
+      "archived": "evidence/all-scenes-link-fast-vendor-tests/disabled.txt.gz",
+      "source_sha256": "9edfbd0ddfee76701fc3e6069736ab54e9daa6d0868732b643acf19caae3d1fa",
+      "archived_sha256": "957e8d3880cf910ada6977377f0eb1c4f05dde5ab72e56ac364862e4313c474c",
+      "bytes": 1756
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-fast-vendor-tests\\enabled-compile.log",
+      "archived": "evidence/all-scenes-link-fast-vendor-tests/enabled-compile.log.gz",
+      "source_sha256": "6d47c8462d4f715a56c4fb5f02df2e0f667dec88110375f90e7fafad40a2dfc3",
+      "archived_sha256": "b152a224049dd7c8d38b91061ea9f406cff0bc1817d7f0f3c1ac8f0bc6ca5c1d",
+      "bytes": 3952
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-fast-vendor-tests\\enabled-run.log",
+      "archived": "evidence/all-scenes-link-fast-vendor-tests/enabled-run.log.gz",
+      "source_sha256": "83a272e1606ec4cd08d9e56463da93c44c23a352e9ce875cdf518d0c12ccdaa0",
+      "archived_sha256": "f85243f2bab4f0f2dade6c5e7777ee860771858800aa261f7e88aa92562ac6a6",
+      "bytes": 248
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-fast-vendor-tests\\enabled.txt",
+      "archived": "evidence/all-scenes-link-fast-vendor-tests/enabled.txt.gz",
+      "source_sha256": "28ee6e03a4e8595e93a9807d10f404a1068d9a5a4f201d917f5c314d99023095",
+      "archived_sha256": "8e4a5d382622200a75feefa5a1ab3b69d54914d2de1f099f6238254c6fc1aa04",
+      "bytes": 112032
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-gate-bus8\\compile.log",
+      "archived": "evidence/all-scenes-link-gate-bus8/compile.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archived_sha256": "46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e",
+      "bytes": 0
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-gate-bus8\\result.json",
+      "archived": "evidence/all-scenes-link-gate-bus8/result.json.gz",
+      "source_sha256": "d8caff0029118f83118dcbf1ab65bfa7a96b2368ecd154d492e9bfd533197cbf",
+      "archived_sha256": "ed4d33a3d02a5a19050433d06ca0a1f55ec0ebaf20cedd6f3d9c390299fe588e",
+      "bytes": 979
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-gate-bus8\\run.log",
+      "archived": "evidence/all-scenes-link-gate-bus8/run.log.gz",
+      "source_sha256": "8235542b623d1f63b8ca81aca0fcbf77285a4884ea8d42d265c9a209550c144c",
+      "archived_sha256": "150a4d5237d01dc42f482ac6e4b3fbebba07415dcda91a62d0bedb577bf28ce3",
+      "bytes": 4698
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-registered-vendor-tests\\disabled-compile.log",
+      "archived": "evidence/all-scenes-link-registered-vendor-tests/disabled-compile.log.gz",
+      "source_sha256": "6d47c8462d4f715a56c4fb5f02df2e0f667dec88110375f90e7fafad40a2dfc3",
+      "archived_sha256": "b152a224049dd7c8d38b91061ea9f406cff0bc1817d7f0f3c1ac8f0bc6ca5c1d",
+      "bytes": 3952
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-registered-vendor-tests\\disabled-run.log",
+      "archived": "evidence/all-scenes-link-registered-vendor-tests/disabled-run.log.gz",
+      "source_sha256": "713569d3425cb3e6704c29ec3ff191733798241093a462fdfda1b02c7a5fc705",
+      "archived_sha256": "8995328499f510a6c7f847dfec808cccb753482ec4585ee10d13993cf2aca290",
+      "bytes": 247
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-registered-vendor-tests\\disabled.txt",
+      "archived": "evidence/all-scenes-link-registered-vendor-tests/disabled.txt.gz",
+      "source_sha256": "82352bef8f46999420391b3a2b62138cc32539471cee1b14389c5ec71c7c560d",
+      "archived_sha256": "324b68e99dc0f926951465c3b33997e428db56537bba108a69b6f20ee2801f0a",
+      "bytes": 1756
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-registered-vendor-tests\\enabled-compile.log",
+      "archived": "evidence/all-scenes-link-registered-vendor-tests/enabled-compile.log.gz",
+      "source_sha256": "6d47c8462d4f715a56c4fb5f02df2e0f667dec88110375f90e7fafad40a2dfc3",
+      "archived_sha256": "b152a224049dd7c8d38b91061ea9f406cff0bc1817d7f0f3c1ac8f0bc6ca5c1d",
+      "bytes": 3952
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-registered-vendor-tests\\enabled-run.log",
+      "archived": "evidence/all-scenes-link-registered-vendor-tests/enabled-run.log.gz",
+      "source_sha256": "a61c7428777c33b1bc8bd2936e1174773087971e9002ac4a6f1eeb2d6f21b959",
+      "archived_sha256": "f5c31c64e40606b11da3cf937841f1e0638ae49f60824e07861fe3fc25053dd0",
+      "bytes": 248
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-registered-vendor-tests\\enabled.txt",
+      "archived": "evidence/all-scenes-link-registered-vendor-tests/enabled.txt.gz",
+      "source_sha256": "c4afcd066aee0aaf8702bd14225df309114d09842bc5f7892ee69e23afd85667",
+      "archived_sha256": "f717d5e08002f41ed55cd603441630b0677f56cf92f58169df722842d85606cc",
+      "bytes": 118648
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-registered-vendor-tests\\wire-first-vectors.txt",
+      "archived": "evidence/all-scenes-link-registered-vendor-tests/wire-first-vectors.txt.gz",
+      "source_sha256": "79d317329b63c8e858573903055008840a35f918f6cea86dd3baab5aac10aa80",
+      "archived_sha256": "2855ca2c1d8f810c151af44cd2771ae9fdd650df8d982d10ea50bbdbe0df20d2",
+      "bytes": 6800
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-registered1-vendor-tests\\disabled-compile.log",
+      "archived": "evidence/all-scenes-link-registered1-vendor-tests/disabled-compile.log.gz",
+      "source_sha256": "6d47c8462d4f715a56c4fb5f02df2e0f667dec88110375f90e7fafad40a2dfc3",
+      "archived_sha256": "b152a224049dd7c8d38b91061ea9f406cff0bc1817d7f0f3c1ac8f0bc6ca5c1d",
+      "bytes": 3952
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-registered1-vendor-tests\\disabled-run.log",
+      "archived": "evidence/all-scenes-link-registered1-vendor-tests/disabled-run.log.gz",
+      "source_sha256": "df4b19cccfbd65db2910342ac1b998376bc1152720af9b9397b2183b161a4e6c",
+      "archived_sha256": "58105d0dcfcb16f26e0a6f3cccec82eb0c962b79a8c88eda2455aedb3aef433f",
+      "bytes": 247
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-registered1-vendor-tests\\disabled.txt",
+      "archived": "evidence/all-scenes-link-registered1-vendor-tests/disabled.txt.gz",
+      "source_sha256": "82352bef8f46999420391b3a2b62138cc32539471cee1b14389c5ec71c7c560d",
+      "archived_sha256": "324b68e99dc0f926951465c3b33997e428db56537bba108a69b6f20ee2801f0a",
+      "bytes": 1756
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-registered1-vendor-tests\\enabled-compile.log",
+      "archived": "evidence/all-scenes-link-registered1-vendor-tests/enabled-compile.log.gz",
+      "source_sha256": "6d47c8462d4f715a56c4fb5f02df2e0f667dec88110375f90e7fafad40a2dfc3",
+      "archived_sha256": "b152a224049dd7c8d38b91061ea9f406cff0bc1817d7f0f3c1ac8f0bc6ca5c1d",
+      "bytes": 3952
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-registered1-vendor-tests\\enabled-run.log",
+      "archived": "evidence/all-scenes-link-registered1-vendor-tests/enabled-run.log.gz",
+      "source_sha256": "d181644e2dff6364936acd3af60c878feb88ab97e3cdee2c82394a1da642e90b",
+      "archived_sha256": "b85f3ca64b2fc0efaa77f858ba8809ec888e43a7e25eddd7b6444d1d672031e9",
+      "bytes": 248
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-registered1-vendor-tests\\enabled.txt",
+      "archived": "evidence/all-scenes-link-registered1-vendor-tests/enabled.txt.gz",
+      "source_sha256": "c4afcd066aee0aaf8702bd14225df309114d09842bc5f7892ee69e23afd85667",
+      "archived_sha256": "f717d5e08002f41ed55cd603441630b0677f56cf92f58169df722842d85606cc",
+      "bytes": 118648
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-registered1-vendor-tests\\wire-first-vectors.txt",
+      "archived": "evidence/all-scenes-link-registered1-vendor-tests/wire-first-vectors.txt.gz",
+      "source_sha256": "79d317329b63c8e858573903055008840a35f918f6cea86dd3baab5aac10aa80",
+      "archived_sha256": "2855ca2c1d8f810c151af44cd2771ae9fdd650df8d982d10ea50bbdbe0df20d2",
+      "bytes": 6800
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-tests\\disabled-compile.log",
+      "archived": "evidence/all-scenes-link-tests/disabled-compile.log.gz",
+      "source_sha256": "3629586a9225921e7e3d44a91735392cfc3f38e18b59280ea38f1bd700aac40d",
+      "archived_sha256": "a3a5d7267a247501b3042e7d4badc2cbbc081678e31223bc19f4807aac62f2b9",
+      "bytes": 1726
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-tests\\disabled-run.log",
+      "archived": "evidence/all-scenes-link-tests/disabled-run.log.gz",
+      "source_sha256": "e471b1a71c9bc27295098166ab6fee8fcbe7e6aae056936eaa5ecc7ffdb8d811",
+      "archived_sha256": "749b9cef031df24c595c3f94f25e8492d5bf9e9046fb6292e6f679f251ed85a8",
+      "bytes": 247
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-tests\\disabled.txt",
+      "archived": "evidence/all-scenes-link-tests/disabled.txt.gz",
+      "source_sha256": "9edfbd0ddfee76701fc3e6069736ab54e9daa6d0868732b643acf19caae3d1fa",
+      "archived_sha256": "957e8d3880cf910ada6977377f0eb1c4f05dde5ab72e56ac364862e4313c474c",
+      "bytes": 1756
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-tests\\enabled-compile.log",
+      "archived": "evidence/all-scenes-link-tests/enabled-compile.log.gz",
+      "source_sha256": "3629586a9225921e7e3d44a91735392cfc3f38e18b59280ea38f1bd700aac40d",
+      "archived_sha256": "a3a5d7267a247501b3042e7d4badc2cbbc081678e31223bc19f4807aac62f2b9",
+      "bytes": 1726
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-tests\\enabled-run.log",
+      "archived": "evidence/all-scenes-link-tests/enabled-run.log.gz",
+      "source_sha256": "a3f0d5528bee6c0823ea214de7e7af772e8c57049b3c5e4860cba859d77f7c21",
+      "archived_sha256": "e6095575132929c60e4a14819e2217b7ff502b25a6198753c363bb1c2492a16f",
+      "bytes": 248
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-tests\\enabled.txt",
+      "archived": "evidence/all-scenes-link-tests/enabled.txt.gz",
+      "source_sha256": "28ee6e03a4e8595e93a9807d10f404a1068d9a5a4f201d917f5c314d99023095",
+      "archived_sha256": "8e4a5d382622200a75feefa5a1ab3b69d54914d2de1f099f6238254c6fc1aa04",
+      "bytes": 112032
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-tests\\wire-rtl.log",
+      "archived": "evidence/all-scenes-link-tests/wire-rtl.log.gz",
+      "source_sha256": "0f16eb98bd90c89057813d7cbdabc0b9b61fa2bacd4f8c7bfa3ec621c9869cec",
+      "archived_sha256": "47dc20889b32d6a5d0be1fce8eb54d51528c9527c61e83e86bcb80e7244389cb",
+      "bytes": 3947
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-wire-tests\\disabled-compile.log",
+      "archived": "evidence/all-scenes-link-wire-tests/disabled-compile.log.gz",
+      "source_sha256": "3629586a9225921e7e3d44a91735392cfc3f38e18b59280ea38f1bd700aac40d",
+      "archived_sha256": "a3a5d7267a247501b3042e7d4badc2cbbc081678e31223bc19f4807aac62f2b9",
+      "bytes": 1726
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-wire-tests\\disabled-run.log",
+      "archived": "evidence/all-scenes-link-wire-tests/disabled-run.log.gz",
+      "source_sha256": "713569d3425cb3e6704c29ec3ff191733798241093a462fdfda1b02c7a5fc705",
+      "archived_sha256": "8995328499f510a6c7f847dfec808cccb753482ec4585ee10d13993cf2aca290",
+      "bytes": 247
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-wire-tests\\disabled.txt",
+      "archived": "evidence/all-scenes-link-wire-tests/disabled.txt.gz",
+      "source_sha256": "82352bef8f46999420391b3a2b62138cc32539471cee1b14389c5ec71c7c560d",
+      "archived_sha256": "324b68e99dc0f926951465c3b33997e428db56537bba108a69b6f20ee2801f0a",
+      "bytes": 1756
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-wire-tests\\enabled-compile.log",
+      "archived": "evidence/all-scenes-link-wire-tests/enabled-compile.log.gz",
+      "source_sha256": "3629586a9225921e7e3d44a91735392cfc3f38e18b59280ea38f1bd700aac40d",
+      "archived_sha256": "a3a5d7267a247501b3042e7d4badc2cbbc081678e31223bc19f4807aac62f2b9",
+      "bytes": 1726
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-wire-tests\\enabled-run.log",
+      "archived": "evidence/all-scenes-link-wire-tests/enabled-run.log.gz",
+      "source_sha256": "56b19c2394db1a9d5c71651a83eade8b2e63de32b308e2bd83473dd0032a88b0",
+      "archived_sha256": "f5ce032a943875aff518d6b9667f8436bbf32f8660d7b4931eaa3d2ef75e826a",
+      "bytes": 248
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-wire-tests\\enabled.txt",
+      "archived": "evidence/all-scenes-link-wire-tests/enabled.txt.gz",
+      "source_sha256": "c4afcd066aee0aaf8702bd14225df309114d09842bc5f7892ee69e23afd85667",
+      "archived_sha256": "f717d5e08002f41ed55cd603441630b0677f56cf92f58169df722842d85606cc",
+      "bytes": 118648
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-wire-tests\\gate-compile.log",
+      "archived": "evidence/all-scenes-link-wire-tests/gate-compile.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archived_sha256": "46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e",
+      "bytes": 0
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-wire-tests\\gate-run.log",
+      "archived": "evidence/all-scenes-link-wire-tests/gate-run.log.gz",
+      "source_sha256": "ff0c71297de426ecca1b4c9ca1a8afab116f5e9981ea88e8e9f008cbe7087ffe",
+      "archived_sha256": "f4266991d0697db7c738c91bfbac41128dee0fb05c01eb0cf90b8f339afac327",
+      "bytes": 4740
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-wire-tests\\registered-legacy-batch.log",
+      "archived": "evidence/all-scenes-link-wire-tests/registered-legacy-batch.log.gz",
+      "source_sha256": "278a8d40f5b32d809579880d3f51ef370ad0dfbfc11ab5c2e95885c0b0a1496b",
+      "archived_sha256": "480254ede94d06327e1a22c3d4626e67984fb155b714a5e49524a555daee23f8",
+      "bytes": 1869
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-wire-tests\\registered-link.log",
+      "archived": "evidence/all-scenes-link-wire-tests/registered-link.log.gz",
+      "source_sha256": "d29292b91a7e6d10f575874dd141df135b9b6670680bf3eea59c60d7ae18d91c",
+      "archived_sha256": "ec89d93c8389a970e00c96c946e1408762391c497261304a56614d89cee96d61",
+      "bytes": 8399
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-wire-tests\\registered1-link.log",
+      "archived": "evidence/all-scenes-link-wire-tests/registered1-link.log.gz",
+      "source_sha256": "9c961c04cb4b4e295b217b68c06507e4498852e178f407a1432605d5729322d8",
+      "archived_sha256": "db95f92f47f02429c8a610ef56f6857a3898ee9770a298ab254fcbc05f6d49cd",
+      "bytes": 8399
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-wire-tests\\wire-first-exact-seq8c.txt",
+      "archived": "evidence/all-scenes-link-wire-tests/wire-first-exact-seq8c.txt.gz",
+      "source_sha256": "491b1947ad1fca4235de4976c5629ff9d8cc51ba34739538180152437155e200",
+      "archived_sha256": "c282835b5c63079dd65b7df965cf56debfb5f0f535071c66f1b959c496859bb8",
+      "bytes": 6775
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-link-wire-tests\\wire-first-vectors.txt",
+      "archived": "evidence/all-scenes-link-wire-tests/wire-first-vectors.txt.gz",
+      "source_sha256": "79d317329b63c8e858573903055008840a35f918f6cea86dd3baab5aac10aa80",
+      "archived_sha256": "2855ca2c1d8f810c151af44cd2771ae9fdd650df8d982d10ea50bbdbe0df20d2",
+      "bytes": 6800
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-record-gates\\commands.json",
+      "archived": "evidence/all-scenes-record-gates/commands.json.gz",
+      "source_sha256": "22d3d54675b223d1817a4d0ff9d9049bf5acf6078b0f7177a2bb2ae7c21ef3f7",
+      "archived_sha256": "f32f2707c61a84bf49e38767854f623b49a08905b3a09fee18d27cf790ac36d3",
+      "bytes": 1352
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-record-gates\\run_fire_tile.log",
+      "archived": "evidence/all-scenes-record-gates/run_fire_tile.log.gz",
+      "source_sha256": "b7c41d934b4ae01c10207b12c3aaaf0e782677392d805b3fd5ed8b1b552c0303",
+      "archived_sha256": "0b0bc3c5beaddef604d79b90406d407bf860ecd57c4b8a40c20fbaed406be7a3",
+      "bytes": 252
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-record-gates\\run_reply_clock_filter_active.log",
+      "archived": "evidence/all-scenes-record-gates/run_reply_clock_filter_active.log.gz",
+      "source_sha256": "067c224a16e49fd11f076ee4459a2e3a19c56aa7518055611f041e55761190ec",
+      "archived_sha256": "1d0232940c49d636c7bd43e225121e52c4406a1450662b47bc41b204db04d7e7",
+      "bytes": 379
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-record-gates\\run_request_data_alignment.log",
+      "archived": "evidence/all-scenes-record-gates/run_request_data_alignment.log.gz",
+      "source_sha256": "975b2735411214ed81065fc9696469018250e47ead464736fdf3b807b852e36b",
+      "archived_sha256": "0b547e2017c4bea767def636be3bdcfaab89682b006b8c7f413555e85508f5f8",
+      "bytes": 1502
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-tile-tests\\compile.log",
+      "archived": "evidence/all-scenes-tile-tests/compile.log.gz",
+      "source_sha256": "a9f54209d48420b7b9b60eb97ed9b51434acc0020342f52e0e90f2a1a2967a0f",
+      "archived_sha256": "e341590011a6e93d3d484c8d9c638319358a1273142cd68f3a123fce2d9450f2",
+      "bytes": 664
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-tile-tests\\fractal-portable.log",
+      "archived": "evidence/all-scenes-tile-tests/fractal-portable.log.gz",
+      "source_sha256": "be003afbb0ad9e2f35272196848b3221847afeb901758caf60ae47aecd68b7d4",
+      "archived_sha256": "445db99ad5b179ca1f515e70a163c35be71b2154ce6a46e2e0e6e8fc80e7393f",
+      "bytes": 2754
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-tile-tests\\fractal-vendor.log",
+      "archived": "evidence/all-scenes-tile-tests/fractal-vendor.log.gz",
+      "source_sha256": "eba5c03d97e588d174a9b408e0440ee6b83c6006675eab6851141cb25dad964a",
+      "archived_sha256": "76d1b6a894651ce3d1e2925f5a4ffed732c516edd9e3e2ed9e15ff72deabe4c0",
+      "bytes": 4587
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-tile-tests\\run.log",
+      "archived": "evidence/all-scenes-tile-tests/run.log.gz",
+      "source_sha256": "e6a19cd2b04649be5f9a9a97e5a75e1d6586944ca42456ee0570159fc8e96f0f",
+      "archived_sha256": "3e0324c62a346bffff54c5e8c38b9c50d36576765fa88fc52194ed1f4a45dbe7",
+      "bytes": 185
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-tile-tests\\run_fractal_tile.py.log",
+      "archived": "evidence/all-scenes-tile-tests/run_fractal_tile.py.log.gz",
+      "source_sha256": "8f8d44243b2d24f587aeb1f48de5493064b00162b03c568337743b53a7f1d4fd",
+      "archived_sha256": "c39876dc1685d2050fd7cfb70d5a7e2d84d20724b96f1a7e80f661df95533b48",
+      "bytes": 2944
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-tile-tests\\run_triangle_tile.py.log",
+      "archived": "evidence/all-scenes-tile-tests/run_triangle_tile.py.log.gz",
+      "source_sha256": "ec35fd1af813b7c8650f480fdcb2227758415b5fac1570ed64e65a7fa305c7c5",
+      "archived_sha256": "2f476e11dd60d64967650e1b4bc79da793fbad7829d0415216e907884b881a66",
+      "bytes": 1972
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-tile-vendor-tests\\compile.log",
+      "archived": "evidence/all-scenes-tile-vendor-tests/compile.log.gz",
+      "source_sha256": "0fa010c0e9949f4896a127426b4c7f1d1a677040e954a14bf15b4d296ae40dad",
+      "archived_sha256": "b9357b443f364a08bb5f5217d4024f837bb78fa77eefc3f8c2f3ac1c6b5b65e5",
+      "bytes": 2424
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-tile-vendor-tests\\run.log",
+      "archived": "evidence/all-scenes-tile-vendor-tests/run.log.gz",
+      "source_sha256": "3278412d62723b79f5de07e5e10015219eb7da62cb31060340f2b942381dd3b2",
+      "archived_sha256": "c81490365bd794ec40fd68c24b0889aa258d705ffa4ffc3ab2bd976822b7ff57",
+      "bytes": 185
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\fire-fixed-check\\legacy-clock-filter-regression.json",
+      "archived": "evidence/fire-fixed-check/legacy-clock-filter-regression.json.gz",
+      "source_sha256": "efe4ece753c3ac472ce37a15cf8a2c2a041e25f477a282094de155b732f18ef8",
+      "archived_sha256": "819d2c1666da336655e30ed94a78153108ad9952fb34c0409b97941fe0794c03",
+      "bytes": 60956
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\fire-fixed-check\\synthesis-education-shared-pipelined.log",
+      "archived": "evidence/fire-fixed-check/synthesis-education-shared-pipelined.log.gz",
+      "source_sha256": "8dc65c958d5b21a42c447895fe455ade51239eb785a8c00958b1d10dd2d33a92",
+      "archived_sha256": "ca80692a29a60748be0245b1683beda7feecec87acf09810831835a615f124a1",
+      "bytes": 2300
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\fire-fixed-check\\synthesis-education-shared.log",
+      "archived": "evidence/fire-fixed-check/synthesis-education-shared.log.gz",
+      "source_sha256": "73b2260384b2dc5fb6d65d50aa3a090e07521fb364a117f872da3a11aa2a03ee",
+      "archived_sha256": "ba971abef7d9adb730fc8c87436c3f188ae269985fc7f113904652bfa649e407",
+      "bytes": 2300
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\fire-fixed-check\\synthesis-education.log",
+      "archived": "evidence/fire-fixed-check/synthesis-education.log.gz",
+      "source_sha256": "3365488c1aa1564038cc6e3ff924b0bb97ebf8ee55c59cf4a4e7f62e53683dc9",
+      "archived_sha256": "5a19fa35f42b0853e2f3c51c45bd261c6248ed8a363095df2d20f7f16513c03c",
+      "bytes": 2994
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\fire-fixed-check\\synthesis.log",
+      "archived": "evidence/fire-fixed-check/synthesis.log.gz",
+      "source_sha256": "c06e94306ed84c63292b3b2b6460696e59a40dacfc3c1a1bd521a36b72a4b086",
+      "archived_sha256": "ac0d235fa6e2e9bd19caedc383998fe28d55009f322876c607185b3714cf226e",
+      "bytes": 54
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-sta-v2.json",
+      "archived": "evidence/all-scenes-sta-v2.json.gz",
+      "source_sha256": "516b4c8f8a6dcb9e9e6e7e93338814d06fe261359fff8615f75c84bf085e3f33",
+      "archived_sha256": "1c17afedd92527525a12f08102bedce0f92f92bf2efaac0cd7e921c1f3e3866c",
+      "bytes": 168
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-sta-v3.json",
+      "archived": "evidence/all-scenes-sta-v3.json.gz",
+      "source_sha256": "70dc57eb6abdf3f14b570362f814a24834e2f2b0abeabe799a8f8cb3b41472fd",
+      "archived_sha256": "0b7de3edc934242ed1c9294e0046ecb2dd8ed1d357fe235f088782512550621d",
+      "bytes": 168
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-sta-v4.json",
+      "archived": "evidence/all-scenes-sta-v4.json.gz",
+      "source_sha256": "0b3efb7e13f818d2c993eac5aa8ac53d9c6c059aab6b65b599995108656a0f1e",
+      "archived_sha256": "2b2b2a3b0cf5ea90b34c24fc971dd00b2aa4123c2a6f2b443e5523920699fcae",
+      "bytes": 168
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-offline-ready\\fpga\\build\\all-scenes-sta-v5.json",
+      "archived": "evidence/all-scenes-sta-v5.json.gz",
+      "source_sha256": "270a3210642b04068b8e5e7c0fc353299325a88300d5671a614f5b9db2232208",
+      "archived_sha256": "de2e51d5faac954f3dc0f7d32b87740ae5451143a3ce4f6ec9d1b6c80f0c3adc",
+      "bytes": 168
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-matched-tx-bench\\build\\all8-hardware-640-20261105\\result.json",
+      "archived": "host-evidence/all8-hardware-640-20261105.json.gz",
+      "source_sha256": "45476a3a3ef35ec1b5d4e8d0f632b2c4322ab98bd9375fafa9f7fe0e4900adef",
+      "archived_sha256": "4d30f6f19c2d908e83dd2d86403b063bc6ebbcdc4708fdf6abedd7aeeb206b65",
+      "bytes": 86040
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-matched-tx-bench\\build\\all8-hardware-640-registered-20261105\\result.json",
+      "archived": "host-evidence/all8-hardware-640-registered-20261105.json.gz",
+      "source_sha256": "cda3001763a3e35de69c2763d04a574cf2245cb0ae94f92f95a0ad55bb9da628",
+      "archived_sha256": "ded2ab1297cbdb45dc20d10e00faabdff5cd961c218fa41c8bd461428e8e59c0",
+      "bytes": 86147
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-matched-tx-bench\\build\\all8-hardware-640-tx5-20261105\\result.json",
+      "archived": "host-evidence/all8-hardware-640-tx5-20261105.json.gz",
+      "source_sha256": "d772960a7693db9875c6b5dbde909b85d0d20df8e3e5ad5eb747352f1d83dd61",
+      "archived_sha256": "1cc9935e2158b55db54b733e503bb68c440cac67e15605d100a615690e979f97",
+      "bytes": 2188998
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-matched-tx-bench\\build\\all8-flow-continuation-640-tx5-20261105\\result.json",
+      "archived": "host-evidence/all8-flow-continuation-640-tx5-20261105.json.gz",
+      "source_sha256": "03204de778acd45507273fb0697c3cbfa019ef0ec650775a7b6ef7334e7ec2f6",
+      "archived_sha256": "6e670175c8c00d6df1791a7747d830a962f08d8c5b53e5f8ce2356b72767f0a1",
+      "bytes": 317806
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-matched-tx-bench\\build\\all8-hardware-640-aligned-tx8-20261105\\result.json",
+      "archived": "host-evidence/all8-hardware-640-aligned-tx8-20261105.json.gz",
+      "source_sha256": "e03d7a49d09ad7bbdafa4dd31bbc88c5024fa9cae8cd68037d4fd4469f8fe4a6",
+      "archived_sha256": "0d747761d390e2d859d54b43f696c39044118988a92bdbd57a66efa8a4b2aca1",
+      "bytes": 2187590
+    },
+    {
+      "source": "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-matched-tx-bench\\build\\all8-flow-continuation-640-tx8-20261105\\result.json",
+      "archived": "host-evidence/all8-flow-continuation-640-tx8-20261105.json.gz",
+      "source_sha256": "af06a3a1bf3d1d4dd0e8a8082e7769fe03fce97c3d0fd7428641eac455a3e4b7",
+      "archived_sha256": "ccc99cf26e14bc918d6cb906b7ff418cc6425def7d0f7255a4160bb8db653e61",
+      "bytes": 317795
+    }
+  ]
+}

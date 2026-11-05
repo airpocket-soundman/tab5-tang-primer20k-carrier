@@ -1,5 +1,5 @@
 // One immutable validated command bank. No execution before trailer CRC.
-module triangle_batch(input wire clk,reset_n,abort,start,
+module triangle_batch #(parameter BASE_OP=8'h21, parameter DRAW_OP=8'h2c, parameter UPLOAD_MODE=0, parameter REGISTER_INPUT=0)(input wire clk,reset_n,abort,start,
  input wire [6:0] count,input wire [15:0] header_crc,
  input wire byte_valid,input wire [7:0] byte_data,
  output wire receiving,output wire busy,output reg done,
@@ -10,9 +10,32 @@ module triangle_batch(input wire clk,reset_n,abort,start,
  reg [3:0] state;reg [15:0] words[0:639];
  reg [9:0] address,total_words;reg half;reg [7:0] low,crc_low;
  reg [15:0] crc,ram_q,command_word;reg [3:0] field;
+ // Optional SYS-domain byte capture. Both CRC and RAM consume the same
+ // registered byte on the following clock; the package-pad path never feeds
+ // the high-byte RAM input directly in this mode. This is a timing candidate,
+ // not proof of signal integrity or a substitute for CRC/physical validation.
+ wire input_valid;
+ wire [7:0] input_data;
+ generate if(REGISTER_INPUT) begin: registered_input
+  reg captured_valid;
+  reg [7:0] captured_data;
+  always @(posedge clk or negedge reset_n) begin
+   if(!reset_n) begin captured_valid<=0;captured_data<=0;end
+   else if(abort) begin captured_valid<=0;captured_data<=0;end
+   else begin
+    captured_valid<=byte_valid;
+    if(byte_valid) captured_data<=byte_data;
+   end
+  end
+  assign input_valid=captured_valid;
+  assign input_data=captured_data;
+ end else begin: direct_input
+  assign input_valid=byte_valid;
+  assign input_data=byte_data;
+ end endgenerate
  assign receiving=state==RX || state==CRC_LO || state==CRC_HI;
  assign busy=state!=IDLE;
- assign cmd_opcode=field==10 ? 8'h2c : 8'h21+field;
+ assign cmd_opcode=field==10 ? DRAW_OP : (UPLOAD_MODE?BASE_OP:BASE_OP+field);
  assign cmd_a=field==10 ? 0:command_word[7:0];
  assign cmd_b=field==10 ? 0:command_word[15:8];
  function [15:0] crc_byte;
@@ -21,7 +44,7 @@ module triangle_batch(input wire clk,reset_n,abort,start,
  endfunction
  // Unreset synchronous single-port RAM, write only complete staged words.
  always @(posedge clk) begin
-  if(state==RX && byte_valid && half) words[address]<={byte_data,low};
+  if(state==RX && input_valid && half) words[address]<={input_data,low};
   else ram_q<=words[address];
  end
  always @(posedge clk or negedge reset_n) begin
@@ -31,15 +54,15 @@ module triangle_batch(input wire clk,reset_n,abort,start,
    if(abort) begin state<=IDLE;half<=0;address<=0;end
    else case(state)
     IDLE: if(start) begin state<=RX;total_words<=count*10;address<=0;half<=0;crc<=header_crc;status<=0;end
-    RX: if(byte_valid) begin
-      crc<=crc_byte(crc,byte_data);half<=!half;
-      if(!half) low<=byte_data;
+    RX: if(input_valid) begin
+      crc<=crc_byte(crc,input_data);half<=!half;
+      if(!half) low<=input_data;
       else if(address+1==total_words) state<=CRC_LO;
       else address<=address+1'b1;
     end
-    CRC_LO: if(byte_valid) begin crc_low<=byte_data;state<=CRC_HI;end
-    CRC_HI: if(byte_valid) begin
-      if({byte_data,crc_low}!=crc) begin status<=1;done<=1;state<=IDLE;end
+    CRC_LO: if(input_valid) begin crc_low<=input_data;state<=CRC_HI;end
+    CRC_HI: if(input_valid) begin
+      if({input_data,crc_low}!=crc) begin status<=1;done<=1;state<=IDLE;end
       else begin address<=0;field<=0;state<=FETCH;end
     end
     FETCH:state<=LATCH;

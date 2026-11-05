@@ -3,6 +3,8 @@
 module link_bringup #(
     parameter TIMEOUT_CYCLES = 2700000,
     parameter GFX_ENABLE = 0,
+    parameter ALL_SCENES_ENABLE = 0,
+    parameter REQUEST_DATA_PIPELINE = 0,
     parameter CORE_CLOCK_MHZ = 27,
     parameter CLOCK_QUERY_ENABLE = 0,
     parameter FAST_REPLY_ENABLE = 0,
@@ -16,6 +18,21 @@ module link_bringup #(
     reg [2:0] clk_sync;
     reg [1:0] dir_sync;
     wire rise = clk_sync[1] & ~clk_sync[2];
+    // Opt-in bundled request-data alignment. The byte and CLK first-stage
+    // samples are taken at the same SYS edge; the delayed rise consumes that
+    // same byte through the second data stage. This is a timing candidate,
+    // not a guarantee of analog setup/hold or a replacement for packet CRC.
+    wire [7:0] request_data;
+    generate if(REQUEST_DATA_PIPELINE) begin: request_pipe
+        reg [7:0] request_meta,request_sampled;
+        always @(posedge sys_clk or negedge reset_n) begin
+            if(!reset_n) begin request_meta<=0;request_sampled<=0;end
+            else begin request_meta<=data_i;request_sampled<=request_meta;end
+        end
+        assign request_data=request_sampled;
+    end else begin: request_direct
+        assign request_data=data_i;
+    end endgenerate
     reg [7:0] req[0:6];
     reg [7:0] reply[0:5];
     reg [2:0] rx_index;
@@ -31,7 +48,7 @@ module link_bringup #(
     reg [31:0] idle_count;
     reg [15:0] reply_crc;
     reg gfx_start, gfx_pending;
-    reg batch_start,batch_pending;
+    reg batch_start,batch_pending,batch_is_2d,batch_is_upload;
     reg [15:0] batch_header_crc;
     wire batch_receiving,batch_busy,batch_done,batch_cmd_start;
     wire [7:0] batch_status,batch_cmd_opcode,batch_cmd_a,batch_cmd_b;
@@ -72,10 +89,37 @@ module link_bringup #(
     wire [10:0] row_index=use_raw ? (tile_mode?11'd0:{5'b0,raw_row_index}):legacy_row_index;
     generate if(GFX_ENABLE==2) begin: triangle
         wire renderer_abort = (gfx_pending || batch_pending) && idle_count >= TIMEOUT_CYCLES-1;
-        triangle_batch staging(sys_clk,reset_n,batch_abort,batch_start,{1'b0,req[4][5:0]}+(req[4]==64?7'd64:7'd0),
-            batch_header_crc,batch_byte_valid,data_i,batch_receiving,batch_busy,batch_done,batch_status,
-            batch_cmd_start,batch_cmd_opcode,batch_cmd_a,batch_cmd_b,gfx_done,gfx_status);
-        triangle_tile #(.CORE_CLOCK_MHZ(CORE_CLOCK_MHZ),.CLOCK_QUERY_ENABLE(CLOCK_QUERY_ENABLE),.RAW_READ_ENABLE(FAST_REPLY_ENABLE)) renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start || batch_cmd_start,
+        wire tri_receiving,tri_busy,tri_done,tri_cmd_start;
+        wire [7:0] tri_status,tri_opcode,tri_a,tri_b;
+        wire d2_receiving,d2_busy,d2_done,d2_cmd_start;
+        wire up_receiving,up_busy,up_done,up_cmd_start;
+        wire [7:0] up_status,up_opcode,up_a,up_b;
+        wire [7:0] d2_status,d2_opcode,d2_a,d2_b;
+        triangle_batch staging(sys_clk,reset_n,batch_abort,batch_start && !batch_is_2d && !batch_is_upload,{1'b0,req[4][5:0]}+(req[4]==64?7'd64:7'd0),
+            batch_header_crc,batch_byte_valid,request_data,tri_receiving,tri_busy,tri_done,tri_status,
+            tri_cmd_start,tri_opcode,tri_a,tri_b,gfx_done,gfx_status);
+        if(ALL_SCENES_ENABLE) begin: scenes_batch
+            triangle_batch #(.BASE_OP(8'h61),.DRAW_OP(8'h6b),.REGISTER_INPUT(1)) staging2d(sys_clk,reset_n,batch_abort,batch_start && batch_is_2d,{1'b0,req[4][5:0]}+(req[4]==64?7'd64:7'd0),
+                batch_header_crc,batch_byte_valid,request_data,d2_receiving,d2_busy,d2_done,d2_status,
+                d2_cmd_start,d2_opcode,d2_a,d2_b,gfx_done,gfx_status);
+            triangle_batch #(.BASE_OP(8'h6c),.DRAW_OP(8'h5e),.UPLOAD_MODE(1),.REGISTER_INPUT(1)) upload_staging(sys_clk,reset_n,batch_abort,batch_start && batch_is_upload,{1'b0,req[4][5:0]}+(req[4]==64?7'd64:7'd0),
+                batch_header_crc,batch_byte_valid,request_data,up_receiving,up_busy,up_done,up_status,
+                up_cmd_start,up_opcode,up_a,up_b,gfx_done,gfx_status);
+        end else begin: no_scenes_batch
+            assign d2_receiving=0;assign d2_busy=0;assign d2_done=0;assign d2_status=0;
+            assign d2_cmd_start=0;assign d2_opcode=0;assign d2_a=0;assign d2_b=0;
+            assign up_receiving=0;assign up_busy=0;assign up_done=0;assign up_status=0;
+            assign up_cmd_start=0;assign up_opcode=0;assign up_a=0;assign up_b=0;
+        end
+        assign batch_receiving=batch_is_upload?up_receiving:(batch_is_2d?d2_receiving:tri_receiving);
+        assign batch_busy=batch_is_upload?up_busy:(batch_is_2d?d2_busy:tri_busy);
+        assign batch_done=batch_is_upload?up_done:(batch_is_2d?d2_done:tri_done);
+        assign batch_status=batch_is_upload?up_status:(batch_is_2d?d2_status:tri_status);
+        assign batch_cmd_start=batch_is_upload?up_cmd_start:(batch_is_2d?d2_cmd_start:tri_cmd_start);
+        assign batch_cmd_opcode=batch_is_upload?up_opcode:(batch_is_2d?d2_opcode:tri_opcode);
+        assign batch_cmd_a=batch_is_upload?up_a:(batch_is_2d?d2_a:tri_a);
+        assign batch_cmd_b=batch_is_upload?up_b:(batch_is_2d?d2_b:tri_b);
+        triangle_tile #(.ALL_SCENES_ENABLE(ALL_SCENES_ENABLE),.CORE_CLOCK_MHZ(CORE_CLOCK_MHZ),.CLOCK_QUERY_ENABLE(CLOCK_QUERY_ENABLE),.RAW_READ_ENABLE(FAST_REPLY_ENABLE)) renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start || batch_cmd_start,
                               renderer_opcode, renderer_a, renderer_b, gfx_done, gfx_status, gfx_result,
                               row_index, row_byte,bus_clk,raw_ram_enable,raw_ram_address,raw_ram_color,raw_ram_depth);
     end else if(GFX_ENABLE) begin: gfx
@@ -146,11 +190,11 @@ module link_bringup #(
                 bad_count_latched<=1;bad_pending<=0;
             end
             if(idle_count>=TIMEOUT_CYCLES-1) bad_pending<=0;
-            // The eighth byte is the CURRENT sampled data_i. req[] only
+            // The eighth byte is the CURRENT sampled request_data. req[] only
             // stores bytes0..6; no stale/uninitialized eighth array byte.
             if(rise && !dir_sync[1] && !dir && !valid && !gfx_pending && !batch_pending && rx_index==7 &&
-               (req[0]!=8'ha5 || req[3]!=2 || req[6]!=rx_crc[7:0] || data_i!=rx_crc[15:8])) begin
-                last_bad_request<={data_i,req[6],req[5],req[4],req[3],req[2],req[1],req[0]};
+               (req[0]!=8'ha5 || req[3]!=2 || req[6]!=rx_crc[7:0] || request_data!=rx_crc[15:8])) begin
+                last_bad_request<={request_data,req[6],req[5],req[4],req[3],req[2],req[1],req[0]};
                 bad_valid<=1;bad_pending<=1;bad_count_latched<=0;bad_count_overflow<=0;bad_edges<=0;
                 bad_generation<=bad_generation+1'b1;
             end
@@ -162,7 +206,7 @@ module link_bringup #(
             fast_inflight<=0;fast_offer<=0;fast_prepare<=0;fast_metadata<=0;
             raw_done_sync<=0;raw_started_sync<=0;raw_progress_sync<=0;raw_progress_last<=0;
             valid<=0; rx_crc<=16'hffff; idle_count<=0;
-            gfx_start<=0; gfx_pending<=0;batch_start<=0;batch_pending<=0;
+            gfx_start<=0; gfx_pending<=0;batch_start<=0;batch_pending<=0;batch_is_2d<=0;batch_is_upload<=0;
             bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff;
         end else begin
             gfx_start<=0;batch_start<=0;
@@ -216,16 +260,16 @@ module link_bringup #(
                     idle_count<=0;
                     if(!dir_sync[1] && !dir && !valid && !gfx_pending && !batch_pending) begin
                         if(rx_index==0) begin bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff; end
-                        if(rx_index<7) req[rx_index]<=data_i;
-                        if(rx_index<6) rx_crc<=crc_byte(rx_crc,data_i);
+                        if(rx_index<7) req[rx_index]<=request_data;
+                        if(rx_index<6) rx_crc<=crc_byte(rx_crc,request_data);
                         if(rx_index==7) begin
                             rx_index<=0; rx_crc<=16'hffff;
                             reply[0]<=8'h5a; reply[2]<=req[2]; reply[3]<=2;
                             reply[4]<=0; reply[5]<=0; tx_index<=0; valid<=1;
                             bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff;
                             prefixed<=req[1][7] && req[0]==8'ha5 && req[3]==2 &&
-                                      req[6]==rx_crc[7:0] && data_i==rx_crc[15:8];
-                            if(req[0]!=8'ha5 || req[3]!=2 || req[6]!=rx_crc[7:0] || data_i!=rx_crc[15:8]) reply[1]<=1;
+                                      req[6]==rx_crc[7:0] && request_data==rx_crc[15:8];
+                            if(req[0]!=8'ha5 || req[3]!=2 || req[6]!=rx_crc[7:0] || request_data!=rx_crc[15:8]) reply[1]<=1;
                             else case(logical_opcode)
                                 8'h42: if(TX_CAPTURE_ENABLE) begin
                                     if(req[4]!=0 || req[5]!=0)reply[1]<=3;
@@ -253,9 +297,9 @@ module link_bringup #(
                                     if(req[4]!=0 || req[5]!=0) reply[1]<=3;
                                     else begin reply[1]<=0;reply[4]<=64;reply[5]<=1;end
                                 end else reply[1]<=2;
-                                8'h41: if(GFX_ENABLE==2) begin
+                                8'h41,8'h5f,8'h6e: if(GFX_ENABLE==2 && (logical_opcode==8'h41 || ALL_SCENES_ENABLE)) begin
                                     if(req[4]<1 || req[4]>64 || req[5]!=1) reply[1]<=3;
-                                    else begin valid<=0;batch_pending<=1;batch_start<=1;batch_header_crc<=rx_crc;end
+                                    else begin valid<=0;batch_pending<=1;batch_is_2d<=logical_opcode==8'h6e;batch_is_upload<=logical_opcode==8'h5f;batch_start<=1;batch_header_crc<=rx_crc;end
                                 end else reply[1]<=2;
                                 1: begin reply[1]<=0; reply[4]<=8'h54; reply[5]<=8'h50; end
                                 2: begin reply[1]<=0; reply[4]<=req[4]; reply[5]<=req[5]; end
@@ -270,6 +314,12 @@ module link_bringup #(
                                 8'h30,8'h31,8'h32,8'h33,8'h34,8'h35,8'h36,8'h37,8'h38,8'h39,8'h3a,8'h3b,8'h3c,8'h3d:
                                     if(GFX_ENABLE==2) begin
                                         valid<=0; gfx_pending<=1; gfx_start<=1;
+                                    end else reply[1]<=2;
+                                8'h5e,8'h60,8'h61,8'h62,8'h63,8'h64,8'h65,8'h66,8'h67,
+                                8'h68,8'h69,8'h6a,8'h6b,8'h6c,8'h6d,8'h6f,
+                                8'h70,8'h71,8'h72,8'h73,8'h74,8'h75,8'h76,8'h77,8'h78:
+                                    if(GFX_ENABLE==2 && ALL_SCENES_ENABLE) begin
+                                        valid<=0;gfx_pending<=1;gfx_start<=1;
                                     end else reply[1]<=2;
                                 default: reply[1]<=2;
                             endcase
