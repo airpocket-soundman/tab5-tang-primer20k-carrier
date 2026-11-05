@@ -39,7 +39,8 @@ module mem_bw #(
     // 2: additionally the wants are evaluated from the state of the CURRENT cycle (not the next one) and every accepted command / data beat
     //    blocks the following cycle (stale-want block), exactly like mem_bist PIPELINE=4: at most one command or data beat per TWO cycles.
     //    Cycle definitions are unchanged; the idle cycle after every acceptance shows up in cnt_cycles (see bw_model.py).
-    parameter EN_PIPE=0
+    parameter EN_PIPE=0,
+    parameter SEED_ONE_LANE=0 // diagnostic opt-in: seed only one lane, preventing XOR-fold cancellation
 )(
     input wire clk,reset_n,calibrated,start,cancel,
     input wire [1:0] mode,
@@ -184,7 +185,7 @@ module mem_bw #(
     endfunction
     function [127:0] ginit;
         input [31:0] s;
-        ginit={lane0(s,32'h85EBCA6B),lane0(s,32'hB7E15162),lane0(s,32'h243F6A88),lane0(s,32'h9E3779B9)};
+        ginit={lane0(SEED_ONE_LANE?32'd0:s,32'h85EBCA6B),lane0(SEED_ONE_LANE?32'd0:s,32'hB7E15162),lane0(SEED_ONE_LANE?32'd0:s,32'h243F6A88),lane0(s,32'h9E3779B9)};
     endfunction
     reg [127:0] wdata,edata;
     always @(posedge clk or negedge reset_n) begin

@@ -1,5 +1,6 @@
 """Decode and independently validate standalone 111-byte UART records."""
 import argparse, json, struct, sys
+from functools import lru_cache
 from pathlib import Path
 
 def crc16(data):
@@ -9,10 +10,11 @@ def crc16(data):
         for _ in range(8): c=((c<<1)^0x1021 if c&0x8000 else c<<1)&0xffff
     return c
 
+@lru_cache(maxsize=26)
 def expected_checksum(seed, beats):
     mask=(1<<32)-1; m64=(1<<64)-1
     keys=[0x9e3779b9,0x243f6a88,0xb7e15162,0x85ebca6b]
-    lanes=[(seed^k) or k for k in keys]; a=b=0
+    lanes=[(seed^keys[0]) or keys[0],*keys[1:]]; a=b=0
     for _ in range(beats):
         fold=(lanes[3]<<32|lanes[2])^(lanes[1]<<32|lanes[0])
         a=(a+fold)&m64; b=(((b<<1)|(b>>63))&m64)^fold
@@ -26,7 +28,7 @@ def expected_job(job):
     return ((0,group+1),(1,0),(0,0),(1,group+1))[phase]
 
 def decode(data,beats=65536):
-    pos=0; records=[]; errors=[]; expected=expected_checksum(0x12345678,beats)
+    pos=0; records=[]; errors=[]
     while pos<len(data):
         if data[pos:pos+4]!=b'DBW1': errors.append(f'unexpected byte at offset {pos}');break
         f=data[pos:pos+111]
@@ -40,8 +42,9 @@ def decode(data,beats=65536):
         if job!=len(records)-1 or job>=26: errors.append(f'wrong job sequence at record {len(records)-1}');break
         if err or flags&4: errors.append(f'job {job}: device error {err}, flags {flags:02x}');break
         if (mode,bl)!=expected_job(job): errors.append(f'job {job}: unexpected mode/burst');break
-        if seed!=0x12345678 or flags!=(1 if mode==0 else 2): errors.append(f'job {job}: unexpected seed/flags');break
+        if seed!=(0x12345678 ^ (job>>1)) or flags!=(1 if mode==0 else 2): errors.append(f'job {job}: unexpected seed/flags');break
         if cyc<beats or cmd!=beats//(1<<bl) or wb!=(beats if mode==0 else 0) or rb!=(beats if mode==1 else 0): errors.append(f'job {job}: invalid counters');break
+        expected=expected_checksum(seed,beats)
         if ce!=expected or (cw if mode==0 else cr)!=expected: errors.append(f'job {job}: checksum mismatch');break
     if len(records)!=26 and not errors: errors.append(f'incomplete capture: {len(records)}/26 records')
     return {'records':records,'errors':errors,'complete':not errors and len(records)==26}
