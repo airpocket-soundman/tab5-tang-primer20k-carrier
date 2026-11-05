@@ -53,3 +53,10 @@ Linux/MeOSは新GFX機能へ自動追従させず、採用時に能力・codec�
 ## ブランチ整理の完了
 
 2026-11-06、mainへの包含と各tip一致を確認してGPU/MEM関連の完了済みリモートbranch21本を削除。記録は branch-cleanup-result.json。基板/電源/PCB/claude等の別作業branchと未マージ候補を保持し、ローカルworktreeは削除していない。host側もmain包含確認後18本を整理。今後はmainを基点に必要な実験branchだけを作り、実績と候補を区別して統合する。
+
+
+## 統合後の追加試験と最終状態
+
+host main e1738e4に実装順序・TX観測固定費比較・追加CI修正を保存。Ubuntu/GCC81test・codec801vectors・資料生成が成功。実験code/候補BIN/rawはhost codex/throughput-20261106に限定し、標準mainへ採用していない。限定64triangle DMAは0.202734→0.177125ms、payload6.314→7.227MB/sだが、新candidateは連続画像のPolygon HEAVY/frame0でFPGA要求CRC status1となった。観測ON/OFF両方で発生、原因未確定。
+
+既存db939ファームに書き戻し、同じ最初のWire/Polygon各3負荷＝6条件は全画素一致。最終実機はFPGA7375＋ELFdb939、TX40/RX16、GPU Julia HEAVY LIVE・エラーなしへ復帰。これは新しい33条件/長時間soak合格とは区別する。FPGAソース・基板data/branchはこの追加実験で変更していない。詳細はhost docs/TX観測固定費比較_2026-11-06.md と docs/IMPLEMENTATION_PLAN_2026-11-06.md。
