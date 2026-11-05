@@ -1,0 +1,159 @@
+[
+  {
+    "request": {
+      "v": 1,
+      "id": 1,
+      "cmd": "mem",
+      "action": "xferx_mode",
+      "mode": "dma",
+      "tx_hz": 8000000,
+      "rx_hz": 8000000,
+      "tx_phase": "negative",
+      "tx_preamble": 1,
+      "sample_edge": "positive",
+      "guard_us": 2
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"94d9392\",\"app_elf_sha256\":\"22e8dbc21e87c89efdcaa7945286c468dbf08f9c839cc47c98c8aeb45af3e293\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"mem_tx_8_10mhz_experimental\":true,\"mem_status_display\":true,\"mem_status_progress\":true,\"mem_rx_integer9_experimental\":true,\"mem_rx_integer65_experimental\":true,\"mem_rx_integer4_experimental\":true,\"mem_dma_pipeline\":true,\"mem_full_apb_restore_tx_experimental\":true,\"mem_pipeline_clock_profiles\":true,\"reset_reason\":11,\"mem_dma_guard_tuning\":true,\"xferx_dma_guard_us\":2,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":false,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":1,\"synced_bytes\":1843200,\"sync_calls\":1,\"full_redraw\":true,\"test_name\":\"MEMORY TEST\",\"stage\":\"WAITING\",\"result\":\"READY\",\"step\":0,\"total\":0,\"transfer_us\":0,\"tx_hz\":0,\"rx_hz\":0,\"progress_token\":false,\"transfer_active\":false},\"link_armed\":false,\"mem_session\":false,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,226,96,2,0,1,37,244],\"response\":[90,0,96,2,1,0,5,252,173,190,207,224,241,2,19,36,52,71,86,105,120,139,154,173,191,204,221,242,3,16,33,54,70,85,100,123,138,153,168,191,201,218,235,4,21,38,55,64,80,99,114,141,156,175,190,201,219,232,249,22,39,52,69,82,98,113,128,159,174,189,204,219,229,246,7,40,57,74,91,108,124,143,158,161,176,195,210,229,247,4,21,58,75,88,105,126,142,157,172,179,194,209,224,247,1,18,35,76,93,110,127,136,152,171,186,197,212,231,246,1,19,32,49,94,111,124,141,154]},\"v\":1,\"id\":1}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 2,
+      "cmd": "mem",
+      "action": "arm"
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"94d9392\",\"app_elf_sha256\":\"22e8dbc21e87c89efdcaa7945286c468dbf08f9c839cc47c98c8aeb45af3e293\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"mem_tx_8_10mhz_experimental\":true,\"mem_status_display\":true,\"mem_status_progress\":true,\"mem_rx_integer9_experimental\":true,\"mem_rx_integer65_experimental\":true,\"mem_rx_integer4_experimental\":true,\"mem_dma_pipeline\":true,\"mem_full_apb_restore_tx_experimental\":true,\"mem_pipeline_clock_profiles\":true,\"reset_reason\":11,\"mem_dma_guard_tuning\":true,\"xferx_dma_guard_us\":2,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":1,\"synced_bytes\":1843200,\"sync_calls\":1,\"full_redraw\":true,\"test_name\":\"MEMORY TEST\",\"stage\":\"WAITING\",\"result\":\"READY\",\"step\":0,\"total\":0,\"transfer_us\":0,\"tx_hz\":0,\"rx_hz\":0,\"progress_token\":false,\"transfer_active\":false},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,80,9,2,0,0,28,36],\"response\":[90,0,9,2,77,1,32,14]},\"v\":1,\"id\":2}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 3,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e0410200007de1",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"94d9392\",\"app_elf_sha256\":\"22e8dbc21e87c89efdcaa7945286c468dbf08f9c839cc47c98c8aeb45af3e293\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"mem_tx_8_10mhz_experimental\":true,\"mem_status_display\":true,\"mem_status_progress\":true,\"mem_rx_integer9_experimental\":true,\"mem_rx_integer65_experimental\":true,\"mem_rx_integer4_experimental\":true,\"mem_dma_pipeline\":true,\"mem_full_apb_restore_tx_experimental\":true,\"mem_pipeline_clock_profiles\":true,\"reset_reason\":11,\"mem_dma_guard_tuning\":true,\"xferx_dma_guard_us\":2,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":1,\"synced_bytes\":1843200,\"sync_calls\":1,\"full_redraw\":true,\"test_name\":\"MEMORY TEST\",\"stage\":\"WAITING\",\"result\":\"READY\",\"step\":0,\"total\":0,\"transfer_us\":0,\"tx_hz\":0,\"rx_hz\":0,\"progress_token\":true,\"transfer_active\":false},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,65,2,0,0,125,225],\"response\":[90,0,65,2,49,77,3,33],\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":8,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"guard_us\":2,\"guard_total_us\":15,\"tx_config_us\":1,\"tx_transfer_us\":503,\"tx_release_us\":96,\"rx_release_us\":79,\"finish_us\":6,\"unwrap_copy_us\":3,\"inputs_us\":27,\"total_us\":1329,\"tx_us\":617,\"rx_config_us\":272,\"ready_wait_us\":2,\"turnaround_us\":13,\"rx_us\":259,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"negative\",\"tx_preamble\":1,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a004102314d0321\",\"inline_bytes\":8},\"v\":1,\"id\":3}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 4,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e0420201009049",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"94d9392\",\"app_elf_sha256\":\"22e8dbc21e87c89efdcaa7945286c468dbf08f9c839cc47c98c8aeb45af3e293\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"mem_tx_8_10mhz_experimental\":true,\"mem_status_display\":true,\"mem_status_progress\":true,\"mem_rx_integer9_experimental\":true,\"mem_rx_integer65_experimental\":true,\"mem_rx_integer4_experimental\":true,\"mem_dma_pipeline\":true,\"mem_full_apb_restore_tx_experimental\":true,\"mem_pipeline_clock_profiles\":true,\"reset_reason\":11,\"mem_dma_guard_tuning\":true,\"xferx_dma_guard_us\":2,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":1,\"synced_bytes\":1843200,\"sync_calls\":1,\"full_redraw\":true,\"test_name\":\"MEMORY TEST\",\"stage\":\"WAITING\",\"result\":\"READY\",\"step\":0,\"total\":0,\"transfer_us\":0,\"tx_hz\":0,\"rx_hz\":0,\"progress_token\":true,\"transfer_active\":false},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,66,2,1,0,144,73],\"response\":[90,0,66,2,0,1,51,5],\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":8,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"guard_us\":2,\"guard_total_us\":9,\"tx_config_us\":1,\"tx_transfer_us\":366,\"tx_release_us\":85,\"rx_release_us\":75,\"finish_us\":5,\"unwrap_copy_us\":3,\"inputs_us\":27,\"total_us\":1008,\"tx_us\":457,\"rx_config_us\":221,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":186,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"negative\",\"tx_preamble\":1,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a00420200013305\",\"inline_bytes\":8},\"v\":1,\"id\":4}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 5,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e043020200776a",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"94d9392\",\"app_elf_sha256\":\"22e8dbc21e87c89efdcaa7945286c468dbf08f9c839cc47c98c8aeb45af3e293\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"mem_tx_8_10mhz_experimental\":true,\"mem_status_display\":true,\"mem_status_progress\":true,\"mem_rx_integer9_experimental\":true,\"mem_rx_integer65_experimental\":true,\"mem_rx_integer4_experimental\":true,\"mem_dma_pipeline\":true,\"mem_full_apb_restore_tx_experimental\":true,\"mem_pipeline_clock_profiles\":true,\"reset_reason\":11,\"mem_dma_guard_tuning\":true,\"xferx_dma_guard_us\":2,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":1,\"synced_bytes\":1843200,\"sync_calls\":1,\"full_redraw\":true,\"test_name\":\"MEMORY TEST\",\"stage\":\"WAITING\",\"result\":\"READY\",\"step\":0,\"total\":0,\"transfer_us\":0,\"tx_hz\":0,\"rx_hz\":0,\"progress_token\":true,\"transfer_active\":false},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,67,2,2,0,119,106],\"response\":[90,0,67,2,128,0,62,120],\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":8,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"guard_us\":2,\"guard_total_us\":9,\"tx_config_us\":1,\"tx_transfer_us\":368,\"tx_release_us\":85,\"rx_release_us\":72,\"finish_us\":5,\"unwrap_copy_us\":6,\"inputs_us\":27,\"total_us\":998,\"tx_us\":457,\"rx_config_us\":215,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":185,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"negative\",\"tx_preamble\":1,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a00430280003e78\",\"inline_bytes\":8},\"v\":1,\"id\":5}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 6,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e0440203006b08",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"94d9392\",\"app_elf_sha256\":\"22e8dbc21e87c89efdcaa7945286c468dbf08f9c839cc47c98c8aeb45af3e293\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"mem_tx_8_10mhz_experimental\":true,\"mem_status_display\":true,\"mem_status_progress\":true,\"mem_rx_integer9_experimental\":true,\"mem_rx_integer65_experimental\":true,\"mem_rx_integer4_experimental\":true,\"mem_dma_pipeline\":true,\"mem_full_apb_restore_tx_experimental\":true,\"mem_pipeline_clock_profiles\":true,\"reset_reason\":11,\"mem_dma_guard_tuning\":true,\"xferx_dma_guard_us\":2,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":1,\"synced_bytes\":1843200,\"sync_calls\":1,\"full_redraw\":true,\"test_name\":\"MEMORY TEST\",\"stage\":\"WAITING\",\"result\":\"READY\",\"step\":0,\"total\":0,\"transfer_us\":0,\"tx_hz\":0,\"rx_hz\":0,\"progress_token\":true,\"transfer_active\":false},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,68,2,3,0,107,8],\"response\":[90,0,68,2,16,0,248,49],\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":8,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"guard_us\":2,\"guard_total_us\":9,\"tx_config_us\":1,\"tx_transfer_us\":356,\"tx_release_us\":85,\"rx_release_us\":79,\"finish_us\":5,\"unwrap_copy_us\":2,\"inputs_us\":27,\"total_us\":1000,\"tx_us\":446,\"rx_config_us\":223,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":186,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"negative\",\"tx_preamble\":1,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a0044021000f831\",\"inline_bytes\":8},\"v\":1,\"id\":6}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 7,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e04502040048e7",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"94d9392\",\"app_elf_sha256\":\"22e8dbc21e87c89efdcaa7945286c468dbf08f9c839cc47c98c8aeb45af3e293\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"mem_tx_8_10mhz_experimental\":true,\"mem_status_display\":true,\"mem_status_progress\":true,\"mem_rx_integer9_experimental\":true,\"mem_rx_integer65_experimental\":true,\"mem_rx_integer4_experimental\":true,\"mem_dma_pipeline\":true,\"mem_full_apb_restore_tx_experimental\":true,\"mem_pipeline_clock_profiles\":true,\"reset_reason\":11,\"mem_dma_guard_tuning\":true,\"xferx_dma_guard_us\":2,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":1,\"synced_bytes\":1843200,\"sync_calls\":1,\"full_redraw\":true,\"test_name\":\"MEMORY TEST\",\"stage\":\"WAITING\",\"result\":\"READY\",\"step\":0,\"total\":0,\"transfer_us\":0,\"tx_hz\":0,\"rx_hz\":0,\"progress_token\":true,\"transfer_active\":false},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,69,2,4,0,72,231],\"response\":[90,0,69,2,0,1,30,84],\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":8,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"guard_us\":2,\"guard_total_us\":9,\"tx_config_us\":1,\"tx_transfer_us\":357,\"tx_release_us\":92,\"rx_release_us\":71,\"finish_us\":5,\"unwrap_copy_us\":3,\"inputs_us\":27,\"total_us\":991,\"tx_us\":454,\"rx_config_us\":215,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":185,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"negative\",\"tx_preamble\":1,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a00450200011e54\",\"inline_bytes\":8},\"v\":1,\"id\":7}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 8,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e046020500a54f",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"94d9392\",\"app_elf_sha256\":\"22e8dbc21e87c89efdcaa7945286c468dbf08f9c839cc47c98c8aeb45af3e293\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"mem_tx_8_10mhz_experimental\":true,\"mem_status_display\":true,\"mem_status_progress\":true,\"mem_rx_integer9_experimental\":true,\"mem_rx_integer65_experimental\":true,\"mem_rx_integer4_experimental\":true,\"mem_dma_pipeline\":true,\"mem_full_apb_restore_tx_experimental\":true,\"mem_pipeline_clock_profiles\":true,\"reset_reason\":11,\"mem_dma_guard_tuning\":true,\"xferx_dma_guard_us\":2,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":1,\"synced_bytes\":1843200,\"sync_calls\":1,\"full_redraw\":true,\"test_name\":\"MEMORY TEST\",\"stage\":\"WAITING\",\"result\":\"READY\",\"step\":0,\"total\":0,\"transfer_us\":0,\"tx_hz\":0,\"rx_hz\":0,\"progress_token\":true,\"transfer_active\":false},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,70,2,5,0,165,79],\"response\":[90,0,70,2,115,0,233,130],\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":8,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"guard_us\":2,\"guard_total_us\":9,\"tx_config_us\":1,\"tx_transfer_us\":357,\"tx_release_us\":92,\"rx_release_us\":76,\"finish_us\":5,\"unwrap_copy_us\":2,\"inputs_us\":27,\"total_us\":993,\"tx_us\":454,\"rx_config_us\":214,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":184,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"negative\",\"tx_preamble\":1,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a0046027300e982\",\"inline_bytes\":8},\"v\":1,\"id\":8}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 9,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e047020600426c",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"94d9392\",\"app_elf_sha256\":\"22e8dbc21e87c89efdcaa7945286c468dbf08f9c839cc47c98c8aeb45af3e293\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"mem_tx_8_10mhz_experimental\":true,\"mem_status_display\":true,\"mem_status_progress\":true,\"mem_rx_integer9_experimental\":true,\"mem_rx_integer65_experimental\":true,\"mem_rx_integer4_experimental\":true,\"mem_dma_pipeline\":true,\"mem_full_apb_restore_tx_experimental\":true,\"mem_pipeline_clock_profiles\":true,\"reset_reason\":11,\"mem_dma_guard_tuning\":true,\"xferx_dma_guard_us\":2,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":1,\"synced_bytes\":1843200,\"sync_calls\":1,\"full_redraw\":true,\"test_name\":\"MEMORY TEST\",\"stage\":\"WAITING\",\"result\":\"READY\",\"step\":0,\"total\":0,\"transfer_us\":0,\"tx_hz\":0,\"rx_hz\":0,\"progress_token\":true,\"transfer_active\":false},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,71,2,6,0,66,108],\"response\":[90,0,71,2,1,0,102,154],\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":8,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"guard_us\":2,\"guard_total_us\":9,\"tx_config_us\":1,\"tx_transfer_us\":364,\"tx_release_us\":85,\"rx_release_us\":71,\"finish_us\":5,\"unwrap_copy_us\":3,\"inputs_us\":27,\"total_us\":992,\"tx_us\":454,\"rx_config_us\":215,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":187,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"negative\",\"tx_preamble\":1,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a0047020100669a\",\"inline_bytes\":8},\"v\":1,\"id\":9}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 10,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e0480207009d8b",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"94d9392\",\"app_elf_sha256\":\"22e8dbc21e87c89efdcaa7945286c468dbf08f9c839cc47c98c8aeb45af3e293\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"mem_tx_8_10mhz_experimental\":true,\"mem_status_display\":true,\"mem_status_progress\":true,\"mem_rx_integer9_experimental\":true,\"mem_rx_integer65_experimental\":true,\"mem_rx_integer4_experimental\":true,\"mem_dma_pipeline\":true,\"mem_full_apb_restore_tx_experimental\":true,\"mem_pipeline_clock_profiles\":true,\"reset_reason\":11,\"mem_dma_guard_tuning\":true,\"xferx_dma_guard_us\":2,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":1,\"synced_bytes\":1843200,\"sync_calls\":1,\"full_redraw\":true,\"test_name\":\"MEMORY TEST\",\"stage\":\"WAITING\",\"result\":\"READY\",\"step\":0,\"total\":0,\"transfer_us\":0,\"tx_hz\":0,\"rx_hz\":0,\"progress_token\":true,\"transfer_active\":false},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,72,2,7,0,157,139],\"response\":[90,0,72,2,12,0,212,56],\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":8,\"status_only\":false,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"guard_us\":2,\"guard_total_us\":9,\"tx_config_us\":1,\"tx_transfer_us\":356,\"tx_release_us\":85,\"rx_release_us\":71,\"finish_us\":6,\"unwrap_copy_us\":3,\"inputs_us\":27,\"total_us\":990,\"tx_us\":446,\"rx_config_us\":223,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":185,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"negative\",\"tx_preamble\":1,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a0048020c00d438\",\"inline_bytes\":8},\"v\":1,\"id\":10}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 11,
+      "cmd": "mem",
+      "action": "xferx",
+      "request_hex": "a5e04902080017ed",
+      "response_bytes": 8
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"94d9392\",\"app_elf_sha256\":\"22e8dbc21e87c89efdcaa7945286c468dbf08f9c839cc47c98c8aeb45af3e293\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"mem_tx_8_10mhz_experimental\":true,\"mem_status_display\":true,\"mem_status_progress\":true,\"mem_rx_integer9_experimental\":true,\"mem_rx_integer65_experimental\":true,\"mem_rx_integer4_experimental\":true,\"mem_dma_pipeline\":true,\"mem_full_apb_restore_tx_experimental\":true,\"mem_pipeline_clock_profiles\":true,\"reset_reason\":11,\"mem_dma_guard_tuning\":true,\"xferx_dma_guard_us\":2,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":true,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":1,\"synced_bytes\":1843200,\"sync_calls\":1,\"full_redraw\":true,\"test_name\":\"MEMORY TEST\",\"stage\":\"WAITING\",\"result\":\"READY\",\"step\":0,\"total\":0,\"transfer_us\":0,\"tx_hz\":0,\"rx_hz\":0,\"progress_token\":true,\"transfer_active\":false},\"link_armed\":true,\"mem_session\":true,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,73,2,8,0,23,237],\"response\":[90,3,73,2,0,0,223,229],\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"requested\":8,\"request_bytes\":8,\"received\":8,\"captured\":24,\"capture_bytes\":24,\"sync_offset\":8,\"status_only\":true,\"tx_done\":true,\"rx_done\":true,\"tx_error\":0,\"rx_error\":0,\"tx_stage\":\"complete\",\"rx_stage\":\"complete\",\"guard_us\":2,\"guard_total_us\":9,\"tx_config_us\":1,\"tx_transfer_us\":357,\"tx_release_us\":92,\"rx_release_us\":71,\"finish_us\":5,\"unwrap_copy_us\":3,\"inputs_us\":27,\"total_us\":992,\"tx_us\":454,\"rx_config_us\":216,\"ready_wait_us\":2,\"turnaround_us\":9,\"rx_us\":185,\"sample_edge\":\"positive\",\"order\":\"tx_first\",\"rx_invert\":false,\"tx_phase\":\"negative\",\"tx_preamble\":1,\"tx_settle_us\":0,\"capture_margin\":16,\"rx_start_delay_us\":0,\"ready_after_dir\":1,\"ready_after_rx\":0,\"bus_after_dir\":195,\"complete\":true,\"response_hex\":\"5a0349020000dfe5\",\"inline_bytes\":8},\"v\":1,\"id\":11}"
+  },
+  {
+    "request": {
+      "v": 1,
+      "id": 12,
+      "cmd": "mem",
+      "action": "disarm"
+    }
+  },
+  {
+    "raw": "{\"ok\":true,\"data\":{\"profile\":\"standalone_mem_bist_probe\",\"app_version\":\"94d9392\",\"app_elf_sha256\":\"22e8dbc21e87c89efdcaa7945286c468dbf08f9c839cc47c98c8aeb45af3e293\",\"mode\":\"CPU\",\"running\":false,\"gfx_available\":false,\"dma_available\":false,\"mem_diag_available\":true,\"mem_deep_diag_available\":true,\"mem_scheduler_diag_available\":true,\"mem_bw_available\":true,\"mem_bw_op_first\":96,\"mem_bw_op_last\":111,\"mem_dma_split_rates\":true,\"xferx_tx_hz\":8000000,\"xferx_rx_hz\":8000000,\"mem_dma_compiled\":true,\"xferx_mode\":\"dma\",\"xferx_hz\":8000000,\"mem_tx_8_10mhz_experimental\":true,\"mem_status_display\":true,\"mem_status_progress\":true,\"mem_rx_integer9_experimental\":true,\"mem_rx_integer65_experimental\":true,\"mem_rx_integer4_experimental\":true,\"mem_dma_pipeline\":true,\"mem_full_apb_restore_tx_experimental\":true,\"mem_pipeline_clock_profiles\":true,\"reset_reason\":11,\"mem_dma_guard_tuning\":true,\"xferx_dma_guard_us\":2,\"display\":{\"enabled\":true,\"ready\":true,\"static_scan_active\":true,\"updates_blocked\":false,\"busy\":false,\"fault\":\"ESP_OK\",\"updates\":1,\"synced_bytes\":1843200,\"sync_calls\":1,\"full_redraw\":true,\"test_name\":\"MEMORY TEST\",\"stage\":\"WAITING\",\"result\":\"READY\",\"step\":0,\"total\":0,\"transfer_us\":0,\"tx_hz\":0,\"rx_hz\":0,\"progress_token\":false,\"transfer_active\":false},\"link_armed\":false,\"mem_session\":false,\"configured\":false,\"transport\":\"gpio_driver\",\"fault\":\"none\",\"device_status\":0,\"base\":0,\"count\":0,\"seed\":0,\"request\":[165,224,73,2,8,0,23,237],\"response\":[90,3,73,2,0,0,223,229]},\"v\":1,\"id\":12}"
+  }
+]
