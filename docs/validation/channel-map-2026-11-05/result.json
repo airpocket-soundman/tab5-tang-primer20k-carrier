@@ -1,0 +1,131 @@
+{
+  "date": "2026-11-05",
+  "purpose": "Reidentify probes after user reconnected connectors; previous assignment is not assumed",
+  "request_hex": "a501000200000868",
+  "mapping_status": "PARTIAL_SINGLE_TX_ONLY",
+  "clock_candidate": "D7",
+  "matched_data_candidates": {
+    "DATA0": [
+      "D15"
+    ],
+    "DATA1": [
+      "D14"
+    ],
+    "DATA2": [
+      "D8",
+      "D13"
+    ],
+    "DATA3": [
+      "D12"
+    ],
+    "DATA4": [
+      "D0",
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "D5",
+      "D6",
+      "D11"
+    ],
+    "DATA5": [
+      "D10"
+    ],
+    "DATA6": [
+      "D9"
+    ],
+    "DATA7": [
+      "D8",
+      "D13"
+    ]
+  },
+  "unresolved": [
+    "DIR",
+    "READY",
+    "DATA2 vs DATA7",
+    "DATA4"
+  ],
+  "limitations": [
+    "Only one GPIO LINK_ID TX observed; no valid FPGA reply; not a completed mapping qualification.",
+    "Actual 112459774 of 200000000 samples; driver reported usb-error despite CLI exit0.",
+    "Capture and LINK trial failed; no speed improvement or FPGA validity claimed."
+  ],
+  "hardware_state": {
+    "tab5_serial": "30:ED:A0:E2:FE:C0",
+    "elf": "e7bb3f8a483db08a5922e5551e22f26ff45233c892d912e9cbb20e5a8283c527",
+    "final_disarmed": true,
+    "firmware_flashes": 0,
+    "fpga_programming": 0,
+    "jtag_enumerated": false
+  },
+  "software_work": {
+    "slogic_verifier": "fpga/tools/verify_slogic_capture.py",
+    "tests_passed": 5,
+    "positive_real_capture": "1000000/1000000 passed",
+    "negative_real_capture": "partial/error capture rejected",
+    "wrapper_fix": "Local PowerShell launcher now uses .NET SHA256 so hash verification works in Python-launched Windows PowerShell without Get-FileHash module discovery."
+  },
+  "pending_user_check": "USB-JTAG direct data cable/USB port and FPGA power LED; no further bus request until electrical/connectivity state is resolved.",
+  "files": [
+    {
+      "archive": "run-01/run.json.gz",
+      "sha256": "9bb42b78f7dabd54c0248300fab768a752fd2ffc468e95c7999084761955f1d7",
+      "bytes": 896
+    },
+    {
+      "archive": "run-02/caps-console.txt.gz",
+      "sha256": "782374686c1fcaa9f546b0cf7e4f0340eabb97f74ee47a6945af8d9357997620",
+      "bytes": 5726
+    },
+    {
+      "archive": "run-02/caps.json.gz",
+      "sha256": "7e5213b2b3879a155af6ae6bd880f9998ba2434c099f4b48c660363cdca413c4",
+      "bytes": 5724
+    },
+    {
+      "archive": "run-02/capture-console.txt.gz",
+      "sha256": "aae6a4ee0b899b073a05610b7724d39ff2ab159042de9cf38aea598d3e7a256d",
+      "bytes": 110799
+    },
+    {
+      "archive": "run-02/capture.sr.gz",
+      "sha256": "97be52c9d57d751bfcf327dd3d60df8ded154f8aa28babf98bb0509def882c91",
+      "bytes": 379199
+    },
+    {
+      "archive": "run-02/channel-edges.json.gz",
+      "sha256": "24eaadbf6dd2dc1c407f8fa904df567b7ae331d2fb93a345503555f0396df47c",
+      "bytes": 9215
+    },
+    {
+      "archive": "run-02/completeness.json.gz",
+      "sha256": "c83e277cb85647f63b7290d8001c1d7640bc01e3fa9d08ec5c00a57c435adb04",
+      "bytes": 495
+    },
+    {
+      "archive": "run-02/config-readback.txt.gz",
+      "sha256": "7c1df69aeeebf00d6d38b786a2702fde9c41052197227f61c1b6b018a424372d",
+      "bytes": 11
+    },
+    {
+      "archive": "run-02/gpio-id-waveform.png.gz",
+      "sha256": "8a173f5e34fe564781f4dac76c3325a092ee8639c2fe2bd372a0716366f8bf9a",
+      "bytes": 87832
+    },
+    {
+      "archive": "run-02/provisional-map.json.gz",
+      "sha256": "a9f9accf0a2e98ad6868f10991cd3e6a4bdd74558e2320384de3651eacc2077c",
+      "bytes": 847
+    },
+    {
+      "archive": "run-02/run.json.gz",
+      "sha256": "b6c7d9a77eefe3dc0a03df04930b823faa45deb060866ae9c2931da9889711af",
+      "bytes": 6912
+    },
+    {
+      "archive": "run-02/scan.txt.gz",
+      "sha256": "2b03563b14689f37b1bdd1d733554e867f82aa6ec5401d675b6d14bd8457db24",
+      "bytes": 177
+    }
+  ]
+}
