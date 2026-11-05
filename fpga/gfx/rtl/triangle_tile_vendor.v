@@ -1,7 +1,7 @@
 // Isolated explicit-DPB variant; parent9c314f3 engine/maths unchanged.
 // Diagnostic 32x32 color/depth tile. Exact G0 fragment unit, one pixel in flight.
 // No DDR3, no performance claim. Abort invalidates RAM until a complete clear.
-module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE=0, parameter RAW_READ_ENABLE=0, parameter ALL_SCENES_ENABLE=0)(
+module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE=0, parameter RAW_READ_ENABLE=0, parameter ALL_SCENES_ENABLE=0, parameter FRAME_TIMING_ENABLE=0)(
     input wire clk, reset_n, abort, start,
     input wire [7:0] opcode, a, b,
     output reg done,
@@ -76,6 +76,9 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
     reg signed [17:0] zx, zy, cx, cy;
     wire signed [35:0] square_x=zx*zx, square_y=zy*zy, product_xy=zx*zy;
     reg [31:0] fractal_cycles,last_fractal_cycles;
+    reg [31:0] frame_cycles_total;
+    reg frame_timer_enabled,frame_timer_overflow;
+    wire [32:0] frame_cycles_next={1'b0,frame_cycles_total}+{1'b0,fractal_cycles}+33'd1;
     reg [7:0] iterations;
     wire signed [35:0] delta_square = square_x-square_y;
     wire signed [36:0] twice_product = $signed({product_xy[35],product_xy}) <<< 1;
@@ -334,12 +337,14 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
             state<=IDLE; initialized<=0; tile_stream<=0; prefetch_pending<=0; prefetch_address<=0; stream_word_seen<=0; prefetch_slot<=0; configured<=0; fractal_configured<=0; address<=0;
             done<=0; status<=0; result<=0; written<=0; read_depth<=0; clear_color<=0;
             fractal_cycles<=0; last_fractal_cycles<=0;
+            frame_cycles_total<=0;frame_timer_enabled<=0;frame_timer_overflow<=0;
             raster_configured<=0;fire_configured<=0;upload_cursor<=0;upload_active<=0;upload_word<=0;
             raster_params[8]<=0;raster_params[9]<=0;
         end else if(abort) begin
             state<=IDLE; initialized<=0; tile_stream<=0; prefetch_pending<=0; prefetch_address<=0; stream_word_seen<=0; prefetch_slot<=0; configured<=0; fractal_configured<=0; address<=0;
             done<=0; status<=0; result<=0; written<=0;
             fractal_cycles<=0; last_fractal_cycles<=0;
+            frame_cycles_total<=0;frame_timer_enabled<=0;frame_timer_overflow<=0;
             raster_configured<=0;fire_configured<=0;upload_cursor<=0;upload_active<=0;upload_word<=0;
             raster_params[8]<=0;raster_params[9]<=0;
         end else begin
@@ -448,6 +453,17 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
                             if(!CLOCK_QUERY_ENABLE) status<=2;
                             else if(a!=0 || b!=0) status<=3;
                             else result<=CORE_CLOCK_MHZ;
+                            done<=1;
+                        end
+                        // GFX-only opt-in frame sum. FRACTAL_INFO is unchanged.
+                        8'h79,8'h7a,8'h7b,8'h7c: begin
+                            if(!FRAME_TIMING_ENABLE) status<=2;
+                            else if(a!=0 || b!=0) status<=3;
+                            else if(opcode==8'h79) result<=16'h0120;
+                            else if(opcode==8'h7a) begin
+                                frame_cycles_total<=0;frame_timer_enabled<=1;frame_timer_overflow<=0;
+                            end else if(!frame_timer_enabled || frame_timer_overflow) status<=5;
+                            else result<=opcode==8'h7b ? frame_cycles_total[15:0] : frame_cycles_total[31:16];
                             done<=1;
                         end
                         8'h39,8'h3a: begin
@@ -573,6 +589,10 @@ module triangle_tile #(parameter CORE_CLOCK_MHZ=27, parameter CLOCK_QUERY_ENABLE
                     if(address==1023) begin
                         initialized<=1; written<=1024;
                         last_fractal_cycles<=fractal_cycles+1'b1; state<=COMPLETE;
+                        if(FRAME_TIMING_ENABLE && frame_timer_enabled) begin
+                            frame_cycles_total<=frame_cycles_next[31:0];
+                            frame_timer_overflow<=frame_timer_overflow || frame_cycles_next[32];
+                        end
                     end else begin
                         // Prepare the next sample while this one is written;
                         // no separate BEGIN bubble is needed between pixels.

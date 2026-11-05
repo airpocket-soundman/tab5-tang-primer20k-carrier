@@ -1,0 +1,57 @@
+{
+  "archived_utc": "2026-11-05T14:19:45.557470+00:00",
+  "hardware_access": false,
+  "integrated": false,
+  "mapped_cells_verified": false,
+  "sta_qualified": false,
+  "passed_scope": "Standalone digital byte-transport unit only;32 SYS/216 phase points x2 simulated skew models;320 legal1290B packets/412800 exact bytes",
+  "not_a_production_default": true,
+  "source_sha256": {
+    "fpga/link/rtl/request_capture_fifo.v": "cb02f6676236c4b5fb2105f9e0f0753f70a24c9a6e1c0ddfb501756abca91961",
+    "fpga/link/tests/tb_request_capture_fifo.v": "41f5814032c68c48d5bc52f2d24afdad1d5a0fe0ffbdad5239befec59554f03e",
+    "fpga/link/tests/run_request_capture_fifo.py": "a39cd1a9c92144efca7f8fd7cdacd8ac10ddb89f5ae4ff230cd43f75d136ab03",
+    "fpga/link/tests/request_capture_fifo_contract.md": "fc255bd9c2b4649a4ed9297e10b6e716b3c79e504eeb066758ebbb465c2f6b81"
+  },
+  "result": {
+    "hardware_access": false,
+    "integration": false,
+    "synthesis_or_STA_qualified": false,
+    "command": [
+      "python",
+      "fpga/link/tests/run_request_capture_fifo.py",
+      "--tools",
+      "D:/GitHub/tab5-tang-primer20k-carrier/fpga/build/windows-tools/oss-cad-suite/bin",
+      "--phases",
+      "32"
+    ],
+    "returncode": 0,
+    "passed": true,
+    "phase_grid": {
+      "sample_period_ps": 4630,
+      "sys_period_ps": 18520,
+      "sys_phase_points": 32,
+      "clock_delay_models_ps": [
+        0,
+        10000
+      ],
+      "description": "Finite digital grid over all4 relatedPLL sample-edge classes plus8 fractional offsets each; not continuous phase or analog metastability proof"
+    },
+    "complete_packets": 320,
+    "exact_bytes": 412800,
+    "packet": "Legal1290-byte legacy TRI_BATCH64 with header/payloadCRC",
+    "overflow_recovery": "Sticky over DIR; ARM low/global reset required to clear",
+    "mapping_limit": "DATA2FF may infer shift RAM; mapped cells must be verified/explicitly constrained before integration",
+    "source_sha256": {
+      "fpga/link/rtl/request_capture_fifo.v": "cb02f6676236c4b5fb2105f9e0f0753f70a24c9a6e1c0ddfb501756abca91961",
+      "fpga/link/tests/tb_request_capture_fifo.v": "41f5814032c68c48d5bc52f2d24afdad1d5a0fe0ffbdad5239befec59554f03e",
+      "fpga/link/tests/run_request_capture_fifo.py": "a39cd1a9c92144efca7f8fd7cdacd8ac10ddb89f5ae4ff230cd43f75d136ab03"
+    }
+  },
+  "limitations": [
+    "Not connected to LINK/top/constraints",
+    "Not synthesized or physically qualified",
+    "Mapped DFF/shiftRAM choice must be inspected before future use",
+    "Overflow requires whole-packet rejection by future parser; delivered prefixes are not atomic packets",
+    "0/10ns skew values are model assumptions, not measured cable skew"
+  ]
+}

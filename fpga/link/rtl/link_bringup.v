@@ -4,6 +4,8 @@ module link_bringup #(
     parameter TIMEOUT_CYCLES = 2700000,
     parameter GFX_ENABLE = 0,
     parameter ALL_SCENES_ENABLE = 0,
+    parameter FRAME_TIMING_ENABLE = 0,
+    parameter REPLY_REGISTER_OUTPUT = 0,
     parameter REQUEST_DATA_PIPELINE = 0,
     parameter CORE_CLOCK_MHZ = 27,
     parameter CLOCK_QUERY_ENABLE = 0,
@@ -74,7 +76,7 @@ module link_bringup #(
     wire use_raw=FAST_REPLY_ENABLE && prefixed;
     wire raw_valid=fast_offer && !raw_done && (!raw_started || dir);
     generate if(FAST_REPLY_ENABLE) begin: fast_serializer
-        link_reply_raw serializer(bus_clk,reset_n,arm,dir,fast_offer,fast_metadata,
+        link_reply_raw #(.REGISTER_OUTPUT(REPLY_REGISTER_OUTPUT)) serializer(bus_clk,reset_n,arm,dir,fast_offer,fast_metadata,
             row_byte,raw_ram_color,raw_ram_depth,raw_data,raw_done,raw_started,raw_error,raw_progress,
             raw_row_index,raw_ram_address,raw_ram_enable);
     end else begin: no_fast_serializer
@@ -119,7 +121,7 @@ module link_bringup #(
         assign batch_cmd_opcode=batch_is_upload?up_opcode:(batch_is_2d?d2_opcode:tri_opcode);
         assign batch_cmd_a=batch_is_upload?up_a:(batch_is_2d?d2_a:tri_a);
         assign batch_cmd_b=batch_is_upload?up_b:(batch_is_2d?d2_b:tri_b);
-        triangle_tile #(.ALL_SCENES_ENABLE(ALL_SCENES_ENABLE),.CORE_CLOCK_MHZ(CORE_CLOCK_MHZ),.CLOCK_QUERY_ENABLE(CLOCK_QUERY_ENABLE),.RAW_READ_ENABLE(FAST_REPLY_ENABLE)) renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start || batch_cmd_start,
+        triangle_tile #(.ALL_SCENES_ENABLE(ALL_SCENES_ENABLE),.FRAME_TIMING_ENABLE(FRAME_TIMING_ENABLE),.CORE_CLOCK_MHZ(CORE_CLOCK_MHZ),.CLOCK_QUERY_ENABLE(CLOCK_QUERY_ENABLE),.RAW_READ_ENABLE(FAST_REPLY_ENABLE)) renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start || batch_cmd_start,
                               renderer_opcode, renderer_a, renderer_b, gfx_done, gfx_status, gfx_result,
                               row_index, row_byte,bus_clk,raw_ram_enable,raw_ram_address,raw_ram_color,raw_ram_depth);
     end else if(GFX_ENABLE) begin: gfx
@@ -314,6 +316,10 @@ module link_bringup #(
                                 8'h30,8'h31,8'h32,8'h33,8'h34,8'h35,8'h36,8'h37,8'h38,8'h39,8'h3a,8'h3b,8'h3c,8'h3d:
                                     if(GFX_ENABLE==2) begin
                                         valid<=0; gfx_pending<=1; gfx_start<=1;
+                                    end else reply[1]<=2;
+                                8'h79,8'h7a,8'h7b,8'h7c:
+                                    if(GFX_ENABLE==2) begin
+                                        valid<=0;gfx_pending<=1;gfx_start<=1;
                                     end else reply[1]<=2;
                                 8'h5e,8'h60,8'h61,8'h62,8'h63,8'h64,8'h65,8'h66,8'h67,
                                 8'h68,8'h69,8'h6a,8'h6b,8'h6c,8'h6d,8'h6f,

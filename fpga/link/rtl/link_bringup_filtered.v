@@ -5,7 +5,13 @@ module link_bringup_filtered #(
     parameter TIMEOUT_CYCLES = 2700000,
     parameter GFX_ENABLE = 0,
     parameter ALL_SCENES_ENABLE = 0,
+    parameter FRAME_TIMING_ENABLE = 0,
+    parameter REPLY_RAW_BYPASS = 0,
+    parameter FAST_FILTER_SYNC = 0,
+    parameter REPLY_REGISTER_OUTPUT = 0,
     parameter REQUEST_DATA_PIPELINE = 0,
+    parameter REQUEST_DATA_FF = 0,
+    parameter REQUEST_CAPTURE_FIFO = 0,
     parameter REPLY_ACTIVE_PIPELINE = 0,
     parameter CORE_CLOCK_MHZ = 27,
     parameter CLOCK_QUERY_ENABLE = 0,
@@ -14,7 +20,11 @@ module link_bringup_filtered #(
   input wire bus_clk, input wire dir, input wire [7:0] data_i,
   output reg [7:0] data_o, output wire data_oe, output wire ready, input wire filter_clk,filter_reset_async_n);
     (* keep *) wire clean_reply_clk;
-    wire clock_filter_fault;
+    wire clock_filter_fault,filtered_clock_fault;
+    // Independent candidate: retain the request pipeline and lifecycle, but
+    // clock BOTH serializer and tile RAM port B directly from the bus pin.
+    // No asynchronous runtime mux: the choice is a synthesis-time parameter.
+    assign clock_filter_fault=REPLY_RAW_BYPASS ? 1'b0 : filtered_clock_fault;
     reg [2:0] clk_sync;
     reg [1:0] dir_sync;
     wire rise = clk_sync[1] & ~clk_sync[2];
@@ -23,15 +33,32 @@ module link_bringup_filtered #(
     // same byte through the second data stage. This is a timing candidate,
     // not a guarantee of analog setup/hold or a replacement for packet CRC.
     wire [7:0] request_data;
-    generate if(REQUEST_DATA_PIPELINE) begin: request_pipe
+    wire capture_overflow,capture_valid,capture_ready;
+    wire request_event=REQUEST_CAPTURE_FIFO ? capture_valid && capture_ready : rise;
+    generate if(REQUEST_CAPTURE_FIFO) begin: request_fifo
+        request_capture_fifo #(.PHYSICAL_FF(1)) capture(filter_clk,sys_clk,reset_n,arm,dir,bus_clk,data_i,capture_ready,capture_valid,request_data,capture_overflow);
+    end else if(REQUEST_DATA_PIPELINE) begin: request_pipe
+        if(REQUEST_DATA_FF) begin: physical_ff
+            wire [7:0] meta,sampled;
+            genvar bit_index;
+            for(bit_index=0;bit_index<8;bit_index=bit_index+1) begin: lane
+                DFFC meta_ff(.Q(meta[bit_index]),.D(data_i[bit_index]),.CLK(sys_clk),.CLEAR(!reset_n));
+                DFFC sampled_ff(.Q(sampled[bit_index]),.D(meta[bit_index]),.CLK(sys_clk),.CLEAR(!reset_n));
+            end
+            assign request_data=sampled;
+        end else begin: inferred
         reg [7:0] request_meta,request_sampled;
         always @(posedge sys_clk or negedge reset_n) begin
             if(!reset_n) begin request_meta<=0;request_sampled<=0;end
             else begin request_meta<=data_i;request_sampled<=request_meta;end
         end
         assign request_data=request_sampled;
+        end
     end else begin: request_direct
         assign request_data=data_i;
+    end
+    if(!REQUEST_CAPTURE_FIFO) begin: no_request_fifo
+        assign capture_valid=0;assign capture_overflow=0;
     end endgenerate
     reg [7:0] req[0:6];
     reg [7:0] reply[0:5];
@@ -52,8 +79,10 @@ module link_bringup_filtered #(
     reg [15:0] batch_header_crc;
     wire batch_receiving,batch_busy,batch_done,batch_cmd_start;
     wire [7:0] batch_status,batch_cmd_opcode,batch_cmd_a,batch_cmd_b;
-    wire batch_abort=!arm || idle_count>=TIMEOUT_CYCLES-1 || (batch_receiving && dir_sync[1]);
-    wire batch_byte_valid=rise && !dir && !dir_sync[1] && batch_receiving;
+    assign capture_ready=!capture_overflow && !dir && !dir_sync[1] && !valid && !gfx_pending &&
+                         (!batch_pending || batch_receiving) && !batch_start;
+    wire batch_abort=capture_overflow || !arm || idle_count>=TIMEOUT_CYCLES-1 || (batch_receiving && dir_sync[1]);
+    wire batch_byte_valid=request_event && !dir && !dir_sync[1] && batch_receiving;
     wire [7:0] renderer_opcode=batch_pending?batch_cmd_opcode:logical_opcode;
     wire [7:0] renderer_a=batch_pending?batch_cmd_a:req[4];
     wire [7:0] renderer_b=batch_pending?batch_cmd_b:req[5];
@@ -72,7 +101,7 @@ module link_bringup_filtered #(
         if(!filter_reset_async_n)filter_reset_release<=0;
         else filter_reset_release<={filter_reset_release[0],1'b1};
     wire filter_running=filter_reset_async_n && filter_reset_release[1];
-    reply_clock_filter #(.ACTIVE_PIPELINE(REPLY_ACTIVE_PIPELINE)) clock_conditioner(filter_clk,filter_running,bus_clk,fast_offer && dir,clean_reply_clk,clock_filter_fault);
+    reply_clock_filter #(.ACTIVE_PIPELINE(REPLY_ACTIVE_PIPELINE),.FAST_FILTER_SYNC(FAST_FILTER_SYNC)) clock_conditioner(filter_clk,filter_running,bus_clk,fast_offer && dir,clean_reply_clk,filtered_clock_fault);
     reg [1:0] fast_prepare;
     reg [49:0] fast_metadata;
     (* ASYNC_REG="TRUE" *) reg [1:0] raw_done_sync,raw_started_sync,raw_progress_sync;
@@ -84,7 +113,7 @@ module link_bringup_filtered #(
         // fast_offer still owns immediate OE/READY kill and SYS lifecycle.
         (* keep = "true" *) wire serializer_offer;
         (* keep = "true" *) LUT1 #(.INIT(2'h2)) offer_hold_buffer(.F(serializer_offer),.I0(fast_offer));
-        link_reply_raw serializer(clean_reply_clk,reset_n,arm,dir,serializer_offer,fast_metadata,
+        link_reply_raw #(.REGISTER_OUTPUT(REPLY_REGISTER_OUTPUT)) serializer(REPLY_RAW_BYPASS ? bus_clk : clean_reply_clk,reset_n,arm,dir,serializer_offer,fast_metadata,
             row_byte,raw_ram_color,raw_ram_depth,raw_data,raw_done,raw_started,raw_error,raw_progress,
             raw_row_index,raw_ram_address,raw_ram_enable);
     end else begin: no_fast_serializer
@@ -98,7 +127,7 @@ module link_bringup_filtered #(
                             logical_tx_index-12'd8;
     wire [10:0] row_index=use_raw ? (tile_mode?11'd0:{5'b0,raw_row_index}):legacy_row_index;
     generate if(GFX_ENABLE==2) begin: triangle
-        wire renderer_abort = (gfx_pending || batch_pending) && idle_count >= TIMEOUT_CYCLES-1;
+        wire renderer_abort = capture_overflow || ((gfx_pending || batch_pending) && idle_count >= TIMEOUT_CYCLES-1);
         wire tri_receiving,tri_busy,tri_done,tri_cmd_start;
         wire [7:0] tri_status,tri_opcode,tri_a,tri_b;
         wire d2_receiving,d2_busy,d2_done,d2_cmd_start;
@@ -129,15 +158,15 @@ module link_bringup_filtered #(
         assign batch_cmd_opcode=batch_is_upload?up_opcode:(batch_is_2d?d2_opcode:tri_opcode);
         assign batch_cmd_a=batch_is_upload?up_a:(batch_is_2d?d2_a:tri_a);
         assign batch_cmd_b=batch_is_upload?up_b:(batch_is_2d?d2_b:tri_b);
-        triangle_tile #(.ALL_SCENES_ENABLE(ALL_SCENES_ENABLE),.CORE_CLOCK_MHZ(CORE_CLOCK_MHZ),.CLOCK_QUERY_ENABLE(CLOCK_QUERY_ENABLE),.RAW_READ_ENABLE(FAST_REPLY_ENABLE)) renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start || batch_cmd_start,
+        triangle_tile #(.ALL_SCENES_ENABLE(ALL_SCENES_ENABLE),.FRAME_TIMING_ENABLE(FRAME_TIMING_ENABLE),.CORE_CLOCK_MHZ(CORE_CLOCK_MHZ),.CLOCK_QUERY_ENABLE(CLOCK_QUERY_ENABLE),.RAW_READ_ENABLE(FAST_REPLY_ENABLE)) renderer(sys_clk, reset_n && arm, renderer_abort, gfx_start || batch_cmd_start,
                               renderer_opcode, renderer_a, renderer_b, gfx_done, gfx_status, gfx_result,
-                              row_index, row_byte,clean_reply_clk,raw_ram_enable,raw_ram_address,raw_ram_color,raw_ram_depth);
+                              row_index, row_byte,REPLY_RAW_BYPASS ? bus_clk : clean_reply_clk,raw_ram_enable,raw_ram_address,raw_ram_color,raw_ram_depth);
     end else if(GFX_ENABLE) begin: gfx
         assign batch_receiving=0;assign batch_busy=0;assign batch_done=0;assign batch_status=0;
         assign batch_cmd_start=0;assign batch_cmd_opcode=0;assign batch_cmd_a=0;assign batch_cmd_b=0;
         // A timed-out operation must not keep mutating RAM or consume a later start.
         wire renderer_reset_n = reset_n && arm;
-        wire renderer_abort = (gfx_pending || batch_pending) && idle_count >= TIMEOUT_CYCLES-1;
+        wire renderer_abort = capture_overflow || ((gfx_pending || batch_pending) && idle_count >= TIMEOUT_CYCLES-1);
         gfx_bench renderer(sys_clk, renderer_reset_n, renderer_abort, gfx_start,
                            logical_opcode, req[4], req[5], gfx_done, gfx_status, gfx_result);
         assign row_byte=8'h00;assign raw_ram_color=0;assign raw_ram_depth=0;
@@ -162,8 +191,8 @@ module link_bringup_filtered #(
         end
     endfunction
     // raw DIR/reset/arm immediately remove output; synchronized DIR enables it.
-    assign data_oe=!clock_filter_fault && reset_n && arm && dir && dir_sync[1] && valid && (!use_raw || raw_valid);
-    assign ready=!clock_filter_fault && reset_n && arm && valid && (!use_raw || raw_valid);
+    assign data_oe=!capture_overflow && !clock_filter_fault && reset_n && arm && dir && dir_sync[1] && valid && (!use_raw || raw_valid);
+    assign ready=!capture_overflow && !clock_filter_fault && reset_n && arm && valid && (!use_raw || raw_valid);
     always @* begin
         reply_crc=16'hffff;
         for(j=0;j<6;j=j+1) reply_crc=crc_byte(reply_crc,reply[j]);
@@ -192,7 +221,7 @@ module link_bringup_filtered #(
             raw_progress_sync<={raw_progress_sync[0],raw_progress};
             raw_progress_last<=raw_progress_sync[1];
             clk_sync<={clk_sync[1:0],bus_clk}; dir_sync<={dir_sync[0],dir};
-            if(!arm) begin
+            if(!arm || capture_overflow) begin
                 valid<=0; rx_index<=0; tx_index<=0; rx_crc<=16'hffff; idle_count<=0;
                 gfx_pending<=0;batch_pending<=0;fast_offer<=0;fast_inflight<=0;fast_prepare<=0;
                 bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff;
@@ -233,7 +262,7 @@ module link_bringup_filtered #(
                     tile_mode<=logical_opcode==8'h3b && gfx_status==0;
                 end
                 if(dir_sync[1] && rx_index!=0) begin rx_index<=0; rx_crc<=16'hffff; end
-                if(rise) begin
+                if(request_event || (rise && dir_sync[1] && dir)) begin
                     idle_count<=0;
                     if(!dir_sync[1] && !dir && !valid && !gfx_pending && !batch_pending) begin
                         if(rx_index==0) begin bulk_mode<=0; tile_mode<=0; prefixed<=0; stream_crc<=16'hffff; end
@@ -269,6 +298,10 @@ module link_bringup_filtered #(
                                 8'h30,8'h31,8'h32,8'h33,8'h34,8'h35,8'h36,8'h37,8'h38,8'h39,8'h3a,8'h3b,8'h3c,8'h3d:
                                     if(GFX_ENABLE==2) begin
                                         valid<=0; gfx_pending<=1; gfx_start<=1;
+                                    end else reply[1]<=2;
+                                8'h79,8'h7a,8'h7b,8'h7c:
+                                    if(GFX_ENABLE==2) begin
+                                        valid<=0;gfx_pending<=1;gfx_start<=1;
                                     end else reply[1]<=2;
                                 8'h5e,8'h60,8'h61,8'h62,8'h63,8'h64,8'h65,8'h66,8'h67,
                                 8'h68,8'h69,8'h6a,8'h6b,8'h6c,8'h6d,8'h6f,

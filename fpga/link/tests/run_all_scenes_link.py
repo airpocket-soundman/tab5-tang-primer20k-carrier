@@ -17,9 +17,16 @@ def main():
     p.add_argument('--tools', type=Path, required=True)
     p.add_argument('--output', type=Path, default=ROOT/'fpga/build/all-scenes-link-tests')
     p.add_argument('--fast-reply', action='store_true')
+    p.add_argument('--raw-bypass', action='store_true')
+    p.add_argument('--fast-filter', action='store_true')
+    p.add_argument('--request-ff', action='store_true')
+    p.add_argument('--request-fifo', action='store_true')
+    p.add_argument('--registered-reply', action='store_true')
     p.add_argument('--registered-input', action='store_true')
     p.add_argument('--vendor-primitive-lib', type=Path)
     a = p.parse_args()
+    if sum([a.fast_filter,a.raw_bypass,a.registered_reply])>1:
+        p.error('Independent reply candidates must be tested separately')
     a.output.mkdir(parents=True, exist_ok=True)
     canvas = [0]*1024
     vectors = []
@@ -155,10 +162,16 @@ def main():
     for op in [0x5e,0x5f,*range(0x60,0x79)]:
         q = next_request(op, 0x101 if op in (0x5f,0x6e) else 0, tag=bool(op&1))
         off.append((q,reply(q,2,0)))
-    sources = ['link/rtl/triangle_batch.v','link/rtl/link_bringup.v','gfx/rtl/triangle_tile.v',
+    sources = ['link/rtl/request_capture_fifo.v','link/rtl/triangle_batch.v','link/rtl/link_bringup.v','gfx/rtl/triangle_tile.v',
                'gfx/rtl/raster2d.v','gfx/rtl/fire_tile.v','gfx/rtl/triangle_fragment.v',
                'gfx/rtl/triangle_coverage.v','gfx/rtl/triangle_depth.v','link/tests/tb_all_scenes_link.v']
     shared_flags = []
+    if a.raw_bypass or a.fast_filter or a.registered_reply:
+        sources[sources.index('link/rtl/link_bringup.v')] = 'link/rtl/link_bringup_filtered.v'
+        sources.append('link/rtl/reply_clock_filter.v')
+        shared_flags.extend(['-DREQUEST_FF'] if a.request_ff else [])
+        shared_flags.extend(['-DREQUEST_FIFO'] if a.request_fifo else [])
+        shared_flags.append('-DREGISTERED_REPLY' if a.registered_reply else '-DFAST_FILTER' if a.fast_filter else '-DRAW_BYPASS')
     if a.registered_input:
         shared_flags.append('-DREGISTERED_INPUT')
     if a.fast_reply:

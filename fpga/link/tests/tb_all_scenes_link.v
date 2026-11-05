@@ -3,6 +3,7 @@ module tb_all_scenes_link;
 reg clk=0,reset_n=0,arm=0,bus_clk=0,dir=0;
 reg [7:0] data_i=0;
 wire [7:0] data_o;wire oe,ready;
+reg filter_test_clk=0;always #2.315 filter_test_clk=~filter_test_clk;
 `ifdef FEATURE_OFF
 localparam ENABLE=0;
 `else
@@ -16,8 +17,36 @@ localparam FAST=0;
 `ifdef VENDOR_RAM
 GSR GSR(1'b1);
 `endif
+`ifdef REQUEST_FIFO
+ localparam REQUEST_FIFO=1;
+`else
+ localparam REQUEST_FIFO=0;
+`endif
+`ifdef REQUEST_FF
+ localparam REQUEST_FF=1;
+`else
+ localparam REQUEST_FF=0;
+`endif
+`ifdef REGISTERED_REPLY
+link_bringup_filtered #(.GFX_ENABLE(2),.ALL_SCENES_ENABLE(ENABLE),.FAST_REPLY_ENABLE(FAST),
+ .REQUEST_DATA_PIPELINE(1),.REQUEST_CAPTURE_FIFO(REQUEST_FIFO),.REQUEST_DATA_FF(REQUEST_FF),.REPLY_ACTIVE_PIPELINE(1),.REPLY_REGISTER_OUTPUT(1),.TIMEOUT_CYCLES(2000000)) dut(
+ clk,reset_n,arm,bus_clk,dir,data_i,data_o,oe,ready,filter_test_clk,reset_n && arm);
+`else
+`ifdef FAST_FILTER
+link_bringup_filtered #(.GFX_ENABLE(2),.ALL_SCENES_ENABLE(ENABLE),.FAST_REPLY_ENABLE(FAST),
+ .REQUEST_DATA_PIPELINE(1),.REQUEST_CAPTURE_FIFO(REQUEST_FIFO),.REQUEST_DATA_FF(REQUEST_FF),.REPLY_ACTIVE_PIPELINE(1),.FAST_FILTER_SYNC(1),.TIMEOUT_CYCLES(2000000)) dut(
+ clk,reset_n,arm,bus_clk,dir,data_i,data_o,oe,ready,filter_test_clk,reset_n && arm);
+`else
+`ifdef RAW_BYPASS
+link_bringup_filtered #(.GFX_ENABLE(2),.ALL_SCENES_ENABLE(ENABLE),.FAST_REPLY_ENABLE(FAST),
+ .REQUEST_DATA_PIPELINE(1),.REQUEST_CAPTURE_FIFO(REQUEST_FIFO),.REQUEST_DATA_FF(REQUEST_FF),.REPLY_ACTIVE_PIPELINE(1),.REPLY_RAW_BYPASS(1),.TIMEOUT_CYCLES(2000000)) dut(
+ clk,reset_n,arm,bus_clk,dir,data_i,data_o,oe,ready,clk,reset_n);
+`else
 link_bringup #(.GFX_ENABLE(2),.ALL_SCENES_ENABLE(ENABLE),.FAST_REPLY_ENABLE(FAST),.TIMEOUT_CYCLES(2000000)) dut(
     clk,reset_n,arm,bus_clk,dir,data_i,data_o,oe,ready);
+`endif
+`endif
+`endif
 `ifdef REGISTERED_INPUT
 `ifndef FEATURE_OFF
 defparam dut.triangle.scenes_batch.staging2d.REGISTER_INPUT=1;

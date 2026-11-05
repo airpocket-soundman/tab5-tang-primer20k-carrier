@@ -18,15 +18,18 @@ def main():
     p.add_argument('--vectors', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--bus8', action='store_true')
+    p.add_argument('--top-module', default='tab5_dock_all_scenes_top')
     a = p.parse_args()
     a.output.mkdir(parents=True, exist_ok=True)
     env = dict(os.environ,PATH=str(a.tools.resolve())+os.pathsep+os.environ['PATH'])
-    bench = ROOT/'fpga/link/tests/tb_all_scenes_gate.v'
+    original_bench = ROOT/'fpga/link/tests/tb_all_scenes_gate.v'
+    bench = a.output/'bench.v'
+    bench.write_text(original_bench.read_text().replace('tab5_dock_all_scenes_top dut(',a.top_module+' dut(',1),encoding='utf-8')
     sim = (a.output/'gate.vvp').resolve()
     manifest = dict(scope='functional_post_PnR_ideal_PLL_no_SDF_no_STA',
                     bus='8MHz_31.25ns_setup_62.5ns_high_31.25ns_hold' if a.bus8 else '1.667MHz',
                     sha256={str(x.resolve()):hashlib.sha256(x.read_bytes()).hexdigest()
-                            for x in [a.netlist,a.primitive_lib,a.vectors,bench]})
+                            for x in [a.netlist,a.primitive_lib,a.vectors,bench,original_bench]})
     for name, cmd in [
         ('compile',['iverilog','-g2012','-s','tb_all_scenes_gate',*(['-DBUS8'] if a.bus8 else []),
                     '-o',str(sim),str(a.netlist.resolve()),str(bench),str(a.primitive_lib.resolve())]),

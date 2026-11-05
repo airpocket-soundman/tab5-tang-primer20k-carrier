@@ -1,7 +1,7 @@
 // Experimental tagged response serializer. Bus master samples OLD data at
 // posedge bus_clk; this domain prepares the NEXT byte after that same edge.
 // Metadata is immutable from SYS offer until the four-phase done acknowledgement.
-module link_reply_raw(
+module link_reply_raw #(parameter REGISTER_OUTPUT=0)(
     input wire bus_clk, reset_n, arm, dir, offer,
     input wire [49:0] metadata,
     input wire [7:0] row_byte,
@@ -18,6 +18,11 @@ module link_reply_raw(
     reg [15:0] crc,current_word;
     reg [9:0] current_tag,ram_tag;
     reg current_valid,ram_valid;
+    reg [7:0] selected_byte,registered_byte;
+    reg retiring;
+    // CRC observes the internal byte before the optional output pipeline.
+    // REGISTER_OUTPUT adds one stage; index1 is skipped during the prefix,
+    // and the final CRC byte receives its own retirement sampling edge.
     wire bulk=metadata_bus[48],tile=metadata_bus[49];
     wire depth_plane=metadata_bus[40];
     wire [11:0] payload_end=tile?12'd2064:12'd80;
@@ -33,45 +38,54 @@ module link_reply_raw(
         begin v=c^{b,8'h00};for(k=0;k<8;k=k+1)v=v[15]?(v<<1)^16'h1021:v<<1;crc_byte=v;end
     endfunction
     always @* begin
-        if(index<8) data_o=8'hc3;
-        else if(index<14) data_o=metadata_bus[(index-8)*8+:8];
-        else if(index==14) data_o=crc[7:0];
-        else if(index==15) data_o=crc[15:8];
-        else if(payload) data_o=tile?(index[0]?current_word[15:8]:current_word[7:0]):row_byte;
-        else if(bulk && index==payload_end) data_o=crc[7:0];
-        else if(bulk && index==payload_end+1'b1) data_o=crc[15:8];
-        else data_o=0;
+        if(index<8) selected_byte=8'hc3;
+        else if(index<14) selected_byte=metadata_bus[(index-8)*8+:8];
+        else if(index==14) selected_byte=crc[7:0];
+        else if(index==15) selected_byte=crc[15:8];
+        else if(payload) selected_byte=tile?(index[0]?current_word[15:8]:current_word[7:0]):row_byte;
+        else if(bulk && index==payload_end) selected_byte=crc[7:0];
+        else if(bulk && index==payload_end+1'b1) selected_byte=crc[15:8];
+        else selected_byte=0;
     end
+    always @* data_o=REGISTER_OUTPUT ? registered_byte : selected_byte;
     always @(posedge bus_clk or negedge active_reset_n) begin
         if(!active_reset_n) begin
             metadata_meta<=0;metadata_bus<=0;index<=0;crc<=16'hffff;
             done<=0;started<=0;error<=0;progress<=0;
             current_word<=0;current_tag<=0;current_valid<=0;
-            ram_address<=0;ram_tag<=0;ram_valid<=0;
+            ram_address<=0;ram_tag<=0;ram_valid<=0;registered_byte<=8'hc3;retiring<=0;
         end else begin
             metadata_meta<=metadata;metadata_bus<=metadata_meta;
             if(!offer) begin
                 index<=0;crc<=16'hffff;done<=0;started<=0;error<=0;
-                current_valid<=0;ram_valid<=0;ram_address<=0;
+                current_valid<=0;ram_valid<=0;ram_address<=0;registered_byte<=8'hc3;retiring<=0;
             end else if(!dir) begin
+                registered_byte<=8'hc3;retiring<=0;
                 // DIR may be LOW while READY is offered, before the first byte.
                 // Once started, its falling edge cancels via the SYS handshake;
                 // a clock arriving in that phase also latches a local abort.
                 if(started && !done) begin done<=1;error<=1;end
             end else if(!done) begin
+                if(REGISTER_OUTPUT) registered_byte<=selected_byte;
+                if(REGISTER_OUTPUT && retiring) begin
+                    // The master samples the registered CRC_HI on this edge.
+                    // Do not process CRC/progress/prefetch a second time.
+                    done<=1;retiring<=0;
+                end else begin
                 started<=1;
                 ram_tag<=ram_address;ram_valid<=1;
                 if(index[3:0]==15) progress<=~progress;
                 // Two metadata stages have settled by the third prefix edge.
                 // Port B has already loaded word0; header edges prime word1.
-                if(index==2) begin
+                if(index==(REGISTER_OUTPUT ? 3 : 2)) begin
                     current_word<=ram_word;current_tag<=ram_tag;current_valid<=ram_valid;
                     ram_address<=1;
                 end
                 if(payload && tile && (!current_valid || current_tag!=payload_index[10:1] ||
                    (index[0] && payload_index[10:1]!=1023 &&
                     (!ram_valid || ram_tag!=payload_index[10:1]+1'b1)))) begin
-                    error<=1;done<=1;
+                    error<=1;done<=1;retiring<=0;
+                    if(REGISTER_OUTPUT) registered_byte<=8'hc3;
                 end else begin
                     if(payload && tile) begin
                         if(!index[0]) ram_address<=payload_index[10:1]>=1022?10'd1023:payload_index[10:1]+2'd2;
@@ -79,9 +93,13 @@ module link_reply_raw(
                             current_word<=ram_word;current_tag<=ram_tag;current_valid<=ram_valid;
                         end
                     end
-                    if((index>=8 && index<14) || payload) crc<=crc_byte(crc,data_o);
-                    if(index==last_index) done<=1;
+                    if((index>=8 && index<14) || payload) crc<=crc_byte(crc,selected_byte);
+                    if(index==last_index) begin
+                        if(REGISTER_OUTPUT) retiring<=1;
+                        else done<=1;
+                    end else if(REGISTER_OUTPUT && index==0) index<=2;
                     else index<=index+1'b1;
+                end
                 end
             end
         end

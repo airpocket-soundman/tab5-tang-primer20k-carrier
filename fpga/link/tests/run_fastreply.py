@@ -14,6 +14,7 @@ from reference.link_sync import SyncPrefixDevice
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--iverilog',default='iverilog');p.add_argument('--vvp',default='vvp')
+    p.add_argument('--registered-reply',action='store_true')
     args=p.parse_args()
     if not shutil.which(args.iverilog) or not shutil.which(args.vvp):p.error('existing Icarus/vvp required')
     model=SyncPrefixDevice(TriangleTile());vectors=[]
@@ -58,7 +59,12 @@ def main():
         vf.write_text(''.join(str(len(r))+' '+' '.join(f'{b:02x}' for b in bytes(q)+r)+'\n' for q,r in vectors),encoding='ascii')
         sources=['link/rtl/link_reply_raw.v','link/rtl/triangle_batch.v','link/rtl/link_bringup.v','gfx/rtl/gfx_bench.v','gfx/rtl/triangle_tile.v','gfx/rtl/triangle_fragment.v',
                  'gfx/rtl/triangle_coverage.v','gfx/rtl/triangle_depth.v','platform/dock/tab5_dock_top.v','link/tests/tb_link_sync.v']
-        subprocess.run([args.iverilog,'-g2012','-Wall','-s','tb_link_sync','-Ptb_link_sync.FAST_REPLY_ENABLE=1','-o',str(exe),*[str(ROOT/s) for s in sources]],check=True)
+        paths=[str(ROOT/s) for s in sources]
+        if args.registered_reply:
+            fixture=td/'tb_registered_link_sync.v'
+            fixture.write_text((ROOT/sources[-1]).read_text().replace('    reg clk=0,','    defparam dut.core.REPLY_REGISTER_OUTPUT=1;\n    reg clk=0,',1))
+            paths[-1]=str(fixture)
+        subprocess.run([args.iverilog,'-g2012','-Wall','-s','tb_link_sync','-Ptb_link_sync.FAST_REPLY_ENABLE=1','-o',str(exe),*paths],check=True)
         subprocess.run([args.vvp,str(exe),'+vectors='+str(vf)],check=True,timeout=180)
     print(f'PASS LINK sync {len(vectors)} wire transactions; tagged ID/echo/invert/CAPS/triangle/fractal/ROW plus untagged/error/timeout/reset paths; no hardware access')
 if __name__=='__main__':main()

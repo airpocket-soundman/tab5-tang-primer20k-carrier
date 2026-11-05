@@ -2,7 +2,7 @@
 // At216MHz: qualify two equal samples, emit2tick HIGH, rises >=5ticks apart.
 // The request parser never uses this clock. Slow DIR0 clocks still reach the
 // reply serializer so its existing offer=0 reset/metadata lifecycle is retained.
-module reply_clock_filter #(parameter ACTIVE_PIPELINE=0)(
+module reply_clock_filter #(parameter ACTIVE_PIPELINE=0, parameter FAST_FILTER_SYNC=0)(
     input wire sample_clk,reset_n,raw_clk,reply_active,
     output reg clean_clk,
     output reg fault
@@ -34,7 +34,10 @@ module reply_clock_filter #(parameter ACTIVE_PIPELINE=0)(
             if(pulse_remaining)pulse_remaining<=0;
             else clean_clk<=0;
             if(sampled==qualified)changing<=0;
-            else if(!changing)changing<=1;
+            // Fast candidate keeps both synchronizer stages, but qualifies
+            // their sampled level immediately instead of waiting one more tick.
+            // This deliberately changes rejection of one-sample excursions.
+            else if(!FAST_FILTER_SYNC && !changing)changing<=1;
             else begin
                 qualified<=sampled;changing<=0;
                 if(sampled)begin
