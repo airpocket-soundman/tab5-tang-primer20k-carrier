@@ -3,6 +3,7 @@
 module link_bringup #(
     parameter TIMEOUT_CYCLES = 2700000,
     parameter GFX_ENABLE = 0,
+    parameter NPU_ENABLE = 0,
     parameter ALL_SCENES_ENABLE = 0,
     parameter FRAME_TIMING_ENABLE = 0,
     parameter REPLY_REGISTER_OUTPUT = 0,
@@ -89,7 +90,13 @@ module link_bringup #(
                             logical_tx_index>=payload_end ? (tile_mode?11'd2047:11'd63) :
                             logical_tx_index-12'd8;
     wire [10:0] row_index=use_raw ? (tile_mode?11'd0:{5'b0,raw_row_index}):legacy_row_index;
-    generate if(GFX_ENABLE==2) begin: triangle
+    generate if(NPU_ENABLE) begin: npu
+        npu_dot_command engine(sys_clk,!reset_n || !arm || idle_count>=TIMEOUT_CYCLES-1,
+            gfx_start,logical_opcode,req[4],req[5],gfx_done,gfx_status,gfx_result);
+        assign batch_receiving=0;assign batch_busy=0;assign batch_done=0;assign batch_status=0;
+        assign batch_cmd_start=0;assign batch_cmd_opcode=0;assign batch_cmd_a=0;assign batch_cmd_b=0;
+        assign row_byte=0;assign raw_ram_color=0;assign raw_ram_depth=0;
+    end else if(GFX_ENABLE==2) begin: triangle
         wire renderer_abort = (gfx_pending || batch_pending) && idle_count >= TIMEOUT_CYCLES-1;
         wire tri_receiving,tri_busy,tri_done,tri_cmd_start;
         wire [7:0] tri_status,tri_opcode,tri_a,tri_b;
@@ -303,6 +310,9 @@ module link_bringup #(
                                     if(req[4]<1 || req[4]>64 || req[5]!=1) reply[1]<=3;
                                     else begin valid<=0;batch_pending<=1;batch_is_2d<=logical_opcode==8'h6e;batch_is_upload<=logical_opcode==8'h5f;batch_start<=1;batch_header_crc<=rx_crc;end
                                 end else reply[1]<=2;
+                                8'h50,8'h51,8'h52,8'h53,8'h54,8'h55,8'h56,8'h57,8'h58,8'h59,8'h5a,8'h5b:
+                                    if(NPU_ENABLE) begin valid<=0;gfx_pending<=1;gfx_start<=1;end
+                                    else reply[1]<=2;
                                 1: begin reply[1]<=0; reply[4]<=8'h54; reply[5]<=8'h50; end
                                 2: begin reply[1]<=0; reply[4]<=req[4]; reply[5]<=req[5]; end
                                 3: begin reply[1]<=0; reply[4]<=~req[4]; reply[5]<=~req[5]; end

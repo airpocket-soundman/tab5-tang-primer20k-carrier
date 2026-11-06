@@ -81,3 +81,6 @@ bootloaderは0x2000、partition-tableは0x8000、appは0x10000用。factory app�
 
 実装中に発見した描画タイムアウトの中断漏れは修正し、途中CLEARからの復帰をRTLで確認した。
 制約Tcl／SDCの構文と参照ファイル存在、CSTの22ポート・ballの重複なしをPCで確認したが、Gowin EDAでの制約受理の代替にはならない。
+
+
+2026-11-06 NPU-DOT実機：[人物サンプルと実機接続](../../docs/NPU_PERSON_HARDWARE_2026-11-06.md)。4E02単独版、63+11+2境界試験と画像由来32jobがPASS。全graph・カメラ推論は未実装。

@@ -13,7 +13,8 @@ module int8_dot_job (
     input wire signed [7:0] activation, input wire signed [7:0] weight,
     output wire result_valid, input wire result_ready,
     output wire signed [7:0] result,
-    output wire busy, output wire error, output wire [1:0] error_code
+    output wire busy, output wire error, output wire [1:0] error_code,
+    output wire signed [31:0] accumulated
 );
     localparam IDLE=3'd0, START=3'd1, STREAM=3'd2, FINISH=3'd3,
                QUANT=3'd4, OUTPUT=3'd5, FAULT=3'd6;
@@ -29,6 +30,7 @@ module int8_dot_job (
     wire signed [31:0] mac_result;
     wire quant_ready, quant_valid, quant_error;
     wire any_fault;
+    assign accumulated = mac_result; // Valid only with result_valid; no partial sum publication.
     assign config_valid = input_zero_point >= -16'sd128 && input_zero_point <= 16'sd127 &&
         !multiplier[31] && shift <= 7'd62 &&
         output_zero_point >= -16'sd128 && output_zero_point <= 16'sd127 &&
