@@ -56,7 +56,18 @@ def run():
             if n is None:assert not actual or 'unconnected-' in actual,(ref,pin,actual)
             else:assert actual==n,(ref,pin,n,actual)
     saved=json.loads((H.parent/'usb-jtag-r5/preserved-r4.json').read_text())
-    changed=[fn for fn,sha in saved['files'].items() if hashlib.sha256((ROOT/fn).read_bytes()).hexdigest()!=sha]
+    # The r4 CPL polarity fix (2026-11-06, docs/r4_CPLダイオード極性調査_2026-11-06.md) changed exactly these
+    # r4 files on purpose; every other preserved r4 file must still match. No PCB/schematic file is in this set.
+    INTENTIONAL_R4_CPL_FIX={
+        'spark/single-sided-r4/assembly-placement-corrections.json',
+        'spark/single-sided-r4/full/order-profile.json',
+        'spark/single-sided-r4/lite-a/order-profile.json',
+        'spark/single-sided-r4/full/design/manufacturing/spark-lcsc-review-single-sided-r4-2026-10-26/jlc-cpl.csv',
+        'spark/single-sided-r4/full/design/manufacturing/spark-lcsc-review-single-sided-r4-2026-10-26/package-check.json',
+        'spark/single-sided-r4/lite-a/design/manufacturing/spark-lite-a-lcsc-review-single-sided-r4-2026-10-26/jlc-cpl.csv',
+        'spark/single-sided-r4/lite-a/design/manufacturing/spark-lite-a-lcsc-review-single-sided-r4-2026-10-26/package-check.json'}
+    changed=[fn for fn,sha in saved['files'].items() if hashlib.sha256((ROOT/fn).read_bytes()).hexdigest()!=sha
+             and fn.replace(chr(92),'/') not in INTENTIONAL_R4_CPL_FIX]
     assert not changed,('r4 changed',changed)
     erc=json.loads((K/'sim/erc.json').read_text(encoding='utf8'))
     violations=[x for sh in erc['sheets'] for x in sh['violations']]
@@ -64,7 +75,7 @@ def run():
     assert not errors,errors
     drc=json.loads((K/'sim/drc.json').read_text(encoding='utf8'))
     report={'exported_schematic_contract':'PASS','slider_position_model':{str(k):v for k,v in model.items()},
-      'dangerous_combination_possible_with_SW4':False,'r4_files_unchanged':len(saved['files']),
+      'dangerous_combination_possible_with_SW4':False,'r4_files_unchanged':len(saved['files'])-len(INTENTIONAL_R4_CPL_FIX),'r4_files_changed_on_purpose_cpl_polarity_fix':len(INTENTIONAL_R4_CPL_FIX),
       'erc_errors':len(errors),'erc_warnings':len(violations)-len(errors),'components':len(contract),
       'pcb_drc_violations':len(drc['violations']),'pcb_unconnected':len(drc['unconnected_items']),
       'jp3_linked_to_sw4':False,'switch_pad_pairing_verified_on_real_part':False,

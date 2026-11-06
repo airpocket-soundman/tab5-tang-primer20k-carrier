@@ -70,10 +70,24 @@ assert not drc['violations'] and not drc['unconnected_items'], (len(drc['violati
 
 # --- r4 preservation (same list as r5)
 saved = json.loads((R5.parent.parent.parent / 'preserved-r4.json').read_text())
-bad = [f for f, sha in saved['files'].items() if hashlib.sha256((ROOT / f.replace(chr(92), '/')).read_bytes()).hexdigest() != sha]
+# The r4 CPL polarity fix (2026-11-06, docs/r4_CPLダイオード極性調査_2026-11-06.md) changed exactly these
+# r4 files on purpose; every other preserved r4 file must still match. No PCB/schematic file is in this set.
+INTENTIONAL_R4_CPL_FIX = {
+    'spark/single-sided-r4/assembly-placement-corrections.json',
+    'spark/single-sided-r4/full/order-profile.json',
+    'spark/single-sided-r4/lite-a/order-profile.json',
+    'spark/single-sided-r4/full/design/manufacturing/spark-lcsc-review-single-sided-r4-2026-10-26/jlc-cpl.csv',
+    'spark/single-sided-r4/full/design/manufacturing/spark-lcsc-review-single-sided-r4-2026-10-26/package-check.json',
+    'spark/single-sided-r4/lite-a/design/manufacturing/spark-lite-a-lcsc-review-single-sided-r4-2026-10-26/jlc-cpl.csv',
+    'spark/single-sided-r4/lite-a/design/manufacturing/spark-lite-a-lcsc-review-single-sided-r4-2026-10-26/package-check.json',
+}
+bad = [f for f, sha in saved['files'].items()
+       if hashlib.sha256((ROOT / f.replace(chr(92), '/')).read_bytes()).hexdigest() != sha
+       and f.replace(chr(92), '/') not in INTENTIONAL_R4_CPL_FIX]
 assert not bad, ('r4 changed', bad[:3])
 
 print(json.dumps({'netlist_topology': 'PASS', 'added_parts': added, 'changed_parts_vs_r5': changed,
                   'erc_errors': len(erc_err), 'erc_warnings': len(viol) - len(erc_err),
                   'pcb_drc_violations': len(drc['violations']), 'pcb_unconnected': len(drc['unconnected_items']),
-                  'r4_files_unchanged': len(saved['files'])}, indent=2))
+                  'r4_files_unchanged': len(saved['files']) - len(INTENTIONAL_R4_CPL_FIX),
+                  'r4_files_changed_on_purpose_cpl_polarity_fix': len(INTENTIONAL_R4_CPL_FIX)}, indent=2))
