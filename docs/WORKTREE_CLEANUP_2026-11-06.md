@@ -47,3 +47,14 @@ activation scriptはmachine/userの永続環境変数を変更しない。正本
 ## 復元方法
 
 各HEADはmainに含まれるため、消したlocal branch名がなくても `git worktree add --detach <新しい復元先> <記録のHEAD>` でtracked sourceを復元できる。その後、該当archiveのSHAを確認し、空の生成物領域へ展開しfile-manifest.jsonと照合する。存在する別作業へ上書きしない。旧IP/build/toolのarchiveは上記ローカル保管先が必要で、Gitからは取得できない。新PCへ移す際はこの保管先も別途コピーしSHAを照合する。
+
+
+## 方針に沿った完了作業の閉鎖（第2回）
+
+採用済みMEM系16branchはgit cherryの固有patchが0で、mainへの反映済みを確認した。未採用のMEM応答タイミング、旧Edge診断、計測試作、旧baseline/recovery資料は、実装採用と区別して両repositoryの `archive/completed-20261106` に履歴を集約した。これは履歴保管用のours mergeであり、mainへの機能取り込みではない。保管branchのtreeは作成前のmain相当と完全一致する。後日採用する場合は保管履歴の対象commitを明示してpatch/cherry-pickし、試験する。mainへ保管branchをmergeしない。
+
+今回worktreeを22個削除し、carrier 11、host 2、合計13個になった。hostはmainと継続中のthroughputの2個。carrierは基板担当と元のdirty tree、統合作業tree、モデル常駐と関連シーン設計を維持した。過去の削除拒否で復元したcool-chebyshevも保持した。proposalのpull-request treeには別セッションによる未追跡の基板監査文書があったため、退避・削除を行わず保持した。
+
+22tree分のignored生成物は `D:/esp/images/worktree-cleanup-20261106/run02/` に保存し、ZIP内全file SHA256と削除直前の元file SHA256・集合を照合した。旧IP/buildはローカル保管のみでGitに追加していない。通常のworktree remove/branch -dで閉鎖し、force削除を使っていない。対応するremote branchは保管branchへの履歴包含・remote tip一致を確認して削除した。
+
+詳細なHEAD、保管先、削除結果、最終一覧は [closure-record.json](worktree-cleanup-2026-11-06/closure-record.json)。mainのproduction source、通信仕様、基板データ、実機firmwareは変更していない。検証はtree一致と履歴包含・全退避file SHA照合で行った。実行codeの変更がないため実機試験の再実行は不要。
