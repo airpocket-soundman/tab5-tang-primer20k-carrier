@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=ROOT/'build/rtl-check/status.json')
+    parser.add_argument('--npu-only', action='store_true', help='Run MAC, requantizer and dot-job only')
     parser.add_argument('--require', action='store_true', help='Fail if existing tools are unavailable')
     parser.add_argument('--iverilog', help='Path to an existing Icarus compiler')
     parser.add_argument('--vvp', help='Path to an existing vvp runtime')
@@ -38,7 +39,7 @@ def main():
             raise RuntimeError(' '.join(map(str, command))+'\n'+result.stdout+result.stderr)
         return result.stdout.strip()
     try:
-        for name, script in (
+        for name, script in (() if args.npu_only else (
             ('bringup', 'link/tests/run_rtl.py'),
             ('dock_gfx', 'gfx/tests/run_bench.py'),
             ('triangle_tile', 'gfx/tests/run_triangle_tile.py'),
@@ -46,7 +47,7 @@ def main():
             ('coverage', 'gfx/tests/run.py'),
             ('depth', 'gfx/tests/run_depth.py'),
             ('depth16_miter', 'gfx/tests/run_triangle_depth16_miter.py'),
-            ('fragment', 'gfx/tests/run_fragment.py')):
+            ('fragment', 'gfx/tests/run_fragment.py'))):
             output = run([sys.executable, str(ROOT/script), '--iverilog', compiler, '--vvp', runtime])
             report['suites'].append(dict(name=name, status='passed', output=output))
             print(name + ': passed')

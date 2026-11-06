@@ -1,0 +1,66 @@
+{
+  "base_commit": "5d36dfe",
+  "device_access": "none",
+  "host_vector_tests": 9,
+  "npu_rtl": [
+    "mac",
+    "requant",
+    "dot"
+  ],
+  "full_rtl_suites": 11,
+  "component_synthesis": {
+    "mac": {
+      "ALU": 42,
+      "DFFR": 1,
+      "DFFRE": 66,
+      "GND": 1,
+      "LUT2": 6,
+      "LUT3": 32,
+      "LUT4": 9,
+      "MULT9X9": 1,
+      "MUX2_LUT5": 4,
+      "VCC": 1
+    },
+    "requant": {
+      "ALU": 428,
+      "DFFR": 1,
+      "DFFRE": 9,
+      "GND": 1,
+      "LUT1": 257,
+      "LUT2": 55,
+      "LUT3": 402,
+      "LUT4": 534,
+      "MULT36X36": 1,
+      "MUX2_LUT5": 388,
+      "MUX2_LUT6": 157,
+      "MUX2_LUT7": 63,
+      "MUX2_LUT8": 16,
+      "VCC": 1
+    },
+    "dot": {
+      "ALU": 547,
+      "DFFR": 2,
+      "DFFRE": 239,
+      "GND": 1,
+      "LUT1": 251,
+      "LUT2": 61,
+      "LUT3": 488,
+      "LUT4": 541,
+      "MULT36X36": 1,
+      "MULT9X9": 1,
+      "MUX2_LUT5": 373,
+      "MUX2_LUT6": 140,
+      "MUX2_LUT7": 50,
+      "MUX2_LUT8": 16,
+      "VCC": 1
+    }
+  },
+  "scope": "GW2A component synthesis only; no IO/placement/routing/timing/bitstream/hardware",
+  "host_refs": {
+    "ESP-IDF": "bf111d7",
+    "Linux": "cfc9a6e",
+    "MeOS": "78274b4",
+    "memory_research": "e84b59e"
+  },
+  "wire_pin_power_change": false
+}
