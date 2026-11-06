@@ -45,6 +45,7 @@ def main():
             ('triangle_rows', 'gfx/tests/run_triangle_rows.py'),
             ('coverage', 'gfx/tests/run.py'),
             ('depth', 'gfx/tests/run_depth.py'),
+            ('depth16_miter', 'gfx/tests/run_triangle_depth16_miter.py'),
             ('fragment', 'gfx/tests/run_fragment.py')):
             output = run([sys.executable, str(ROOT/script), '--iverilog', compiler, '--vvp', runtime])
             report['suites'].append(dict(name=name, status='passed', output=output))

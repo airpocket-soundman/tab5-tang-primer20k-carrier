@@ -32,11 +32,11 @@ module tb_triangle_depth;
           @(negedge clk);sample=~sample;in_valid=1;
           if(in_ready) $fatal(1,"ready during divide");
           @(posedge clk);#1;cycles=cycles+1;
-          if(cycles>49) $fatal(1,"divider latency");
+          if(cycles>16) $fatal(1,"divider latency");
         end
         if(actual!==expected[n]) $fatal(1,"vector %0d got %016x expected %016x",n,actual,expected[n]);
         if(inputs[n][0] && !expected[n][16]) begin
-          if(cycles!=49) $fatal(1,"covered latency %0d",cycles);
+          if(cycles!=16) $fatal(1,"covered latency %0d",cycles);
         end else if(cycles!=0) $fatal(1,"early-result latency");
         held=actual;
         for(k=0;k<3;k=k+1) begin
@@ -54,7 +54,7 @@ module tb_triangle_depth;
       if(out_valid || in_ready || actual!==0) $fatal(1,"busy reset");
       in_valid=0;#1;reset_n=1;
       repeat(55) begin @(posedge clk);#1;if(out_valid) $fatal(1,"stale reset result");end
-      $display("PASS triangle_depth: %0d vectors, 49-step exact divide, stall, reset",COUNT);
+      $display("PASS triangle_depth: %0d vectors, 16-step exact divide, stall, reset",COUNT);
       $finish;
     end
     initial begin #2000000;$fatal(1,"watchdog");end

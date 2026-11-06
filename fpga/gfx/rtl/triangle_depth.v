@@ -1,4 +1,4 @@
-// Exact G0 depth interpolation. Unsigned 49-step restoring divider; no approximation.
+// Exact G0 depth interpolation. Unsigned 16-step restoring divider; no approximation.
 module triangle_depth (
     input wire clk, reset_n, in_valid,
     output wire in_ready,
@@ -40,8 +40,14 @@ module triangle_depth (
                 invalid_input<=!valid_shape; depth_pass<=0; new_depth<=0;
                 if(!valid_shape || !covered) out_valid<=1;
                 else begin
-                    busy<=1; divisor<=area[32:0]; remainder<=0;
-                    dividend<=numerator[48:0]; quotient<=0; bits_left<=49; saved_old_depth<=old_depth;
+                    // valid_shape gives nonnegative weights summing to area;
+                    // 0<=Z<=65535 therefore N<=area*65535<area*2^16.
+                    // Hence floor(N/2^16)<area: the high 33 numerator bits
+                    // are already a legal restoring remainder. Process only
+                    // the low 16 bits, preserving exact floor(N/area), not an
+                    // approximate reciprocal. MAX_AREA*65535 fits 49 bits.
+                    busy<=1; divisor<=area[32:0]; remainder<=numerator[48:16];
+                    dividend<={numerator[15:0],33'b0}; quotient<=0; bits_left<=16; saved_old_depth<=old_depth;
                 end
             end
             if(busy) begin
