@@ -25,3 +25,5 @@ spark/sources/main-power/*
 # Import workspaces are regenerated; authoritative CAD and native exports are kept.
 **/import-compat/
 # Exclude unpublished archives from bulk source additions.
+# The r5l order archive is a manufacturing deliverable (made from order/gerbers/ by gen/export_order.py): keep it versioned.
+!spark/usb-jtag-r5-loadsw/order/gerbers.zip

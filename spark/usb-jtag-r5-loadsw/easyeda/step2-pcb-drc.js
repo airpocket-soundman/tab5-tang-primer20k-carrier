@@ -1,0 +1,10 @@
+const project=await eda.dmt_Project.getCurrentProjectInfo();
+const doc=await eda.dmt_SelectControl.getCurrentDocumentInfo();
+if(project?.uuid!=="5dcc5c82bf3ef0e5c63ecb708087f825291ce59417579f5268a874044dece84e"||doc?.documentType!==3)throw Error("Expected the r5l PCB document");
+const details=await eda.pcb_Drc.check(true,false,true);
+const summary={};
+const flat=JSON.stringify(details);
+const walk=(n,depth)=>{if(Array.isArray(n)){for(const x of n)walk(x,depth+1);}else if(n&&typeof n==="object"){if(n.name&&typeof n.name==="string"&&Array.isArray(n.list)){summary[n.name]=(n.list||[]).reduce((a,x)=>a+((x.list&&x.list.length)||1),0);}for(const k of Object.keys(n))if(typeof n[k]==="object")walk(n[k],depth+1);}};
+walk(details,0);
+const saved=await eda.sys_FileSystem.saveFileToFileSystem("D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/r5-ovp-switch/spark/usb-jtag-r5-loadsw/easyeda/import-compat/pcb-drc-details.json",new Blob([flat],{type:"application/json"}),undefined,true);
+return {entries:Array.isArray(details)?details.length:typeof details,bytes:flat.length,summary,saved,head:flat.slice(0,600)};
