@@ -1,0 +1,970 @@
+{
+  "hardware_access": false,
+  "build_completed": true,
+  "fs_sha256": "b2e4030294768e7f3a73922ceec7cebcd800c8b09c5aa4bfb80ffbf155b64f49",
+  "usercode": "0x000016d0",
+  "part": "GW2A-LV18PG256C8/I7",
+  "sta_counts": {
+    "Numbers of Paths Analyzed": 28200,
+    "Numbers of Endpoints Analyzed": 9302,
+    "Numbers of Falling Endpoints": 0,
+    "Numbers of Setup Violated Endpoints": 0,
+    "Numbers of Hold Violated Endpoints": 0
+  },
+  "clocks": [
+    [
+      "1",
+      "osc27",
+      "Base",
+      "37.037",
+      "27.000 0.000",
+      "18.519",
+      "",
+      "",
+      "sys_clk"
+    ],
+    [
+      "2",
+      "conditioned_reply54",
+      "Base",
+      "18.519",
+      "54.000 0.000",
+      "9.259",
+      "",
+      "",
+      "core/clean_reply_clk"
+    ],
+    [
+      "3",
+      "core54",
+      "Generated",
+      "18.519",
+      "54.000 0.000",
+      "9.259",
+      "sys_clk",
+      "osc27",
+      "core_clk"
+    ],
+    [
+      "4",
+      "sampler216",
+      "Generated",
+      "4.630",
+      "216.000 0.000",
+      "2.315",
+      "sys_clk",
+      "osc27",
+      "filter_clk"
+    ],
+    [
+      "5",
+      "core_pll/pll/CLKOUTP.default_gen_clk",
+      "Generated",
+      "18.519",
+      "54.000 0.000",
+      "9.259",
+      "sys_clk_ibuf/I",
+      "osc27",
+      "core_pll/pll/CLKOUTP"
+    ],
+    [
+      "6",
+      "core_pll/pll/CLKOUTD.default_gen_clk",
+      "Generated",
+      "37.037",
+      "27.000 0.000",
+      "18.519",
+      "sys_clk_ibuf/I",
+      "osc27",
+      "core_pll/pll/CLKOUTD"
+    ],
+    [
+      "7",
+      "core_pll/pll/CLKOUTD3.default_gen_clk",
+      "Generated",
+      "55.556",
+      "18.000 0.000",
+      "27.778",
+      "sys_clk_ibuf/I",
+      "osc27",
+      "core_pll/pll/CLKOUTD3"
+    ],
+    [
+      "8",
+      "filter_pll/pll/CLKOUTP.default_gen_clk",
+      "Generated",
+      "4.630",
+      "216.000 0.000",
+      "2.315",
+      "sys_clk_ibuf/I",
+      "osc27",
+      "filter_pll/pll/CLKOUTP"
+    ],
+    [
+      "9",
+      "filter_pll/pll/CLKOUTD.default_gen_clk",
+      "Generated",
+      "9.259",
+      "108.000 0.000",
+      "4.630",
+      "sys_clk_ibuf/I",
+      "osc27",
+      "filter_pll/pll/CLKOUTD"
+    ],
+    [
+      "10",
+      "filter_pll/pll/CLKOUTD3.default_gen_clk",
+      "Generated",
+      "13.889",
+      "72.000 0.000",
+      "6.944",
+      "sys_clk_ibuf/I",
+      "osc27",
+      "filter_pll/pll/CLKOUTD3"
+    ]
+  ],
+  "fmax": [
+    [
+      "1",
+      "conditioned_reply54",
+      "54.000(MHz)",
+      "78.532(MHz)",
+      "11",
+      "TOP"
+    ],
+    [
+      "2",
+      "core54",
+      "54.000(MHz)",
+      "60.980(MHz)",
+      "11",
+      "TOP"
+    ],
+    [
+      "3",
+      "sampler216",
+      "216.000(MHz)",
+      "311.923(MHz)",
+      "4",
+      "TOP"
+    ]
+  ],
+  "minima": {
+    "Setup": [
+      "1",
+      "1.424",
+      "core/request_fifo.capture/read_gray_sampled_3_s0/Q",
+      "core/request_fifo.capture/memory_memory_0_1_s/WRE",
+      "sampler216:[R]",
+      "sampler216:[R]",
+      "4.630",
+      "0.000",
+      "3.171"
+    ],
+    "Hold": [
+      "1",
+      "0.074",
+      "core/triangle.scenes_batch.upload_staging/low_7_s0/Q",
+      "core/triangle.scenes_batch.upload_staging/words_words_0_0_s/DI[7]",
+      "core54:[R]",
+      "core54:[R]",
+      "0.000",
+      "0.000",
+      "0.323"
+    ],
+    "Recovery": [
+      "1",
+      "0.190",
+      "reset_sync_2_s0/Q",
+      "core/request_fifo.capture/sample_release_2_s0/CLEAR",
+      "core54:[R]",
+      "sampler216:[R]",
+      "4.630",
+      "0.000",
+      "4.369"
+    ],
+    "Removal": [
+      "1",
+      "0.332",
+      "core/request_fifo.capture/sys_release_1_s0/Q",
+      "core/request_fifo.capture/write_gray_sampled_0_s0/CLEAR",
+      "core54:[R]",
+      "core54:[R]",
+      "0.000",
+      "0.000",
+      "0.343"
+    ]
+  },
+  "resources": {
+    "Logic": "6926/20736",
+    "Register": "3032/16173",
+    "BSRAM": "5/46",
+    "DSP": "16.5/24",
+    "I/O Port": "22/207"
+  },
+  "source_snapshot": [
+    {
+      "file": "constraints\\dock\\all_scenes.sdc",
+      "baseline": "d397886fd34976da015d93e511ab80921082542cbd740eab60dd8cfe6227a4fe",
+      "current": "d397886fd34976da015d93e511ab80921082542cbd740eab60dd8cfe6227a4fe",
+      "same": true
+    },
+    {
+      "file": "constraints\\dock\\tab5_dock_link_v0.cst",
+      "baseline": "ebc2cc10587f201c489b14703ac7843a24476481103e6566ff1aec02f6036c61",
+      "current": "ebc2cc10587f201c489b14703ac7843a24476481103e6566ff1aec02f6036c61",
+      "same": true
+    },
+    {
+      "file": "gfx\\rtl\\fire_tile.v",
+      "baseline": "c11dd05106af56af5f41813ef0a179ff94f525f4f4efcdbbaec2ff167829be71",
+      "current": "c11dd05106af56af5f41813ef0a179ff94f525f4f4efcdbbaec2ff167829be71",
+      "same": true
+    },
+    {
+      "file": "gfx\\rtl\\gfx_bench.v",
+      "baseline": "841a4f50baa9e3200bbda1cd61bc9511db36909f76e854a9b66b331ebda2c392",
+      "current": "841a4f50baa9e3200bbda1cd61bc9511db36909f76e854a9b66b331ebda2c392",
+      "same": true
+    },
+    {
+      "file": "gfx\\rtl\\raster2d.v",
+      "baseline": "b9703b7090f83069ab516cc04c230bbecc928c8d68f9caa44423e89dccb707fe",
+      "current": "b9703b7090f83069ab516cc04c230bbecc928c8d68f9caa44423e89dccb707fe",
+      "same": true
+    },
+    {
+      "file": "gfx\\rtl\\tile_dpram_vendor.v",
+      "baseline": "b133181cd254c9059c54e19fc03f06b506ca280d374dd6fa6ae321bc0159135e",
+      "current": "b133181cd254c9059c54e19fc03f06b506ca280d374dd6fa6ae321bc0159135e",
+      "same": true
+    },
+    {
+      "file": "gfx\\rtl\\triangle_coverage_pipeline.v",
+      "baseline": "612d9f92858e0f3a58d0b20471c05d3c1d5a98005a145b450b55b5ae70935e1b",
+      "current": "612d9f92858e0f3a58d0b20471c05d3c1d5a98005a145b450b55b5ae70935e1b",
+      "same": true
+    },
+    {
+      "file": "gfx\\rtl\\triangle_depth.v",
+      "baseline": "de970c1412f827a1bac67d840b7f0345128ad669a67cd3d3e66029c2b5ffe06f",
+      "current": "0f621432254cbdfb53a3ff6520410f78a6945b5419a04cc2f901c980b973bf44",
+      "same": false
+    },
+    {
+      "file": "gfx\\rtl\\triangle_fragment.v",
+      "baseline": "164a23321804c2109fdc963de7e18f1ad13270671e73feadef46a621d9077c4e",
+      "current": "164a23321804c2109fdc963de7e18f1ad13270671e73feadef46a621d9077c4e",
+      "same": true
+    },
+    {
+      "file": "gfx\\rtl\\triangle_tile_vendor.v",
+      "baseline": "e4b083b57c3eb497ac07e873301510881b68459b104cf94ab2c2f23eb2a5f2e8",
+      "current": "e4b083b57c3eb497ac07e873301510881b68459b104cf94ab2c2f23eb2a5f2e8",
+      "same": true
+    },
+    {
+      "file": "link\\rtl\\link_bringup_filtered.v",
+      "baseline": "0b397546139479a795be4f8a33834470bb3620a1173eb29a8b3fb4f2cb6a7393",
+      "current": "0b397546139479a795be4f8a33834470bb3620a1173eb29a8b3fb4f2cb6a7393",
+      "same": true
+    },
+    {
+      "file": "link\\rtl\\link_reply_raw.v",
+      "baseline": "58a008b9b775a56f4ac9890a30459f4b803f6d13fbcf63c086c883808c4e9c62",
+      "current": "58a008b9b775a56f4ac9890a30459f4b803f6d13fbcf63c086c883808c4e9c62",
+      "same": true
+    },
+    {
+      "file": "link\\rtl\\reply_clock_filter.v",
+      "baseline": "b382ae6777fe7310808148a523458c5aca5c2558529a2b230032a55401d7e61b",
+      "current": "b382ae6777fe7310808148a523458c5aca5c2558529a2b230032a55401d7e61b",
+      "same": true
+    },
+    {
+      "file": "link\\rtl\\request_capture_fifo.v",
+      "baseline": "4b52b46971e47a1011b94c737e36917ed21316fe64df70190b9cc09467f87b04",
+      "current": "4b52b46971e47a1011b94c737e36917ed21316fe64df70190b9cc09467f87b04",
+      "same": true
+    },
+    {
+      "file": "link\\rtl\\triangle_batch.v",
+      "baseline": "725cc261daab445ac46cd735c3b70569a1c1e2482cacb70c78ca8d07d070ce65",
+      "current": "725cc261daab445ac46cd735c3b70569a1c1e2482cacb70c78ca8d07d070ce65",
+      "same": true
+    },
+    {
+      "file": "platform\\dock\\dock_pll216.v",
+      "baseline": "7a6b8e3421955bb4f22b08594f900e86b3051f1e9a33d1ff3c742bf84aac2456",
+      "current": "7a6b8e3421955bb4f22b08594f900e86b3051f1e9a33d1ff3c742bf84aac2456",
+      "same": true
+    },
+    {
+      "file": "platform\\dock\\dock_pll54.v",
+      "baseline": "a39b06768797c12ac8e72a58e1ff1bbfbf01a24c079309982cd8c89a9adc7879",
+      "current": "a39b06768797c12ac8e72a58e1ff1bbfbf01a24c079309982cd8c89a9adc7879",
+      "same": true
+    },
+    {
+      "file": "platform\\dock\\tab5_dock_duplex_register_top.v",
+      "baseline": "9befbda53b96f6044a3824097cbcf44d83a51c85c5ad8a46aea801b66c040c6f",
+      "current": "9befbda53b96f6044a3824097cbcf44d83a51c85c5ad8a46aea801b66c040c6f",
+      "same": true
+    }
+  ],
+  "changed_sources": [
+    "gfx\\rtl\\triangle_depth.v"
+  ],
+  "nondepth_same": 17,
+  "pins": [
+    {
+      "signal": "sys_clk",
+      "loc": "H11",
+      "rows": [
+        [
+          "sys_clk",
+          "-",
+          "H11/0",
+          "Y",
+          "in",
+          "IOT27[A]",
+          "GCLKT_0",
+          "LVCMOS33",
+          "NA",
+          "UP",
+          "ON",
+          "NONE",
+          "NA",
+          "NA",
+          "NA",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "reset_n",
+      "loc": "T10",
+      "rows": [
+        [
+          "reset_n",
+          "-",
+          "T10/3",
+          "Y",
+          "in",
+          "IOR35[B]",
+          "SI/D2",
+          "LVCMOS33",
+          "NA",
+          "UP",
+          "ON",
+          "NONE",
+          "NA",
+          "NA",
+          "OFF",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "arm_sw",
+      "loc": "C7",
+      "rows": [
+        [
+          "arm_sw",
+          "-",
+          "C7/6",
+          "Y",
+          "in",
+          "IOL40[B]",
+          "-",
+          "LVCMOS15",
+          "NA",
+          "DOWN",
+          "ON",
+          "NONE",
+          "NA",
+          "NA",
+          "OFF",
+          "NA",
+          "1.5"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "bus_clk",
+      "loc": "T7",
+      "rows": [
+        [
+          "bus_clk",
+          "-",
+          "T7/3",
+          "Y",
+          "in",
+          "IOR29[A]",
+          "GCLKT_3",
+          "LVCMOS33",
+          "NA",
+          "DOWN",
+          "ON",
+          "NONE",
+          "NA",
+          "NA",
+          "OFF",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "dir",
+      "loc": "N8",
+      "rows": [
+        [
+          "dir",
+          "-",
+          "N8/3",
+          "Y",
+          "in",
+          "IOR40[A]",
+          "-",
+          "LVCMOS33",
+          "NA",
+          "DOWN",
+          "ON",
+          "NONE",
+          "NA",
+          "NA",
+          "OFF",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "ready",
+      "loc": "L9",
+      "rows": [
+        [
+          "ready",
+          "-",
+          "L9/3",
+          "Y",
+          "out",
+          "IOR40[B]",
+          "-",
+          "LVCMOS33",
+          "8",
+          "DOWN",
+          "NA",
+          "NA",
+          "OFF",
+          "NA",
+          "OFF",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "data[0]",
+      "loc": "T12",
+      "rows": [
+        [
+          "data[0]",
+          "-",
+          "T12/2",
+          "Y",
+          "io",
+          "IOR17[B]",
+          "-",
+          "LVCMOS33",
+          "8",
+          "NONE",
+          "NA",
+          "NONE",
+          "OFF",
+          "NA",
+          "OFF",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "data[1]",
+      "loc": "T11",
+      "rows": [
+        [
+          "data[1]",
+          "-",
+          "T11/2",
+          "Y",
+          "io",
+          "IOR24[A]",
+          "-",
+          "LVCMOS33",
+          "8",
+          "NONE",
+          "NA",
+          "NONE",
+          "OFF",
+          "NA",
+          "OFF",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "data[2]",
+      "loc": "P11",
+      "rows": [
+        [
+          "data[2]",
+          "-",
+          "P11/2",
+          "Y",
+          "io",
+          "IOR24[B]",
+          "-",
+          "LVCMOS33",
+          "8",
+          "NONE",
+          "NA",
+          "NONE",
+          "OFF",
+          "NA",
+          "OFF",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "data[3]",
+      "loc": "R11",
+      "rows": [
+        [
+          "data[3]",
+          "-",
+          "R11/2",
+          "Y",
+          "io",
+          "IOR17[A]",
+          "-",
+          "LVCMOS33",
+          "8",
+          "NONE",
+          "NA",
+          "NONE",
+          "OFF",
+          "NA",
+          "OFF",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "data[4]",
+      "loc": "M15",
+      "rows": [
+        [
+          "data[4]",
+          "-",
+          "M15/1",
+          "Y",
+          "io",
+          "IOT40[B]",
+          "-",
+          "LVCMOS33",
+          "8",
+          "NONE",
+          "NA",
+          "NONE",
+          "OFF",
+          "NA",
+          "NA",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "data[5]",
+      "loc": "M14",
+      "rows": [
+        [
+          "data[5]",
+          "-",
+          "M14/1",
+          "Y",
+          "io",
+          "IOT40[A]",
+          "-",
+          "LVCMOS33",
+          "8",
+          "NONE",
+          "NA",
+          "NONE",
+          "OFF",
+          "NA",
+          "NA",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "data[6]",
+      "loc": "J16",
+      "rows": [
+        [
+          "data[6]",
+          "-",
+          "J16/0",
+          "Y",
+          "io",
+          "IOT22[A]",
+          "-",
+          "LVCMOS33",
+          "8",
+          "NONE",
+          "NA",
+          "NONE",
+          "OFF",
+          "NA",
+          "NA",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "data[7]",
+      "loc": "J14",
+      "rows": [
+        [
+          "data[7]",
+          "-",
+          "J14/0",
+          "Y",
+          "io",
+          "IOT22[B]",
+          "-",
+          "LVCMOS33",
+          "8",
+          "NONE",
+          "NA",
+          "NONE",
+          "OFF",
+          "NA",
+          "NA",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "aux[0]",
+      "loc": "N9",
+      "rows": [
+        [
+          "aux[0]",
+          "-",
+          "N9/3",
+          "Y",
+          "in",
+          "IOR36[B]",
+          "SSPI_CS_N/D0",
+          "LVCMOS33",
+          "NA",
+          "DOWN",
+          "ON",
+          "NONE",
+          "NA",
+          "NA",
+          "OFF",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "aux[1]",
+      "loc": "N7",
+      "rows": [
+        [
+          "aux[1]",
+          "-",
+          "N7/3",
+          "Y",
+          "in",
+          "IOR47[B]",
+          "RPLL2_C_fb",
+          "LVCMOS33",
+          "NA",
+          "DOWN",
+          "ON",
+          "NONE",
+          "NA",
+          "NA",
+          "OFF",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "aux[2]",
+      "loc": "N6",
+      "rows": [
+        [
+          "aux[2]",
+          "-",
+          "N6/3",
+          "Y",
+          "in",
+          "IOR51[A]",
+          "-",
+          "LVCMOS33",
+          "NA",
+          "DOWN",
+          "ON",
+          "NONE",
+          "NA",
+          "NA",
+          "OFF",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "aux[3]",
+      "loc": "P8",
+      "rows": [
+        [
+          "aux[3]",
+          "-",
+          "P8/3",
+          "Y",
+          "in",
+          "IOR42[A]",
+          "-",
+          "LVCMOS33",
+          "NA",
+          "DOWN",
+          "ON",
+          "NONE",
+          "NA",
+          "NA",
+          "OFF",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "led[0]",
+      "loc": "L16",
+      "rows": [
+        [
+          "led[0]",
+          "-",
+          "L16/1",
+          "Y",
+          "out",
+          "IOT34[A]",
+          "-",
+          "LVCMOS33",
+          "8",
+          "UP",
+          "NA",
+          "NA",
+          "OFF",
+          "NA",
+          "NA",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "led[1]",
+      "loc": "L14",
+      "rows": [
+        [
+          "led[1]",
+          "-",
+          "L14/1",
+          "Y",
+          "out",
+          "IOT34[B]",
+          "-",
+          "LVCMOS33",
+          "8",
+          "UP",
+          "NA",
+          "NA",
+          "OFF",
+          "NA",
+          "NA",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "led[2]",
+      "loc": "N14",
+      "rows": [
+        [
+          "led[2]",
+          "-",
+          "N14/1",
+          "Y",
+          "out",
+          "IOT52[B]",
+          "-",
+          "LVCMOS33",
+          "8",
+          "UP",
+          "NA",
+          "NA",
+          "OFF",
+          "NA",
+          "NA",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    },
+    {
+      "signal": "led[3]",
+      "loc": "N16",
+      "rows": [
+        [
+          "led[3]",
+          "-",
+          "N16/1",
+          "Y",
+          "out",
+          "IOT52[A]",
+          "-",
+          "LVCMOS33",
+          "8",
+          "UP",
+          "NA",
+          "NA",
+          "OFF",
+          "NA",
+          "NA",
+          "NA",
+          "3.3"
+        ]
+      ],
+      "matched": true
+    }
+  ],
+  "all_cst_locations_match": true,
+  "warnings_current": [
+    "WARN  (EX3791) : Expression size 12 truncated to fit in target size 11(\"link\\rtl\\link_reply_raw.v\":31)",
+    "WARN  (EX3791) : Expression size 12 truncated to fit in target size 11(\"link\\rtl\\link_bringup_filtered.v\":126)",
+    "WARN  (EX3791) : Expression size 11 truncated to fit in target size 10(\"link\\rtl\\triangle_batch.v\":56)",
+    "WARN  (EX3791) : Expression size 11 truncated to fit in target size 10(\"link\\rtl\\triangle_batch.v\":56)",
+    "WARN  (EX3791) : Expression size 11 truncated to fit in target size 10(\"link\\rtl\\triangle_batch.v\":56)",
+    "WARN  (EX3791) : Expression size 10 truncated to fit in target size 9(\"gfx\\rtl\\fire_tile.v\":75)",
+    "WARN  (EX3791) : Expression size 32 truncated to fit in target size 11(\"gfx\\rtl\\fire_tile.v\":126)",
+    "WARN  (EX3791) : Expression size 20 truncated to fit in target size 9(\"gfx\\rtl\\fire_tile.v\":126)",
+    "WARN  (EX2488) : Severity system task 'fatal' is ignored for synthesis(\"gfx\\rtl\\tile_dpram_vendor.v\":15)",
+    "WARN  (EX2488) : Severity system task 'fatal' is ignored for synthesis(\"gfx\\rtl\\tile_dpram_vendor.v\":16)",
+    "WARN  (EX3791) : Expression size 32 truncated to fit in target size 18(\"gfx\\rtl\\triangle_tile_vendor.v\":573)",
+    "WARN  (EX3791) : Expression size 32 truncated to fit in target size 18(\"gfx\\rtl\\triangle_tile_vendor.v\":573)",
+    "WARN  (EX3791) : Expression size 32 truncated to fit in target size 18(\"gfx\\rtl\\triangle_tile_vendor.v\":576)",
+    "WARN  (EX3791) : Expression size 32 truncated to fit in target size 18(\"gfx\\rtl\\triangle_tile_vendor.v\":576)",
+    "WARN  (EX3791) : Expression size 36 truncated to fit in target size 18(\"gfx\\rtl\\triangle_tile_vendor.v\":583)",
+    "WARN  (EX3791) : Expression size 37 truncated to fit in target size 18(\"gfx\\rtl\\triangle_tile_vendor.v\":584)",
+    "WARN  (EX3791) : Expression size 32 truncated to fit in target size 18(\"gfx\\rtl\\triangle_tile_vendor.v\":601)",
+    "WARN  (EX3791) : Expression size 32 truncated to fit in target size 18(\"gfx\\rtl\\triangle_tile_vendor.v\":601)",
+    "WARN  (EX3791) : Expression size 32 truncated to fit in target size 18(\"gfx\\rtl\\triangle_tile_vendor.v\":604)",
+    "WARN  (EX3791) : Expression size 32 truncated to fit in target size 18(\"gfx\\rtl\\triangle_tile_vendor.v\":604)",
+    "WARN  (CV0016) : Input aux is unused(\"platform\\dock\\tab5_dock_duplex_register_top.v\":5)"
+  ],
+  "warnings_extra_vs7375": [],
+  "errors": [],
+  "baseline_zip_sha256": "fd2bb4b31cc39f798d5446067fa734e9e5307bd186d067fad576507c3f167a97",
+  "baseline_zip_hash_matches": true,
+  "baseline_resources_limitation": null,
+  "baseline_pnr_primitive_counts": {
+    "LUT3": 1363,
+    "LUT4": 2707,
+    "LUT2": 471,
+    "DFFC": 279,
+    "ALU": 1968,
+    "LUT1": 10,
+    "DFFCE": 2040,
+    "DFFP": 16,
+    "DFFE": 679,
+    "DFFPE": 36,
+    "SP": 3,
+    "DFFRE": 5,
+    "DFFSE": 10,
+    "MULTADDALU18X18": 4,
+    "MULT18X18": 15,
+    "MULT9X9": 4,
+    "MULTALU36X18": 4,
+    "DPB": 2
+  },
+  "source_hash": "0f621432254cbdfb53a3ff6520410f78a6945b5419a04cc2f901c980b973bf44",
+  "offline_checks_pass": true,
+  "baseline_resources": {
+    "Logic": "6810/20736",
+    "Register": "3065/16173",
+    "BSRAM": "5/46",
+    "DSP": "16.5/24",
+    "I/O Port": "22/207"
+  },
+  "baseline_resource_report": {
+    "archive_member": "duplex_register.rpt.txt",
+    "sha256_raw": "3979637572ef78fe6da3773137489b506bb9125c931d3ebf9e4a2d9f20578429",
+    "archive_path": "D:\\github\\airpocket-soundman\\tab5-carrier-review-20261106\\fpga\\validation\\communication-qualified-2026-11-06\\qualified-gfx-7375.zip",
+    "archive_sha256": "d7d63b7fbc0c1298046e41173588deb92a6667dc6b5f8edeb6fcbab5046055c8",
+    "normalization": "CRCRLF and CRLF to LF for text parsing only"
+  },
+  "resource_delta_used": {
+    "Logic": 116.0,
+    "Register": -33.0,
+    "BSRAM": 0.0,
+    "DSP": 0.0,
+    "I/O Port": 0.0
+  },
+  "baseline_bundles_same_fs": {
+    "candidate_bundle_fs_sha256": "4aaac60cf35ec9effa1eb48aec657c8d29c9ea18655eca7c0d20a0667af8427b",
+    "qualified_bundle_fs_sha256": "4aaac60cf35ec9effa1eb48aec657c8d29c9ea18655eca7c0d20a0667af8427b"
+  },
+  "baseline_bundle_correction": "Source/constraints/17of18 comparison uses duplex-register candidate.zip; aggregate resources use communication-qualified qualified-gfx-7375.zip. Same FS SHA verified; prior missing-report assertion was bundle mix-up."
+}

@@ -1,0 +1,64 @@
+{
+  "baseline_runs": [
+    {
+      "mode": "FPGA",
+      "scene": 1,
+      "load": 0,
+      "polygon_demo": "robot",
+      "raster": "integer_g0",
+      "run_id": 4,
+      "frames": 120,
+      "render_mean_ms": 355.410075,
+      "render_p95_ms": 363.361,
+      "pipeline_mean_ms": 373.60375,
+      "frame_fps": 2.67663266227922
+    },
+    {
+      "mode": "FPGA",
+      "scene": 1,
+      "load": 0,
+      "polygon_demo": "robot",
+      "raster": "integer_g0",
+      "run_id": 7,
+      "frames": 120,
+      "render_mean_ms": 355.46875,
+      "render_p95_ms": 362.842,
+      "pipeline_mean_ms": 373.4179083333331,
+      "frame_fps": 2.6779647619560487
+    }
+  ],
+  "candidate_runs": [
+    {
+      "mode": "FPGA",
+      "scene": 1,
+      "load": 0,
+      "polygon_demo": "robot",
+      "raster": "integer_g0",
+      "run_id": 6,
+      "frames": 120,
+      "render_mean_ms": 232.60345833333344,
+      "render_p95_ms": 242.99,
+      "pipeline_mean_ms": 250.59109166666673,
+      "frame_fps": 3.9905648415075667
+    },
+    {
+      "mode": "FPGA",
+      "scene": 1,
+      "load": 0,
+      "polygon_demo": "robot",
+      "raster": "integer_g0",
+      "run_id": 8,
+      "frames": 120,
+      "render_mean_ms": 231.18815000000006,
+      "render_p95_ms": 236.209,
+      "pipeline_mean_ms": 252.08660833333332,
+      "frame_fps": 3.9668906119665954
+    }
+  ],
+  "baseline_pipeline_ms": 373.51082916666655,
+  "candidate_pipeline_ms": 251.33885000000004,
+  "pipeline_saved_ms": 122.17197916666652,
+  "speed_gain_percent": 48.60847384583262,
+  "time_reduction_percent": 32.7090862236156,
+  "scope": "ABAB,24warmup+120measured per run,2equal120frame means per FPGA; same host ELF,clocks,pixels; software presentation pipeline"
+}

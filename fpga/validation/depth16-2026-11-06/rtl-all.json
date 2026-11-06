@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "device_access": "none",
+  "installation": "none",
+  "suites": [
+    {
+      "name": "bringup",
+      "status": "passed",
+      "output": "PASS link-bringup: ID, 512 patterns, CRC/op rejection, partial DIR, timeout, arm/reset/OE\nD:\\github\\airpocket-soundman\\tab5-carrier-review-20261106\\fpga\\link\\tests\\tb_link_bringup.v:74: $finish called at 2911203000 (1ps)\nPASS Python golden vectors: 583\nD:\\github\\airpocket-soundman\\tab5-carrier-review-20261106\\fpga\\link\\tests\\tb_link_vectors.v:37: $finish called at 3206700000 (1ps)"
+    },
+    {
+      "name": "dock_gfx",
+      "status": "passed",
+      "output": "PASS dock pin-level oracle vectors=1572, timeout/disarm/reset\nD:\\github\\airpocket-soundman\\tab5-carrier-review-20261106\\fpga\\gfx\\tests\\tb_bench_dock.v:91: $finish called at 5054783000 (1ps)\nPASS dock GFX: 1572 oracle transactions, 1024 image pixels; no hardware access"
+    },
+    {
+      "name": "triangle_tile",
+      "status": "passed",
+      "output": "PASS triangle tile pin-level oracle vectors=10334, timeout/disarm/reset\nD:\\github\\airpocket-soundman\\tab5-carrier-review-20261106\\fpga\\gfx\\tests\\tb_triangle_tile_dock.v:98: $finish called at 35590698000 (1ps)\nPASS 10334 wire transactions; {'commands': 10321, 'draws': 7, 'pixels_per_plane': 1024, 'compared_planes': ['RGB565', 'depth16']}; no hardware access"
+    },
+    {
+      "name": "triangle_rows",
+      "status": "passed",
+      "output": "PASS triangle ROW pin-level vectors=410, final-byte/timeout/disarm/reset\nD:\\github\\airpocket-soundman\\tab5-carrier-review-20261106\\fpga\\gfx\\tests\\tb_triangle_rows.v:117: $finish called at 8063382000 (1ps)\nPASS triangle ROW 410 oracle transactions, {'commands': 401, 'draws': 7, 'pixels_per_plane': 1024, 'compared_planes': ['RGB565', 'depth16']}; no hardware access"
+    },
+    {
+      "name": "coverage",
+      "status": "passed",
+      "output": "3328 coverage vectors verified\nPASS triangle_coverage: 3328 vectors, back-to-back, bubbles, reset\nD:\\github\\airpocket-soundman\\tab5-carrier-review-20261106\\fpga\\gfx\\tests\\tb_triangle_coverage.v:42: $finish called at 34376000 (1ps)"
+    },
+    {
+      "name": "depth",
+      "status": "passed",
+      "output": "1154 depth vectors verified\nPASS triangle_depth: 1154 vectors, 16-step exact divide, stall, reset\nD:\\github\\airpocket-soundman\\tab5-carrier-review-20261106\\fpga\\gfx\\tests\\tb_triangle_depth.v:58: $finish called at 156036000 (1ps)"
+    },
+    {
+      "name": "depth16_miter",
+      "status": "passed",
+      "output": "PASS depth16 old/new + Python oracle cases=6000 aborts=353 valid latency16vs49; invalid/uncovered0; stalls0..6\nD:\\github\\airpocket-soundman\\tab5-carrier-review-20261106\\fpga\\gfx\\tests\\tb_triangle_depth16_miter.v:52: $finish called at 2800650000 (1ps)"
+    },
+    {
+      "name": "fragment",
+      "status": "passed",
+      "output": "436 fragment vectors checked\nPASS triangle_fragment 436 candidates, metadata, stalls, reset\nD:\\github\\airpocket-soundman\\tab5-carrier-review-20261106\\fpga\\gfx\\tests\\tb_triangle_fragment.v:61: $finish called at 55216000 (1ps)"
+    },
+    {
+      "name": "mac",
+      "status": "passed",
+      "output": "PASS int8_mac_lane reference cycles\nD:\\github\\airpocket-soundman\\tab5-carrier-review-20261106\\fpga\\build\\rtl-check\\compute\\tb_int8_mac_lane.v:5062: $finish called at 2526000 (1ps)"
+    },
+    {
+      "name": "requant",
+      "status": "passed",
+      "output": "PASS int8_requantize golden cycles\nD:\\github\\airpocket-soundman\\tab5-carrier-review-20261106\\fpga\\build\\rtl-check\\compute\\tb_int8_requantize.v:17012: $finish called at 10626000 (1ps)"
+    },
+    {
+      "name": "dot",
+      "status": "passed",
+      "output": "PASS dot job golden cycles\nD:\\github\\airpocket-soundman\\tab5-carrier-review-20261106\\fpga\\build\\rtl-check\\compute\\tb_int8_dot_job.v:45305: $finish called at 16776000 (1ps)"
+    }
+  ],
+  "compiler": "D:\\tools\\oss-cad-suite\\bin\\iverilog.exe",
+  "runtime": "D:\\tools\\oss-cad-suite\\bin\\vvp.exe"
+}
