@@ -1,6 +1,6 @@
 # r5s CPL 補正レポート (JLCPCB 部品配置 / LCSC 公式フットプリント座標)
 
-- 作成日: 2026-11-06  /  基板SHA256(LF正規化): `6a964eabf8f0608ed25da21f9469f2b6bcb1bd4fa44b915ed22927a81e78a4bb`
+- 作成日: 2026-11-06  /  基板SHA256(LF正規化): `8c7d776ef3856cc9b5b23e02d7ef8e2b4d063cccbd316c0e3a4f1e201bb483d4`
 - 生成: `spark/usb-jtag-r5-switch/full/design/kicad/gen/make_cpl.py`(EasyEDA取得物は第三者データのためリポジトリ外のキャッシュ。キャッシュがあればネットワーク不要)
 - 対象: 134 部品(DNP・LCSC空欄・J3・H1-H6を除外)。すべて上面。裏面の実装対象部品なし(裏面はJ3のみで対象外)。
 

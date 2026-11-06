@@ -102,6 +102,6 @@ JP2 と JP4 が同じスライダで動くので、「VBUS_PD→+5V かつ PD_CF
 
 - **発注用データ**を `order/` に作成した（ガーバー、ドリル、PCBA用BOM・CPL、LCSC別途注文リスト、補正記録）。使い方と未解決事項は [order/README.md](order/README.md)。注文はしていない。
 - **JP1（バスARM）を1×3ピンに変更した。** ピン1=`TAB_PGOOD`、ピン2=`BUS_ARM`、ピン3=未接続（プラグの保管位置）。1–2に挿すと許可、2–3は許可しない。部品はJP3と同じ（C49257）。
-- **シルクを整理した。** `SW4 MODE`／`PGM OFF RUN`／`POWER OFF!`、`JP3 TAB5 PWR`／`1-2 ON`／`2-3 OFF`／`SET SAME AS SW4`、`JP1 BUS ARM`／`1-2 ON`／`2-3 OFF`。全てのシルク文字を、JLCPCBの推奨（高さ1.0mm以上、線幅0.15mm以上、高さ:線幅 6:1以上）に合わせた（`gen/silk_check.py` で確認、DRC違反0）。実装図は `review/`。
+- **シルクを整理した。** `SW4 MODE`／`PGM OFF RUN`／`POWER OFF!`、`JP3 TAB5 PWR`／`1-2 ON`／`2-3 OFF`／`SET SAME AS SW4`、`JP1 BUS ARM`／`1-2 ON`／`2-3 OFF`。全てのシルク文字を、JLCPCBの推奨（高さ1.0mm以上、線幅0.15mm以上、高さ:線幅 6:1以上）に合わせた（`gen/silk_check.py` で確認、DRC違反0）。**各ピンのそばに、ピン番号を印刷した**（JP1・JP3は1〜3、SW4は1〜8。`gen/add_pin_numbers.py`）。SW4は、右列が下から1〜4（1が角パッド）、左列が下から8〜5で、RUN＝1と8、OFF＝2と7、PGM＝3と6の組、4と5が共通端子。実装図は `review/`。
 - **BOMのLCSC番号を記入した**（空欄はDNPと取付穴のみ）。水晶は、SMT実装できるYXC X322512MSB4SI（C9002、20pF）に変更し、C86・C87を33pFにした。
 - 検証: ERCエラー0、PCB DRC違反0・未配線0、`verify_design.py` 合格、`gen/check_order.py` 合格。
