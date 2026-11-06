@@ -1,0 +1,353 @@
+{
+  "passed": true,
+  "acceptance": "All 1000 CPU and FPGA FP32 output bits identical; CPU74/FPGA0,12blocks,199ops",
+  "fpga_sha256": "ee03e13dffb253c886318761969da2fd3de6ae40f41e10ca0eeb24544525240b",
+  "events": [
+    {
+      "elapsed_s": 0.01600000006146729,
+      "stage": "preview",
+      "operation": 0
+    },
+    {
+      "elapsed_s": 3.0160000000614673,
+      "stage": "verify",
+      "operation": 2048000
+    },
+    {
+      "elapsed_s": 6.016000000061467,
+      "stage": "verify",
+      "operation": 4239360
+    },
+    {
+      "elapsed_s": 9.03200000000652,
+      "stage": "verify",
+      "operation": 6430720
+    },
+    {
+      "elapsed_s": 12.03200000000652,
+      "stage": "verify",
+      "operation": 8634368
+    },
+    {
+      "elapsed_s": 15.03200000000652,
+      "stage": "verify",
+      "operation": 10825728
+    },
+    {
+      "elapsed_s": 18.03200000000652,
+      "stage": "verify",
+      "operation": 12935168
+    },
+    {
+      "elapsed_s": 21.04700000002049,
+      "stage": "verify",
+      "operation": 15007744
+    },
+    {
+      "elapsed_s": 24.04700000002049,
+      "stage": "verify",
+      "operation": 17084416
+    },
+    {
+      "elapsed_s": 27.06299999996554,
+      "stage": "verify",
+      "operation": 19152896
+    },
+    {
+      "elapsed_s": 30.06299999996554,
+      "stage": "verify",
+      "operation": 21217280
+    },
+    {
+      "elapsed_s": 33.06299999996554,
+      "stage": "load",
+      "operation": 450560
+    },
+    {
+      "elapsed_s": 36.07799999997951,
+      "stage": "load",
+      "operation": 2936832
+    },
+    {
+      "elapsed_s": 39.07799999997951,
+      "stage": "load",
+      "operation": 5427200
+    },
+    {
+      "elapsed_s": 42.07799999997951,
+      "stage": "load",
+      "operation": 7892992
+    },
+    {
+      "elapsed_s": 45.09400000004098,
+      "stage": "load",
+      "operation": 10350592
+    },
+    {
+      "elapsed_s": 48.10999999998603,
+      "stage": "load",
+      "operation": 12705792
+    },
+    {
+      "elapsed_s": 51.125,
+      "stage": "load",
+      "operation": 14983168
+    },
+    {
+      "elapsed_s": 54.125,
+      "stage": "load",
+      "operation": 17248256
+    },
+    {
+      "elapsed_s": 57.125,
+      "stage": "load",
+      "operation": 19513344
+    },
+    {
+      "elapsed_s": 60.14100000006147,
+      "stage": "load",
+      "operation": 21774336
+    },
+    {
+      "elapsed_s": 63.14100000006147,
+      "stage": "patch_unfold",
+      "operation": 1
+    },
+    {
+      "elapsed_s": 66.14100000006147,
+      "stage": "layernorm",
+      "operation": 14
+    },
+    {
+      "elapsed_s": 69.15700000000652,
+      "stage": "layernorm",
+      "operation": 21
+    },
+    {
+      "elapsed_s": 72.15700000000652,
+      "stage": "gelu",
+      "operation": 33
+    },
+    {
+      "elapsed_s": 75.17200000002049,
+      "stage": "attention_softmax",
+      "operation": 41
+    },
+    {
+      "elapsed_s": 78.20299999997951,
+      "stage": "gelu",
+      "operation": 49
+    },
+    {
+      "elapsed_s": 81.20299999997951,
+      "stage": "layernorm",
+      "operation": 62
+    },
+    {
+      "elapsed_s": 84.21900000004098,
+      "stage": "layernorm",
+      "operation": 69
+    },
+    {
+      "elapsed_s": 87.21900000004098,
+      "stage": "gelu",
+      "operation": 81
+    },
+    {
+      "elapsed_s": 90.21900000004098,
+      "stage": "attention_softmax",
+      "operation": 89
+    },
+    {
+      "elapsed_s": 93.23499999998603,
+      "stage": "gelu",
+      "operation": 97
+    },
+    {
+      "elapsed_s": 96.25,
+      "stage": "layernorm",
+      "operation": 110
+    },
+    {
+      "elapsed_s": 99.25,
+      "stage": "layernorm",
+      "operation": 117
+    },
+    {
+      "elapsed_s": 102.25,
+      "stage": "gelu",
+      "operation": 129
+    },
+    {
+      "elapsed_s": 105.26600000006147,
+      "stage": "attention_softmax",
+      "operation": 137
+    },
+    {
+      "elapsed_s": 108.26600000006147,
+      "stage": "gelu",
+      "operation": 145
+    },
+    {
+      "elapsed_s": 111.26600000006147,
+      "stage": "layernorm",
+      "operation": 158
+    },
+    {
+      "elapsed_s": 114.28200000000652,
+      "stage": "layernorm",
+      "operation": 165
+    },
+    {
+      "elapsed_s": 117.28200000000652,
+      "stage": "bias",
+      "operation": 176
+    },
+    {
+      "elapsed_s": 120.29700000002049,
+      "stage": "attention_softmax",
+      "operation": 185
+    },
+    {
+      "elapsed_s": 123.29700000002049,
+      "stage": "gelu",
+      "operation": 193
+    },
+    {
+      "elapsed_s": 126.31299999996554,
+      "stage": "complete",
+      "operation": 199
+    }
+  ],
+  "info": {
+    "app": "NPU_TRANSFORMER",
+    "elf_sha256": "bb09cf0ae4766f37a54c765dd14523cc81a5407efd23e9b5e36811ff06662dd4",
+    "boot_id": 928502971,
+    "width": 1280,
+    "height": 720,
+    "sd_mounted": true,
+    "upload_chunk_bytes": 400,
+    "upload_max_bytes": 134217728,
+    "sd_root": "/sdcard/transformer",
+    "task": "ImageNet1000 classification; not object detection",
+    "backends": "FPGA_DDR,CPU_REFERENCE",
+    "heap": {
+      "psram_free_bytes": 31576384,
+      "psram_largest_block_bytes": 31457280,
+      "internal_free_bytes": 168791
+    }
+  },
+  "status": {
+    "boot_id": 928502971,
+    "run_id": 2,
+    "busy": false,
+    "uploading": false,
+    "sd_mounted": true,
+    "error": "none",
+    "stage": "complete",
+    "model": "DeiT-tiny-224",
+    "task": "ImageNet1000 classification",
+    "backend": "CPU_REFERENCE",
+    "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+    "backend_scope": "Entire graph CPU INT8 PSRAM oracle; no FPGA/GPIO calls",
+    "result_valid": true,
+    "image": 1,
+    "operation": 199,
+    "total_operations": 199,
+    "elapsed_us": 0,
+    "ddr_timing_ns": {
+      "half": 1000,
+      "setup": 1000,
+      "guard": 2000,
+      "scope": "Nominal software waits, not measured clock"
+    },
+    "heap": {
+      "psram_free_bytes": 31572348,
+      "psram_largest_block_bytes": 31457280,
+      "internal_free_bytes": 167367
+    },
+    "images": [
+      {
+        "id": 0,
+        "label": "astronaut"
+      },
+      {
+        "id": 1,
+        "label": "crew"
+      },
+      {
+        "id": 2,
+        "label": "crop"
+      }
+    ],
+    "result": {
+      "backend": "CPU_REFERENCE",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+      "success": true,
+      "error": "",
+      "storage": "PSRAM",
+      "blocks_completed": 12,
+      "operations": 199,
+      "matmul_operations": 74,
+      "matmul_batches": 122,
+      "cpu_matmul_operations": 74,
+      "external_matmul_operations": 0,
+      "fpga_matmul_operations": 0,
+      "cpu_tile_jobs": 51468,
+      "cpu_macs": 1323830784,
+      "timing_us": {
+        "verify_us": 32246446,
+        "load_us": 29124889,
+        "input_us": 241731,
+        "infer_us": 62204609,
+        "output_us": 157,
+        "total_us": 123868030,
+        "yield_us": 1164688,
+        "yield_calls": 1213
+      },
+      "memory": {
+        "allocated_bytes": 25440336,
+        "constant_bytes": 22869664,
+        "activation_bytes": 2359296,
+        "metadata_bytes": 2560,
+        "scratch_bytes": 29904,
+        "matmul_scratch_bytes": 174912
+      },
+      "top5": [
+        {
+          "class_id": 697,
+          "label": "pajama, pyjama, pj's, jammies",
+          "probability": 0.14143377542495728,
+          "logit": 5.693041801452637
+        },
+        {
+          "class_id": 981,
+          "label": "ballplayer, baseball player",
+          "probability": 0.04299614951014519,
+          "logit": 4.502320766448975
+        },
+        {
+          "class_id": 652,
+          "label": "military uniform",
+          "probability": 0.026279347017407417,
+          "logit": 4.00999355316162
+        },
+        {
+          "class_id": 841,
+          "label": "sweatshirt",
+          "probability": 0.02259335294365883,
+          "logit": 3.858865976333618
+        },
+        {
+          "class_id": 617,
+          "label": "lab coat, laboratory coat",
+          "probability": 0.021398134529590607,
+          "logit": 3.804513931274414
+        }
+      ]
+    }
+  },
+  "cpu_sha256": "ee03e13dffb253c886318761969da2fd3de6ae40f41e10ca0eeb24544525240b",
+  "unequal_bits": 0,
+  "max_abs": 0.0
+}

@@ -1,6 +1,8 @@
 # Tab5 × Tang Primer 20K 接続キャリア基板
 
-2026-11-06：GPU全8シーン/TX40・RX16検証記録とMEM DMA検証・復元資料をmainへ統合。[現在地・全host適合範囲・整理方針](docs/INTEGRATION_2026-11-06.md)を参照。RX20、長時間soak、DDR付きGFX/NPUは未完了。
+2026-11-07：NPU DDR診断版4E21で、YOLO S256の32MiB超え実行と、学習済みDeiT-tiny全12ブロック・74行列演算の実機実行を確認。Transformerの1000出力は同じP4の独立CPU整数計算と全ビット一致した。既存の積和回路を使い、ピン・通信コマンドの変更はない。非線形演算等はP4が担当し、Linux/MeOSへのホスト実装移植とSTA収束は未完了。[Transformer実機記録](docs/NPU_Transformer_実機検証_2026-11-07.md)、[DDR MatMul検証](docs/NPU_DDR_MatMul_検証_2026-11-07.md)を参照。
+
+2026-11-06の保存点：GPU全8シーン/TX40・RX16検証記録とMEM DMA検証・復元資料をmainへ統合。[当時の現在地・全host適合範囲・整理方針](docs/INTEGRATION_2026-11-06.md)を参照。RX20、長時間soak、DDR付きGFXは未完了。
 
 
 M5Stack Tab5のM5-BusとTang Primer 20K Coreを接続する専用キャリア基板の設計リポジトリです。
