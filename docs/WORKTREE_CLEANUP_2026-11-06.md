@@ -58,3 +58,5 @@ activation scriptはmachine/userの永続環境変数を変更しない。正本
 22tree分のignored生成物は `D:/esp/images/worktree-cleanup-20261106/run02/` に保存し、ZIP内全file SHA256と削除直前の元file SHA256・集合を照合した。旧IP/buildはローカル保管のみでGitに追加していない。通常のworktree remove/branch -dで閉鎖し、force削除を使っていない。対応するremote branchは保管branchへの履歴包含・remote tip一致を確認して削除した。
 
 詳細なHEAD、保管先、削除結果、最終一覧は [closure-record.json](worktree-cleanup-2026-11-06/closure-record.json)。mainのproduction source、通信仕様、基板データ、実機firmwareは変更していない。検証はtree一致と履歴包含・全退避file SHA照合で行った。実行codeの変更がないため実機試験の再実行は不要。
+
+追加確認により、旧DDR変種・オフラインNPU見積り・回収資料のremote4本も履歴保管後に閉鎖した（今回remote削除計13本）。dock-jumper-gfxは基板データを含むため維持。MEM/BW opcode衝突課題と修正後edge診断の実機再確認branchも継続として維持。model常駐/関連scene案を含む未検証要素はmain採用済みと扱わない。
