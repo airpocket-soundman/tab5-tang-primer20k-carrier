@@ -11,3 +11,6 @@ site/audit-data/poc-assembly-*.svg -text -whitespace
 variants/simulation/**/reference/** -text -whitespace
 variants/simulation/power/models/** -text -whitespace
 variants/simulation/**/*.log -text -whitespace
+
+# Preserve generated DDR proof vectors, including terminal empty records.
+fpga/validation/npu-ddr-4e20-2026-11-07/core-proof-vectors.txt -whitespace

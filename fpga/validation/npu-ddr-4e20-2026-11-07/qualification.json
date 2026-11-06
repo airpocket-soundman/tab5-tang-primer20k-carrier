@@ -1,0 +1,45 @@
+{
+  "usercode": "4E20",
+  "capability": "4E20",
+  "build": "Gowin Education1.9.11.03",
+  "scope": "unwaived diagnostic bitstream; no physical device operation by this task",
+  "timing_qualified": false,
+  "hardware_programmed": false,
+  "pin_level_core_passed": true,
+  "pin_level_commands": 64,
+  "sources_match_pin_level_proof": {
+    "npu_ddr_core.v": true,
+    "npu_ddr_sys.v": true,
+    "npu_ddr_arbiter.v": true,
+    "npu_ddr_tile_loader.v": true,
+    "conv_tile_engine.v": true,
+    "memv1_bridge.v": true,
+    "mem_adapter.v": true,
+    "memv1_crc32b.v": true
+  },
+  "resources": {
+    "logic": 10366,
+    "register": 5779,
+    "bsram": 38,
+    "bsram_capacity": 46,
+    "dsp": 5,
+    "dsp_capacity": 24
+  },
+  "unwaived_violations": {
+    "setup_endpoints": 1408,
+    "hold_endpoints": 107
+  },
+  "same_domain_tool_fmax_mhz": {
+    "sys27": 42.333,
+    "user99": 109.382,
+    "memory398": 2016.128
+  },
+  "bitstream_sha256": "39d1fb63e634475e51691facfcd3b6fd08685c1ff43221f8580e7b498c35250e",
+  "ip_sha256": "04ef287b2caf7779b8464c28f4e2176b35f24b181aab9c7509d8b3d9f734bed2",
+  "notes": [
+    "same-domain TNS0 does not qualify CDC/reset/IO paths",
+    "vendor IP source stays ignored; do not redistribute external_snapshot into Git",
+    "physical pins exactly reuse mem_bist.cst and14\u219213row/CS0 wrapper ofMEMV1",
+    "SYS framer responds while memory is unready; tokenbinding and generation loss prevent implicit stale-session reuse"
+  ]
+}

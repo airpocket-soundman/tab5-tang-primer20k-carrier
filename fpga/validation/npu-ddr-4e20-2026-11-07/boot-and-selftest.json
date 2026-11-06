@@ -1,0 +1,131 @@
+{
+  "info": {
+    "ddr_timing_ns": {
+      "half": 1000,
+      "setup": 1000,
+      "guard": 2000,
+      "scope": "Nominal software wait; not a measured bus clock"
+    },
+    "app": "NPU_YOLO",
+    "elf_sha256": "20b54d3fa2639a0025ef8ab877a5f9f758ced87e2a04c6a73eff1b4c917627f2",
+    "boot_id": 820327337,
+    "width": 1280,
+    "height": 720,
+    "sd_mounted": true,
+    "catalog": "manifest.json",
+    "models": [
+      "128x160",
+      "192x320",
+      "S128x256",
+      "S544x1280"
+    ],
+    "model_capabilities": [
+      {
+        "id": "128x160",
+        "name": "YOLOv9 N",
+        "height": 128,
+        "width": 160,
+        "resident_cpu": true,
+        "fpga_bram": true,
+        "fpga_ddr_service": true,
+        "ddr_completed_this_boot": false,
+        "slow": false,
+        "source_sha256": "52f84f848496c28d32eb276e5aa983ff8800f4dfbfe5193469e52b8f3b1f5389"
+      },
+      {
+        "id": "192x320",
+        "name": "YOLOv9 N",
+        "height": 192,
+        "width": 320,
+        "resident_cpu": true,
+        "fpga_bram": true,
+        "fpga_ddr_service": true,
+        "ddr_completed_this_boot": false,
+        "slow": false,
+        "source_sha256": "93b822ca8eb58ee58e99bf28994b869f75fa1e8273f3429b983cc3b3aada842f"
+      },
+      {
+        "id": "S128x256",
+        "name": "YOLOv9 S",
+        "height": 128,
+        "width": 256,
+        "resident_cpu": false,
+        "fpga_bram": false,
+        "fpga_ddr_service": true,
+        "ddr_completed_this_boot": false,
+        "slow": false,
+        "source_sha256": "c6f28df0037e6743639021e3c2d6c80fc64b1d4b4ec960cca12335691fec7bf9"
+      },
+      {
+        "id": "S544x1280",
+        "name": "YOLOv9 S",
+        "height": 544,
+        "width": 1280,
+        "resident_cpu": false,
+        "fpga_bram": false,
+        "fpga_ddr_service": true,
+        "ddr_completed_this_boot": false,
+        "slow": true,
+        "source_sha256": "c33fb22ce63f6ff181bd7dff8012b317901f94496c84dc14da89dd771ad2406b"
+      }
+    ],
+    "backends": [
+      "CPU_FP32",
+      "CPU_INT8",
+      "FPGA",
+      "FPGA_DDR"
+    ],
+    "fpga_scope": "BRAM baseline: all Conv FPGA, non-Conv P4",
+    "fpga_ddr_scope": "4E20 required; constants/activations DDR, all Conv FPGA, non-Conv P4 streamed, no fallback",
+    "upload_chunk_bytes": 400,
+    "upload_max_bytes": 134217728,
+    "resident_max_bytes": 8388608
+  },
+  "status": {
+    "ddr_timing_ns": {
+      "half": 1000,
+      "setup": 1000,
+      "guard": 2000,
+      "scope": "Nominal software wait; not a measured bus clock"
+    },
+    "boot_id": 820327337,
+    "run_id": 1,
+    "busy": false,
+    "uploading": false,
+    "sd_mounted": true,
+    "phase": "idle",
+    "error": "none",
+    "sd_error": "ESP_OK",
+    "image": 0,
+    "model": "128x160",
+    "backend": "CPU_INT8",
+    "backend_scope": "CPU INT8 Conv + P4 other ops",
+    "node": 0,
+    "total_nodes": 0,
+    "result_valid": false,
+    "memory_scope": "PSRAM resident baseline / BRAM Conv tiles",
+    "catalog": "manifest.json",
+    "ddr_stage": "starting",
+    "ddr_completed_this_boot": false,
+    "elapsed_us": 0,
+    "images": [
+      {
+        "id": 0,
+        "label": "Astronaut"
+      },
+      {
+        "id": 1,
+        "label": "Three-person crew"
+      },
+      {
+        "id": 2,
+        "label": "Astronaut crop"
+      }
+    ]
+  },
+  "selftest": {
+    "passed": true,
+    "outputs": 5208,
+    "error": "none"
+  }
+}

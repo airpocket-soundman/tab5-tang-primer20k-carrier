@@ -1,0 +1,152 @@
+{
+  "ddr_timing_ns": {
+    "half": 100,
+    "setup": 100,
+    "guard": 2000,
+    "scope": "Nominal software wait; not a measured bus clock"
+  },
+  "boot_id": 820327337,
+  "run_id": 2,
+  "busy": false,
+  "uploading": false,
+  "sd_mounted": true,
+  "phase": "complete",
+  "error": "none",
+  "sd_error": "ESP_OK",
+  "image": 1,
+  "model": "128x160",
+  "backend": "FPGA_DDR",
+  "backend_scope": "FPGA DDR Conv + P4 streamed other ops",
+  "node": 661,
+  "total_nodes": 661,
+  "result_valid": true,
+  "memory_scope": "Constants and activations in FPGA DDR; metadata/scratch/final output on P4",
+  "catalog": "manifest2.json",
+  "ddr_stage": "done",
+  "ddr_completed_this_boot": true,
+  "elapsed_us": 0,
+  "images": [
+    {
+      "id": 0,
+      "label": "Astronaut"
+    },
+    {
+      "id": 1,
+      "label": "Three-person crew"
+    },
+    {
+      "id": 2,
+      "label": "Astronaut crop"
+    }
+  ],
+  "ddr": {
+    "success": true,
+    "stage": "done",
+    "error": "",
+    "session_unchanged": true,
+    "constant_upload_us": 14980210,
+    "input_us": 992930,
+    "graph_us": 164144841,
+    "readout_us": 129209,
+    "quantize_us": 55837282,
+    "dequantize_us": 25022685,
+    "kernel_host_us": 5775180,
+    "constant_bytes": 2418992,
+    "activation_bytes": 573440,
+    "quant_staging_bytes": 69888,
+    "reserved_bytes": 3127856,
+    "metadata_bytes": 117920,
+    "scratch_bytes": 33936,
+    "ddr_read_bytes": 39376396,
+    "ddr_write_bytes": 13266448,
+    "ddr_wait_cycles": 5395420,
+    "tile_jobs": 1612,
+    "model_sha256": "52f84f848496c28d32eb276e5aa983ff8800f4dfbfe5193469e52b8f3b1f5389"
+  },
+  "timing_us": {
+    "model_load": 14980210,
+    "input_load": 992930,
+    "preview_load": 440893,
+    "backend_setup": 0,
+    "inference": 164144841,
+    "decode": 393,
+    "total": 180691156,
+    "quantize": 55837282,
+    "cpu_conv": 0,
+    "tx": 44951537,
+    "rx": 81114775,
+    "ready_wait": 9409145
+  },
+  "fpga_cycles": 125240560,
+  "wire_bytes": 67757128,
+  "conv_nodes": 186,
+  "cpu_conv_nodes": 0,
+  "external_conv_nodes": 186,
+  "nodes_completed": 661,
+  "detections_truncated": false,
+  "detections": [
+    {
+      "class": "Body",
+      "class_id": 0,
+      "score": 0.813730299472809,
+      "x1": 51.9175148010254,
+      "y1": 15.977920532226562,
+      "x2": 104.14999389648438,
+      "y2": 128
+    },
+    {
+      "class": "Body",
+      "class_id": 0,
+      "score": 0.7987965941429138,
+      "x1": 91.1101837158203,
+      "y1": 39.76847457885742,
+      "x2": 146.98939514160156,
+      "y2": 126.30830383300781
+    },
+    {
+      "class": "Head",
+      "class_id": 7,
+      "score": 0.7890436053276062,
+      "x1": 28.262935638427734,
+      "y1": 37.93379211425781,
+      "x2": 49.96100997924805,
+      "y2": 64.00794982910156
+    },
+    {
+      "class": "Head",
+      "class_id": 7,
+      "score": 0.7625054717063904,
+      "x1": 105.70498657226562,
+      "y1": 37.96885681152344,
+      "x2": 130.48875427246094,
+      "y2": 68.05442810058594
+    },
+    {
+      "class": "Face",
+      "class_id": 16,
+      "score": 0.7351515889167786,
+      "x1": 108.77665710449219,
+      "y1": 44.31903839111328,
+      "x2": 122.4659423828125,
+      "y2": 63.59764862060547
+    },
+    {
+      "class": "Body",
+      "class_id": 0,
+      "score": 0.7145559191703796,
+      "x1": 2.9839630126953125,
+      "y1": 39.34580993652344,
+      "x2": 71.4584274291992,
+      "y2": 127.0357666015625
+    },
+    {
+      "class": "Head",
+      "class_id": 7,
+      "score": 0.712944269180298,
+      "x1": 66.67800903320312,
+      "y1": 14.48781967163086,
+      "x2": 87.7028350830078,
+      "y2": 40.58301544189453
+    }
+  ]
+}
