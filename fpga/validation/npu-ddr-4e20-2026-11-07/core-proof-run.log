@@ -1,0 +1,17 @@
+warning: Some design elements have no explicit time unit and/or
+       : time precision. This may cause confusing timing results.
+       : Affected design elements are:
+       :   -- module conv_tile_engine declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\npu\rtl\conv_tile_engine.v:4
+       :   -- module mem_adapter declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\mem\rtl\mem_adapter.v:10
+       :   -- module memv1_bridge declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\mem\rtl\memv1_bridge.v:7
+       :   -- module memv1_crc32b declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\mem\rtl\memv1_crc32b.v:3
+       :   -- module memv1_dpram declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\mem\rtl\memv1_crc32b.v:13
+       :   -- module npu_ddr_arbiter declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\npu\rtl\npu_ddr_arbiter.v:9
+       :   -- module npu_ddr_core declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\npu\rtl\npu_ddr_core.v:3
+       :   -- module npu_ddr_sys declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\npu\rtl\npu_ddr_sys.v:2
+       :   -- module npu_ddr_tile_loader declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\npu\rtl\npu_ddr_tile_loader.v:4
+       :   -- module npu_ddr_u32x16 declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\npu\rtl\npu_ddr_tile_loader.v:236
+D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\npu\rtl\npu_ddr_sys.v:32: warning: @* is sensitive to all 6 words in array 'reply'.
+
+PASS NPU DDR core commands=64 pins+realCDC/adapter, CRCWRITE/READ/ConvICDMA,128Mboundary,session/cal-loss/no-replay/ARM/reset
+D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-ddr-core-extended\tb_npu_ddr_core.v:142: $finish called at 28003774500 (1ps)
