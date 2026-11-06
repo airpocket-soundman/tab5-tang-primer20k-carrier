@@ -5,7 +5,7 @@ D1,SS54,Diode_SMD:D_SMA,False,C22452,reverse-polarity + OR (DC jack)
 D2,SS54,Diode_SMD:D_SMA,False,C22452,OR (USB-C PD)
 D3,SMBJ15A,Diode_SMD:D_SMB,False,C699013,"YANGJIE 15V standoff, 24.4V specified clamp; regulated 12V PoC input only"
 C1,100u/35V,Capacitor_SMD:CP_Elec_6.3x7.7,False,C2983388,
-J2,TYPE-C-31-M-12 USB2 + PD,Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12,False,,USB2 data and PD; PROGRAM strap requests5V; no automatic power selector
+J2,TYPE-C-31-M-12 USB2 + PD,Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12,False,C165948,"USB2 data and PD; PROGRAM strap requests5V; no automatic power selector LCSC C165948 (HRO TYPE-C-31-M-12), extended; shell stakes are through-hole (hybrid assembly)."
 U1,CH224K,Package_SO:SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm,False,C970725,"PD sink, 12V request: CFG1=0 CFG2=0 CFG3=1(internal PU)"
 R1,10k,Resistor_SMD:R_0603_1608Metric,False,C25804,
 C2,1u/50V,Capacitor_SMD:C_0603_1608Metric,False,C15849,
@@ -105,7 +105,7 @@ U9,TPS3839G33DBZR,Package_TO_SOT_SMD:SOT-23,False,C485802,"3.08V / 4.38V supervi
 C22,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,
 U10,TPS3839K50DBZR,Package_TO_SOT_SMD:SOT-23,False,C702204,"3.08V / 4.38V supervisor, 200ms typical release delay"
 C23,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,
-JP1,B-2100S02P-A110,Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical,False,C124375,"LCSC/JLC wave-solder candidate; 1x2 male2.54mm,6mm mating pins,3mm solder tails; C5305 shunt supplied separately and initially absent."
+JP1,BUS ARM,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical,False,C49257,"BUS ARM: shunt on 1-2 = bus switches allowed when the Tab5 3.3V is good (TAB_PGOOD->BUS_ARM); shunt on 2-3 (pin3 NC) = parked, bus stays isolated. LCSC C49257 is through-hole (wave-solder class): supplier THT option or hand solder."
 Q3,2N7002,Package_TO_SOT_SMD:SOT-23,False,C8545,
 Q4,2N7002,Package_TO_SOT_SMD:SOT-23,False,C8545,
 R46,22k,Resistor_SMD:R_0603_1608Metric,False,C31850,
@@ -115,37 +115,37 @@ Q5,MMBT3904,Package_TO_SOT_SMD:SOT-23,False,C20526,"Active-low HPD; input only, 
 R51,47k,Resistor_SMD:R_0603_1608Metric,False,C25819,"Active-low HPD; input only, invert and debounce >=10ms; R52 limits off-bank charge injection, no hotplug guarantee"
 R52,10k,Resistor_SMD:R_0603_1608Metric,False,C25804,"Active-low HPD; input only, invert and debounce >=10ms; R52 limits off-bank charge injection, no hotplug guarantee"
 C24,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,"Active-low HPD; input only, invert and debounce >=10ms; R52 limits off-bank charge injection, no hotplug guarantee"
-JP3,MODE TAB5,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical,False,,"MOVE JP3 BY HAND TOGETHER WITH SW4, ALL INPUTS UNPLUGGED. RUN1-2, PROGRAM2-3. SW4 does not control JP3."
-R73,100k,Resistor_SMD:R_0603_1608Metric,False,,
-R74,100k,Resistor_SMD:R_0603_1608Metric,False,,
-U17,FT232HL-REEL,Package_QFP:LQFP-48_7x7mm_P0.5mm,False,,Genuine FT232HL; no EEPROM; defaultVID/PID0403:6014; openFPGALoader cableft232; MPSSE selected overUSB
-R81,12k 1%,Resistor_SMD:R_0603_1608Metric,False,,
-R82,10k,Resistor_SMD:R_0603_1608Metric,False,,
-C85,100n,Capacitor_SMD:C_0603_1608Metric,False,,
-Y1,FA-238 12MHz CL18pF 30ppm,Crystal:Crystal_SMD_SeikoEpson_FA238-4Pin_3.2x2.5mm,False,,
-C86,27p,Capacitor_SMD:C_0603_1608Metric,False,,
-C87,27p,Capacitor_SMD:C_0603_1608Metric,False,,
-C88,100n,Capacitor_SMD:C_0603_1608Metric,False,,
-C89,100n,Capacitor_SMD:C_0603_1608Metric,False,,
-C90,100n,Capacitor_SMD:C_0603_1608Metric,False,,
-C91,100n,Capacitor_SMD:C_0603_1608Metric,False,,
-C92,100n,Capacitor_SMD:C_0603_1608Metric,False,,
-C93,100n,Capacitor_SMD:C_0603_1608Metric,False,,
-C94,100n,Capacitor_SMD:C_0603_1608Metric,False,,
-C95,100n,Capacitor_SMD:C_0603_1608Metric,False,,
-C96,4.7u,Capacitor_SMD:C_0603_1608Metric,False,,
-D10,PESD5V0U1BL,Diode_SMD:D_SOD-882,False,,Nexperia low-capacitance bidirectional ESD; not PESD5V0S1UL (high capacitance)
-D11,PESD5V0U1BL,Diode_SMD:D_SOD-882,False,,Ground referenced ESD; never connect to12V VBUS
-U19,SN74LVC125APWR,Package_SO:TSSOP-14_4.4x5mm_P0.65mm,False,,
-C97,100n,Capacitor_SMD:C_0603_1608Metric,False,,
-R83,33R,Resistor_SMD:R_0603_1608Metric,False,,
-R84,33R,Resistor_SMD:R_0603_1608Metric,False,,
-R85,33R,Resistor_SMD:R_0603_1608Metric,False,,
-R86,10k,Resistor_SMD:R_0603_1608Metric,False,,
-R87,10k,Resistor_SMD:R_0603_1608Metric,False,,
-R88,100k,Resistor_SMD:R_0603_1608Metric,False,,
-R89,1M,Resistor_SMD:R_0603_1608Metric,False,,
-R90,10k,Resistor_SMD:R_0603_1608Metric,False,,
-Q7,2N7002,Package_TO_SOT_SMD:SOT-23,False,,
-Q8,2N7002,Package_TO_SOT_SMD:SOT-23,False,,
+JP3,MODE TAB5,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical,False,C49257,"MOVE JP3 BY HAND TOGETHER WITH SW4, ALL INPUTS UNPLUGGED. RUN1-2, PROGRAM2-3. SW4 does not control JP3."
+R73,100k,Resistor_SMD:R_0603_1608Metric,False,C25803,
+R74,100k,Resistor_SMD:R_0603_1608Metric,False,C25803,
+U17,FT232HL-REEL,Package_QFP:LQFP-48_7x7mm_P0.5mm,False,C51997,Genuine FT232HL; no EEPROM; defaultVID/PID0403:6014; openFPGALoader cableft232; MPSSE selected overUSB
+R81,12k 1%,Resistor_SMD:R_0603_1608Metric,False,C22790,
+R82,10k,Resistor_SMD:R_0603_1608Metric,False,C25804,
+C85,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,
+Y1,12MHz CL20pF 20ppm X322512MSB4SI,Crystal:Crystal_SMD_SeikoEpson_FA238-4Pin_3.2x2.5mm,False,C9002,"YXC X322512MSB4SI (C9002), 3.2x2.5mm 4-pin, Basic/SMT. Replaces FA-238V (extended, wave-solder class, stock 0). Load 20pF: C86/C87 are 33p. Land pattern fit to the LCSC footprint is checked in the order data."
+C86,33p,Capacitor_SMD:C_0603_1608Metric,False,C1663,"C0G 0603 33pF (C1663, Basic) for the 20pF-load crystal: CL = 33/2 + stray (about 3-5pF) = about 19.5-21.5pF"
+C87,33p,Capacitor_SMD:C_0603_1608Metric,False,C1663,"C0G 0603 33pF (C1663, Basic) for the 20pF-load crystal: CL = 33/2 + stray (about 3-5pF) = about 19.5-21.5pF"
+C88,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,
+C89,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,
+C90,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,
+C91,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,
+C92,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,
+C93,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,
+C94,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,
+C95,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,
+C96,4.7u,Capacitor_SMD:C_0603_1608Metric,False,C19666,
+D10,PESD5V0U1BL,Diode_SMD:D_SOD-882,False,C3001955,"UMW PESD5V0U1BL (C3001955), SOD-882, extended. Nexperia original has no LCSC number; equivalence of capacitance/clamping NOT checked."
+D11,PESD5V0U1BL,Diode_SMD:D_SOD-882,False,C3001955,"UMW PESD5V0U1BL (C3001955), SOD-882, extended. Nexperia original has no LCSC number; equivalence of capacitance/clamping NOT checked."
+U19,SN74LVC125APWR,Package_SO:TSSOP-14_4.4x5mm_P0.65mm,False,C7813,
+C97,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,
+R83,33R,Resistor_SMD:R_0603_1608Metric,False,C23140,
+R84,33R,Resistor_SMD:R_0603_1608Metric,False,C23140,
+R85,33R,Resistor_SMD:R_0603_1608Metric,False,C23140,
+R86,10k,Resistor_SMD:R_0603_1608Metric,False,C25804,
+R87,10k,Resistor_SMD:R_0603_1608Metric,False,C25804,
+R88,100k,Resistor_SMD:R_0603_1608Metric,False,C25803,
+R89,1M,Resistor_SMD:R_0603_1608Metric,False,C22935,
+R90,10k,Resistor_SMD:R_0603_1608Metric,False,C25804,
+Q7,2N7002,Package_TO_SOT_SMD:SOT-23,False,C8545,
+Q8,2N7002,Package_TO_SOT_SMD:SOT-23,False,C8545,
 SW4,SS-23D03-G080,carrier:SW_SLIDE_DP3T_SS-23D03-G080,False,C2848921,"RUN/PROGRAM slide switch replacing JP2+JP4. Pos1=RUN (BUCK_5V->+5V, PD_CFG1->GND), pos2=middle=all open, pos3=PROGRAM (VBUS_PD->+5V, PD_CFG1->PD_VDD). Through-hole, hand/wave solder. Pad pairing 1&8/2&7/3&6 inferred from EasyEDA symbol: VERIFY ON REAL PART. JP3 is NOT linked: set JP3 by hand (1-2 RUN, 2-3 PROGRAM)."

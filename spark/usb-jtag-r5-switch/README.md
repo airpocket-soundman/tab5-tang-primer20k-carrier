@@ -96,3 +96,12 @@ JP2 と JP4 が同じスライダで動くので、「VBUS_PD→+5V かつ PD_CF
 1. `gen/` で `python build_r5.py`(スキーマティック・BOM・契約JSONを再生成。**`gen/make_sch.py` を自己書き換えする**ので、この `usb-jtag-r5-switch` 側で実行)。
 2. `gen/` で KiCad 付属 Python `"C:/Program Files/KiCad/10.0/bin/python.exe" add_sw.py`(r5 の PCB から r5s の PCB を生成)。
 3. `kicad-cli` で ERC / netlist / DRC、`python verify_design.py`。
+
+
+## 更新（2026-11-06 後段）：発注用データ、JP1、シルク、BOM
+
+- **発注用データ**を `order/` に作成した（ガーバー、ドリル、PCBA用BOM・CPL、LCSC別途注文リスト、補正記録）。使い方と未解決事項は [order/README.md](order/README.md)。注文はしていない。
+- **JP1（バスARM）を1×3ピンに変更した。** ピン1=`TAB_PGOOD`、ピン2=`BUS_ARM`、ピン3=未接続（プラグの保管位置）。1–2に挿すと許可、2–3は許可しない。部品はJP3と同じ（C49257）。
+- **シルクを整理した。** `SW4 MODE`／`PGM OFF RUN`／`POWER OFF FIRST`、`JP3 TAB5 PWR`／`1-2 ON`／`2-3 OFF`／`SW4+JP3 SAME MODE`、`JP1 BUS ARM`／`1-2 ON`／`2-3 OFF`。実装図は `review/`。
+- **BOMのLCSC番号を記入した**（空欄はDNPと取付穴のみ）。水晶は、SMT実装できるYXC X322512MSB4SI（C9002、20pF）に変更し、C86・C87を33pFにした。
+- 検証: ERCエラー0、PCB DRC違反0・未配線0、`verify_design.py` 合格、`gen/check_order.py` 合格。

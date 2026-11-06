@@ -1,0 +1,12 @@
+Group,Refs,Qty per board,Qty x2 boards,Qty x5 boards,LCSC Part #,Value,Footprint,Note
+A 必須: PCBAに含めない,J3,1,2,5,C56496,2.54-2*15P (2x15 pin header),carrier:PinHeader_2x15_Tab5_Bottom,Tab5 M5-Bus用。基板の裏面。手はんだ。JLCPCB分類はextended・THT(r4と同じ扱い)
+A 必須: PCBAに含めない,"JP1, JP3 用のショートプラグ",2,4,10,C5305,2.54mm 1x2 shunt (open top),(ヘッダに挿す部品),JP1=バスARM(1-2に挿すとTab5側の電源が正常な時にバス接続を許可、2-3は保管位置)、JP3=Tab5給電の選択(1-2=給電、2-3=保管=停止)。JLCPCB分類 extended / Wave Soldering
+B 条件付き: 業者がTHT実装できない場合に別途購入,SW4,1,2,5,C2848921,SS-23D03-G080 (DP3T slide switch),carrier:SW_SLIDE_DP3T_SS-23D03-G080,JLCPCB分類 extended / Wave Soldering。PCBA BOMには載せてある。実物のピン対応の導通確認が必要
+B 条件付き: 業者がTHT実装できない場合に別途購入,JP3,1,2,5,C49257,2.54-1*3P pin header,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical,JLCPCB分類 extended / Wave Soldering。PCBA BOMには載せてある
+B 条件付き: 業者がTHT実装できない場合に別途購入,J1,1,2,5,C381116,DC-005-5A-2.0 (barrel jack),carrier:BarrelJack_XKB_C381116,r4と同じ候補。JLCPCB分類 extended。PCBA BOMには載せてある
+B 条件付き: 業者がTHT実装できない場合に別途購入,JP1,1,2,5,C49257,"2.54-1*3P pin header (BUS ARM, 1x3)",Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical,JP3と同じ部品。3番ピンは未接続(ショートプラグの保管位置)。JLCPCB分類 extended / Wave Soldering。PCBA BOMには載せてある
+C 未選定: 基板に実装しない(DNP),"J6, J7",2,4,10,,PMOD 2x6 pin header,Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical,LCSC番号は未選定。必要になったら選ぶ
+C 未選定: 基板に実装しない(DNP),J8,1,2,5,,GPIO pads 1x9 pin header,Connector_PinHeader_2.54mm:PinHeader_1x09_P2.54mm_Vertical,LCSC番号は未選定。必要になったら選ぶ
+D LCSC以外(ユーザー支給),Tab5,1,2,5,,M5Stack Tab5,-,ユーザー購入
+D LCSC以外(ユーザー支給),Tang Primer 20K Core,1,2,5,,Sipeed Tang Primer 20K Core,-,ユーザー購入。SODIMMソケット(J4)に挿す
+D LCSC以外(ユーザー支給),H1-H6,6,12,30,,M3 mounting hardware,MountingHole_3.2mm_M3,M3ねじ・スペーサ。LCSC部品ではない

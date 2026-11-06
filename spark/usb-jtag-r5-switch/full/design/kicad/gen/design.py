@@ -80,6 +80,38 @@ def build():
     lcsc={r['Reference']:r['LCSC'] for r in csv.DictReader(r5bom.open(encoding='utf8')) if r['LCSC']}
     for c in cs:
         if not c.lcsc and c.ref in lcsc:c.lcsc=lcsc[c.ref]
+    # LCSC numbers for the parts that r5 left blank. Every number below was opened on its JLCPCB
+    # part page (MPN, package, Basic/Extended checked 2026-11-06); stock is NOT checked.
+    by_value={('100k','R_0603_1608Metric'):'C25803',('12k 1%','R_0603_1608Metric'):'C22790',
+      ('10k','R_0603_1608Metric'):'C25804',('33R','R_0603_1608Metric'):'C23140',('1M','R_0603_1608Metric'):'C22935',
+      ('100n','C_0603_1608Metric'):'C14663',('4.7u','C_0603_1608Metric'):'C19666',
+      ('PESD5V0U1BL','D_SOD-882'):'C3001955',('FT232HL-REEL','LQFP-48_7x7mm_P0.5mm'):'C51997',
+      ('SN74LVC125APWR','TSSOP-14_4.4x5mm_P0.65mm'):'C7813',('2N7002','SOT-23'):'C8545'}
+    by_ref={'J2':'C165948','JP3':'C49257','Y1':'C9002','C86':'C1663','C87':'C1663'}
+    for c in cs:
+        if not c.lcsc:
+            c.lcsc=by_ref.get(c.ref) or by_value.get((c.value,c.fp.split(':')[-1]),'')
+        if c.ref=='D10' or c.ref=='D11':
+            c.comment='UMW PESD5V0U1BL (C3001955), SOD-882, extended. Nexperia original has no LCSC number; equivalence of capacitance/clamping NOT checked.'
+        if c.ref=='Y1':
+            c.value='12MHz CL20pF 20ppm X322512MSB4SI'
+            c.comment='YXC X322512MSB4SI (C9002), 3.2x2.5mm 4-pin, Basic/SMT. Replaces FA-238V (extended, wave-solder class, stock 0). Load 20pF: C86/C87 are 33p. Land pattern fit to the LCSC footprint is checked in the order data.'
+        if c.ref in ('C86','C87'):
+            c.value='33p'
+            c.comment='C0G 0603 33pF (C1663, Basic) for the 20pF-load crystal: CL = 33/2 + stray (about 3-5pF) = about 19.5-21.5pF'
+        if c.ref=='J2':
+            c.comment+=' LCSC C165948 (HRO TYPE-C-31-M-12), extended; shell stakes are through-hole (hybrid assembly).'
+        if c.ref=='JP3':
+            c.comment+=' LCSC C49257 is a through-hole header (wave-solder class): supplier THT option or hand solder.'
+        if c.ref=='JP1':
+            # r5s: JP1 (bus ARM) becomes 1x3 like JP3, so the shunt can be parked on an unconnected pin
+            # when the bus must stay isolated. 1-2 = armed (TAB_PGOOD -> BUS_ARM), 2-3 = parked/off.
+            c.sym='Connector_Generic:Conn_01x03'
+            c.fp='Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical'
+            c.value='B-2100S02P-A110'.replace('B-2100S02P-A110','BUS ARM')
+            c.pins={'1':'TAB_PGOOD','2':'BUS_ARM','3':None}
+            c.lcsc='C49257'
+            c.comment='BUS ARM: shunt on 1-2 = bus switches allowed when the Tab5 3.3V is good (TAB_PGOOD->BUS_ARM); shunt on 2-3 (pin3 NC) = parked, bus stays isolated. LCSC C49257 is through-hole (wave-solder class): supplier THT option or hand solder.'
     sw=Comp('SW4','carrier:SW_SLIDE_DP3T_SS-23D03','carrier:SW_SLIDE_DP3T_SS-23D03-G080','SS-23D03-G080',
         {'1':'BUCK_5V','2':None,'3':'VBUS_PD','4':'+5V','5':'PD_CFG1','6':'PD_VDD','7':None,'8':'GND','9':'GND','10':'GND'},
         'r5power',pos=(43,26),lcsc='C2848921',
