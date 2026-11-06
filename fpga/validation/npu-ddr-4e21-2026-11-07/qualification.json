@@ -1,0 +1,55 @@
+{
+  "usercode": "4E21",
+  "wire_capability": "4E20",
+  "timing_qualified": false,
+  "hardware_programmed_by_this_task": false,
+  "native_kernel_blocks": 2696,
+  "full_pin_commands": 64,
+  "full_pin_shape": "IC16+3 OC8 OH3 OW5 K3 S2 origin(-1,-1)",
+  "resources": {
+    "logic": 10979,
+    "register": 6015,
+    "bsram": 45,
+    "bsram_capacity": 46,
+    "dsp": 12.5,
+    "dsp_capacity": 24
+  },
+  "unwaived_violations": {
+    "setup_endpoints": 1408,
+    "hold_endpoints": 111
+  },
+  "same_domain_fmax_mhz": {
+    "sys27": 42.327,
+    "user99": 103.034,
+    "memory398": 2016.128
+  },
+  "bitstream_sha256": "a9bdae1126f7ffdba349d14293271addbeb4901cee3019bb2315383bf650c05c",
+  "source_hash_match": {
+    "npu_ddr_core_8oc.v": true,
+    "npu_ddr_sys.v": true,
+    "npu_ddr_arbiter.v": true,
+    "npu_ddr_tile_loader_8oc.v": true,
+    "conv_tile_engine_8oc.v": true,
+    "memv1_bridge.v": true,
+    "mem_adapter.v": true,
+    "memv1_crc32b.v": true
+  },
+  "baseline_sources_unchanged": {
+    "mem\\config\\mem_bist.cst": true,
+    "mem\\rtl\\memv1_bridge.v": true,
+    "mem\\rtl\\memv1_crc32b.v": true,
+    "mem\\rtl\\mem_adapter.v": true,
+    "npu\\rtl\\conv_tile_engine.v": true,
+    "npu\\rtl\\npu_ddr_arbiter.v": true,
+    "npu\\rtl\\npu_ddr_core.v": true,
+    "npu\\rtl\\npu_ddr_sys.v": true,
+    "npu\\rtl\\npu_ddr_tile_loader.v": true,
+    "platform\\dock\\tab5_dock_npu_ddr_top.v": true
+  },
+  "notes": [
+    "Isolated candidate; no end-to-end speed or board correctness claim",
+    "No false paths or asynchronous clock waivers added",
+    "Vendor external_snapshot ignored; do not redistribute encrypted IP",
+    "All baseline4E20 RTL and source snapshot preserved"
+  ]
+}
