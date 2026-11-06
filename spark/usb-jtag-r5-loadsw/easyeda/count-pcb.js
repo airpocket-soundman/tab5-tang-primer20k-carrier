@@ -1,0 +1,11 @@
+const pcbs=await eda.dmt_Pcb.getAllPcbsInfo();
+await eda.dmt_EditorControl.openDocument(pcbs[0].uuid);
+await new Promise(r=>setTimeout(r,4000));
+const comps=await eda.pcb_PrimitiveComponent.getAll();
+const lines=await eda.pcb_PrimitiveLine.getAll();
+const vias=await eda.pcb_PrimitiveVia.getAll();
+const nets=await eda.pcb_Net.getAllNetsName();
+const arcs=eda.pcb_PrimitiveArc?await eda.pcb_PrimitiveArc.getAll():[];
+const pours=eda.pcb_PrimitivePour?await eda.pcb_PrimitivePour.getAll():[];
+const layers=await eda.pcb_Layer.getTotalCopperLayerNumber?.();
+return {components:comps.length,lines:lines.length,vias:vias.length,arcs:arcs.length,pours:pours.length,nets:nets.length,copperLayers:layers};
