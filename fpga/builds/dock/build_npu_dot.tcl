@@ -19,4 +19,3 @@ set_option -use_sspi_as_gpio 1
 set_option -user_code 00004E02
 run all
 exit
-

@@ -31,3 +31,5 @@ Gowin Education1.9.11.03で配置配線・bitstream生成。標準1.9.12.04はli
 4. 固定画像の全モデル実機推論が合格してから、内蔵カメラ（BSPはSC202CS対応）を同じ入力経路へ接続する。カメラの実機captureは今回未実施。
 
 [FPGA保存物](../fpga/validation/npu-dot-hardware-2026-11-06/)。最終状態はNPU単独版4E02、Tab5 NPU試験画面、DISARM。GPUへ戻すにはTab5停止・DISARMのまま既存16D0をSRAMへ再ロードし、GPU LINK ARMで能力確認する。SPI Flashは変更していない。
+
+修正版4E02の配置配線結果：Logic2080/20736（11%）、Register710/16173（5%）、DSP3.5/24（15%）。sys27MHzのsetup/hold違反endpoint0、worst setup slack0.348ns、STA Fmax27.256MHz。非同期GPIOの外部setup/hold認定や全モデル容量の評価とは区別する。
