@@ -1,0 +1,74 @@
+{
+  "date": "2026-11-03",
+  "exported_schematic_contract": "PASS",
+  "fault_injections_rejected": 3,
+  "r4_files_unchanged": 1234,
+  "erc_errors": 0,
+  "erc_warnings": 208,
+  "design_variant": "manual-jumpers",
+  "components": 151,
+  "mode_table": [
+    {
+      "source": "PC5",
+      "mode": "PROGRAM",
+      "Core_ideal_V": 5,
+      "Tab5_ideal_V": 0,
+      "PD_request_V": 5,
+      "scope": "ideal mode table only; no transient or source-current simulation"
+    },
+    {
+      "source": "PD",
+      "mode": "PROGRAM",
+      "Core_ideal_V": 5,
+      "Tab5_ideal_V": 0,
+      "PD_request_V": 5,
+      "scope": "ideal mode table only; no transient or source-current simulation"
+    },
+    {
+      "source": "PD",
+      "mode": "RUN",
+      "Core_ideal_V": 4.99,
+      "Tab5_ideal_V": 11.5,
+      "PD_request_V": 12,
+      "scope": "ideal mode table only; no transient or source-current simulation"
+    },
+    {
+      "source": "barrel12",
+      "mode": "RUN",
+      "Core_ideal_V": 4.99,
+      "Tab5_ideal_V": 11.5,
+      "PD_request_V": 12,
+      "scope": "ideal mode table only; no transient or source-current simulation"
+    },
+    {
+      "source": "barrel12 only",
+      "mode": "PROGRAM",
+      "Core_ideal_V": 0,
+      "Tab5_ideal_V": 0,
+      "PD_request_V": 5,
+      "scope": "ideal mode table only; no transient or source-current simulation"
+    },
+    {
+      "source": "PC5+barrel12",
+      "mode": "RUN",
+      "Core_ideal_V": 4.99,
+      "Tab5_ideal_V": 11.5,
+      "PD_request_V": 12,
+      "scope": "ideal mode table only; no transient or source-current simulation"
+    }
+  ],
+  "mixed_mode_fault_example": {
+    "JP2": "PROGRAM",
+    "JP4": "RUN",
+    "source": "PD",
+    "Core_ideal_V": 12,
+    "safe": false
+  },
+  "automatic_supply_ICs_absent": true,
+  "pcb_drc_violations": 0,
+  "pcb_unconnected": 0,
+  "pcb_release_ready": false,
+  "hardware_verified": false,
+  "transient_simulated": false,
+  "core_power_requirement": "Sipeed official datasheetp3:5V+/-10%,0.5A; USB500mA total cannot guarantee Core plusdebugger"
+}
