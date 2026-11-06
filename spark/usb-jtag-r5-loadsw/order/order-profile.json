@@ -1,0 +1,90 @@
+{
+  "revision": "r5l: USB-JTAG manual mode, SW4 slide switch replaces JP2+JP4, JP1 1x3",
+  "date": "2026-11-06",
+  "status": "ORDER CANDIDATE for a PoC. Not ordered. Not hardware-verified. Not a release (see README.md).",
+  "board": {
+    "dimensions_mm": [
+      125,
+      78
+    ],
+    "layers": 4,
+    "material": "FR-4",
+    "stackup": "JLC04161H-7628",
+    "finished_thickness_mm": 1.6,
+    "copper": {
+      "outer_finished_um": 35,
+      "inner_um": 15.2
+    },
+    "note": "Same stackup as the r4 PoC profile; do not change it without re-checking the impedance-controlled traces.",
+    "origin_mm": [
+      2,
+      79
+    ]
+  },
+  "assembly": {
+    "SMT_side": "top only",
+    "pcba_designators": 134,
+    "pcba_bom_rows": 54,
+    "manual_not_in_pcba": [
+      "J3 (2x15 header, bottom side, LCSC C56496)",
+      "H1-H6 mounting holes"
+    ],
+    "not_fitted_DNP": [
+      "R4",
+      "R17",
+      "R18",
+      "R25",
+      "C8",
+      "C9",
+      "J6",
+      "J7",
+      "J8"
+    ],
+    "through_hole_candidates_in_pcba_files": {
+      "SW4": "C2848921 (extended, wave-solder class)",
+      "JP1": "C49257 (extended, wave-solder class)",
+      "JP3": "C49257 (extended, wave-solder class)",
+      "J1": "C381116 (extended)"
+    },
+    "through_hole_fallback": "If the supplier cannot assemble a through-hole part, buy the same LCSC part separately and hand solder; remove it from the PCBA order to avoid duplicate procurement (see lcsc-separate-order.csv group B).",
+    "hybrid": [
+      "J2: SMT contacts + through-hole shell stakes",
+      "J5: SMT contacts + through-hole shell tabs"
+    ],
+    "separate_accessories": [
+      "C5305 shunt x2 (JP1, JP3)"
+    ],
+    "user_supplied": [
+      "Tab5",
+      "Tang Primer 20K Core",
+      "M3 hardware"
+    ]
+  },
+  "placement": {
+    "basis": "LCSC/EasyEDA footprint frames fitted by numbered pads; polarity-sensitive diodes D1-D8 fitted by pin FUNCTION (see README: differs from r4).",
+    "record": "placement-corrections.json",
+    "cpl_coordinates": "Gerber plot origin = board lower-left (2,79), +X right, +Y up, mm",
+    "supplier_review": "The correction is to the supplier library frame, not a confirmation of tape/reel orientation. Check polarity and pin 1 in the order preview before paying."
+  },
+  "source_pcb_sha256": "4b2f979c8d1d5ad8a8fa65a76562485464b55d4663c87e67518989f022640fad",
+  "artifacts": {
+    "connectivity.d356": "e37b6cff1887cca2d6bf144f9f4a175049ed7c640c609c59a3cdba458ba6d76a",
+    "cpl-fit-report.md": "e00010aa6916f16311f2818ffb4a11b1e4df96a09322124a5652d1e6445fb71b",
+    "dnp.csv": "3c347919eeb49601f46c4e4f470b5e7afd48cadf3a3cb163e2111ad0ea942ace",
+    "gerber-export.json": "3014b811cc5f4b442cc6ec042ebf4429896645bcce1c6706ec391f980699380a",
+    "gerbers.zip": "710b3ab23284cff25bb39dbc458241fac3d83a55ccd057a58904f8221e7d9502",
+    "jlc-bom.csv": "a770855dbae70198802673431b81fe06be1e93beefae6812fa6b7077293ae3a6",
+    "jlc-cpl.csv": "e2792b6536f26addf612810949a7a43905fe90e2a592b510f0715400b5df23e5",
+    "kicad-position.csv": "5b8d2635e47fd7943518264057a14dfbf244b598589ba88d13d05be5889b18a9",
+    "lcsc-separate-order.csv": "bf3eb5965b57e20f62372807676bdca87bef190a0c5b84f5f758608de2cacc82",
+    "manual-assembly.csv": "900b424ca3f9cb100c29424a55ee92c10f2064ec9c220d4f8df310a0211b9b71",
+    "placement-corrections.json": "822d612062ae45f266e80d3f8236827440b9f76bc4217adce481ef9ca106438f"
+  },
+  "verification": {
+    "ERC_errors": 0,
+    "PCB_DRC_violations": 0,
+    "PCB_unconnected": 0,
+    "BOM_CPL_reference_sets_equal": true,
+    "scope": "Data consistency only. Not factory acceptance, not physical validation."
+  }
+}
