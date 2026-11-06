@@ -1,0 +1,11 @@
+const uuid="5dcc5c82bf3ef0e5c63ecb708087f825291ce59417579f5268a874044dece84e";
+const p=await eda.dmt_Project.getCurrentProjectInfo();
+if(p?.uuid!==uuid)throw Error("Wrong project");
+const state=async()=>({schs:(await eda.dmt_Schematic.getAllSchematicsInfo()).map(s=>[s.uuid,s.name]),pcbs:(await eda.dmt_Pcb.getAllPcbsInfo()).map(x=>[x.uuid,x.name]),boards:(await eda.dmt_Board.getAllBoardsInfo()).map(b=>[b.name,b.schematic&&b.schematic.uuid,b.pcb&&b.pcb.uuid])});
+const log=[];
+log.push(await state());
+log.push({deletedEmptyBoard:await eda.dmt_Board.deleteBoard("r5l-label-power")});
+log.push(await state());
+log.push({deletedOldBoard:await eda.dmt_Board.deleteBoard("tab5-fpga-carrier-r5l")});
+log.push(await state());
+return log;

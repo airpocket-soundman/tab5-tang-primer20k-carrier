@@ -1,0 +1,12 @@
+const p=await eda.dmt_Project.getCurrentProjectInfo();
+if(p?.uuid!=="5dcc5c82bf3ef0e5c63ecb708087f825291ce59417579f5268a874044dece84e")throw Error("Wrong project");
+const pages=await eda.dmt_Schematic.getAllSchematicPagesInfo();
+await eda.dmt_EditorControl.openDocument(pages[0].uuid);
+await new Promise(r=>setTimeout(r,3000));
+const details=await eda.sch_Drc.check(true,false,true);
+const flat=JSON.stringify(details);
+const summary={};
+const walk=(n)=>{if(Array.isArray(n)){for(const x of n)walk(x);}else if(n&&typeof n==="object"){if(n.errorType){const k=n.errorType+" | "+(n.errorObjType||"");summary[k]=(summary[k]||0)+1;}for(const k of Object.keys(n))if(typeof n[k]==="object")walk(n[k]);}};
+walk(details);
+const saved=await eda.sys_FileSystem.saveFileToFileSystem("D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/r5-ovp-switch/spark/usb-jtag-r5-loadsw/easyeda/import-compat/sch-drc-details.json",new Blob([flat],{type:"application/json"}),undefined,true);
+return {bytes:flat.length,summary,saved,head:flat.slice(0,500)};

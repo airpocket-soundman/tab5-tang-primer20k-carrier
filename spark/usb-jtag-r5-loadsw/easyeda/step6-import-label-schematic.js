@@ -1,0 +1,11 @@
+const uuid="5dcc5c82bf3ef0e5c63ecb708087f825291ce59417579f5268a874044dece84e";
+const p0=await eda.dmt_Project.getCurrentProjectInfo();
+if(p0?.uuid!==uuid)throw Error("Wrong project");
+const file=await eda.sys_FileSystem.readFileFromFileSystem("D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/r5-ovp-switch/spark/usb-jtag-r5-loadsw/easyeda/import-compat/r5l-label-power.kicad_sch");
+if(!file)throw Error("No label schematic");
+const result=await eda.sys_FileManager.importProjectByProjectFile(file,"KiCad",undefined,{operation:"Existing Project",existingProjectUuid:uuid});
+const p=await eda.dmt_Project.getCurrentProjectInfo();
+const schs=await eda.dmt_Schematic.getAllSchematicsInfo();
+const pcbs=await eda.dmt_Pcb.getAllPcbsInfo();
+const boards=await eda.dmt_Board.getAllBoardsInfo();
+return {result,schs:schs.map(s=>({uuid:s.uuid,name:s.name,pages:(s.page||[]).map(x=>x.uuid)})),pcbs:pcbs.map(x=>({uuid:x.uuid,name:x.name})),boards:boards.map(b=>({uuid:b.uuid,name:b.name,sch:b.schematic&&b.schematic.uuid,pcb:b.pcb&&b.pcb.uuid}))};

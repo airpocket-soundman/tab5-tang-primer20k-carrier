@@ -1,0 +1,16 @@
+const uuid="5dcc5c82bf3ef0e5c63ecb708087f825291ce59417579f5268a874044dece84e";
+const p=await eda.dmt_Project.getCurrentProjectInfo();
+if(p?.uuid!==uuid)throw Error("Wrong project");
+const base="D:/github/airpocket-soundman/tab5-tang-primer20k-carrier/.claude/worktrees/r5-ovp-switch/spark/usb-jtag-r5-loadsw/easyeda/";
+const pcbs=await eda.dmt_Pcb.getAllPcbsInfo();
+await eda.dmt_EditorControl.openDocument(pcbs[0].uuid);
+await new Promise(r=>setTimeout(r,4000));
+const pcbDrc=await eda.pcb_Drc.check(true,false,true);
+const pages=await eda.dmt_Schematic.getAllSchematicPagesInfo();
+await eda.dmt_EditorControl.openDocument(pages[0].uuid);
+await new Promise(r=>setTimeout(r,4000));
+const schDrc=await eda.sch_Drc.check(true,false,true);
+const file=await eda.sys_FileManager.getProjectFile("spark-r5l-loadsw-kicad-import",undefined,"epro2");
+if(!file)throw Error("No project file");
+const saved=await eda.sys_FileSystem.saveFileToFileSystem(base+"spark-r5l-loadsw-kicad-import.epro2",file,undefined,true);
+return {pcbDrcEntries:Array.isArray(pcbDrc)?pcbDrc.length:pcbDrc,pcbDrcBytes:JSON.stringify(pcbDrc).length,schDrc,fileName:file.name,fileSize:file.size,saved};

@@ -1,0 +1,10 @@
+const uuid="5dcc5c82bf3ef0e5c63ecb708087f825291ce59417579f5268a874044dece84e";
+const p=await eda.dmt_Project.getCurrentProjectInfo();
+if(p?.uuid!==uuid)throw Error("Wrong project");
+const log=[];
+log.push({deletedLabelBoard:await eda.dmt_Board.deleteBoard("r5l-label-power")});
+log.push({deletedLabelSchematic:await eda.dmt_Schematic.deleteSchematic("1807cda4dd01f352")});
+log.push({board:await eda.dmt_Board.createBoard("240b9c508235f5e1","52caa9452ee66dee")});
+const boards=(await eda.dmt_Board.getAllBoardsInfo()).map(b=>[b.name,b.schematic&&b.schematic.uuid,b.pcb&&b.pcb.uuid]);
+const schs=(await eda.dmt_Schematic.getAllSchematicsInfo()).map(s=>[s.uuid,s.name]);
+return {log,boards,schs};
