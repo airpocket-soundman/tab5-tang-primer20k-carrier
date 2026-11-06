@@ -6,10 +6,10 @@ D2,SS54,Diode_SMD:D_SMA,False,C22452,OR (USB-C PD)
 D3,SMBJ15A,Diode_SMD:D_SMB,False,C699013,"YANGJIE 15V standoff, 24.4V specified clamp; regulated 12V PoC input only"
 C1,100u/35V,Capacitor_SMD:CP_Elec_6.3x7.7,False,C2983388,
 J2,TYPE-C-31-M-12 USB2 + PD,Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12,False,C165948,"USB2 data and PD; PROGRAM strap requests5V; no automatic power selector LCSC C165948 (HRO TYPE-C-31-M-12), extended; shell stakes are through-hole (hybrid assembly)."
-U1,CH224K,Package_SO:SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm,False,C970725,"PD sink, 12V request: CFG1=0 CFG2=0 CFG3=1(internal PU)"
-R1,10k,Resistor_SMD:R_0603_1608Metric,False,C25804,
+U1,CH224A,Package_SO:SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm,False,C42459160,"WCH CH224A (ESSOP-10, pin-compatible with CH224K), 12V request: CFG1=0 CFG2=0 CFG3=1(internal PU). Pin 1 = VHV, pin 8 VBUS must be shorted to VHV (R1, R2 = 0R). CFG1 max 3.8V: only R73 (100k to VHV) may pull it up."
+R1,0R,Resistor_SMD:R_0603_1608Metric,False,C21189,0R for the CH224A: VHV supply directly from VBUS (CH224K needed 10k / 1k here). WCH CH224 datasheet V2.1 chapter 7.2.
 C2,1u/50V,Capacitor_SMD:C_0603_1608Metric,False,C15849,
-R2,1k,Resistor_SMD:R_0603_1608Metric,False,C21190,
+R2,0R,Resistor_SMD:R_0603_1608Metric,False,C21189,0R for the CH224A: VBUS detect pin shorted to VHV (CH224K needed 10k / 1k here). WCH CH224 datasheet V2.1 chapter 7.2.
 R4,0R,Resistor_SMD:R_0603_1608Metric,True,C21189,Must remain DNP: CFG3 internal pull-up for 12V request
 R5,0R,Resistor_SMD:R_0603_1608Metric,False,C21189,"Fitted: CFG2 low, CFG1 low, CFG3 high -> 12V"
 U2,TPS5430DDAR,Package_SO:TI_SO-PowerPAD-8_ThermalVias,False,C9864,
@@ -116,7 +116,7 @@ R51,47k,Resistor_SMD:R_0603_1608Metric,False,C25819,"Active-low HPD; input only,
 R52,10k,Resistor_SMD:R_0603_1608Metric,False,C25804,"Active-low HPD; input only, invert and debounce >=10ms; R52 limits off-bank charge injection, no hotplug guarantee"
 C24,100n,Capacitor_SMD:C_0603_1608Metric,False,C14663,"Active-low HPD; input only, invert and debounce >=10ms; R52 limits off-bank charge injection, no hotplug guarantee"
 JP3,MODE TAB5,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical,False,C49257,"MOVE JP3 BY HAND TOGETHER WITH SW4, ALL INPUTS UNPLUGGED. RUN1-2, PROGRAM2-3. SW4 does not control JP3."
-R73,100k,Resistor_SMD:R_0603_1608Metric,False,C25803,
+R73,100k,Resistor_SMD:R_0603_1608Metric,False,C25803,CFG1 pull-up to VHV through 100k (WCH datasheet 5.2.2 / 6.1.2): requests 5V when SW4 pad8 (GND) is not selected.
 R74,100k,Resistor_SMD:R_0603_1608Metric,False,C25803,
 U17,FT232HL-REEL,Package_QFP:LQFP-48_7x7mm_P0.5mm,False,C51997,Genuine FT232HL; no EEPROM; defaultVID/PID0403:6014; openFPGALoader cableft232; MPSSE selected overUSB
 R81,12k 1%,Resistor_SMD:R_0603_1608Metric,False,C22790,
@@ -148,4 +148,4 @@ R89,1M,Resistor_SMD:R_0603_1608Metric,False,C22935,
 R90,10k,Resistor_SMD:R_0603_1608Metric,False,C25804,
 Q7,2N7002,Package_TO_SOT_SMD:SOT-23,False,C8545,
 Q8,2N7002,Package_TO_SOT_SMD:SOT-23,False,C8545,
-SW4,SS-23D03-G080,carrier:SW_SLIDE_DP3T_SS-23D03-G080,False,C2848921,"RUN/PROGRAM slide switch replacing JP2+JP4. Pos1=RUN (BUCK_5V->+5V, PD_CFG1->GND), pos2=middle=all open, pos3=PROGRAM (VBUS_PD->+5V, PD_CFG1->PD_VDD). Through-hole, hand/wave solder. Pad pairing 1&8/2&7/3&6 inferred from EasyEDA symbol: VERIFY ON REAL PART. JP3 is NOT linked: set JP3 by hand (1-2 RUN, 2-3 PROGRAM)."
+SW4,SS-23D03-G080,carrier:SW_SLIDE_DP3T_SS-23D03-G080,False,C2848921,"RUN/PROGRAM slide switch replacing JP2+JP4. Pos1=RUN (BUCK_5V->+5V, PD_CFG1->GND), pos2=middle=all open, pos3=PROGRAM (VBUS_PD->+5V, PD_CFG1 left open: R73 pulls it up to VHV = 5V request; pad6 is NOT connected because the CH224A CFG1 pin is limited to 3.8V). Through-hole, hand/wave solder. Pad pairing 1&8/2&7/3&6 inferred from EasyEDA symbol: VERIFY ON REAL PART. JP3 is NOT linked: set JP3 by hand (1-2 RUN, 2-3 PROGRAM)."

@@ -31,14 +31,14 @@ BOM: `full/design/kicad/bom-r5s.csv`(150部品。r5 から JP2/JP4 を除き SW4
 | pad5 | B 共通 | | PD_CFG1 |
 | pad8 | B throw1 | RUN | GND |
 | pad7 | B throw2 | 中央(どこにも接続しない) | NC |
-| pad6 | B throw3 | PROGRAM | PD_VDD |
+| pad6 | B throw3 | PROGRAM | **NC（未接続）**。CH224AのCFG1は絶対最大3.8Vのため、PD_VDDへ直結しない（2026-11-06に変更。R73の100kΩでVHVへプルアップ） |
 | pad9 / pad10(各2個) | 取付 | シールド | GND |
 
 | 位置 | +5V につながるもの | PD_CFG1 につながるもの | 意味 |
 |---|---|---|---|
-| 1 (RUN) | BUCK_5V | GND | 12V要求(CH224K)、Core は降圧 5V |
+| 1 (RUN) | BUCK_5V | GND | 12V要求(CH224A)、Core は降圧 5V |
 | 2 (中央) | なし | なし | 全開放。PDは5V要求(CFG1開放)、Core 5V は無給電 |
-| 3 (PROGRAM) | VBUS_PD | PD_VDD | 5V要求、USBのVBUSからCoreへ |
+| 3 (PROGRAM) | VBUS_PD | なし（R73で上拉） | 5V要求、USBのVBUSからCoreへ |
 
 JP2 と JP4 が同じスライダで動くので、「VBUS_PD→+5V かつ PD_CFG1→GND」は成立しない(`verify_design.py` で位置モデルを検査)。
 
@@ -105,3 +105,14 @@ JP2 と JP4 が同じスライダで動くので、「VBUS_PD→+5V かつ PD_CF
 - **シルクを整理した。** `SW4 MODE`／`PGM OFF RUN`／`POWER OFF!`、`JP3 TAB5 PWR`／`1-2 ON`／`2-3 OFF`／`SET SAME AS SW4`、`JP1 BUS ARM`／`1-2 ON`／`2-3 OFF`。全てのシルク文字を、JLCPCBの推奨（高さ1.0mm以上、線幅0.15mm以上、高さ:線幅 6:1以上）に合わせた（`gen/silk_check.py` で確認、DRC違反0）。**各ピンのそばに、ピン番号を印刷した**（JP1・JP3は1〜3、SW4は1〜8。`gen/add_pin_numbers.py`）。SW4は、右列が下から1〜4（1が角パッド）、左列が下から8〜5で、RUN＝1と8、OFF＝2と7、PGM＝3と6の組、4と5が共通端子。実装図は `review/`。
 - **BOMのLCSC番号を記入した**（空欄はDNPと取付穴のみ）。水晶は、SMT実装できるYXC X322512MSB4SI（C9002、20pF）に変更し、C86・C87を33pFにした。
 - 検証: ERCエラー0、PCB DRC違反0・未配線0、`verify_design.py` 合格、`gen/check_order.py` 合格。
+
+
+## 更新（2026-11-06 見積もり反映）：CH224A への差し替え
+
+JLCPCBの見積もり（`order/quote-jlcpcb-2026-11-06.md`）で、U1 CH224K（C970725）が在庫切れだった。WCH公式データシート（CH224 V2.1、中国語）で確認して、次の変更を反映した。詳細は `../../docs/r5s_CH224A差し替えの検証と設計反映_2026-11-06.md`。
+
+- **U1: CH224K → CH224A（C42459160）。** ピン互換。1番ピンはVHV（4〜30V）、VBUSピンはVHVへ短絡する仕様。
+- **R1: 10kΩ → 0Ω、R2: 1kΩ → 0Ω**（どちらもC21189）。
+- **SW4のpad6を未接続にした（見積もり側の提案にはなかった追加変更）。** CH224AのCFG1は絶対最大3.8V（Kは8V）で、VHVへの直結は不可（100kΩ経由のみ）。R1を0Ωにすると、PD_VDDがVBUSそのもの（5V、PD後は12V）になるため、PROGRAM位置でCFG1を直結していた旧設計は、定格を超える。pad6を開放して、R73（100kΩ）だけが、CFG1をVHVへ引き上げる形にした。
+- 検証: ERCエラー0、PCB DRC違反0・未配線0、`verify_design.py` 合格（CH224A用の検査を追加。CFG1がスイッチでGND以外につながらないこと、R1・R2・R5・R4の状態）。
+- 未確認: 実機で、12V要求・5V要求が出ること。

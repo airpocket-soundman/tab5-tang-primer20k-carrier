@@ -113,11 +113,33 @@ def build():
             c.lcsc='C49257'
             c.comment='BUS ARM: shunt on 1-2 = bus switches allowed when the Tab5 3.3V is good (TAB_PGOOD->BUS_ARM); shunt on 2-3 (pin3 NC) = parked, bus stays isolated. LCSC C49257 is through-hole (wave-solder class): supplier THT option or hand solder.'
     sw=Comp('SW4','carrier:SW_SLIDE_DP3T_SS-23D03','carrier:SW_SLIDE_DP3T_SS-23D03-G080','SS-23D03-G080',
-        {'1':'BUCK_5V','2':None,'3':'VBUS_PD','4':'+5V','5':'PD_CFG1','6':'PD_VDD','7':None,'8':'GND','9':'GND','10':'GND'},
+        {'1':'BUCK_5V','2':None,'3':'VBUS_PD','4':'+5V','5':'PD_CFG1','6':None,'7':None,'8':'GND','9':'GND','10':'GND'},
         'r5power',pos=(43,26),lcsc='C2848921',
-        comment='RUN/PROGRAM slide switch replacing JP2+JP4. Pos1=RUN (BUCK_5V->+5V, PD_CFG1->GND), pos2=middle=all open, pos3=PROGRAM (VBUS_PD->+5V, PD_CFG1->PD_VDD). Through-hole, hand/wave solder. Pad pairing 1&8/2&7/3&6 inferred from EasyEDA symbol: VERIFY ON REAL PART. JP3 is NOT linked: set JP3 by hand (1-2 RUN, 2-3 PROGRAM).')
+        comment='RUN/PROGRAM slide switch replacing JP2+JP4. Pos1=RUN (BUCK_5V->+5V, PD_CFG1->GND), pos2=middle=all open, pos3=PROGRAM (VBUS_PD->+5V, PD_CFG1 left open: R73 pulls it up to VHV = 5V request; pad6 is NOT connected because the CH224A CFG1 pin is limited to 3.8V). Through-hole, hand/wave solder. Pad pairing 1&8/2&7/3&6 inferred from EasyEDA symbol: VERIFY ON REAL PART. JP3 is NOT linked: set JP3 by hand (1-2 RUN, 2-3 PROGRAM).')
     cs.append(sw)
     for c in cs:
         if c.ref=='JP3':
             c.comment='MOVE JP3 BY HAND TOGETHER WITH SW4, ALL INPUTS UNPLUGGED. RUN1-2, PROGRAM2-3. SW4 does not control JP3.'
+    return cs
+
+
+# ---- CH224K -> CH224A (JLCPCB: CH224K out of stock). Source: WCH CH224 datasheet V2.1, chapter 7.
+#   pin 1 is VHV (4..30 V, abs max 32 V) instead of VDD (3.6 V): R1 = 0R; the VBUS pin must be shorted to VHV:
+#   R2 = 0R. CFG1 abs max is 3.8 V (K: 8 V): CFG1 high only through 100k to VHV (R73) -> SW4 pad6 is open.
+#   12 V request (CFG1=0, CFG2=0, CFG3=1) is the same in the I/O-level tables of both chips; CFG3 has an
+#   internal pull-up on the A (R4 stays unfitted); CFG2 is tied to GND by R5 (0R).
+_r5s_build = build
+def build():
+    cs=_r5s_build()
+    for c in cs:
+        if c.ref=='U1':
+            c.sym='carrier:CH224A';c.value='CH224A';c.lcsc='C42459160'
+            c.comment=('WCH CH224A (ESSOP-10, pin-compatible with CH224K), 12V request: CFG1=0 CFG2=0 CFG3=1(internal PU). '
+                       'Pin 1 = VHV, pin 8 VBUS must be shorted to VHV (R1, R2 = 0R). CFG1 max 3.8V: only R73 (100k to VHV) may pull it up.')
+        if c.ref in ('R1','R2'):
+            c.value='0R';c.lcsc='C21189'
+            c.comment=('0R for the CH224A: '+('VHV supply directly from VBUS' if c.ref=='R1' else 'VBUS detect pin shorted to VHV')
+                       +' (CH224K needed 10k / 1k here). WCH CH224 datasheet V2.1 chapter 7.2.')
+        if c.ref=='R73':
+            c.comment='CFG1 pull-up to VHV through 100k (WCH datasheet 5.2.2 / 6.1.2): requests 5V when SW4 pad8 (GND) is not selected.'
     return cs

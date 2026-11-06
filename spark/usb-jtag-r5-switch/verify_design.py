@@ -11,7 +11,8 @@ ROOT=H.parents[1]
 K=H/'full/design/kicad'
 
 # slider position -> {common pad: connected throw pad}; position 2 connects nothing (pads 2,7 are NC)
-POSITIONS={1:{'4':'1','5':'8'},2:{},3:{'4':'3','5':'6'}}
+# CH224A change: pole B pad 6 (PROGRAM) is NOT connected, so in position 3 PD_CFG1 is only pulled up by R73.
+POSITIONS={1:{'4':'1','5':'8'},2:{},3:{'4':'3'}}
 
 def check_connections(pins):
     def same(*nodes):
@@ -26,10 +27,10 @@ def check_connections(pins):
     same(('JP3','2'),('J3','25'),('J3','27'),('J3','29'))
     same(('SW4','8'),('J3','1'))
     same(('SW4','5'),('U1','9'),('R73','2'))
-    same(('SW4','6'),('U1','1'),('R73','1'))
+    same(('U1','1'),('R73','1'))                       # CH224A VHV pin = the node that pulls CFG1 up through R73
     same(('SW4','9'),('SW4','10'),('SW4','8'))
-    for pad in ('2','7'):
-        assert 'unconnected-' in pins.get(('SW4',pad),''),('SW4 middle pad must be NC',pad)
+    for pad in ('2','6','7'):
+        assert 'unconnected-' in pins.get(('SW4',pad),''),('SW4 pad must be NC (middle position / CFG1 safety)',pad)
     for ref in ('JP2','JP4'):
         assert not any(k[0]==ref for k in pins),(ref,'must be removed')
     assert pins[('SW4','1')]!=pins[('SW4','4')]!=pins[('SW4','3')]
@@ -42,6 +43,11 @@ def position_model(pins):
     # the dangerous r5 combination (VBUS_PD -> +5V together with PD_CFG1 -> GND) must not occur
     for pos,pairs in out.items():
         assert not ((('+5V','VBUS_PD') in pairs or ('VBUS_PD','+5V') in pairs) and (('PD_CFG1','GND') in pairs or ('GND','PD_CFG1') in pairs)),pos
+    # CH224A: CFG1 (abs max 3.8 V) may only ever be joined to GND by the switch; never to PD_VDD / VBUS_PD
+    for pos,pairs in out.items():
+        for a,b in pairs:
+            if 'PD_CFG1' in (a,b):
+                assert {a,b}=={'PD_CFG1','GND'},('CFG1 joined to a non-GND net',pos,a,b)
     return out
 
 def run():
@@ -55,6 +61,14 @@ def run():
             actual=pins.get((ref,pin),'')
             if n is None:assert not actual or 'unconnected-' in actual,(ref,pin,actual)
             else:assert actual==n,(ref,pin,n,actual)
+    # CH224A (WCH CH224 datasheet V2.1, chapter 7): VHV supplied through R1 = 0R, VBUS pin shorted to VHV through R2 = 0R
+    assert contract['U1']['value']=='CH224A' and contract['U1']['pins']['1']=='PD_VDD' and contract['U1']['pins']['8']=='PD_VBUS_S'
+    for ref in ('R1','R2'):
+        assert contract[ref]['value']=='0R',(ref,contract[ref]['value'])
+        assert contract[ref]['pins']['1']=='VBUS_PD',(ref,'must be fed from VBUS_PD')
+    assert contract['R1']['pins']['2']=='PD_VDD' and contract['R2']['pins']['2']=='PD_VBUS_S'
+    assert contract['R5']['value']=='0R' and contract['R5']['pins']=={'1':'PD_CFG2','2':'GND'},'CFG2 must stay tied to GND by R5'
+    assert contract['R4']['dnp'] and contract['R4']['pins']['1']=='PD_CFG3','CFG3 must stay open (internal pull-up)'
     saved=json.loads((H.parent/'usb-jtag-r5/preserved-r4.json').read_text())
     # The r4 CPL polarity fix (2026-11-06, docs/r4_CPLダイオード極性調査_2026-11-06.md) changed exactly these
     # r4 files on purpose; every other preserved r4 file must still match. No PCB/schematic file is in this set.

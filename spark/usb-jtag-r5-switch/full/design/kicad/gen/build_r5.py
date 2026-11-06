@@ -43,6 +43,9 @@ def write_lib():
     lib.append(custom_symbol('SW_SLIDE_DP3T_SS-23D03',{str(i):(n,'passive') for i,n in [
         (1,'A_RUN'),(2,'A_MID_NC'),(3,'A_PGM'),(4,'A_COM'),(5,'B_COM'),(6,'B_PGM'),(7,'B_MID_NC'),(8,'B_RUN'),(9,'SH'),(10,'SH')]}))
     lib.extend([
+      custom_symbol('CH224A',{str(i):(n,t) for i,n,t in [
+        (1,'VHV','power_in'),(2,'CFG2/SCL','input'),(3,'CFG3/SDA','input'),(4,'DP','passive'),(5,'DM','passive'),
+        (6,'CC2','passive'),(7,'CC1','passive'),(8,'VBUS','input'),(9,'CFG1','input'),(10,'PG','open_collector'),(11,'GND','power_in')]}),
       custom_symbol('TPS259470A',{str(i):(n,t) for i,n,t in [
         (1,'EN/UVLO','input'),(2,'OVLO','input'),(3,'AUXOFF','open_collector'),(4,'~{FLT}','open_collector'),
         (5,'IN','power_in'),(6,'OUT','passive'),(7,'DVDT','passive'),(8,'GND','power_in'),(9,'ILM','passive'),(10,'ITIMER','passive')]}),
