@@ -1,0 +1,285 @@
+{
+  "optimization_profile": 15,
+  "boot_id": 698300144,
+  "run_id": 4,
+  "busy": false,
+  "uploading": false,
+  "sd_mounted": true,
+  "error": "none",
+  "stage": "complete",
+  "model": "DeiT-tiny-224",
+  "task": "ImageNet1000 classification",
+  "backend": "FPGA_RESIDENT",
+  "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+  "backend_scope": "All MatMul FPGA INT8; P4 LayerNorm/Softmax/GELU and other ops; no fallback",
+  "result_valid": true,
+  "image": 0,
+  "operation": 199,
+  "total_operations": 199,
+  "elapsed_us": 0,
+  "ddr_timing_ns": {
+    "half": 100,
+    "setup": 100,
+    "guard": 2000,
+    "scope": "Nominal software waits, not measured clock"
+  },
+  "heap": {
+    "psram_free_bytes": 29022824,
+    "psram_largest_block_bytes": 28835840,
+    "internal_free_bytes": 137663
+  },
+  "npu_tx_dma": {
+    "selected": true,
+    "active": true,
+    "fault": false,
+    "positive": true,
+    "frequency_hz": 10000000,
+    "min_payload": 256,
+    "requests": 18655,
+    "wire_bytes": 24943726,
+    "elapsed_us": 6182595,
+    "allocations": 1,
+    "unit_allocations": 1
+  },
+  "resident_session": {
+    "cached_snapshot": true,
+    "worker_mutating": false,
+    "open": true,
+    "ready": true,
+    "busy": false,
+    "cookie": 1,
+    "static_weights_ready": 50,
+    "completed_frames": 2,
+    "host_activation_arena": true,
+    "cycle_counters_sampled": false,
+    "quantized_b_bytes": 5735584,
+    "ddr_reserved_bytes": 31204160,
+    "physical_lease_check": "Checked during open/run; status reads cached logical state",
+    "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c"
+  },
+  "resident_close_reason": "none",
+  "resident_open": {
+    "attempted": true,
+    "current_session": true,
+    "success": true,
+    "cancelled": false,
+    "session_unchanged": true,
+    "static_weights_ready": 50,
+    "error": "",
+    "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+    "timing_us": {
+      "verify_us": 6200678,
+      "setup_us": 152155,
+      "upload_us": 15644690,
+      "cache_prepare_us": 115263012,
+      "total_us": 137301128,
+      "first_completed_cold_total_us": 253067891
+    },
+    "memory": {
+      "constant_bytes": 22869664,
+      "activation_bytes": 2359296,
+      "quantized_b_bytes": 5735584,
+      "ddr_reserved_bytes": 31204160,
+      "metadata_bytes": 2560,
+      "scratch_bytes": 25663,
+      "host_activation_bytes": 2359296,
+      "graph_cache_bytes": 155236,
+      "source_prepare_read_bytes": 45182976,
+      "cache_write_bytes": 5735584,
+      "cache_verify_read_bytes": 5735584
+    },
+    "package_bytes": 22872224,
+    "package_crc32": 3109428749,
+    "wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 17513382,
+      "rx_us": 91251024,
+      "ready_wait_us": 5799726,
+      "wire_bytes": 82411552,
+      "read_bytes": 50918560,
+      "write_bytes": 28605248,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 0
+    },
+    "setup_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 149,
+      "rx_us": 133,
+      "ready_wait_us": 20,
+      "wire_bytes": 134,
+      "read_bytes": 0,
+      "write_bytes": 0,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 0
+    },
+    "upload_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 5252742,
+      "rx_us": 255005,
+      "ready_wait_us": 2315925,
+      "wire_bytes": 23305228,
+      "read_bytes": 0,
+      "write_bytes": 22869664,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 0
+    },
+    "prepare_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 12260491,
+      "rx_us": 90995886,
+      "ready_wait_us": 3483781,
+      "wire_bytes": 59106190,
+      "read_bytes": 50918560,
+      "write_bytes": 5735584,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 0
+    }
+  },
+  "images": [
+    {
+      "id": 0,
+      "label": "astronaut"
+    },
+    {
+      "id": 1,
+      "label": "crew"
+    },
+    {
+      "id": 2,
+      "label": "crop"
+    }
+  ],
+  "result": {
+    "backend": "FPGA_RESIDENT",
+    "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+    "success": true,
+    "session_unchanged": true,
+    "wire_valid": true,
+    "warm": true,
+    "frame": 2,
+    "error": "",
+    "static_products": 50,
+    "dynamic_products": 24,
+    "static_weights_ready": 50,
+    "wire_scope": "This frame only; model preparation is resident_open.wire",
+    "blocks_completed": 12,
+    "operations": 199,
+    "matmul_operations": 74,
+    "matmul_batches": 122,
+    "external_matmul_operations": 74,
+    "fpga_matmul_operations": 74,
+    "cpu_matmul_operations": 0,
+    "macs": 1253683200,
+    "cycle_counters_sampled": false,
+    "timing_us": {
+      "input_us": 303839,
+      "infer_us": 115796370,
+      "output_us": 600,
+      "total_us": 116100937,
+      "yield_us": 993722,
+      "yield_calls": 1144,
+      "frame_total_us": 116100937,
+      "cold_total_applicable": false,
+      "cold_total_us": null,
+      "open_total_us": 137301128
+    },
+    "memory": {
+      "matmul_tile_jobs": 51468,
+      "local_read_bytes": 89845008,
+      "local_write_bytes": 62013536
+    },
+    "input_crc32": 2403422266,
+    "wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 22797591,
+      "rx_us": 45652084,
+      "ready_wait_us": 32448684,
+      "wire_bytes": 37110044,
+      "read_bytes": 24264432,
+      "write_bytes": 6404928,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 51468
+    },
+    "input_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 93,
+      "rx_us": 108,
+      "ready_wait_us": 12,
+      "wire_bytes": 64,
+      "read_bytes": 0,
+      "write_bytes": 0,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 0
+    },
+    "graph_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 22797363,
+      "rx_us": 45651856,
+      "ready_wait_us": 32448659,
+      "wire_bytes": 37109852,
+      "read_bytes": 24264432,
+      "write_bytes": 6404928,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 51468
+    },
+    "output_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 135,
+      "rx_us": 120,
+      "ready_wait_us": 13,
+      "wire_bytes": 128,
+      "read_bytes": 0,
+      "write_bytes": 0,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 0
+    },
+    "top5": [
+      {
+        "class_id": 541,
+        "label": "drum, membranophone, tympan",
+        "probability": 0.11373381316661835,
+        "logit": 5.685896396636963
+      },
+      {
+        "class_id": 542,
+        "label": "drumstick",
+        "probability": 0.09027639776468277,
+        "logit": 5.454911708831787
+      },
+      {
+        "class_id": 822,
+        "label": "steel drum",
+        "probability": 0.03047037683427334,
+        "logit": 4.36879062652588
+      },
+      {
+        "class_id": 747,
+        "label": "punching bag, punch bag, punching ball, punchball",
+        "probability": 0.0239157322794199,
+        "logit": 4.126572132110596
+      },
+      {
+        "class_id": 577,
+        "label": "gong, tam-tam",
+        "probability": 0.016118720173835754,
+        "logit": 3.7320170402526855
+      }
+    ]
+  }
+}

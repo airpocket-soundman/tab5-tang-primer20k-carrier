@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "hardware_access": "Original trial by root; archiver filesystem only",
+  "host_commit": "ca12308",
+  "host_source_commit": "11bfdea",
+  "host_elf": "b348bc185e85e34b151045ebaf2d8945543c11934d4abd76e2a5d6506292bd59",
+  "carrier_source_commit": "00fc961",
+  "carrier_fs_sha256": "966770fb8b142c008470b4189a8d625b8b06e4b49dbbb7a3f51cec5834a122c9",
+  "cold_compare": {
+    "unequal_bits": 0,
+    "max_abs": 0.0,
+    "sha256": "ee03e13dffb253c886318761969da2fd3de6ae40f41e10ca0eeb24544525240b"
+  },
+  "warm_compare": {
+    "unequal_bits": 0,
+    "max_abs": 0.0,
+    "sha256": "102995be897310f8dbd2a3ab8a9406346425e1071e6b950e979bcdc65314e70d"
+  },
+  "same_cookie": true,
+  "completed_frames": 2,
+  "static_weights_ready": 50,
+  "open_timing_us": {
+    "verify_us": 6200678,
+    "setup_us": 152155,
+    "upload_us": 15644690,
+    "cache_prepare_us": 115263012,
+    "total_us": 137301128,
+    "first_completed_cold_total_us": 253067891
+  },
+  "cold_timing_us": {
+    "input_us": 221958,
+    "infer_us": 115544047,
+    "output_us": 631,
+    "total_us": 115766763,
+    "yield_us": 984710,
+    "yield_calls": 1142,
+    "frame_total_us": 115766763,
+    "cold_total_applicable": true,
+    "cold_total_us": 253067891,
+    "open_total_us": 137301128
+  },
+  "warm_timing_us": {
+    "input_us": 303839,
+    "infer_us": 115796370,
+    "output_us": 600,
+    "total_us": 116100937,
+    "yield_us": 993722,
+    "yield_calls": 1144,
+    "frame_total_us": 116100937,
+    "cold_total_applicable": false,
+    "cold_total_us": null,
+    "open_total_us": 137301128
+  },
+  "warm_dma_cumulative_delta": {
+    "requests": 0,
+    "wire_bytes": 0,
+    "elapsed_us": 0,
+    "allocations": 0,
+    "unit_allocations": 0
+  },
+  "scope": "All MatMul FPGA INT8, P4 nonlinear/activation placement remains; NOT whole inference inside FPGA. 10MHz is selected TX setting; warm zero DMA delta does NOT prove warm DMA traffic.",
+  "old_offline_archive_untouched": true,
+  "host_firmware_reference": "https://github.com/airpocket-soundman/tab5-fpga-gpu/tree/ca12308/docs/validation/transformer-resident-2026-11-07/v14-diagnostics"
+}

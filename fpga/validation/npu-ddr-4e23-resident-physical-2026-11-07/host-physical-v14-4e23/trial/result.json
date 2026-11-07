@@ -1,0 +1,3015 @@
+{
+  "passed": true,
+  "hardware_access": true,
+  "acceptance": "Both CREW cold and ASTRO warm outputs bit-exact against independent same-P4 CPU; same lease,50 static/24 dynamic FPGA products,12 blocks/74 products/122 batches/51468 tiles each",
+  "crew_golden_sha256": "ee03e13dffb253c886318761969da2fd3de6ae40f41e10ca0eeb24544525240b",
+  "requested_hz": 10000000,
+  "events": [
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 0.01600000006146729,
+      "stage": "preview",
+      "operation": 0,
+      "total": 0
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 3.0160000000614673,
+      "stage": "verify",
+      "operation": 12550144,
+      "total": 22872224
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 6.032000000006519,
+      "stage": "load",
+      "operation": 2342912,
+      "total": 22869664
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 9.047000000020489,
+      "stage": "load",
+      "operation": 15843328,
+      "total": 22869664
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 12.062999999965541,
+      "stage": "patch_unfold",
+      "operation": 1,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 15.062999999965541,
+      "stage": "layernorm",
+      "operation": 14,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 18.07799999997951,
+      "stage": "layernorm",
+      "operation": 21,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 21.094000000040978,
+      "stage": "gelu",
+      "operation": 33,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 24.10999999998603,
+      "stage": "attention_softmax",
+      "operation": 41,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 27.125,
+      "stage": "gelu",
+      "operation": 49,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 30.125,
+      "stage": "layernorm",
+      "operation": 62,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 33.14100000006147,
+      "stage": "layernorm",
+      "operation": 69,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 36.15700000000652,
+      "stage": "mlp_fc1",
+      "operation": 80,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 39.17200000002049,
+      "stage": "attention_softmax",
+      "operation": 89,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 42.17200000002049,
+      "stage": "gelu",
+      "operation": 97,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 45.18799999996554,
+      "stage": "layernorm",
+      "operation": 110,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 48.20299999997951,
+      "stage": "layernorm",
+      "operation": 117,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 51.21900000004098,
+      "stage": "layernorm",
+      "operation": 126,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 54.21900000004098,
+      "stage": "attention_qk",
+      "operation": 136,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 57.23499999998603,
+      "stage": "gelu",
+      "operation": 145,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 60.25,
+      "stage": "layernorm",
+      "operation": 158,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 63.26600000006147,
+      "stage": "layernorm",
+      "operation": 165,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 66.28200000000652,
+      "stage": "layernorm",
+      "operation": 174,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 69.29700000002049,
+      "stage": "bias",
+      "operation": 183,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 72.29700000002049,
+      "stage": "gelu",
+      "operation": 193,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 75.32799999997951,
+      "stage": "complete",
+      "operation": 199,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 0.0,
+      "stage": "preview",
+      "operation": 0,
+      "total": 0
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 3.01500000001397,
+      "stage": "verify",
+      "operation": 10678272,
+      "total": 22872224
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 6.030999999959022,
+      "stage": "verify",
+      "operation": 21684224,
+      "total": 22872224
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 9.045999999972992,
+      "stage": "upload",
+      "operation": 3694592,
+      "total": 22869664
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 12.077999999979511,
+      "stage": "upload",
+      "operation": 8146944,
+      "total": 22869664
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 15.109000000054948,
+      "stage": "upload",
+      "operation": 12570624,
+      "total": 22869664
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 18.14000000001397,
+      "stage": "upload",
+      "operation": 16977920,
+      "total": 22869664
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 21.155999999959022,
+      "stage": "upload",
+      "operation": 21381120,
+      "total": 22869664
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 24.17099999997299,
+      "stage": "prepare_static_b",
+      "operation": 0,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 27.18700000003446,
+      "stage": "prepare_static_b",
+      "operation": 1,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 30.20299999997951,
+      "stage": "prepare_static_b",
+      "operation": 3,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 33.21799999999348,
+      "stage": "prepare_static_b",
+      "operation": 4,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 36.23400000005495,
+      "stage": "prepare_static_b",
+      "operation": 5,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 39.25,
+      "stage": "prepare_static_b",
+      "operation": 7,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 42.28099999995902,
+      "stage": "prepare_static_b",
+      "operation": 8,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 45.31200000003446,
+      "stage": "prepare_static_b",
+      "operation": 9,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 48.34299999999348,
+      "stage": "prepare_static_b",
+      "operation": 11,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 51.375,
+      "stage": "prepare_static_b",
+      "operation": 12,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 54.40599999995902,
+      "stage": "prepare_static_b",
+      "operation": 14,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 57.42099999997299,
+      "stage": "prepare_static_b",
+      "operation": 15,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 60.45299999997951,
+      "stage": "prepare_static_b",
+      "operation": 16,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 63.48400000005495,
+      "stage": "prepare_static_b",
+      "operation": 18,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 66.51500000001397,
+      "stage": "prepare_static_b",
+      "operation": 19,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 69.53099999995902,
+      "stage": "prepare_static_b",
+      "operation": 20,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 72.54599999997299,
+      "stage": "prepare_static_b",
+      "operation": 22,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 75.56200000003446,
+      "stage": "prepare_static_b",
+      "operation": 23,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 78.57799999997951,
+      "stage": "prepare_static_b",
+      "operation": 24,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 81.59299999999348,
+      "stage": "prepare_static_b",
+      "operation": 26,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 84.60900000005495,
+      "stage": "prepare_static_b",
+      "operation": 27,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 87.625,
+      "stage": "prepare_static_b",
+      "operation": 28,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 90.65599999995902,
+      "stage": "prepare_static_b",
+      "operation": 30,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 93.67099999997299,
+      "stage": "prepare_static_b",
+      "operation": 31,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 96.68700000003446,
+      "stage": "prepare_static_b",
+      "operation": 32,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 99.70299999997951,
+      "stage": "prepare_static_b",
+      "operation": 34,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 102.71799999999348,
+      "stage": "prepare_static_b",
+      "operation": 35,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 105.73400000005495,
+      "stage": "prepare_static_b",
+      "operation": 36,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 108.75,
+      "stage": "prepare_static_b",
+      "operation": 38,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 111.76500000001397,
+      "stage": "prepare_static_b",
+      "operation": 39,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 114.79599999997299,
+      "stage": "prepare_static_b",
+      "operation": 40,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 117.82799999997951,
+      "stage": "prepare_static_b",
+      "operation": 42,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 120.85900000005495,
+      "stage": "prepare_static_b",
+      "operation": 43,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 123.89000000001397,
+      "stage": "prepare_static_b",
+      "operation": 44,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 126.92099999997299,
+      "stage": "prepare_static_b",
+      "operation": 46,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 129.93700000003446,
+      "stage": "prepare_static_b",
+      "operation": 47,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 132.96799999999348,
+      "stage": "prepare_static_b",
+      "operation": 48,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 136.0,
+      "stage": "prepare_static_b",
+      "operation": 49,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 139.03099999995902,
+      "stage": "patch_unfold",
+      "operation": 1,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 142.06200000003446,
+      "stage": "bias",
+      "operation": 7,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 145.0779999999795,
+      "stage": "layernorm",
+      "operation": 14,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 148.10900000005495,
+      "stage": "gelu",
+      "operation": 17,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 151.14000000001397,
+      "stage": "bias",
+      "operation": 23,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 154.170999999973,
+      "stage": "attention_av",
+      "operation": 26,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 157.2029999999795,
+      "stage": "gelu",
+      "operation": 33,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 160.21799999999348,
+      "stage": "bias",
+      "operation": 39,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 163.25,
+      "stage": "attention_av",
+      "operation": 42,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 166.295999999973,
+      "stage": "gelu",
+      "operation": 49,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 169.31200000003446,
+      "stage": "layernorm",
+      "operation": 53,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 172.35900000005495,
+      "stage": "attention_softmax",
+      "operation": 57,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 175.39000000001397,
+      "stage": "layernorm",
+      "operation": 62,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 178.420999999973,
+      "stage": "layernorm",
+      "operation": 69,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 181.4529999999795,
+      "stage": "attention_softmax",
+      "operation": 73,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 184.48400000005495,
+      "stage": "layernorm",
+      "operation": 78,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 187.5,
+      "stage": "layernorm",
+      "operation": 85,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 190.51500000001397,
+      "stage": "attention_softmax",
+      "operation": 89,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 193.53099999995902,
+      "stage": "layernorm",
+      "operation": 94,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 196.545999999973,
+      "stage": "layernorm",
+      "operation": 101,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 199.56200000003446,
+      "stage": "attention_softmax",
+      "operation": 105,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 202.59299999999348,
+      "stage": "layernorm",
+      "operation": 110,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 205.64000000001397,
+      "stage": "layernorm",
+      "operation": 117,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 208.65599999995902,
+      "stage": "bias",
+      "operation": 119,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 211.68700000003446,
+      "stage": "layernorm",
+      "operation": 126,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 214.7029999999795,
+      "stage": "gelu",
+      "operation": 129,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 217.71799999999348,
+      "stage": "bias",
+      "operation": 135,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 220.73400000005495,
+      "stage": "layernorm",
+      "operation": 142,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 223.75,
+      "stage": "gelu",
+      "operation": 145,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 226.78099999995902,
+      "stage": "bias",
+      "operation": 151,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 229.795999999973,
+      "stage": "layernorm",
+      "operation": 158,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 232.81200000003446,
+      "stage": "gelu",
+      "operation": 161,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 235.8279999999795,
+      "stage": "bias",
+      "operation": 167,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 238.84299999999348,
+      "stage": "attention_av",
+      "operation": 170,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 241.875,
+      "stage": "gelu",
+      "operation": 177,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 244.920999999973,
+      "stage": "bias",
+      "operation": 183,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 247.9529999999795,
+      "stage": "attention_av",
+      "operation": 186,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 250.98400000005495,
+      "stage": "bias",
+      "operation": 192,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 254.01500000001397,
+      "stage": "complete",
+      "operation": 199,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 0.01600000006146729,
+      "stage": "preview",
+      "operation": 0,
+      "total": 0
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 3.047000000020489,
+      "stage": "layernorm",
+      "operation": 5,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 6.062999999965541,
+      "stage": "attention_softmax",
+      "operation": 9,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 9.077999999979511,
+      "stage": "layernorm",
+      "operation": 14,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 12.094000000040978,
+      "stage": "layernorm",
+      "operation": 21,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 15.125,
+      "stage": "bias",
+      "operation": 23,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 18.15700000000652,
+      "stage": "layernorm",
+      "operation": 30,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 21.18799999996554,
+      "stage": "gelu",
+      "operation": 33,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 24.219000000040978,
+      "stage": "bias",
+      "operation": 39,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 27.23499999998603,
+      "stage": "layernorm",
+      "operation": 46,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 30.266000000061467,
+      "stage": "gelu",
+      "operation": 49,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 33.28200000000652,
+      "stage": "bias",
+      "operation": 55,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 36.31299999996554,
+      "stage": "layernorm",
+      "operation": 62,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 39.32799999997951,
+      "stage": "gelu",
+      "operation": 65,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 42.35999999998603,
+      "stage": "bias",
+      "operation": 71,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 45.39100000006147,
+      "stage": "attention_av",
+      "operation": 74,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 48.42200000002049,
+      "stage": "gelu",
+      "operation": 81,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 51.45299999997951,
+      "stage": "qkv_projection",
+      "operation": 86,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 54.48499999998603,
+      "stage": "attention_av",
+      "operation": 90,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 57.51600000006147,
+      "stage": "gelu",
+      "operation": 97,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 60.54700000002049,
+      "stage": "layernorm",
+      "operation": 101,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 63.57799999997951,
+      "stage": "attention_softmax",
+      "operation": 105,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 66.60999999998603,
+      "stage": "layernorm",
+      "operation": 110,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 69.625,
+      "stage": "layernorm",
+      "operation": 117,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 72.64100000006147,
+      "stage": "attention_softmax",
+      "operation": 121,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 75.67200000002049,
+      "stage": "layernorm",
+      "operation": 126,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 78.68799999996554,
+      "stage": "layernorm",
+      "operation": 133,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 81.70299999997951,
+      "stage": "attention_softmax",
+      "operation": 137,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 84.73499999998603,
+      "stage": "layernorm",
+      "operation": 142,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 87.75,
+      "stage": "layernorm",
+      "operation": 149,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 90.76600000006147,
+      "stage": "bias",
+      "operation": 151,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 93.79700000002049,
+      "stage": "layernorm",
+      "operation": 158,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 96.81299999996554,
+      "stage": "layernorm",
+      "operation": 165,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 99.84400000004098,
+      "stage": "bias",
+      "operation": 167,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 102.85999999998603,
+      "stage": "layernorm",
+      "operation": 174,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 105.875,
+      "stage": "gelu",
+      "operation": 177,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 108.89100000006147,
+      "stage": "bias",
+      "operation": 183,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 111.92200000002049,
+      "stage": "layernorm",
+      "operation": 190,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 114.93799999996554,
+      "stage": "gelu",
+      "operation": 193,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 117.95299999997951,
+      "stage": "complete",
+      "operation": 199,
+      "total": 199
+    }
+  ],
+  "info": {
+    "stream_crc32_backend": "esp_rom_crc32_le/raw-state-adapter",
+    "app": "NPU_TRANSFORMER",
+    "elf_sha256": "b348bc185e85e34b151045ebaf2d8945543c11934d4abd76e2a5d6506292bd59",
+    "boot_id": 698300144,
+    "width": 1280,
+    "height": 720,
+    "sd_mounted": true,
+    "upload_chunk_bytes": 400,
+    "upload_max_bytes": 134217728,
+    "sd_root": "/sdcard/transformer",
+    "task": "ImageNet1000 classification; not object detection",
+    "backends": "FPGA_RESIDENT,FPGA_DDR,CPU_REFERENCE",
+    "default_backend": "FPGA_RESIDENT",
+    "model": "DeiT-tiny-224",
+    "model_path": "models/deit-tiny224.dtp",
+    "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+    "heap": {
+      "psram_free_bytes": 31576384,
+      "psram_largest_block_bytes": 31457280,
+      "internal_free_bytes": 148683
+    },
+    "npu_tx_dma": {
+      "selected": false,
+      "active": false,
+      "fault": false,
+      "positive": false,
+      "frequency_hz": 1000000,
+      "min_payload": 256,
+      "requests": 0,
+      "wire_bytes": 0,
+      "elapsed_us": 0,
+      "allocations": 0,
+      "unit_allocations": 0
+    }
+  },
+  "dma_selection": {
+    "resident_closed": true,
+    "resident_close_reason": "npudma",
+    "npu_tx_dma": {
+      "selected": true,
+      "active": false,
+      "fault": false,
+      "positive": true,
+      "frequency_hz": 10000000,
+      "min_payload": 256,
+      "requests": 0,
+      "wire_bytes": 0,
+      "elapsed_us": 0,
+      "allocations": 0,
+      "unit_allocations": 0
+    }
+  },
+  "timing": {
+    "resident_closed": true,
+    "resident_close_reason": "ddrtiming",
+    "ddr_timing_ns": {
+      "half": 100,
+      "setup": 100,
+      "guard": 2000,
+      "scope": "Nominal software waits, not measured clock"
+    }
+  },
+  "selftest": {
+    "resident_closed": true,
+    "resident_close_reason": "ddrselftest",
+    "passed": true,
+    "outputs": 5208,
+    "error": "none"
+  },
+  "final_status": {
+    "CPU_ASTRO": {
+      "optimization_profile": 15,
+      "boot_id": 698300144,
+      "run_id": 2,
+      "busy": false,
+      "uploading": false,
+      "sd_mounted": true,
+      "error": "none",
+      "stage": "complete",
+      "model": "DeiT-tiny-224",
+      "task": "ImageNet1000 classification",
+      "backend": "CPU_REFERENCE",
+      "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+      "backend_scope": "Entire graph CPU INT8 PSRAM oracle; no FPGA/GPIO calls",
+      "result_valid": true,
+      "image": 0,
+      "operation": 199,
+      "total_operations": 199,
+      "elapsed_us": 0,
+      "ddr_timing_ns": {
+        "half": 100,
+        "setup": 100,
+        "guard": 2000,
+        "scope": "Nominal software waits, not measured clock"
+      },
+      "heap": {
+        "psram_free_bytes": 31572348,
+        "psram_largest_block_bytes": 31457280,
+        "internal_free_bytes": 147367
+      },
+      "npu_tx_dma": {
+        "selected": true,
+        "active": false,
+        "fault": false,
+        "positive": true,
+        "frequency_hz": 10000000,
+        "min_payload": 256,
+        "requests": 4,
+        "wire_bytes": 5176,
+        "elapsed_us": 1732,
+        "allocations": 1,
+        "unit_allocations": 1
+      },
+      "resident_session": {
+        "cached_snapshot": true,
+        "worker_mutating": false,
+        "open": false,
+        "ready": false,
+        "busy": false,
+        "cookie": 0,
+        "static_weights_ready": 0,
+        "completed_frames": 0,
+        "host_activation_arena": false,
+        "cycle_counters_sampled": true,
+        "quantized_b_bytes": 0,
+        "ddr_reserved_bytes": 0,
+        "physical_lease_check": "Checked during open/run; status reads cached logical state",
+        "model_source_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "resident_close_reason": "cpu_reference",
+      "resident_open": {
+        "attempted": false,
+        "current_session": false,
+        "success": false,
+        "cancelled": false,
+        "session_unchanged": false,
+        "static_weights_ready": 0,
+        "error": "",
+        "model_source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "timing_us": {
+          "verify_us": 0,
+          "setup_us": 0,
+          "upload_us": 0,
+          "cache_prepare_us": 0,
+          "total_us": 0,
+          "first_completed_cold_total_us": null
+        },
+        "memory": {
+          "constant_bytes": 0,
+          "activation_bytes": 0,
+          "quantized_b_bytes": 0,
+          "ddr_reserved_bytes": 0,
+          "metadata_bytes": 0,
+          "scratch_bytes": 0,
+          "host_activation_bytes": 0,
+          "graph_cache_bytes": 0,
+          "source_prepare_read_bytes": 0,
+          "cache_write_bytes": 0,
+          "cache_verify_read_bytes": 0
+        },
+        "package_bytes": 0,
+        "package_crc32": 0,
+        "wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": true,
+          "tx_us": 0,
+          "rx_us": 0,
+          "ready_wait_us": 0,
+          "wire_bytes": 0,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0
+        },
+        "setup_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": true,
+          "tx_us": 0,
+          "rx_us": 0,
+          "ready_wait_us": 0,
+          "wire_bytes": 0,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0
+        },
+        "upload_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": true,
+          "tx_us": 0,
+          "rx_us": 0,
+          "ready_wait_us": 0,
+          "wire_bytes": 0,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0
+        },
+        "prepare_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": true,
+          "tx_us": 0,
+          "rx_us": 0,
+          "ready_wait_us": 0,
+          "wire_bytes": 0,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0
+        }
+      },
+      "images": [
+        {
+          "id": 0,
+          "label": "astronaut"
+        },
+        {
+          "id": 1,
+          "label": "crew"
+        },
+        {
+          "id": 2,
+          "label": "crop"
+        }
+      ],
+      "result": {
+        "backend": "CPU_REFERENCE",
+        "model_io": {
+          "package_unbuffered": false,
+          "package_buffer_aligned": true,
+          "stdio_buffer_mod64": 0,
+          "buffer_mod64": 0,
+          "buffer_bytes": 4096,
+          "verify_fread_us": 3376713,
+          "verify_crc_us": 1218876,
+          "constant_fread_us": 3397340,
+          "constant_crc_us": 613726
+        },
+        "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+        "success": true,
+        "error": "",
+        "storage": "PSRAM",
+        "blocks_completed": 12,
+        "operations": 199,
+        "matmul_operations": 74,
+        "matmul_batches": 122,
+        "cpu_matmul_operations": 74,
+        "external_matmul_operations": 0,
+        "fpga_matmul_operations": 0,
+        "cpu_tile_jobs": 51468,
+        "cpu_macs": 1323830784,
+        "timing_us": {
+          "verify_us": 5247591,
+          "load_us": 5233788,
+          "input_us": 212361,
+          "infer_us": 62543649,
+          "output_us": 156,
+          "total_us": 73293243,
+          "yield_us": 703528,
+          "yield_calls": 725
+        },
+        "memory": {
+          "allocated_bytes": 25444543,
+          "constant_bytes": 22869664,
+          "activation_bytes": 2359296,
+          "metadata_bytes": 2560,
+          "scratch_bytes": 34111,
+          "matmul_scratch_bytes": 174912
+        },
+        "top5": [
+          {
+            "class_id": 541,
+            "label": "drum, membranophone, tympan",
+            "probability": 0.11373381316661835,
+            "logit": 5.685896396636963
+          },
+          {
+            "class_id": 542,
+            "label": "drumstick",
+            "probability": 0.09027639776468277,
+            "logit": 5.454911708831787
+          },
+          {
+            "class_id": 822,
+            "label": "steel drum",
+            "probability": 0.03047037683427334,
+            "logit": 4.36879062652588
+          },
+          {
+            "class_id": 747,
+            "label": "punching bag, punch bag, punching ball, punchball",
+            "probability": 0.0239157322794199,
+            "logit": 4.126572132110596
+          },
+          {
+            "class_id": 577,
+            "label": "gong, tam-tam",
+            "probability": 0.016118720173835754,
+            "logit": 3.7320170402526855
+          }
+        ]
+      }
+    },
+    "COLD_CREW": {
+      "optimization_profile": 15,
+      "boot_id": 698300144,
+      "run_id": 3,
+      "busy": false,
+      "uploading": false,
+      "sd_mounted": true,
+      "error": "none",
+      "stage": "complete",
+      "model": "DeiT-tiny-224",
+      "task": "ImageNet1000 classification",
+      "backend": "FPGA_RESIDENT",
+      "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+      "backend_scope": "All MatMul FPGA INT8; P4 LayerNorm/Softmax/GELU and other ops; no fallback",
+      "result_valid": true,
+      "image": 1,
+      "operation": 199,
+      "total_operations": 199,
+      "elapsed_us": 0,
+      "ddr_timing_ns": {
+        "half": 100,
+        "setup": 100,
+        "guard": 2000,
+        "scope": "Nominal software waits, not measured clock"
+      },
+      "heap": {
+        "psram_free_bytes": 29022824,
+        "psram_largest_block_bytes": 28835840,
+        "internal_free_bytes": 137775
+      },
+      "npu_tx_dma": {
+        "selected": true,
+        "active": true,
+        "fault": false,
+        "positive": true,
+        "frequency_hz": 10000000,
+        "min_payload": 256,
+        "requests": 18655,
+        "wire_bytes": 24943726,
+        "elapsed_us": 6182595,
+        "allocations": 1,
+        "unit_allocations": 1
+      },
+      "resident_session": {
+        "cached_snapshot": true,
+        "worker_mutating": false,
+        "open": true,
+        "ready": true,
+        "busy": false,
+        "cookie": 1,
+        "static_weights_ready": 50,
+        "completed_frames": 1,
+        "host_activation_arena": true,
+        "cycle_counters_sampled": false,
+        "quantized_b_bytes": 5735584,
+        "ddr_reserved_bytes": 31204160,
+        "physical_lease_check": "Checked during open/run; status reads cached logical state",
+        "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c"
+      },
+      "resident_close_reason": "none",
+      "resident_open": {
+        "attempted": true,
+        "current_session": true,
+        "success": true,
+        "cancelled": false,
+        "session_unchanged": true,
+        "static_weights_ready": 50,
+        "error": "",
+        "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+        "timing_us": {
+          "verify_us": 6200678,
+          "setup_us": 152155,
+          "upload_us": 15644690,
+          "cache_prepare_us": 115263012,
+          "total_us": 137301128,
+          "first_completed_cold_total_us": 253067891
+        },
+        "memory": {
+          "constant_bytes": 22869664,
+          "activation_bytes": 2359296,
+          "quantized_b_bytes": 5735584,
+          "ddr_reserved_bytes": 31204160,
+          "metadata_bytes": 2560,
+          "scratch_bytes": 25663,
+          "host_activation_bytes": 2359296,
+          "graph_cache_bytes": 155236,
+          "source_prepare_read_bytes": 45182976,
+          "cache_write_bytes": 5735584,
+          "cache_verify_read_bytes": 5735584
+        },
+        "package_bytes": 22872224,
+        "package_crc32": 3109428749,
+        "wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 17513382,
+          "rx_us": 91251024,
+          "ready_wait_us": 5799726,
+          "wire_bytes": 82411552,
+          "read_bytes": 50918560,
+          "write_bytes": 28605248,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0
+        },
+        "setup_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 149,
+          "rx_us": 133,
+          "ready_wait_us": 20,
+          "wire_bytes": 134,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0
+        },
+        "upload_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 5252742,
+          "rx_us": 255005,
+          "ready_wait_us": 2315925,
+          "wire_bytes": 23305228,
+          "read_bytes": 0,
+          "write_bytes": 22869664,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0
+        },
+        "prepare_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 12260491,
+          "rx_us": 90995886,
+          "ready_wait_us": 3483781,
+          "wire_bytes": 59106190,
+          "read_bytes": 50918560,
+          "write_bytes": 5735584,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0
+        }
+      },
+      "images": [
+        {
+          "id": 0,
+          "label": "astronaut"
+        },
+        {
+          "id": 1,
+          "label": "crew"
+        },
+        {
+          "id": 2,
+          "label": "crop"
+        }
+      ],
+      "result": {
+        "backend": "FPGA_RESIDENT",
+        "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+        "success": true,
+        "session_unchanged": true,
+        "wire_valid": true,
+        "warm": false,
+        "frame": 1,
+        "error": "",
+        "static_products": 50,
+        "dynamic_products": 24,
+        "static_weights_ready": 50,
+        "wire_scope": "This frame only; model preparation is resident_open.wire",
+        "blocks_completed": 12,
+        "operations": 199,
+        "matmul_operations": 74,
+        "matmul_batches": 122,
+        "external_matmul_operations": 74,
+        "fpga_matmul_operations": 74,
+        "cpu_matmul_operations": 0,
+        "macs": 1253683200,
+        "cycle_counters_sampled": false,
+        "timing_us": {
+          "input_us": 221958,
+          "infer_us": 115544047,
+          "output_us": 631,
+          "total_us": 115766763,
+          "yield_us": 984710,
+          "yield_calls": 1142,
+          "frame_total_us": 115766763,
+          "cold_total_applicable": true,
+          "cold_total_us": 253067891,
+          "open_total_us": 137301128
+        },
+        "memory": {
+          "matmul_tile_jobs": 51468,
+          "local_read_bytes": 89845008,
+          "local_write_bytes": 62013536
+        },
+        "input_crc32": 221330491,
+        "wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 22798140,
+          "rx_us": 45652354,
+          "ready_wait_us": 32447339,
+          "wire_bytes": 37110044,
+          "read_bytes": 24264432,
+          "write_bytes": 6404928,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 51468
+        },
+        "input_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 68,
+          "rx_us": 62,
+          "ready_wait_us": 9,
+          "wire_bytes": 64,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0
+        },
+        "graph_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 22797937,
+          "rx_us": 45652167,
+          "ready_wait_us": 32447316,
+          "wire_bytes": 37109852,
+          "read_bytes": 24264432,
+          "write_bytes": 6404928,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 51468
+        },
+        "output_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 135,
+          "rx_us": 125,
+          "ready_wait_us": 14,
+          "wire_bytes": 128,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0
+        },
+        "top5": [
+          {
+            "class_id": 697,
+            "label": "pajama, pyjama, pj's, jammies",
+            "probability": 0.14143377542495728,
+            "logit": 5.693041801452637
+          },
+          {
+            "class_id": 981,
+            "label": "ballplayer, baseball player",
+            "probability": 0.04299614951014519,
+            "logit": 4.502320766448975
+          },
+          {
+            "class_id": 652,
+            "label": "military uniform",
+            "probability": 0.026279347017407417,
+            "logit": 4.00999355316162
+          },
+          {
+            "class_id": 841,
+            "label": "sweatshirt",
+            "probability": 0.02259335294365883,
+            "logit": 3.858865976333618
+          },
+          {
+            "class_id": 617,
+            "label": "lab coat, laboratory coat",
+            "probability": 0.021398134529590607,
+            "logit": 3.804513931274414
+          }
+        ]
+      }
+    },
+    "WARM_ASTRO": {
+      "optimization_profile": 15,
+      "boot_id": 698300144,
+      "run_id": 4,
+      "busy": false,
+      "uploading": false,
+      "sd_mounted": true,
+      "error": "none",
+      "stage": "complete",
+      "model": "DeiT-tiny-224",
+      "task": "ImageNet1000 classification",
+      "backend": "FPGA_RESIDENT",
+      "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+      "backend_scope": "All MatMul FPGA INT8; P4 LayerNorm/Softmax/GELU and other ops; no fallback",
+      "result_valid": true,
+      "image": 0,
+      "operation": 199,
+      "total_operations": 199,
+      "elapsed_us": 0,
+      "ddr_timing_ns": {
+        "half": 100,
+        "setup": 100,
+        "guard": 2000,
+        "scope": "Nominal software waits, not measured clock"
+      },
+      "heap": {
+        "psram_free_bytes": 29022824,
+        "psram_largest_block_bytes": 28835840,
+        "internal_free_bytes": 137663
+      },
+      "npu_tx_dma": {
+        "selected": true,
+        "active": true,
+        "fault": false,
+        "positive": true,
+        "frequency_hz": 10000000,
+        "min_payload": 256,
+        "requests": 18655,
+        "wire_bytes": 24943726,
+        "elapsed_us": 6182595,
+        "allocations": 1,
+        "unit_allocations": 1
+      },
+      "resident_session": {
+        "cached_snapshot": true,
+        "worker_mutating": false,
+        "open": true,
+        "ready": true,
+        "busy": false,
+        "cookie": 1,
+        "static_weights_ready": 50,
+        "completed_frames": 2,
+        "host_activation_arena": true,
+        "cycle_counters_sampled": false,
+        "quantized_b_bytes": 5735584,
+        "ddr_reserved_bytes": 31204160,
+        "physical_lease_check": "Checked during open/run; status reads cached logical state",
+        "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c"
+      },
+      "resident_close_reason": "none",
+      "resident_open": {
+        "attempted": true,
+        "current_session": true,
+        "success": true,
+        "cancelled": false,
+        "session_unchanged": true,
+        "static_weights_ready": 50,
+        "error": "",
+        "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+        "timing_us": {
+          "verify_us": 6200678,
+          "setup_us": 152155,
+          "upload_us": 15644690,
+          "cache_prepare_us": 115263012,
+          "total_us": 137301128,
+          "first_completed_cold_total_us": 253067891
+        },
+        "memory": {
+          "constant_bytes": 22869664,
+          "activation_bytes": 2359296,
+          "quantized_b_bytes": 5735584,
+          "ddr_reserved_bytes": 31204160,
+          "metadata_bytes": 2560,
+          "scratch_bytes": 25663,
+          "host_activation_bytes": 2359296,
+          "graph_cache_bytes": 155236,
+          "source_prepare_read_bytes": 45182976,
+          "cache_write_bytes": 5735584,
+          "cache_verify_read_bytes": 5735584
+        },
+        "package_bytes": 22872224,
+        "package_crc32": 3109428749,
+        "wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 17513382,
+          "rx_us": 91251024,
+          "ready_wait_us": 5799726,
+          "wire_bytes": 82411552,
+          "read_bytes": 50918560,
+          "write_bytes": 28605248,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0
+        },
+        "setup_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 149,
+          "rx_us": 133,
+          "ready_wait_us": 20,
+          "wire_bytes": 134,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0
+        },
+        "upload_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 5252742,
+          "rx_us": 255005,
+          "ready_wait_us": 2315925,
+          "wire_bytes": 23305228,
+          "read_bytes": 0,
+          "write_bytes": 22869664,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0
+        },
+        "prepare_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 12260491,
+          "rx_us": 90995886,
+          "ready_wait_us": 3483781,
+          "wire_bytes": 59106190,
+          "read_bytes": 50918560,
+          "write_bytes": 5735584,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0
+        }
+      },
+      "images": [
+        {
+          "id": 0,
+          "label": "astronaut"
+        },
+        {
+          "id": 1,
+          "label": "crew"
+        },
+        {
+          "id": 2,
+          "label": "crop"
+        }
+      ],
+      "result": {
+        "backend": "FPGA_RESIDENT",
+        "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+        "success": true,
+        "session_unchanged": true,
+        "wire_valid": true,
+        "warm": true,
+        "frame": 2,
+        "error": "",
+        "static_products": 50,
+        "dynamic_products": 24,
+        "static_weights_ready": 50,
+        "wire_scope": "This frame only; model preparation is resident_open.wire",
+        "blocks_completed": 12,
+        "operations": 199,
+        "matmul_operations": 74,
+        "matmul_batches": 122,
+        "external_matmul_operations": 74,
+        "fpga_matmul_operations": 74,
+        "cpu_matmul_operations": 0,
+        "macs": 1253683200,
+        "cycle_counters_sampled": false,
+        "timing_us": {
+          "input_us": 303839,
+          "infer_us": 115796370,
+          "output_us": 600,
+          "total_us": 116100937,
+          "yield_us": 993722,
+          "yield_calls": 1144,
+          "frame_total_us": 116100937,
+          "cold_total_applicable": false,
+          "cold_total_us": null,
+          "open_total_us": 137301128
+        },
+        "memory": {
+          "matmul_tile_jobs": 51468,
+          "local_read_bytes": 89845008,
+          "local_write_bytes": 62013536
+        },
+        "input_crc32": 2403422266,
+        "wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 22797591,
+          "rx_us": 45652084,
+          "ready_wait_us": 32448684,
+          "wire_bytes": 37110044,
+          "read_bytes": 24264432,
+          "write_bytes": 6404928,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 51468
+        },
+        "input_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 93,
+          "rx_us": 108,
+          "ready_wait_us": 12,
+          "wire_bytes": 64,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0
+        },
+        "graph_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 22797363,
+          "rx_us": 45651856,
+          "ready_wait_us": 32448659,
+          "wire_bytes": 37109852,
+          "read_bytes": 24264432,
+          "write_bytes": 6404928,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 51468
+        },
+        "output_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 135,
+          "rx_us": 120,
+          "ready_wait_us": 13,
+          "wire_bytes": 128,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0
+        },
+        "top5": [
+          {
+            "class_id": 541,
+            "label": "drum, membranophone, tympan",
+            "probability": 0.11373381316661835,
+            "logit": 5.685896396636963
+          },
+          {
+            "class_id": 542,
+            "label": "drumstick",
+            "probability": 0.09027639776468277,
+            "logit": 5.454911708831787
+          },
+          {
+            "class_id": 822,
+            "label": "steel drum",
+            "probability": 0.03047037683427334,
+            "logit": 4.36879062652588
+          },
+          {
+            "class_id": 747,
+            "label": "punching bag, punch bag, punching ball, punchball",
+            "probability": 0.0239157322794199,
+            "logit": 4.126572132110596
+          },
+          {
+            "class_id": 577,
+            "label": "gong, tam-tam",
+            "probability": 0.016118720173835754,
+            "logit": 3.7320170402526855
+          }
+        ]
+      }
+    }
+  },
+  "cpu_astro": {
+    "optimization_profile": 15,
+    "boot_id": 698300144,
+    "run_id": 2,
+    "busy": false,
+    "uploading": false,
+    "sd_mounted": true,
+    "error": "none",
+    "stage": "complete",
+    "model": "DeiT-tiny-224",
+    "task": "ImageNet1000 classification",
+    "backend": "CPU_REFERENCE",
+    "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+    "backend_scope": "Entire graph CPU INT8 PSRAM oracle; no FPGA/GPIO calls",
+    "result_valid": true,
+    "image": 0,
+    "operation": 199,
+    "total_operations": 199,
+    "elapsed_us": 0,
+    "ddr_timing_ns": {
+      "half": 100,
+      "setup": 100,
+      "guard": 2000,
+      "scope": "Nominal software waits, not measured clock"
+    },
+    "heap": {
+      "psram_free_bytes": 31572348,
+      "psram_largest_block_bytes": 31457280,
+      "internal_free_bytes": 147367
+    },
+    "npu_tx_dma": {
+      "selected": true,
+      "active": false,
+      "fault": false,
+      "positive": true,
+      "frequency_hz": 10000000,
+      "min_payload": 256,
+      "requests": 4,
+      "wire_bytes": 5176,
+      "elapsed_us": 1732,
+      "allocations": 1,
+      "unit_allocations": 1
+    },
+    "resident_session": {
+      "cached_snapshot": true,
+      "worker_mutating": false,
+      "open": false,
+      "ready": false,
+      "busy": false,
+      "cookie": 0,
+      "static_weights_ready": 0,
+      "completed_frames": 0,
+      "host_activation_arena": false,
+      "cycle_counters_sampled": true,
+      "quantized_b_bytes": 0,
+      "ddr_reserved_bytes": 0,
+      "physical_lease_check": "Checked during open/run; status reads cached logical state",
+      "model_source_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "resident_close_reason": "cpu_reference",
+    "resident_open": {
+      "attempted": false,
+      "current_session": false,
+      "success": false,
+      "cancelled": false,
+      "session_unchanged": false,
+      "static_weights_ready": 0,
+      "error": "",
+      "model_source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "timing_us": {
+        "verify_us": 0,
+        "setup_us": 0,
+        "upload_us": 0,
+        "cache_prepare_us": 0,
+        "total_us": 0,
+        "first_completed_cold_total_us": null
+      },
+      "memory": {
+        "constant_bytes": 0,
+        "activation_bytes": 0,
+        "quantized_b_bytes": 0,
+        "ddr_reserved_bytes": 0,
+        "metadata_bytes": 0,
+        "scratch_bytes": 0,
+        "host_activation_bytes": 0,
+        "graph_cache_bytes": 0,
+        "source_prepare_read_bytes": 0,
+        "cache_write_bytes": 0,
+        "cache_verify_read_bytes": 0
+      },
+      "package_bytes": 0,
+      "package_crc32": 0,
+      "wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "setup_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "upload_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "prepare_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      }
+    },
+    "images": [
+      {
+        "id": 0,
+        "label": "astronaut"
+      },
+      {
+        "id": 1,
+        "label": "crew"
+      },
+      {
+        "id": 2,
+        "label": "crop"
+      }
+    ],
+    "result": {
+      "backend": "CPU_REFERENCE",
+      "model_io": {
+        "package_unbuffered": false,
+        "package_buffer_aligned": true,
+        "stdio_buffer_mod64": 0,
+        "buffer_mod64": 0,
+        "buffer_bytes": 4096,
+        "verify_fread_us": 3376713,
+        "verify_crc_us": 1218876,
+        "constant_fread_us": 3397340,
+        "constant_crc_us": 613726
+      },
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+      "success": true,
+      "error": "",
+      "storage": "PSRAM",
+      "blocks_completed": 12,
+      "operations": 199,
+      "matmul_operations": 74,
+      "matmul_batches": 122,
+      "cpu_matmul_operations": 74,
+      "external_matmul_operations": 0,
+      "fpga_matmul_operations": 0,
+      "cpu_tile_jobs": 51468,
+      "cpu_macs": 1323830784,
+      "timing_us": {
+        "verify_us": 5247591,
+        "load_us": 5233788,
+        "input_us": 212361,
+        "infer_us": 62543649,
+        "output_us": 156,
+        "total_us": 73293243,
+        "yield_us": 703528,
+        "yield_calls": 725
+      },
+      "memory": {
+        "allocated_bytes": 25444543,
+        "constant_bytes": 22869664,
+        "activation_bytes": 2359296,
+        "metadata_bytes": 2560,
+        "scratch_bytes": 34111,
+        "matmul_scratch_bytes": 174912
+      },
+      "top5": [
+        {
+          "class_id": 541,
+          "label": "drum, membranophone, tympan",
+          "probability": 0.11373381316661835,
+          "logit": 5.685896396636963
+        },
+        {
+          "class_id": 542,
+          "label": "drumstick",
+          "probability": 0.09027639776468277,
+          "logit": 5.454911708831787
+        },
+        {
+          "class_id": 822,
+          "label": "steel drum",
+          "probability": 0.03047037683427334,
+          "logit": 4.36879062652588
+        },
+        {
+          "class_id": 747,
+          "label": "punching bag, punch bag, punching ball, punchball",
+          "probability": 0.0239157322794199,
+          "logit": 4.126572132110596
+        },
+        {
+          "class_id": 577,
+          "label": "gong, tam-tam",
+          "probability": 0.016118720173835754,
+          "logit": 3.7320170402526855
+        }
+      ]
+    }
+  },
+  "cold": {
+    "optimization_profile": 15,
+    "boot_id": 698300144,
+    "run_id": 3,
+    "busy": false,
+    "uploading": false,
+    "sd_mounted": true,
+    "error": "none",
+    "stage": "complete",
+    "model": "DeiT-tiny-224",
+    "task": "ImageNet1000 classification",
+    "backend": "FPGA_RESIDENT",
+    "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+    "backend_scope": "All MatMul FPGA INT8; P4 LayerNorm/Softmax/GELU and other ops; no fallback",
+    "result_valid": true,
+    "image": 1,
+    "operation": 199,
+    "total_operations": 199,
+    "elapsed_us": 0,
+    "ddr_timing_ns": {
+      "half": 100,
+      "setup": 100,
+      "guard": 2000,
+      "scope": "Nominal software waits, not measured clock"
+    },
+    "heap": {
+      "psram_free_bytes": 29022824,
+      "psram_largest_block_bytes": 28835840,
+      "internal_free_bytes": 137775
+    },
+    "npu_tx_dma": {
+      "selected": true,
+      "active": true,
+      "fault": false,
+      "positive": true,
+      "frequency_hz": 10000000,
+      "min_payload": 256,
+      "requests": 18655,
+      "wire_bytes": 24943726,
+      "elapsed_us": 6182595,
+      "allocations": 1,
+      "unit_allocations": 1
+    },
+    "resident_session": {
+      "cached_snapshot": true,
+      "worker_mutating": false,
+      "open": true,
+      "ready": true,
+      "busy": false,
+      "cookie": 1,
+      "static_weights_ready": 50,
+      "completed_frames": 1,
+      "host_activation_arena": true,
+      "cycle_counters_sampled": false,
+      "quantized_b_bytes": 5735584,
+      "ddr_reserved_bytes": 31204160,
+      "physical_lease_check": "Checked during open/run; status reads cached logical state",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c"
+    },
+    "resident_close_reason": "none",
+    "resident_open": {
+      "attempted": true,
+      "current_session": true,
+      "success": true,
+      "cancelled": false,
+      "session_unchanged": true,
+      "static_weights_ready": 50,
+      "error": "",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+      "timing_us": {
+        "verify_us": 6200678,
+        "setup_us": 152155,
+        "upload_us": 15644690,
+        "cache_prepare_us": 115263012,
+        "total_us": 137301128,
+        "first_completed_cold_total_us": 253067891
+      },
+      "memory": {
+        "constant_bytes": 22869664,
+        "activation_bytes": 2359296,
+        "quantized_b_bytes": 5735584,
+        "ddr_reserved_bytes": 31204160,
+        "metadata_bytes": 2560,
+        "scratch_bytes": 25663,
+        "host_activation_bytes": 2359296,
+        "graph_cache_bytes": 155236,
+        "source_prepare_read_bytes": 45182976,
+        "cache_write_bytes": 5735584,
+        "cache_verify_read_bytes": 5735584
+      },
+      "package_bytes": 22872224,
+      "package_crc32": 3109428749,
+      "wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 17513382,
+        "rx_us": 91251024,
+        "ready_wait_us": 5799726,
+        "wire_bytes": 82411552,
+        "read_bytes": 50918560,
+        "write_bytes": 28605248,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "setup_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 149,
+        "rx_us": 133,
+        "ready_wait_us": 20,
+        "wire_bytes": 134,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "upload_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 5252742,
+        "rx_us": 255005,
+        "ready_wait_us": 2315925,
+        "wire_bytes": 23305228,
+        "read_bytes": 0,
+        "write_bytes": 22869664,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "prepare_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 12260491,
+        "rx_us": 90995886,
+        "ready_wait_us": 3483781,
+        "wire_bytes": 59106190,
+        "read_bytes": 50918560,
+        "write_bytes": 5735584,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      }
+    },
+    "images": [
+      {
+        "id": 0,
+        "label": "astronaut"
+      },
+      {
+        "id": 1,
+        "label": "crew"
+      },
+      {
+        "id": 2,
+        "label": "crop"
+      }
+    ],
+    "result": {
+      "backend": "FPGA_RESIDENT",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+      "success": true,
+      "session_unchanged": true,
+      "wire_valid": true,
+      "warm": false,
+      "frame": 1,
+      "error": "",
+      "static_products": 50,
+      "dynamic_products": 24,
+      "static_weights_ready": 50,
+      "wire_scope": "This frame only; model preparation is resident_open.wire",
+      "blocks_completed": 12,
+      "operations": 199,
+      "matmul_operations": 74,
+      "matmul_batches": 122,
+      "external_matmul_operations": 74,
+      "fpga_matmul_operations": 74,
+      "cpu_matmul_operations": 0,
+      "macs": 1253683200,
+      "cycle_counters_sampled": false,
+      "timing_us": {
+        "input_us": 221958,
+        "infer_us": 115544047,
+        "output_us": 631,
+        "total_us": 115766763,
+        "yield_us": 984710,
+        "yield_calls": 1142,
+        "frame_total_us": 115766763,
+        "cold_total_applicable": true,
+        "cold_total_us": 253067891,
+        "open_total_us": 137301128
+      },
+      "memory": {
+        "matmul_tile_jobs": 51468,
+        "local_read_bytes": 89845008,
+        "local_write_bytes": 62013536
+      },
+      "input_crc32": 221330491,
+      "wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 22798140,
+        "rx_us": 45652354,
+        "ready_wait_us": 32447339,
+        "wire_bytes": 37110044,
+        "read_bytes": 24264432,
+        "write_bytes": 6404928,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 51468
+      },
+      "input_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 68,
+        "rx_us": 62,
+        "ready_wait_us": 9,
+        "wire_bytes": 64,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "graph_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 22797937,
+        "rx_us": 45652167,
+        "ready_wait_us": 32447316,
+        "wire_bytes": 37109852,
+        "read_bytes": 24264432,
+        "write_bytes": 6404928,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 51468
+      },
+      "output_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 135,
+        "rx_us": 125,
+        "ready_wait_us": 14,
+        "wire_bytes": 128,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "top5": [
+        {
+          "class_id": 697,
+          "label": "pajama, pyjama, pj's, jammies",
+          "probability": 0.14143377542495728,
+          "logit": 5.693041801452637
+        },
+        {
+          "class_id": 981,
+          "label": "ballplayer, baseball player",
+          "probability": 0.04299614951014519,
+          "logit": 4.502320766448975
+        },
+        {
+          "class_id": 652,
+          "label": "military uniform",
+          "probability": 0.026279347017407417,
+          "logit": 4.00999355316162
+        },
+        {
+          "class_id": 841,
+          "label": "sweatshirt",
+          "probability": 0.02259335294365883,
+          "logit": 3.858865976333618
+        },
+        {
+          "class_id": 617,
+          "label": "lab coat, laboratory coat",
+          "probability": 0.021398134529590607,
+          "logit": 3.804513931274414
+        }
+      ]
+    }
+  },
+  "cold_compare": {
+    "unequal_bits": 0,
+    "max_abs": 0.0,
+    "sha256": "ee03e13dffb253c886318761969da2fd3de6ae40f41e10ca0eeb24544525240b"
+  },
+  "image_switch": {
+    "optimization_profile": 15,
+    "boot_id": 698300144,
+    "run_id": 3,
+    "busy": false,
+    "uploading": false,
+    "sd_mounted": true,
+    "error": "none",
+    "stage": "complete",
+    "model": "DeiT-tiny-224",
+    "task": "ImageNet1000 classification",
+    "backend": "FPGA_RESIDENT",
+    "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+    "backend_scope": "All MatMul FPGA INT8; P4 LayerNorm/Softmax/GELU and other ops; no fallback",
+    "result_valid": false,
+    "image": 0,
+    "operation": 199,
+    "total_operations": 199,
+    "elapsed_us": 0,
+    "ddr_timing_ns": {
+      "half": 100,
+      "setup": 100,
+      "guard": 2000,
+      "scope": "Nominal software waits, not measured clock"
+    },
+    "heap": {
+      "psram_free_bytes": 29026860,
+      "psram_largest_block_bytes": 28835840,
+      "internal_free_bytes": 137455
+    },
+    "npu_tx_dma": {
+      "selected": true,
+      "active": true,
+      "fault": false,
+      "positive": true,
+      "frequency_hz": 10000000,
+      "min_payload": 256,
+      "requests": 18655,
+      "wire_bytes": 24943726,
+      "elapsed_us": 6182595,
+      "allocations": 1,
+      "unit_allocations": 1
+    },
+    "resident_session": {
+      "cached_snapshot": true,
+      "worker_mutating": false,
+      "open": true,
+      "ready": true,
+      "busy": false,
+      "cookie": 1,
+      "static_weights_ready": 50,
+      "completed_frames": 1,
+      "host_activation_arena": true,
+      "cycle_counters_sampled": false,
+      "quantized_b_bytes": 5735584,
+      "ddr_reserved_bytes": 31204160,
+      "physical_lease_check": "Checked during open/run; status reads cached logical state",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c"
+    },
+    "resident_close_reason": "none",
+    "resident_open": {
+      "attempted": true,
+      "current_session": true,
+      "success": true,
+      "cancelled": false,
+      "session_unchanged": true,
+      "static_weights_ready": 50,
+      "error": "",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+      "timing_us": {
+        "verify_us": 6200678,
+        "setup_us": 152155,
+        "upload_us": 15644690,
+        "cache_prepare_us": 115263012,
+        "total_us": 137301128,
+        "first_completed_cold_total_us": 253067891
+      },
+      "memory": {
+        "constant_bytes": 22869664,
+        "activation_bytes": 2359296,
+        "quantized_b_bytes": 5735584,
+        "ddr_reserved_bytes": 31204160,
+        "metadata_bytes": 2560,
+        "scratch_bytes": 25663,
+        "host_activation_bytes": 2359296,
+        "graph_cache_bytes": 155236,
+        "source_prepare_read_bytes": 45182976,
+        "cache_write_bytes": 5735584,
+        "cache_verify_read_bytes": 5735584
+      },
+      "package_bytes": 22872224,
+      "package_crc32": 3109428749,
+      "wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 17513382,
+        "rx_us": 91251024,
+        "ready_wait_us": 5799726,
+        "wire_bytes": 82411552,
+        "read_bytes": 50918560,
+        "write_bytes": 28605248,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "setup_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 149,
+        "rx_us": 133,
+        "ready_wait_us": 20,
+        "wire_bytes": 134,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "upload_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 5252742,
+        "rx_us": 255005,
+        "ready_wait_us": 2315925,
+        "wire_bytes": 23305228,
+        "read_bytes": 0,
+        "write_bytes": 22869664,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "prepare_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 12260491,
+        "rx_us": 90995886,
+        "ready_wait_us": 3483781,
+        "wire_bytes": 59106190,
+        "read_bytes": 50918560,
+        "write_bytes": 5735584,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      }
+    },
+    "images": [
+      {
+        "id": 0,
+        "label": "astronaut"
+      },
+      {
+        "id": 1,
+        "label": "crew"
+      },
+      {
+        "id": 2,
+        "label": "crop"
+      }
+    ],
+    "result": {
+      "backend": "FPGA_RESIDENT",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+      "success": false,
+      "session_unchanged": false,
+      "wire_valid": false,
+      "warm": false,
+      "frame": 0,
+      "error": "",
+      "static_products": 0,
+      "dynamic_products": 0,
+      "static_weights_ready": 50,
+      "wire_scope": "This frame only; model preparation is resident_open.wire",
+      "blocks_completed": 0,
+      "operations": 0,
+      "matmul_operations": 0,
+      "matmul_batches": 0,
+      "external_matmul_operations": 0,
+      "fpga_matmul_operations": 0,
+      "cpu_matmul_operations": 0,
+      "macs": 0,
+      "cycle_counters_sampled": false,
+      "timing_us": {
+        "input_us": 0,
+        "infer_us": 0,
+        "output_us": 0,
+        "total_us": 0,
+        "yield_us": 0,
+        "yield_calls": 0,
+        "frame_total_us": 0,
+        "cold_total_applicable": false,
+        "cold_total_us": null,
+        "open_total_us": 137301128
+      },
+      "memory": {
+        "matmul_tile_jobs": 0,
+        "local_read_bytes": 0,
+        "local_write_bytes": 0
+      },
+      "input_crc32": 0,
+      "wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "input_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "graph_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "output_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      }
+    }
+  },
+  "warm": {
+    "optimization_profile": 15,
+    "boot_id": 698300144,
+    "run_id": 4,
+    "busy": false,
+    "uploading": false,
+    "sd_mounted": true,
+    "error": "none",
+    "stage": "complete",
+    "model": "DeiT-tiny-224",
+    "task": "ImageNet1000 classification",
+    "backend": "FPGA_RESIDENT",
+    "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+    "backend_scope": "All MatMul FPGA INT8; P4 LayerNorm/Softmax/GELU and other ops; no fallback",
+    "result_valid": true,
+    "image": 0,
+    "operation": 199,
+    "total_operations": 199,
+    "elapsed_us": 0,
+    "ddr_timing_ns": {
+      "half": 100,
+      "setup": 100,
+      "guard": 2000,
+      "scope": "Nominal software waits, not measured clock"
+    },
+    "heap": {
+      "psram_free_bytes": 29022824,
+      "psram_largest_block_bytes": 28835840,
+      "internal_free_bytes": 137663
+    },
+    "npu_tx_dma": {
+      "selected": true,
+      "active": true,
+      "fault": false,
+      "positive": true,
+      "frequency_hz": 10000000,
+      "min_payload": 256,
+      "requests": 18655,
+      "wire_bytes": 24943726,
+      "elapsed_us": 6182595,
+      "allocations": 1,
+      "unit_allocations": 1
+    },
+    "resident_session": {
+      "cached_snapshot": true,
+      "worker_mutating": false,
+      "open": true,
+      "ready": true,
+      "busy": false,
+      "cookie": 1,
+      "static_weights_ready": 50,
+      "completed_frames": 2,
+      "host_activation_arena": true,
+      "cycle_counters_sampled": false,
+      "quantized_b_bytes": 5735584,
+      "ddr_reserved_bytes": 31204160,
+      "physical_lease_check": "Checked during open/run; status reads cached logical state",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c"
+    },
+    "resident_close_reason": "none",
+    "resident_open": {
+      "attempted": true,
+      "current_session": true,
+      "success": true,
+      "cancelled": false,
+      "session_unchanged": true,
+      "static_weights_ready": 50,
+      "error": "",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+      "timing_us": {
+        "verify_us": 6200678,
+        "setup_us": 152155,
+        "upload_us": 15644690,
+        "cache_prepare_us": 115263012,
+        "total_us": 137301128,
+        "first_completed_cold_total_us": 253067891
+      },
+      "memory": {
+        "constant_bytes": 22869664,
+        "activation_bytes": 2359296,
+        "quantized_b_bytes": 5735584,
+        "ddr_reserved_bytes": 31204160,
+        "metadata_bytes": 2560,
+        "scratch_bytes": 25663,
+        "host_activation_bytes": 2359296,
+        "graph_cache_bytes": 155236,
+        "source_prepare_read_bytes": 45182976,
+        "cache_write_bytes": 5735584,
+        "cache_verify_read_bytes": 5735584
+      },
+      "package_bytes": 22872224,
+      "package_crc32": 3109428749,
+      "wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 17513382,
+        "rx_us": 91251024,
+        "ready_wait_us": 5799726,
+        "wire_bytes": 82411552,
+        "read_bytes": 50918560,
+        "write_bytes": 28605248,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "setup_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 149,
+        "rx_us": 133,
+        "ready_wait_us": 20,
+        "wire_bytes": 134,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "upload_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 5252742,
+        "rx_us": 255005,
+        "ready_wait_us": 2315925,
+        "wire_bytes": 23305228,
+        "read_bytes": 0,
+        "write_bytes": 22869664,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "prepare_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 12260491,
+        "rx_us": 90995886,
+        "ready_wait_us": 3483781,
+        "wire_bytes": 59106190,
+        "read_bytes": 50918560,
+        "write_bytes": 5735584,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      }
+    },
+    "images": [
+      {
+        "id": 0,
+        "label": "astronaut"
+      },
+      {
+        "id": 1,
+        "label": "crew"
+      },
+      {
+        "id": 2,
+        "label": "crop"
+      }
+    ],
+    "result": {
+      "backend": "FPGA_RESIDENT",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+      "success": true,
+      "session_unchanged": true,
+      "wire_valid": true,
+      "warm": true,
+      "frame": 2,
+      "error": "",
+      "static_products": 50,
+      "dynamic_products": 24,
+      "static_weights_ready": 50,
+      "wire_scope": "This frame only; model preparation is resident_open.wire",
+      "blocks_completed": 12,
+      "operations": 199,
+      "matmul_operations": 74,
+      "matmul_batches": 122,
+      "external_matmul_operations": 74,
+      "fpga_matmul_operations": 74,
+      "cpu_matmul_operations": 0,
+      "macs": 1253683200,
+      "cycle_counters_sampled": false,
+      "timing_us": {
+        "input_us": 303839,
+        "infer_us": 115796370,
+        "output_us": 600,
+        "total_us": 116100937,
+        "yield_us": 993722,
+        "yield_calls": 1144,
+        "frame_total_us": 116100937,
+        "cold_total_applicable": false,
+        "cold_total_us": null,
+        "open_total_us": 137301128
+      },
+      "memory": {
+        "matmul_tile_jobs": 51468,
+        "local_read_bytes": 89845008,
+        "local_write_bytes": 62013536
+      },
+      "input_crc32": 2403422266,
+      "wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 22797591,
+        "rx_us": 45652084,
+        "ready_wait_us": 32448684,
+        "wire_bytes": 37110044,
+        "read_bytes": 24264432,
+        "write_bytes": 6404928,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 51468
+      },
+      "input_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 93,
+        "rx_us": 108,
+        "ready_wait_us": 12,
+        "wire_bytes": 64,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "graph_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 22797363,
+        "rx_us": 45651856,
+        "ready_wait_us": 32448659,
+        "wire_bytes": 37109852,
+        "read_bytes": 24264432,
+        "write_bytes": 6404928,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 51468
+      },
+      "output_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 135,
+        "rx_us": 120,
+        "ready_wait_us": 13,
+        "wire_bytes": 128,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0
+      },
+      "top5": [
+        {
+          "class_id": 541,
+          "label": "drum, membranophone, tympan",
+          "probability": 0.11373381316661835,
+          "logit": 5.685896396636963
+        },
+        {
+          "class_id": 542,
+          "label": "drumstick",
+          "probability": 0.09027639776468277,
+          "logit": 5.454911708831787
+        },
+        {
+          "class_id": 822,
+          "label": "steel drum",
+          "probability": 0.03047037683427334,
+          "logit": 4.36879062652588
+        },
+        {
+          "class_id": 747,
+          "label": "punching bag, punch bag, punching ball, punchball",
+          "probability": 0.0239157322794199,
+          "logit": 4.126572132110596
+        },
+        {
+          "class_id": 577,
+          "label": "gong, tam-tam",
+          "probability": 0.016118720173835754,
+          "logit": 3.7320170402526855
+        }
+      ]
+    }
+  },
+  "warm_compare": {
+    "unequal_bits": 0,
+    "max_abs": 0.0,
+    "sha256": "102995be897310f8dbd2a3ab8a9406346425e1071e6b950e979bcdc65314e70d"
+  }
+}
