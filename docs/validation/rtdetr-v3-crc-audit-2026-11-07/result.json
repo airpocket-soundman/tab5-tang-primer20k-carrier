@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "hardware_access": false,
+  "frames": 264000,
+  "DMA_selected_frames": 96000,
+  "GPIO_selected_frames": 168000,
+  "wirebytes": 120720000,
+  "oracle": "Independent Python binascii.crc_hqx; actual C++ frame-builder extracted from conv_exchange_bounded and actual bytepacker; fake selection only",
+  "scope_limits": [
+    "No actual PARLIO/GDMA/FIFO/GPIO matrix timing or electrical validation",
+    "No reproduction of physical CRCfailure; only software frame/packing contamination ruled out for fixture"
+  ],
+  "source_sha256": {
+    "main/dock_gpu.cpp": "18426e9fd824c115c380aa5b01b3792413f136488d069539425e15d9dd9bce52",
+    "main/dock_dma_tx.cpp": "9460badcfde7024af448838b555304c501b58bf40ad08936c1bc6fca41b458a5",
+    "main/dma_tx_pack.hpp": "8f802d8c7d574e6e24b4509565cec9bfc3f7a4d1739396d6af99a85118f3dab5",
+    "bringup/tab5/main/link_protocol.h": "18b21d911db1598d5eefc7c1d2d7701ff4b358488f167fedb37b9124384a625a"
+  },
+  "commands": [
+    {
+      "command": [
+        "D:/GitHub/airpocket-soundman/tab5-fpga-gpu-demo/build/test-tools/ziglang/zig.exe",
+        "c++",
+        "-std=c++17",
+        "-O2",
+        "-UNDEBUG",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-fsanitize=undefined",
+        "-fno-sanitize-recover=all",
+        "-ID:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-resume-20261106\\main",
+        "-ID:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-resume-20261106\\bringup\\tab5\\main",
+        "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-resume-20261106\\build\\npu-v3-crc-fixture\\test.cpp",
+        "-o",
+        "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-resume-20261106\\build\\npu-v3-crc-fixture\\test.exe"
+      ],
+      "returncode": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-resume-20261106\\build\\npu-v3-crc-fixture\\test.exe",
+        "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-resume-20261106\\build\\npu-v3-crc-fixture\\frames.bin"
+      ],
+      "returncode": 0,
+      "output": "PASS actualframer+bytepack frames=264000 DMAselected=96000 GPIOselected=168000 wirebytes=120720000 seqwraps=1031 guards/trailer/allbytes nohardware\n"
+    }
+  ]
+}
