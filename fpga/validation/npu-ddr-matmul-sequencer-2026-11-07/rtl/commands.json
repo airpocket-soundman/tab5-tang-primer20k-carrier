@@ -1,0 +1,24 @@
+[
+  {
+    "command": [
+      "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\iverilog.exe",
+      "-g2012",
+      "-s",
+      "tb",
+      "-o",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\npu-ddr-matmul-sequencer\\test.vvp",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_ddr_matmul_sequencer.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\npu-ddr-matmul-sequencer\\tb.v"
+    ],
+    "returncode": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\vvp.exe",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\npu-ddr-matmul-sequencer\\test.vvp"
+    ],
+    "returncode": 0,
+    "output": "PASS DDR MatMul sequencer jobs=115 descriptors=40001 plus8faults/reset/sticky/backpressure\nD:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\npu-ddr-matmul-sequencer\\tb.v:131: $finish called at 2894190000 (1ps)\n"
+  }
+]
