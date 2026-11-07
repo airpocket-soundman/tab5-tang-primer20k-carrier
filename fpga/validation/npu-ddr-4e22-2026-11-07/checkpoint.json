@@ -1,0 +1,30 @@
+{
+  "variant": "USERCODE4E22/CAPS4E20",
+  "fs_sha256": "f3a8703cccc55711ae484db685f0805f2b8f0ca2cc87fc3a74355d6e03b0eade",
+  "source_origin": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\npu-ddr-8oc-rx-aligned-v1",
+  "resources": {
+    "logic": 11044,
+    "registers": 6018,
+    "bsram": 45,
+    "bsram_capacity": 46,
+    "dsp": 12.5,
+    "dsp_capacity": 24
+  },
+  "timing": {
+    "qualified": false,
+    "unwaived_setup": 1407,
+    "unwaived_hold": 111,
+    "sys_same_domain_fmax_mhz": 37.705,
+    "user_same_domain_fmax_mhz": 104.172
+  },
+  "physical": {
+    "programming": "SRAM only, performed by root",
+    "usercode": "4E22",
+    "status": "6020",
+    "positive_tx_2m_5m_3_repetitions": true,
+    "positive_tx_5m_100_selftests": true,
+    "fullmodel_5m_passed": true
+  },
+  "scope": "TX input alignment. Host still executes non-MatMul graph operators. Not whole inference resident in FPGA.",
+  "provenance": "Existing root hardware logs copied without alteration. usercode.log is historical concurrent-reader contention; exclusive retry succeeded. Vendor IP and netlists not archived."
+}

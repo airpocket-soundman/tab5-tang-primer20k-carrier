@@ -1,5 +1,5 @@
 // NPU DDR command endpoint. Framing v2, capability4e20, CRC-staged writes.
-module npu_ddr_sys #(parameter TIMEOUT=27000000)(
+module npu_ddr_sys #(parameter TIMEOUT=27000000,parameter REQUEST_DATA_PIPELINE=0)(
  input wire clk,reset_n,arm,bus_clk,dir,input wire[7:0] data_i,
  output reg[7:0] data_o,output wire data_oe,ready,
  input wire memory_ready,input wire[15:0] generation,input wire arbiter_fault,input wire arbiter_active,
@@ -10,6 +10,10 @@ module npu_ddr_sys #(parameter TIMEOUT=27000000)(
  input wire done_t,input wire[23:0] r_tag,input wire[3:0] r_status,input wire[15:0] r_beats,
  output reg w_we,output reg[7:0] w_addr,output reg[127:0] w_data,output wire[7:0] r_addr,input wire[127:0] r_data);
  localparam RX=0,DISPATCH=1,WADDR=2,WWAIT=3,WPACK=4,WACK=5,MEMWAIT=6,MEMCAPTURE=7,RADDR=8,RWAIT=9,RCRC=10,CONVWAIT=11,RESP=12,CLEARWAIT=13;
+ // Optional bundled DATA/CLK alignment, matching the existing GFX receiver.
+ // Default0 retains the raw-data4E21 path. Positive launch requires DATA setup.
+ reg[7:0] data_meta,data_capture;
+ wire[7:0] request_byte=REQUEST_DATA_PIPELINE?data_capture:data_i;
  reg[3:0] state;reg[2:0] cs;reg[1:0] ds,done_sync;wire rise=cs[1]&&!cs[2];
  reg[7:0] header[0:5],first[0:51],reply[0:5];reg[7:0] packet[0:2047],packet_q;reg[10:0] packet_address;
  reg[12:0] index,length,tx_index,reply_bytes;reg[15:0] crc,low_crc,reply_header_crc,reply_tail_crc,saved_generation;
@@ -34,30 +38,30 @@ module npu_ddr_sys #(parameter TIMEOUT=27000000)(
  end
  always @(posedge clk)begin
   packet_q<=packet[packet_address];
-  if(state==RX && rise && !dir && !ds[1] && index>=16 && index<8+length && op==8'h71)packet[index-16]<=data_i;
+  if(state==RX && rise && !dir && !ds[1] && index>=16 && index<8+length && op==8'h71)packet[index-16]<=request_byte;
  end
  always @(posedge clk)begin
   if(!reset_n || !arm)begin
-   state<=RX;cs<=0;ds<=0;done_sync<=0;index<=0;length<=0;tx_index<=0;reply_bytes<=0;crc<=16'hffff;low_crc<=0;reply_header_crc<=0;reply_tail_crc<=0;idle<=0;count<=0;word_index<=0;byte_index<=0;pack_slot<=0;scan_slot<=0;pack<=0;scan_address<=0;packet_address<=0;settle<=0;done_ref<=0;next_tag<=24'h800001;current_op<=0;saved_generation<=0;bound<=0;session_token<=0;last_ready<=0;
+   state<=RX;data_meta<=0;data_capture<=0;cs<=0;ds<=0;done_sync<=0;index<=0;length<=0;tx_index<=0;reply_bytes<=0;crc<=16'hffff;low_crc<=0;reply_header_crc<=0;reply_tail_crc<=0;idle<=0;count<=0;word_index<=0;byte_index<=0;pack_slot<=0;scan_slot<=0;pack<=0;scan_address<=0;packet_address<=0;settle<=0;done_ref<=0;next_tag<=24'h800001;current_op<=0;saved_generation<=0;bound<=0;session_token<=0;last_ready<=0;
    conv_start<=0;conv_abort<=0;conv_clear<=0;descriptor<=0;req_t<=0;cancel_t<=0;h_op<=0;h_addr<=0;h_beats<=0;h_arg<=0;h_tag<=0;w_we<=0;w_addr<=0;w_data<=0;
    for(i=0;i<6;i=i+1)begin header[i]<=0;reply[i]<=0;end
    for(i=0;i<52;i=i+1)first[i]<=0;
   end else begin
    last_ready<=memory_ready;if(last_ready&&!memory_ready)begin bound<=0;session_token<=0;end
-   cs<={cs[1:0],bus_clk};ds<={ds[0],dir};done_sync<={done_sync[0],done_t};conv_start<=0;conv_abort<=0;conv_clear<=0;w_we<=0;idle<=idle+1'b1;
+   data_meta<=data_i;data_capture<=data_meta;cs<={cs[1:0],bus_clk};ds<={ds[0],dir};done_sync<={done_sync[0],done_t};conv_start<=0;conv_abort<=0;conv_clear<=0;w_we<=0;idle<=idle+1'b1;
    if(idle>=TIMEOUT-1)begin state<=RX;index<=0;crc<=16'hffff;idle<=0;conv_abort<=1;cancel_t<=~cancel_t;end
    else case(state)
     RX:begin
      if(ds[1]&&index!=0)begin index<=0;crc<=16'hffff;end
      if(rise&&!dir&&!ds[1])begin
-      idle<=0;if(index<6)begin header[index]<=data_i;crc<=crcbyte(crc,data_i);end
-      if(index==6)low_crc<=data_i;
+      idle<=0;if(index<6)begin header[index]<=request_byte;crc<=crcbyte(crc,request_byte);end
+      if(index==6)low_crc<=request_byte;
       if(index==7)begin
-       if(header[0]!=8'ha5||header[3]!=2||{data_i,low_crc[7:0]}!=crc||header[1][7])respond(1,0);
+       if(header[0]!=8'ha5||header[3]!=2||{request_byte,low_crc[7:0]}!=crc||header[1][7])respond(1,0);
        else if(arg>2051)respond(3,0);else begin length<=arg;if(arg==0)state<=DISPATCH;end
-      end else if(index>=8 && index<8+length)begin crc<=crcbyte(crc,data_i);if(index<60)first[index-8]<=data_i;end
-      else if(index==8+length&&index>=8)low_crc<=data_i;
-      else if(index==9+length&&index>=9)begin if({data_i,low_crc[7:0]}!=crc)respond(1,0);else state<=DISPATCH;end
+      end else if(index>=8 && index<8+length)begin crc<=crcbyte(crc,request_byte);if(index<60)first[index-8]<=request_byte;end
+      else if(index==8+length&&index>=8)low_crc<=request_byte;
+      else if(index==9+length&&index>=9)begin if({request_byte,low_crc[7:0]}!=crc)respond(1,0);else state<=DISPATCH;end
       index<=index+1'b1;
      end
     end

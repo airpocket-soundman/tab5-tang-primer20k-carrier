@@ -1,0 +1,59 @@
+[
+  {
+    "command": [
+      "D:/GitHub/airpocket-soundman/tab5-fpga-gpu-demo/build/test-tools/ziglang/zig.exe",
+      "c++",
+      "-std=c++17",
+      "-O2",
+      "-march=native",
+      "-ffp-contract=fast",
+      "-UNDEBUG",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-ID:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\epilogue-model-trace-astronaut\\source_snapshot",
+      "-ID:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\epilogue-model-trace-astronaut\\source_snapshot\\tests",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\epilogue-model-trace-astronaut\\source_snapshot\\trace.cpp",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\epilogue-model-trace-astronaut\\source_snapshot\\inference\\ddr_matmul.cpp",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\epilogue-model-trace-astronaut\\source_snapshot\\inference\\transformer_graph.cpp",
+      "-o",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\epilogue-model-trace-astronaut\\trace.exe"
+    ],
+    "returncode": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\epilogue-model-trace-astronaut\\trace.exe",
+      "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-resume-20261106\\build\\transformer-deit-tiny-fm\\model.dtp",
+      "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-resume-20261106\\build\\transformer-sd-fm-v1\\images\\ASTRONAUT.F32",
+      "D:\\GitHub\\airpocket-soundman\\tab5-fpga-gpu-resume-20261106\\build\\transformer-rowwise-final\\ASTRONAUT-rowwise-fast.f32",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\epilogue-model-trace-astronaut\\actual.f32",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\epilogue-model-trace-astronaut\\samples.bin"
+    ],
+    "returncode": 0,
+    "output": "OP 1 196 192 1\nOP 5 197 576 1\nOP 7 197 197 3\nOP 9 197 64 3\nOP 10 197 192 1\nOP 14 197 768 1\nOP 17 197 192 1\nOP 21 197 576 1\nOP 23 197 197 3\nOP 25 197 64 3\nOP 26 197 192 1\nOP 30 197 768 1\nOP 33 197 192 1\nOP 37 197 576 1\nOP 39 197 197 3\nOP 41 197 64 3\nOP 42 197 192 1\nOP 46 197 768 1\nOP 49 197 192 1\nOP 53 197 576 1\nOP 55 197 197 3\nOP 57 197 64 3\nOP 58 197 192 1\nOP 62 197 768 1\nOP 65 197 192 1\nOP 69 197 576 1\nOP 71 197 197 3\nOP 73 197 64 3\nOP 74 197 192 1\nOP 78 197 768 1\nOP 81 197 192 1\nOP 85 197 576 1\nOP 87 197 197 3\nOP 89 197 64 3\nOP 90 197 192 1\nOP 94 197 768 1\nOP 97 197 192 1\nOP 101 197 576 1\nOP 103 197 197 3\nOP 105 197 64 3\nOP 106 197 192 1\nOP 110 197 768 1\nOP 113 197 192 1\nOP 117 197 576 1\nOP 119 197 197 3\nOP 121 197 64 3\nOP 122 197 192 1\nOP 126 197 768 1\nOP 129 197 192 1\nOP 133 197 576 1\nOP 135 197 197 3\nOP 137 197 64 3\nOP 138 197 192 1\nOP 142 197 768 1\nOP 145 197 192 1\nOP 149 197 576 1\nOP 151 197 197 3\nOP 153 197 64 3\nOP 154 197 192 1\nOP 158 197 768 1\nOP 161 197 192 1\nOP 165 197 576 1\nOP 167 197 197 3\nOP 169 197 64 3\nOP 170 197 192 1\nOP 174 197 768 1\nOP 177 197 192 1\nOP 181 197 576 1\nOP 183 197 197 3\nOP 185 197 64 3\nOP 186 197 192 1\nOP 190 197 768 1\nOP 193 197 192 1\nOP 197 1 1000 1\nPASS fullgraph golden1000bits exact samples=91972 biased=63784 blocks12 ops199 MatMul74 batches122 tiles51468 nohardware\n"
+  },
+  {
+    "command": [
+      "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\iverilog.exe",
+      "-g2012",
+      "-s",
+      "tb",
+      "-o",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\epilogue-model-trace-astronaut\\test.vvp",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_fp32_epilogue.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\epilogue-model-trace-astronaut\\tb.v"
+    ],
+    "returncode": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\vvp.exe",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\epilogue-model-trace-astronaut\\test.vvp"
+    ],
+    "returncode": 0,
+    "output": "PASS FP32 epilogue vectors=91972 RNE/profile/backpressure/abort/reset\nD:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\epilogue-model-trace-astronaut\\tb.v:56: $finish called at 10287640000 (1ps)\n"
+  }
+]

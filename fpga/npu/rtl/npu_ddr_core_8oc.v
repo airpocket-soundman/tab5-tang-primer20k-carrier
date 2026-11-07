@@ -4,7 +4,8 @@ module npu_ddr_core_8oc #(
  parameter [15:0] RESET_HOLD_INIT=16'hffff,RECAL_HOLD=16'd27000,
  parameter SYS_SETTLE=256,ADAPTER_SETTLE=256,
  parameter LINK_TIMEOUT=27000000,ADAPTER_TIMEOUT=8100000,
- parameter LOADER_MEMORY_TIMEOUT=2700000,LOADER_DRAIN_TIMEOUT=2700000
+ parameter LOADER_MEMORY_TIMEOUT=2700000,LOADER_DRAIN_TIMEOUT=2700000,
+ parameter REQUEST_DATA_PIPELINE=0
 )(
  input wire sys_clk,reset_n,arm_sw,bus_clk,dir,input wire[3:0] aux,
  inout wire[7:0] data,output wire ready,output wire[3:0] led,
@@ -59,7 +60,7 @@ module npu_ddr_core_8oc #(
  wire[415:0] descriptor;
  wire m0_req_t,m0_cancel_t,m0_done_t;wire[1:0]m0_h_op;wire[31:0]m0_h_addr,m0_h_arg,m0_r_crc;wire[15:0]m0_h_beats,m0_r_beats;wire[23:0]m0_h_tag,m0_r_tag;wire[3:0]m0_r_status;
  wire m0_w_we;wire[7:0]m0_w_addr,m0_r_addr;wire[127:0]m0_w_data,sys_read_data;
- npu_ddr_sys #(.TIMEOUT(LINK_TIMEOUT)) link(
+ npu_ddr_sys #(.TIMEOUT(LINK_TIMEOUT),.REQUEST_DATA_PIPELINE(REQUEST_DATA_PIPELINE)) link(
   sys_clk,sys_reset_n,arm_sw,bus_clk,dir,data,data_out,data_oe,ready,
   memory_ready,generation,arbiter_fault,arbiter_active,
   conv_start,conv_abort,conv_clear,descriptor,

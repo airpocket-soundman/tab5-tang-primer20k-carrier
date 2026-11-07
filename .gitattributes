@@ -18,3 +18,13 @@ fpga/validation/npu-ddr-4e20-2026-11-07/*.log -whitespace
 fpga/validation/npu-ddr-4e21-2026-11-07/*.log -whitespace
 fpga/validation/transformer-device-2026-11-07/** -text whitespace=cr-at-eol
 fpga/validation/transformer-device-2026-11-07/**/*.f32 binary
+
+# Preserve exact byte streams from DDR and FP32 component qualification.
+fpga/validation/npu-ddr-4e22-2026-11-07/** -text -whitespace
+fpga/validation/npu-fp32-epilogue-2026-11-07/** -text -whitespace
+fpga/validation/npu-fp32-model-trace-2026-11-07/** -text -whitespace
+fpga/validation/npu-ddr-4e22-2026-11-07/*.fs binary
+fpga/npu/rtl/npu_fp32_epilogue.v whitespace=cr-at-eol
+fpga/npu/tests/run_ddr_rx_phase_sweep.py whitespace=cr-at-eol,-blank-at-eof
+fpga/npu/tests/run_fp32_epilogue.py whitespace=cr-at-eol
+fpga/npu/tests/run_fp32_model_trace.py whitespace=cr-at-eol

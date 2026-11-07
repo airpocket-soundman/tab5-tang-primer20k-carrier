@@ -1,0 +1,222 @@
+{
+  "optimization_profile": 15,
+  "boot_id": 2939104339,
+  "run_id": 2,
+  "busy": false,
+  "uploading": false,
+  "sd_mounted": true,
+  "error": "none",
+  "stage": "complete",
+  "model": "DeiT-tiny-224",
+  "task": "ImageNet1000 classification",
+  "backend": "FPGA_DDR",
+  "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+  "backend_scope": "All MatMul FPGA INT8; P4 LayerNorm/Softmax/GELU and other ops; no fallback",
+  "result_valid": true,
+  "image": 1,
+  "operation": 199,
+  "total_operations": 199,
+  "elapsed_us": 0,
+  "ddr_timing_ns": {
+    "half": 100,
+    "setup": 100,
+    "guard": 2000,
+    "scope": "Nominal software waits, not measured clock"
+  },
+  "heap": {
+    "psram_free_bytes": 31572348,
+    "psram_largest_block_bytes": 31457280,
+    "internal_free_bytes": 149207
+  },
+  "npu_tx_dma": {
+    "selected": true,
+    "active": false,
+    "fault": false,
+    "positive": true,
+    "frequency_hz": 2000000,
+    "min_payload": 256,
+    "requests": 18655,
+    "wire_bytes": 24943726,
+    "elapsed_us": 16178165,
+    "allocations": 1,
+    "unit_allocations": 1
+  },
+  "images": [
+    {
+      "id": 0,
+      "label": "astronaut"
+    },
+    {
+      "id": 1,
+      "label": "crew"
+    },
+    {
+      "id": 2,
+      "label": "crop"
+    }
+  ],
+  "result": {
+    "backend": "FPGA_DDR",
+    "model_io": {
+      "package_unbuffered": false,
+      "package_buffer_aligned": true,
+      "stdio_buffer_mod64": 0,
+      "buffer_mod64": 0,
+      "buffer_bytes": 4096,
+      "verify_fread_us": 3931549,
+      "verify_crc_us": 1219054,
+      "constant_fread_us": 4084694,
+      "constant_crc_us": 612855
+    },
+    "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+    "success": true,
+    "session_unchanged": true,
+    "error": "",
+    "blocks_completed": 12,
+    "operations": 199,
+    "matmul_operations": 74,
+    "matmul_batches": 122,
+    "external_matmul_operations": 74,
+    "cpu_matmul_operations": 0,
+    "macs": 1253683200,
+    "timing_us": {
+      "verify_us": 6175572,
+      "setup_us": 152239,
+      "upload_us": 26072014,
+      "input_us": 219914,
+      "infer_us": 218044882,
+      "output_us": 589,
+      "total_us": 250768446,
+      "yield_us": 2128640,
+      "yield_calls": 2469
+    },
+    "memory": {
+      "ddr_reserved_bytes": 25469408,
+      "constant_bytes": 22869664,
+      "activation_bytes": 2359296,
+      "metadata_bytes": 2560,
+      "scratch_bytes": 25663,
+      "matmul_scratch_bytes": 174912,
+      "matmul_tile_jobs": 51468,
+      "host_activation_bytes": 2359296,
+      "graph_cache_bytes": 155236,
+      "local_read_bytes": 89845008,
+      "local_write_bytes": 62013536
+    },
+    "wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 49701747,
+      "rx_us": 127261410,
+      "ready_wait_us": 37907898,
+      "wire_bytes": 113282770,
+      "read_bytes": 69359696,
+      "write_bytes": 34922464,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 51468
+    },
+    "setup_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 149,
+      "rx_us": 151,
+      "ready_wait_us": 19,
+      "wire_bytes": 134,
+      "read_bytes": 0,
+      "write_bytes": 0,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 0
+    },
+    "upload_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 14400607,
+      "rx_us": 257072,
+      "ready_wait_us": 2316257,
+      "wire_bytes": 23305228,
+      "read_bytes": 0,
+      "write_bytes": 22869664,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 0
+    },
+    "input_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 0,
+      "rx_us": 0,
+      "ready_wait_us": 0,
+      "wire_bytes": 0,
+      "read_bytes": 0,
+      "write_bytes": 0,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 0
+    },
+    "graph_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 35300856,
+      "rx_us": 127004063,
+      "ready_wait_us": 35591608,
+      "wire_bytes": 89977280,
+      "read_bytes": 69359696,
+      "write_bytes": 12052800,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 51468
+    },
+    "output_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 135,
+      "rx_us": 124,
+      "ready_wait_us": 14,
+      "wire_bytes": 128,
+      "read_bytes": 0,
+      "write_bytes": 0,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 0
+    },
+    "fpga_matmul_operations": 74,
+    "cycle_counters_sampled": false,
+    "cache_row_scales": true,
+    "cache_graph_reads": true,
+    "host_activation_arena": true,
+    "top5": [
+      {
+        "class_id": 697,
+        "label": "pajama, pyjama, pj's, jammies",
+        "probability": 0.14143377542495728,
+        "logit": 5.693041801452637
+      },
+      {
+        "class_id": 981,
+        "label": "ballplayer, baseball player",
+        "probability": 0.04299614951014519,
+        "logit": 4.502320766448975
+      },
+      {
+        "class_id": 652,
+        "label": "military uniform",
+        "probability": 0.026279347017407417,
+        "logit": 4.00999355316162
+      },
+      {
+        "class_id": 841,
+        "label": "sweatshirt",
+        "probability": 0.02259335294365883,
+        "logit": 3.858865976333618
+      },
+      {
+        "class_id": 617,
+        "label": "lab coat, laboratory coat",
+        "probability": 0.021398134529590607,
+        "logit": 3.804513931274414
+      }
+    ]
+  }
+}

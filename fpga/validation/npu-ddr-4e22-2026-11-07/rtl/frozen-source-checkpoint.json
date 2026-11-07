@@ -1,0 +1,55 @@
+{
+  "frozen": true,
+  "no_more_source_edits_without_prior_notice": true,
+  "usercode": "4E22",
+  "wire_capability": "4E20",
+  "pipeline_default": 0,
+  "aligned_top_pipeline": 1,
+  "files_sha256": {
+    "fpga/npu/rtl/npu_ddr_sys.v": "224088780f2ac912636fcd39c15bcbf8c823a5af892812f322b1f722c80899d5",
+    "fpga/npu/rtl/npu_ddr_core_8oc.v": "2016873a80478c223dadde634aa93f8a1f90b5f306c0cafc272895fde8edd181",
+    "fpga/platform/dock/tab5_dock_npu_ddr_8oc_aligned_top.v": "a8ed8fbd44bd612de060d5c984c2097b9e0dd6a614b53ee0c394a5470485b63e",
+    "fpga/builds/dock/build_npu_ddr_8oc_aligned_input.tcl": "73525fc6d1c5f3704fccdcec93f3405955713876b47eb6fb772a0d2caaf41690"
+  },
+  "full_phase_cases": 7326,
+  "full_phase_passed": true,
+  "full_compiled_source_exact_final_lf_after_module_rename": true,
+  "quick_cases": 96,
+  "quick_passed": true,
+  "core_proofs": {
+    "0": {
+      "passed": true,
+      "wire_commands": 64,
+      "source_matches": {
+        "npu_ddr_core_8oc.v": true,
+        "npu_ddr_sys.v": true,
+        "npu_ddr_arbiter.v": true,
+        "npu_ddr_tile_loader_8oc.v": true,
+        "conv_tile_engine_8oc.v": true,
+        "memv1_bridge.v": true,
+        "mem_adapter.v": true,
+        "memv1_crc32b.v": true
+      },
+      "proof": "fpga\\build\\npu-rx-production-lf-core0\\proof"
+    },
+    "1": {
+      "passed": true,
+      "wire_commands": 64,
+      "source_matches": {
+        "npu_ddr_core_8oc.v": true,
+        "npu_ddr_sys.v": true,
+        "npu_ddr_arbiter.v": true,
+        "npu_ddr_tile_loader_8oc.v": true,
+        "conv_tile_engine_8oc.v": true,
+        "memv1_bridge.v": true,
+        "mem_adapter.v": true,
+        "memv1_crc32b.v": true
+      },
+      "proof": "fpga\\build\\npu-rx-production-lf-core1\\proof"
+    }
+  },
+  "legacy_top_unchanged_sha256": "07fdea18ad9edfdba8c725951318fce7494796547e4dab14202e8dcf8f5aad27",
+  "restore4e21_fs_sha256": "a9bdae1126f7ffdba349d14293271addbeb4901cee3019bb2315383bf650c05c",
+  "synthesis_or_device_access_by_this_task": false,
+  "next": "Root controlled GowinPNR/STA and physical qualification only"
+}

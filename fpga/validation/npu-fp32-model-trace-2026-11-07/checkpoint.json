@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "hardware_access": false,
+  "samples_total": 183944,
+  "scope": "Native full model-derived stratified samples; NOT physical FPGA trace or all output elements",
+  "sampled_rows": "0,M//2,M-1 everycolumn/batch/MatMul",
+  "full_matmul_elements_per_frame": 5974636,
+  "frames": {
+    "CREW": {
+      "passed": true,
+      "samples": 91972,
+      "biased": 63784,
+      "unbiased": 28188,
+      "all74MatMul122batches": true,
+      "native1000bits_exact": true,
+      "native_output_sha256": "f4fe056e8b93134171d8aeaf482e942a3c1bb9eb7c65d8234d868ac687c76f04",
+      "compressed_fixture_bytes": 1324940
+    },
+    "ASTRONAUT": {
+      "passed": true,
+      "samples": 91972,
+      "biased": 63784,
+      "unbiased": 28188,
+      "all74MatMul122batches": true,
+      "native1000bits_exact": true,
+      "native_output_sha256": "7a9075b7689f720034f837c2b34230f3e6f4a9408b52d9ffa3e353794d72d376",
+      "compressed_fixture_bytes": 1326922
+    }
+  },
+  "rtl_sha256": "dc59532b8d5a591f3ef8cc84e9b5488787552c9b4aa2cabe6f0a91e7dab5f916",
+  "no_new_synthesis": true,
+  "production_sources_modified": false
+}
