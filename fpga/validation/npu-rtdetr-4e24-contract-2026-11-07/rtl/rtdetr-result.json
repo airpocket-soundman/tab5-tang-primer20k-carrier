@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "hardware_access": false,
+  "source": "Unmodified4E24 real core/8OC/adapter; sparse native DDR model maps32MiB/80MiB windows",
+  "seed": 1380206386,
+  "cases": [
+    {
+      "kind": "Conv",
+      "ic": 32,
+      "oc": 9,
+      "kernel": 3,
+      "stride": 2,
+      "pad": 1,
+      "input_hw": [
+        19,
+        23
+      ],
+      "output_hw": [
+        10,
+        12
+      ],
+      "weight_OC_pitch": 288,
+      "tiles": 4,
+      "outputs": 1080,
+      "padding_gaps": true
+    },
+    {
+      "kind": "Conv",
+      "ic": 33,
+      "oc": 9,
+      "kernel": 3,
+      "stride": 2,
+      "pad": 1,
+      "input_hw": [
+        19,
+        23
+      ],
+      "output_hw": [
+        10,
+        12
+      ],
+      "weight_OC_pitch": 304,
+      "tiles": 6,
+      "outputs": 1080,
+      "padding_gaps": true
+    },
+    {
+      "kind": "Conv",
+      "ic": 256,
+      "oc": 9,
+      "kernel": 1,
+      "stride": 1,
+      "pad": 0,
+      "input_hw": [
+        3,
+        5
+      ],
+      "output_hw": [
+        3,
+        5
+      ],
+      "weight_OC_pitch": 256,
+      "tiles": 32,
+      "outputs": 135,
+      "padding_gaps": true
+    },
+    {
+      "kind": "Gemm/MatMul",
+      "m": 3,
+      "k": 65,
+      "n": 9,
+      "weight_OC_pitch": 80,
+      "jobs": 2,
+      "tiles": 10,
+      "outputs": 27,
+      "guard_and_padding": true
+    },
+    {
+      "kind": "Gemm/MatMul",
+      "m": 257,
+      "k": 65,
+      "n": 9,
+      "weight_OC_pitch": 80,
+      "jobs": 4,
+      "tiles": 20,
+      "outputs": 2313,
+      "guard_and_padding": true
+    }
+  ],
+  "numeric_conv_outputs": 2295,
+  "numeric_matrix_outputs": 2340
+}

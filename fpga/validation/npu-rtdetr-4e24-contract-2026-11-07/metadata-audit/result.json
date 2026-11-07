@@ -1,0 +1,4876 @@
+{
+  "passed": true,
+  "hardware_access": false,
+  "scope": "Metadata shapes/address-contract audit only; not runtime/model inference proof",
+  "metadata_sha256": "5dd82c9740f47f4c58cbfc4af910fccb8c07b7025b7a926a26017e332eda0210",
+  "manifest_sha256": "160a2005e6980f0cdc2665d0fca8107dfac60272c8ce1c5e00a968ebe1b104d5",
+  "RQG2_package_sha256": "775b42010c82da0d464db21812563122539b090bc236af7c610eba0f1257d251",
+  "source_sha256": "a4e1d5c112b1873d701b690ddf92d2e6aa822a2e759443ee7f7f27916b21b555",
+  "memory": {
+    "payload_bytes": 20668416,
+    "arena_bytes": 51643200,
+    "constant_plus_arena_bytes": 72311616,
+    "control_base_bytes": 65536,
+    "scratch_base": 72377152,
+    "scratch_available_bytes": 61840576
+  },
+  "conv_attributes": {
+    "(3, 2)": 6,
+    "(3, 1)": 27,
+    "(1, 1)": 24
+  },
+  "conv": [
+    {
+      "node": 6,
+      "input": [
+        1,
+        3,
+        640,
+        640
+      ],
+      "weight": [
+        32,
+        3,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        32,
+        320,
+        320
+      ],
+      "attributes": [
+        3,
+        3,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 27,
+        "n": 32,
+        "pitch": 32,
+        "data_bytes": 1024,
+        "scale_bytes": 128,
+        "data_offset": 706656,
+        "scale_offset": 707680
+      }
+    },
+    {
+      "node": 8,
+      "input": [
+        1,
+        32,
+        320,
+        320
+      ],
+      "weight": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        32,
+        320,
+        320
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 288,
+        "n": 32,
+        "pitch": 288,
+        "data_bytes": 9216,
+        "scale_bytes": 128,
+        "data_offset": 707808,
+        "scale_offset": 717024
+      }
+    },
+    {
+      "node": 10,
+      "input": [
+        1,
+        32,
+        320,
+        320
+      ],
+      "weight": [
+        64,
+        32,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        64,
+        320,
+        320
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 288,
+        "n": 64,
+        "pitch": 288,
+        "data_bytes": 18432,
+        "scale_bytes": 256,
+        "data_offset": 717152,
+        "scale_offset": 735584
+      }
+    },
+    {
+      "node": 13,
+      "input": [
+        1,
+        64,
+        160,
+        160
+      ],
+      "weight": [
+        64,
+        64,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        64,
+        160,
+        160
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 576,
+        "n": 64,
+        "pitch": 576,
+        "data_bytes": 36864,
+        "scale_bytes": 256,
+        "data_offset": 735840,
+        "scale_offset": 772704
+      }
+    },
+    {
+      "node": 14,
+      "input": [
+        1,
+        64,
+        160,
+        160
+      ],
+      "weight": [
+        64,
+        64,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        64,
+        160,
+        160
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 64,
+        "n": 64,
+        "pitch": 64,
+        "data_bytes": 4096,
+        "scale_bytes": 256,
+        "data_offset": 772960,
+        "scale_offset": 777056
+      }
+    },
+    {
+      "node": 16,
+      "input": [
+        1,
+        64,
+        160,
+        160
+      ],
+      "weight": [
+        64,
+        64,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        64,
+        160,
+        160
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 576,
+        "n": 64,
+        "pitch": 576,
+        "data_bytes": 36864,
+        "scale_bytes": 256,
+        "data_offset": 777312,
+        "scale_offset": 814176
+      }
+    },
+    {
+      "node": 19,
+      "input": [
+        1,
+        64,
+        160,
+        160
+      ],
+      "weight": [
+        64,
+        64,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        64,
+        160,
+        160
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 576,
+        "n": 64,
+        "pitch": 576,
+        "data_bytes": 36864,
+        "scale_bytes": 256,
+        "data_offset": 814432,
+        "scale_offset": 851296
+      }
+    },
+    {
+      "node": 21,
+      "input": [
+        1,
+        64,
+        160,
+        160
+      ],
+      "weight": [
+        64,
+        64,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        64,
+        160,
+        160
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 576,
+        "n": 64,
+        "pitch": 576,
+        "data_bytes": 36864,
+        "scale_bytes": 256,
+        "data_offset": 851552,
+        "scale_offset": 888416
+      }
+    },
+    {
+      "node": 24,
+      "input": [
+        1,
+        64,
+        160,
+        160
+      ],
+      "weight": [
+        128,
+        64,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "attributes": [
+        3,
+        3,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 576,
+        "n": 128,
+        "pitch": 576,
+        "data_bytes": 73728,
+        "scale_bytes": 512,
+        "data_offset": 888672,
+        "scale_offset": 962400
+      }
+    },
+    {
+      "node": 27,
+      "input": [
+        1,
+        64,
+        80,
+        80
+      ],
+      "weight": [
+        128,
+        64,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 64,
+        "n": 128,
+        "pitch": 64,
+        "data_bytes": 8192,
+        "scale_bytes": 512,
+        "data_offset": 962912,
+        "scale_offset": 971104
+      }
+    },
+    {
+      "node": 28,
+      "input": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 1152,
+        "n": 128,
+        "pitch": 1152,
+        "data_bytes": 147456,
+        "scale_bytes": 512,
+        "data_offset": 971616,
+        "scale_offset": 1119072
+      }
+    },
+    {
+      "node": 31,
+      "input": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 1152,
+        "n": 128,
+        "pitch": 1152,
+        "data_bytes": 147456,
+        "scale_bytes": 512,
+        "data_offset": 1119584,
+        "scale_offset": 1267040
+      }
+    },
+    {
+      "node": 33,
+      "input": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 1152,
+        "n": 128,
+        "pitch": 1152,
+        "data_bytes": 147456,
+        "scale_bytes": 512,
+        "data_offset": 1267552,
+        "scale_offset": 1415008
+      }
+    },
+    {
+      "node": 36,
+      "input": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "weight": [
+        256,
+        128,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "attributes": [
+        3,
+        3,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 1152,
+        "n": 256,
+        "pitch": 1152,
+        "data_bytes": 294912,
+        "scale_bytes": 1024,
+        "data_offset": 1415520,
+        "scale_offset": 1710432
+      }
+    },
+    {
+      "node": 38,
+      "input": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "weight": [
+        256,
+        128,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        256,
+        80,
+        80
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 128,
+        "n": 256,
+        "pitch": 128,
+        "data_bytes": 32768,
+        "scale_bytes": 1024,
+        "data_offset": 1711456,
+        "scale_offset": 1744224
+      }
+    },
+    {
+      "node": 40,
+      "input": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "weight": [
+        256,
+        128,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 128,
+        "n": 256,
+        "pitch": 128,
+        "data_bytes": 32768,
+        "scale_bytes": 1024,
+        "data_offset": 1745248,
+        "scale_offset": 1778016
+      }
+    },
+    {
+      "node": 41,
+      "input": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "weight": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 2304,
+        "n": 256,
+        "pitch": 2304,
+        "data_bytes": 589824,
+        "scale_bytes": 1024,
+        "data_offset": 1779040,
+        "scale_offset": 2368864
+      }
+    },
+    {
+      "node": 44,
+      "input": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "weight": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 2304,
+        "n": 256,
+        "pitch": 2304,
+        "data_bytes": 589824,
+        "scale_bytes": 1024,
+        "data_offset": 2369888,
+        "scale_offset": 2959712
+      }
+    },
+    {
+      "node": 46,
+      "input": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "weight": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 2304,
+        "n": 256,
+        "pitch": 2304,
+        "data_bytes": 589824,
+        "scale_bytes": 1024,
+        "data_offset": 2960736,
+        "scale_offset": 3550560
+      }
+    },
+    {
+      "node": 49,
+      "input": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "weight": [
+        512,
+        256,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        512,
+        20,
+        20
+      ],
+      "attributes": [
+        3,
+        3,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 2304,
+        "n": 512,
+        "pitch": 2304,
+        "data_bytes": 1179648,
+        "scale_bytes": 2048,
+        "data_offset": 3551584,
+        "scale_offset": 4731232
+      }
+    },
+    {
+      "node": 51,
+      "input": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "weight": [
+        256,
+        256,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 4733280,
+        "scale_offset": 4798816
+      }
+    },
+    {
+      "node": 53,
+      "input": [
+        1,
+        256,
+        20,
+        20
+      ],
+      "weight": [
+        512,
+        256,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        512,
+        20,
+        20
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 256,
+        "n": 512,
+        "pitch": 256,
+        "data_bytes": 131072,
+        "scale_bytes": 2048,
+        "data_offset": 4799840,
+        "scale_offset": 4930912
+      }
+    },
+    {
+      "node": 54,
+      "input": [
+        1,
+        512,
+        20,
+        20
+      ],
+      "weight": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        512,
+        20,
+        20
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 4608,
+        "n": 512,
+        "pitch": 4608,
+        "data_bytes": 2359296,
+        "scale_bytes": 2048,
+        "data_offset": 4932960,
+        "scale_offset": 7292256
+      }
+    },
+    {
+      "node": 57,
+      "input": [
+        1,
+        512,
+        20,
+        20
+      ],
+      "weight": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        512,
+        20,
+        20
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 4608,
+        "n": 512,
+        "pitch": 4608,
+        "data_bytes": 2359296,
+        "scale_bytes": 2048,
+        "data_offset": 7294304,
+        "scale_offset": 9653600
+      }
+    },
+    {
+      "node": 59,
+      "input": [
+        1,
+        512,
+        20,
+        20
+      ],
+      "weight": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        512,
+        20,
+        20
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 4608,
+        "n": 512,
+        "pitch": 4608,
+        "data_bytes": 2359296,
+        "scale_bytes": 2048,
+        "data_offset": 9655648,
+        "scale_offset": 12014944
+      }
+    },
+    {
+      "node": 62,
+      "input": [
+        1,
+        512,
+        20,
+        20
+      ],
+      "weight": [
+        256,
+        512,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        256,
+        20,
+        20
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 512,
+        "n": 256,
+        "pitch": 512,
+        "data_bytes": 131072,
+        "scale_bytes": 1024,
+        "data_offset": 12016992,
+        "scale_offset": 12148064
+      }
+    },
+    {
+      "node": 120,
+      "input": [
+        1,
+        256,
+        20,
+        20
+      ],
+      "weight": [
+        256,
+        256,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        256,
+        20,
+        20
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 12944736,
+        "scale_offset": 13010272
+      }
+    },
+    {
+      "node": 125,
+      "input": [
+        1,
+        512,
+        40,
+        40
+      ],
+      "weight": [
+        128,
+        512,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 512,
+        "n": 128,
+        "pitch": 512,
+        "data_bytes": 65536,
+        "scale_bytes": 512,
+        "data_offset": 13011296,
+        "scale_offset": 13076832
+      }
+    },
+    {
+      "node": 126,
+      "input": [
+        1,
+        512,
+        40,
+        40
+      ],
+      "weight": [
+        128,
+        512,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 512,
+        "n": 128,
+        "pitch": 512,
+        "data_bytes": 65536,
+        "scale_bytes": 512,
+        "data_offset": 13077344,
+        "scale_offset": 13142880
+      }
+    },
+    {
+      "node": 131,
+      "input": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 1152,
+        "n": 128,
+        "pitch": 1152,
+        "data_bytes": 147456,
+        "scale_bytes": 512,
+        "data_offset": 13143392,
+        "scale_offset": 13290848
+      }
+    },
+    {
+      "node": 134,
+      "input": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 1152,
+        "n": 128,
+        "pitch": 1152,
+        "data_bytes": 147456,
+        "scale_bytes": 512,
+        "data_offset": 13291360,
+        "scale_offset": 13438816
+      }
+    },
+    {
+      "node": 137,
+      "input": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 1152,
+        "n": 128,
+        "pitch": 1152,
+        "data_bytes": 147456,
+        "scale_bytes": 512,
+        "data_offset": 13439328,
+        "scale_offset": 13586784
+      }
+    },
+    {
+      "node": 141,
+      "input": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "weight": [
+        256,
+        128,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 128,
+        "n": 256,
+        "pitch": 128,
+        "data_bytes": 32768,
+        "scale_bytes": 1024,
+        "data_offset": 13587296,
+        "scale_offset": 13620064
+      }
+    },
+    {
+      "node": 144,
+      "input": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "weight": [
+        256,
+        256,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 13621088,
+        "scale_offset": 13686624
+      }
+    },
+    {
+      "node": 149,
+      "input": [
+        1,
+        512,
+        80,
+        80
+      ],
+      "weight": [
+        128,
+        512,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 512,
+        "n": 128,
+        "pitch": 512,
+        "data_bytes": 65536,
+        "scale_bytes": 512,
+        "data_offset": 13687648,
+        "scale_offset": 13753184
+      }
+    },
+    {
+      "node": 150,
+      "input": [
+        1,
+        512,
+        80,
+        80
+      ],
+      "weight": [
+        128,
+        512,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 512,
+        "n": 128,
+        "pitch": 512,
+        "data_bytes": 65536,
+        "scale_bytes": 512,
+        "data_offset": 13753696,
+        "scale_offset": 13819232
+      }
+    },
+    {
+      "node": 155,
+      "input": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 1152,
+        "n": 128,
+        "pitch": 1152,
+        "data_bytes": 147456,
+        "scale_bytes": 512,
+        "data_offset": 13819744,
+        "scale_offset": 13967200
+      }
+    },
+    {
+      "node": 158,
+      "input": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 1152,
+        "n": 128,
+        "pitch": 1152,
+        "data_bytes": 147456,
+        "scale_bytes": 512,
+        "data_offset": 13967712,
+        "scale_offset": 14115168
+      }
+    },
+    {
+      "node": 161,
+      "input": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 1152,
+        "n": 128,
+        "pitch": 1152,
+        "data_bytes": 147456,
+        "scale_bytes": 512,
+        "data_offset": 14115680,
+        "scale_offset": 14263136
+      }
+    },
+    {
+      "node": 165,
+      "input": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "weight": [
+        256,
+        128,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        256,
+        80,
+        80
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 128,
+        "n": 256,
+        "pitch": 128,
+        "data_bytes": 32768,
+        "scale_bytes": 1024,
+        "data_offset": 14263648,
+        "scale_offset": 14296416
+      }
+    },
+    {
+      "node": 168,
+      "input": [
+        1,
+        256,
+        80,
+        80
+      ],
+      "weight": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "attributes": [
+        3,
+        3,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 2304,
+        "n": 256,
+        "pitch": 2304,
+        "data_bytes": 589824,
+        "scale_bytes": 1024,
+        "data_offset": 14297440,
+        "scale_offset": 14887264
+      }
+    },
+    {
+      "node": 169,
+      "input": [
+        1,
+        256,
+        80,
+        80
+      ],
+      "weight": [
+        256,
+        256,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        256,
+        80,
+        80
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 14888288,
+        "scale_offset": 14953824
+      }
+    },
+    {
+      "node": 175,
+      "input": [
+        1,
+        512,
+        40,
+        40
+      ],
+      "weight": [
+        128,
+        512,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 512,
+        "n": 128,
+        "pitch": 512,
+        "data_bytes": 65536,
+        "scale_bytes": 512,
+        "data_offset": 14954848,
+        "scale_offset": 15020384
+      }
+    },
+    {
+      "node": 176,
+      "input": [
+        1,
+        512,
+        40,
+        40
+      ],
+      "weight": [
+        128,
+        512,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 512,
+        "n": 128,
+        "pitch": 512,
+        "data_bytes": 65536,
+        "scale_bytes": 512,
+        "data_offset": 15020896,
+        "scale_offset": 15086432
+      }
+    },
+    {
+      "node": 181,
+      "input": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 1152,
+        "n": 128,
+        "pitch": 1152,
+        "data_bytes": 147456,
+        "scale_bytes": 512,
+        "data_offset": 15086944,
+        "scale_offset": 15234400
+      }
+    },
+    {
+      "node": 184,
+      "input": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 1152,
+        "n": 128,
+        "pitch": 1152,
+        "data_bytes": 147456,
+        "scale_bytes": 512,
+        "data_offset": 15234912,
+        "scale_offset": 15382368
+      }
+    },
+    {
+      "node": 187,
+      "input": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 1152,
+        "n": 128,
+        "pitch": 1152,
+        "data_bytes": 147456,
+        "scale_bytes": 512,
+        "data_offset": 15382880,
+        "scale_offset": 15530336
+      }
+    },
+    {
+      "node": 191,
+      "input": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "weight": [
+        256,
+        128,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 128,
+        "n": 256,
+        "pitch": 128,
+        "data_bytes": 32768,
+        "scale_bytes": 1024,
+        "data_offset": 15530848,
+        "scale_offset": 15563616
+      }
+    },
+    {
+      "node": 194,
+      "input": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "weight": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        256,
+        20,
+        20
+      ],
+      "attributes": [
+        3,
+        3,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 2304,
+        "n": 256,
+        "pitch": 2304,
+        "data_bytes": 589824,
+        "scale_bytes": 1024,
+        "data_offset": 15564640,
+        "scale_offset": 16154464
+      }
+    },
+    {
+      "node": 195,
+      "input": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "weight": [
+        256,
+        256,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        256,
+        40,
+        40
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 16155488,
+        "scale_offset": 16221024
+      }
+    },
+    {
+      "node": 201,
+      "input": [
+        1,
+        512,
+        20,
+        20
+      ],
+      "weight": [
+        128,
+        512,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        128,
+        20,
+        20
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 512,
+        "n": 128,
+        "pitch": 512,
+        "data_bytes": 65536,
+        "scale_bytes": 512,
+        "data_offset": 16222048,
+        "scale_offset": 16287584
+      }
+    },
+    {
+      "node": 202,
+      "input": [
+        1,
+        512,
+        20,
+        20
+      ],
+      "weight": [
+        128,
+        512,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        128,
+        20,
+        20
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 512,
+        "n": 128,
+        "pitch": 512,
+        "data_bytes": 65536,
+        "scale_bytes": 512,
+        "data_offset": 16288096,
+        "scale_offset": 16353632
+      }
+    },
+    {
+      "node": 207,
+      "input": [
+        1,
+        128,
+        20,
+        20
+      ],
+      "weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        128,
+        20,
+        20
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 1152,
+        "n": 128,
+        "pitch": 1152,
+        "data_bytes": 147456,
+        "scale_bytes": 512,
+        "data_offset": 16354144,
+        "scale_offset": 16501600
+      }
+    },
+    {
+      "node": 210,
+      "input": [
+        1,
+        128,
+        20,
+        20
+      ],
+      "weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        128,
+        20,
+        20
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 1152,
+        "n": 128,
+        "pitch": 1152,
+        "data_bytes": 147456,
+        "scale_bytes": 512,
+        "data_offset": 16502112,
+        "scale_offset": 16649568
+      }
+    },
+    {
+      "node": 213,
+      "input": [
+        1,
+        128,
+        20,
+        20
+      ],
+      "weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "output": [
+        1,
+        128,
+        20,
+        20
+      ],
+      "attributes": [
+        3,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 1152,
+        "n": 128,
+        "pitch": 1152,
+        "data_bytes": 147456,
+        "scale_bytes": 512,
+        "data_offset": 16650080,
+        "scale_offset": 16797536
+      }
+    },
+    {
+      "node": 217,
+      "input": [
+        1,
+        128,
+        20,
+        20
+      ],
+      "weight": [
+        256,
+        128,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        256,
+        20,
+        20
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 128,
+        "n": 256,
+        "pitch": 128,
+        "data_bytes": 32768,
+        "scale_bytes": 1024,
+        "data_offset": 16798048,
+        "scale_offset": 16830816
+      }
+    },
+    {
+      "node": 220,
+      "input": [
+        1,
+        256,
+        20,
+        20
+      ],
+      "weight": [
+        256,
+        256,
+        1,
+        1
+      ],
+      "output": [
+        1,
+        256,
+        20,
+        20
+      ],
+      "attributes": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "binding": {
+        "kind": 1,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 16831840,
+        "scale_offset": 16897376
+      }
+    }
+  ],
+  "matmul": [
+    {
+      "node": 67,
+      "op": "MatMul",
+      "a": [
+        400,
+        1,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        400,
+        1,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 12149088,
+        "scale_offset": 12214624
+      }
+    },
+    {
+      "node": 70,
+      "op": "MatMul",
+      "a": [
+        400,
+        1,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        400,
+        1,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 12215648,
+        "scale_offset": 12281184
+      }
+    },
+    {
+      "node": 71,
+      "op": "MatMul",
+      "a": [
+        400,
+        1,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        400,
+        1,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 12282208,
+        "scale_offset": 12347744
+      }
+    },
+    {
+      "node": 81,
+      "op": "MatMul",
+      "a": [
+        8,
+        400,
+        32
+      ],
+      "b": [
+        8,
+        32,
+        400
+      ],
+      "output": [
+        8,
+        400,
+        400
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": false,
+      "binding": null
+    },
+    {
+      "node": 83,
+      "op": "MatMul",
+      "a": [
+        8,
+        400,
+        400
+      ],
+      "b": [
+        8,
+        400,
+        32
+      ],
+      "output": [
+        8,
+        400,
+        32
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": false,
+      "binding": null
+    },
+    {
+      "node": 86,
+      "op": "Gemm",
+      "a": [
+        400,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        400,
+        256
+      ],
+      "flags": [
+        0,
+        1
+      ],
+      "alpha_beta": [
+        1.0,
+        1.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 3,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 12348768,
+        "scale_offset": 12414304
+      }
+    },
+    {
+      "node": 99,
+      "op": "MatMul",
+      "a": [
+        1,
+        400,
+        256
+      ],
+      "b": [
+        256,
+        1024
+      ],
+      "output": [
+        1,
+        400,
+        1024
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 1024,
+        "pitch": 256,
+        "data_bytes": 262144,
+        "scale_bytes": 4096,
+        "data_offset": 12415328,
+        "scale_offset": 12677472
+      }
+    },
+    {
+      "node": 106,
+      "op": "MatMul",
+      "a": [
+        1,
+        400,
+        1024
+      ],
+      "b": [
+        1024,
+        256
+      ],
+      "output": [
+        1,
+        400,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 1024,
+        "n": 256,
+        "pitch": 1024,
+        "data_bytes": 262144,
+        "scale_bytes": 1024,
+        "data_offset": 12681568,
+        "scale_offset": 12943712
+      }
+    },
+    {
+      "node": 225,
+      "op": "MatMul",
+      "a": [
+        1,
+        8400,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        1,
+        8400,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 16898400,
+        "scale_offset": 16963936
+      }
+    },
+    {
+      "node": 226,
+      "op": "MatMul",
+      "a": [
+        1,
+        8400,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        1,
+        8400,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 16964960,
+        "scale_offset": 17030496
+      }
+    },
+    {
+      "node": 227,
+      "op": "MatMul",
+      "a": [
+        1,
+        8400,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        1,
+        8400,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 17031520,
+        "scale_offset": 17097056
+      }
+    },
+    {
+      "node": 228,
+      "op": "MatMul",
+      "a": [
+        1,
+        8400,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        1,
+        8400,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 17098080,
+        "scale_offset": 17163616
+      }
+    },
+    {
+      "node": 269,
+      "op": "MatMul",
+      "a": [
+        1,
+        8400,
+        256
+      ],
+      "b": [
+        256,
+        26
+      ],
+      "output": [
+        1,
+        8400,
+        26
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 26,
+        "pitch": 256,
+        "data_bytes": 6656,
+        "scale_bytes": 112,
+        "data_offset": 17164640,
+        "scale_offset": 17171296
+      }
+    },
+    {
+      "node": 270,
+      "op": "MatMul",
+      "a": [
+        1,
+        8400,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        1,
+        8400,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 17171408,
+        "scale_offset": 17236944
+      }
+    },
+    {
+      "node": 275,
+      "op": "MatMul",
+      "a": [
+        1,
+        8400,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        1,
+        8400,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 17237968,
+        "scale_offset": 17303504
+      }
+    },
+    {
+      "node": 282,
+      "op": "MatMul",
+      "a": [
+        1,
+        8400,
+        256
+      ],
+      "b": [
+        256,
+        4
+      ],
+      "output": [
+        1,
+        8400,
+        4
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 4,
+        "pitch": 256,
+        "data_bytes": 1024,
+        "scale_bytes": 16,
+        "data_offset": 17304528,
+        "scale_offset": 17305552
+      }
+    },
+    {
+      "node": 287,
+      "op": "MatMul",
+      "a": [
+        300,
+        1,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        300,
+        1,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 17305568,
+        "scale_offset": 17371104
+      }
+    },
+    {
+      "node": 292,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        4
+      ],
+      "b": [
+        4,
+        512
+      ],
+      "output": [
+        1,
+        300,
+        512
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 4,
+        "n": 512,
+        "pitch": 16,
+        "data_bytes": 8192,
+        "scale_bytes": 2048,
+        "data_offset": 17372128,
+        "scale_offset": 17380320
+      }
+    },
+    {
+      "node": 303,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        512
+      ],
+      "b": [
+        512,
+        256
+      ],
+      "output": [
+        1,
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 512,
+        "n": 256,
+        "pitch": 512,
+        "data_bytes": 131072,
+        "scale_bytes": 1024,
+        "data_offset": 17382368,
+        "scale_offset": 17513440
+      }
+    },
+    {
+      "node": 309,
+      "op": "MatMul",
+      "a": [
+        300,
+        1,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        300,
+        1,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 17514464,
+        "scale_offset": 17580000
+      }
+    },
+    {
+      "node": 310,
+      "op": "MatMul",
+      "a": [
+        300,
+        1,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        300,
+        1,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 17581024,
+        "scale_offset": 17646560
+      }
+    },
+    {
+      "node": 318,
+      "op": "MatMul",
+      "a": [
+        8,
+        300,
+        32
+      ],
+      "b": [
+        8,
+        32,
+        300
+      ],
+      "output": [
+        8,
+        300,
+        300
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": false,
+      "binding": null
+    },
+    {
+      "node": 320,
+      "op": "MatMul",
+      "a": [
+        8,
+        300,
+        300
+      ],
+      "b": [
+        8,
+        300,
+        32
+      ],
+      "output": [
+        8,
+        300,
+        32
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": false,
+      "binding": null
+    },
+    {
+      "node": 323,
+      "op": "Gemm",
+      "a": [
+        300,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        1
+      ],
+      "alpha_beta": [
+        1.0,
+        1.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 3,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 17647584,
+        "scale_offset": 17713120
+      }
+    },
+    {
+      "node": 337,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        192
+      ],
+      "output": [
+        1,
+        300,
+        192
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 192,
+        "pitch": 256,
+        "data_bytes": 49152,
+        "scale_bytes": 768,
+        "data_offset": 17714144,
+        "scale_offset": 17763296
+      }
+    },
+    {
+      "node": 338,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        96
+      ],
+      "output": [
+        1,
+        300,
+        96
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 96,
+        "pitch": 256,
+        "data_bytes": 24576,
+        "scale_bytes": 384,
+        "data_offset": 17764064,
+        "scale_offset": 17788640
+      }
+    },
+    {
+      "node": 363,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        1,
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 17789024,
+        "scale_offset": 17854560
+      }
+    },
+    {
+      "node": 375,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        1024
+      ],
+      "output": [
+        1,
+        300,
+        1024
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 1024,
+        "pitch": 256,
+        "data_bytes": 262144,
+        "scale_bytes": 4096,
+        "data_offset": 17855584,
+        "scale_offset": 18117728
+      }
+    },
+    {
+      "node": 378,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        1024
+      ],
+      "b": [
+        1024,
+        256
+      ],
+      "output": [
+        1,
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 1024,
+        "n": 256,
+        "pitch": 1024,
+        "data_bytes": 262144,
+        "scale_bytes": 1024,
+        "data_offset": 18121824,
+        "scale_offset": 18383968
+      }
+    },
+    {
+      "node": 390,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        1,
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 18384992,
+        "scale_offset": 18450528
+      }
+    },
+    {
+      "node": 393,
+      "op": "MatMul",
+      "a": [
+        300,
+        1,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        300,
+        1,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 18451552,
+        "scale_offset": 18517088
+      }
+    },
+    {
+      "node": 396,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        1,
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 18518112,
+        "scale_offset": 18583648
+      }
+    },
+    {
+      "node": 401,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        4
+      ],
+      "output": [
+        1,
+        300,
+        4
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 4,
+        "pitch": 256,
+        "data_bytes": 1024,
+        "scale_bytes": 16,
+        "data_offset": 18584672,
+        "scale_offset": 18585696
+      }
+    },
+    {
+      "node": 405,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        4
+      ],
+      "b": [
+        4,
+        512
+      ],
+      "output": [
+        1,
+        300,
+        512
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 4,
+        "n": 512,
+        "pitch": 16,
+        "data_bytes": 8192,
+        "scale_bytes": 2048,
+        "data_offset": 17372128,
+        "scale_offset": 17380320
+      }
+    },
+    {
+      "node": 415,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        512
+      ],
+      "b": [
+        512,
+        256
+      ],
+      "output": [
+        1,
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 512,
+        "n": 256,
+        "pitch": 512,
+        "data_bytes": 131072,
+        "scale_bytes": 1024,
+        "data_offset": 17382368,
+        "scale_offset": 17513440
+      }
+    },
+    {
+      "node": 421,
+      "op": "MatMul",
+      "a": [
+        300,
+        1,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        300,
+        1,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 18585712,
+        "scale_offset": 18651248
+      }
+    },
+    {
+      "node": 422,
+      "op": "MatMul",
+      "a": [
+        300,
+        1,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        300,
+        1,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 18652272,
+        "scale_offset": 18717808
+      }
+    },
+    {
+      "node": 430,
+      "op": "MatMul",
+      "a": [
+        8,
+        300,
+        32
+      ],
+      "b": [
+        8,
+        32,
+        300
+      ],
+      "output": [
+        8,
+        300,
+        300
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": false,
+      "binding": null
+    },
+    {
+      "node": 432,
+      "op": "MatMul",
+      "a": [
+        8,
+        300,
+        300
+      ],
+      "b": [
+        8,
+        300,
+        32
+      ],
+      "output": [
+        8,
+        300,
+        32
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": false,
+      "binding": null
+    },
+    {
+      "node": 435,
+      "op": "Gemm",
+      "a": [
+        300,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        1
+      ],
+      "alpha_beta": [
+        1.0,
+        1.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 3,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 18718832,
+        "scale_offset": 18784368
+      }
+    },
+    {
+      "node": 449,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        192
+      ],
+      "output": [
+        1,
+        300,
+        192
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 192,
+        "pitch": 256,
+        "data_bytes": 49152,
+        "scale_bytes": 768,
+        "data_offset": 18785392,
+        "scale_offset": 18834544
+      }
+    },
+    {
+      "node": 450,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        96
+      ],
+      "output": [
+        1,
+        300,
+        96
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 96,
+        "pitch": 256,
+        "data_bytes": 24576,
+        "scale_bytes": 384,
+        "data_offset": 18835312,
+        "scale_offset": 18859888
+      }
+    },
+    {
+      "node": 475,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        1,
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 18860272,
+        "scale_offset": 18925808
+      }
+    },
+    {
+      "node": 487,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        1024
+      ],
+      "output": [
+        1,
+        300,
+        1024
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 1024,
+        "pitch": 256,
+        "data_bytes": 262144,
+        "scale_bytes": 4096,
+        "data_offset": 18926832,
+        "scale_offset": 19188976
+      }
+    },
+    {
+      "node": 490,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        1024
+      ],
+      "b": [
+        1024,
+        256
+      ],
+      "output": [
+        1,
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 1024,
+        "n": 256,
+        "pitch": 1024,
+        "data_bytes": 262144,
+        "scale_bytes": 1024,
+        "data_offset": 19193072,
+        "scale_offset": 19455216
+      }
+    },
+    {
+      "node": 502,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        1,
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 19456240,
+        "scale_offset": 19521776
+      }
+    },
+    {
+      "node": 505,
+      "op": "MatMul",
+      "a": [
+        300,
+        1,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        300,
+        1,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 19522800,
+        "scale_offset": 19588336
+      }
+    },
+    {
+      "node": 508,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        1,
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 19589360,
+        "scale_offset": 19654896
+      }
+    },
+    {
+      "node": 513,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        4
+      ],
+      "output": [
+        1,
+        300,
+        4
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 4,
+        "pitch": 256,
+        "data_bytes": 1024,
+        "scale_bytes": 16,
+        "data_offset": 19655920,
+        "scale_offset": 19656944
+      }
+    },
+    {
+      "node": 517,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        4
+      ],
+      "b": [
+        4,
+        512
+      ],
+      "output": [
+        1,
+        300,
+        512
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 4,
+        "n": 512,
+        "pitch": 16,
+        "data_bytes": 8192,
+        "scale_bytes": 2048,
+        "data_offset": 17372128,
+        "scale_offset": 17380320
+      }
+    },
+    {
+      "node": 527,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        512
+      ],
+      "b": [
+        512,
+        256
+      ],
+      "output": [
+        1,
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 512,
+        "n": 256,
+        "pitch": 512,
+        "data_bytes": 131072,
+        "scale_bytes": 1024,
+        "data_offset": 17382368,
+        "scale_offset": 17513440
+      }
+    },
+    {
+      "node": 533,
+      "op": "MatMul",
+      "a": [
+        300,
+        1,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        300,
+        1,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 19656960,
+        "scale_offset": 19722496
+      }
+    },
+    {
+      "node": 534,
+      "op": "MatMul",
+      "a": [
+        300,
+        1,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        300,
+        1,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 19723520,
+        "scale_offset": 19789056
+      }
+    },
+    {
+      "node": 542,
+      "op": "MatMul",
+      "a": [
+        8,
+        300,
+        32
+      ],
+      "b": [
+        8,
+        32,
+        300
+      ],
+      "output": [
+        8,
+        300,
+        300
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": false,
+      "binding": null
+    },
+    {
+      "node": 544,
+      "op": "MatMul",
+      "a": [
+        8,
+        300,
+        300
+      ],
+      "b": [
+        8,
+        300,
+        32
+      ],
+      "output": [
+        8,
+        300,
+        32
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": false,
+      "binding": null
+    },
+    {
+      "node": 547,
+      "op": "Gemm",
+      "a": [
+        300,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        1
+      ],
+      "alpha_beta": [
+        1.0,
+        1.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 3,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 19790080,
+        "scale_offset": 19855616
+      }
+    },
+    {
+      "node": 561,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        192
+      ],
+      "output": [
+        1,
+        300,
+        192
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 192,
+        "pitch": 256,
+        "data_bytes": 49152,
+        "scale_bytes": 768,
+        "data_offset": 19856640,
+        "scale_offset": 19905792
+      }
+    },
+    {
+      "node": 562,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        96
+      ],
+      "output": [
+        1,
+        300,
+        96
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 96,
+        "pitch": 256,
+        "data_bytes": 24576,
+        "scale_bytes": 384,
+        "data_offset": 19906560,
+        "scale_offset": 19931136
+      }
+    },
+    {
+      "node": 587,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        1,
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 19931520,
+        "scale_offset": 19997056
+      }
+    },
+    {
+      "node": 599,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        1024
+      ],
+      "output": [
+        1,
+        300,
+        1024
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 1024,
+        "pitch": 256,
+        "data_bytes": 262144,
+        "scale_bytes": 4096,
+        "data_offset": 19998080,
+        "scale_offset": 20260224
+      }
+    },
+    {
+      "node": 602,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        1024
+      ],
+      "b": [
+        1024,
+        256
+      ],
+      "output": [
+        1,
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 1024,
+        "n": 256,
+        "pitch": 1024,
+        "data_bytes": 262144,
+        "scale_bytes": 1024,
+        "data_offset": 20264320,
+        "scale_offset": 20526464
+      }
+    },
+    {
+      "node": 614,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        1,
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 20527488,
+        "scale_offset": 20593024
+      }
+    },
+    {
+      "node": 615,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        26
+      ],
+      "output": [
+        1,
+        300,
+        26
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 26,
+        "pitch": 256,
+        "data_bytes": 6656,
+        "scale_bytes": 112,
+        "data_offset": 20594048,
+        "scale_offset": 20600704
+      }
+    },
+    {
+      "node": 620,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        256
+      ],
+      "output": [
+        1,
+        300,
+        256
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 256,
+        "pitch": 256,
+        "data_bytes": 65536,
+        "scale_bytes": 1024,
+        "data_offset": 20600816,
+        "scale_offset": 20666352
+      }
+    },
+    {
+      "node": 627,
+      "op": "MatMul",
+      "a": [
+        1,
+        300,
+        256
+      ],
+      "b": [
+        256,
+        4
+      ],
+      "output": [
+        1,
+        300,
+        4
+      ],
+      "flags": [
+        0,
+        0
+      ],
+      "alpha_beta": [
+        0.0,
+        0.0
+      ],
+      "static": true,
+      "binding": {
+        "kind": 2,
+        "k": 256,
+        "n": 4,
+        "pitch": 256,
+        "data_bytes": 1024,
+        "scale_bytes": 16,
+        "data_offset": 20667376,
+        "scale_offset": 20668400
+      }
+    }
+  ],
+  "estimates": {
+    "conv_tile_jobs": 217280,
+    "conv_MAC": 25155993600,
+    "conv_engine_cycles": 6416947200,
+    "conv_compute_only_seconds_27MHz": 237.6647111111111,
+    "conv_qinput_bytes_total": 48087040,
+    "max_conv_qinput_bytes": 3276800,
+    "conv_FP32_outputs_bytes": 171008000
+  }
+}

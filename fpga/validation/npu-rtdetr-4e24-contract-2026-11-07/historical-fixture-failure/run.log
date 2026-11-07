@@ -1,0 +1,20 @@
+warning: Some design elements have no explicit time unit and/or
+       : time precision. This may cause confusing timing results.
+       : Affected design elements are:
+       :   -- module conv_tile_engine_8oc declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-rtdetr-contract\source_snapshot\npu\rtl\conv_tile_engine_8oc.v:4
+       :   -- module mem_adapter declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-rtdetr-contract\source_snapshot\mem\rtl\mem_adapter.v:10
+       :   -- module memv1_bridge declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-rtdetr-contract\source_snapshot\mem\rtl\memv1_bridge.v:7
+       :   -- module memv1_crc32b declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-rtdetr-contract\source_snapshot\mem\rtl\memv1_crc32b.v:3
+       :   -- module memv1_dpram declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-rtdetr-contract\source_snapshot\mem\rtl\memv1_crc32b.v:13
+       :   -- module npu_ddr_arbiter declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-rtdetr-contract\source_snapshot\npu\rtl\npu_ddr_arbiter.v:9
+       :   -- module npu_ddr_core_8oc declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-rtdetr-contract\source_snapshot\npu\rtl\npu_ddr_core_8oc.v:3
+       :   -- module npu_ddr_matmul_sequencer declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-rtdetr-contract\source_snapshot\npu\rtl\npu_ddr_core_8oc.v:145
+       :   -- module npu_ddr_sys declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-rtdetr-contract\source_snapshot\npu\rtl\npu_ddr_sys.v:2
+       :   -- module npu_ddr_tile_loader_8oc declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-rtdetr-contract\source_snapshot\npu\rtl\npu_ddr_tile_loader_8oc.v:4
+       :   -- module npu_ddr_u32x16 declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-rtdetr-contract\source_snapshot\npu\rtl\npu_ddr_tile_loader_8oc.v:236
+       :   -- module npu_mm_seq_u32mul declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-rtdetr-contract\source_snapshot\npu\rtl\npu_ddr_core_8oc.v:285
+D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-rtdetr-contract\source_snapshot\npu\rtl\npu_ddr_sys.v:45: warning: @* is sensitive to all 6 words in array 'reply'.
+D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-rtdetr-contract\source_snapshot\npu\rtl\conv_tile_engine_8oc.v:119: warning: @* is sensitive to all 8 words in array 'output_q'.
+
+FATAL: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-rtdetr-contract\proof\tb_npu_ddr_core_8oc.v:79: status opcode 00000068 got           5 expected           0 packet         339
+       Time: 157705660500  Scope: tb_conv_link.command

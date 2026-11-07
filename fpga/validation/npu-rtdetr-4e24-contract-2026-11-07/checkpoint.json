@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "hardware_access": false,
+  "scope": "Representative RTL integer/address contracts +complete typedmetadata shape audit, NOT RTDETR model/device inference",
+  "FPGA_bitstream_unchanged": "USER/CAPS4E24",
+  "reference_FS_sha256": "3d3d2e20211be5d48c8fb3f9c0b0311f2641ee08817ad46d598a8da98129bd69",
+  "RTL_commands": 369,
+  "new_Conv_outputs": 2295,
+  "new_Gemm_MatMul_outputs": 2340,
+  "static_weights": "Deterministic syntheticINT8 OIHW/NxK fixtures with full static pitches, not pretrained model output validation",
+  "addresses_tested": [
+    "32MiB staticweights",
+    "80MiB qinput/output"
+  ],
+  "model_metadata_audit": "57Conv+65MatMul/Gemm,114static/8dynamicbindings",
+  "new_RTL_or_synthesis": false,
+  "physical_timing_qualified": false
+}
