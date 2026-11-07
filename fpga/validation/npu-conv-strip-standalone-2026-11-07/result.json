@@ -1,0 +1,103 @@
+{
+  "passed": true,
+  "implemented": "isolated controller only, no protocol/top integration",
+  "hardware_access": false,
+  "cases": 67,
+  "accepted_descriptors": 4299,
+  "numeric_INT32_values": 8404,
+  "numeric_scope": "Actual RTL descriptors interpreted by independent fake tile engine vs direct whole-strip INT64 Conv",
+  "public_valid_handshake_observer": "PASS abort/cal-loss coincident ready; ungated build-copy negative control intentionally fails observer",
+  "actual_loader": {
+    "cases": 4,
+    "actual_INT32_values": 1057,
+    "actual_loader_tiles": 16,
+    "scope": "Actual unchanged8OC loader+MAC, tagged fakeDDR adapter and full256KiB DDR guard comparison; not DDR PHY/board",
+    "adapter_template_sha256": "78f5a2c2f4faed15fb502ab7a8de4031494cf53deb6b0a075d45ad498ef53985",
+    "source_sha256": {
+      "npu_ddr_conv_strip_sequencer.v": "e6300e5a50128f1cb31110e82272dc4f365ad1f45943e38ce12f3f1f2c853b6a",
+      "npu_ddr_tile_loader_8oc.v": "9cba9897608dcc593c68873b4be3ac0e2f5e6dcb8af216dd685c62472d337097",
+      "conv_tile_engine_8oc.v": "a518847986b9ca638eb4b7a72d33e882d5038ed5d77e73bf9edbcb57e7c46bdf"
+    }
+  },
+  "commands": [
+    {
+      "command": [
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb",
+        "-o",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\conv-strip-proof\\proof.vvp",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_ddr_conv_strip_sequencer.v",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\conv-strip-proof\\tb.v"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\vvp.exe",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\conv-strip-proof\\proof.vvp"
+      ],
+      "returncode": 0,
+      "stdout": "PASS RTL strip jobs=67\nD:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\conv-strip-proof\\tb.v:77: $finish called at 530370000 (1ps)\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_ddr_loader",
+        "-o",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\conv-strip-proof\\real.vvp",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_ddr_conv_strip_sequencer.v",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_ddr_tile_loader_8oc.v",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\conv_tile_engine_8oc.v",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\conv-strip-proof\\real-tb.v"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\vvp.exe",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\conv-strip-proof\\real.vvp"
+      ],
+      "returncode": 0,
+      "stdout": "PASS actual8OC loader strip job0 tiles4\nPASS actual8OC loader strip job1 tiles9\nPASS actual8OC loader strip job2 tiles2\nPASS actual8OC loader strip job3 tiles1\nD:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\conv-strip-proof\\real-tb.v:89: $finish called at 4203348000 (1ps)\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb",
+        "-o",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\conv-strip-proof\\negative.vvp",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\conv-strip-proof\\negative-ungated.v",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\conv-strip-proof\\negative-tb.v"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\vvp.exe",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\conv-strip-proof\\negative.vvp"
+      ],
+      "returncode": 1,
+      "stdout": "FATAL: D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\build\\conv-strip-proof\\negative-tb.v:30: public result handshake during abort/cal-loss\n       Time: 2605000  Scope: tb\n",
+      "stderr": "",
+      "expected_failure": true
+    }
+  ],
+  "source_sha256": {
+    "fpga\\npu\\rtl\\npu_ddr_conv_strip_sequencer.v": "e6300e5a50128f1cb31110e82272dc4f365ad1f45943e38ce12f3f1f2c853b6a",
+    "fpga\\npu\\tests\\run_ddr_conv_strip_sequencer.py": "feb8444c892a02335368ceaca7ac946741ed62190ab9de3ff34845c20b10c269"
+  }
+}
