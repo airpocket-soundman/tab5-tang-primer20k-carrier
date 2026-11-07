@@ -1,0 +1,34 @@
+{
+  "variant": "USERCODE4E23/CAPS4E20",
+  "scope": "Healthy idle timeout guard only; unchanged pins/protocol/operator math",
+  "build_passed": true,
+  "fs_sha256": "966770fb8b142c008470b4189a8d625b8b06e4b49dbbb7a3f51cec5834a122c9",
+  "resources": {
+    "logic": 11148,
+    "register": 6018,
+    "BSRAM": 45,
+    "BSRAM_capacity": 46,
+    "DSP": 12.5,
+    "DSP_capacity": 24
+  },
+  "timing": {
+    "qualified": false,
+    "unwaived_setup_endpoints": 1408,
+    "unwaived_hold_endpoints": 111,
+    "same_clock_sys_fmax_MHz": 45.997,
+    "same_clock_user_fmax_MHz": 100.543,
+    "actual_user_clock_MHz": 99.5625
+  },
+  "RTL": {
+    "idle_legacy_fault8_reproduced": true,
+    "healthy_idle_preserved": true,
+    "partial_and_active_timeouts_preserved": true,
+    "core_commands": 68,
+    "core_link_timeout_cycles": 700000,
+    "healthy_idle_gap_cycles": 1400100,
+    "hardware_access": false
+  },
+  "physical_status": "Root SRAM programming succeeded; root-reported USER4E23/status6020; full resident two-image 10MHz inference pending",
+  "production_4e22_modified": false,
+  "physical_source": "program-sram.log archived; USER/status confirmed by root message, separate raw read logs not supplied"
+}

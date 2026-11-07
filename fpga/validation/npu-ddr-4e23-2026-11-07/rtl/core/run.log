@@ -1,0 +1,18 @@
+warning: Some design elements have no explicit time unit and/or
+       : time precision. This may cause confusing timing results.
+       : Affected design elements are:
+       :   -- module conv_tile_engine_8oc declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-ddr-idle-guard-core-v2\source_snapshot\npu\rtl\conv_tile_engine_8oc.v:4
+       :   -- module mem_adapter declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-ddr-idle-guard-core-v2\source_snapshot\mem\rtl\mem_adapter.v:10
+       :   -- module memv1_bridge declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-ddr-idle-guard-core-v2\source_snapshot\mem\rtl\memv1_bridge.v:7
+       :   -- module memv1_crc32b declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-ddr-idle-guard-core-v2\source_snapshot\mem\rtl\memv1_crc32b.v:3
+       :   -- module memv1_dpram declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-ddr-idle-guard-core-v2\source_snapshot\mem\rtl\memv1_crc32b.v:13
+       :   -- module npu_ddr_arbiter declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-ddr-idle-guard-core-v2\source_snapshot\npu\rtl\npu_ddr_arbiter.v:9
+       :   -- module npu_ddr_core_8oc declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-ddr-idle-guard-core-v2\source_snapshot\npu\rtl\npu_ddr_core_8oc.v:3
+       :   -- module npu_ddr_sys declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-ddr-idle-guard-core-v2\source_snapshot\npu\rtl\npu_ddr_sys.v:2
+       :   -- module npu_ddr_tile_loader_8oc declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-ddr-idle-guard-core-v2\source_snapshot\npu\rtl\npu_ddr_tile_loader_8oc.v:4
+       :   -- module npu_ddr_u32x16 declared here: D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-ddr-idle-guard-core-v2\source_snapshot\npu\rtl\npu_ddr_tile_loader_8oc.v:236
+D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-ddr-idle-guard-core-v2\source_snapshot\npu\rtl\npu_ddr_sys.v:39: warning: @* is sensitive to all 6 words in array 'reply'.
+D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-ddr-idle-guard-core-v2\source_snapshot\npu\rtl\conv_tile_engine_8oc.v:119: warning: @* is sensitive to all 8 words in array 'output_q'.
+
+PASS NPU DDR core commands=68 pins+realCDC/adapter, CRCWRITE/READ/ConvICDMA,128Mboundary,session/cal-loss/no-replay/ARM/reset
+D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\fpga\build\npu-ddr-idle-guard-core-v2\proof\tb_npu_ddr_core_8oc.v:147: $finish called at 89024494500 (1ps)
