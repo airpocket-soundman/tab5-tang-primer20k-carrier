@@ -267,7 +267,7 @@ def main():
     # consumer uses valid&&ready and must reject this former integration hazard.
     bad=src.read_text().replace('out_valid_q&&!abort&&memory_ready&&reset_n','out_valid_q').replace('result_valid_q&&!abort&&memory_ready&&reset_n','result_valid_q')
     (out/'negative-ungated.v').write_text(bad)
-    ntb=TB.replace('#1;if(out_valid||result_valid)$fatal(1,"same-edge valid gate missing");','')
+    ntb=TB.replace('trace.txt','negative-trace.txt').replace('#1;if(out_valid||result_valid)$fatal(1,"same-edge valid gate missing");','')
     ntb=ntb.replace('if((abort||!memory_ready)&&(out_valid||result_valid))$fatal(1,"exported valid not combinationally suppressed");','')
     ntb='\n'.join(line.rstrip() for line in ntb.splitlines())+'\n'
     (out/'negative-tb.v').write_text(ntb)

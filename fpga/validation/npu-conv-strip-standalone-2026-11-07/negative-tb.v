@@ -42,7 +42,7 @@ always @(posedge clk)begin
  end
 end
 initial begin
- f=$fopen("jobs.txt","r");fd=$fopen("trace.txt","w");
+ f=$fopen("jobs.txt","r");fd=$fopen("negative-trace.txt","w");
  while(!$feof(f))begin
   @(negedge clk);reset_n=0;abort=0;clear=0;job_valid=0;out_ready=0;memory_ready=1;
   repeat(4)@(negedge clk);reset_n=1;
