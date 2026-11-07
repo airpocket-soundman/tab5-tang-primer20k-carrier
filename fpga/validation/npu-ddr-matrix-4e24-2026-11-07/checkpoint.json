@@ -1,0 +1,38 @@
+{
+  "usercode": "4E24",
+  "capability": "4E24",
+  "build_passed": true,
+  "physical_qualified": false,
+  "hardware_access": false,
+  "fs_sha256": "3d3d2e20211be5d48c8fb3f9c0b0311f2641ee08817ad46d598a8da98129bd69",
+  "resources": {
+    "logic": 14193,
+    "register": 7528,
+    "BSRAM": 45,
+    "BSRAM_capacity": 46,
+    "DSP": 12.5,
+    "DSP_capacity": 24
+  },
+  "timing": {
+    "qualified": false,
+    "unwaived_setup_endpoints": 1407,
+    "unwaived_hold_endpoints": 111,
+    "same_clock_sys_fmax_MHz": 40.466,
+    "same_clock_user_fmax_MHz": 101.171
+  },
+  "RTL": {
+    "pin_commands": 178,
+    "matrix_jobs": 4,
+    "autonomous_tiles": 66,
+    "numeric_matrix_outputs": 4292,
+    "CRC_bad_no_effect": true,
+    "dimension_high_bits_rejected": true,
+    "stalled_ready_not_progress": true,
+    "inflight_calibration_loss_no_publication": true,
+    "coordinated_reset_recovery": true,
+    "mock_native_DDR_only": true
+  },
+  "scope": "INT8 full matrix job to DDR INT32 only; no FP32 epilogue/nonlinear/wholeNN integration",
+  "historical_trial": "Initial slower simulator run stopped deliberately to shorten testbench host waits; no numerical verdict; qualified proof uses200ns half-period digital pins, not PHY qualification",
+  "old_4e23_modified": false
+}
