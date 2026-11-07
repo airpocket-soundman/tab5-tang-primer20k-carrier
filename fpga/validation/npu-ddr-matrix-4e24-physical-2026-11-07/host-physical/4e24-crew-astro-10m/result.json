@@ -1,0 +1,3348 @@
+{
+  "passed": true,
+  "hardware_access": true,
+  "acceptance": "Both CREW cold and ASTRO warm outputs bit-exact against independent same-P4 CPU; same lease,50 static/24 dynamic FPGA products,12 blocks/74 products/122 batches/51468 tiles each",
+  "crew_golden_sha256": "ee03e13dffb253c886318761969da2fd3de6ae40f41e10ca0eeb24544525240b",
+  "matrix_mode": true,
+  "requested_hz": 10000000,
+  "events": [
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 0.015999999945051968,
+      "stage": "preview",
+      "operation": 0,
+      "total": 0
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 3.030999999959022,
+      "stage": "verify",
+      "operation": 12537856,
+      "total": 22872224
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 6.046999999904074,
+      "stage": "load",
+      "operation": 2363392,
+      "total": 22869664
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 9.046999999904074,
+      "stage": "load",
+      "operation": 15876096,
+      "total": 22869664
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 12.061999999918044,
+      "stage": "patch_unfold",
+      "operation": 1,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 15.077999999979511,
+      "stage": "layernorm",
+      "operation": 14,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 18.093999999924563,
+      "stage": "layernorm",
+      "operation": 21,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 21.093999999924563,
+      "stage": "gelu",
+      "operation": 33,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 24.108999999938533,
+      "stage": "attention_softmax",
+      "operation": 41,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 27.125,
+      "stage": "gelu",
+      "operation": 49,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 30.140999999945052,
+      "stage": "layernorm",
+      "operation": 62,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 33.15599999995902,
+      "stage": "layernorm",
+      "operation": 69,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 36.171999999904074,
+      "stage": "bias",
+      "operation": 80,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 39.186999999918044,
+      "stage": "attention_softmax",
+      "operation": 89,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 42.20299999997951,
+      "stage": "gelu",
+      "operation": 97,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 45.20299999997951,
+      "stage": "layernorm",
+      "operation": 110,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 48.21899999992456,
+      "stage": "layernorm",
+      "operation": 117,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 51.23399999993853,
+      "stage": "layernorm",
+      "operation": 126,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 54.25,
+      "stage": "attention_qk",
+      "operation": 136,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 57.25,
+      "stage": "gelu",
+      "operation": 145,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 60.26599999994505,
+      "stage": "layernorm",
+      "operation": 158,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 63.28099999995902,
+      "stage": "layernorm",
+      "operation": 165,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 66.29699999990407,
+      "stage": "layernorm",
+      "operation": 174,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 69.31199999991804,
+      "stage": "bias",
+      "operation": 183,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 72.32799999997951,
+      "stage": "gelu",
+      "operation": 193,
+      "total": 199
+    },
+    {
+      "run": "CPU_ASTRO",
+      "elapsed_s": 75.34399999992456,
+      "stage": "complete",
+      "operation": 199,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 0.015000000013969839,
+      "stage": "preview",
+      "operation": 0,
+      "total": 0
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 3.031000000075437,
+      "stage": "verify",
+      "operation": 10657792,
+      "total": 22872224
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 6.031000000075437,
+      "stage": "verify",
+      "operation": 21647360,
+      "total": 22872224
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 9.062000000034459,
+      "stage": "upload",
+      "operation": 3694592,
+      "total": 22869664
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 12.09299999999348,
+      "stage": "upload",
+      "operation": 8187904,
+      "total": 22869664
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 15.109000000054948,
+      "stage": "upload",
+      "operation": 12644352,
+      "total": 22869664
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 18.125,
+      "stage": "upload",
+      "operation": 17022976,
+      "total": 22869664
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 21.14000000001397,
+      "stage": "upload",
+      "operation": 21393408,
+      "total": 22869664
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 24.156000000075437,
+      "stage": "prepare_static_b",
+      "operation": 0,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 27.17200000002049,
+      "stage": "prepare_static_b",
+      "operation": 1,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 30.18700000003446,
+      "stage": "prepare_static_b",
+      "operation": 3,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 33.21799999999348,
+      "stage": "prepare_static_b",
+      "operation": 4,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 36.23400000005495,
+      "stage": "prepare_static_b",
+      "operation": 5,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 39.26500000001397,
+      "stage": "prepare_static_b",
+      "operation": 7,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 42.29700000002049,
+      "stage": "prepare_static_b",
+      "operation": 8,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 45.32799999997951,
+      "stage": "prepare_static_b",
+      "operation": 9,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 48.35900000005495,
+      "stage": "prepare_static_b",
+      "operation": 11,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 51.39000000001397,
+      "stage": "prepare_static_b",
+      "operation": 12,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 54.42200000002049,
+      "stage": "prepare_static_b",
+      "operation": 13,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 57.45299999997951,
+      "stage": "prepare_static_b",
+      "operation": 15,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 60.48400000005495,
+      "stage": "prepare_static_b",
+      "operation": 16,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 63.51500000001397,
+      "stage": "prepare_static_b",
+      "operation": 17,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 66.54700000002049,
+      "stage": "prepare_static_b",
+      "operation": 19,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 69.57799999997951,
+      "stage": "prepare_static_b",
+      "operation": 20,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 72.60900000005495,
+      "stage": "prepare_static_b",
+      "operation": 21,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 75.64000000001397,
+      "stage": "prepare_static_b",
+      "operation": 23,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 78.67200000002049,
+      "stage": "prepare_static_b",
+      "operation": 24,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 81.68700000003446,
+      "stage": "prepare_static_b",
+      "operation": 25,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 84.70299999997951,
+      "stage": "prepare_static_b",
+      "operation": 27,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 87.71799999999348,
+      "stage": "prepare_static_b",
+      "operation": 28,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 90.73400000005495,
+      "stage": "prepare_static_b",
+      "operation": 29,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 93.75,
+      "stage": "prepare_static_b",
+      "operation": 31,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 96.76500000001397,
+      "stage": "prepare_static_b",
+      "operation": 32,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 99.78100000007544,
+      "stage": "prepare_static_b",
+      "operation": 33,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 102.81200000003446,
+      "stage": "prepare_static_b",
+      "operation": 35,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 105.82799999997951,
+      "stage": "prepare_static_b",
+      "operation": 36,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 108.85900000005495,
+      "stage": "prepare_static_b",
+      "operation": 37,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 111.89000000001397,
+      "stage": "prepare_static_b",
+      "operation": 39,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 114.92200000002049,
+      "stage": "prepare_static_b",
+      "operation": 40,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 117.95299999997951,
+      "stage": "prepare_static_b",
+      "operation": 41,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 120.98400000005495,
+      "stage": "prepare_static_b",
+      "operation": 43,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 124.01500000001397,
+      "stage": "prepare_static_b",
+      "operation": 44,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 127.04700000002049,
+      "stage": "prepare_static_b",
+      "operation": 45,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 130.0779999999795,
+      "stage": "prepare_static_b",
+      "operation": 47,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 133.10900000005495,
+      "stage": "prepare_static_b",
+      "operation": 48,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 136.14000000001397,
+      "stage": "prepare_static_b",
+      "operation": 49,
+      "total": 50
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 139.1720000000205,
+      "stage": "patch_unfold",
+      "operation": 1,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 142.2029999999795,
+      "stage": "bias",
+      "operation": 7,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 145.23400000005495,
+      "stage": "attention_av",
+      "operation": 10,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 148.26500000001397,
+      "stage": "gelu",
+      "operation": 17,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 151.2970000000205,
+      "stage": "bias",
+      "operation": 23,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 154.34299999999348,
+      "stage": "attention_residual",
+      "operation": 29,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 157.35900000005495,
+      "stage": "gelu",
+      "operation": 33,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 160.375,
+      "stage": "bias",
+      "operation": 39,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 163.40600000007544,
+      "stage": "layernorm",
+      "operation": 46,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 166.43700000003446,
+      "stage": "gelu",
+      "operation": 49,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 169.46799999999348,
+      "stage": "bias",
+      "operation": 55,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 172.5,
+      "stage": "layernorm",
+      "operation": 62,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 175.53100000007544,
+      "stage": "gelu",
+      "operation": 65,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 178.5470000000205,
+      "stage": "bias",
+      "operation": 71,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 181.56200000003446,
+      "stage": "layernorm",
+      "operation": 78,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 184.5779999999795,
+      "stage": "gelu",
+      "operation": 81,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 187.59299999999348,
+      "stage": "bias",
+      "operation": 87,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 190.60900000005495,
+      "stage": "layernorm",
+      "operation": 94,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 193.64000000001397,
+      "stage": "layernorm",
+      "operation": 101,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 196.6720000000205,
+      "stage": "bias",
+      "operation": 103,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 199.68700000003446,
+      "stage": "layernorm",
+      "operation": 110,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 202.71799999999348,
+      "stage": "layernorm",
+      "operation": 117,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 205.76500000001397,
+      "stage": "attention_qk",
+      "operation": 120,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 208.78100000007544,
+      "stage": "layernorm",
+      "operation": 126,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 211.81200000003446,
+      "stage": "layernorm",
+      "operation": 133,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 214.84299999999348,
+      "stage": "attention_softmax",
+      "operation": 137,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 217.875,
+      "stage": "layernorm",
+      "operation": 142,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 220.89000000001397,
+      "stage": "layernorm",
+      "operation": 149,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 223.90600000007544,
+      "stage": "attention_softmax",
+      "operation": 153,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 226.93700000003446,
+      "stage": "layernorm",
+      "operation": 158,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 229.9529999999795,
+      "stage": "layernorm",
+      "operation": 165,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 232.96799999999348,
+      "stage": "attention_softmax",
+      "operation": 169,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 235.98400000005495,
+      "stage": "layernorm",
+      "operation": 174,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 239.0,
+      "stage": "layernorm",
+      "operation": 181,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 242.01500000001397,
+      "stage": "attention_softmax",
+      "operation": 185,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 245.0470000000205,
+      "stage": "bias",
+      "operation": 192,
+      "total": 199
+    },
+    {
+      "run": "COLD_CREW",
+      "elapsed_s": 248.09299999999348,
+      "stage": "complete",
+      "operation": 199,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 0.01600000006146729,
+      "stage": "preview",
+      "operation": 0,
+      "total": 0
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 3.0320000000065193,
+      "stage": "layernorm",
+      "operation": 5,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 6.047000000020489,
+      "stage": "attention_softmax",
+      "operation": 9,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 9.063000000081956,
+      "stage": "layernorm",
+      "operation": 14,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 12.079000000027008,
+      "stage": "layernorm",
+      "operation": 21,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 15.10999999998603,
+      "stage": "attention_softmax",
+      "operation": 25,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 18.125,
+      "stage": "layernorm",
+      "operation": 30,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 21.141000000061467,
+      "stage": "layernorm",
+      "operation": 37,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 24.15700000000652,
+      "stage": "attention_softmax",
+      "operation": 41,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 27.17200000002049,
+      "stage": "layernorm",
+      "operation": 46,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 30.188000000081956,
+      "stage": "layernorm",
+      "operation": 53,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 33.20400000002701,
+      "stage": "attention_softmax",
+      "operation": 57,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 36.23499999998603,
+      "stage": "layernorm",
+      "operation": 63,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 39.25,
+      "stage": "layernorm",
+      "operation": 69,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 42.26600000006147,
+      "stage": "attention_av",
+      "operation": 74,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 45.28200000000652,
+      "stage": "gelu",
+      "operation": 81,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 48.32900000002701,
+      "stage": "bias",
+      "operation": 87,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 51.35999999998603,
+      "stage": "attention_av",
+      "operation": 90,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 54.39100000006147,
+      "stage": "gelu",
+      "operation": 97,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 57.42200000002049,
+      "stage": "bias",
+      "operation": 103,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 60.45400000002701,
+      "stage": "attention_av",
+      "operation": 106,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 63.46900000004098,
+      "stage": "gelu",
+      "operation": 113,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 66.5,
+      "stage": "bias",
+      "operation": 119,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 69.54700000002049,
+      "stage": "layernorm",
+      "operation": 126,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 72.57900000002701,
+      "stage": "gelu",
+      "operation": 129,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 75.59400000004098,
+      "stage": "bias",
+      "operation": 135,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 78.625,
+      "stage": "layernorm",
+      "operation": 142,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 81.65700000000652,
+      "stage": "gelu",
+      "operation": 145,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 84.68800000008196,
+      "stage": "bias",
+      "operation": 151,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 87.71900000004098,
+      "stage": "layernorm",
+      "operation": 158,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 90.75,
+      "stage": "gelu",
+      "operation": 161,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 93.78200000000652,
+      "stage": "bias",
+      "operation": 167,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 96.81300000008196,
+      "stage": "layernorm",
+      "operation": 174,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 99.84400000004098,
+      "stage": "gelu",
+      "operation": 177,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 102.875,
+      "stage": "bias",
+      "operation": 183,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 105.90700000000652,
+      "stage": "layernorm",
+      "operation": 190,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 108.92200000002049,
+      "stage": "layernorm",
+      "operation": 197,
+      "total": 199
+    },
+    {
+      "run": "WARM_ASTRO",
+      "elapsed_s": 111.95400000002701,
+      "stage": "complete",
+      "operation": 199,
+      "total": 199
+    }
+  ],
+  "info": {
+    "stream_crc32_backend": "esp_rom_crc32_le/raw-state-adapter",
+    "app": "NPU_TRANSFORMER",
+    "elf_sha256": "0f69c3c7ab78a7a7b2f75424bd126b3ba9782201d63c316da88c84fba9726e7c",
+    "boot_id": 3552341830,
+    "width": 1280,
+    "height": 720,
+    "sd_mounted": true,
+    "upload_chunk_bytes": 400,
+    "upload_max_bytes": 134217728,
+    "sd_root": "/sdcard/transformer",
+    "task": "ImageNet1000 classification; not object detection",
+    "backends": "FPGA_RESIDENT,FPGA_DDR,CPU_REFERENCE",
+    "default_backend": "FPGA_RESIDENT",
+    "model": "DeiT-tiny-224",
+    "model_path": "models/deit-tiny224.dtp",
+    "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+    "heap": {
+      "psram_free_bytes": 31576384,
+      "psram_largest_block_bytes": 31457280,
+      "internal_free_bytes": 148343
+    },
+    "npu_tx_dma": {
+      "selected": false,
+      "active": false,
+      "fault": false,
+      "positive": false,
+      "frequency_hz": 1000000,
+      "min_payload": 256,
+      "requests": 0,
+      "wire_bytes": 0,
+      "elapsed_us": 0,
+      "allocations": 0,
+      "unit_allocations": 0
+    }
+  },
+  "matrix_selection": {
+    "matrix_mode": true,
+    "matrix_job_scope": "4E24 <=256x8 panel jobs, not full matrices or graph batches",
+    "optimization_profile": 15,
+    "boot_id": 3552341830,
+    "run_id": 1,
+    "busy": false,
+    "uploading": false,
+    "sd_mounted": true,
+    "error": "none",
+    "stage": "idle",
+    "model": "DeiT-tiny-224",
+    "task": "ImageNet1000 classification",
+    "backend": "FPGA_RESIDENT",
+    "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+    "backend_scope": "All MatMul FPGA INT8; P4 LayerNorm/Softmax/GELU and other ops; no fallback",
+    "result_valid": false,
+    "image": 0,
+    "operation": 0,
+    "total_operations": 0,
+    "elapsed_us": 0,
+    "ddr_timing_ns": {
+      "half": 1000,
+      "setup": 1000,
+      "guard": 2000,
+      "scope": "Nominal software waits, not measured clock"
+    },
+    "heap": {
+      "psram_free_bytes": 31576384,
+      "psram_largest_block_bytes": 31457280,
+      "internal_free_bytes": 147779
+    },
+    "npu_tx_dma": {
+      "selected": false,
+      "active": false,
+      "fault": false,
+      "positive": false,
+      "frequency_hz": 1000000,
+      "min_payload": 256,
+      "requests": 0,
+      "wire_bytes": 0,
+      "elapsed_us": 0,
+      "allocations": 0,
+      "unit_allocations": 0
+    },
+    "resident_session": {
+      "cached_snapshot": true,
+      "worker_mutating": false,
+      "open": false,
+      "ready": false,
+      "busy": false,
+      "cookie": 0,
+      "static_weights_ready": 0,
+      "completed_frames": 0,
+      "host_activation_arena": false,
+      "cycle_counters_sampled": true,
+      "use_matrix_jobs": false,
+      "quantized_b_bytes": 0,
+      "ddr_reserved_bytes": 0,
+      "physical_lease_check": "Checked during open/run; status reads cached logical state",
+      "model_source_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "resident_close_reason": "matrixmode",
+    "resident_open": {
+      "attempted": false,
+      "current_session": false,
+      "success": false,
+      "use_matrix_jobs": false,
+      "cancelled": false,
+      "session_unchanged": false,
+      "static_weights_ready": 0,
+      "error": "",
+      "model_source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "timing_us": {
+        "verify_us": 0,
+        "setup_us": 0,
+        "upload_us": 0,
+        "cache_prepare_us": 0,
+        "total_us": 0,
+        "first_completed_cold_total_us": null
+      },
+      "memory": {
+        "constant_bytes": 0,
+        "activation_bytes": 0,
+        "quantized_b_bytes": 0,
+        "ddr_reserved_bytes": 0,
+        "metadata_bytes": 0,
+        "scratch_bytes": 0,
+        "host_activation_bytes": 0,
+        "graph_cache_bytes": 0,
+        "source_prepare_read_bytes": 0,
+        "cache_write_bytes": 0,
+        "cache_verify_read_bytes": 0
+      },
+      "package_bytes": 0,
+      "package_crc32": 0,
+      "wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "setup_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "upload_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "prepare_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      }
+    },
+    "images": [
+      {
+        "id": 0,
+        "label": "astronaut"
+      },
+      {
+        "id": 1,
+        "label": "crew"
+      },
+      {
+        "id": 2,
+        "label": "crop"
+      }
+    ],
+    "result": {
+      "backend": "FPGA_RESIDENT",
+      "model_source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "success": false,
+      "session_unchanged": false,
+      "wire_valid": false,
+      "warm": false,
+      "frame": 0,
+      "error": "",
+      "static_products": 0,
+      "dynamic_products": 0,
+      "static_weights_ready": 0,
+      "wire_scope": "This frame only; model preparation is resident_open.wire",
+      "blocks_completed": 0,
+      "operations": 0,
+      "matmul_operations": 0,
+      "matmul_batches": 0,
+      "external_matmul_operations": 0,
+      "fpga_matmul_operations": 0,
+      "cpu_matmul_operations": 0,
+      "macs": 0,
+      "cycle_counters_sampled": false,
+      "timing_us": {
+        "input_us": 0,
+        "infer_us": 0,
+        "output_us": 0,
+        "total_us": 0,
+        "yield_us": 0,
+        "yield_calls": 0,
+        "frame_total_us": 0,
+        "cold_total_applicable": false,
+        "cold_total_us": null,
+        "open_total_us": 0
+      },
+      "memory": {
+        "matmul_tile_jobs": 0,
+        "matmul_matrix_jobs": 0,
+        "local_read_bytes": 0,
+        "local_write_bytes": 0
+      },
+      "use_matrix_jobs": false,
+      "input_crc32": 0,
+      "wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "input_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "graph_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "output_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      }
+    }
+  },
+  "dma_selection": {
+    "resident_closed": true,
+    "resident_close_reason": "npudma",
+    "npu_tx_dma": {
+      "selected": true,
+      "active": false,
+      "fault": false,
+      "positive": true,
+      "frequency_hz": 10000000,
+      "min_payload": 256,
+      "requests": 0,
+      "wire_bytes": 0,
+      "elapsed_us": 0,
+      "allocations": 0,
+      "unit_allocations": 0
+    }
+  },
+  "timing": {
+    "resident_closed": true,
+    "resident_close_reason": "ddrtiming",
+    "ddr_timing_ns": {
+      "half": 100,
+      "setup": 100,
+      "guard": 2000,
+      "scope": "Nominal software waits, not measured clock"
+    }
+  },
+  "selftest": {
+    "resident_closed": true,
+    "resident_close_reason": "ddrselftest",
+    "passed": true,
+    "outputs": 5208,
+    "matrix_mode": true,
+    "mode_restored": true,
+    "error": "none"
+  },
+  "matrix_selftest": {
+    "passed": true,
+    "checked": 1904,
+    "error": "none"
+  },
+  "final_status": {
+    "CPU_ASTRO": {
+      "matrix_mode": true,
+      "matrix_job_scope": "4E24 <=256x8 panel jobs, not full matrices or graph batches",
+      "optimization_profile": 15,
+      "boot_id": 3552341830,
+      "run_id": 2,
+      "busy": false,
+      "uploading": false,
+      "sd_mounted": true,
+      "error": "none",
+      "stage": "complete",
+      "model": "DeiT-tiny-224",
+      "task": "ImageNet1000 classification",
+      "backend": "CPU_REFERENCE",
+      "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+      "backend_scope": "Entire graph CPU INT8 PSRAM oracle; no FPGA/GPIO calls",
+      "result_valid": true,
+      "image": 0,
+      "operation": 199,
+      "total_operations": 199,
+      "elapsed_us": 0,
+      "ddr_timing_ns": {
+        "half": 100,
+        "setup": 100,
+        "guard": 2000,
+        "scope": "Nominal software waits, not measured clock"
+      },
+      "heap": {
+        "psram_free_bytes": 31572348,
+        "psram_largest_block_bytes": 31457280,
+        "internal_free_bytes": 147055
+      },
+      "npu_tx_dma": {
+        "selected": true,
+        "active": false,
+        "fault": false,
+        "positive": true,
+        "frequency_hz": 10000000,
+        "min_payload": 256,
+        "requests": 7,
+        "wire_bytes": 11470,
+        "elapsed_us": 2695,
+        "allocations": 1,
+        "unit_allocations": 1
+      },
+      "resident_session": {
+        "cached_snapshot": true,
+        "worker_mutating": false,
+        "open": false,
+        "ready": false,
+        "busy": false,
+        "cookie": 0,
+        "static_weights_ready": 0,
+        "completed_frames": 0,
+        "host_activation_arena": false,
+        "cycle_counters_sampled": true,
+        "use_matrix_jobs": false,
+        "quantized_b_bytes": 0,
+        "ddr_reserved_bytes": 0,
+        "physical_lease_check": "Checked during open/run; status reads cached logical state",
+        "model_source_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "resident_close_reason": "cpu_reference",
+      "resident_open": {
+        "attempted": false,
+        "current_session": false,
+        "success": false,
+        "use_matrix_jobs": false,
+        "cancelled": false,
+        "session_unchanged": false,
+        "static_weights_ready": 0,
+        "error": "",
+        "model_source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "timing_us": {
+          "verify_us": 0,
+          "setup_us": 0,
+          "upload_us": 0,
+          "cache_prepare_us": 0,
+          "total_us": 0,
+          "first_completed_cold_total_us": null
+        },
+        "memory": {
+          "constant_bytes": 0,
+          "activation_bytes": 0,
+          "quantized_b_bytes": 0,
+          "ddr_reserved_bytes": 0,
+          "metadata_bytes": 0,
+          "scratch_bytes": 0,
+          "host_activation_bytes": 0,
+          "graph_cache_bytes": 0,
+          "source_prepare_read_bytes": 0,
+          "cache_write_bytes": 0,
+          "cache_verify_read_bytes": 0
+        },
+        "package_bytes": 0,
+        "package_crc32": 0,
+        "wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": true,
+          "tx_us": 0,
+          "rx_us": 0,
+          "ready_wait_us": 0,
+          "wire_bytes": 0,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0,
+          "matrix_jobs": 0
+        },
+        "setup_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": true,
+          "tx_us": 0,
+          "rx_us": 0,
+          "ready_wait_us": 0,
+          "wire_bytes": 0,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0,
+          "matrix_jobs": 0
+        },
+        "upload_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": true,
+          "tx_us": 0,
+          "rx_us": 0,
+          "ready_wait_us": 0,
+          "wire_bytes": 0,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0,
+          "matrix_jobs": 0
+        },
+        "prepare_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": true,
+          "tx_us": 0,
+          "rx_us": 0,
+          "ready_wait_us": 0,
+          "wire_bytes": 0,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0,
+          "matrix_jobs": 0
+        }
+      },
+      "images": [
+        {
+          "id": 0,
+          "label": "astronaut"
+        },
+        {
+          "id": 1,
+          "label": "crew"
+        },
+        {
+          "id": 2,
+          "label": "crop"
+        }
+      ],
+      "result": {
+        "backend": "CPU_REFERENCE",
+        "model_io": {
+          "package_unbuffered": false,
+          "package_buffer_aligned": true,
+          "stdio_buffer_mod64": 0,
+          "buffer_mod64": 0,
+          "buffer_bytes": 4096,
+          "verify_fread_us": 3377209,
+          "verify_crc_us": 1219204,
+          "constant_fread_us": 3398401,
+          "constant_crc_us": 613940
+        },
+        "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+        "success": true,
+        "error": "",
+        "storage": "PSRAM",
+        "blocks_completed": 12,
+        "operations": 199,
+        "matmul_operations": 74,
+        "matmul_batches": 122,
+        "cpu_matmul_operations": 74,
+        "external_matmul_operations": 0,
+        "fpga_matmul_operations": 0,
+        "cpu_tile_jobs": 51468,
+        "cpu_macs": 1323830784,
+        "timing_us": {
+          "verify_us": 5299275,
+          "load_us": 5229563,
+          "input_us": 212054,
+          "infer_us": 62481998,
+          "output_us": 145,
+          "total_us": 73224470,
+          "yield_us": 697486,
+          "yield_calls": 724
+        },
+        "memory": {
+          "allocated_bytes": 25444543,
+          "constant_bytes": 22869664,
+          "activation_bytes": 2359296,
+          "metadata_bytes": 2560,
+          "scratch_bytes": 34111,
+          "matmul_scratch_bytes": 174912
+        },
+        "top5": [
+          {
+            "class_id": 541,
+            "label": "drum, membranophone, tympan",
+            "probability": 0.11373381316661835,
+            "logit": 5.685896396636963
+          },
+          {
+            "class_id": 542,
+            "label": "drumstick",
+            "probability": 0.09027639776468277,
+            "logit": 5.454911708831787
+          },
+          {
+            "class_id": 822,
+            "label": "steel drum",
+            "probability": 0.03047037683427334,
+            "logit": 4.36879062652588
+          },
+          {
+            "class_id": 747,
+            "label": "punching bag, punch bag, punching ball, punchball",
+            "probability": 0.0239157322794199,
+            "logit": 4.126572132110596
+          },
+          {
+            "class_id": 577,
+            "label": "gong, tam-tam",
+            "probability": 0.016118720173835754,
+            "logit": 3.7320170402526855
+          }
+        ]
+      }
+    },
+    "COLD_CREW": {
+      "matrix_mode": true,
+      "matrix_job_scope": "4E24 <=256x8 panel jobs, not full matrices or graph batches",
+      "optimization_profile": 15,
+      "boot_id": 3552341830,
+      "run_id": 3,
+      "busy": false,
+      "uploading": false,
+      "sd_mounted": true,
+      "error": "none",
+      "stage": "complete",
+      "model": "DeiT-tiny-224",
+      "task": "ImageNet1000 classification",
+      "backend": "FPGA_RESIDENT",
+      "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+      "backend_scope": "All MatMul FPGA INT8; P4 LayerNorm/Softmax/GELU and other ops; no fallback",
+      "result_valid": true,
+      "image": 1,
+      "operation": 199,
+      "total_operations": 199,
+      "elapsed_us": 0,
+      "ddr_timing_ns": {
+        "half": 100,
+        "setup": 100,
+        "guard": 2000,
+        "scope": "Nominal software waits, not measured clock"
+      },
+      "heap": {
+        "psram_free_bytes": 29022824,
+        "psram_largest_block_bytes": 28835840,
+        "internal_free_bytes": 137443
+      },
+      "npu_tx_dma": {
+        "selected": true,
+        "active": true,
+        "fault": false,
+        "positive": true,
+        "frequency_hz": 10000000,
+        "min_payload": 256,
+        "requests": 18655,
+        "wire_bytes": 24943726,
+        "elapsed_us": 6178583,
+        "allocations": 1,
+        "unit_allocations": 1
+      },
+      "resident_session": {
+        "cached_snapshot": true,
+        "worker_mutating": false,
+        "open": true,
+        "ready": true,
+        "busy": false,
+        "cookie": 1,
+        "static_weights_ready": 50,
+        "completed_frames": 1,
+        "host_activation_arena": true,
+        "cycle_counters_sampled": false,
+        "use_matrix_jobs": true,
+        "quantized_b_bytes": 5735584,
+        "ddr_reserved_bytes": 31204368,
+        "physical_lease_check": "Checked during open/run; status reads cached logical state",
+        "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c"
+      },
+      "resident_close_reason": "none",
+      "resident_open": {
+        "attempted": true,
+        "current_session": true,
+        "success": true,
+        "use_matrix_jobs": true,
+        "cancelled": false,
+        "session_unchanged": true,
+        "static_weights_ready": 50,
+        "error": "",
+        "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+        "timing_us": {
+          "verify_us": 6211771,
+          "setup_us": 152479,
+          "upload_us": 15588986,
+          "cache_prepare_us": 116139757,
+          "total_us": 138133369,
+          "first_completed_cold_total_us": 246800726
+        },
+        "memory": {
+          "constant_bytes": 22869664,
+          "activation_bytes": 2359296,
+          "quantized_b_bytes": 5735584,
+          "ddr_reserved_bytes": 31204368,
+          "metadata_bytes": 2560,
+          "scratch_bytes": 25663,
+          "host_activation_bytes": 2359296,
+          "graph_cache_bytes": 155236,
+          "source_prepare_read_bytes": 45182976,
+          "cache_write_bytes": 5735584,
+          "cache_verify_read_bytes": 5735584
+        },
+        "package_bytes": 22872224,
+        "package_crc32": 3109428749,
+        "wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 17505878,
+          "rx_us": 91406380,
+          "ready_wait_us": 5823499,
+          "wire_bytes": 82411552,
+          "read_bytes": 50918560,
+          "write_bytes": 28605248,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0,
+          "matrix_jobs": 0
+        },
+        "setup_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 153,
+          "rx_us": 135,
+          "ready_wait_us": 18,
+          "wire_bytes": 134,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0,
+          "matrix_jobs": 0
+        },
+        "upload_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 5241733,
+          "rx_us": 256976,
+          "ready_wait_us": 2317272,
+          "wire_bytes": 23305228,
+          "read_bytes": 0,
+          "write_bytes": 22869664,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0,
+          "matrix_jobs": 0
+        },
+        "prepare_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 12263992,
+          "rx_us": 91149269,
+          "ready_wait_us": 3506209,
+          "wire_bytes": 59106190,
+          "read_bytes": 50918560,
+          "write_bytes": 5735584,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0,
+          "matrix_jobs": 0
+        }
+      },
+      "images": [
+        {
+          "id": 0,
+          "label": "astronaut"
+        },
+        {
+          "id": 1,
+          "label": "crew"
+        },
+        {
+          "id": 2,
+          "label": "crop"
+        }
+      ],
+      "result": {
+        "backend": "FPGA_RESIDENT",
+        "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+        "success": true,
+        "session_unchanged": true,
+        "wire_valid": true,
+        "warm": false,
+        "frame": 1,
+        "error": "",
+        "static_products": 50,
+        "dynamic_products": 24,
+        "static_weights_ready": 50,
+        "wire_scope": "This frame only; model preparation is resident_open.wire",
+        "blocks_completed": 12,
+        "operations": 199,
+        "matmul_operations": 74,
+        "matmul_batches": 122,
+        "external_matmul_operations": 74,
+        "fpga_matmul_operations": 74,
+        "cpu_matmul_operations": 0,
+        "macs": 1253683200,
+        "cycle_counters_sampled": false,
+        "timing_us": {
+          "input_us": 221602,
+          "infer_us": 108445019,
+          "output_us": 612,
+          "total_us": 108667357,
+          "yield_us": 951572,
+          "yield_calls": 1047,
+          "frame_total_us": 108667357,
+          "cold_total_applicable": true,
+          "cold_total_us": 246800726,
+          "open_total_us": 138133369
+        },
+        "memory": {
+          "matmul_tile_jobs": 51468,
+          "matmul_matrix_jobs": 3929,
+          "local_read_bytes": 89845008,
+          "local_write_bytes": 62013536
+        },
+        "use_matrix_jobs": true,
+        "input_crc32": 221330491,
+        "wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 16707722,
+          "rx_us": 45016787,
+          "ready_wait_us": 33353859,
+          "wire_bytes": 33719450,
+          "read_bytes": 24264432,
+          "write_bytes": 6404928,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 51468,
+          "matrix_jobs": 3929
+        },
+        "input_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 68,
+          "rx_us": 60,
+          "ready_wait_us": 10,
+          "wire_bytes": 64,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0,
+          "matrix_jobs": 0
+        },
+        "graph_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 16707519,
+          "rx_us": 45016605,
+          "ready_wait_us": 33353832,
+          "wire_bytes": 33719258,
+          "read_bytes": 24264432,
+          "write_bytes": 6404928,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 51468,
+          "matrix_jobs": 3929
+        },
+        "output_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 135,
+          "rx_us": 122,
+          "ready_wait_us": 17,
+          "wire_bytes": 128,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0,
+          "matrix_jobs": 0
+        },
+        "top5": [
+          {
+            "class_id": 697,
+            "label": "pajama, pyjama, pj's, jammies",
+            "probability": 0.14143377542495728,
+            "logit": 5.693041801452637
+          },
+          {
+            "class_id": 981,
+            "label": "ballplayer, baseball player",
+            "probability": 0.04299614951014519,
+            "logit": 4.502320766448975
+          },
+          {
+            "class_id": 652,
+            "label": "military uniform",
+            "probability": 0.026279347017407417,
+            "logit": 4.00999355316162
+          },
+          {
+            "class_id": 841,
+            "label": "sweatshirt",
+            "probability": 0.02259335294365883,
+            "logit": 3.858865976333618
+          },
+          {
+            "class_id": 617,
+            "label": "lab coat, laboratory coat",
+            "probability": 0.021398134529590607,
+            "logit": 3.804513931274414
+          }
+        ]
+      }
+    },
+    "WARM_ASTRO": {
+      "matrix_mode": true,
+      "matrix_job_scope": "4E24 <=256x8 panel jobs, not full matrices or graph batches",
+      "optimization_profile": 15,
+      "boot_id": 3552341830,
+      "run_id": 4,
+      "busy": false,
+      "uploading": false,
+      "sd_mounted": true,
+      "error": "none",
+      "stage": "complete",
+      "model": "DeiT-tiny-224",
+      "task": "ImageNet1000 classification",
+      "backend": "FPGA_RESIDENT",
+      "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+      "backend_scope": "All MatMul FPGA INT8; P4 LayerNorm/Softmax/GELU and other ops; no fallback",
+      "result_valid": true,
+      "image": 0,
+      "operation": 199,
+      "total_operations": 199,
+      "elapsed_us": 0,
+      "ddr_timing_ns": {
+        "half": 100,
+        "setup": 100,
+        "guard": 2000,
+        "scope": "Nominal software waits, not measured clock"
+      },
+      "heap": {
+        "psram_free_bytes": 29022824,
+        "psram_largest_block_bytes": 28835840,
+        "internal_free_bytes": 137323
+      },
+      "npu_tx_dma": {
+        "selected": true,
+        "active": true,
+        "fault": false,
+        "positive": true,
+        "frequency_hz": 10000000,
+        "min_payload": 256,
+        "requests": 18655,
+        "wire_bytes": 24943726,
+        "elapsed_us": 6178583,
+        "allocations": 1,
+        "unit_allocations": 1
+      },
+      "resident_session": {
+        "cached_snapshot": true,
+        "worker_mutating": false,
+        "open": true,
+        "ready": true,
+        "busy": false,
+        "cookie": 1,
+        "static_weights_ready": 50,
+        "completed_frames": 2,
+        "host_activation_arena": true,
+        "cycle_counters_sampled": false,
+        "use_matrix_jobs": true,
+        "quantized_b_bytes": 5735584,
+        "ddr_reserved_bytes": 31204368,
+        "physical_lease_check": "Checked during open/run; status reads cached logical state",
+        "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c"
+      },
+      "resident_close_reason": "none",
+      "resident_open": {
+        "attempted": true,
+        "current_session": true,
+        "success": true,
+        "use_matrix_jobs": true,
+        "cancelled": false,
+        "session_unchanged": true,
+        "static_weights_ready": 50,
+        "error": "",
+        "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+        "timing_us": {
+          "verify_us": 6211771,
+          "setup_us": 152479,
+          "upload_us": 15588986,
+          "cache_prepare_us": 116139757,
+          "total_us": 138133369,
+          "first_completed_cold_total_us": 246800726
+        },
+        "memory": {
+          "constant_bytes": 22869664,
+          "activation_bytes": 2359296,
+          "quantized_b_bytes": 5735584,
+          "ddr_reserved_bytes": 31204368,
+          "metadata_bytes": 2560,
+          "scratch_bytes": 25663,
+          "host_activation_bytes": 2359296,
+          "graph_cache_bytes": 155236,
+          "source_prepare_read_bytes": 45182976,
+          "cache_write_bytes": 5735584,
+          "cache_verify_read_bytes": 5735584
+        },
+        "package_bytes": 22872224,
+        "package_crc32": 3109428749,
+        "wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 17505878,
+          "rx_us": 91406380,
+          "ready_wait_us": 5823499,
+          "wire_bytes": 82411552,
+          "read_bytes": 50918560,
+          "write_bytes": 28605248,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0,
+          "matrix_jobs": 0
+        },
+        "setup_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 153,
+          "rx_us": 135,
+          "ready_wait_us": 18,
+          "wire_bytes": 134,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0,
+          "matrix_jobs": 0
+        },
+        "upload_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 5241733,
+          "rx_us": 256976,
+          "ready_wait_us": 2317272,
+          "wire_bytes": 23305228,
+          "read_bytes": 0,
+          "write_bytes": 22869664,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0,
+          "matrix_jobs": 0
+        },
+        "prepare_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 12263992,
+          "rx_us": 91149269,
+          "ready_wait_us": 3506209,
+          "wire_bytes": 59106190,
+          "read_bytes": 50918560,
+          "write_bytes": 5735584,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0,
+          "matrix_jobs": 0
+        }
+      },
+      "images": [
+        {
+          "id": 0,
+          "label": "astronaut"
+        },
+        {
+          "id": 1,
+          "label": "crew"
+        },
+        {
+          "id": 2,
+          "label": "crop"
+        }
+      ],
+      "result": {
+        "backend": "FPGA_RESIDENT",
+        "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+        "success": true,
+        "session_unchanged": true,
+        "wire_valid": true,
+        "warm": true,
+        "frame": 2,
+        "error": "",
+        "static_products": 50,
+        "dynamic_products": 24,
+        "static_weights_ready": 50,
+        "wire_scope": "This frame only; model preparation is resident_open.wire",
+        "blocks_completed": 12,
+        "operations": 199,
+        "matmul_operations": 74,
+        "matmul_batches": 122,
+        "external_matmul_operations": 74,
+        "fpga_matmul_operations": 74,
+        "cpu_matmul_operations": 0,
+        "macs": 1253683200,
+        "cycle_counters_sampled": false,
+        "timing_us": {
+          "input_us": 305148,
+          "infer_us": 108673595,
+          "output_us": 630,
+          "total_us": 108979505,
+          "yield_us": 933772,
+          "yield_calls": 1049,
+          "frame_total_us": 108979505,
+          "cold_total_applicable": false,
+          "cold_total_us": null,
+          "open_total_us": 138133369
+        },
+        "memory": {
+          "matmul_tile_jobs": 51468,
+          "matmul_matrix_jobs": 3929,
+          "local_read_bytes": 89845008,
+          "local_write_bytes": 62013536
+        },
+        "use_matrix_jobs": true,
+        "input_crc32": 2403422266,
+        "wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 16705661,
+          "rx_us": 45019320,
+          "ready_wait_us": 33357917,
+          "wire_bytes": 33719450,
+          "read_bytes": 24264432,
+          "write_bytes": 6404928,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 51468,
+          "matrix_jobs": 3929
+        },
+        "input_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 89,
+          "rx_us": 118,
+          "ready_wait_us": 13,
+          "wire_bytes": 64,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0,
+          "matrix_jobs": 0
+        },
+        "graph_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 16705435,
+          "rx_us": 45019080,
+          "ready_wait_us": 33357888,
+          "wire_bytes": 33719258,
+          "read_bytes": 24264432,
+          "write_bytes": 6404928,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 51468,
+          "matrix_jobs": 3929
+        },
+        "output_wire": {
+          "cycle_samples": 0,
+          "cycle_counters_valid": false,
+          "tx_us": 137,
+          "rx_us": 122,
+          "ready_wait_us": 16,
+          "wire_bytes": 128,
+          "read_bytes": 0,
+          "write_bytes": 0,
+          "kernel_cycles": 0,
+          "ddr_wait_cycles": 0,
+          "tile_jobs": 0,
+          "matrix_jobs": 0
+        },
+        "top5": [
+          {
+            "class_id": 541,
+            "label": "drum, membranophone, tympan",
+            "probability": 0.11373381316661835,
+            "logit": 5.685896396636963
+          },
+          {
+            "class_id": 542,
+            "label": "drumstick",
+            "probability": 0.09027639776468277,
+            "logit": 5.454911708831787
+          },
+          {
+            "class_id": 822,
+            "label": "steel drum",
+            "probability": 0.03047037683427334,
+            "logit": 4.36879062652588
+          },
+          {
+            "class_id": 747,
+            "label": "punching bag, punch bag, punching ball, punchball",
+            "probability": 0.0239157322794199,
+            "logit": 4.126572132110596
+          },
+          {
+            "class_id": 577,
+            "label": "gong, tam-tam",
+            "probability": 0.016118720173835754,
+            "logit": 3.7320170402526855
+          }
+        ]
+      }
+    }
+  },
+  "cpu_astro": {
+    "matrix_mode": true,
+    "matrix_job_scope": "4E24 <=256x8 panel jobs, not full matrices or graph batches",
+    "optimization_profile": 15,
+    "boot_id": 3552341830,
+    "run_id": 2,
+    "busy": false,
+    "uploading": false,
+    "sd_mounted": true,
+    "error": "none",
+    "stage": "complete",
+    "model": "DeiT-tiny-224",
+    "task": "ImageNet1000 classification",
+    "backend": "CPU_REFERENCE",
+    "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+    "backend_scope": "Entire graph CPU INT8 PSRAM oracle; no FPGA/GPIO calls",
+    "result_valid": true,
+    "image": 0,
+    "operation": 199,
+    "total_operations": 199,
+    "elapsed_us": 0,
+    "ddr_timing_ns": {
+      "half": 100,
+      "setup": 100,
+      "guard": 2000,
+      "scope": "Nominal software waits, not measured clock"
+    },
+    "heap": {
+      "psram_free_bytes": 31572348,
+      "psram_largest_block_bytes": 31457280,
+      "internal_free_bytes": 147055
+    },
+    "npu_tx_dma": {
+      "selected": true,
+      "active": false,
+      "fault": false,
+      "positive": true,
+      "frequency_hz": 10000000,
+      "min_payload": 256,
+      "requests": 7,
+      "wire_bytes": 11470,
+      "elapsed_us": 2695,
+      "allocations": 1,
+      "unit_allocations": 1
+    },
+    "resident_session": {
+      "cached_snapshot": true,
+      "worker_mutating": false,
+      "open": false,
+      "ready": false,
+      "busy": false,
+      "cookie": 0,
+      "static_weights_ready": 0,
+      "completed_frames": 0,
+      "host_activation_arena": false,
+      "cycle_counters_sampled": true,
+      "use_matrix_jobs": false,
+      "quantized_b_bytes": 0,
+      "ddr_reserved_bytes": 0,
+      "physical_lease_check": "Checked during open/run; status reads cached logical state",
+      "model_source_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "resident_close_reason": "cpu_reference",
+    "resident_open": {
+      "attempted": false,
+      "current_session": false,
+      "success": false,
+      "use_matrix_jobs": false,
+      "cancelled": false,
+      "session_unchanged": false,
+      "static_weights_ready": 0,
+      "error": "",
+      "model_source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "timing_us": {
+        "verify_us": 0,
+        "setup_us": 0,
+        "upload_us": 0,
+        "cache_prepare_us": 0,
+        "total_us": 0,
+        "first_completed_cold_total_us": null
+      },
+      "memory": {
+        "constant_bytes": 0,
+        "activation_bytes": 0,
+        "quantized_b_bytes": 0,
+        "ddr_reserved_bytes": 0,
+        "metadata_bytes": 0,
+        "scratch_bytes": 0,
+        "host_activation_bytes": 0,
+        "graph_cache_bytes": 0,
+        "source_prepare_read_bytes": 0,
+        "cache_write_bytes": 0,
+        "cache_verify_read_bytes": 0
+      },
+      "package_bytes": 0,
+      "package_crc32": 0,
+      "wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "setup_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "upload_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "prepare_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      }
+    },
+    "images": [
+      {
+        "id": 0,
+        "label": "astronaut"
+      },
+      {
+        "id": 1,
+        "label": "crew"
+      },
+      {
+        "id": 2,
+        "label": "crop"
+      }
+    ],
+    "result": {
+      "backend": "CPU_REFERENCE",
+      "model_io": {
+        "package_unbuffered": false,
+        "package_buffer_aligned": true,
+        "stdio_buffer_mod64": 0,
+        "buffer_mod64": 0,
+        "buffer_bytes": 4096,
+        "verify_fread_us": 3377209,
+        "verify_crc_us": 1219204,
+        "constant_fread_us": 3398401,
+        "constant_crc_us": 613940
+      },
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+      "success": true,
+      "error": "",
+      "storage": "PSRAM",
+      "blocks_completed": 12,
+      "operations": 199,
+      "matmul_operations": 74,
+      "matmul_batches": 122,
+      "cpu_matmul_operations": 74,
+      "external_matmul_operations": 0,
+      "fpga_matmul_operations": 0,
+      "cpu_tile_jobs": 51468,
+      "cpu_macs": 1323830784,
+      "timing_us": {
+        "verify_us": 5299275,
+        "load_us": 5229563,
+        "input_us": 212054,
+        "infer_us": 62481998,
+        "output_us": 145,
+        "total_us": 73224470,
+        "yield_us": 697486,
+        "yield_calls": 724
+      },
+      "memory": {
+        "allocated_bytes": 25444543,
+        "constant_bytes": 22869664,
+        "activation_bytes": 2359296,
+        "metadata_bytes": 2560,
+        "scratch_bytes": 34111,
+        "matmul_scratch_bytes": 174912
+      },
+      "top5": [
+        {
+          "class_id": 541,
+          "label": "drum, membranophone, tympan",
+          "probability": 0.11373381316661835,
+          "logit": 5.685896396636963
+        },
+        {
+          "class_id": 542,
+          "label": "drumstick",
+          "probability": 0.09027639776468277,
+          "logit": 5.454911708831787
+        },
+        {
+          "class_id": 822,
+          "label": "steel drum",
+          "probability": 0.03047037683427334,
+          "logit": 4.36879062652588
+        },
+        {
+          "class_id": 747,
+          "label": "punching bag, punch bag, punching ball, punchball",
+          "probability": 0.0239157322794199,
+          "logit": 4.126572132110596
+        },
+        {
+          "class_id": 577,
+          "label": "gong, tam-tam",
+          "probability": 0.016118720173835754,
+          "logit": 3.7320170402526855
+        }
+      ]
+    }
+  },
+  "cold": {
+    "matrix_mode": true,
+    "matrix_job_scope": "4E24 <=256x8 panel jobs, not full matrices or graph batches",
+    "optimization_profile": 15,
+    "boot_id": 3552341830,
+    "run_id": 3,
+    "busy": false,
+    "uploading": false,
+    "sd_mounted": true,
+    "error": "none",
+    "stage": "complete",
+    "model": "DeiT-tiny-224",
+    "task": "ImageNet1000 classification",
+    "backend": "FPGA_RESIDENT",
+    "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+    "backend_scope": "All MatMul FPGA INT8; P4 LayerNorm/Softmax/GELU and other ops; no fallback",
+    "result_valid": true,
+    "image": 1,
+    "operation": 199,
+    "total_operations": 199,
+    "elapsed_us": 0,
+    "ddr_timing_ns": {
+      "half": 100,
+      "setup": 100,
+      "guard": 2000,
+      "scope": "Nominal software waits, not measured clock"
+    },
+    "heap": {
+      "psram_free_bytes": 29022824,
+      "psram_largest_block_bytes": 28835840,
+      "internal_free_bytes": 137443
+    },
+    "npu_tx_dma": {
+      "selected": true,
+      "active": true,
+      "fault": false,
+      "positive": true,
+      "frequency_hz": 10000000,
+      "min_payload": 256,
+      "requests": 18655,
+      "wire_bytes": 24943726,
+      "elapsed_us": 6178583,
+      "allocations": 1,
+      "unit_allocations": 1
+    },
+    "resident_session": {
+      "cached_snapshot": true,
+      "worker_mutating": false,
+      "open": true,
+      "ready": true,
+      "busy": false,
+      "cookie": 1,
+      "static_weights_ready": 50,
+      "completed_frames": 1,
+      "host_activation_arena": true,
+      "cycle_counters_sampled": false,
+      "use_matrix_jobs": true,
+      "quantized_b_bytes": 5735584,
+      "ddr_reserved_bytes": 31204368,
+      "physical_lease_check": "Checked during open/run; status reads cached logical state",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c"
+    },
+    "resident_close_reason": "none",
+    "resident_open": {
+      "attempted": true,
+      "current_session": true,
+      "success": true,
+      "use_matrix_jobs": true,
+      "cancelled": false,
+      "session_unchanged": true,
+      "static_weights_ready": 50,
+      "error": "",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+      "timing_us": {
+        "verify_us": 6211771,
+        "setup_us": 152479,
+        "upload_us": 15588986,
+        "cache_prepare_us": 116139757,
+        "total_us": 138133369,
+        "first_completed_cold_total_us": 246800726
+      },
+      "memory": {
+        "constant_bytes": 22869664,
+        "activation_bytes": 2359296,
+        "quantized_b_bytes": 5735584,
+        "ddr_reserved_bytes": 31204368,
+        "metadata_bytes": 2560,
+        "scratch_bytes": 25663,
+        "host_activation_bytes": 2359296,
+        "graph_cache_bytes": 155236,
+        "source_prepare_read_bytes": 45182976,
+        "cache_write_bytes": 5735584,
+        "cache_verify_read_bytes": 5735584
+      },
+      "package_bytes": 22872224,
+      "package_crc32": 3109428749,
+      "wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 17505878,
+        "rx_us": 91406380,
+        "ready_wait_us": 5823499,
+        "wire_bytes": 82411552,
+        "read_bytes": 50918560,
+        "write_bytes": 28605248,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "setup_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 153,
+        "rx_us": 135,
+        "ready_wait_us": 18,
+        "wire_bytes": 134,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "upload_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 5241733,
+        "rx_us": 256976,
+        "ready_wait_us": 2317272,
+        "wire_bytes": 23305228,
+        "read_bytes": 0,
+        "write_bytes": 22869664,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "prepare_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 12263992,
+        "rx_us": 91149269,
+        "ready_wait_us": 3506209,
+        "wire_bytes": 59106190,
+        "read_bytes": 50918560,
+        "write_bytes": 5735584,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      }
+    },
+    "images": [
+      {
+        "id": 0,
+        "label": "astronaut"
+      },
+      {
+        "id": 1,
+        "label": "crew"
+      },
+      {
+        "id": 2,
+        "label": "crop"
+      }
+    ],
+    "result": {
+      "backend": "FPGA_RESIDENT",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+      "success": true,
+      "session_unchanged": true,
+      "wire_valid": true,
+      "warm": false,
+      "frame": 1,
+      "error": "",
+      "static_products": 50,
+      "dynamic_products": 24,
+      "static_weights_ready": 50,
+      "wire_scope": "This frame only; model preparation is resident_open.wire",
+      "blocks_completed": 12,
+      "operations": 199,
+      "matmul_operations": 74,
+      "matmul_batches": 122,
+      "external_matmul_operations": 74,
+      "fpga_matmul_operations": 74,
+      "cpu_matmul_operations": 0,
+      "macs": 1253683200,
+      "cycle_counters_sampled": false,
+      "timing_us": {
+        "input_us": 221602,
+        "infer_us": 108445019,
+        "output_us": 612,
+        "total_us": 108667357,
+        "yield_us": 951572,
+        "yield_calls": 1047,
+        "frame_total_us": 108667357,
+        "cold_total_applicable": true,
+        "cold_total_us": 246800726,
+        "open_total_us": 138133369
+      },
+      "memory": {
+        "matmul_tile_jobs": 51468,
+        "matmul_matrix_jobs": 3929,
+        "local_read_bytes": 89845008,
+        "local_write_bytes": 62013536
+      },
+      "use_matrix_jobs": true,
+      "input_crc32": 221330491,
+      "wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 16707722,
+        "rx_us": 45016787,
+        "ready_wait_us": 33353859,
+        "wire_bytes": 33719450,
+        "read_bytes": 24264432,
+        "write_bytes": 6404928,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 51468,
+        "matrix_jobs": 3929
+      },
+      "input_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 68,
+        "rx_us": 60,
+        "ready_wait_us": 10,
+        "wire_bytes": 64,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "graph_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 16707519,
+        "rx_us": 45016605,
+        "ready_wait_us": 33353832,
+        "wire_bytes": 33719258,
+        "read_bytes": 24264432,
+        "write_bytes": 6404928,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 51468,
+        "matrix_jobs": 3929
+      },
+      "output_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 135,
+        "rx_us": 122,
+        "ready_wait_us": 17,
+        "wire_bytes": 128,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "top5": [
+        {
+          "class_id": 697,
+          "label": "pajama, pyjama, pj's, jammies",
+          "probability": 0.14143377542495728,
+          "logit": 5.693041801452637
+        },
+        {
+          "class_id": 981,
+          "label": "ballplayer, baseball player",
+          "probability": 0.04299614951014519,
+          "logit": 4.502320766448975
+        },
+        {
+          "class_id": 652,
+          "label": "military uniform",
+          "probability": 0.026279347017407417,
+          "logit": 4.00999355316162
+        },
+        {
+          "class_id": 841,
+          "label": "sweatshirt",
+          "probability": 0.02259335294365883,
+          "logit": 3.858865976333618
+        },
+        {
+          "class_id": 617,
+          "label": "lab coat, laboratory coat",
+          "probability": 0.021398134529590607,
+          "logit": 3.804513931274414
+        }
+      ]
+    }
+  },
+  "cold_compare": {
+    "unequal_bits": 0,
+    "max_abs": 0.0,
+    "sha256": "ee03e13dffb253c886318761969da2fd3de6ae40f41e10ca0eeb24544525240b"
+  },
+  "image_switch": {
+    "matrix_mode": true,
+    "matrix_job_scope": "4E24 <=256x8 panel jobs, not full matrices or graph batches",
+    "optimization_profile": 15,
+    "boot_id": 3552341830,
+    "run_id": 3,
+    "busy": false,
+    "uploading": false,
+    "sd_mounted": true,
+    "error": "none",
+    "stage": "complete",
+    "model": "DeiT-tiny-224",
+    "task": "ImageNet1000 classification",
+    "backend": "FPGA_RESIDENT",
+    "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+    "backend_scope": "All MatMul FPGA INT8; P4 LayerNorm/Softmax/GELU and other ops; no fallback",
+    "result_valid": false,
+    "image": 0,
+    "operation": 199,
+    "total_operations": 199,
+    "elapsed_us": 0,
+    "ddr_timing_ns": {
+      "half": 100,
+      "setup": 100,
+      "guard": 2000,
+      "scope": "Nominal software waits, not measured clock"
+    },
+    "heap": {
+      "psram_free_bytes": 29026860,
+      "psram_largest_block_bytes": 28835840,
+      "internal_free_bytes": 137119
+    },
+    "npu_tx_dma": {
+      "selected": true,
+      "active": true,
+      "fault": false,
+      "positive": true,
+      "frequency_hz": 10000000,
+      "min_payload": 256,
+      "requests": 18655,
+      "wire_bytes": 24943726,
+      "elapsed_us": 6178583,
+      "allocations": 1,
+      "unit_allocations": 1
+    },
+    "resident_session": {
+      "cached_snapshot": true,
+      "worker_mutating": false,
+      "open": true,
+      "ready": true,
+      "busy": false,
+      "cookie": 1,
+      "static_weights_ready": 50,
+      "completed_frames": 1,
+      "host_activation_arena": true,
+      "cycle_counters_sampled": false,
+      "use_matrix_jobs": true,
+      "quantized_b_bytes": 5735584,
+      "ddr_reserved_bytes": 31204368,
+      "physical_lease_check": "Checked during open/run; status reads cached logical state",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c"
+    },
+    "resident_close_reason": "none",
+    "resident_open": {
+      "attempted": true,
+      "current_session": true,
+      "success": true,
+      "use_matrix_jobs": true,
+      "cancelled": false,
+      "session_unchanged": true,
+      "static_weights_ready": 50,
+      "error": "",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+      "timing_us": {
+        "verify_us": 6211771,
+        "setup_us": 152479,
+        "upload_us": 15588986,
+        "cache_prepare_us": 116139757,
+        "total_us": 138133369,
+        "first_completed_cold_total_us": 246800726
+      },
+      "memory": {
+        "constant_bytes": 22869664,
+        "activation_bytes": 2359296,
+        "quantized_b_bytes": 5735584,
+        "ddr_reserved_bytes": 31204368,
+        "metadata_bytes": 2560,
+        "scratch_bytes": 25663,
+        "host_activation_bytes": 2359296,
+        "graph_cache_bytes": 155236,
+        "source_prepare_read_bytes": 45182976,
+        "cache_write_bytes": 5735584,
+        "cache_verify_read_bytes": 5735584
+      },
+      "package_bytes": 22872224,
+      "package_crc32": 3109428749,
+      "wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 17505878,
+        "rx_us": 91406380,
+        "ready_wait_us": 5823499,
+        "wire_bytes": 82411552,
+        "read_bytes": 50918560,
+        "write_bytes": 28605248,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "setup_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 153,
+        "rx_us": 135,
+        "ready_wait_us": 18,
+        "wire_bytes": 134,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "upload_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 5241733,
+        "rx_us": 256976,
+        "ready_wait_us": 2317272,
+        "wire_bytes": 23305228,
+        "read_bytes": 0,
+        "write_bytes": 22869664,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "prepare_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 12263992,
+        "rx_us": 91149269,
+        "ready_wait_us": 3506209,
+        "wire_bytes": 59106190,
+        "read_bytes": 50918560,
+        "write_bytes": 5735584,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      }
+    },
+    "images": [
+      {
+        "id": 0,
+        "label": "astronaut"
+      },
+      {
+        "id": 1,
+        "label": "crew"
+      },
+      {
+        "id": 2,
+        "label": "crop"
+      }
+    ],
+    "result": {
+      "backend": "FPGA_RESIDENT",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+      "success": false,
+      "session_unchanged": false,
+      "wire_valid": false,
+      "warm": false,
+      "frame": 0,
+      "error": "",
+      "static_products": 0,
+      "dynamic_products": 0,
+      "static_weights_ready": 50,
+      "wire_scope": "This frame only; model preparation is resident_open.wire",
+      "blocks_completed": 0,
+      "operations": 0,
+      "matmul_operations": 0,
+      "matmul_batches": 0,
+      "external_matmul_operations": 0,
+      "fpga_matmul_operations": 0,
+      "cpu_matmul_operations": 0,
+      "macs": 0,
+      "cycle_counters_sampled": false,
+      "timing_us": {
+        "input_us": 0,
+        "infer_us": 0,
+        "output_us": 0,
+        "total_us": 0,
+        "yield_us": 0,
+        "yield_calls": 0,
+        "frame_total_us": 0,
+        "cold_total_applicable": false,
+        "cold_total_us": null,
+        "open_total_us": 138133369
+      },
+      "memory": {
+        "matmul_tile_jobs": 0,
+        "matmul_matrix_jobs": 0,
+        "local_read_bytes": 0,
+        "local_write_bytes": 0
+      },
+      "use_matrix_jobs": false,
+      "input_crc32": 0,
+      "wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "input_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "graph_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "output_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": true,
+        "tx_us": 0,
+        "rx_us": 0,
+        "ready_wait_us": 0,
+        "wire_bytes": 0,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      }
+    }
+  },
+  "warm": {
+    "matrix_mode": true,
+    "matrix_job_scope": "4E24 <=256x8 panel jobs, not full matrices or graph batches",
+    "optimization_profile": 15,
+    "boot_id": 3552341830,
+    "run_id": 4,
+    "busy": false,
+    "uploading": false,
+    "sd_mounted": true,
+    "error": "none",
+    "stage": "complete",
+    "model": "DeiT-tiny-224",
+    "task": "ImageNet1000 classification",
+    "backend": "FPGA_RESIDENT",
+    "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+    "backend_scope": "All MatMul FPGA INT8; P4 LayerNorm/Softmax/GELU and other ops; no fallback",
+    "result_valid": true,
+    "image": 0,
+    "operation": 199,
+    "total_operations": 199,
+    "elapsed_us": 0,
+    "ddr_timing_ns": {
+      "half": 100,
+      "setup": 100,
+      "guard": 2000,
+      "scope": "Nominal software waits, not measured clock"
+    },
+    "heap": {
+      "psram_free_bytes": 29022824,
+      "psram_largest_block_bytes": 28835840,
+      "internal_free_bytes": 137323
+    },
+    "npu_tx_dma": {
+      "selected": true,
+      "active": true,
+      "fault": false,
+      "positive": true,
+      "frequency_hz": 10000000,
+      "min_payload": 256,
+      "requests": 18655,
+      "wire_bytes": 24943726,
+      "elapsed_us": 6178583,
+      "allocations": 1,
+      "unit_allocations": 1
+    },
+    "resident_session": {
+      "cached_snapshot": true,
+      "worker_mutating": false,
+      "open": true,
+      "ready": true,
+      "busy": false,
+      "cookie": 1,
+      "static_weights_ready": 50,
+      "completed_frames": 2,
+      "host_activation_arena": true,
+      "cycle_counters_sampled": false,
+      "use_matrix_jobs": true,
+      "quantized_b_bytes": 5735584,
+      "ddr_reserved_bytes": 31204368,
+      "physical_lease_check": "Checked during open/run; status reads cached logical state",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c"
+    },
+    "resident_close_reason": "none",
+    "resident_open": {
+      "attempted": true,
+      "current_session": true,
+      "success": true,
+      "use_matrix_jobs": true,
+      "cancelled": false,
+      "session_unchanged": true,
+      "static_weights_ready": 50,
+      "error": "",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+      "timing_us": {
+        "verify_us": 6211771,
+        "setup_us": 152479,
+        "upload_us": 15588986,
+        "cache_prepare_us": 116139757,
+        "total_us": 138133369,
+        "first_completed_cold_total_us": 246800726
+      },
+      "memory": {
+        "constant_bytes": 22869664,
+        "activation_bytes": 2359296,
+        "quantized_b_bytes": 5735584,
+        "ddr_reserved_bytes": 31204368,
+        "metadata_bytes": 2560,
+        "scratch_bytes": 25663,
+        "host_activation_bytes": 2359296,
+        "graph_cache_bytes": 155236,
+        "source_prepare_read_bytes": 45182976,
+        "cache_write_bytes": 5735584,
+        "cache_verify_read_bytes": 5735584
+      },
+      "package_bytes": 22872224,
+      "package_crc32": 3109428749,
+      "wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 17505878,
+        "rx_us": 91406380,
+        "ready_wait_us": 5823499,
+        "wire_bytes": 82411552,
+        "read_bytes": 50918560,
+        "write_bytes": 28605248,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "setup_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 153,
+        "rx_us": 135,
+        "ready_wait_us": 18,
+        "wire_bytes": 134,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "upload_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 5241733,
+        "rx_us": 256976,
+        "ready_wait_us": 2317272,
+        "wire_bytes": 23305228,
+        "read_bytes": 0,
+        "write_bytes": 22869664,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "prepare_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 12263992,
+        "rx_us": 91149269,
+        "ready_wait_us": 3506209,
+        "wire_bytes": 59106190,
+        "read_bytes": 50918560,
+        "write_bytes": 5735584,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      }
+    },
+    "images": [
+      {
+        "id": 0,
+        "label": "astronaut"
+      },
+      {
+        "id": 1,
+        "label": "crew"
+      },
+      {
+        "id": 2,
+        "label": "crop"
+      }
+    ],
+    "result": {
+      "backend": "FPGA_RESIDENT",
+      "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+      "success": true,
+      "session_unchanged": true,
+      "wire_valid": true,
+      "warm": true,
+      "frame": 2,
+      "error": "",
+      "static_products": 50,
+      "dynamic_products": 24,
+      "static_weights_ready": 50,
+      "wire_scope": "This frame only; model preparation is resident_open.wire",
+      "blocks_completed": 12,
+      "operations": 199,
+      "matmul_operations": 74,
+      "matmul_batches": 122,
+      "external_matmul_operations": 74,
+      "fpga_matmul_operations": 74,
+      "cpu_matmul_operations": 0,
+      "macs": 1253683200,
+      "cycle_counters_sampled": false,
+      "timing_us": {
+        "input_us": 305148,
+        "infer_us": 108673595,
+        "output_us": 630,
+        "total_us": 108979505,
+        "yield_us": 933772,
+        "yield_calls": 1049,
+        "frame_total_us": 108979505,
+        "cold_total_applicable": false,
+        "cold_total_us": null,
+        "open_total_us": 138133369
+      },
+      "memory": {
+        "matmul_tile_jobs": 51468,
+        "matmul_matrix_jobs": 3929,
+        "local_read_bytes": 89845008,
+        "local_write_bytes": 62013536
+      },
+      "use_matrix_jobs": true,
+      "input_crc32": 2403422266,
+      "wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 16705661,
+        "rx_us": 45019320,
+        "ready_wait_us": 33357917,
+        "wire_bytes": 33719450,
+        "read_bytes": 24264432,
+        "write_bytes": 6404928,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 51468,
+        "matrix_jobs": 3929
+      },
+      "input_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 89,
+        "rx_us": 118,
+        "ready_wait_us": 13,
+        "wire_bytes": 64,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "graph_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 16705435,
+        "rx_us": 45019080,
+        "ready_wait_us": 33357888,
+        "wire_bytes": 33719258,
+        "read_bytes": 24264432,
+        "write_bytes": 6404928,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 51468,
+        "matrix_jobs": 3929
+      },
+      "output_wire": {
+        "cycle_samples": 0,
+        "cycle_counters_valid": false,
+        "tx_us": 137,
+        "rx_us": 122,
+        "ready_wait_us": 16,
+        "wire_bytes": 128,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "kernel_cycles": 0,
+        "ddr_wait_cycles": 0,
+        "tile_jobs": 0,
+        "matrix_jobs": 0
+      },
+      "top5": [
+        {
+          "class_id": 541,
+          "label": "drum, membranophone, tympan",
+          "probability": 0.11373381316661835,
+          "logit": 5.685896396636963
+        },
+        {
+          "class_id": 542,
+          "label": "drumstick",
+          "probability": 0.09027639776468277,
+          "logit": 5.454911708831787
+        },
+        {
+          "class_id": 822,
+          "label": "steel drum",
+          "probability": 0.03047037683427334,
+          "logit": 4.36879062652588
+        },
+        {
+          "class_id": 747,
+          "label": "punching bag, punch bag, punching ball, punchball",
+          "probability": 0.0239157322794199,
+          "logit": 4.126572132110596
+        },
+        {
+          "class_id": 577,
+          "label": "gong, tam-tam",
+          "probability": 0.016118720173835754,
+          "logit": 3.7320170402526855
+        }
+      ]
+    }
+  },
+  "warm_compare": {
+    "unequal_bits": 0,
+    "max_abs": 0.0,
+    "sha256": "102995be897310f8dbd2a3ab8a9406346425e1071e6b950e979bcdc65314e70d"
+  }
+}

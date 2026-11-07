@@ -1,0 +1,299 @@
+{
+  "matrix_mode": true,
+  "matrix_job_scope": "4E24 <=256x8 panel jobs, not full matrices or graph batches",
+  "optimization_profile": 15,
+  "boot_id": 3552341830,
+  "run_id": 3,
+  "busy": false,
+  "uploading": false,
+  "sd_mounted": true,
+  "error": "none",
+  "stage": "complete",
+  "model": "DeiT-tiny-224",
+  "task": "ImageNet1000 classification",
+  "backend": "FPGA_RESIDENT",
+  "quantization": "Dynamic INT8: per-token A, per-column B; FP32 nonlinear ops",
+  "backend_scope": "All MatMul FPGA INT8; P4 LayerNorm/Softmax/GELU and other ops; no fallback",
+  "result_valid": true,
+  "image": 1,
+  "operation": 199,
+  "total_operations": 199,
+  "elapsed_us": 0,
+  "ddr_timing_ns": {
+    "half": 100,
+    "setup": 100,
+    "guard": 2000,
+    "scope": "Nominal software waits, not measured clock"
+  },
+  "heap": {
+    "psram_free_bytes": 29022824,
+    "psram_largest_block_bytes": 28835840,
+    "internal_free_bytes": 137443
+  },
+  "npu_tx_dma": {
+    "selected": true,
+    "active": true,
+    "fault": false,
+    "positive": true,
+    "frequency_hz": 10000000,
+    "min_payload": 256,
+    "requests": 18655,
+    "wire_bytes": 24943726,
+    "elapsed_us": 6178583,
+    "allocations": 1,
+    "unit_allocations": 1
+  },
+  "resident_session": {
+    "cached_snapshot": true,
+    "worker_mutating": false,
+    "open": true,
+    "ready": true,
+    "busy": false,
+    "cookie": 1,
+    "static_weights_ready": 50,
+    "completed_frames": 1,
+    "host_activation_arena": true,
+    "cycle_counters_sampled": false,
+    "use_matrix_jobs": true,
+    "quantized_b_bytes": 5735584,
+    "ddr_reserved_bytes": 31204368,
+    "physical_lease_check": "Checked during open/run; status reads cached logical state",
+    "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c"
+  },
+  "resident_close_reason": "none",
+  "resident_open": {
+    "attempted": true,
+    "current_session": true,
+    "success": true,
+    "use_matrix_jobs": true,
+    "cancelled": false,
+    "session_unchanged": true,
+    "static_weights_ready": 50,
+    "error": "",
+    "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+    "timing_us": {
+      "verify_us": 6211771,
+      "setup_us": 152479,
+      "upload_us": 15588986,
+      "cache_prepare_us": 116139757,
+      "total_us": 138133369,
+      "first_completed_cold_total_us": 246800726
+    },
+    "memory": {
+      "constant_bytes": 22869664,
+      "activation_bytes": 2359296,
+      "quantized_b_bytes": 5735584,
+      "ddr_reserved_bytes": 31204368,
+      "metadata_bytes": 2560,
+      "scratch_bytes": 25663,
+      "host_activation_bytes": 2359296,
+      "graph_cache_bytes": 155236,
+      "source_prepare_read_bytes": 45182976,
+      "cache_write_bytes": 5735584,
+      "cache_verify_read_bytes": 5735584
+    },
+    "package_bytes": 22872224,
+    "package_crc32": 3109428749,
+    "wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 17505878,
+      "rx_us": 91406380,
+      "ready_wait_us": 5823499,
+      "wire_bytes": 82411552,
+      "read_bytes": 50918560,
+      "write_bytes": 28605248,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 0,
+      "matrix_jobs": 0
+    },
+    "setup_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 153,
+      "rx_us": 135,
+      "ready_wait_us": 18,
+      "wire_bytes": 134,
+      "read_bytes": 0,
+      "write_bytes": 0,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 0,
+      "matrix_jobs": 0
+    },
+    "upload_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 5241733,
+      "rx_us": 256976,
+      "ready_wait_us": 2317272,
+      "wire_bytes": 23305228,
+      "read_bytes": 0,
+      "write_bytes": 22869664,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 0,
+      "matrix_jobs": 0
+    },
+    "prepare_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 12263992,
+      "rx_us": 91149269,
+      "ready_wait_us": 3506209,
+      "wire_bytes": 59106190,
+      "read_bytes": 50918560,
+      "write_bytes": 5735584,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 0,
+      "matrix_jobs": 0
+    }
+  },
+  "images": [
+    {
+      "id": 0,
+      "label": "astronaut"
+    },
+    {
+      "id": 1,
+      "label": "crew"
+    },
+    {
+      "id": 2,
+      "label": "crop"
+    }
+  ],
+  "result": {
+    "backend": "FPGA_RESIDENT",
+    "model_source_sha256": "e1a51b0c81ff812e079d2189352747947879fee56429e4480064a6695cb34b2c",
+    "success": true,
+    "session_unchanged": true,
+    "wire_valid": true,
+    "warm": false,
+    "frame": 1,
+    "error": "",
+    "static_products": 50,
+    "dynamic_products": 24,
+    "static_weights_ready": 50,
+    "wire_scope": "This frame only; model preparation is resident_open.wire",
+    "blocks_completed": 12,
+    "operations": 199,
+    "matmul_operations": 74,
+    "matmul_batches": 122,
+    "external_matmul_operations": 74,
+    "fpga_matmul_operations": 74,
+    "cpu_matmul_operations": 0,
+    "macs": 1253683200,
+    "cycle_counters_sampled": false,
+    "timing_us": {
+      "input_us": 221602,
+      "infer_us": 108445019,
+      "output_us": 612,
+      "total_us": 108667357,
+      "yield_us": 951572,
+      "yield_calls": 1047,
+      "frame_total_us": 108667357,
+      "cold_total_applicable": true,
+      "cold_total_us": 246800726,
+      "open_total_us": 138133369
+    },
+    "memory": {
+      "matmul_tile_jobs": 51468,
+      "matmul_matrix_jobs": 3929,
+      "local_read_bytes": 89845008,
+      "local_write_bytes": 62013536
+    },
+    "use_matrix_jobs": true,
+    "input_crc32": 221330491,
+    "wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 16707722,
+      "rx_us": 45016787,
+      "ready_wait_us": 33353859,
+      "wire_bytes": 33719450,
+      "read_bytes": 24264432,
+      "write_bytes": 6404928,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 51468,
+      "matrix_jobs": 3929
+    },
+    "input_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 68,
+      "rx_us": 60,
+      "ready_wait_us": 10,
+      "wire_bytes": 64,
+      "read_bytes": 0,
+      "write_bytes": 0,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 0,
+      "matrix_jobs": 0
+    },
+    "graph_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 16707519,
+      "rx_us": 45016605,
+      "ready_wait_us": 33353832,
+      "wire_bytes": 33719258,
+      "read_bytes": 24264432,
+      "write_bytes": 6404928,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 51468,
+      "matrix_jobs": 3929
+    },
+    "output_wire": {
+      "cycle_samples": 0,
+      "cycle_counters_valid": false,
+      "tx_us": 135,
+      "rx_us": 122,
+      "ready_wait_us": 17,
+      "wire_bytes": 128,
+      "read_bytes": 0,
+      "write_bytes": 0,
+      "kernel_cycles": 0,
+      "ddr_wait_cycles": 0,
+      "tile_jobs": 0,
+      "matrix_jobs": 0
+    },
+    "top5": [
+      {
+        "class_id": 697,
+        "label": "pajama, pyjama, pj's, jammies",
+        "probability": 0.14143377542495728,
+        "logit": 5.693041801452637
+      },
+      {
+        "class_id": 981,
+        "label": "ballplayer, baseball player",
+        "probability": 0.04299614951014519,
+        "logit": 4.502320766448975
+      },
+      {
+        "class_id": 652,
+        "label": "military uniform",
+        "probability": 0.026279347017407417,
+        "logit": 4.00999355316162
+      },
+      {
+        "class_id": 841,
+        "label": "sweatshirt",
+        "probability": 0.02259335294365883,
+        "logit": 3.858865976333618
+      },
+      {
+        "class_id": 617,
+        "label": "lab coat, laboratory coat",
+        "probability": 0.021398134529590607,
+        "logit": 3.804513931274414
+      }
+    ]
+  }
+}

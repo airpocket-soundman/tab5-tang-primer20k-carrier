@@ -1,0 +1,74 @@
+{
+  "passed": true,
+  "scope": "HISTORICAL completed4E24 trial, NOT current device state; FPGA MatMul only, P4 nonlinears/activation placement remain",
+  "hardware_access": "Root original trial only, filesystem archiver has no device access",
+  "carrier_source": "ba7e15e",
+  "fpga_fs_sha256": "3d3d2e20211be5d48c8fb3f9c0b0311f2641ee08817ad46d598a8da98129bd69",
+  "host_elf": "0f69c3c7ab78a7a7b2f75424bd126b3ba9782201d63c316da88c84fba9726e7c",
+  "legacy_selftest": {
+    "resident_closed": true,
+    "resident_close_reason": "ddrselftest",
+    "passed": true,
+    "outputs": 5208,
+    "matrix_mode": true,
+    "mode_restored": true,
+    "error": "none"
+  },
+  "raw_matrix_selftest": {
+    "passed": true,
+    "checked": 1904,
+    "error": "none"
+  },
+  "matrix_check_details": "197x17x9,1872INT32 including Mpadding +32guard bytes =1904 checks",
+  "cold_compare": {
+    "unequal_bits": 0,
+    "max_abs": 0.0,
+    "sha256": "ee03e13dffb253c886318761969da2fd3de6ae40f41e10ca0eeb24544525240b"
+  },
+  "warm_compare": {
+    "unequal_bits": 0,
+    "max_abs": 0.0,
+    "sha256": "102995be897310f8dbd2a3ab8a9406346425e1071e6b950e979bcdc65314e70d"
+  },
+  "cold_timing_us": {
+    "input_us": 221602,
+    "infer_us": 108445019,
+    "output_us": 612,
+    "total_us": 108667357,
+    "yield_us": 951572,
+    "yield_calls": 1047,
+    "frame_total_us": 108667357,
+    "cold_total_applicable": true,
+    "cold_total_us": 246800726,
+    "open_total_us": 138133369
+  },
+  "warm_timing_us": {
+    "input_us": 305148,
+    "infer_us": 108673595,
+    "output_us": 630,
+    "total_us": 108979505,
+    "yield_us": 933772,
+    "yield_calls": 1049,
+    "frame_total_us": 108979505,
+    "cold_total_applicable": false,
+    "cold_total_us": null,
+    "open_total_us": 138133369
+  },
+  "matrix_panel_jobs_per_frame": 3929,
+  "internal_tiles_per_frame": 51468,
+  "wire_bytes_per_frame": 33719450,
+  "same_cookie": true,
+  "completed_frames": 2,
+  "warm_dma_cumulative_delta": {
+    "requests": 0,
+    "wire_bytes": 0,
+    "elapsed_us": 0,
+    "allocations": 0,
+    "unit_allocations": 0
+  },
+  "source_archive_files_verified": 24,
+  "excluded_host_directory": "v15-firmware intentionally remains host-owned; original host SHA manifest includes those excluded files",
+  "host_archive_reference": "https://github.com/airpocket-soundman/tab5-fpga-gpu/tree/codex/resume-20261106/docs/validation/npu-matrix-4e24-2026-11-07/physical",
+  "timing_qualified": false,
+  "old_offline_35_hashes_untouched": true
+}
