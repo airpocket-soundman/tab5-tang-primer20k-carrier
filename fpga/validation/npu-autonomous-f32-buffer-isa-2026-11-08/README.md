@@ -1,0 +1,7 @@
+# Isolated finite-F32 output-buffer full RV32 ISA proof
+
+Actual RV32IMC soft-float firmware completed all649 nodes /57 Conv /65 logical MatMul with400368 Tile commands and zero hardware Matrix commands.352B BSS was prefilled0xA5 before startup. All1800 output float bits exactly match predeclared RV32 golden9a4e9b9319e2b2592c9c10d2134c97b71226f0bf32e3b4774dfeb71feca6f715. Integer MAC uses independent native oracle; no physical hardware was accessed.
+
+Compared with index32 parent (noCRC/nearestcombo), step-budget slices142253Å®137030 (-3.672%). Read callbacks16076433357Å®15316358126 (-4.728%), writes10517627564Å®10093356648 (-4.034%), combined -4.453%.361 host seconds is not FPGA speed. This is better wholegraph workload evidence than the CRC/nearest isolated candidates, but remains offline numerical eligibility only; no promotion/physical NN pass or throughput improvement is claimed.
+
+Finite-F32 Add/Sub/Mul output keeps float results rather than widening then narrowing. Nonfinite input chunks preserve original double output path. Native432-case helper/trace proof and full native graph gate are archived alongside actual RV32 fullgraph proof; ABI, math operators/order, input conversions and chunk order remain. Exact ELF/BIN, all19 compiled-input hash matches, source snapshot and full ISA output/log/provenance are preserved. Canonical firmware, host SDK and active hardware unchanged. Helper static frame1680B; no dynamic stack highwater measurement.

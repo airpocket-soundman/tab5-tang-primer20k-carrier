@@ -30,3 +30,5 @@ P4から推論中に中間tensorを読み戻さない。完了後にmailbox・�
 選択firmwareを実RV32 ISA検証済みindex32版へ切り替えたESP-IDF版は `0a67b4f`、事前固定の1800出力を全bit比較する実機検証ツールは `cff8fc4`。wire契約の変更はない。全モデル実機試験は2026-11-08 20:24 JSTに開始し、開始時点では未完了。進行中のログはホスト作業木の `build/rtdetr-autonomous-device/full-index32-first` に置き、終端結果が出るまでは実機合格と記録しない。
 
 20:30:46 JSTにFPGA内の検証・RGB変換を通過し、graph本体の `fpga_infer` へ遷移した。同boot/run・エラーnoneの中間観測で、全649演算の完走認定ではない。監視所有権と復帰手順はESP-IDF側 `docs/引継ぎ_FPGA単独推論_2026-11-08.md` を参照する。
+
+追加監査：ESP-IDF a5f040版のtensor USB APIはcJSON数値であり、負のゼロの符号が失われる。現行実機verifierのbit比較はJSON再構成後のもので、クラスID列の13ゼロについてDDR生bitを証明できない。実行完了・JSON一致・raw bit未検証を分け、凍結された試験ログを後から合格へ書き換えない。今後のuint32/raw tensor APIはホスト側の追加であり、本wire契約とは別。

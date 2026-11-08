@@ -1,0 +1,27 @@
+{
+  "hardware_access": false,
+  "exact_RV32_golden_match": true,
+  "golden_sha256": "9a4e9b9319e2b2592c9c10d2134c97b71226f0bf32e3b4774dfeb71feca6f715",
+  "parent_profile": "isolated index32, no CRC/nearest combo",
+  "baseline": {
+    "step_slices": 142253,
+    "read_callbacks": 16076433357,
+    "write_callbacks": 10517627564
+  },
+  "candidate": {
+    "step_slices": 137030,
+    "read_callbacks": 15316358126,
+    "write_callbacks": 10093356648
+  },
+  "reduction_percent": {
+    "step_budget_slices": 3.671627311902037,
+    "read_callbacks": 4.727884687613548,
+    "write_callbacks": 4.033903210760236,
+    "combined_callbacks": 4.453423456155137
+  },
+  "physical_speed_measured": false,
+  "canonical_or_device_changed": false,
+  "step_counter_scope": "1e6-budget calls, not exact retired instructions",
+  "stack": "helper1680B static; no dynamic SP/canary measurement",
+  "qualification": "offline numerical eligibility only, not promotion/hardware proof"
+}

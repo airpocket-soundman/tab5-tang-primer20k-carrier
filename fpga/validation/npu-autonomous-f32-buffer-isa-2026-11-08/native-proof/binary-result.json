@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "hardware_access": false,
+  "commands": [
+    {
+      "command": [
+        "D:/GitHub/airpocket-soundman/tab5-fpga-gpu-demo/build/test-tools/ziglang/zig.exe",
+        "c++",
+        "-std=c++17",
+        "-O2",
+        "-UNDEBUG",
+        "-ffp-contract=off",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-ID:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\firmware\\autonomous\\vendor\\host\\main\\inference",
+        "-ID:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\firmware\\autonomous\\experiments\\index32",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\firmware\\autonomous\\experiments\\f32-buffer\\test_binary.cpp",
+        "-o",
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\firmware\\autonomous\\experiments\\f32-buffer\\build\\test_binary.exe"
+      ],
+      "returncode": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\firmware\\autonomous\\experiments\\f32-buffer\\build\\test_binary.exe"
+      ],
+      "returncode": 0,
+      "output": "PASS 432 cases Add/Sub/Mul, finite/NaN/Inf,subnormal,signedzero,overflow,inplace,broadcast,map/cache,128chunks,cancel+exactIOtrace\n"
+    }
+  ]
+}
