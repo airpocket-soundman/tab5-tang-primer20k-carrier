@@ -1,0 +1,107 @@
+
+#
+# Toolchain Detection
+#
+CONFIG_COMPILER_TYPE="GCC"
+CONFIG_CC_IS_GCC=y
+
+#
+# Emscripten not found - install emsdk for WebAssembly builds
+#
+# end of Toolchain Detection
+
+#
+# Build Target
+#
+CONFIG_BUILD_NATIVE=y
+
+#
+# Build mode: Native
+#
+# end of Build Target
+
+CONFIG_HOST_LINUX=y
+CONFIG_HOST_JIT_CAPABLE=y
+
+#
+# RISC-V ISA Configuration
+#
+CONFIG_RV32I=y
+# CONFIG_RV32E is not set
+
+#
+# Standard Extensions
+#
+CONFIG_EXT_M=y
+CONFIG_EXT_A=y
+# CONFIG_EXT_F is not set
+CONFIG_EXT_C=y
+# CONFIG_EXT_V is not set
+
+#
+# Zicsr and Zifencei Extensions
+#
+CONFIG_Zicsr=y
+CONFIG_Zifencei=y
+
+#
+# Bit Manipulation Extensions (Zb*)
+#
+# CONFIG_Zba is not set
+# CONFIG_Zbb is not set
+# CONFIG_Zbc is not set
+# CONFIG_Zbs is not set
+# end of RISC-V ISA Configuration
+
+#
+# Execution Modes
+#
+
+#
+# Emulation Mode
+#
+CONFIG_INTERPRETER_ONLY=y
+# CONFIG_JIT is not set
+
+#
+# System Emulation
+#
+# CONFIG_SYSTEM is not set
+# end of Execution Modes
+
+#
+# Performance Options
+#
+CONFIG_MOP_FUSION=y
+CONFIG_BLOCK_CHAINING=y
+CONFIG_LTO=y
+# end of Performance Options
+
+#
+# Debugging
+#
+# CONFIG_GDBSTUB is not set
+CONFIG_LOG_COLOR=y
+# CONFIG_UBSAN is not set
+# end of Debugging
+
+#
+# Graphics and Audio
+#
+# end of Graphics and Audio
+
+#
+# Testing
+#
+# CONFIG_ARCH_TEST is not set
+# end of Testing
+
+#
+# Build Options
+#
+CONFIG_OPTIMIZE_LEVEL=2
+CONFIG_OPTIMIZE_SIZE=y
+# CONFIG_DEBUG_SYMBOLS is not set
+# end of Build Options
+
+CONFIG_CONFIGURED=y

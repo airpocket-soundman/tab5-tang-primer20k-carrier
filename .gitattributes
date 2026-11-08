@@ -58,3 +58,27 @@ fpga/validation/npu-ddr-matrix-4e24-physical-2026-11-07/**/*.f32 binary
 fpga/validation/npu-rtdetr-4e24-contract-2026-11-07/** -text -whitespace
 fpga/npu/tests/audit_rtdetr_shapes.py whitespace=cr-at-eol
 fpga/npu/tests/run_rtdetr_ddr_contract.py whitespace=cr-at-eol
+
+# Frozen autonomous CPU, firmware and fullchip evidence preserves raw tool bytes.
+fpga/validation/npu-autonomous-host-review-2026-11-08/** -text -whitespace
+fpga/validation/npu-autonomous-isa-2026-11-08/** -text -whitespace
+fpga/validation/npu-autonomous-run-control-2026-11-08/** -text -whitespace
+fpga/validation/npu-autonomous-4e30-2026-11-08/** -text -whitespace
+fpga/validation/npu-autonomous-4e30-program-2026-11-08/** -text -whitespace
+fpga/validation/npu-local-cpu-2026-11-08/** -text -whitespace
+fpga/npu/vendor/picorv32/** -text -whitespace
+fpga/npu/firmware/autonomous/** whitespace=cr-at-eol
+fpga/npu/firmware/autonomous/vendor/** -text -whitespace
+fpga/npu/rtl/npu_ddr_core_autonomous.v whitespace=cr-at-eol
+fpga/npu/rtl/npu_ddr_sys_autonomous.v whitespace=cr-at-eol
+fpga/npu/rtl/npu_local_cpu_subsystem.v whitespace=cr-at-eol
+fpga/npu/rtl/npu_local_run_control.v whitespace=cr-at-eol
+fpga/npu/rtl/npu_local_rv32_regs.v whitespace=cr-at-eol
+fpga/npu/rtl/npu_rv32_ddr_cache.v whitespace=cr-at-eol
+fpga/npu/tests/autonomous* whitespace=cr-at-eol
+fpga/npu/tests/run_autonomous* whitespace=cr-at-eol
+fpga/npu/tests/run_local* whitespace=cr-at-eol
+fpga/npu/tools/prepare_local_cpu.py whitespace=cr-at-eol
+fpga/builds/dock/build_npu_autonomous.tcl whitespace=cr-at-eol
+fpga/platform/dock/tab5_dock_npu_ddr_autonomous_top.v whitespace=cr-at-eol
+fpga/npu/protocol/npu_autonomous_v1.h whitespace=cr-at-eol

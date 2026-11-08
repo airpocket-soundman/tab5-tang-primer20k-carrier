@@ -1,0 +1,32 @@
+{
+  "scope": "Actual RV32IMC program and software floating point with host INT64 accelerator MMIO oracle; no physical FPGA or performance qualification",
+  "upstream": "https://github.com/sysprog21/rv32emu",
+  "upstream_commit": "ffb041bab9d1513e5329f25f486378778dceed13",
+  "emulator_configuration": "mini_defconfig, no F/SDL/JIT",
+  "test_only_modifications": [
+    "internal callback installer in api.c",
+    "six non-SYSTEM RAM macros routed through callbacks in rv32_template.c"
+  ],
+  "package_sha256": "775b42010c82da0d464db21812563122539b090bc236af7c610eba0f1257d251",
+  "image_sha256": "a58f4a7a296cee3e03e3f0174d27a641dfc228ccd88b73bbc0ea599d47cccd65",
+  "firmware_elf_sha256": "86f6a5f9660ab217a45c72d502aa7a76aeed8baff8bc6db9d76e6359a11c5454",
+  "firmware_binary_sha256": "0e432d6bcbd9d83252e6ac5dd869dac056458ae91e5b67ccec9ebe7c134f5f6f",
+  "output_sha256": "9a4e9b9319e2b2592c9c10d2134c97b71226f0bf32e3b4774dfeb71feca6f715",
+  "runner_sources_sha256": {
+    "fpga/npu/tests/autonomous_iss_runner.c": "47ea2889613023c9f99ca9127b5c76732f8dc67a61da1b6d270e5e9bebb8b7d1",
+    "fpga/npu/tests/autonomous_iss.mk": "33948175686ff17ad9d03198a9cd5cb40bbfe4d069c1e060d1e5cbcaa845eec3",
+    "fpga/npu/tests/run_autonomous_iss.py": "276d63d663f8d67c10b0d5930b102835e7fd8483d2cafc3011632145cd63d6c1",
+    "fpga/npu/firmware/autonomous/abi.h": "22c5814bba92f56f6946eacb786cdc7ae72084bbf668bd060b26d6f30a74850b"
+  },
+  "emulator_binary_snapshot_sha256": "060ed0e3fd5d481a712bb55ef09845158a5d94102d84360ca94feb7105692493",
+  "snapshot_note": "Runner binary snapshot after full run and same-source wrapper smoke rebuild; original full run used same immutable runner C/config and pinned patched sources. Firmware ELF and output bytes preserved. No physical result has been used to choose the golden.",
+  "full_model_execution_complete": true,
+  "strict_native_comparison_passed": false,
+  "budget_per_step": 1000000,
+  "budget_slices": 212041,
+  "budget_sum": 212041000000,
+  "budget_scope": "Approximate interpreter step/cycle budget, NOT exact retired-instruction count, PicoRV32 cycle count, or hardware latency. CPU data callbacks counted separately in raw result.",
+  "negative_payload_mutation": "Copy exact RQG2 and XOR final payload byte with1, retain metadata/payload CRC fields; no MAC/output permitted",
+  "negative_payload_sha256": "ccfdb2b3f9f4424dc2ad0fc08038c1c6964e4491a84b291f07d0c95d7df43393",
+  "hardware_access": false
+}

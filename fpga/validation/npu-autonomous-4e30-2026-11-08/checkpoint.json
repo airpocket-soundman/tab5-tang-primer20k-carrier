@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-08",
+  "profile": "4E30 tile-only hardware MAC with RV32IMC software matrix sequencing",
+  "hardware_access": false,
+  "fullchip_synthesis_pnr_passed": true,
+  "timing_qualified": false,
+  "physical_smoke_passed": false,
+  "full_model_physical_passed": false,
+  "FS_sha256": "0325998685d3d41badd243829c979881fbb80e04fbb3d11c55affdf8126e49d8",
+  "resources": {
+    "logic_used": 18513,
+    "logic_available": 20736,
+    "registers_used": 8647,
+    "registers_available": 16173,
+    "BSRAM_used": 46,
+    "BSRAM_available": 46,
+    "DSP_used": 12.5,
+    "DSP_available": 24,
+    "CLS_used": 9785,
+    "CLS_available": 10368
+  },
+  "same_clock_Fmax_MHz": {
+    "sys27": 38.217,
+    "user99": 100.697
+  },
+  "requested_clocks_MHz": {
+    "sys27": 27,
+    "user99": 99.5625
+  },
+  "unwaived_STA_violated_endpoints": {
+    "setup": 1416,
+    "hold": 84
+  },
+  "historical_full_v1_synthesis_logic": 22035,
+  "historical_full_v1_fit": false,
+  "owned_source_hashes_match": true,
+  "Gowin_version": "V1.9.11.03 Education",
+  "build_script": "fpga/builds/dock/build_npu_autonomous.tcl",
+  "build_environment": {
+    "NPU_AUTONOMOUS_OUTPUT": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\build\\npu-autonomous-root\\full-v2-no-matrix"
+  },
+  "excluded_artifacts": "No generated VG/netlists or encrypted DDR IP source. External hashes and pinned Pico provenance retained.",
+  "rtl_core_scope": "Actual PicoRV32/cache/8OC MAC/CPU software MatMul and CDC/DDR adapter; only DDR PHY fake;14 integer outputs,39 packets; NOT full model or hardware."
+}

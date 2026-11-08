@@ -1,0 +1,28 @@
+[
+  {
+    "command": [
+      "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\iverilog.exe",
+      "-g2012",
+      "-DPICORV32_REGS=npu_local_rv32_regs",
+      "-s",
+      "tb",
+      "-o",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\build\\npu-local-cpu-tileonly-fault-5\\test.vvp",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\build\\npu-local-cpu-tileonly-fault-5\\tb.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\vendor\\picorv32\\picorv32.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_local_rv32_regs.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_rv32_ddr_cache.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_local_cpu_subsystem.v"
+    ],
+    "returncode": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\vvp.exe",
+      "test.vvp"
+    ],
+    "returncode": 0,
+    "output": "PASS actual CPU fault mode5 code5 requests1 no success/retry safe1\nD:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\build\\npu-local-cpu-tileonly-fault-5\\tb.v:74: $finish called at 935000 (1ps)\n"
+  }
+]

@@ -1,0 +1,45 @@
+diff --git a/src/api.c b/src/api.c
+index 161cf95..b8f2f8f 100644
+--- a/src/api.c
++++ b/src/api.c
+@@ -250,3 +250,17 @@ const char *rv32emu_status_string(rv32emu_status_t status)
+         return "unknown status";
+     }
+ }
++
++/* AUTONOMOUS_ISA_TEST_ONLY: pinned internal callback installer */
++void rv32emu_autonomous_install(rv32emu_t *,const riscv_io_t *,riscv_io_t *);
++void rv32emu_autonomous_install(rv32emu_t *emu,const riscv_io_t *io,riscv_io_t *saved)
++{
++ *saved=emu->cpu->io;
++ emu->cpu->io.mem_ifetch=io->mem_ifetch;
++ emu->cpu->io.mem_read_w=io->mem_read_w;
++ emu->cpu->io.mem_read_s=io->mem_read_s;
++ emu->cpu->io.mem_read_b=io->mem_read_b;
++ emu->cpu->io.mem_write_w=io->mem_write_w;
++ emu->cpu->io.mem_write_s=io->mem_write_s;
++ emu->cpu->io.mem_write_b=io->mem_write_b;
++}
+diff --git a/src/rv32_template.c b/src/rv32_template.c
+index ccf1388..01151af 100644
+--- a/src/rv32_template.c
++++ b/src/rv32_template.c
+@@ -330,12 +330,12 @@ RVOP(bgeu, { BRANCH_FUNC(uint32_t, <); })
+  * In SYSTEM mode, use io callbacks for MMU/TLB handling.
+  */
+ #if !RV32_HAS(SYSTEM)
+-#define MEM_READ_W(rv, addr) ram_read_w(rv, addr)
+-#define MEM_READ_S(rv, addr) ram_read_s(rv, addr)
+-#define MEM_READ_B(rv, addr) ram_read_b(rv, addr)
+-#define MEM_WRITE_W(rv, addr, val) ram_write_w(rv, addr, val)
+-#define MEM_WRITE_S(rv, addr, val) ram_write_s(rv, addr, val)
+-#define MEM_WRITE_B(rv, addr, val) ram_write_b(rv, addr, val)
++#define MEM_READ_W(rv, addr) ((rv)->io.mem_read_w(rv, addr))
++#define MEM_READ_S(rv, addr) ((rv)->io.mem_read_s(rv, addr))
++#define MEM_READ_B(rv, addr) ((rv)->io.mem_read_b(rv, addr))
++#define MEM_WRITE_W(rv, addr, val) ((rv)->io.mem_write_w(rv, addr, val))
++#define MEM_WRITE_S(rv, addr, val) ((rv)->io.mem_write_s(rv, addr, val))
++#define MEM_WRITE_B(rv, addr, val) ((rv)->io.mem_write_b(rv, addr, val))
+ #else
+ /* A page fault runs the guest's trap handler inside the access. Store the
+  * handler's running cycle count first, so that the trap handler counts on from

@@ -1,0 +1,46 @@
+{
+  "scope": "Actual RV32 firmware plus host INT64 accelerator oracle; NOT physical FPGA and NOT replacement accuracy acceptance",
+  "actual_sha256": "9a4e9b9319e2b2592c9c10d2134c97b71226f0bf32e3b4774dfeb71feca6f715",
+  "finite": true,
+  "comparisons": {
+    "nativeFAST": {
+      "source_sha256": "436bc27f52157bd89dee8101867761f4fece06972ef3bd27824dadfb61ca7adc",
+      "unequal_bits": 1741,
+      "indexed_class_mismatches": 241,
+      "indexed_float_allclose_1e4_1e3": false,
+      "diagnostic_only_score_min": 0.35,
+      "greedy_same_class_IoU_min": 0.5,
+      "actual_count": 45,
+      "reference_count": 46,
+      "matched": 45,
+      "matched_min_IoU": 0.9668140228713691,
+      "matched_max_score_difference": 0.07970002293586731
+    },
+    "nativeOFF": {
+      "source_sha256": "b539d25d1c013808bb15844ed505a1fa48a81d7d49c479e7472e13317f3064fb",
+      "unequal_bits": 205,
+      "indexed_class_mismatches": 27,
+      "indexed_float_allclose_1e4_1e3": false,
+      "diagnostic_only_score_min": 0.35,
+      "greedy_same_class_IoU_min": 0.5,
+      "actual_count": 45,
+      "reference_count": 45,
+      "matched": 45,
+      "matched_min_IoU": 0.9988298960422239,
+      "matched_max_score_difference": 0.0017208456993103027
+    },
+    "priorP4_FPGA": {
+      "source_sha256": "8afb815c4baea1faa29ff29f08f95729573b7d1472b219a4782b6a33572684a6",
+      "unequal_bits": 1742,
+      "indexed_class_mismatches": 242,
+      "indexed_float_allclose_1e4_1e3": false,
+      "diagnostic_only_score_min": 0.35,
+      "greedy_same_class_IoU_min": 0.5,
+      "actual_count": 45,
+      "reference_count": 46,
+      "matched": 45,
+      "matched_min_IoU": 0.9665695888128054,
+      "matched_max_score_difference": 0.07424673438072205
+    }
+  }
+}

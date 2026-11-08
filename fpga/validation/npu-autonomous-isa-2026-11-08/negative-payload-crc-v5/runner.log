@@ -1,0 +1,40 @@
+input target 0x01876000; RV32 firmware performs RGB conversion
+fetch 05000000
+fetch 05000004
+fetch 05000008
+fetch 0500000c
+fetch 05000010
+fetch 05000014
+fetch 05000018
+fetch 0500001c
+fetch 05000020
+fetch 05000024
+fetch 05000026
+write 0501e610=00000000
+fetch 0500001c
+write 0501e614=00000000
+write 0501e618=00000000
+write 0501e61c=00000000
+write 0501e620=00000000
+write 0501e624=00000000
+write 0501e628=00000000
+write 0501e62c=00000000
+write 0501e630=00000000
+write 0501e634=00000000
+write 0501e638=00000000
+write 0501e63c=00000000
+read 07ff0000
+read 07ff0004
+read 07ff0008
+read 07ff0010
+read 07ff0010
+read 10000018
+read 07ff0014
+read 07ff0018
+read 07ff0018
+read 07ff001c
+read 07ff0020
+read 07ff0024
+state2 progress0/0 nodes0 conv0 matrix0 tiles0 panels0 elapsed0
+state5 progress0/0 nodes0 conv0 matrix0 tiles0 panels0 elapsed1
+ISA execution complete=0 error_text=payload_crc

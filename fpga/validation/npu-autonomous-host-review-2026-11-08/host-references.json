@@ -1,0 +1,122 @@
+{
+  "date": "2026-11-08",
+  "scope": "Read-only cross-host review before autonomous FPGA internal MMIO/wire ABI assignment. No host files or hardware changed.",
+  "hosts": {
+    "linux": {
+      "root": "D:\\GitHub\\tab5-linux-fpga",
+      "head": "cfc9a6ecf7daa4c5e3decbe3885b22c2bd2f4cd1",
+      "worktree_dirty": true,
+      "files": {
+        "README.md": {
+          "present": true,
+          "sha256": "39f6179e3a72a5b19188e1be2591e5ac6c2a15e2af3385feb01a75ae41d8b6f7"
+        },
+        "docs/DEVELOPMENT_GOALS.md": {
+          "present": true,
+          "sha256": "6d8408524c1b6e248065afd9afac93f77c8044768bcdf947217b4a20a312cc48"
+        },
+        "linux/dts/easystick-stamp-p4.dts": {
+          "present": true,
+          "sha256": "1e0b779e03036a0384c1b2cd350e92d70211c07c1fbb5bb1f60143e350179d15"
+        },
+        "linux/buildroot-external/package/tab5-fpga-link/src/fpga_link.c": {
+          "present": true,
+          "sha256": "da5126d24f784e3d4925464bde6a39f38c43afc6a14f3289fa41149ab80dc524"
+        },
+        "linux/buildroot-external/package/tab5-fpga-link/src/fpga_gpio.c": {
+          "present": true,
+          "sha256": "fe5e2424144b496d717274455b1933e61681ec357ee1ef62d1bfcfd6b2fb96c1"
+        },
+        "linux/buildroot-external/package/tab5-fpga-link/src/fpga_dma.h": {
+          "present": true,
+          "sha256": "8fe3d1d5f0cd43033ad3800eb17398c70102eb80e61d852b2538df5e6e18d93a"
+        }
+      }
+    },
+    "meos": {
+      "root": "D:\\GitHub\\tab5-meos-fpga",
+      "head": "78274b4625e889f13360a024988cb01c1b9351b6",
+      "worktree_dirty": true,
+      "files": {
+        "README.md": {
+          "present": true,
+          "sha256": "dcb3c0ca915f340485af4df182b32eeb22f5e4715c4d80511b55fc49e0bd895f"
+        },
+        "docs/FPGA_CARRIER_REQUIREMENTS.md": {
+          "present": true,
+          "sha256": "dbac53cb1f6968da610ddf293571e101882f0f1785f4a51f36b9648a5fed9353"
+        },
+        "user/fpga/fpga_npu_app.c": {
+          "present": true,
+          "sha256": "1dd301b3d2d7629db7554b33a6020ddccd4118996fe4af5d6feec3a45ebd3d05"
+        },
+        "drivers/fpga/fpga_npu.c": {
+          "present": true,
+          "sha256": "1817c3402710481fd85877b8c3f18b3891b3fc3d8df9b43c429363e3e491f325"
+        },
+        "drivers/fpga/fpga_link.c": {
+          "present": true,
+          "sha256": "652b79569e2a7b3b3b75926252c0aa9044a96ff7224356aa961cab4d64d9b0af"
+        },
+        "kernel/include/m5os/dev_fpga.h": {
+          "present": true,
+          "sha256": "2df9a0700e0654fc41b6be30621947e4872b1edbf0b416808398543c3787ae44"
+        }
+      }
+    },
+    "memory_research": {
+      "root": "D:\\GitHub\\esp32p4-linux-fpga-memory",
+      "head": "e84b59e8bf462ab1e2023f9e28f7915c152cbbdb",
+      "worktree_dirty": false,
+      "files": {
+        "README.md": {
+          "present": true,
+          "sha256": "756a8761127e8eab9b2b3988bc7be6b1bfb7b5596a2e82036d0ef045adcd838d"
+        },
+        "docs/Project_A_P4_Linux_FPGA_Virtual_MMU.md": {
+          "present": true,
+          "sha256": "d8d4b59369b4d3ff441bf48d84ff39dcf7462f70929052557ac09a1c81693de0"
+        }
+      }
+    },
+    "esp_idf": {
+      "root": "D:\\github\\airpocket-soundman\\tab5-fpga-gpu-resume-20261106",
+      "head": "d5eca7065448b0381f0652a5b80d591595ca5299",
+      "worktree_dirty": false,
+      "files": {
+        "README.md": {
+          "present": true,
+          "sha256": "856a021658813b50fec5feed8489d856d3510fed349e39c0ebf0364491a3f8b8"
+        },
+        "docs/Project_B_Tab5_FPGA_GPU.md": {
+          "present": true,
+          "sha256": "4fb6d9674b00cde031c3cdfce9b55cd11cb43104b3d1a4bd7b08b261dc168223"
+        },
+        "docs/WHOLEBODY_DEVELOPMENT_PLAN_2026-11-07.md": {
+          "present": true,
+          "sha256": "faf335ebc322a0d82c592cd5c9d43c87c6d400221175e081f5a012ca4f3c0b37"
+        },
+        "main/inference/rtdetr_device_run.cpp": {
+          "present": true,
+          "sha256": "b6344f9092eb482c9561f836a5e197edb396f84cd3e26d2babf99af1c2e21ad2"
+        },
+        "main/inference/rtdetr_fpga_backend.cpp": {
+          "present": true,
+          "sha256": "07307b19800de230ea67880a5b14f1d0e3463f00a8dcb46cf680d420bb8cdd37"
+        },
+        "main/inference/rtdetr_graph.cpp": {
+          "present": true,
+          "sha256": "48f089c70cd58aaaffddadd46ab6ffbac58d1097b9db83d864c299e71cba93bc"
+        },
+        "main/dock_gpu.cpp": {
+          "present": true,
+          "sha256": "18426e9fd824c115c380aa5b01b3792413f136488d069539425e15d9dd9bce52"
+        },
+        "main/rtdetr_app_main.cpp": {
+          "present": true,
+          "sha256": "dccea77334256a5b2ace61f5a4fdafb697cf163943e869735efa8c1d29c62d6b"
+        }
+      }
+    }
+  }
+}

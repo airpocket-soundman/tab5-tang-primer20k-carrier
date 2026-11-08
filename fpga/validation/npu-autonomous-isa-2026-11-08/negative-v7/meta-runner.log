@@ -1,0 +1,40 @@
+fetch 05000000
+fetch 05000004
+fetch 05000008
+fetch 0500000c
+fetch 05000010
+fetch 05000014
+fetch 05000018
+fetch 0500001c
+fetch 05000020
+fetch 05000024
+fetch 05000026
+write 0501e680=00000000
+fetch 0500001c
+write 0501e684=00000000
+write 0501e688=00000000
+write 0501e68c=00000000
+write 0501e690=00000000
+write 0501e694=00000000
+write 0501e698=00000000
+write 0501e69c=00000000
+write 0501e6a0=00000000
+write 0501e6a4=00000000
+write 0501e6a8=00000000
+write 0501e6ac=00000000
+read 07ff0000
+read 07ff0004
+read 07ff0008
+read 07ff0010
+read 07ff0010
+read 10000018
+read 07ff0014
+read 07ff0018
+read 07ff0018
+read 07ff001c
+read 07ff0020
+read 07ff0024
+input target 0x01876000; RV32 firmware performs RGB conversion
+state2 progress0/0 nodes0 conv0 matrix0 tiles0 panels0 elapsed0
+state5 progress0/0 nodes0 conv0 matrix0 tiles0 panels0 elapsed0
+ISA execution complete=0 error_text=typed_metadata_or_source

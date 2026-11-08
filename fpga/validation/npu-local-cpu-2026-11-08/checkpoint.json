@@ -1,0 +1,50 @@
+{
+  "scope": "Standalone actual RV32IMC/cache/MMIO RTL and independentMACdouble smoke/fault proof plus synthesis; NOT full integratedFPGA/model/board qualification",
+  "hardware_access": false,
+  "passed": true,
+  "normal_output_checks": 14,
+  "ic17_chain_output_checks": 20,
+  "contract_fault_modes": 9,
+  "upstream_pico_commit": "ef203c2b0a3fb793280f5114941416c425c5b461",
+  "resource_final": {
+    "logic": 5824,
+    "lut": 4914,
+    "alu": 478,
+    "ram16": 72,
+    "register": 2235,
+    "bsram": 1,
+    "dsp": 0,
+    "synthesis_fmax_mhz": 71.173,
+    "timing_constraint_reported_mhz": 100,
+    "pnr_measured": false,
+    "source_scope": "Frozen matrix-capable component before optional ENABLE_MATRIX parameter; exact old source snapshot retained. Current tile-only profile final full-chip measurement belongs root integration."
+  },
+  "additive_4e24_only": {
+    "logic": 20017,
+    "logic_remaining_before_integration": 719,
+    "bsram": 46,
+    "not_integrated_fit_proof": true
+  },
+  "limitations": [
+    "SmokeMAC is a generic INT32 double, actualMACRTL covered separately by root integration",
+    "Historical resource reports preserved but original exploratory source snapshots were not archived; no claim of byte-identical reproduction",
+    "Final component synthesis RTL snapshots were hash-checked against current source; tagged DDR fake omits USER clock/controller PHY",
+    "No full RT-DETR firmware execution, performance or numerical qualification asserted by this archive"
+  ],
+  "current_profile": {
+    "ENABLE_MATRIX": 0,
+    "matrix_method": "CPU sequences unchanged hardware Conv tiles, not software MAC",
+    "normal_smoke_per_run": 14,
+    "ic17_chain_per_run": 20,
+    "restarts_tested": 2,
+    "bss_seeded": "0xA5 actual ELF.bss",
+    "epochs": [
+      37,
+      38
+    ],
+    "disabled_matrix_start_ready": 0,
+    "hardware_matrix_CMD2_rejected": true,
+    "latest_smoke_binary": "firmware/smoke-v8-tile-only/autonomous.bin",
+    "latest_chain_binary": "firmware/chain-v3-tile-only/autonomous.bin"
+  }
+}

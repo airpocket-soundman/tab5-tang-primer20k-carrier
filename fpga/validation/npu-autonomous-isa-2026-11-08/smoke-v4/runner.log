@@ -1,0 +1,37 @@
+input target 0x01876000; RV32 firmware performs RGB conversion
+fetch 05000000
+fetch 05000004
+fetch 05000008
+fetch 0500000c
+fetch 05000010
+fetch 05000014
+fetch 05000018
+fetch 0500001c
+fetch 05000028
+fetch 05000050
+fetch 05000052
+fetch 05000054
+write 07fdfff8=00000000
+write 07fdfff4=00000000
+write 07fdfff0=00000000
+state4 progress0/0 nodes14 conv0 matrix0 tiles1 panels1 elapsed0
+write 07fdffec=00000000
+write 07fdffe8=00000000
+write 07fdffe4=00000000
+write 07fdfffc=0500002a
+write 07ff0030=00000003
+write 07ff0034=00000000
+write 07ff0050=00000000
+write 07ff0040=00000000
+write 00001000=00000000
+read 07fdff94
+read 07fdff98
+read 07fdff9c
+read 07fdffa0
+read 07fdffa4
+read 07fdffa8
+read 07fdffb0
+read 07fdffb4
+read 07fdffc8
+read 07fdffc0
+ISA execution complete=1 error_text=
