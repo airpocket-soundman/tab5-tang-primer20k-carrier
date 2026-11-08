@@ -1,0 +1,20 @@
+-d D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-autonomous-root\full-v4-fastmul-place1\npu_ddr\impl\gwsynthesis\npu_ddr.vg
+-p GW2A-18C-PBGA256-8
+-pn GW2A-LV18PG256C8/I7
+-cst D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-autonomous-root\full-v4-fastmul-place1\source_snapshot\mem\config\mem_bist.cst
+-cfg D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-autonomous-root\full-v4-fastmul-place1\npu_ddr\impl\pnr\device.cfg
+-sdc D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-autonomous-root\full-v4-fastmul-place1\npu_ddr_initial.sdc
+-bit
+-tr
+-ph
+-sdf
+-o
+-timing
+-cst_error
+-convert_sdp32_36_to_sdp16_18
+-place_option 1
+-route_option 0
+-clock_route_order 0
+-correct_hold 1
+-route_maxfan 23
+-global_freq 100.000

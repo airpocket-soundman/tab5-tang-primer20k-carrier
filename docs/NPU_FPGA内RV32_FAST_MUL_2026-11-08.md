@@ -9,3 +9,5 @@
 単体合成（Gowin Education1.9.11.03、ENABLE_MATRIX=0/FAST_MUL=1）はLogic5455、FF2016、BSRAM1、RAM16=72、DSP primitive MULT36X36×1、推定Fmax72.547MHz。tool表示の制約はdefault100MHzで、全chip PNR/STAではない。36×36 primitive数を18×18物理DSP使用数へ読み替えない。親の全chip配置配線・資源評価・実機数値試験が必要。以前の5824Logic部品はMATRIX=1/FAST=0なので、面積削減の同条件比較とは呼ばない。
 
 本候補を使う場合も毎RUN前のfirmware全体upload/readbackを行う。CPU/cache CLEARだけでmutable `.data` を初期化したとは扱わない。旧FSを保存し、未検証候補を合格版と上書きしない。
+
+全chipのplace0/route0、および同一netlistを用いたplace1/route0のPNR単独再試行は、いずれも`DesRoute failed`で失敗した。資源数は範囲内だが、原因を特定の資源と断定できない。**FAST_MUL候補は現時点で書込み可能な合格版ではない。** Dock topの指定をFAST0へ戻し、既存FAST0 FSで全モデル実機検証を進める。任意parameterと単体試験は保持する。[全chip失敗と再試行の証跡](../fpga/validation/npu-autonomous-fastmul-fullchip-2026-11-08/README.md)。

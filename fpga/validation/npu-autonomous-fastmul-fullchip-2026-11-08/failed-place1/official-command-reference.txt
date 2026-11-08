@@ -1,0 +1,122 @@
+D:\Gowin\Gowin_V1.9.11.03_Education_x64\IDE\doc\EN\SUG100-4.4.2E_Gowin Software User Guide.pdf
+
+PDF PAGE 104
+9 Tcl Commands 8.3 Command Description 
+ 
+SUG100-4.4.2E 93(145) 
+ 
+listed. 
+list_property [get_ips FIFO_Top] 
+See also 
+ report_property 
+ set_property 
+8.3.8 open_project 
+Opens a project. 
+Syntax 
+open_project <file>] [-pn] [-device_version] [-h/--help] 
+Usage 
+Name Description  
+<file> Specifies the project file 
+[-pn] Specifies part number 
+[-device_version] Specifies device version 
+[-h/--help] Displays help information 
+Type 
+Project 
+Description  
+This command is used to open a project, and allows specifying a new 
+part number for the opened project. For the file path format, see 8.3.1 
+add_file. 
+ <file>: Specifies the name of the project file to be opened. 
+ [-pn]: Specifies the part number for the project. 
+ [-device_version]: Specifies the device version for the project. 
+ [-h/--help]: Displays help information. 
+Example 
+open_project D:\test.gprj 
+8.3.9 read_ipc 
+Reads ipc files. 
+Syntax 
+read_ipc <file> 
+Usage 
+Name Description  
+<file> IPC files 
+PDF PAGE 106
+9 Tcl Commands 8.3 Command Description 
+ 
+SUG100-4.4.2E 95(145) 
+ 
+8.3.11 rm_file 
+Removes design files. 
+Syntax 
+rm_file [-h/--help ] <files> 
+Usage 
+Name Description  
+<-files> Design files to be removed 
+[-h/--help] Displays help information 
+Type 
+Project 
+Description  
+Removes design files; and for the file path format, see 8.3.1 add_file. 
+Parameter 
+ <-files> Specifies the design files to be removed. Multiple files can be 
+specified, separated by spaces. 
+ [-h/--help]: Displays help information. 
+Example 
+rm_file a.v 
+rm_file a.v b.v c.v 
+rm_file D:/gowin_project/top.v 
+rm_file D:\\gowin_project\\top.v 
+8.3.12 run 
+Runs flows. 
+Syntax 
+run [-h/--help] <syn/pnr/all> 
+Usage 
+Name Description  
+<syn/pnr/all> Specifies the name of the flow to be run 
+[-h/--help] Displays help information 
+Type 
+Project 
+Description  
+Runs a specified flow or all flows. 
+Parameter 
+ <syn/pnr/all>: Specifies the name of the flow to be run. The available 
+PDF PAGE 107
+9 Tcl Commands 8.3 Command Description 
+ 
+SUG100-4.4.2E 96(145) 
+ 
+flow names are "syn" (synthesis), "pnr" (place and route), or you can 
+specify all to run all flows. 
+ [-h/--help]: Displays help information 
+Example 
+run pnr 
+run all 
+8.3.13 run close 
+Closes a project. 
+Syntax 
+run close 
+Type 
+Project 
+Description  
+Closes the current project. 
+Example 
+run close 
+8.3.14 saveto 
+Saves project data to a tcl script. 
+Syntax 
+saveto [-all_options] [-h/--help] <file> 
+Usage 
+Name Description  
+[-all_options] Saves all option information 
+[-h/--help] Displays help information 
+<file> The file to be saved 
+Type 
+Project 
+Description  
+Saves the current project design data to a tcl script. For the file path 
+format, see 8.3.1 add_file. 
+Parameter 
+ [-all_options]: By default, the saveto command only saves the modified 
+options, i.e., those different from the default values. By using 
+-all_options, all option information will be saved. 
+ [-h/--help]: Displays help information. 
+ <file>: The file to be saved. 
