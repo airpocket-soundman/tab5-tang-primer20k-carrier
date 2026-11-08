@@ -1,0 +1,27 @@
+{
+  "hardware_access": false,
+  "upstream": "https://github.com/sysprog21/rv32emu.git",
+  "upstream_commit": "ffb041bab9d1513e5329f25f486378778dceed13",
+  "test_only_interpreter_modifications": [
+    "api callback installer",
+    "six user RAM callback macros"
+  ],
+  "ISA_scope": "Actual RV32 firmware; integer accelerator MMIO oracle. Not physical FPGA execution/performance.",
+  "inputs_sha256": {
+    "firmware": "513ea0b052a6b7e1d04230a51211864ff2eba66971f35c216b9d400388650b73",
+    "package": "775b42010c82da0d464db21812563122539b090bc236af7c610eba0f1257d251",
+    "image": "a58f4a7a296cee3e03e3f0174d27a641dfc228ccd88b73bbc0ea599d47cccd65"
+  },
+  "emulator_binary_sha256": "cd6585f273bb098a6416dedb9d64551298d2a504a64d6c8ca4a6cdc510c608c8",
+  "sources_sha256": {
+    "fpga\\npu\\tests\\autonomous_iss_runner.c": "4a0e3fa78f55637130ba52277f9fb60f40ddbd14924c823af68f1432d4c0eea4",
+    "fpga\\npu\\tests\\autonomous_iss.mk": "33948175686ff17ad9d03198a9cd5cb40bbfe4d069c1e060d1e5cbcaa845eec3",
+    "fpga\\npu\\tests\\run_autonomous_iss.py": "3025fd41c9dd5a2eb37c43a1d584ea2c11a7f6087eefd7e2c174252017073d2d"
+  },
+  "patched_upstream_sources_sha256": {
+    "src/api.c": "b8329fe5f2e6f7bab739a714dadc2be1187d0fcc12fcf6219ab56b2dd7dba31a",
+    "src/rv32_template.c": "643bab0846e384f20b92474d010d43f16c736f341432202297279a142f853a95",
+    ".config": "166f74dcf40b0ccee2c91639b33abf22711b72cc9973c07647d20e3fc43e7547"
+  },
+  "smoke": false
+}

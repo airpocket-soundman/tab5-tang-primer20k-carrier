@@ -1,0 +1,9 @@
+# Isolated CRC-table experiment
+
+Not deployed, not promoted. No canonical firmware, index32 source/ELF/BIN, host, RTL or current physical trial is modified. `prepare_build.py` reuses the frozen index32 builder, changing only payload CRC32 in generated firmware. Model metadata CRC and all NN/math/ABI code are unchanged. Every RUN still verifies the payload, using the same reflected IEEE polynomial0xedb88320, initial/final XOR, cancellation checks at byte0 and every4096 bytes, final cancellation check, and output assignment semantics. The256-entry table adds1024 read-only bytes; CPU cache conflicts may affect physical speed.
+
+`verify.py` compiles actual C++ header with an independent original bitwise oracle;176 incremental/cancellation/boundary checks, empty/null and123456789 standard vector pass. Pinned RQG SHA775b42010c82da0d464db21812563122539b090bc236af7c610eba0f1257d251 has metadata210640B, payload20668416B, package20879056B. Table and bitwise match independent Python zlib and header expected CRC0x11070e10. Package payload starts at header[6], not DDR address65536.
+
+Candidate RV32 build passes ELF startup/BSS guards. `build/rv32/autonomous.{elf,bin}` is candidate only. Hot steady loop disassembly has14 instructions/byte vs baseline64, with an additional table data read per byte. This is static instruction-count evidence, not a measured board speedup, fullISA/fullNN numeric proof or wall-time guarantee. No hardware or PNR was run. `validation/` stores small source/provenance/result snapshots; build outputs are ignored.
+
+Run with installed IDF Python: `python verify.py`, `python prepare_build.py`. The latter requires frozen sibling index32 build-effective.py and generated graph to exist. Baseline ELF/BIN/source SHA identities are asserted unchanged after build and recorded in provenance.

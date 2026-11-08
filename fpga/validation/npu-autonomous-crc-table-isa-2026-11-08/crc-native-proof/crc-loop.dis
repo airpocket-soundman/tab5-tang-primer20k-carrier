@@ -1,0 +1,56 @@
+050001a0 <_ZN9crc_table7checkedIZN10autonomous5crc32EPKvjRmEUlvE_EEbS3_jS4_T_.isra.0>:
+ 50001a0:	cdb5                	beqz	a1,500021c <_ZN9crc_table7checkedIZN10autonomous5crc32EPKvjRmEUlvE_EEbS3_jS4_T_.isra.0+0x7c>
+ 50001a2:	577d                	li	a4,-1
+ 50001a4:	4681                	li	a3,0
+ 50001a6:	10000fb7          	lui	t6,0x10000
+ 50001aa:	07ff0f37          	lui	t5,0x7ff0
+ 50001ae:	04000293          	li	t0,64
+ 50001b2:	05016e37          	lui	t3,0x5016
+ 50001b6:	a839                	j	50001d4 <_ZN9crc_table7checkedIZN10autonomous5crc32EPKvjRmEUlvE_EEbS3_jS4_T_.isra.0+0x34>
+ 50001b8:	0007c783          	lbu	a5,0(a5)
+ 50001bc:	0685                	addi	a3,a3,1
+ 50001be:	8fb9                	xor	a5,a5,a4
+ 50001c0:	0ff7f793          	zext.b	a5,a5
+ 50001c4:	078a                	slli	a5,a5,0x2
+ 50001c6:	983e                	add	a6,a6,a5
+ 50001c8:	00082703          	lw	a4,0(a6)
+ 50001cc:	00e8c733          	xor	a4,a7,a4
+ 50001d0:	04b68463          	beq	a3,a1,5000218 <_ZN9crc_table7checkedIZN10autonomous5crc32EPKvjRmEUlvE_EEbS3_jS4_T_.isra.0+0x78>
+ 50001d4:	01469313          	slli	t1,a3,0x14
+ 50001d8:	00d507b3          	add	a5,a0,a3
+ 50001dc:	53ce0813          	addi	a6,t3,1340 # 501653c <_ZN9crc_tableL5tableE>
+ 50001e0:	00875893          	srli	a7,a4,0x8
+ 50001e4:	fc031ae3          	bnez	t1,50001b8 <_ZN9crc_table7checkedIZN10autonomous5crc32EPKvjRmEUlvE_EEbS3_jS4_T_.isra.0+0x18>
+ 50001e8:	000fa303          	lw	t1,0(t6) # 10000000 <__stack_top+0x8020000>
+ 50001ec:	00cf2e83          	lw	t4,12(t5) # 7ff000c <__stack_top+0x1000c>
+ 50001f0:	05837313          	andi	t1,t1,88
+ 50001f4:	000e9463          	bnez	t4,50001fc <_ZN9crc_table7checkedIZN10autonomous5crc32EPKvjRmEUlvE_EEbS3_jS4_T_.isra.0+0x5c>
+ 50001f8:	00530463          	beq	t1,t0,5000200 <_ZN9crc_table7checkedIZN10autonomous5crc32EPKvjRmEUlvE_EEbS3_jS4_T_.isra.0+0x60>
+ 50001fc:	4501                	li	a0,0
+ 50001fe:	8082                	ret
+ 5000200:	10000337          	lui	t1,0x10000
+ 5000204:	0501f3b7          	lui	t2,0x501f
+ 5000208:	01832e83          	lw	t4,24(t1) # 10000018 <__stack_top+0x8020018>
+ 500020c:	bb43a303          	lw	t1,-1100(t2) # 501ebb4 <_ZN10autonomous10boot_epochE>
+ 5000210:	fa6e84e3          	beq	t4,t1,50001b8 <_ZN9crc_table7checkedIZN10autonomous5crc32EPKvjRmEUlvE_EEbS3_jS4_T_.isra.0+0x18>
+ 5000214:	4501                	li	a0,0
+ 5000216:	8082                	ret
+ 5000218:	fff74593          	not	a1,a4
+ 500021c:	c20c                	sw	a1,0(a2)
+ 500021e:	100007b7          	lui	a5,0x10000
+ 5000222:	07ff0737          	lui	a4,0x7ff0
+ 5000226:	439c                	lw	a5,0(a5)
+ 5000228:	4758                	lw	a4,12(a4)
+ 500022a:	4501                	li	a0,0
+ 500022c:	fb69                	bnez	a4,50001fe <_ZN9crc_table7checkedIZN10autonomous5crc32EPKvjRmEUlvE_EEbS3_jS4_T_.isra.0+0x5e>
+ 500022e:	0587f793          	andi	a5,a5,88
+ 5000232:	04000713          	li	a4,64
+ 5000236:	fce794e3          	bne	a5,a4,50001fe <_ZN9crc_table7checkedIZN10autonomous5crc32EPKvjRmEUlvE_EEbS3_jS4_T_.isra.0+0x5e>
+ 500023a:	100007b7          	lui	a5,0x10000
+ 500023e:	0501f737          	lui	a4,0x501f
+ 5000242:	07e1                	addi	a5,a5,24 # 10000018 <__stack_top+0x8020018>
+ 5000244:	439c                	lw	a5,0(a5)
+ 5000246:	bb472503          	lw	a0,-1100(a4) # 501ebb4 <_ZN10autonomous10boot_epochE>
+ 500024a:	8d1d                	sub	a0,a0,a5
+ 500024c:	00153513          	seqz	a0,a0
+ 5000250:	8082                	ret

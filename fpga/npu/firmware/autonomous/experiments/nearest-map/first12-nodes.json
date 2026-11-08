@@ -1,0 +1,146 @@
+[
+  {
+    "node": 0,
+    "op": "Resize",
+    "inputs": [
+      0,
+      -1,
+      -1,
+      1
+    ],
+    "outputs": [
+      295
+    ]
+  },
+  {
+    "node": 1,
+    "op": "Slice",
+    "inputs": [
+      295,
+      2,
+      3,
+      4,
+      4
+    ],
+    "outputs": [
+      296
+    ]
+  },
+  {
+    "node": 2,
+    "op": "Slice",
+    "inputs": [
+      295,
+      4,
+      2,
+      4,
+      4
+    ],
+    "outputs": [
+      297
+    ]
+  },
+  {
+    "node": 3,
+    "op": "Slice",
+    "inputs": [
+      295,
+      5,
+      4,
+      4,
+      4
+    ],
+    "outputs": [
+      298
+    ]
+  },
+  {
+    "node": 4,
+    "op": "Concat",
+    "inputs": [
+      296,
+      297,
+      298
+    ],
+    "outputs": [
+      299
+    ]
+  },
+  {
+    "node": 5,
+    "op": "Mul",
+    "inputs": [
+      299,
+      6
+    ],
+    "outputs": [
+      300
+    ]
+  },
+  {
+    "node": 6,
+    "op": "Conv",
+    "inputs": [
+      300,
+      7,
+      8
+    ],
+    "outputs": [
+      301
+    ]
+  },
+  {
+    "node": 7,
+    "op": "Relu",
+    "inputs": [
+      301
+    ],
+    "outputs": [
+      302
+    ]
+  },
+  {
+    "node": 8,
+    "op": "Conv",
+    "inputs": [
+      302,
+      9,
+      10
+    ],
+    "outputs": [
+      303
+    ]
+  },
+  {
+    "node": 9,
+    "op": "Relu",
+    "inputs": [
+      303
+    ],
+    "outputs": [
+      304
+    ]
+  },
+  {
+    "node": 10,
+    "op": "Conv",
+    "inputs": [
+      304,
+      11,
+      12
+    ],
+    "outputs": [
+      305
+    ]
+  },
+  {
+    "node": 11,
+    "op": "Relu",
+    "inputs": [
+      305
+    ],
+    "outputs": [
+      306
+    ]
+  }
+]
