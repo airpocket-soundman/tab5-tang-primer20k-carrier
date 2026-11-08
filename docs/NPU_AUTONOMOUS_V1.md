@@ -26,3 +26,7 @@ P4から推論中に中間tensorを読み戻さない。完了後にmailbox・�
 正規定数は[共通Cヘッダ](../fpga/npu/protocol/npu_autonomous_v1.h)。内部CPU MMIOは[firmware ABI](../fpga/npu/firmware/autonomous/abi.h)であり、wire opcodeとは別物である。ESP-IDF loader実装は本仕様を参照し、Linux/MeOS側への反映版と未実装を検証時に追記する。
 
 2026-11-08の反映版：ESP-IDF `tab5-fpga-gpu` の `9f3b448` に4E30 loader・sideband監視・毎RUNのfirmware再搬入・中間DDR転送禁止を実装した。FPGA内RV32IMC＋硬MACの14整数実機試験に合格。Linux/MeOSは要求照合記録の参照版から未反映であり、自律NPU driverは未実装。全ホスト実機適合や全RT-DETR実機完走は、この14整数試験では認定しない。
+
+選択firmwareを実RV32 ISA検証済みindex32版へ切り替えたESP-IDF版は `0a67b4f`、事前固定の1800出力を全bit比較する実機検証ツールは `cff8fc4`。wire契約の変更はない。全モデル実機試験は2026-11-08 20:24 JSTに開始し、開始時点では未完了。進行中のログはホスト作業木の `build/rtdetr-autonomous-device/full-index32-first` に置き、終端結果が出るまでは実機合格と記録しない。
+
+20:30:46 JSTにFPGA内の検証・RGB変換を通過し、graph本体の `fpga_infer` へ遷移した。同boot/run・エラーnoneの中間観測で、全649演算の完走認定ではない。監視所有権と復帰手順はESP-IDF側 `docs/引継ぎ_FPGA単独推論_2026-11-08.md` を参照する。
