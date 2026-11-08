@@ -1,0 +1,64 @@
+{
+  "passed_component_gates": true,
+  "hardware_access": false,
+  "firmware_ABI_changed": false,
+  "canonical_firmware_changed": false,
+  "RTL_change": "Only CPU_FAST_MUL=0 parameter and forwarding to official Pico ENABLE_FAST_MUL; old defaultpreserved",
+  "pcpi": {
+    "vectors": 1348,
+    "random_pairs": 256,
+    "edge_pairs": 81,
+    "operations": 4,
+    "fast_cycles_total": 2696,
+    "iterative_cycles_total": 80880,
+    "fast_max_cycles": 2,
+    "iterative_max_cycles": 68,
+    "oracle": "independent Python big integer, notsameRTLmath"
+  },
+  "actual_Pico_smoke": {
+    "outputs_per_run": [
+      14,
+      20
+    ],
+    "runs_each": 2,
+    "BSS_seed": "A5",
+    "epochs": [
+      37,
+      38
+    ],
+    "DDR_requests_unchanged": [
+      776,
+      1400
+    ],
+    "fixture_cycles_fast": [
+      50386,
+      153166
+    ],
+    "fixture_cycles_iterative": [
+      55965,
+      182589
+    ],
+    "not_physical_NN_speed": true
+  },
+  "component_synthesis": {
+    "ENABLE_MATRIX": 0,
+    "CPU_FAST_MUL": 1,
+    "logic": 5455,
+    "register": 2016,
+    "BSRAM": 1,
+    "RAM16": 72,
+    "DSP_primitive": {
+      "MULT36X36": 1
+    },
+    "DSP_physical_count_unmeasured": true,
+    "estimated_fmax_mhz": 72.547,
+    "reported_constraint_mhz": 100,
+    "fullchip_pnr_done_by_this_task": false
+  },
+  "limitations": [
+    "Direct PCPI plus actualCPU/cache/MMIO uses independentMACdouble, not fullNN physicalproof",
+    "Different profile than earlier matrix-capable5824component; do not claimmatchedLogicreduction",
+    "Synthesized MULT36X36 count is not automatically one physical18x18DSP unit",
+    "Root full-chip PNR/resource/timing/numerical board qualification remains required"
+  ]
+}

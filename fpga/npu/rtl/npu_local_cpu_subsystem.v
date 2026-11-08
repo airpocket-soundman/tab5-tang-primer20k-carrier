@@ -1,7 +1,7 @@
 // Experimental FPGA-local firmware executor. Not connected to deployed 4E24.
 // COMMAND stores block the CPU across flush -> accelerator -> invalidate.
 module npu_local_cpu_subsystem #(
- parameter ENABLE_MATRIX=1,
+ parameter ENABLE_MATRIX=1,CPU_FAST_MUL=0,
  parameter[31:0]BOOT_ADDR=32'h05000000,
  parameter MEMORY_TIMEOUT=2700000,DRAIN_TIMEOUT=2700000,MAC_TIMEOUT=1620000000
 )(
@@ -39,7 +39,7 @@ module npu_local_cpu_subsystem #(
  wire csr_busy=state>=PRE&&state<=POST_RELEASE;
  wire csr_ready=state==IDLE&&!done_flag&&!error_flag&&!quarantine_flag&&memory_ready&&tile_start_ready&&(!ENABLE_MATRIX||matrix_start_ready);
  wire[31:0]status_word={25'd0,memory_ready,valid_flag,quarantine_flag,error_flag,done_flag,csr_busy,csr_ready};
- picorv32 #(.ENABLE_COUNTERS(0),.ENABLE_COUNTERS64(0),.COMPRESSED_ISA(1),.ENABLE_MUL(1),.ENABLE_DIV(1),
+ picorv32 #(.ENABLE_COUNTERS(0),.ENABLE_COUNTERS64(0),.COMPRESSED_ISA(1),.ENABLE_MUL(1),.ENABLE_FAST_MUL(CPU_FAST_MUL),.ENABLE_DIV(1),
   .ENABLE_IRQ(0),.ENABLE_IRQ_QREGS(0),.ENABLE_IRQ_TIMER(0),.PROGADDR_RESET(BOOT_ADDR),.CATCH_MISALIGN(1),.CATCH_ILLINSN(1)) cpu(
   .clk(clk),.resetn(core_reset_n),.trap(core_trap),.mem_valid(native_valid),.mem_instr(native_instr),.mem_ready(native_ready),
   .mem_addr(native_addr),.mem_wdata(native_wdata),.mem_wstrb(native_wstrb),.mem_rdata(native_rdata),

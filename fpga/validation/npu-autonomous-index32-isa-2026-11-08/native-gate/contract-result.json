@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "hardware_access": false,
+  "sanitizer": "UBSan",
+  "actual_model_accepted": true,
+  "negative_cases": 8,
+  "rejected": [
+    "wrong pinned metadata",
+    "arena beyond80MiB",
+    "count>=2^25",
+    "tensoroffset beyond80MiB",
+    "opaqueweightdata beyond80MiB",
+    "metadataCRC identity mismatch",
+    "Resize crossproductoverflow",
+    "Slice endpoint outsideinput"
+  ],
+  "scope": "Post-Model.load bounded-index preflight; not a replacement for original64bit Model.load validation",
+  "contract_sha256": "cbfdc5693fe8205fd6874f80b1f3cd6aaabd533d4866900f5a862459e69f767a"
+}

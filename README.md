@@ -1,5 +1,7 @@
 # Tab5 × Tang Primer 20K 接続キャリア基板
 
+2026-11-08：FPGA単独推論の実験版4E30を追加。FPGA内RV32IMCが量子化・正規化等を処理し、共通INT8 MACが積和演算を担当する。Tab5/P4はモデル・画像の搬入と表示のみ。全RT-DETR649演算は実RV32 ISA試験で完走し、実機では14整数のCPU＋MAC試験に合格。**全モデルの実機完走・速度は未確認**。[自律実行仕様](docs/NPU_AUTONOMOUS_V1.md)、[ISA検証](docs/NPU_AUTONOMOUS_RV32_ISA_2026-11-08.md)を参照。Linux/MeOS loaderは未実装。
+
 2026-11-07：NPU DDR診断版4E21で、YOLO S256の32MiB超え実行と、学習済みDeiT-tiny全12ブロック・74行列演算の実機実行を確認。Transformerの1000出力は同じP4の独立CPU整数計算と全ビット一致した。既存の積和回路を使い、ピン・通信コマンドの変更はない。非線形演算等はP4が担当し、Linux/MeOSへのホスト実装移植とSTA収束は未完了。[Transformer実機記録](docs/NPU_Transformer_実機検証_2026-11-07.md)、[DDR MatMul検証](docs/NPU_DDR_MatMul_検証_2026-11-07.md)を参照。
 
 2026-11-06の保存点：GPU全8シーン/TX40・RX16検証記録とMEM DMA検証・復元資料をmainへ統合。[当時の現在地・全host適合範囲・整理方針](docs/INTEGRATION_2026-11-06.md)を参照。RX20、長時間soak、DDR付きGFXは未完了。

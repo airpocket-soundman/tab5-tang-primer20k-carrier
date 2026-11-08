@@ -24,3 +24,5 @@ CPUは既存host側DDR master slotを排他的に借りる。host/CPUのheld-tog
 P4から推論中に中間tensorを読み戻さない。完了後にmailbox・出力tensorだけを読む。許容演算、型、モデル同一性はRQG2/firmware契約による。任意ONNX対応・無期限連続運転・高速化を、この設計記述だけで認定しない。以前のP4/FPGA分担RT-DETRの厳密数値比較FAILも取り消さない。
 
 正規定数は[共通Cヘッダ](../fpga/npu/protocol/npu_autonomous_v1.h)。内部CPU MMIOは[firmware ABI](../fpga/npu/firmware/autonomous/abi.h)であり、wire opcodeとは別物である。ESP-IDF loader実装は本仕様を参照し、Linux/MeOS側への反映版と未実装を検証時に追記する。
+
+2026-11-08の反映版：ESP-IDF `tab5-fpga-gpu` の `9f3b448` に4E30 loader・sideband監視・毎RUNのfirmware再搬入・中間DDR転送禁止を実装した。FPGA内RV32IMC＋硬MACの14整数実機試験に合格。Linux/MeOSは要求照合記録の参照版から未反映であり、自律NPU driverは未実装。全ホスト実機適合や全RT-DETR実機完走は、この14整数試験では認定しない。

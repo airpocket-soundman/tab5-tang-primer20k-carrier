@@ -1,0 +1,28 @@
+[
+  {
+    "command": [
+      "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\iverilog.exe",
+      "-g2012",
+      "-DPICORV32_REGS=npu_local_rv32_regs",
+      "-s",
+      "tb",
+      "-o",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\build\\npu-local-cpu-fastmul14\\test.vvp",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\build\\npu-local-cpu-fastmul14\\tb.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\vendor\\picorv32\\picorv32.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_local_rv32_regs.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_rv32_ddr_cache.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_local_cpu_subsystem.v"
+    ],
+    "returncode": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\vvp.exe",
+      "test.vvp"
+    ],
+    "returncode": 0,
+    "output": "First run complete, testing freshBSS/epoch restart\nPASS actual RV32IMC smoke:14 independent outputs; tile=2 matrix=0 requests=776 reads=628 writes=148 cycles=50386\nD:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\build\\npu-local-cpu-fastmul14\\tb.v:87: $finish called at 503865000 (1ps)\n"
+  }
+]

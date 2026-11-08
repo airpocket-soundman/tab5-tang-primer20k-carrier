@@ -1,0 +1,46 @@
+{
+  "accepted_actual_RV32_bit_exact": true,
+  "canonical_profile": "v7 tile-only",
+  "output_sha256": "9a4e9b9319e2b2592c9c10d2134c97b71226f0bf32e3b4774dfeb71feca6f715",
+  "hardware_access": false,
+  "physical_speed_claim": false,
+  "canonical_firmware_modified": false,
+  "baseline": {
+    "step_slices": 212125,
+    "read_callbacks": 18887859307,
+    "write_callbacks": 13387495518,
+    "host_seconds": 472
+  },
+  "index32": {
+    "execution_completed": true,
+    "hardware_access": false,
+    "actual_RV32_instructions": true,
+    "integer_accelerator_oracle": true,
+    "F_extension_enabled": false,
+    "BSS_prefilled_A5_bytes": 352,
+    "mailbox_state": 4,
+    "error": 0,
+    "progress": 648,
+    "nodes": 649,
+    "conv": 57,
+    "matmul": 65,
+    "tile_commands": 400368,
+    "matrix_commands": 0,
+    "oracle_macs": 30148231168,
+    "CPU_read_instructions": 16076433357,
+    "CPU_write_instructions": 10517627564,
+    "step_slices": 142253,
+    "elapsed_host_seconds": 376,
+    "output_address": 20733952,
+    "output_count": 1800
+  },
+  "reductions": {
+    "step_budget_slices_percent": 32.9390689451974,
+    "read_callbacks_percent": 14.8848310668963,
+    "write_callbacks_percent": 21.4369293355979,
+    "combined_callbacks_percent": 17.6025761290759
+  },
+  "count_caveat": "step_slices counts 1e6 step-budget calls, not an exact retired-instruction counter; host seconds do not predict FPGA time",
+  "native_gate_caveat": "Native OFF b539... is distinct from actual RV32 golden 9a4e...",
+  "deployment_precondition": "Whole firmware binary upload/readback before EVERY RUN; CLEAR alone is not warm restart"
+}

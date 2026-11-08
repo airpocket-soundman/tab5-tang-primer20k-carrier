@@ -1,0 +1,14 @@
+[
+  {
+    "command": [
+      "wsl",
+      "-d",
+      "Ubuntu-24.04",
+      "--",
+      "sh",
+      "-lc",
+      "ulimit -c 0; timeout --signal=TERM 10830 /mnt/d/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-resume-20261106/build/rv32emu-upstream/build/autonomous_iss_runner /mnt/d/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-resume-20261106/fpga/npu/firmware/autonomous/experiments/index32/build/rv32/autonomous.elf /mnt/d/GitHub/airpocket-soundman/tab5-fpga-gpu-resume-20261106/build/rtdetr-graph-300-quant/model.rqg /mnt/d/GitHub/airpocket-soundman/tab5-fpga-gpu-resume-20261106/build/rtdetr-sd-v2/images/image0-640.ppm /mnt/d/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-resume-20261106/build/npu-autonomous-iss-index32-first/output.f32 /mnt/d/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-resume-20261106/build/npu-autonomous-iss-index32-first/result.json"
+    ],
+    "returncode": 0
+  }
+]

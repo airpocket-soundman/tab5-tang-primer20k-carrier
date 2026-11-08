@@ -72,8 +72,8 @@ MAIN=r'''
 endmodule
 '''
 def main():
- p=argparse.ArgumentParser();p.add_argument('--firmware',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False);fw=a.firmware.read_bytes();(out/'program.hex').write_text(''.join(f'{b:02x}\n'for b in fw))
- native=base.NATIVE.replace('mem[0:262143]','mem[0:524287]').replace('npu_ddr_core_8oc','npu_ddr_core_autonomous')
+ p=argparse.ArgumentParser();p.add_argument('--fast-mul',action='store_true');p.add_argument('--firmware',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False);fw=a.firmware.read_bytes();(out/'program.hex').write_text(''.join(f'{b:02x}\n'for b in fw))
+ native=base.NATIVE.replace('.RESET_HOLD_INIT(8)',('.CPU_FAST_MUL(1),.RESET_HOLD_INIT(8)' if a.fast_mul else '.RESET_HOLD_INIT(8)')).replace('mem[0:262143]','mem[0:524287]').replace('npu_ddr_core_8oc','npu_ddr_core_autonomous')
  before='else if(a>=32\'h07ff0000&&a<32\'h08000000)mapped=32\'h30000+(a&65535);'
  after="else if(a>=32'h05000000&&a<32'h05020000)mapped=32'h40000+(a&131071);else if(a>=32'h07fd0000&&a<32'h07fe0000)mapped=32'h60000+(a&65535);else if(a>=32'h07ff0000&&a<32'h08000000)mapped=32'h70000+(a&65535);"
  assert before in native;native=native.replace(before,after)
@@ -87,5 +87,5 @@ def main():
   for cmd in [[str(TOOLS/'iverilog.exe'),'-g2012','-DPICORV32_REGS=npu_local_rv32_regs','-s','tb_conv_link','-o','test.vvp',*[str(x)for x in sources],'tb.v'],[str(TOOLS/'vvp.exe'),'test.vvp']]:
    r=subprocess.run(cmd,cwd=out,env=env,capture_output=True,text=True,timeout=300);logs.append(dict(command=cmd,exit_code=r.returncode,output=r.stdout+r.stderr));(out/'commands.json').write_text(json.dumps(logs,indent=2)+'\n');print(r.stdout+r.stderr,flush=True);assert r.returncode==0,logs[-1]
   passed=True
- finally:(out/'result.json').write_text(json.dumps(dict(passed=passed,hardware_access=False,scope='Actual RV32IMC, cache, real8OC MAC and CPU-sequenced MatMul, CDC/DDR adapter; only native DDR PHY is fake. Tiny program, not full model.',hardware_matrix_sequencer=False,firmware_sha256=hashlib.sha256(fw).hexdigest(),sources_sha256={str(x.relative_to(ROOT)):hashlib.sha256(x.read_bytes()).hexdigest()for x in sources}),indent=2)+'\n')
+ finally:(out/'result.json').write_text(json.dumps(dict(passed=passed,hardware_access=False,scope='Actual RV32IMC, cache, real8OC MAC and CPU-sequenced MatMul, CDC/DDR adapter; only native DDR PHY is fake. Tiny program, not full model.',hardware_matrix_sequencer=False,cpu_fast_mul=a.fast_mul,firmware_sha256=hashlib.sha256(fw).hexdigest(),sources_sha256={str(x.relative_to(ROOT)):hashlib.sha256(x.read_bytes()).hexdigest()for x in sources}),indent=2)+'\n')
 if __name__=='__main__':main()

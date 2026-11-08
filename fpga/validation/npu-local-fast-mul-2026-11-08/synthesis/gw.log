@@ -1,0 +1,85 @@
+*** GOWIN Tcl Command Line Console  *** 
+current working directory: D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-resume-20261106/build/npu-local-cpu-fastmul-synthesis/project/local_cpu
+add new file: "D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-resume-20261106/build/npu-local-cpu-fastmul-synthesis/source_snapshot/picorv32_local.v"
+add new file: "D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-resume-20261106/build/npu-local-cpu-fastmul-synthesis/source_snapshot/npu_local_cpu_subsystem.v"
+add new file: "D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-resume-20261106/build/npu-local-cpu-fastmul-synthesis/source_snapshot/npu_rv32_ddr_cache.v"
+add new file: "D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-resume-20261106/build/npu-local-cpu-fastmul-synthesis/source_snapshot/npu_local_rv32_regs.v"
+add new file: "D:/GitHub/airpocket-soundman/tab5-tang-primer20k-carrier-resume-20261106/build/npu-local-cpu-fastmul-synthesis/clock.sdc"
+GowinSynthesis start
+Running parser ...
+Analyzing Verilog file 'D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v'
+Analyzing Verilog file 'D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\npu_local_cpu_subsystem.v'
+Analyzing Verilog file 'D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\npu_rv32_ddr_cache.v'
+Analyzing Verilog file 'D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\npu_local_rv32_regs.v'
+WARN  (EX3073) : Port 'mem_la_read' remains unconnected for this instance("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\npu_local_cpu_subsystem.v":46)
+Compiling module 'npu_local_cpu_subsystem'("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\npu_local_cpu_subsystem.v":3)
+Compiling module 'picorv32(ENABLE_COUNTERS=0,ENABLE_COUNTERS64=0,COMPRESSED_ISA=1,ENABLE_MUL=1,ENABLE_FAST_MUL=1,ENABLE_DIV=1,ENABLE_IRQ_QREGS=0,ENABLE_IRQ_TIMER=0,PROGADDR_RESET=32'b00000101000000000000000000000000)'("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":63)
+Compiling module 'picorv32_pcpi_fast_mul'("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":2319)
+WARN  (EX3791) : Expression size 4 truncated to fit in target size 3("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":2395)
+WARN  (EX3791) : Expression size 64 truncated to fit in target size 32("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":2412)
+Compiling module 'picorv32_pcpi_div'("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":2421)
+WARN  (EX3791) : Expression size 63 truncated to fit in target size 32("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":2500)
+WARN  (EX3826) : Synthesis - simulation differences may occur when using parallel_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":333)
+WARN  (EX3827) : Synthesis - simulation differences may occur when using full_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":404)
+WARN  (EX3791) : Expression size 6 truncated to fit in target size 5("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":957)
+WARN  (EX3791) : Expression size 6 truncated to fit in target size 5("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":993)
+WARN  (EX3826) : Synthesis - simulation differences may occur when using parallel_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1121)
+WARN  (EX3791) : Expression size 33 truncated to fit in target size 32("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1246)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 1("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1251)
+WARN  (EX3827) : Synthesis - simulation differences may occur when using full_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1253)
+WARN  (EX3826) : Synthesis - simulation differences may occur when using parallel_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1253)
+WARN  (EX3827) : Synthesis - simulation differences may occur when using full_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1270)
+WARN  (EX3826) : Synthesis - simulation differences may occur when using parallel_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1270)
+WARN  (EX3826) : Synthesis - simulation differences may occur when using parallel_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1316)
+Compiling module 'npu_local_rv32_regs'("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\npu_local_rv32_regs.v":2)
+Extracting RAM for identifier 'words'("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\npu_local_rv32_regs.v":3)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 5("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1389)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 5("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1405)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 4("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1427)
+WARN  (EX3826) : Synthesis - simulation differences may occur when using parallel_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1499)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 5("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1595)
+WARN  (EX3826) : Synthesis - simulation differences may occur when using parallel_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1585)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 5("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1732)
+WARN  (EX3826) : Synthesis - simulation differences may occur when using parallel_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1737)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 5("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1762)
+WARN  (EX3826) : Synthesis - simulation differences may occur when using parallel_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1768)
+WARN  (EX3827) : Synthesis - simulation differences may occur when using full_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1838)
+WARN  (EX3826) : Synthesis - simulation differences may occur when using parallel_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1838)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 5("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1843)
+WARN  (EX3827) : Synthesis - simulation differences may occur when using full_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1846)
+WARN  (EX3826) : Synthesis - simulation differences may occur when using parallel_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1846)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 5("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1851)
+WARN  (EX3827) : Synthesis - simulation differences may occur when using full_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1861)
+WARN  (EX3826) : Synthesis - simulation differences may occur when using parallel_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1861)
+WARN  (EX3827) : Synthesis - simulation differences may occur when using full_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1886)
+WARN  (EX3826) : Synthesis - simulation differences may occur when using parallel_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1886)
+WARN  (EX3827) : Synthesis - simulation differences may occur when using full_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1903)
+WARN  (EX3826) : Synthesis - simulation differences may occur when using parallel_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1903)
+WARN  (EX3827) : Synthesis - simulation differences may occur when using full_case directive("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\picorv32_local.v":1487)
+Compiling module 'npu_rv32_ddr_cache'("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\npu_rv32_ddr_cache.v":4)
+Extracting RAM for identifier 'tags'("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\npu_rv32_ddr_cache.v":29)
+Extracting RAM for identifier 'ram'("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\npu_rv32_ddr_cache.v":32)
+WARN  (EX3791) : Expression size 8 truncated to fit in target size 7("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\npu_rv32_ddr_cache.v":153)
+NOTE  (EX0101) : Current top module is "npu_local_cpu_subsystem"
+[5%] Running netlist conversion ...
+WARN  (CV0016) : Input matrix_start_ready is unused("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\npu_local_cpu_subsystem.v":15)
+WARN  (CV0016) : Input matrix_busy is unused("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\npu_local_cpu_subsystem.v":15)
+WARN  (CV0016) : Input matrix_done is unused("D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\source_snapshot\npu_local_cpu_subsystem.v":15)
+Running device independent optimization ...
+[10%] Optimizing Phase 0 completed
+[15%] Optimizing Phase 1 completed
+[25%] Optimizing Phase 2 completed
+Running inference ...
+[30%] Inferring Phase 0 completed
+[40%] Inferring Phase 1 completed
+[50%] Inferring Phase 2 completed
+[55%] Inferring Phase 3 completed
+Running technical mapping ...
+[60%] Tech-Mapping Phase 0 completed
+[65%] Tech-Mapping Phase 1 completed
+[75%] Tech-Mapping Phase 2 completed
+[80%] Tech-Mapping Phase 3 completed
+[90%] Tech-Mapping Phase 4 completed
+[95%] Generate netlist file "D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\project\local_cpu\impl\gwsynthesis\local_cpu.vg" completed
+[100%] Generate report file "D:\GitHub\airpocket-soundman\tab5-tang-primer20k-carrier-resume-20261106\build\npu-local-cpu-fastmul-synthesis\project\local_cpu\impl\gwsynthesis\local_cpu_syn.rpt.html" completed
+GowinSynthesis finish

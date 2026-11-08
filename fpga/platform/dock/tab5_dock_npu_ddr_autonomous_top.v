@@ -11,7 +11,7 @@ module tab5_dock_npu_ddr_autonomous_top(
  wire[2:0]cmd;wire cmd_en,cmd_ready,wr_en,wr_end,wr_ready,rd_valid,rd_end;
  wire[26:0]address;wire[127:0]wr_data,rd_data;wire[15:0]mask;
  mem_pll frequency(sys_clk,!reset_n,memory_clk,pll_lock);
- npu_ddr_core_autonomous #(.REQUEST_DATA_PIPELINE(1)) core(sys_clk,reset_n,arm_sw,bus_clk,dir,aux,data,ready,led,
+ npu_ddr_core_autonomous #(.REQUEST_DATA_PIPELINE(1),.CPU_FAST_MUL(1)) core(sys_clk,reset_n,arm_sw,bus_clk,dir,aux,data,ready,led,
   pll_lock,user_clk,ip_user_reset,calibrated,controller_reset_n,
   cmd,cmd_en,address,cmd_ready,wr_data,wr_en,wr_end,mask,wr_ready,rd_data,rd_valid,rd_end);
  wire[13:0]sample_ddr_addr;wire sample_cs_unused;

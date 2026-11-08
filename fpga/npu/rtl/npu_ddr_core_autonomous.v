@@ -5,7 +5,7 @@ module npu_ddr_core_autonomous #(
  parameter SYS_SETTLE=256,ADAPTER_SETTLE=256,
  parameter LINK_TIMEOUT=27000000,ADAPTER_TIMEOUT=8100000,
  parameter LOADER_MEMORY_TIMEOUT=2700000,LOADER_DRAIN_TIMEOUT=2700000,
- parameter REQUEST_DATA_PIPELINE=0,INCLUDE_MATRIX=0
+ parameter REQUEST_DATA_PIPELINE=0,INCLUDE_MATRIX=0,CPU_FAST_MUL=0
 )(
  input wire sys_clk,reset_n,arm_sw,bus_clk,dir,input wire[3:0] aux,
  inout wire[7:0] data,output wire ready,output wire[3:0] led,
@@ -155,7 +155,7 @@ module npu_ddr_core_autonomous #(
   .run_enable(local_running),.abort_level(local_abort_level),.start_ready(local_start_ready),
   .done(local_done),.error(local_error),.aborted(local_aborted),.quarantined(local_quarantined),.status(local_status),
   .monitor_index(monitor_index),.monitor_data(monitor_data));
- npu_local_cpu_subsystem #(.ENABLE_MATRIX(INCLUDE_MATRIX)) local_cpu(
+ npu_local_cpu_subsystem #(.ENABLE_MATRIX(INCLUDE_MATRIX),.CPU_FAST_MUL(CPU_FAST_MUL)) local_cpu(
   .clk(sys_clk),.reset_n(coordinated_reset_n),.memory_ready(memory_ready),.run_enable(local_running),
   .abort(local_abort_level),.clear(local_clear),.epoch(generation),
   .cpu_trap(cpu_trap),.cpu_fault(cpu_fault),.cpu_error_code(cpu_error_code),.safe_to_release(cpu_safe),

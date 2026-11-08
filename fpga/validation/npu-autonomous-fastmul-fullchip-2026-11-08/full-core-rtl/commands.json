@@ -1,0 +1,38 @@
+[
+  {
+    "command": [
+      "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\iverilog.exe",
+      "-g2012",
+      "-DPICORV32_REGS=npu_local_rv32_regs",
+      "-s",
+      "tb_conv_link",
+      "-o",
+      "test.vvp",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_ddr_core_autonomous.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_ddr_sys_autonomous.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_local_run_control.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_local_cpu_subsystem.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_local_rv32_regs.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_rv32_ddr_cache.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_ddr_matmul_sequencer.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\conv_tile_engine_8oc.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_ddr_tile_loader_8oc.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\rtl\\npu_ddr_arbiter.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\vendor\\picorv32\\picorv32.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\mem\\rtl\\memv1_bridge.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\mem\\rtl\\mem_adapter.v",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\mem\\rtl\\memv1_crc32b.v",
+      "tb.v"
+    ],
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "D:\\GitHub\\tab5-tang-primer20k-carrier\\fpga\\build\\windows-tools\\oss-cad-suite\\bin\\vvp.exe",
+      "test.vvp"
+    ],
+    "exit_code": 0,
+    "output": "CSR read addr10000018 value00000000 gen0000\nCSR read addr10000000 value00000041 gen0000\nCSR read addr10000018 value00000000 gen0000\nCSR read addr10000018 value00000000 gen0000\nCSR read addr10000000 value00000041 gen0000\nCSR read addr10000000 value00000064 gen0000\nCSR read addr10000000 value00000064 gen0000\nCSR read addr10000018 value00000000 gen0000\nCSR read addr10000000 value00000041 gen0000\nCSR read addr10000018 value00000000 gen0000\nCSR read addr10000000 value00000041 gen0000\nCSR read addr10000018 value00000000 gen0000\nCSR read addr10000000 value00000041 gen0000\nCSR read addr10000000 value00000064 gen0000\nCSR read addr10000000 value00000064 gen0000\nCSR read addr10000018 value00000000 gen0000\nCSR read addr10000000 value00000041 gen0000\nCSR read addr10000018 value00000000 gen0000\nCSR read addr10000018 value00000000 gen0000\nPASS autonomous full core: real RV32/cache/8OC+CPU-sequenced-MatMul/CDC/DDR adapter;14 integer outputs, token/BUSY/abort/no-stale-complete guards; packets37\ntb.v:147: $finish called at 9028674500 (1ps)\n"
+  }
+]

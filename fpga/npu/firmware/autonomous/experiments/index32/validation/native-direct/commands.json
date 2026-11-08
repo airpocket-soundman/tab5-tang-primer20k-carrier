@@ -1,0 +1,35 @@
+[
+  {
+    "command": [
+      "D:/GitHub/airpocket-soundman/tab5-fpga-gpu-demo/build/test-tools/ziglang/zig.exe",
+      "c++",
+      "-std=c++17",
+      "-O2",
+      "-UNDEBUG",
+      "-ffp-contract=off",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-ID:\\github\\airpocket-soundman\\tab5-fpga-gpu-resume-20261106\\main",
+      "-ID:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\firmware\\autonomous\\vendor\\host\\main\\inference",
+      "-ID:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\firmware\\autonomous\\experiments\\index32",
+      "D:\\github\\airpocket-soundman\\tab5-fpga-gpu-resume-20261106\\tests\\rtdetr_fpga_backend_mock.cpp",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\firmware\\autonomous\\vendor\\host\\main\\inference\\rtdetr_fpga_backend.cpp",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\firmware\\autonomous\\experiments\\index32\\generated\\rtdetr_graph.cpp",
+      "-o",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\firmware\\autonomous\\experiments\\index32\\build\\native-direct\\test.exe"
+    ],
+    "returncode": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\firmware\\autonomous\\experiments\\index32\\build\\native-direct\\test.exe",
+      "D:\\github\\airpocket-soundman\\tab5-fpga-gpu-resume-20261106\\build\\rtdetr-graph-300-quant\\model.rqg",
+      "D:\\github\\airpocket-soundman\\tab5-fpga-gpu-resume-20261106\\build\\rtdetr-graph-300\\input.f32",
+      "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\firmware\\autonomous\\experiments\\index32\\build\\native-direct\\output.f32"
+    ],
+    "returncode": 0,
+    "output": "node0/649\nnode20/649\nnode40/649\nnode60/649\nnode80/649\nnode100/649\nnode120/649\nnode140/649\nnode160/649\nnode180/649\nnode200/649\nnode220/649\nnode240/649\nnode260/649\nnode280/649\nnode300/649\nnode320/649\nnode340/649\nnode360/649\nnode380/649\nnode400/649\nnode420/649\nnode440/649\nnode460/649\nnode480/649\nnode500/649\nnode520/649\nnode540/649\nnode560/649\nnode580/649\nnode600/649\nnode620/649\nnode640/649\nscratch_peak3284992 work29272 dynamicBreads5324800 qAwrites145379 qAbytes74067008\nPASS whole649 nodes Conv57+MatMul/Gemm65 allINT64oracle bitexact tiles217280 panels13067 nohardware\nPASS6 faults: rawIO/kernel/cancel/scratch/copiedbinding/lease, nofallback\n"
+  }
+]

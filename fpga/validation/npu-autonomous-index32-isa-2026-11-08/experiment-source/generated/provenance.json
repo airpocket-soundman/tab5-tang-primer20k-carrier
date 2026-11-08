@@ -1,0 +1,15 @@
+{
+  "source": "D:\\GitHub\\airpocket-soundman\\tab5-tang-primer20k-carrier-resume-20261106\\fpga\\npu\\firmware\\autonomous\\vendor\\host\\main\\inference\\rtdetr_graph.cpp",
+  "source_sha256": "48f089c70cd58aaaffddadd46ab6ffbac58d1097b9db83d864c299e71cba93bc",
+  "generated_sha256": "4c27743df01793df97c0d9d14026600ebc3bf869c142651b0f02e9edadde55c6",
+  "Model_load_sha256_UNCHANGED": "967a0fe2bf5a2e681bc015888719e8214cc850f52b4b7303e051881a34cdbe01",
+  "hot_uint64_occurrences_replaced": 40,
+  "changes": [
+    "Only unsigned64 hot index/address/coordinate types narrowed to unsigned32",
+    "UINT64_MAX private cache sentinel narrowed to UINT32_MAX",
+    "Preflight model-specific guard inserted before run",
+    "Tensor/Node ABI, signed INT64 data, all float/double expressions and Model.load remain unchanged"
+  ],
+  "model": "RQG2 RT-DETRderived300 metadataCRC763848396",
+  "profile": "80MiB DDR graph, count<2^25, Resize cross-products and Slice endpoints checked; not arbitraryONNX support"
+}
